@@ -69,37 +69,29 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
     { name: "Food & Beverage", url: "/industries/food-beverage" },
   ];
 
+  const moreMenu = [
+    { name: "Resources", url: "/resources" },
+    { name: "About Us", url: "/about" },
+  ];
+
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between py-3">
-          <Link href="/" className="flex items-center" data-testid="link-home">
-            <img src={logoImage} alt="deWater Products" className="h-16 md:h-20" />
+        <div className="flex items-center justify-between py-3 gap-6">
+          {/* Logo */}
+          <Link href="/" className="flex items-center flex-shrink-0" data-testid="link-home">
+            <img src={logoImage} alt="deWater Products" className="h-12 md:h-14" />
           </Link>
-          
-          <div className="hidden lg:flex items-center gap-6 text-sm">
-            <a href="tel:0892712577" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-              <Phone className="w-4 h-4" />
-              <span>(08) 9271 2577</span>
-            </a>
-            <a href="mailto:sales@dewaterproducts.com.au" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-              <Mail className="w-4 h-4" />
-              <span>sales@dewaterproducts.com.au</span>
-            </a>
-          </div>
-        </div>
-        
-        <div className="flex items-center justify-between py-3 border-t border-border">
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-6 flex-1">
             <div
               className="relative"
               onMouseEnter={() => setActiveMenu("products")}
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md"
+                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md text-sm"
                 data-testid="button-products-menu"
               >
                 Products <ChevronDown className="w-4 h-4" />
@@ -134,7 +126,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md"
+                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md text-sm"
                 data-testid="button-brands-menu"
               >
                 Brands <ChevronDown className="w-4 h-4" />
@@ -164,7 +156,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md"
+                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md text-sm"
                 data-testid="button-industries-menu"
               >
                 Industries <ChevronDown className="w-4 h-4" />
@@ -188,18 +180,51 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               )}
             </div>
 
-            <Link href="/resources" className="text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-resources">
-              Resources
-            </Link>
-            <Link href="/about" className="text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-about">
-              About
-            </Link>
-            <Link href="/contact" className="text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-contact">
+            <div
+              className="relative"
+              onMouseEnter={() => setActiveMenu("more")}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <button
+                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md text-sm"
+                data-testid="button-more-menu"
+              >
+                More <ChevronDown className="w-4 h-4" />
+              </button>
+              {activeMenu === "more" && (
+                <div className="absolute top-full left-0 mt-2 bg-popover border border-popover-border rounded-md shadow-lg p-4 w-48">
+                  <ul className="space-y-2">
+                    {moreMenu.map((item) => (
+                      <li key={item.name}>
+                        <Link
+                          href={item.url}
+                          className="text-sm text-muted-foreground hover:text-foreground"
+                          data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <Link href="/contact" className="text-foreground hover-elevate px-3 py-2 rounded-md text-sm" data-testid="link-contact">
               Contact
             </Link>
           </nav>
 
-          <div className="flex items-center gap-4">
+          {/* Contact Info & Cart */}
+          <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
+            <a href="tel:0892712577" className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm">
+              <Phone className="w-4 h-4" />
+              <span>(08) 9271 2577</span>
+            </a>
+            <a href="mailto:sales@dewaterproducts.com.au" className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm">
+              <Mail className="w-4 h-4" />
+              <span>sales@dewaterproducts.com.au</span>
+            </a>
             <Button
               variant="outline"
               size="icon"
@@ -214,8 +239,25 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 </span>
               )}
             </Button>
+          </div>
 
-            <Button className="lg:hidden" variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
+          {/* Mobile Menu Button & Cart */}
+          <div className="flex lg:hidden items-center gap-4">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={onCartClick}
+              className="relative"
+              data-testid="button-cart-mobile"
+            >
+              <ShoppingCart className="w-5 h-5" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </Button>
+            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
@@ -246,6 +288,16 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               <Link href="/contact" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-contact">
                 Contact
               </Link>
+              <div className="pt-4 border-t border-border space-y-4">
+                <a href="tel:0892712577" className="flex items-center gap-2 text-muted-foreground hover:text-foreground px-3 py-2">
+                  <Phone className="w-4 h-4" />
+                  <span>(08) 9271 2577</span>
+                </a>
+                <a href="mailto:sales@dewaterproducts.com.au" className="flex items-center gap-2 text-muted-foreground hover:text-foreground px-3 py-2">
+                  <Mail className="w-4 h-4" />
+                  <span>sales@dewaterproducts.com.au</span>
+                </a>
+              </div>
             </nav>
           </div>
         )}
