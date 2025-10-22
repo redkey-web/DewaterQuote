@@ -1,6 +1,6 @@
 export default function AnnouncementBanner() {
   return (
-    <div className="bg-white dark:bg-gray-950 text-foreground py-2 overflow-hidden border-b border-border">
+    <div className="bg-teal-500 dark:bg-teal-600 text-white py-2 overflow-hidden">
       <div className="animate-scroll whitespace-nowrap">
         <span className="inline-block px-8">
           Free Delivery to Metro Areas
