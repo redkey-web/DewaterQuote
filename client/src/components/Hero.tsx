@@ -4,7 +4,7 @@ import heroImage from "@assets/58_1761097233222.jpg";
 
 export default function Hero() {
   return (
-    <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImage})` }}
@@ -12,10 +12,10 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/30" />
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
           Industrial Pipe Fittings & Valves
         </h1>
-        <p className="text-lg md:text-xl text-white/90 mb-6 max-w-3xl mx-auto">
+        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
           Quality couplings, valves, expansion joints and strainers from leading brands Straub, Orbit and Teekay
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
