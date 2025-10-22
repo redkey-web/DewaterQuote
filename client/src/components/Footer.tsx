@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-card border-t border-card-border">
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           <div>
             <h3 className="font-bold text-lg mb-4">Dewater Products PTY LTD</h3>
             <p className="text-sm text-muted-foreground mb-4">
@@ -50,13 +50,23 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
+            <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/resources/price-list" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-price-list">Price List</Link></li>
-              <li><Link href="/resources/datasheets" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-datasheets">Datasheets</Link></li>
-              <li><Link href="/resources/knowledge-hub" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-knowledge">Knowledge Hub</Link></li>
               <li><Link href="/about" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-about">About Us</Link></li>
               <li><Link href="/contact" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-contact">Contact</Link></li>
+              <li><Link href="/faq" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-faq">FAQ</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4">Customer Service</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/shipping-delivery" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-shipping">Shipping & Delivery</Link></li>
+              <li><Link href="/returns-refunds" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-returns">Returns & Refunds</Link></li>
+              <li><Link href="/payment-methods" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-payment">Payment Methods</Link></li>
+              <li><Link href="/warranty" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-warranty">Warranty Information</Link></li>
+              <li><Link href="/terms-conditions" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-terms">Terms & Conditions</Link></li>
+              <li><Link href="/privacy-policy" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-privacy">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>

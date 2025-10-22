@@ -72,23 +72,27 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="hidden lg:flex items-center justify-end gap-6 py-2 text-sm border-b border-border">
-          <a href="tel:0892712577" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-            <Phone className="w-4 h-4" />
-            <span>(08) 9271 2577</span>
-          </a>
-          <a href="mailto:sales@dewaterproducts.com.au" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-            <Mail className="w-4 h-4" />
-            <span>sales@dewaterproducts.com.au</span>
-          </a>
-        </div>
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between py-3">
           <Link href="/" className="flex items-center" data-testid="link-home">
-            <img src={logoImage} alt="deWater Products" className="h-10 md:h-12" />
+            <img src={logoImage} alt="deWater Products" className="h-16 md:h-20" />
           </Link>
+          
+          <div className="hidden lg:flex items-center gap-6 text-sm">
+            <a href="tel:0892712577" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+              <Phone className="w-4 h-4" />
+              <span>(08) 9271 2577</span>
+            </a>
+            <a href="mailto:sales@dewaterproducts.com.au" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+              <Mail className="w-4 h-4" />
+              <span>sales@dewaterproducts.com.au</span>
+            </a>
+          </div>
+        </div>
+        
+        <div className="flex items-center justify-between py-3 border-t border-border">
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             <div
               className="relative"
               onMouseEnter={() => setActiveMenu("products")}
