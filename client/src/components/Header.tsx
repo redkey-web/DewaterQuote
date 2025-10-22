@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Menu, X, ChevronDown } from "lucide-react";
+import logoImage from "@assets/website_logo_1761097322396.webp";
 
 interface HeaderProps {
   cartItemCount?: number;
@@ -72,8 +73,8 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-2xl font-bold text-primary" data-testid="link-home">
-            deWater Products
+          <Link href="/" className="flex items-center" data-testid="link-home">
+            <img src={logoImage} alt="deWater Products" className="h-10 md:h-12" />
           </Link>
 
           {/* Desktop Navigation */}
