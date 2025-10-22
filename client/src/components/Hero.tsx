@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileText } from "lucide-react";
-import heroImage from "@assets/generated_images/Industrial_pipe_fittings_hero_image_29db0b69.png";
+import heroImage from "@assets/58_1761097233222.jpg";
 
 export default function Hero() {
   return (
