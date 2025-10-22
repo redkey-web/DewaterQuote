@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Menu, X, ChevronDown } from "lucide-react";
+import { ShoppingCart, Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import logoImage from "@assets/website_logo_1761097322396.webp";
 
 interface HeaderProps {
@@ -72,6 +72,16 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="max-w-7xl mx-auto px-6">
+        <div className="hidden lg:flex items-center justify-end gap-6 py-2 text-sm border-b border-border">
+          <a href="tel:0892712577" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+            <Phone className="w-4 h-4" />
+            <span>(08) 9271 2577</span>
+          </a>
+          <a href="mailto:sales@dewaterproducts.com.au" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+            <Mail className="w-4 h-4" />
+            <span>sales@dewaterproducts.com.au</span>
+          </a>
+        </div>
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center" data-testid="link-home">
             <img src={logoImage} alt="deWater Products" className="h-10 md:h-12" />
