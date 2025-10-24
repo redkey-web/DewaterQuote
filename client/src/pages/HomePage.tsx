@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import TrustMetrics from "@/components/TrustMetrics";
 import CategorySection from "@/components/CategorySection";
 import BrandSection from "@/components/BrandSection";
 import IndustrySection from "@/components/IndustrySection";
@@ -76,6 +77,7 @@ export default function HomePage() {
   return (
     <div>
       <Hero />
+      <TrustMetrics />
       <CategorySection categories={categories} />
       <BrandSection brands={brands} />
       <IndustrySection industries={industries} />
