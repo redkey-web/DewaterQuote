@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search } from "lucide-react";
 import logoImage from "@assets/website_logo_1761097322396.webp";
 
 interface HeaderProps {
@@ -215,8 +216,17 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
             </Link>
           </nav>
 
-          {/* Contact Info & Cart */}
+          {/* Search, Contact Info & Quote */}
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search products..."
+                className="pl-9 w-48 xl:w-56 h-9"
+                data-testid="input-search"
+              />
+            </div>
             <a 
               href="tel:0892712577" 
               className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20 text-sm transition-all"
@@ -237,9 +247,9 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               size="icon"
               onClick={onCartClick}
               className="relative"
-              data-testid="button-cart"
+              data-testid="button-quote"
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ClipboardList className="w-5 h-5" />
               {cartItemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
@@ -248,16 +258,16 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
             </Button>
           </div>
 
-          {/* Mobile Menu Button & Cart */}
-          <div className="flex lg:hidden items-center gap-4">
+          {/* Mobile Menu Button & Quote */}
+          <div className="flex lg:hidden items-center gap-2">
             <Button
               variant="outline"
               size="icon"
               onClick={onCartClick}
               className="relative"
-              data-testid="button-cart-mobile"
+              data-testid="button-quote-mobile"
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ClipboardList className="w-5 h-5" />
               {cartItemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
@@ -273,6 +283,17 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border">
+            <div className="mb-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search products..."
+                  className="pl-9 w-full"
+                  data-testid="input-search-mobile"
+                />
+              </div>
+            </div>
             <nav className="space-y-4">
               <Link href="/" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-home">
                 Home
