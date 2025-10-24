@@ -109,11 +109,11 @@
 
 **Mega-Menu**: 200ms fade-in, backdrop blur, clear active state indicators
 
-**Mobile**: Hamburger menu, collapsible mega-menu sections, sticky quote cart button (bottom), touch-optimized button sizes (min h-12)
+**Mobile**: Hamburger menu, collapsible mega-menu sections, sticky quote cart button (bottom), touch-optimised button sizes (min h-12)
 
 ## Technical Considerations
 
-**Performance**: Lazy-load product images, optimized thumbnails for grids, CDN delivery
+**Performance**: Lazy-load product images, optimised thumbnails for grids, CDN delivery
 **Accessibility**: ARIA labels on quote cart, keyboard navigation for mega-menu, sufficient color contrast (WCAG AA)
 **WordPress/WooCommerce**: Modular block-based design, custom product templates, ACF-friendly structure
 

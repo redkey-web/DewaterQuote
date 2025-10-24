@@ -29,7 +29,7 @@ export default function IndustrySection({ industries }: IndustrySectionProps) {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Industries We Serve</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Specialized solutions for diverse industrial sectors
+            Specialised solutions for diverse industrial sectors
           </p>
         </div>
 
