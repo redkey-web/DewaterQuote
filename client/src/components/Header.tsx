@@ -80,7 +80,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
         <div className="flex items-center justify-between py-3 gap-6">
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0 -my-3" data-testid="link-home">
-            <img src={logoImage} alt="deWater Products" className="h-12 md:h-14 p-0" />
+            <img src={logoImage} alt="deWater Products" className="h-[60px] md:h-[70px] p-0" />
           </Link>
 
           {/* Desktop Navigation */}
