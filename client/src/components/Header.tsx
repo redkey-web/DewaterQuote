@@ -216,14 +216,21 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
           </nav>
 
           {/* Contact Info & Cart */}
-          <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
-            <a href="tel:0892712577" className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm">
+          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+            <a 
+              href="tel:0892712577" 
+              className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20 text-sm transition-all"
+            >
               <Phone className="w-4 h-4" />
               <span>(08) 9271 2577</span>
             </a>
-            <a href="mailto:sales@dewaterproducts.com.au" className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm">
+            <a 
+              href="mailto:sales@dewaterproducts.com.au" 
+              className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20 text-sm transition-all"
+            >
               <Mail className="w-4 h-4" />
-              <span>sales@dewaterproducts.com.au</span>
+              <span className="hidden xl:inline">sales@dewaterproducts.com.au</span>
+              <span className="xl:hidden">Email Us</span>
             </a>
             <Button
               variant="outline"
@@ -288,12 +295,18 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               <Link href="/contact" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-contact">
                 Contact
               </Link>
-              <div className="pt-4 border-t border-border space-y-4">
-                <a href="tel:0892712577" className="flex items-center gap-2 text-muted-foreground hover:text-foreground px-3 py-2">
+              <div className="pt-4 border-t border-border space-y-3">
+                <a 
+                  href="tel:0892712577" 
+                  className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20"
+                >
                   <Phone className="w-4 h-4" />
                   <span>(08) 9271 2577</span>
                 </a>
-                <a href="mailto:sales@dewaterproducts.com.au" className="flex items-center gap-2 text-muted-foreground hover:text-foreground px-3 py-2">
+                <a 
+                  href="mailto:sales@dewaterproducts.com.au" 
+                  className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20"
+                >
                   <Mail className="w-4 h-4" />
                   <span>sales@dewaterproducts.com.au</span>
                 </a>
