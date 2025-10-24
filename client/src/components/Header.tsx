@@ -194,17 +194,8 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
             </Link>
           </nav>
 
-          {/* Search, Contact Info & Quote */}
+          {/* Contact Info, Search & Quote */}
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="pl-9 w-24 xl:w-28 h-9"
-                data-testid="input-search"
-              />
-            </div>
             <a 
               href="tel:0892712577" 
               className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20 text-sm transition-all"
@@ -220,6 +211,15 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               <span className="hidden xl:inline">sales@dewaterproducts.com.au</span>
               <span className="xl:hidden">Email Us</span>
             </a>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search..."
+                className="pl-9 w-24 xl:w-28 h-9"
+                data-testid="input-search"
+              />
+            </div>
             <Button
               variant="outline"
               size="icon"
@@ -266,7 +266,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   type="search"
-                  placeholder="Search products..."
+                  placeholder="Search..."
                   className="pl-9 w-full"
                   data-testid="input-search-mobile"
                 />
