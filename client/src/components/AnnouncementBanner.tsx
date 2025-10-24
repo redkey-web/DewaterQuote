@@ -2,7 +2,7 @@ import { Truck } from "lucide-react";
 
 export default function AnnouncementBanner() {
   return (
-    <div className="bg-gray-700 dark:bg-gray-800 text-white py-2 overflow-hidden">
+    <div className="bg-blue-900 dark:bg-blue-950 text-white py-2 overflow-hidden">
       <div className="animate-scroll whitespace-nowrap">
         <span className="inline-flex items-center gap-2 px-8">
           <Truck className="w-4 h-4 scale-x-[-1]" />
