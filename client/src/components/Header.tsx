@@ -223,7 +223,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               <Input
                 type="search"
                 placeholder="Search products..."
-                className="pl-9 w-48 xl:w-56 h-9"
+                className="pl-9 w-24 xl:w-28 h-9"
                 data-testid="input-search"
               />
             </div>
