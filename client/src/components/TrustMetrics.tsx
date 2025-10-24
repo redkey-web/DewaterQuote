@@ -104,29 +104,6 @@ export default function TrustMetrics() {
             </div>
           ))}
         </div>
-
-        {/* Certifications */}
-        <div className="mt-12 pt-12 border-t border-border">
-          <div className="text-center mb-6">
-            <h3 className="text-lg font-semibold text-muted-foreground">
-              Trusted & Certified
-            </h3>
-          </div>
-          <div className="flex flex-wrap justify-center items-center gap-8">
-            <div className="flex items-center gap-2 text-muted-foreground" data-testid="cert-iso">
-              <Award className="w-5 h-5" />
-              <span className="font-medium">ISO 9001 Certified</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground" data-testid="cert-australian">
-              <CheckCircle2 className="w-5 h-5" />
-              <span className="font-medium">Australian Owned</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground" data-testid="cert-warranty">
-              <CheckCircle2 className="w-5 h-5" />
-              <span className="font-medium">Manufacturer Warranty</span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
