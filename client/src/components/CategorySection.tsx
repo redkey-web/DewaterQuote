@@ -17,6 +17,7 @@ export default function CategorySection({ categories }: CategorySectionProps) {
   return (
     <section className="py-16 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold mb-8 text-center">PRODUCT CATEGORIES</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((category, index) => (
             <Link key={category.name} href={category.url} data-testid={`link-category-${index}`}>
