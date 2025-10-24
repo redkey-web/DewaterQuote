@@ -52,6 +52,14 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
         { name: "Duplex Strainers", url: "/strainers/duplex" },
       ],
     },
+    {
+      title: "Brands",
+      items: [
+        { name: "Straub", url: "/brands/straub" },
+        { name: "Orbit", url: "/brands/orbit" },
+        { name: "Teekay", url: "/brands/teekay" },
+      ],
+    },
   ];
 
   const brandsMenu = [
@@ -98,7 +106,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 Products <ChevronDown className="w-4 h-4" />
               </button>
               {activeMenu === "products" && (
-                <div className="absolute top-full left-0 mt-2 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-4 gap-8 w-[800px]">
+                <div className="absolute top-full left-0 mt-2 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-5 gap-6 w-[900px]">
                   {productsMenu.map((category) => (
                     <div key={category.title}>
                       <h3 className="font-semibold text-sm mb-3">{category.title}</h3>
@@ -117,36 +125,6 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                       </ul>
                     </div>
                   ))}
-                </div>
-              )}
-            </div>
-
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMenu("brands")}
-              onMouseLeave={() => setActiveMenu(null)}
-            >
-              <button
-                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md text-sm"
-                data-testid="button-brands-menu"
-              >
-                Brands <ChevronDown className="w-4 h-4" />
-              </button>
-              {activeMenu === "brands" && (
-                <div className="absolute top-full left-0 mt-2 bg-popover border border-popover-border rounded-md shadow-lg p-4 w-48">
-                  <ul className="space-y-2">
-                    {brandsMenu.map((brand) => (
-                      <li key={brand.name}>
-                        <Link
-                          href={brand.url}
-                          className="text-sm text-muted-foreground hover:text-foreground"
-                          data-testid={`link-brand-${brand.name.toLowerCase()}`}
-                        >
-                          {brand.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               )}
             </div>
@@ -300,9 +278,6 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               </Link>
               <Link href="/products" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-products">
                 Products
-              </Link>
-              <Link href="/brands" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-brands">
-                Brands
               </Link>
               <Link href="/industries" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-industries">
                 Industries
