@@ -16,3 +16,69 @@ export const insertUserSchema = createInsertSchema(users).pick({
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
+
+// Product Catalog Types
+export interface MediaAsset {
+  url: string;
+  alt: string;
+  type?: 'image' | 'video';
+}
+
+export interface SpecEntry {
+  label: string;
+  value: string;
+}
+
+export interface SizeOption {
+  value: string;
+  label: string;
+}
+
+export interface Product {
+  id: string;
+  slug: string;
+  sku: string;
+  name: string;
+  shortName?: string;
+  brand: string;
+  category: string;
+  subcategory?: string;
+  description: string;
+  features?: string[];
+  specifications: SpecEntry[];
+  sizeOptions?: SizeOption[];
+  images: MediaAsset[];
+  downloads?: {url: string; label: string}[];
+  video?: string;
+  leadTime?: string;
+  materials: {
+    body: string;
+    seat?: string;
+    disc?: string;
+    sleeve?: string;
+  };
+  pressureRange: string;
+  sizeFrom?: string;
+  temperature?: string;
+  applications?: string[];
+  certifications?: string;
+}
+
+export interface Subcategory {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  image?: string;
+  category: string;
+}
+
+export interface Category {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  longDescription?: string;
+  image?: string;
+  subcategories?: Subcategory[];
+}

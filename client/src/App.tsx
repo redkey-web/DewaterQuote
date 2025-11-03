@@ -11,6 +11,7 @@ import QuoteCart from "@/components/QuoteCart";
 import StickyQuoteButton from "@/components/StickyQuoteButton";
 import HomePage from "@/pages/HomePage";
 import ProductListPage from "@/pages/ProductListPage";
+import ProductDetailPage from "@/pages/ProductDetailPage";
 import ContactPage from "@/pages/ContactPage";
 import ClampsCouplingsPage from "@/pages/ClampsCouplingsPage";
 import ValvesPage from "@/pages/ValvesPage";
@@ -50,14 +51,22 @@ function Router() {
         <Switch>
           <Route path="/" component={HomePage} />
           
+          {/* Product Detail Pages */}
+          <Route path="/products/:slug">
+            <ProductDetailPage onAddToQuote={handleAddToQuote} />
+          </Route>
+
           {/* Main Category Pages */}
-          <Route path="/clamps-couplings">
+          <Route path="/pipe-couplings">
+            <ClampsCouplingsPage onAddToQuote={handleAddToQuote} />
+          </Route>
+          <Route path="/pipe-repair-clamps">
             <ClampsCouplingsPage onAddToQuote={handleAddToQuote} />
           </Route>
           <Route path="/valves">
             <ValvesPage onAddToQuote={handleAddToQuote} />
           </Route>
-          <Route path="/expansion-joints">
+          <Route path="/rubber-expansion-joints">
             <ExpansionJointsPage onAddToQuote={handleAddToQuote} />
           </Route>
           <Route path="/strainers">
@@ -65,7 +74,10 @@ function Router() {
           </Route>
 
           {/* Subcategory Pages - All use ProductListPage */}
-          <Route path="/clamps-couplings/:subcategory">
+          <Route path="/pipe-couplings/:subcategory">
+            <ProductListPage onAddToQuote={handleAddToQuote} />
+          </Route>
+          <Route path="/pipe-repair-clamps/:subcategory">
             <ProductListPage onAddToQuote={handleAddToQuote} />
           </Route>
           <Route path="/valves/:subcategory">
@@ -74,7 +86,7 @@ function Router() {
           <Route path="/valves/check-valves/:type">
             <ProductListPage onAddToQuote={handleAddToQuote} />
           </Route>
-          <Route path="/expansion-joints/:subcategory">
+          <Route path="/rubber-expansion-joints/:subcategory">
             <ProductListPage onAddToQuote={handleAddToQuote} />
           </Route>
           <Route path="/strainers/:subcategory">
