@@ -27,6 +27,7 @@ export default function ProductCard({ product, onAddToQuote }: ProductCardProps)
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover"
+            loading="lazy"
             data-testid={`img-product-${product.id}`}
           />
         </div>
