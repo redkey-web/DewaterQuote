@@ -30,13 +30,29 @@ The application is designed for professional industrial buyers who need quick ac
 - **Quote cart integration**: Connected RFQ form to existing quote cart state in App.tsx
 - **SPA navigation**: Updated to use Wouter's `navigate()` instead of `window.location` for consistent routing
 
+### Navigation System Fixes (November 2025)
+- **Complete URL structure alignment**: Fixed all navigation components to use NEW URL structure consistently
+  - Header dropdown menu: Updated all category and subcategory URLs
+  - Made category titles clickable in Header dropdown navigation
+  - HomePage category cards: Changed URLs from old structure (/clamps-couplings, /expansion-joints) to new (/pipe-couplings, /rubber-expansion-joints)
+  - Footer product links: Updated to match new URL patterns
+- **ProductListPage critical fix**: Corrected product filtering logic
+  - Now properly determines category from matched route
+  - Passes BOTH category and subcategory parameters to getProductsBySubcategory()
+  - Maps URL subcategory keys to catalog subcategory identifiers
+  - Fixed issue where /pipe-couplings/pipe-couplings showed "No products available"
+- **Architect review**: PASS - All navigation components aligned with revised slug structure, product filtering restored
+
 ### Testing & Verification
 - **E2E tests passed**: Complete user journey tested successfully
-  - Browse products by category
+  - Browse products by category (homepage cards and header dropdown)
+  - Navigate to category pages (/pipe-couplings, /valves, etc.)
+  - Navigate to subcategory pages (/pipe-couplings/pipe-couplings, /valves/gate-valves)
   - View product details with certifications
   - Add products to quote cart
   - Submit quote requests through RFQ form
   - Receive confirmation after submission
+  - All navigation links working without 404 errors
 
 ## User Preferences
 
