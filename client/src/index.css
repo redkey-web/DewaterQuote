@@ -366,4 +366,9 @@
     display: inline-block;
     animation: scroll 30s linear infinite;
   }
+
+  /* Halloween seasonal styling - subtle burnt orange glow on card hover */
+  .hover-elevate:hover {
+    box-shadow: 0 0 20px rgba(251, 146, 60, 0.15);
+  }
 }
