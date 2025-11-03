@@ -11,7 +11,7 @@ export default function HomePage() {
     {
       name: "Clamps & Couplings",
       description: "Pipe couplings, repair clamps, and flange adaptors",
-      url: "/clamps-couplings",
+      url: "/pipe-couplings",
       icon: <Wrench className="w-8 h-8" />,
     },
     {
@@ -23,7 +23,7 @@ export default function HomePage() {
     {
       name: "Expansion Joints",
       description: "Rubber, PTFE, and stainless/fabric joints",
-      url: "/expansion-joints",
+      url: "/rubber-expansion-joints",
       icon: <ArrowLeftRight className="w-8 h-8" />,
     },
     {

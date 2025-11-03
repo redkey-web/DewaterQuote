@@ -103,18 +103,45 @@ const subcategoryContent: Record<string, { title: string; description: string; a
 export default function ProductListPage({ onAddToQuote }: ProductListPageProps) {
   const { toast } = useToast();
   
-  // Get route params
-  const [, params] = useRoute("/clamps-couplings/:subcategory");
-  const [, params2] = useRoute("/valves/:subcategory");
-  const [, params3] = useRoute("/valves/check-valves/:type");
-  const [, params4] = useRoute("/expansion-joints/:subcategory");
-  const [, params5] = useRoute("/strainers/:subcategory");
+  // Get route params - match the NEW URL structure from App.tsx
+  const [, pipeCouplingParams] = useRoute("/pipe-couplings/:subcategory");
+  const [, pipeRepairParams] = useRoute("/pipe-repair-clamps/:subcategory");
+  const [, valvesParams] = useRoute("/valves/:subcategory");
+  const [, checkValvesParams] = useRoute("/valves/check-valves/:type");
+  const [, expansionParams] = useRoute("/rubber-expansion-joints/:subcategory");
+  const [, strainersParams] = useRoute("/strainers/:subcategory");
   
-  const subcategoryKey = params?.subcategory || params2?.subcategory || params3?.type || params4?.subcategory || params5?.subcategory || "duckbill";
+  // Determine category and subcategory from route
+  let categoryKey: string;
+  let subcategoryKey: string;
+  
+  if (pipeCouplingParams) {
+    categoryKey = "pipe-couplings";
+    subcategoryKey = pipeCouplingParams.subcategory;
+  } else if (pipeRepairParams) {
+    categoryKey = "pipe-repair-clamps";
+    subcategoryKey = pipeRepairParams.subcategory;
+  } else if (valvesParams) {
+    categoryKey = "valves";
+    subcategoryKey = valvesParams.subcategory;
+  } else if (checkValvesParams) {
+    categoryKey = "valves";
+    subcategoryKey = checkValvesParams.type;
+  } else if (expansionParams) {
+    categoryKey = "rubber-expansion-joints";
+    subcategoryKey = expansionParams.subcategory;
+  } else if (strainersParams) {
+    categoryKey = "strainers";
+    subcategoryKey = strainersParams.subcategory;
+  } else {
+    categoryKey = "valves";
+    subcategoryKey = "duckbill";
+  }
+  
   const content = subcategoryContent[subcategoryKey] || subcategoryContent["duckbill"];
 
-  // Get products from catalog based on subcategory
-  const subcategoryProducts = getProductsBySubcategory(
+  // Map URL subcategory keys to catalog subcategory identifiers
+  const catalogSubcategory =
     subcategoryKey === "duckbill" ? "duckbill-check-valve" :
     subcategoryKey === "ball" ? "ball-check-valve" :
     subcategoryKey === "swing" ? "swing-check-valve" :
@@ -132,8 +159,10 @@ export default function ProductListPage({ onAddToQuote }: ProductListPageProps) 
     subcategoryKey === "pipe-repair-clamps" ? "orbit-pipe-repair-clamps" :
     subcategoryKey === "muff-couplings" ? "muff-couplings" :
     subcategoryKey === "flange-adaptors" ? "flange-adaptors" :
-    subcategoryKey
-  );
+    subcategoryKey;
+
+  // Get products from catalog based on category and subcategory
+  const subcategoryProducts = getProductsBySubcategory(categoryKey, catalogSubcategory);
 
   const handleAddToQuote = (product: Product) => {
     onAddToQuote(product);
