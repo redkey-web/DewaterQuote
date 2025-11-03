@@ -1,8 +1,9 @@
-import ProductCard, { type Product } from "@/components/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
-import productImage from "@assets/generated_images/Pipe_coupling_product_shot_53e8a7d5.png";
+import { getProductsByCategory } from "@shared/data/catalog";
+import type { Product } from "@shared/schema";
 
 interface ClampsCouplingsPageProps {
   onAddToQuote: (product: Product) => void;
@@ -11,67 +12,16 @@ interface ClampsCouplingsPageProps {
 export default function ClampsCouplingsPage({ onAddToQuote }: ClampsCouplingsPageProps) {
   const { toast } = useToast();
 
-  const mockProducts: Product[] = [
-    {
-      id: "cc-1",
-      name: "Straub Pipe Coupling DN100",
-      sku: "SPC-100-STD",
-      price: 195.00,
-      image: productImage,
-      category: "Pipe Couplings",
-      brand: "Straub",
-    },
-    {
-      id: "cc-2",
-      name: "Straub Pipe Coupling DN150",
-      sku: "SPC-150-STD",
-      price: 245.00,
-      image: productImage,
-      category: "Pipe Couplings",
-      brand: "Straub",
-    },
-    {
-      id: "cc-3",
-      name: "Pipe Repair Clamp DN100",
-      sku: "PRC-100-STD",
-      price: 285.00,
-      image: productImage,
-      category: "Repair Clamps",
-      brand: "Orbit",
-    },
-    {
-      id: "cc-4",
-      name: "Pipe Repair Clamp DN150",
-      sku: "PRC-150-STD",
-      price: 345.00,
-      image: productImage,
-      category: "Repair Clamps",
-      brand: "Orbit",
-    },
-    {
-      id: "cc-5",
-      name: "Flange Adaptor DN100",
-      sku: "FA-100-STD",
-      price: 225.00,
-      image: productImage,
-      category: "Flange Adaptors",
-      brand: "Straub",
-    },
-    {
-      id: "cc-6",
-      name: "Muff Coupling DN100",
-      sku: "MC-100-STD",
-      image: productImage,
-      category: "Muff Couplings",
-      brand: "Orbit",
-    },
+  const couplingProducts = [
+    ...getProductsByCategory("pipe-couplings"),
+    ...getProductsByCategory("pipe-repair-clamps")
   ];
 
   const subcategories = [
-    { name: "Pipe Couplings", url: "/clamps-couplings/pipe-couplings" },
-    { name: "Pipe Repair Clamps", url: "/clamps-couplings/pipe-repair-clamps" },
-    { name: "Muff/Sleeve Couplings", url: "/clamps-couplings/muff-couplings" },
-    { name: "Flange Adaptors", url: "/clamps-couplings/flange-adaptors" },
+    { name: "Pipe Couplings", url: "/pipe-couplings/pipe-couplings" },
+    { name: "Pipe Repair Clamps", url: "/pipe-repair-clamps/pipe-repair-clamps" },
+    { name: "Muff/Sleeve Couplings", url: "/pipe-couplings/muff-couplings" },
+    { name: "Flange Adaptors", url: "/pipe-couplings/flange-adaptors" },
   ];
 
   const handleAddToQuote = (product: Product) => {
@@ -106,7 +56,7 @@ export default function ClampsCouplingsPage({ onAddToQuote }: ClampsCouplingsPag
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {mockProducts.map((product) => (
+          {couplingProducts.map((product) => (
             <ProductCard
               key={product.id}
               product={product}

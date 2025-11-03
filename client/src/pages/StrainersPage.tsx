@@ -1,8 +1,9 @@
-import ProductCard, { type Product } from "@/components/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
-import productImage from "@assets/generated_images/Pipe_coupling_product_shot_53e8a7d5.png";
+import { getProductsByCategory } from "@shared/data/catalog";
+import type { Product } from "@shared/schema";
 
 interface StrainersPageProps {
   onAddToQuote: (product: Product) => void;
@@ -11,52 +12,7 @@ interface StrainersPageProps {
 export default function StrainersPage({ onAddToQuote }: StrainersPageProps) {
   const { toast } = useToast();
 
-  const mockProducts: Product[] = [
-    {
-      id: "s-1",
-      name: "Y Strainer DN100",
-      sku: "YS-100-STD",
-      price: 285.00,
-      image: productImage,
-      category: "Y Strainers",
-      brand: "Orbit",
-    },
-    {
-      id: "s-2",
-      name: "Y Strainer DN150",
-      sku: "YS-150-STD",
-      price: 385.00,
-      image: productImage,
-      category: "Y Strainers",
-      brand: "Orbit",
-    },
-    {
-      id: "s-3",
-      name: "Basket Strainer DN100",
-      sku: "BS-100-STD",
-      price: 445.00,
-      image: productImage,
-      category: "Basket Strainers",
-      brand: "Straub",
-    },
-    {
-      id: "s-4",
-      name: "T Strainer DN100",
-      sku: "TS-100-STD",
-      price: 325.00,
-      image: productImage,
-      category: "T Strainers",
-      brand: "Orbit",
-    },
-    {
-      id: "s-5",
-      name: "Duplex Strainer DN100",
-      sku: "DS-100-STD",
-      image: productImage,
-      category: "Duplex Strainers",
-      brand: "Straub",
-    },
-  ];
+  const strainerProducts = getProductsByCategory("strainers");
 
   const subcategories = [
     { name: "Y Strainers", url: "/strainers/y-strainers" },
@@ -97,7 +53,7 @@ export default function StrainersPage({ onAddToQuote }: StrainersPageProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {mockProducts.map((product) => (
+          {strainerProducts.map((product) => (
             <ProductCard
               key={product.id}
               product={product}

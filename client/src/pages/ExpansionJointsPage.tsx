@@ -1,8 +1,9 @@
-import ProductCard, { type Product } from "@/components/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
-import productImage from "@assets/generated_images/Rubber_expansion_joint_product_f7dd5a35.png";
+import { getProductsByCategory } from "@shared/data/catalog";
+import type { Product } from "@shared/schema";
 
 interface ExpansionJointsPageProps {
   onAddToQuote: (product: Product) => void;
@@ -11,56 +12,12 @@ interface ExpansionJointsPageProps {
 export default function ExpansionJointsPage({ onAddToQuote }: ExpansionJointsPageProps) {
   const { toast } = useToast();
 
-  const mockProducts: Product[] = [
-    {
-      id: "ej-1",
-      name: "Rubber Expansion Joint DN100",
-      sku: "REJ-100-STD",
-      price: 425.00,
-      image: productImage,
-      category: "Expansion Joints",
-      brand: "Teekay",
-    },
-    {
-      id: "ej-2",
-      name: "Rubber Expansion Joint DN150",
-      sku: "REJ-150-STD",
-      price: 545.00,
-      image: productImage,
-      category: "Expansion Joints",
-      brand: "Teekay",
-    },
-    {
-      id: "ej-3",
-      name: "PTFE Expansion Joint DN100",
-      sku: "PTFE-100-STD",
-      price: 685.00,
-      image: productImage,
-      category: "PTFE Joints",
-      brand: "Teekay",
-    },
-    {
-      id: "ej-4",
-      name: "Stainless Steel Expansion Joint DN100",
-      sku: "SSEJ-100-STD",
-      image: productImage,
-      category: "Stainless Joints",
-      brand: "Orbit",
-    },
-    {
-      id: "ej-5",
-      name: "Fabric Expansion Joint DN150",
-      sku: "FEJ-150-STD",
-      image: productImage,
-      category: "Fabric Joints",
-      brand: "Teekay",
-    },
-  ];
+  const expansionProducts = getProductsByCategory("rubber-expansion-joints");
 
   const subcategories = [
-    { name: "Rubber Expansion Joints", url: "/expansion-joints/rubber" },
-    { name: "PTFE Expansion Joints", url: "/expansion-joints/ptfe" },
-    { name: "Stainless/Fabric Joints", url: "/expansion-joints/stainless-fabric" },
+    { name: "Rubber Expansion Joints", url: "/rubber-expansion-joints/rubber" },
+    { name: "PTFE Expansion Joints", url: "/rubber-expansion-joints/ptfe" },
+    { name: "Stainless/Fabric Joints", url: "/rubber-expansion-joints/stainless-fabric" },
   ];
 
   const handleAddToQuote = (product: Product) => {
@@ -95,7 +52,7 @@ export default function ExpansionJointsPage({ onAddToQuote }: ExpansionJointsPag
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {mockProducts.map((product) => (
+          {expansionProducts.map((product) => (
             <ProductCard
               key={product.id}
               product={product}

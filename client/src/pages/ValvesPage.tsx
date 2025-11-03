@@ -1,8 +1,9 @@
-import ProductCard, { type Product } from "@/components/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
-import productImage from "@assets/generated_images/Duckbill_check_valve_product_cb995e5f.png";
+import { products, getProductsByCategory } from "@shared/data/catalog";
+import type { Product } from "@shared/schema";
 
 interface ValvesPageProps {
   onAddToQuote: (product: Product) => void;
@@ -11,61 +12,7 @@ interface ValvesPageProps {
 export default function ValvesPage({ onAddToQuote }: ValvesPageProps) {
   const { toast } = useToast();
 
-  const mockProducts: Product[] = [
-    {
-      id: "v-1",
-      name: "Duckbill Check Valve DN100",
-      sku: "DBV-100-STD",
-      price: 245.00,
-      image: productImage,
-      category: "Check Valves",
-      brand: "Straub",
-    },
-    {
-      id: "v-2",
-      name: "Duckbill Check Valve DN150",
-      sku: "DBV-150-STD",
-      price: 385.00,
-      image: productImage,
-      category: "Check Valves",
-      brand: "Straub",
-    },
-    {
-      id: "v-3",
-      name: "Ball Check Valve DN80",
-      sku: "BCV-80-STD",
-      price: 165.00,
-      image: productImage,
-      category: "Check Valves",
-      brand: "Orbit",
-    },
-    {
-      id: "v-4",
-      name: "Gate Valve DN100",
-      sku: "GV-100-STD",
-      price: 425.00,
-      image: productImage,
-      category: "Gate Valves",
-      brand: "Orbit",
-    },
-    {
-      id: "v-5",
-      name: "Ball Valve DN100",
-      sku: "BLV-100-STD",
-      price: 325.00,
-      image: productImage,
-      category: "Ball Valves",
-      brand: "Straub",
-    },
-    {
-      id: "v-6",
-      name: "Air Release Valve DN50",
-      sku: "ARV-50-STD",
-      image: productImage,
-      category: "Air Release Valves",
-      brand: "Orbit",
-    },
-  ];
+  const valveProducts = getProductsByCategory("valves");
 
   const subcategories = [
     { name: "Duckbill Check Valves", url: "/valves/check-valves/duckbill" },
@@ -108,7 +55,7 @@ export default function ValvesPage({ onAddToQuote }: ValvesPageProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {mockProducts.map((product) => (
+          {valveProducts.map((product) => (
             <ProductCard
               key={product.id}
               product={product}

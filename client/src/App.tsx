@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -12,6 +12,7 @@ import StickyQuoteButton from "@/components/StickyQuoteButton";
 import HomePage from "@/pages/HomePage";
 import ProductListPage from "@/pages/ProductListPage";
 import ProductDetailPage from "@/pages/ProductDetailPage";
+import RequestQuotePage from "@/pages/RequestQuotePage";
 import ContactPage from "@/pages/ContactPage";
 import ClampsCouplingsPage from "@/pages/ClampsCouplingsPage";
 import ValvesPage from "@/pages/ValvesPage";
@@ -20,9 +21,10 @@ import StrainersPage from "@/pages/StrainersPage";
 import BrandPage from "@/pages/BrandPage";
 import IndustryPage from "@/pages/IndustryPage";
 import NotFound from "@/pages/not-found";
-import type { Product } from "@/components/ProductCard";
+import type { Product } from "@shared/schema";
 
 function Router() {
+  const [, navigate] = useLocation();
   const [quoteItems, setQuoteItems] = useState<Product[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -37,10 +39,13 @@ function Router() {
     setQuoteItems(quoteItems.filter((item) => item.id !== productId));
   };
 
+  const handleClearQuote = () => {
+    setQuoteItems([]);
+  };
+
   const handleSubmitQuote = () => {
-    console.log("Submitting quote with items:", quoteItems);
     setIsCartOpen(false);
-    window.location.href = "/contact";
+    navigate("/request-quote");
   };
 
   return (
@@ -171,6 +176,14 @@ function Router() {
               description="Hygienic pipe connections for food processing and beverage production. Compliant with food safety standards and easy to clean."
               applications={["Food processing", "Beverage production", "Dairy facilities", "Brewery systems", "Clean-in-place (CIP) systems"]}
               onAddToQuote={handleAddToQuote}
+            />
+          </Route>
+
+          <Route path="/request-quote">
+            <RequestQuotePage
+              quoteItems={quoteItems}
+              onRemoveFromQuote={handleRemoveItem}
+              onClearQuote={handleClearQuote}
             />
           </Route>
 
