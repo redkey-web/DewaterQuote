@@ -1,5 +1,6 @@
 import ProductCard, { type Product } from "@/components/ProductCard";
 import { useToast } from "@/hooks/use-toast";
+import { SEO } from "@/components/SEO";
 import productImage1 from "@assets/generated_images/Pipe_coupling_product_shot_53e8a7d5.png";
 import productImage2 from "@assets/generated_images/Duckbill_check_valve_product_cb995e5f.png";
 
@@ -52,6 +53,11 @@ export default function BrandPage({ brandName, description, onAddToQuote }: Bran
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title={`${brandName} Products`}
+        description={`${description} Browse ${brandName} pipe couplings, valves, and industrial fittings from Dewater Products Australia. Request a quote today.`}
+        keywords={`${brandName}, ${brandName} products, pipe couplings, valves, industrial fittings, Australia`}
+      />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-12">
           <h1 className="text-4xl font-bold mb-4">{brandName}</h1>

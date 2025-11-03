@@ -3,6 +3,7 @@ import TrustMetrics from "@/components/TrustMetrics";
 import CategorySection from "@/components/CategorySection";
 import BrandSection from "@/components/BrandSection";
 import IndustrySection from "@/components/IndustrySection";
+import { SEO } from "@/components/SEO";
 import { Wrench, Gauge, ArrowLeftRight, Filter, Droplet, Sprout, Flame, Pickaxe } from "lucide-react";
 
 export default function HomePage() {
@@ -76,6 +77,12 @@ export default function HomePage() {
 
   return (
     <div>
+      <SEO 
+        title="Industrial Pipe Couplings, Valves & Repair Clamps"
+        description="Australia's experts in pipe couplings, valves, and repair clamps. Perth-based supplier offering Straub, Orbit, and Defender products for mining, water treatment, irrigation, and industrial applications. Request a quote today."
+        keywords="pipe couplings, valves, repair clamps, expansion joints, strainers, industrial valves, Perth, Australia, Straub, Orbit, Defender"
+        canonical="/"
+      />
       <Hero />
       <TrustMetrics />
       <CategorySection categories={categories} />

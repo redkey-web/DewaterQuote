@@ -3,6 +3,7 @@ import { useRoute } from "wouter";
 import ProductCard, { type Product } from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { SEO } from "@/components/SEO";
 import productImage1 from "@assets/generated_images/Duckbill_check_valve_product_cb995e5f.png";
 import productImage2 from "@assets/generated_images/Pipe_coupling_product_shot_53e8a7d5.png";
 import productImage3 from "@assets/generated_images/Rubber_expansion_joint_product_f7dd5a35.png";
@@ -231,6 +232,11 @@ export default function ProductListPage({ onAddToQuote }: ProductListPageProps) 
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title={content.title}
+        description={`${content.description} Available in multiple sizes and specifications. Request a quote for ${content.title.toLowerCase()} in Australia.`}
+        keywords={`${content.title.toLowerCase()}, ${content.applications.join(', ')}, pipe fittings, valves, industrial equipment`}
+      />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{content.title}</h1>
@@ -261,6 +267,15 @@ export default function ProductListPage({ onAddToQuote }: ProductListPageProps) 
               Download Technical Datasheet
             </Button>
           </div>
+        </div>
+
+        <div className="mt-12 p-8 bg-card border border-card-border rounded-md">
+          <h2 className="text-2xl font-bold mb-4">Certifications</h2>
+          <p className="text-muted-foreground" data-testid="text-certifications">
+            {subcategoryKey === "pipe-couplings" || subcategoryKey === "muff-couplings" || subcategoryKey === "flange-adaptors"
+              ? "Orbit couplings are fitted with WRAS-approved EPDM rubber seals suitable for potable water applications. Products comply with relevant Australian Standards."
+              : "Product certifications and compliance documentation available upon request. Contact our team for specific certification requirements."}
+          </p>
         </div>
       </div>
     </div>

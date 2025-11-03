@@ -1,5 +1,6 @@
 import ProductCard, { type Product } from "@/components/ProductCard";
 import { useToast } from "@/hooks/use-toast";
+import { SEO } from "@/components/SEO";
 import productImage1 from "@assets/generated_images/Pipe_coupling_product_shot_53e8a7d5.png";
 import productImage2 from "@assets/generated_images/Duckbill_check_valve_product_cb995e5f.png";
 import productImage3 from "@assets/generated_images/Rubber_expansion_joint_product_f7dd5a35.png";
@@ -72,6 +73,11 @@ export default function IndustryPage({ industryName, description, applications, 
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title={`${industryName} Solutions`}
+        description={`${description} Specialised pipe couplings, valves, and fittings for ${industryName.toLowerCase()}. Request a quote from Dewater Products Australia.`}
+        keywords={`${industryName.toLowerCase()}, ${applications.join(', ')}, industrial pipe fittings, valves, Australia`}
+      />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-12">
           <h1 className="text-4xl font-bold mb-4">{industryName}</h1>
