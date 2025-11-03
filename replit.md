@@ -6,6 +6,38 @@ deWater Products is a B2B e-commerce website for industrial pipe fittings, valve
 
 The application is designed for professional industrial buyers who need quick access to technical specifications, SKU information, and pricing for plumbing and pipe fitting components from brands like Straub, Orbit, and Teekay.
 
+## Recent Changes (November 2025)
+
+### Product Catalog Integration
+- **Expanded catalog**: Increased from 4 to 10 real products across all major categories
+  - Valves: Butterfly Valve, Duckbill Check Valve, Foot Valve, Ball Valve, Gate Valve
+  - Pipe Couplings: Orbit Standard Coupling
+  - Pipe Repair Clamps: Orbit Pipe Repair Clamp
+  - Strainers: Y-Strainer
+  - Rubber Expansion Joints: Rubber Expansion Joint
+- **Centralized data model**: All products now sourced from `shared/data/catalog.ts` with proper TypeScript types
+- **Category pages updated**: ValvesPage, ClampsCouplingsPage, StrainersPage, and ExpansionJointsPage now display real catalog products
+- **Product filtering**: ProductListPage filters products by subcategory using catalog helper functions
+- **Routing alignment**: Fixed subcategory navigation to match App.tsx route definitions
+
+### Request for Quote (RFQ) System
+- **Complete RFQ form**: Built comprehensive quote request form at `/request-quote`
+  - Form fields: Name, Email, Phone, Company (optional), Message (optional)
+  - Validation using react-hook-form with Zod schemas
+  - Displays all quote items with ability to remove individual items
+  - Success confirmation page after submission
+  - Quote cart automatically cleared after successful submission
+- **Quote cart integration**: Connected RFQ form to existing quote cart state in App.tsx
+- **SPA navigation**: Updated to use Wouter's `navigate()` instead of `window.location` for consistent routing
+
+### Testing & Verification
+- **E2E tests passed**: Complete user journey tested successfully
+  - Browse products by category
+  - View product details with certifications
+  - Add products to quote cart
+  - Submit quote requests through RFQ form
+  - Receive confirmation after submission
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
