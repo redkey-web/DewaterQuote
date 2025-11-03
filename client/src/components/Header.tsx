@@ -17,15 +17,17 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
   const productsMenu = [
     {
       title: "Clamps & Couplings",
+      url: "/pipe-couplings",
       items: [
-        { name: "Pipe Couplings", url: "/clamps-couplings/pipe-couplings" },
-        { name: "Pipe Repair Clamps", url: "/clamps-couplings/pipe-repair-clamps" },
-        { name: "Muff/Sleeve Couplings", url: "/clamps-couplings/muff-couplings" },
-        { name: "Flange Adaptors", url: "/clamps-couplings/flange-adaptors" },
+        { name: "Pipe Couplings", url: "/pipe-couplings/pipe-couplings" },
+        { name: "Pipe Repair Clamps", url: "/pipe-repair-clamps/pipe-repair-clamps" },
+        { name: "Muff/Sleeve Couplings", url: "/pipe-couplings/muff-couplings" },
+        { name: "Flange Adaptors", url: "/pipe-couplings/flange-adaptors" },
       ],
     },
     {
       title: "Valves",
+      url: "/valves",
       items: [
         { name: "Duckbill Check Valves", url: "/valves/check-valves/duckbill" },
         { name: "Ball Check Valves", url: "/valves/check-valves/ball" },
@@ -37,14 +39,16 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
     },
     {
       title: "Expansion Joints",
+      url: "/rubber-expansion-joints",
       items: [
-        { name: "Rubber Expansion Joints", url: "/expansion-joints/rubber" },
-        { name: "PTFE Expansion Joints", url: "/expansion-joints/ptfe" },
-        { name: "Stainless/Fabric Joints", url: "/expansion-joints/stainless-fabric" },
+        { name: "Rubber Expansion Joints", url: "/rubber-expansion-joints/rubber" },
+        { name: "PTFE Expansion Joints", url: "/rubber-expansion-joints/ptfe" },
+        { name: "Stainless/Fabric Joints", url: "/rubber-expansion-joints/stainless-fabric" },
       ],
     },
     {
       title: "Strainers & Filters",
+      url: "/strainers",
       items: [
         { name: "Y Strainers", url: "/strainers/y-strainers" },
         { name: "Basket Strainers", url: "/strainers/basket" },
@@ -54,6 +58,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
     },
     {
       title: "Brands",
+      url: "/brands/straub",
       items: [
         { name: "Straub", url: "/brands/straub" },
         { name: "Orbit", url: "/brands/orbit" },
@@ -109,7 +114,13 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 <div className="absolute top-full left-0 mt-2 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-5 gap-6 w-[900px]">
                   {productsMenu.map((category) => (
                     <div key={category.title}>
-                      <h3 className="font-semibold text-sm mb-3">{category.title}</h3>
+                      <Link 
+                        href={category.url} 
+                        className="font-semibold text-sm mb-3 block hover:text-primary"
+                        data-testid={`link-category-${category.title.toLowerCase().replace(/\s+/g, "-")}`}
+                      >
+                        {category.title}
+                      </Link>
                       <ul className="space-y-2">
                         {category.items.map((item) => (
                           <li key={item.name}>
