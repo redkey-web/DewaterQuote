@@ -264,11 +264,11 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
           </Card>
         )}
 
-        {/* Certifications */}
+        {/* Approvals / Certifications */}
         {product.certifications && (
           <Card className="mb-12">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-4">Certifications</h2>
+              <h2 className="text-2xl font-bold mb-4">Approvals / Certifications</h2>
               <p className="text-muted-foreground">{product.certifications}</p>
             </CardContent>
           </Card>

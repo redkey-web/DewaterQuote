@@ -219,7 +219,7 @@ export default function ProductListPage({ onAddToQuote }: ProductListPageProps) 
         </div>
 
         <div className="mt-12 p-8 bg-card border border-card-border rounded-md">
-          <h2 className="text-2xl font-bold mb-4">Certifications</h2>
+          <h2 className="text-2xl font-bold mb-4">Approvals / Certifications</h2>
           <p className="text-muted-foreground" data-testid="text-certifications">
             {subcategoryKey === "pipe-couplings" || subcategoryKey === "muff-couplings" || subcategoryKey === "flange-adaptors"
               ? "Orbit couplings are fitted with WRAS-approved EPDM rubber seals suitable for potable water applications. Products comply with relevant Australian Standards."
