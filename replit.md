@@ -43,6 +43,14 @@ The application is designed for professional industrial buyers who need quick ac
   - Fixed issue where /pipe-couplings/pipe-couplings showed "No products available"
 - **Architect review**: PASS - All navigation components aligned with revised slug structure, product filtering restored
 
+### UI Improvements (November 2025)
+- **Removed prominent announcement banner**: Eliminated the yellow (#FBB13C) scrolling banner at the top of the page
+- **Added subtle delivery message**: Replaced with understated "Free delivery to metro areas" text in header
+  - Features small truck icon from Lucide React
+  - Uses muted text color and small font size for subtlety
+  - Responsive: shows full message on xl screens, abbreviated on lg screens
+  - Positioned in header's contact area, less visually prominent than previous banner
+
 ### Testing & Verification
 - **E2E tests passed**: Complete user journey tested successfully
   - Browse products by category (homepage cards and header dropdown)

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search } from "lucide-react";
+import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search, Truck } from "lucide-react";
 import logoImage from "@assets/website_logo_1761097322396.webp";
 
 interface HeaderProps {
@@ -207,6 +207,11 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
 
           {/* Contact Info, Search & Quote */}
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+            <div className="flex items-center gap-1.5 text-muted-foreground text-xs mr-2">
+              <Truck className="w-3.5 h-3.5" />
+              <span className="hidden xl:inline">Free delivery to metro areas</span>
+              <span className="xl:hidden">Free metro delivery</span>
+            </div>
             <a 
               href="tel:0892712577" 
               className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20 text-sm transition-all"
