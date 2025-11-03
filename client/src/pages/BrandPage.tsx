@@ -57,6 +57,7 @@ export default function BrandPage({ brandName, description, onAddToQuote }: Bran
         title={`${brandName} Products`}
         description={`${description} Browse ${brandName} pipe couplings, valves, and industrial fittings from Dewater Products Australia. Request a quote today.`}
         keywords={`${brandName}, ${brandName} products, pipe couplings, valves, industrial fittings, Australia`}
+        canonical={`https://dewaterproducts.com.au${window.location.pathname}`}
       />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-12">

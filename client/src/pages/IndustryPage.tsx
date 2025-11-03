@@ -77,6 +77,7 @@ export default function IndustryPage({ industryName, description, applications, 
         title={`${industryName} Solutions`}
         description={`${description} Specialised pipe couplings, valves, and fittings for ${industryName.toLowerCase()}. Request a quote from Dewater Products Australia.`}
         keywords={`${industryName.toLowerCase()}, ${applications.join(', ')}, industrial pipe fittings, valves, Australia`}
+        canonical={`https://dewaterproducts.com.au${window.location.pathname}`}
       />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-12">

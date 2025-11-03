@@ -236,6 +236,7 @@ export default function ProductListPage({ onAddToQuote }: ProductListPageProps) 
         title={content.title}
         description={`${content.description} Available in multiple sizes and specifications. Request a quote for ${content.title.toLowerCase()} in Australia.`}
         keywords={`${content.title.toLowerCase()}, ${content.applications.join(', ')}, pipe fittings, valves, industrial equipment`}
+        canonical={`https://dewaterproducts.com.au${window.location.pathname}`}
       />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-8">
