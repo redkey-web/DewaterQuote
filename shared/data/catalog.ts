@@ -215,6 +215,210 @@ export const products: Product[] = [
     sizeFrom: "80mm",
     applications: ["Pump suction lines", "Irrigation systems", "Water supply"],
     certifications: "WRAS-approved EPDM seals for potable water applications. Galvanised steel construction to AS/NZS standards. Suitable for water supply and irrigation systems."
+  },
+
+  // Orbit Standard Coupling
+  {
+    id: "ORBIT-STD",
+    slug: "orbit-standard-coupling-series-1",
+    sku: "ORBIT-STD",
+    name: "Orbit Standard Coupling Series 1",
+    shortName: "Orbit Standard Coupling",
+    brand: "Orbit",
+    category: "pipe-couplings",
+    subcategory: "orbit-couplings",
+    description: "The Orbit Standard Coupling Series 1 is a flexible pipe coupling for joining plain-ended pipes. Features 316 stainless steel construction with WRAS-approved EPDM rubber sleeve for potable water applications.",
+    features: [
+      "Flexible coupling allows angular deflection",
+      "WRAS-approved EPDM rubber sleeve for potable water",
+      "316 stainless steel bands and bolts",
+      "Accommodates slight misalignment",
+      "Quick and easy installation",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "ORBIT-STD" },
+      { label: "Brand", value: "Orbit" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Band Material", value: "316 Stainless Steel" },
+      { label: "Bolts", value: "4" },
+      { label: "Series", value: "1" }
+    ],
+    images: [
+      { url: "/placeholder-coupling.jpg", alt: "Orbit Standard Coupling", type: "image" }
+    ],
+    materials: {
+      body: "316ss",
+      sleeve: "EPDM"
+    },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "48.3mm",
+    applications: ["Water supply pipelines", "Pressure pipelines", "Pipe joining"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Y-Strainer
+  {
+    id: "YSTR-CI",
+    slug: "y-strainer-cast-iron-flanged",
+    sku: "YSTR-CI",
+    name: "Y-Strainer - Cast Iron - Flanged PN16",
+    shortName: "Cast Iron Y-Strainer",
+    brand: "Y-Strainer",
+    category: "strainers",
+    subcategory: "y-strainer",
+    description: "Cast iron Y-strainer with stainless steel mesh screen for pipeline filtration. Protects pumps, valves, and equipment from debris. Flanged design rated to PN16.",
+    features: [
+      "Cast iron body rated to PN16",
+      "Stainless steel mesh screen",
+      "Easy-clean blow-down plug",
+      "Protects downstream equipment",
+      "Suitable for water, oil, and gas applications",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "YSTR-CI" },
+      { label: "Brand", value: "Y-Strainer" },
+      { label: "Body Material", value: "Cast Iron" },
+      { label: "Screen Material", value: "Stainless Steel" },
+      { label: "Pressure Rating", value: "PN16" },
+      { label: "Flange Standard", value: "Table D/E" }
+    ],
+    images: [
+      { url: "/placeholder-strainer.jpg", alt: "Y-Strainer Cast Iron", type: "image" }
+    ],
+    materials: {
+      body: "Cast Iron",
+      disc: "SS304"
+    },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "50mm",
+    applications: ["Water treatment", "Pump protection", "Pipeline filtration", "Process industries"],
+    certifications: "Manufactured to AS/NZS standards. Stainless steel screen to food-grade specifications where applicable."
+  },
+
+  // Rubber Expansion Joint
+  {
+    id: "REJ-EPDM",
+    slug: "rubber-expansion-joint-single-sphere-epdm",
+    sku: "REJ-EPDM",
+    name: "Rubber Expansion Joint - Single Sphere - EPDM",
+    shortName: "EPDM Single Sphere Expansion Joint",
+    brand: "Rubber Expansion Joint",
+    category: "rubber-expansion-joints",
+    subcategory: "single-sphere",
+    description: "Single sphere rubber expansion joint with EPDM rubber body and reinforced nylon fabric. Absorbs thermal expansion, vibration, and pipe misalignment. Flanged connections rated to PN16.",
+    features: [
+      "WRAS-approved EPDM rubber for potable water",
+      "Reinforced with high-strength nylon fabric",
+      "Absorbs axial, lateral, and angular movement",
+      "Reduces noise and vibration transmission",
+      "Floating flanges for easy installation",
+      "Temperature range: -30°C to +110°C"
+    ],
+    specifications: [
+      { label: "SKU", value: "REJ-EPDM" },
+      { label: "Brand", value: "Rubber Expansion Joint" },
+      { label: "Body Material", value: "EPDM Rubber" },
+      { label: "Reinforcement", value: "Nylon fabric" },
+      { label: "Flange Material", value: "Galvanised steel" },
+      { label: "Pressure Rating", value: "PN16" },
+      { label: "Temperature Range", value: "-30°C to +110°C" }
+    ],
+    images: [
+      { url: "/placeholder-expansion.jpg", alt: "Rubber Expansion Joint EPDM", type: "image" }
+    ],
+    materials: {
+      body: "EPDM",
+      sleeve: "Nylon"
+    },
+    pressureRange: "0 TO 16 BAR",
+    temperature: "-30°C to +110°C",
+    sizeFrom: "50mm",
+    applications: ["HVAC systems", "Pump connections", "Thermal expansion absorption", "Vibration isolation"],
+    certifications: "WRAS-approved EPDM rubber for potable water applications. Manufactured to EN standards for rubber expansion joints."
+  },
+
+  // Ball Valve
+  {
+    id: "BV-316-FF",
+    slug: "ball-valve-316-stainless-steel-full-bore",
+    sku: "BV-316-FF",
+    name: "Ball Valve - 316 Stainless Steel - Full Bore - Flanged",
+    shortName: "316ss Full Bore Ball Valve",
+    brand: "Ball Valve",
+    category: "valves",
+    subcategory: "ball-valve",
+    description: "Full bore 316 stainless steel ball valve with lever operation. Flanged connections rated to PN40. Suitable for water, gas, and chemical applications.",
+    features: [
+      "Full bore design for minimal pressure drop",
+      "316 stainless steel construction",
+      "PTFE seats and seals",
+      "Lever operation with lockable device",
+      "Fire-safe design",
+      "Temperature range: -20°C to +180°C"
+    ],
+    specifications: [
+      { label: "SKU", value: "BV-316-FF" },
+      { label: "Brand", value: "Ball Valve" },
+      { label: "Body Material", value: "316 Stainless Steel" },
+      { label: "Ball Material", value: "316 Stainless Steel" },
+      { label: "Seat Material", value: "PTFE" },
+      { label: "Pressure Rating", value: "PN40" },
+      { label: "Temperature Range", value: "-20°C to +180°C" }
+    ],
+    images: [
+      { url: "/placeholder-ball-valve.jpg", alt: "316ss Ball Valve", type: "image" }
+    ],
+    materials: {
+      body: "316ss",
+      seat: "PTFE"
+    },
+    pressureRange: "0 TO 40 BAR",
+    temperature: "-20°C to +180°C",
+    sizeFrom: "50mm",
+    applications: ["Process industries", "Chemical plants", "Water treatment", "Oil and gas"],
+    certifications: "Fire-safe certified to API 607. PTFE seats suitable for food-grade applications. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Gate Valve
+  {
+    id: "GV-DI-RS",
+    slug: "gate-valve-ductile-iron-resilient-seated",
+    sku: "GV-DI-RS",
+    name: "Gate Valve - Ductile Iron - Resilient Seated - PN16",
+    shortName: "DI Resilient Seat Gate Valve",
+    brand: "Gate Valve",
+    category: "valves",
+    subcategory: "gate-valve",
+    description: "Ductile iron resilient seated gate valve with EPDM encapsulated disc. Non-rising stem design with handwheel operation. Flanged connections to AS2129 Table D/E.",
+    features: [
+      "EPDM fully encapsulated disc",
+      "Non-rising stem design",
+      "Ductile iron body to AS/NZS 2638.1",
+      "Epoxy powder coated",
+      "Suitable for underground installation",
+      "WRAS-approved EPDM seals"
+    ],
+    specifications: [
+      { label: "SKU", value: "GV-DI-RS" },
+      { label: "Brand", value: "Gate Valve" },
+      { label: "Body Material", value: "Ductile Iron" },
+      { label: "Disc Material", value: "Ductile Iron with EPDM coating" },
+      { label: "Pressure Rating", value: "PN16" },
+      { label: "Flange Standard", value: "AS2129 Table D/E" }
+    ],
+    images: [
+      { url: "/placeholder-gate-valve.jpg", alt: "DI Gate Valve", type: "image" }
+    ],
+    materials: {
+      body: "DI",
+      disc: "DI/EPDM"
+    },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "80mm",
+    applications: ["Water distribution", "Sewerage systems", "Fire protection", "Irrigation"],
+    certifications: "WRAS-approved EPDM seals for potable water. Manufactured to AS/NZS 2638 standards. Suitable for underground installation."
   }
 ];
 
