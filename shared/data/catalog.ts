@@ -29,6 +29,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "PN16" },
       { label: "Max Temperature", value: "120°C" }
     ],
+    certifications: "Manufactured to ISO 9001 quality standards. PTFE seat material complies with relevant food-grade and potable water standards.",
     sizeOptions: [
       { value: "50mm", label: "50mm DN50 (2\") Nominal Bore sizing" },
       { value: "65mm", label: "65mm" },
@@ -72,6 +73,7 @@ export const products: Product[] = [
       "Available in different rubber materials: Neoprene, NBR, EPDM, Viton",
       "12 months warranty on manufacturing defects only"
     ],
+    certifications: "Rubber materials comply with relevant water and wastewater standards. Available in WRAS-approved EPDM for potable water applications. 316 stainless steel clamps provide corrosion resistance.",
     specifications: [
       { label: "SKU", value: "DB-1" },
       { label: "Brand", value: "DB-1 Slip On Duckbill Check Valve - Neoprene" },
@@ -142,13 +144,14 @@ export const products: Product[] = [
     subcategory: "orbit-pipe-repair-clamps",
     description: "The Orbit Pipe Repair Clamp Series 1 and 55mm long with 2 bolts. For small Outside diameter pipes only. Wrap around your small OD pipe to seal any leaking hole or crack. Manufactured from 316 stainless steel and rubber. For Pipe Repair Use Only. This cannot be used as a pipe coupling.",
     features: [
-      "Manufactured from 316 stainless steel and EPDM rubber",
+      "Manufactured from 316 stainless steel and WRAS-approved EPDM rubber",
       "2 bolt design for small diameter pipes",
       "Quick and easy installation",
       "Available in different rubber materials: NBR, EPDM, Viton",
       "12 months warranty on manufacturing defects only",
       "For pipe repair use only - not a coupling"
     ],
+    certifications: "WRAS-approved EPDM rubber seals suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards.",
     specifications: [
       { label: "SKU", value: "OCRC55" },
       { label: "Brand", value: "Orbit Pipe Repair Clamp 55mm wide" },
@@ -210,7 +213,8 @@ export const products: Product[] = [
     },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "80mm",
-    applications: ["Pump suction lines", "Irrigation systems", "Water supply"]
+    applications: ["Pump suction lines", "Irrigation systems", "Water supply"],
+    certifications: "WRAS-approved EPDM seals for potable water applications. Galvanised steel construction to AS/NZS standards. Suitable for water supply and irrigation systems."
   }
 ];
 

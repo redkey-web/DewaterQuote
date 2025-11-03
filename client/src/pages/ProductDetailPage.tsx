@@ -1,5 +1,5 @@
 import { useParams } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,8 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Download, ShoppingCart, Package, Clock, FileText } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
-import { getProductBySlug, getProductsBySubcategory } from "@/../../shared/data/catalog";
-import type { Product } from "@/../../shared/schema";
+import { getProductBySlug, getProductsBySubcategory } from "@shared/data/catalog";
+import type { Product } from "@shared/schema";
 
 interface ProductDetailPageProps {
   onAddToQuote: (product: any) => void;
@@ -19,8 +19,14 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
   const { slug } = useParams<{ slug: string }>();
   const { toast } = useToast();
   const [selectedSize, setSelectedSize] = useState<string>("");
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   
   const product = getProductBySlug(slug || "");
+  
+  // Reset image error states when product changes
+  useEffect(() => {
+    setImageErrors({});
+  }, [product?.id]);
   
   if (!product) {
     return (
@@ -72,13 +78,33 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
           {/* Images */}
           <div>
             <div className="aspect-square bg-muted rounded-md mb-4 overflow-hidden flex items-center justify-center">
-              <Package className="w-32 h-32 text-muted-foreground" />
+              {product.images[0]?.url && !imageErrors[product.images[0].url] ? (
+                <img 
+                  src={product.images[0].url} 
+                  alt={product.images[0].alt}
+                  className="w-full h-full object-contain"
+                  loading="lazy"
+                  onError={() => setImageErrors(prev => ({ ...prev, [product.images[0].url]: true }))}
+                />
+              ) : (
+                <Package className="w-32 h-32 text-muted-foreground" />
+              )}
             </div>
             {product.images.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
                 {product.images.slice(1).map((img, idx) => (
                   <div key={idx} className="aspect-square bg-muted rounded-md overflow-hidden flex items-center justify-center">
-                    <Package className="w-8 h-8 text-muted-foreground" />
+                    {img.url && !imageErrors[img.url] ? (
+                      <img 
+                        src={img.url} 
+                        alt={img.alt}
+                        className="w-full h-full object-contain"
+                        loading="lazy"
+                        onError={() => setImageErrors(prev => ({ ...prev, [img.url]: true }))}
+                      />
+                    ) : (
+                      <Package className="w-8 h-8 text-muted-foreground" />
+                    )}
                   </div>
                 ))}
               </div>
@@ -257,7 +283,17 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                 <Card key={relatedProduct.id} className="hover-elevate transition-all">
                   <CardContent className="p-6">
                     <div className="aspect-square bg-muted rounded-md mb-4 overflow-hidden flex items-center justify-center">
-                      <Package className="w-16 h-16 text-muted-foreground" />
+                      {relatedProduct.images[0]?.url && !imageErrors[relatedProduct.images[0].url] ? (
+                        <img 
+                          src={relatedProduct.images[0].url} 
+                          alt={relatedProduct.images[0].alt}
+                          className="w-full h-full object-contain"
+                          loading="lazy"
+                          onError={() => setImageErrors(prev => ({ ...prev, [relatedProduct.images[0].url]: true }))}
+                        />
+                      ) : (
+                        <Package className="w-16 h-16 text-muted-foreground" />
+                      )}
                     </div>
                     <h3 className="font-semibold text-sm mb-2">{relatedProduct.shortName || relatedProduct.name}</h3>
                     <div className="text-sm text-muted-foreground space-y-1">
