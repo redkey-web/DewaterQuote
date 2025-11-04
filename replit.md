@@ -9,16 +9,23 @@ The application is designed for professional industrial buyers who need quick ac
 ## Recent Changes (November 2025)
 
 ### Product Catalog Integration
-- **Expanded catalog**: Increased from 4 to 10 real products across all major categories
-  - Valves: Butterfly Valve, Duckbill Check Valve, Foot Valve, Ball Valve, Gate Valve
-  - Pipe Couplings: Orbit Standard Coupling
-  - Pipe Repair Clamps: Orbit Pipe Repair Clamp
-  - Strainers: Y-Strainer
-  - Rubber Expansion Joints: Rubber Expansion Joint
-- **Centralized data model**: All products now sourced from `shared/data/catalog.ts` with proper TypeScript types
+- **Expanded catalog**: Increased from 4 to 15 real products with comprehensive technical details
+  - Valves (5 products): Butterfly Valve, Duckbill Check Valve, Foot Valve, Ball Valve, Gate Valve
+  - Pipe Couplings (6 products): Orbit Standard Coupling, Flex Grip L, Flex Grip S, Metal Lock L, Metal Lock S, Fire Protection Coupling
+  - Pipe Repair Clamps (1 product): Orbit Pipe Repair Clamp
+  - Strainers (1 product): Y-Strainer
+  - Rubber Expansion Joints (1 product): Rubber Expansion Joint
+- **Real product data**: All products sourced from live dewaterproducts.com.au site with authentic SKUs, specifications, and features
+- **Centralized data model**: All products sourced from `shared/data/catalog.ts` with proper TypeScript types
 - **Category pages updated**: ValvesPage, ClampsCouplingsPage, StrainersPage, and ExpansionJointsPage now display real catalog products
 - **Product filtering**: ProductListPage filters products by subcategory using catalog helper functions
 - **Routing alignment**: Fixed subcategory navigation to match App.tsx route definitions
+- **Key product additions** (November 2025):
+  - Flex Grip L (OCFG-L): Long model flexible coupling for axial movement and vibration
+  - Flex Grip S (OCFG-S): Short model compact flexible coupling
+  - Metal Lock L (OCML-L): Long model with axial restraint and pull-out resistance
+  - Metal Lock S (OCML-S): Short model with axial restraint
+  - Fire Protection Coupling (OCFPC): IACS compliant for fire protection systems
 
 ### Request for Quote (RFQ) System
 - **Complete RFQ form**: Built comprehensive quote request form at `/request-quote`

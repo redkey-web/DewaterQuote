@@ -257,6 +257,212 @@ export const products: Product[] = [
     certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
   },
 
+  // Flex Grip L
+  {
+    id: "OCFG-L",
+    slug: "flex-grip-l-pipe-coupling",
+    sku: "OCFG-L",
+    name: "Flex Grip L - Long Model Pipe Coupling",
+    shortName: "Flex Grip L",
+    brand: "Orbit Couplings",
+    category: "pipe-couplings",
+    subcategory: "orbit-couplings",
+    description: "The Flex Grip L model is the Long model pipe coupling. Allowing for axial movements, vibration, and minor pipe misalignments. This coupling does not prevent pull out, so pipes must be anchored somehow.",
+    features: [
+      "Flexible design accommodates pipe misalignment and axial movement",
+      "Durable and reliable corrosion-resistant materials",
+      "Quick installation with no welding, flanging, or special tools required",
+      "High-pressure and temperature resistance for industrial and marine use",
+      "Vibration absorption prevents stress on piping systems",
+      "WRAS-approved EPDM rubber sleeve for potable water",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCFG-L" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Body Material", value: "316 Stainless Steel" },
+      { label: "Pressure Rating", value: "0 to 32 BAR" }
+    ],
+    images: [
+      { url: "/placeholder-coupling.jpg", alt: "Flex Grip L Pipe Coupling", type: "image" }
+    ],
+    materials: {
+      body: "316ss",
+      sleeve: "EPDM"
+    },
+    pressureRange: "0 TO 32 BAR",
+    sizeFrom: "48.3mm",
+    leadTime: "12 days if nil stock",
+    applications: ["Systems with thermal expansion or dynamic movement", "Marine applications", "Industrial piping", "Building services"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Flex Grip S
+  {
+    id: "OCFG-S",
+    slug: "flex-grip-s-pipe-coupling",
+    sku: "OCFG-S",
+    name: "Flex Grip S - Short Model Pipe Coupling",
+    shortName: "Flex Grip S",
+    brand: "Orbit Couplings",
+    category: "pipe-couplings",
+    subcategory: "orbit-couplings",
+    description: "The Flex Grip S model is the Short model pipe coupling for allowing axial movements, vibration and minor pipe misalignments. This coupling does not prevent pull out so pipes must be anchored somehow.",
+    features: [
+      "Compact short-width design for space-constrained installations",
+      "Flexible coupling handles axial and angular deflection",
+      "Corrosion-resistant 316 stainless steel construction",
+      "No welding required - simplifies installation process",
+      "High-pressure resistance suited for industrial use",
+      "WRAS-approved EPDM rubber sleeve for potable water",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCFG-S" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Body Material", value: "316 Stainless Steel" },
+      { label: "Pressure Rating", value: "0 to 32 BAR" }
+    ],
+    images: [
+      { url: "/placeholder-coupling.jpg", alt: "Flex Grip S Pipe Coupling", type: "image" }
+    ],
+    materials: {
+      body: "316ss",
+      sleeve: "EPDM"
+    },
+    pressureRange: "0 TO 32 BAR",
+    sizeFrom: "21.3mm",
+    leadTime: "12 days if nil stock",
+    applications: ["Compact installations", "Pipe repair", "Industrial piping", "Pressure systems"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Metal Lock L
+  {
+    id: "OCML-L",
+    slug: "metal-lock-l-pipe-coupling",
+    sku: "OCML-L",
+    name: "Metal Lock L - Long Model with Axial Restraint",
+    shortName: "Metal Lock L",
+    brand: "Orbit Couplings",
+    category: "pipe-couplings",
+    subcategory: "orbit-couplings",
+    description: "The Metal Lock L model is the Long model pipe coupling providing axial restraint and pull out resistance. High-strength stainless steel construction ensures reliable performance in demanding applications.",
+    features: [
+      "Axial restraint provides pull-out resistance",
+      "High-strength 304 stainless steel construction",
+      "WRAS-approved EPDM rubber sleeve for potable water",
+      "No welding or special tools required for installation",
+      "Suitable for high-pressure applications up to 32 BAR",
+      "Corrosion-resistant design for long service life",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCML-L" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Body Material", value: "304 Stainless Steel" },
+      { label: "Pressure Rating", value: "0 to 32 BAR" }
+    ],
+    images: [
+      { url: "/placeholder-coupling.jpg", alt: "Metal Lock L Pipe Coupling", type: "image" }
+    ],
+    materials: {
+      body: "304ss",
+      sleeve: "EPDM"
+    },
+    pressureRange: "0 TO 32 BAR",
+    sizeFrom: "48.3mm",
+    leadTime: "12 days if nil stock",
+    applications: ["High-pressure systems requiring axial restraint", "Water supply networks", "Industrial process piping", "Infrastructure projects"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 304 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Metal Lock S
+  {
+    id: "OCML-S",
+    slug: "metal-lock-s-pipe-coupling",
+    sku: "OCML-S",
+    name: "Metal Lock S - Short Model with Axial Restraint",
+    shortName: "Metal Lock S",
+    brand: "Orbit Couplings",
+    category: "pipe-couplings",
+    subcategory: "orbit-couplings",
+    description: "The Orbit Metal Lock S pipe coupling model is the short width version and provides pipe connections with pull out resistance and axial restraint. Ideal for compact installations requiring secure joint integrity.",
+    features: [
+      "Short-width design with axial restraint and pull-out resistance",
+      "High-strength 316 stainless steel construction",
+      "WRAS-approved EPDM rubber sleeve for potable water",
+      "Suitable for high-pressure applications up to 32 BAR",
+      "Quick installation with no welding required",
+      "Corrosion-resistant for demanding environments",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCML-S" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Body Material", value: "316 Stainless Steel" },
+      { label: "Pressure Rating", value: "0 to 32 BAR" }
+    ],
+    images: [
+      { url: "/placeholder-coupling.jpg", alt: "Metal Lock S Pipe Coupling", type: "image" }
+    ],
+    materials: {
+      body: "316ss",
+      sleeve: "EPDM"
+    },
+    pressureRange: "0 TO 32 BAR",
+    sizeFrom: "26.9mm",
+    leadTime: "12 days if nil stock",
+    applications: ["Compact high-pressure installations", "Pipe repair with restraint", "Water distribution systems", "Industrial applications"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Fire Protection Coupling
+  {
+    id: "OCFPC",
+    slug: "fire-protection-coupling",
+    sku: "OCFPC",
+    name: "Fire Protection Coupling - IACS Compliant",
+    shortName: "Fire Protection Coupling",
+    brand: "Orbit Couplings",
+    category: "pipe-couplings",
+    subcategory: "orbit-couplings",
+    description: "The Fire Protection Coupling is compliant with IACS standards. Installed with an Orbit Couplings Metal Lock S pipe coupling for axial restraint and pull out resistance. Specifically designed for fire protection systems.",
+    features: [
+      "IACS compliant for fire protection systems",
+      "Combined with Metal Lock S for axial restraint",
+      "316 stainless steel construction with EPDM sleeve",
+      "Pull-out resistance ensures system integrity",
+      "High-pressure rating suitable for fire systems up to 28 BAR",
+      "Corrosion-resistant materials for long service life",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCFPC" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Body Material", value: "316 Stainless Steel" },
+      { label: "Pressure Rating", value: "0 to 28 BAR" },
+      { label: "Compliance", value: "IACS" }
+    ],
+    images: [
+      { url: "/placeholder-coupling.jpg", alt: "Fire Protection Coupling", type: "image" }
+    ],
+    materials: {
+      body: "316ss",
+      sleeve: "EPDM"
+    },
+    pressureRange: "0 TO 28 BAR",
+    sizeFrom: "114.3mm",
+    leadTime: "12 days if nil stock",
+    applications: ["Fire protection systems", "Marine fire suppression", "Industrial fire safety", "Building fire services"],
+    certifications: "IACS compliant for fire protection applications. WRAS-approved EPDM rubber sleeves suitable for potable water. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
   // Y-Strainer
   {
     id: "YSTR-CI",
