@@ -9,13 +9,15 @@ The application is designed for professional industrial buyers who need quick ac
 ## Recent Changes (November 2025)
 
 ### Product Catalog Integration
-- **Expanded catalog**: Increased from 4 to 15 real products with comprehensive technical details
+- **Expanded catalog**: Increased from 4 to 20 real products with comprehensive technical details and authentic product photography
   - Valves (5 products): Butterfly Valve, Duckbill Check Valve, Foot Valve, Ball Valve, Gate Valve
-  - Pipe Couplings (6 products): Orbit Standard Coupling, Flex Grip L, Flex Grip S, Metal Lock L, Metal Lock S, Fire Protection Coupling
-  - Pipe Repair Clamps (1 product): Orbit Pipe Repair Clamp
+  - Pipe Couplings (8 products): Orbit Standard Coupling, Flex Grip L, Flex Grip S, Metal Lock L, Metal Lock S, Fire Protection Coupling, Open Flex 300-L, Open Flex 400-L
+  - Pipe Repair Clamps (4 products): Orbit Pipe Repair Clamp 55mm, 200mm Wide, 300mm Wide, Elbow Repair Clamp
   - Strainers (1 product): Y-Strainer
   - Rubber Expansion Joints (1 product): Rubber Expansion Joint
 - **Real product data**: All products sourced from live dewaterproducts.com.au site with authentic SKUs, specifications, and features
+- **Authentic product photography**: Orbit Couplings products now display real product images from the manufacturer
+- **Brand logo integration**: Orbit Couplings logo displayed on homepage brand section
 - **Centralized data model**: All products sourced from `shared/data/catalog.ts` with proper TypeScript types
 - **Category pages updated**: ValvesPage, ClampsCouplingsPage, StrainersPage, and ExpansionJointsPage now display real catalog products
 - **Product filtering**: ProductListPage filters products by subcategory using catalog helper functions
@@ -26,6 +28,11 @@ The application is designed for professional industrial buyers who need quick ac
   - Metal Lock L (OCML-L): Long model with axial restraint and pull-out resistance
   - Metal Lock S (OCML-S): Short model with axial restraint
   - Fire Protection Coupling (OCFPC): IACS compliant for fire protection systems
+  - Elbow Repair Clamp (OCERC): Specialised clamp for elbow and bend repairs
+  - Open Flex 300-L (OCOF300L): Large diameter coupling for 220mm pipes
+  - Open Flex 400-L (OCOF400L): Extra-large diameter coupling for heavy-duty applications
+  - Orbit Pipe Repair Clamp 200mm Wide (OCRC200): Wide clamp with reinforced mesh backing
+  - Orbit Pipe Repair Clamp 300mm Wide (OCRC300): Heavy-duty clamp for extensive leak coverage
 
 ### Request for Quote (RFQ) System
 - **Complete RFQ form**: Built comprehensive quote request form at `/request-quote`
