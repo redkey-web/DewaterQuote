@@ -167,7 +167,7 @@ export const products: Product[] = [
       { value: "57.0mm", label: "57.0mm" }
     ],
     images: [
-      { url: "/placeholder-clamp.jpg", alt: "Orbit Pipe Repair Clamp 55mm", type: "image" }
+      { url: "/images/products/orbit/pipe-repair-clamp-200mm.jpg", alt: "Orbit Pipe Repair Clamp 55mm", type: "image" }
     ],
     video: "https://www.youtube.com/watch?v=VRei4m3c3Ck",
     leadTime: "12 days if nil stock",
@@ -285,7 +285,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
     images: [
-      { url: "/images/products/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling", type: "image" }
+      { url: "/images/products/orbit/flex-grip-l.jpg", alt: "Flex Grip L Pipe Coupling", type: "image" }
     ],
     materials: {
       body: "316ss",
@@ -326,7 +326,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
     images: [
-      { url: "/images/products/OCFG-S.jpg", alt: "Flex Grip S Pipe Coupling", type: "image" }
+      { url: "/images/products/orbit/flex-grip-s.jpg", alt: "Flex Grip S Pipe Coupling", type: "image" }
     ],
     materials: {
       body: "316ss",
@@ -461,6 +461,208 @@ export const products: Product[] = [
     leadTime: "12 days if nil stock",
     applications: ["Fire protection systems", "Marine fire suppression", "Industrial fire safety", "Building fire services"],
     certifications: "IACS compliant for fire protection applications. WRAS-approved EPDM rubber sleeves suitable for potable water. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Elbow Repair Clamp
+  {
+    id: "OCERC",
+    slug: "elbow-repair-clamp",
+    sku: "OCERC",
+    name: "Elbow Repair Clamp - Orbit Couplings",
+    shortName: "Elbow Repair Clamp",
+    brand: "Orbit Couplings",
+    category: "pipe-repair-clamps",
+    subcategory: "orbit-pipe-repair-clamps",
+    description: "Specialised elbow repair clamp from Orbit Couplings for sealing leaks on pipe elbows and bends. Features 316 stainless steel construction with WRAS-approved EPDM rubber sleeve for secure, long-lasting repairs on curved pipework.",
+    features: [
+      "Designed specifically for elbow and bend repairs",
+      "316 stainless steel construction for durability",
+      "WRAS-approved EPDM rubber sleeve for potable water",
+      "Quick installation without pipe removal",
+      "Suitable for emergency repairs",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCERC" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Casing Material", value: "316 Stainless Steel" },
+      { label: "Pressure Rating", value: "0 to 25 BAR" }
+    ],
+    images: [
+      { url: "/images/products/orbit/elbow-repair-clamp.jpg", alt: "Elbow Repair Clamp", type: "image" }
+    ],
+    materials: {
+      sleeve: "EPDM",
+      body: "316ss"
+    },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "12 days if nil stock",
+    applications: ["Elbow leak repairs", "Emergency pipe fixes", "Bend reinforcement"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Open Flex 300-L
+  {
+    id: "OCOF300L",
+    slug: "open-flex-300-l",
+    sku: "OCOF300L",
+    name: "Open Flex 300-L - Large Diameter Pipe Coupling",
+    shortName: "Open Flex 300-L",
+    brand: "Orbit Couplings",
+    category: "pipe-couplings",
+    subcategory: "orbit-couplings",
+    description: "The Open Flex 300-L is a large diameter flexible pipe coupling designed for 220mm pipes. Features heavy-duty 316 stainless steel construction with WRAS-approved EPDM rubber for demanding industrial and municipal applications.",
+    features: [
+      "Large diameter design for 220mm pipes",
+      "Heavy-duty 316 stainless steel construction",
+      "WRAS-approved EPDM rubber sleeve",
+      "Accommodates pipe movement and misalignment",
+      "High-pressure rated to 40 BAR",
+      "Suitable for industrial and municipal use",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCOF300L" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Body Material", value: "316 Stainless Steel" },
+      { label: "Pipe Diameter", value: "220.0mm" },
+      { label: "Pressure Rating", value: "0 to 40 BAR" }
+    ],
+    images: [
+      { url: "/images/products/orbit/open-flex-300-l.jpg", alt: "Open Flex 300-L Pipe Coupling", type: "image" }
+    ],
+    materials: {
+      body: "316ss",
+      sleeve: "EPDM"
+    },
+    pressureRange: "0 TO 40 BAR",
+    sizeFrom: "220mm",
+    leadTime: "12 days if nil stock",
+    applications: ["Large diameter pipelines", "Municipal water systems", "Industrial process piping", "Infrastructure projects"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Open Flex 400-L
+  {
+    id: "OCOF400L",
+    slug: "open-flex-400-l",
+    sku: "OCOF400L",
+    name: "Open Flex 400-L - Extra Large Diameter Pipe Coupling",
+    shortName: "Open Flex 400-L",
+    brand: "Orbit Couplings",
+    category: "pipe-couplings",
+    subcategory: "orbit-couplings",
+    description: "The Open Flex 400-L is an extra-large diameter flexible pipe coupling for heavy-duty industrial applications. Features robust 316 stainless steel construction with high-pressure EPDM rubber sleeve for the most demanding pipeline projects.",
+    features: [
+      "Extra-large diameter for heavy-duty applications",
+      "Robust 316 stainless steel construction",
+      "WRAS-approved EPDM rubber sleeve",
+      "High-pressure rated design",
+      "Accommodates significant pipe movement",
+      "Ideal for large infrastructure projects",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCOF400L" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Body Material", value: "316 Stainless Steel" },
+      { label: "Pressure Rating", value: "0 to 40 BAR" }
+    ],
+    images: [
+      { url: "/images/products/orbit/open-flex-400-l.jpg", alt: "Open Flex 400-L Pipe Coupling", type: "image" }
+    ],
+    materials: {
+      body: "316ss",
+      sleeve: "EPDM"
+    },
+    pressureRange: "0 TO 40 BAR",
+    sizeFrom: "400mm",
+    leadTime: "12 days if nil stock",
+    applications: ["Large infrastructure projects", "Municipal water mains", "Heavy industrial piping", "Water treatment plants"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Pipe Repair Clamp 200mm Wide
+  {
+    id: "OCRC200",
+    slug: "orbit-pipe-repair-clamp-200mm-wide",
+    sku: "OCRC200",
+    name: "Orbit Pipe Repair Clamp 200mm Wide",
+    shortName: "Orbit Repair Clamp 200mm",
+    brand: "Orbit Couplings",
+    category: "pipe-repair-clamps",
+    subcategory: "orbit-pipe-repair-clamps",
+    description: "The Orbit Pipe Repair Clamp 200mm wide with reinforced mesh backing for larger leak areas. Manufactured from 316 stainless steel and WRAS-approved EPDM rubber. For pipe repair use only.",
+    features: [
+      "200mm width covers larger leak areas",
+      "Reinforced mesh backing for added strength",
+      "316 stainless steel construction",
+      "WRAS-approved EPDM rubber seal",
+      "Multiple bolt design for secure clamping",
+      "Quick installation for emergency repairs",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCRC200" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Casing Material", value: "316 Stainless Steel" },
+      { label: "Width", value: "200mm" }
+    ],
+    images: [
+      { url: "/images/products/orbit/pipe-repair-clamp-200mm.jpg", alt: "Orbit Pipe Repair Clamp 200mm Wide", type: "image" }
+    ],
+    materials: {
+      sleeve: "EPDM",
+      body: "316ss"
+    },
+    pressureRange: "0 TO 16 BAR",
+    leadTime: "12 days if nil stock",
+    applications: ["Large leak repairs", "Emergency pipe fixes", "Crack sealing"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+  },
+
+  // Pipe Repair Clamp 300mm Wide
+  {
+    id: "OCRC300",
+    slug: "orbit-pipe-repair-clamp-300mm-wide",
+    sku: "OCRC300",
+    name: "Orbit Pipe Repair Clamp 300mm Wide",
+    shortName: "Orbit Repair Clamp 300mm",
+    brand: "Orbit Couplings",
+    category: "pipe-repair-clamps",
+    subcategory: "orbit-pipe-repair-clamps",
+    description: "The Orbit Pipe Repair Clamp 300mm wide with reinforced mesh backing for extensive leak areas. Heavy-duty 316 stainless steel construction with WRAS-approved EPDM rubber for the most demanding repair situations.",
+    features: [
+      "300mm width for extensive leak coverage",
+      "Heavy-duty reinforced mesh backing",
+      "316 stainless steel construction",
+      "WRAS-approved EPDM rubber seal",
+      "Multiple high-strength bolts",
+      "Suitable for large pipe repairs",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "OCRC300" },
+      { label: "Brand", value: "Orbit Couplings" },
+      { label: "Sleeve Material", value: "EPDM" },
+      { label: "Casing Material", value: "316 Stainless Steel" },
+      { label: "Width", value: "300mm" }
+    ],
+    images: [
+      { url: "/images/products/orbit/pipe-repair-clamp-300mm.jpg", alt: "Orbit Pipe Repair Clamp 300mm Wide", type: "image" }
+    ],
+    materials: {
+      sleeve: "EPDM",
+      body: "316ss"
+    },
+    pressureRange: "0 TO 16 BAR",
+    leadTime: "12 days if nil stock",
+    applications: ["Extensive leak repairs", "Large crack sealing", "Emergency pipe restoration"],
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
   },
 
   // Y-Strainer
