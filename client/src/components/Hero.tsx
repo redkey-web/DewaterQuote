@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, FileText, Truck } from "lucide-react";
 import heroImage from "@assets/pipes-valves-waterworks-GettyImages-515272330-compressor-1000x442_1761098151996.jpg";
 
 export default function Hero() {
@@ -26,6 +26,10 @@ export default function Hero() {
             <FileText className="mr-2 w-5 h-5" />
             Download Price List
           </Button>
+        </div>
+        <div className="flex items-center justify-center gap-2 mt-4 text-white/90" data-testid="text-delivery-notice">
+          <Truck className="w-4 h-4" />
+          <p className="text-sm">Free delivery to metro areas</p>
         </div>
       </div>
     </section>

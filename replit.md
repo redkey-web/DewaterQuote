@@ -58,12 +58,11 @@ The application is designed for professional industrial buyers who need quick ac
 - **Architect review**: PASS - All navigation components aligned with revised slug structure, product filtering restored
 
 ### UI Improvements (November 2025)
-- **Removed prominent announcement banner**: Eliminated the yellow (#FBB13C) scrolling banner at the top of the page
-- **Added subtle delivery message**: Replaced with understated "Free delivery to metro areas" text in header
+- **Added delivery notice to hero section**: "Free delivery to metro areas" displayed below hero CTA buttons
   - Features small truck icon from Lucide React
-  - Uses muted text color and small font size for subtlety
-  - Responsive: shows full message on xl screens, abbreviated on lg screens
-  - Positioned in header's contact area, less visually prominent than previous banner
+  - Uses white text at 90% opacity for subtle appearance on hero background
+  - Small font size (14px) to maintain focus on primary CTAs
+  - 16px spacing from buttons above for clean separation
 - **Updated colour scheme to match logo with WCAG AA compliance** (November 2025):
   - Primary colour based on logo cyan (#48c5db) but darkened for accessibility
   - Light mode primary: 187 85% 25% (achieves 6.4:1 contrast with white text)
