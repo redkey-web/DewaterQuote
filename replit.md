@@ -57,13 +57,15 @@ The application is designed for professional industrial buyers who need quick ac
   - Uses muted text color and small font size for subtlety
   - Responsive: shows full message on xl screens, abbreviated on lg screens
   - Positioned in header's contact area, less visually prominent than previous banner
-- **Updated colour scheme to match logo** (November 2025):
-  - Primary colour changed from dark blue to logo cyan (#48c5db / HSL 187 66% 57%)
+- **Updated colour scheme to match logo with WCAG AA compliance** (November 2025):
+  - Primary colour based on logo cyan (#48c5db) but darkened for accessibility
+  - Light mode primary: 187 85% 25% (achieves 6.4:1 contrast with white text)
+  - Dark mode primary: 187 75% 28% (achieves 5.8:1 contrast with white text)
+  - Accent orange: 25 95% 35% light mode, 25 90% 38% dark mode (both >4.5:1 contrast)
+  - All action buttons and interactive elements meet WCAG AA standards
+  - Logo cyan (#48c5db at 57% lightness) reserved for borders, accents, and highlights where contrast isn't critical
   - Neutral grays based on logo gray (#5e5e5e)
-  - Warm orange accent (25 85% 55%) for CTAs to complement cyan
-  - Subtle cyan glow on hover states
-  - All buttons, links, borders, and shadows now use logo-aligned colour palette
-  - Dark mode uses adjusted cyan (187 66% 50%) with charcoal backgrounds
+  - Subtle cyan glow on hover states with darker base for visibility
 
 ### Testing & Verification
 - **E2E tests passed**: Complete user journey tested successfully

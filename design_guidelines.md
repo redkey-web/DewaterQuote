@@ -16,24 +16,34 @@
 
 **Based on Logo Colours**: #48c5db (cyan) and #5e5e5e (gray)
 
-**Primary Colours**:
-- Cyan Blue: 187 66% 57% (#48c5db - logo cyan, trust, professionalism, industrial water systems)
-- Darker Cyan: 187 50% 35% (depth, authority)
+**Primary Colours (Light Mode)**:
+- Primary Cyan: 187 85% 25% (WCAG AA compliant, ≥4.5:1 contrast with white text)
+- Logo Cyan Reference: #48c5db (187 66% 57% - used for accents, borders, highlights where contrast isn't critical)
+- Charcoal Gray: 0 0% 37% (#5e5e5e - logo gray, technical, industrial)
 
 **Neutral Colours**:
-- Charcoal Gray: 0 0% 37% (#5e5e5e - logo gray, technical, industrial)
-- Pure White: 0 0% 100% (backgrounds, cards in light mode)
-- Light Gray: 0 0% 95% (subtle backgrounds)
+- Foreground Text: 0 0% 15% (dark gray for body text)
+- Pure White: 0 0% 100% (backgrounds)
+- Light Gray: 0 0% 94-98% (subtle backgrounds, cards)
+- Muted Cyan: 187 15% 92% (backgrounds, subtle highlights)
 
 **Accent Colours**:
-- Warm Orange: 25 85% 55% (CTAs, call-to-action buttons, complements cyan)
+- Warm Orange: 25 95% 35% (WCAG AA compliant CTAs, complements cyan)
 - Success Green: 145 65% 42% (quote confirmations, success states)
-- Muted Cyan: 187 10% 92% (backgrounds, subtle highlights)
 
 **Dark Mode**:
 - Background: 0 0% 8% (deep charcoal)
-- Primary Cyan: 187 66% 50% (slightly adjusted for dark backgrounds)
+- Primary Cyan: 187 75% 28% (WCAG AA compliant with white text, ≥4.5:1)
+- Accent Orange: 25 90% 38% (accessible on dark backgrounds)
 - Cards: 0 0% 12% (elevated surfaces)
+- Foreground Text: 0 0% 95% (light gray for readability)
+
+**Accessibility (WCAG AA Compliant)**:
+- All action buttons achieve ≥4.5:1 contrast ratio with white text
+- Primary cyan: 187 85% 25% (25% lightness ensures >4.5:1 contrast)
+- Accent orange: 25 95% 35% (35% lightness ensures >4.5:1 contrast)
+- Body text: 0 0% 15% on white backgrounds exceeds minimum standards
+- Borders and non-critical accents use lighter tints (57% lightness) for visual hierarchy
 
 ## Typography
 
