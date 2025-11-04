@@ -14,18 +14,26 @@
 
 ## Color Palette
 
-**Primary Colors**:
-- Deep Industrial Blue: 210 85% 25% (trust, professionalism)
-- Navy Accent: 215 75% 18% (depth, authority)
+**Based on Logo Colours**: #48c5db (cyan) and #5e5e5e (gray)
 
-**Secondary/Accent**:
-- Steel Gray: 210 12% 45% (technical, industrial)
-- Light Gray: 210 15% 95% (backgrounds, cards)
+**Primary Colours**:
+- Cyan Blue: 187 66% 57% (#48c5db - logo cyan, trust, professionalism, industrial water systems)
+- Darker Cyan: 187 50% 35% (depth, authority)
 
-**Functional Colors**:
-- Success Green: 145 65% 42% (quote confirmations)
-- Warning Orange: 25 85% 55% (items without pricing)
-- Dark Mode: Charcoal 215 15% 12% with adjusted primary blue 210 75% 45%
+**Neutral Colours**:
+- Charcoal Gray: 0 0% 37% (#5e5e5e - logo gray, technical, industrial)
+- Pure White: 0 0% 100% (backgrounds, cards in light mode)
+- Light Gray: 0 0% 95% (subtle backgrounds)
+
+**Accent Colours**:
+- Warm Orange: 25 85% 55% (CTAs, call-to-action buttons, complements cyan)
+- Success Green: 145 65% 42% (quote confirmations, success states)
+- Muted Cyan: 187 10% 92% (backgrounds, subtle highlights)
+
+**Dark Mode**:
+- Background: 0 0% 8% (deep charcoal)
+- Primary Cyan: 187 66% 50% (slightly adjusted for dark backgrounds)
+- Cards: 0 0% 12% (elevated surfaces)
 
 ## Typography
 
