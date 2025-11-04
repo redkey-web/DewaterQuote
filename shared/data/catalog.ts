@@ -285,7 +285,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
     images: [
-      { url: "/placeholder-coupling.jpg", alt: "Flex Grip L Pipe Coupling", type: "image" }
+      { url: "/images/products/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling", type: "image" }
     ],
     materials: {
       body: "316ss",
@@ -326,7 +326,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
     images: [
-      { url: "/placeholder-coupling.jpg", alt: "Flex Grip S Pipe Coupling", type: "image" }
+      { url: "/images/products/OCFG-S.jpg", alt: "Flex Grip S Pipe Coupling", type: "image" }
     ],
     materials: {
       body: "316ss",
@@ -367,7 +367,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
     images: [
-      { url: "/placeholder-coupling.jpg", alt: "Metal Lock L Pipe Coupling", type: "image" }
+      { url: "/images/products/OCML-L.jpg", alt: "Metal Lock L Pipe Coupling", type: "image" }
     ],
     materials: {
       body: "304ss",
@@ -408,7 +408,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
     images: [
-      { url: "/placeholder-coupling.jpg", alt: "Metal Lock S Pipe Coupling", type: "image" }
+      { url: "/images/products/OCML-S.jpg", alt: "Metal Lock S Pipe Coupling", type: "image" }
     ],
     materials: {
       body: "316ss",
@@ -450,7 +450,7 @@ export const products: Product[] = [
       { label: "Compliance", value: "IACS" }
     ],
     images: [
-      { url: "/placeholder-coupling.jpg", alt: "Fire Protection Coupling", type: "image" }
+      { url: "/images/products/OCFPC.jpg", alt: "Fire Protection Coupling", type: "image" }
     ],
     materials: {
       body: "316ss",
