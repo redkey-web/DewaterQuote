@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search, Truck } from "lucide-react";
+import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search } from "lucide-react";
 import logoImage from "@assets/website_logo_1761097322396.webp";
 
 interface HeaderProps {
@@ -207,10 +207,14 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
 
           {/* Contact Info, Search & Quote */}
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-            <div className="flex items-center gap-1.5 text-muted-foreground text-xs mr-2">
-              <Truck className="w-3.5 h-3.5" />
-              <span className="hidden xl:inline">Free delivery to metro areas</span>
-              <span className="xl:hidden">Free metro delivery</span>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search products..."
+                className="pl-9 w-48 xl:w-56 h-9"
+                data-testid="input-search"
+              />
             </div>
             <a 
               href="tel:0892712577" 
@@ -227,15 +231,6 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               <span className="hidden xl:inline">sales@dewaterproducts.com.au</span>
               <span className="xl:hidden">Email Us</span>
             </a>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search..."
-                className="pl-9 w-24 xl:w-28 h-9"
-                data-testid="input-search"
-              />
-            </div>
             <Button
               variant="outline"
               size="icon"

@@ -19,6 +19,7 @@ The application is designed for professional industrial buyers who need quick ac
 - **Authentic product photography**: Orbit Couplings products now display real product images from the manufacturer
 - **Brand logo integration**: Orbit Couplings logo displayed on homepage brand section
 - **Centralized data model**: All products sourced from `shared/data/catalog.ts` with proper TypeScript types
+- **Organized image structure**: All Orbit product images consolidated into `/public/images/products/orbit/` for better organization and maintainability
 - **Category pages updated**: ValvesPage, ClampsCouplingsPage, StrainersPage, and ExpansionJointsPage now display real catalog products
 - **Product filtering**: ProductListPage filters products by subcategory using catalog helper functions
 - **Routing alignment**: Fixed subcategory navigation to match App.tsx route definitions
@@ -63,6 +64,11 @@ The application is designed for professional industrial buyers who need quick ac
   - Uses white text at 90% opacity for subtle appearance on hero background
   - Small font size (14px) to maintain focus on primary CTAs
   - 16px spacing from buttons above for clean separation
+- **Enhanced header search bar** (November 2025):
+  - Removed delivery notice from header
+  - Made search bar more prominent with increased width (192px on large screens, 224px on extra-large)
+  - Updated placeholder text to "Search products..." for clarity
+  - Positioned first in contact info section for better visibility
 - **Updated colour scheme to match logo with WCAG AA compliance** (November 2025):
   - Primary colour based on logo cyan (#48c5db) but darkened for accessibility
   - Light mode primary: 187 85% 25% (achieves 6.4:1 contrast with white text)
