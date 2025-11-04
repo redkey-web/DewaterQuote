@@ -41,9 +41,10 @@ export default function HomePage() {
       url: "/brands/straub",
     },
     {
-      name: "Orbit",
-      description: "Premium valves and fittings for demanding industrial applications",
+      name: "Orbit Couplings",
+      description: "Premium pipe couplings, repair clamps, and flexible connectors for industrial and marine applications",
       url: "/brands/orbit",
+      logo: "/images/brands/orbit-couplings.png",
     },
     {
       name: "Teekay",

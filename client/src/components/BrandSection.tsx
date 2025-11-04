@@ -5,6 +5,7 @@ interface Brand {
   name: string;
   description: string;
   url: string;
+  logo?: string;
 }
 
 interface BrandSectionProps {
@@ -27,7 +28,18 @@ export default function BrandSection({ brands }: BrandSectionProps) {
             <Link key={brand.name} href={brand.url} data-testid={`link-brand-${brand.name.toLowerCase()}`}>
               <Card className="h-full hover-elevate active-elevate-2 transition-all cursor-pointer">
                 <CardContent className="p-8">
-                  <h3 className="text-3xl font-bold text-primary mb-3">{brand.name}</h3>
+                  {brand.logo && (
+                    <div className="mb-4 h-16 flex items-center justify-start">
+                      <img 
+                        src={brand.logo} 
+                        alt={`${brand.name} logo`}
+                        className="max-h-full max-w-[200px] object-contain"
+                      />
+                    </div>
+                  )}
+                  {!brand.logo && (
+                    <h3 className="text-3xl font-bold text-primary mb-3">{brand.name}</h3>
+                  )}
                   <p className="text-sm text-muted-foreground">{brand.description}</p>
                 </CardContent>
               </Card>
