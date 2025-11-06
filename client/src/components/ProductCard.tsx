@@ -35,13 +35,12 @@ export default function ProductCard({ product, onAddToQuote }: ProductCardProps)
         <div className="cursor-pointer" data-testid={`link-product-${product.id}`}>
           <CardContent className="p-6">
             <div className="aspect-square bg-muted rounded-md mb-4 overflow-hidden flex items-center justify-center">
-              {!imageError && mainImage ? (
+              {mainImage ? (
                 <img
                   src={mainImage}
                   alt={product.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
-                  onError={() => setImageError(true)}
                   data-testid={`img-product-${product.id}`}
                 />
               ) : (

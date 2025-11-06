@@ -78,13 +78,12 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
           {/* Images */}
           <div>
             <div className="aspect-square bg-muted rounded-md mb-4 overflow-hidden flex items-center justify-center">
-              {product.images[0]?.url && !imageErrors[product.images[0].url] ? (
+              {product.images[0]?.url ? (
                 <img 
                   src={product.images[0].url} 
                   alt={product.images[0].alt}
                   className="w-full h-full object-contain"
                   loading="lazy"
-                  onError={() => setImageErrors(prev => ({ ...prev, [product.images[0].url]: true }))}
                 />
               ) : (
                 <Package className="w-32 h-32 text-muted-foreground" />
@@ -94,13 +93,12 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
               <div className="grid grid-cols-4 gap-2">
                 {product.images.slice(1).map((img, idx) => (
                   <div key={idx} className="aspect-square bg-muted rounded-md overflow-hidden flex items-center justify-center">
-                    {img.url && !imageErrors[img.url] ? (
+                    {img.url ? (
                       <img 
                         src={img.url} 
                         alt={img.alt}
                         className="w-full h-full object-contain"
                         loading="lazy"
-                        onError={() => setImageErrors(prev => ({ ...prev, [img.url]: true }))}
                       />
                     ) : (
                       <Package className="w-8 h-8 text-muted-foreground" />
