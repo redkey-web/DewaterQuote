@@ -50,10 +50,10 @@ export default function ProductCard({ product, onAddToQuote }: ProductCardProps)
             </div>
             <div className="space-y-2">
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-lg line-clamp-2" data-testid={`text-product-name-${product.id}`}>
+                <h3 className="font-semibold text-lg line-clamp-2 break-words" data-testid={`text-product-name-${product.id}`}>
                   {product.shortName || product.name}
                 </h3>
-                <Badge variant="secondary" className="text-xs whitespace-nowrap" data-testid={`badge-brand-${product.id}`}>
+                <Badge variant="secondary" className="text-xs whitespace-nowrap flex-shrink-0" data-testid={`badge-brand-${product.id}`}>
                   {product.brand}
                 </Badge>
               </div>
