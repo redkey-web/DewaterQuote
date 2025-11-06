@@ -58,6 +58,11 @@ const subcategoryContent: Record<string, { title: string; description: string; a
     description: "Quarter-turn ball valves for quick shut-off. Versatile flow control in numerous applications.",
     applications: ["Process control", "Water systems", "HVAC", "Chemical processing"]
   },
+  "butterfly-valves": {
+    title: "Butterfly Valves",
+    description: "High-performance butterfly valves for flow control and isolation. Available in wafer and lug designs with various seat materials including EPDM and PTFE.",
+    applications: ["Water treatment", "HVAC systems", "Chemical processing", "Industrial processes", "Fire protection"]
+  },
   "air-release": {
     title: "Air Release / Non-Return Valves",
     description: "Combined air release and non-return functionality. Prevent air locks and backflow in piping systems.",
@@ -142,6 +147,7 @@ export default function ProductListPage({ onAddToQuote }: ProductListPageProps) 
 
   // Map URL subcategory keys to catalog subcategory identifiers
   const catalogSubcategory =
+    subcategoryKey === "butterfly-valves" ? "butterfly-valve" :
     subcategoryKey === "duckbill" ? "duckbill-check-valve" :
     subcategoryKey === "ball" ? "ball-check-valve" :
     subcategoryKey === "swing" ? "swing-check-valve" :
