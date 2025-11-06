@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle, Users, Award, Clock } from "lucide-react";
-import heroImage from "@assets/pipes-valves-waterworks-GettyImages-515272330-compressor-1000x442_1761098151996.jpg";
+const heroImage = "/images/hero-pipes.png";
 
 export default function HomePage() {
   const productCategories = [
