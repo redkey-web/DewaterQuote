@@ -118,9 +118,9 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
               {product.name}
             </h1>
             
-            <div className="flex items-center gap-2 mb-6 text-accent">
-              <Truck className="w-4 h-4" />
-              <p className="text-sm font-medium">Free delivery to metro areas</p>
+            <div className="flex items-center justify-end gap-2 mb-6 text-accent">
+              <Truck className="w-8 h-8" />
+              <p className="text-2xl font-medium">Free delivery to metro areas</p>
             </div>
 
             <Separator className="my-6" />
