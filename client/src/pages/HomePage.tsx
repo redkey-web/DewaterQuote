@@ -109,11 +109,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8 mt-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-primary" />
-              <span>10+ years industry experience</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-primary" />
-              <span>AS/NZS certified</span>
+              <span>15+ years industry experience</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-primary" />
@@ -193,7 +189,7 @@ export default function HomePage() {
             <Card className="p-6 text-center">
               <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
               <h4 className="font-semibold text-lg mb-2">Fast Nationwide Delivery</h4>
-              <p className="text-sm text-muted-foreground">1-2 day shipping across Australia</p>
+              <p className="text-sm text-muted-foreground">Quick turnaround times across Australia</p>
             </Card>
             <Card className="p-6 text-center">
               <Users className="w-12 h-12 text-primary mx-auto mb-4" />
@@ -254,41 +250,35 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Link href="/brands/straub">
               <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
-                <div className="mb-6">
+                <div>
                   <img 
                     src="/images/brands/straub-logo.png" 
                     alt="Straub" 
                     className="h-16 mx-auto object-contain"
                   />
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Straub</h3>
-                <p className="text-muted-foreground">German engineering excellence in pipe couplings and repair solutions</p>
               </Card>
             </Link>
             <Link href="/brands/orbit">
               <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
-                <div className="mb-6">
+                <div>
                   <img 
                     src="/images/brands/orbit-couplings.png" 
                     alt="Orbit Couplings" 
                     className="h-16 mx-auto object-contain p-0 m-0"
                   />
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Orbit Couplings</h3>
-                <p className="text-muted-foreground">Premium pipe couplings, repair clamps, and flexible connectors</p>
               </Card>
             </Link>
             <Link href="/brands/teekay">
               <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
-                <div className="mb-6">
+                <div>
                   <img 
                     src="/images/brands/teekay-logo.png" 
                     alt="Teekay" 
                     className="h-16 mx-auto object-contain"
                   />
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Teekay</h3>
-                <p className="text-muted-foreground">Innovative expansion joints and flexible connectors</p>
               </Card>
             </Link>
           </div>
