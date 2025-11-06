@@ -42,7 +42,8 @@ export const products: Product[] = [
       { value: "300mm", label: "300mm" }
     ],
     images: [
-      { url: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg", alt: "Butterfly Valve - CF8M Full 316 Stainless Steel", type: "image" }
+      { url: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg", alt: "Butterfly Valve - CF8M Full 316 Stainless Steel", type: "image" },
+      { url: "/images/products/valves/butterfly-valve-cf8m-316ss-angle2.jpg", alt: "Butterfly Valve - CF8M 316SS - Lever Handle View", type: "image" }
     ],
     leadTime: "7 days if nil stock",
     materials: {
