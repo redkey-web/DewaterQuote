@@ -103,7 +103,7 @@ export default function HomePage() {
               <img src="/images/brands/teekay-logo.png" alt="Teekay" className="h-8 md:h-10 object-contain" />
             </div>
             <div className="flex items-center gap-3">
-              <img src="/images/brands/orbit-couplings.png" alt="Orbit Couplings" className="h-8 md:h-10 object-contain" />
+              <img src="/images/brands/orbit-couplings.png" alt="Orbit Couplings" className="h-8 md:h-10 object-contain p-0 m-0" />
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8 mt-6 text-sm text-muted-foreground">
@@ -271,7 +271,7 @@ export default function HomePage() {
                   <img 
                     src="/images/brands/orbit-couplings.png" 
                     alt="Orbit Couplings" 
-                    className="h-16 mx-auto object-contain"
+                    className="h-16 mx-auto object-contain p-0 m-0"
                   />
                 </div>
                 <h3 className="text-2xl font-bold mb-3">Orbit Couplings</h3>
