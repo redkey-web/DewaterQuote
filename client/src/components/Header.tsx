@@ -29,6 +29,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
       title: "Valves",
       url: "/valves",
       items: [
+        { name: "Butterfly Valves", url: "/valves/butterfly-valves" },
         { name: "Duckbill Check Valves", url: "/valves/check-valves/duckbill" },
         { name: "Ball Check Valves", url: "/valves/check-valves/ball" },
         { name: "Swing Check Valves", url: "/valves/check-valves/swing" },
