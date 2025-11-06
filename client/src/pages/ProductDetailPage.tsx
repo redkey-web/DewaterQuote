@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download, ShoppingCart, Package, Clock, FileText } from "lucide-react";
+import { Download, ShoppingCart, Package, Clock, FileText, Truck } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { getProductBySlug, getProductsBySubcategory } from "@shared/data/catalog";
@@ -118,19 +118,9 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
               {product.name}
             </h1>
             
-            <div className="flex flex-wrap gap-4 mb-6">
-              <div className="flex items-center gap-2 text-sm">
-                <Package className="w-4 h-4 text-muted-foreground" />
-                <span className="text-muted-foreground">SKU:</span>
-                <span className="font-medium" data-testid="text-sku">{product.sku}</span>
-              </div>
-              {product.leadTime && (
-                <div className="flex items-center gap-2 text-sm">
-                  <Clock className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">Lead Time:</span>
-                  <span className="font-medium">{product.leadTime}</span>
-                </div>
-              )}
+            <div className="flex items-center gap-2 mb-6 text-accent">
+              <Truck className="w-4 h-4" />
+              <p className="text-sm font-medium">Free delivery to metro areas</p>
             </div>
 
             <Separator className="my-6" />
@@ -180,7 +170,7 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
               </div>
             )}
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 mb-6">
               <Button 
                 size="lg" 
                 onClick={handleAddToQuote}
@@ -195,6 +185,22 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                   <Download className="mr-2 w-5 h-5" />
                   Downloads
                 </Button>
+              )}
+            </div>
+
+            {/* SKU and Lead Time under button */}
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Package className="w-4 h-4" />
+                <span>SKU:</span>
+                <span className="font-medium text-foreground" data-testid="text-sku">{product.sku}</span>
+              </div>
+              {product.leadTime && (
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  <span>Lead Time:</span>
+                  <span className="font-medium text-foreground">{product.leadTime}</span>
+                </div>
               )}
             </div>
           </div>
