@@ -8,7 +8,7 @@ export const products: Product[] = [
     slug: "butterfly-valve-316-stainless-steel-cf8m-body-ptfe",
     sku: "BFLYW316",
     name: "Butterfly Valve - CF8M Full 316 Stainless Steel - PTFE - Wafer Universal",
-    shortName: "CF8M Butterfly Valve - PTFE",
+    shortName: "CF8M Butterfly Valve",
     brand: "Butterfly Valve - CF8M 316 Stainless Steel - PTFE",
     category: "valves",
     subcategory: "butterfly-valve",
