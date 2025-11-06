@@ -30,38 +30,37 @@ export default function ProductCard({ product, onAddToQuote }: ProductCardProps)
   }, [mainImage]);
 
   return (
-    <Card className="hover-elevate transition-all" data-testid={`card-product-${product.id}`}>
+    <Card className="overflow-hidden hover-elevate active-elevate-2 transition-all border-border" data-testid={`card-product-${product.id}`}>
       <Link href={`/products/${product.slug}`}>
         <div className="cursor-pointer" data-testid={`link-product-${product.id}`}>
+          <div className="aspect-square bg-muted overflow-hidden flex items-center justify-center">
+            {mainImage ? (
+              <img
+                src={mainImage}
+                alt={product.name}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                data-testid={`img-product-${product.id}`}
+              />
+            ) : (
+              <Package className="w-20 h-20 text-muted-foreground/30" data-testid={`icon-placeholder-${product.id}`} />
+            )}
+          </div>
           <CardContent className="p-6">
-            <div className="aspect-square bg-muted rounded-md mb-4 overflow-hidden flex items-center justify-center">
-              {mainImage ? (
-                <img
-                  src={mainImage}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  data-testid={`img-product-${product.id}`}
-                />
-              ) : (
-                <Package className="w-16 h-16 text-muted-foreground/30" data-testid={`icon-placeholder-${product.id}`} />
-              )}
-            </div>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-lg line-clamp-2 break-words min-w-0 flex-1" data-testid={`text-product-name-${product.id}`}>
+                <h3 className="font-semibold text-base line-clamp-2 break-words min-w-0 flex-1" data-testid={`text-product-name-${product.id}`}>
                   {product.shortName || product.name}
                 </h3>
-                <Badge variant="secondary" className="text-xs whitespace-nowrap flex-shrink-0" data-testid={`badge-brand-${product.id}`}>
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-muted-foreground font-mono" data-testid={`text-sku-${product.id}`}>
+                  {product.sku}
+                </p>
+                <Badge variant="secondary" className="text-xs" data-testid={`badge-brand-${product.id}`}>
                   {product.brand}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground font-mono" data-testid={`text-sku-${product.id}`}>
-                SKU: {product.sku}
-              </p>
-              <p className="text-sm text-chart-3 font-medium" data-testid={`text-price-on-request-${product.id}`}>
-                Price on request
-              </p>
             </div>
           </CardContent>
         </div>

@@ -2,15 +2,16 @@
 
 ## Design Approach
 
-**Selected Approach**: Design System – Material Design principles adapted for industrial B2B
-
-**Rationale**: Industrial product showcase requires clarity, trust, and efficient information hierarchy. Material Design provides the structure while allowing professional customization for the technical sector.
+**Inspiration**: Hoseflex.com design style – clean, modern, image-focused industrial aesthetic
+**Branding**: deWater Products colors (#48c5db cyan, #5e5e5e gray)
 
 **Core Principles**:
-- Trust through consistency and professionalism
-- Clarity in product information and navigation
-- Efficiency in quote generation process
-- Authority positioning in industrial market
+- Clean, modern card-based design system
+- Large, professional product photography
+- Generous white space for breathing room
+- Strong visual hierarchy with clear CTAs
+- Image-heavy presentation for industrial products
+- Trust through professionalism and clarity
 
 ## Color Palette
 
@@ -24,8 +25,8 @@
 **Neutral Colours**:
 - Foreground Text: 0 0% 15% (dark gray for body text)
 - Pure White: 0 0% 100% (backgrounds)
-- Light Gray: 0 0% 94-98% (subtle backgrounds, cards)
-- Muted Cyan: 187 15% 92% (backgrounds, subtle highlights)
+- Light Gray: 0 0% 96-98% (subtle backgrounds, cards)
+- Muted Cyan: 187 15% 95% (backgrounds, subtle highlights)
 
 **Accent Colours**:
 - Warm Orange: 25 95% 35% (WCAG AA compliant CTAs, complements cyan)
@@ -38,101 +39,157 @@
 - Cards: 0 0% 12% (elevated surfaces)
 - Foreground Text: 0 0% 95% (light gray for readability)
 
-**Accessibility (WCAG AA Compliant)**:
-- All action buttons achieve ≥4.5:1 contrast ratio with white text
-- Primary cyan: 187 85% 25% (25% lightness ensures >4.5:1 contrast)
-- Accent orange: 25 95% 35% (35% lightness ensures >4.5:1 contrast)
-- Body text: 0 0% 15% on white backgrounds exceeds minimum standards
-- Borders and non-critical accents use lighter tints (57% lightness) for visual hierarchy
-
 ## Typography
 
 **Font Families** (via Google Fonts):
-- Headings: Inter (600, 700) – modern, professional
-- Body: Inter (400, 500) – exceptional readability
-- Technical/Data: JetBrains Mono (400) – specifications, SKUs
+- All text: Inter (400, 500, 600, 700) – modern, clean, professional
+- Technical/Data: JetBrains Mono (400) – specifications, SKUs only
 
 **Scale**:
-- Hero Headlines: text-5xl to text-6xl, font-bold
+- Hero Headlines: text-4xl to text-6xl, font-bold
 - Section Headings: text-3xl to text-4xl, font-semibold
-- Product Titles: text-xl to text-2xl, font-semibold
+- Subsection Labels: text-sm uppercase tracking-wider text-primary (e.g., "who we are")
+- Product Titles: text-lg to text-xl, font-semibold
 - Body Copy: text-base, font-normal
-- Technical Details: text-sm, mono
+- Card Labels: text-sm, font-medium
 
 ## Layout System
 
-**Spacing Primitives**: Tailwind units of 4, 6, 8, 12, 16, 20, 24 (py-8, px-6, gap-12, etc.)
+**Spacing**: Generous white space between sections (py-16 to py-24), moderate internal padding (p-6 to p-8)
 
 **Grid Structure**:
-- Product grids: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
-- Feature sections: grid-cols-1 lg:grid-cols-2
-- Technical specs: grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+- Product category cards: grid-cols-2 md:grid-cols-3 lg:grid-cols-3 (large cards with images)
+- Projects/blog: grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+- Industry links: grid-cols-2 md:grid-cols-3 lg:grid-cols-4 (simple text links)
 
 **Container Strategy**:
-- Main content: max-w-7xl mx-auto px-6
-- Mega-menu: full-width with max-w-7xl inner
-- Product detail: max-w-6xl
+- Main content: max-w-7xl mx-auto px-6 lg:px-8
+- Full-width sections with inner max-w-7xl
+- Consistent horizontal padding throughout
 
 ## Component Library
 
-### Navigation
-**Mega-Menu**: Multi-column dropdowns with category thumbnails, hover reveals subcategories, sticky header on scroll with elevation shadow
+### Hero Section (Hoseflex Style)
+- Large, bold headline with company tagline
+- Simple, clean background (light gradient or subtle image)
+- Centered text with clear hierarchy
+- Primary CTA button: "VIEW ALL PRODUCTS" or "REQUEST QUOTE"
+- Optional: search bar integration
+- Height: min-h-[60vh] for impact
 
-**Sticky Quote Button**: Fixed bottom-right (lg:top-right), floating with shadow-xl, shows item count badge, primary blue background
+### Product Category Cards
+- Large card with featured product image
+- Image fills card with subtle overlay
+- Category name overlaid on image (bottom-left or centered)
+- "View all" link or arrow icon
+- Hover effect: slight scale and brightness increase
+- Border-radius: rounded-lg
+- Shadow: subtle shadow-md, hover shadow-xl
 
-### Product Components
-**Product Cards**: White/dark cards with shadow-md, hover shadow-lg transition, product image (aspect-square), title, SKU, price (if available), "Add to Quote" button (variant="default", full-width)
+### About Section ("Who We Are" Style)
+- Section label: uppercase, tracking-wider, text-primary, text-sm
+- Large heading: text-3xl to text-4xl, font-semibold
+- Descriptive paragraph
+- Image gallery: 2-4 images showing team, facility, products
+- "Learn More" CTA button
 
-**Category Hubs**: Hero banner with category image overlay, grid of subcategories with icons, brief application descriptions
+### Projects/Case Studies Section
+- Grid of project cards
+- Each card: featured image, category tag, project title
+- Hover effect on cards
+- "VIEW ALL" link above grid
+- Clean, modern card design
 
-**Technical Specs Table**: Striped rows, clear hierarchy, responsive stack on mobile
+### Blog/News Section
+- Card-based layout with featured images
+- Each card: image, date, category, title, excerpt
+- "read more" links on each card
+- "VIEW ALL" link above section
 
-### Quote Cart System
-**Quote Cart Panel**: Slide-in from right, two sections (Priced Items with subtotal, Items Requiring Quote with orange header), remove buttons, prominent "Submit Quote" CTA, "Continue Browsing" secondary action
+### Industry Solutions
+- Simple grid of text links
+- Clean typography, no images needed
+- Organized by relevance
+- Light hover effect (underline or color change)
 
-**RFQ Form**: Clean multi-step or single-page with sections, includes quote cart summary, contact fields, special requirements textarea, file upload for drawings/specs
+## Navigation
 
-### Trust Elements
-**Brand Logos Section**: Grayscale logos on hover colored, grid layout
-**Certifications/Standards**: Badge display on product pages and footer
-**Industry Applications**: Icon + title cards linking to industry pages
+**Header Style**:
+- Larger logo (68-80px height)
+- Minimal vertical padding (py-1.5 to py-2)
+- Clean, modern menu structure
+- Products, Industries, More dropdowns
+- Contact info integrated into header
+- Search bar prominent
+- Quote cart button
+
+**Mega-Menu**:
+- Multi-column grid layout
+- Category titles clickable
+- Subcategory lists under each category
+- Clean white background with subtle shadow
+- Quick fade-in animation
 
 ## Images
 
-**Hero Section**: Large (60vh to 70vh) industrial photography – close-up of pipe fittings, valve assembly, or industrial facility. Blue overlay (opacity-30) maintaining brand color. Centered headline with CTA buttons.
+**Product Category Images**: Large, high-quality product photography on white or industrial backgrounds, 16:9 or 4:3 aspect ratio
 
-**Product Photography**: Clean white background product shots, 1:1 aspect ratio, consistent lighting. Multiple angles for product detail pages. Lifestyle images showing installation contexts for category hubs.
+**Hero Images**: Wide industrial scenes, pipeline installations, or product close-ups with text overlay capability
 
-**Category Hubs**: Header images showing products in use – industrial facilities, pipeline installations, valve assemblies.
+**About/Team Images**: Professional facility photos, team at work, manufacturing process
 
-**Brand Pages**: Brand logo + hero image of their facilities or product range.
+**Project Images**: Real installation photos, before/after, industrial settings
+
+**Blog Images**: Relevant product or industry photography
 
 ## Page-Specific Layouts
 
-**Homepage**: Hero with quote CTA → Featured product categories (4-column grid) → Brand showcase → Industry applications → Resources section → Trust badges/certifications
+**Homepage**:
+1. Hero section with headline + tagline + CTA
+2. Product category cards (grid of 6)
+3. Industry solutions (simple link grid)
+4. About section ("who we are")
+5. Projects section (featured projects)
+6. Blog/news section (latest posts)
+7. Footer
 
-**Product Category Pages**: Category hero → Filter sidebar (left) + product grid (right) → Pagination → Related categories
+**Product Category Pages**:
+- Category hero with title
+- Grid of products
+- Filter options (sidebar or top)
+- Clean, modern product cards
 
-**Product Detail**: Breadcrumbs → 2-column (images left, details right) → Specs table → Related products → Downloads section
+**Product Detail Pages**:
+- Breadcrumbs
+- Large product images (left)
+- Product details (right)
+- Specifications
+- "Add to Quote" CTA
+- Related products
 
-**Brand Hub**: Brand story header → Product categories they supply → Certifications → Featured products
-
-**Industry Pages**: Industry hero → Common challenges → Recommended products by category → Case studies/applications
+**About Page**:
+- Company story
+- Image gallery
+- Team/facility showcase
+- Values and mission
 
 ## Interaction Details
 
-**Hover States**: Subtle scale (1.02) on cards, color shift on buttons, underline on text links
+**Card Hovers**: Scale to 1.02-1.03, shadow increase, smooth transition (200-300ms)
 
-**Add to Quote**: Success toast notification, item count badge animation on sticky button
+**Button Hovers**: Slight darkening/lightening, no dramatic changes
 
-**Mega-Menu**: 200ms fade-in, backdrop blur, clear active state indicators
+**Image Overlays**: Dark overlay (opacity-30 to opacity-50) on category cards for text readability
 
-**Mobile**: Hamburger menu, collapsible mega-menu sections, sticky quote cart button (bottom), touch-optimised button sizes (min h-12)
+**Smooth Scrolling**: All internal navigation uses smooth scroll behavior
+
+**Loading States**: Skeleton screens for product grids, smooth content reveals
 
 ## Technical Considerations
 
-**Performance**: Lazy-load product images, optimised thumbnails for grids, CDN delivery
-**Accessibility**: ARIA labels on quote cart, keyboard navigation for mega-menu, sufficient color contrast (WCAG AA)
-**WordPress/WooCommerce**: Modular block-based design, custom product templates, ACF-friendly structure
+**Performance**: Optimized images, lazy loading, modern image formats (WebP)
+**Accessibility**: WCAG AA compliance, keyboard navigation, ARIA labels
+**Responsive**: Mobile-first approach, touch-friendly interfaces
+**WordPress Ready**: Modular design translatable to blocks/templates
 
-This professional, trust-building design positions deWater Products as an authoritative industrial supplier while streamlining the quote generation process.
+This clean, modern design mirrors Hoseflex's professional industrial aesthetic while maintaining deWater Products' unique brand identity.
