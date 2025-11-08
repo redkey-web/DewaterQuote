@@ -32,6 +32,8 @@ export interface SpecEntry {
 export interface SizeOption {
   value: string;
   label: string;
+  price?: number;
+  sku?: string;
 }
 
 export interface Product {
@@ -62,6 +64,9 @@ export interface Product {
   temperature?: string;
   applications?: string[];
   certifications?: string;
+  price?: number;
+  priceVaries?: boolean;
+  priceNote?: string;
 }
 
 export interface Subcategory {

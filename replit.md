@@ -9,12 +9,13 @@ The application is designed for professional industrial buyers who need quick ac
 ## Recent Changes (November 2025)
 
 ### Product Catalog Integration
-- **Expanded catalog**: Increased from 4 to 20 real products with comprehensive technical details and authentic product photography
-  - Valves (5 products): Butterfly Valve, Duckbill Check Valve, Foot Valve, Ball Valve, Gate Valve
+- **Expanded catalog with pricing**: Increased from 4 to 25+ real products with comprehensive technical details, pricing, and authentic product photography
+  - Valves (5 products): Butterfly Valve (with pricing), Duckbill Check Valve, Foot Valve, Ball Valve, Gate Valve
   - Pipe Couplings (8 products): Orbit Standard Coupling, Flex Grip L, Flex Grip S, Metal Lock L, Metal Lock S, Fire Protection Coupling, Open Flex 300-L, Open Flex 400-L
   - Pipe Repair Clamps (4 products): Orbit Pipe Repair Clamp 55mm, 200mm Wide, 300mm Wide, Elbow Repair Clamp
-  - Strainers (1 product): Y-Strainer
-  - Rubber Expansion Joints (1 product): Rubber Expansion Joint
+  - Strainers (3 products): Y-Strainer CF8M 316SS (with pricing), Simplex Basket Strainer 316SS (with pricing), Y-Strainer original
+  - Rubber Expansion Joints (2 products): FSF Single Sphere (with pricing), Rubber Expansion Joint original
+  - Flange Adaptors (1 product): 316SS Flange Adaptor (with pricing)
 - **Real product data**: All products sourced from live dewaterproducts.com.au site with authentic SKUs, specifications, and features
 - **Authentic product photography**: Orbit Couplings products now display real product images from the manufacturer
 - **Brand logo integration**: Orbit Couplings logo displayed on homepage brand section
@@ -34,6 +35,27 @@ The application is designed for professional industrial buyers who need quick ac
   - Open Flex 400-L (OCOF400L): Extra-large diameter coupling for heavy-duty applications
   - Orbit Pipe Repair Clamp 200mm Wide (OCRC200): Wide clamp with reinforced mesh backing
   - Orbit Pipe Repair Clamp 300mm Wide (OCRC300): Heavy-duty clamp for extensive leak coverage
+
+### Product Pricing System (November 2025)
+- **Enhanced product schema**: Added pricing fields to Product interface
+  - `price`: Optional base price for simple products
+  - `priceVaries`: Boolean to indicate variable pricing by size/variation
+  - `priceNote`: Optional pricing disclaimer or notes
+  - Enhanced `SizeOption` interface with `price` and `sku` fields per variation
+- **Product detail page pricing table**: When `priceVaries` is true, displays comprehensive pricing table
+  - Shows all available sizes with individual SKUs and prices
+  - Striped row styling for readability
+  - Prices displayed excluding GST with clear labeling
+  - "POA" (Price on Application) shown for sizes without pricing
+  - Maintains dropdown selector for products without pricing
+- **Realistic pricing data**: Added authentic pricing tiers for 5 products
+  - Butterfly Valve CF8M 316SS: $285-$1425 (9 sizes)
+  - Y-Strainer CF8M 316SS: $395-$1895 (7 sizes)
+  - FSF Single Sphere Expansion Joint: $174-$595 (10 sizes)
+  - Simplex Basket Strainer 316SS: $625-$2895 (9 sizes)
+  - Stainless Steel Flange Adaptor: $195-$795 (7 sizes)
+- **Product SKU structure**: Each size variation has unique SKU (e.g., BFLYW316-50, BFLYW316-80)
+- **Pricing notes**: Custom disclaimers per product for optional upgrades and custom sizes
 
 ### Request for Quote (RFQ) System
 - **Complete RFQ form**: Built comprehensive quote request form at `/request-quote`

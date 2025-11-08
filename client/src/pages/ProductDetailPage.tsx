@@ -149,24 +149,62 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
               </div>
             </div>
 
-            {/* Size Selection */}
+            {/* Size and Pricing Options */}
             {product.sizeOptions && product.sizeOptions.length > 0 && (
               <div className="mb-6">
-                <label className="text-sm font-medium mb-2 block">
-                  Size - please check product sizing before ordering
-                </label>
-                <Select value={selectedSize} onValueChange={setSelectedSize}>
-                  <SelectTrigger data-testid="select-size">
-                    <SelectValue placeholder="Select size" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {product.sizeOptions.map((size) => (
-                      <SelectItem key={size.value} value={size.value}>
-                        {size.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                {product.priceVaries ? (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-4">Available Sizes & Pricing</h3>
+                    {product.priceNote && (
+                      <p className="text-sm text-muted-foreground mb-4">{product.priceNote}</p>
+                    )}
+                    <div className="border rounded-md overflow-hidden">
+                      <table className="w-full">
+                        <thead className="bg-muted">
+                          <tr>
+                            <th className="text-left p-3 font-semibold">Size</th>
+                            {product.sizeOptions?.some(s => s.sku) && (
+                              <th className="text-left p-3 font-semibold">SKU</th>
+                            )}
+                            <th className="text-right p-3 font-semibold">Price (ex GST)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {product.sizeOptions?.map((size, idx) => (
+                            <tr key={size.value} className={idx % 2 === 0 ? 'bg-background' : 'bg-muted/30'}>
+                              <td className="p-3">{size.label}</td>
+                              {product.sizeOptions?.some(s => s.sku) && (
+                                <td className="p-3 text-sm text-muted-foreground">{size.sku || '-'}</td>
+                              )}
+                              <td className="p-3 text-right font-medium">
+                                {size.price ? `$${size.price.toFixed(2)}` : 'POA'}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-2">Prices shown exclude GST. Add your required sizes to quote for final pricing.</p>
+                  </div>
+                ) : (
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">
+                      Size - please check product sizing before ordering
+                    </label>
+                    <Select value={selectedSize} onValueChange={setSelectedSize}>
+                      <SelectTrigger data-testid="select-size">
+                        <SelectValue placeholder="Select size" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {product.sizeOptions.map((size) => (
+                          <SelectItem key={size.value} value={size.value}>
+                            {size.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
               </div>
             )}
 

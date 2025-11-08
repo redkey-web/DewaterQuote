@@ -31,15 +31,15 @@ export const products: Product[] = [
     ],
     certifications: "Manufactured to ISO 9001 quality standards. PTFE seat material complies with relevant food-grade and potable water standards.",
     sizeOptions: [
-      { value: "50mm", label: "50mm DN50 (2\") Nominal Bore sizing" },
-      { value: "65mm", label: "65mm" },
-      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore sizing" },
-      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore sizing" },
-      { value: "125mm", label: "125mm" },
-      { value: "150mm", label: "150mm" },
-      { value: "200mm", label: "200mm" },
-      { value: "250mm", label: "250mm" },
-      { value: "300mm", label: "300mm" }
+      { value: "50mm", label: "50mm DN50 (2\") Nominal Bore sizing", price: 285, sku: "BFLYW316-50" },
+      { value: "65mm", label: "65mm", price: 325, sku: "BFLYW316-65" },
+      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore sizing", price: 375, sku: "BFLYW316-80" },
+      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore sizing", price: 425, sku: "BFLYW316-100" },
+      { value: "125mm", label: "125mm", price: 525, sku: "BFLYW316-125" },
+      { value: "150mm", label: "150mm", price: 625, sku: "BFLYW316-150" },
+      { value: "200mm", label: "200mm", price: 825, sku: "BFLYW316-200" },
+      { value: "250mm", label: "250mm", price: 1125, sku: "BFLYW316-250" },
+      { value: "300mm", label: "300mm", price: 1425, sku: "BFLYW316-300" }
     ],
     images: [
       { url: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg", alt: "Butterfly Valve - CF8M Full 316 Stainless Steel", type: "image" },
@@ -52,7 +52,9 @@ export const products: Product[] = [
       seat: "PTFE"
     },
     pressureRange: "0-16 BAR",
-    sizeFrom: "50mm"
+    sizeFrom: "50mm",
+    priceVaries: true,
+    priceNote: "Please check product sizing carefully before ordering. All prices exclude GST."
   },
 
   // Duckbill Check Valve
@@ -828,6 +830,227 @@ export const products: Product[] = [
     sizeFrom: "80mm",
     applications: ["Water distribution", "Sewerage systems", "Fire protection", "Irrigation"],
     certifications: "WRAS-approved EPDM seals for potable water. Manufactured to AS/NZS 2638 standards. Suitable for underground installation."
+  },
+
+  // Y Strainer - CF8M 316 Stainless Steel
+  {
+    id: "SSYS",
+    slug: "stainless-steel-y-strainer-cf8m-flanged-ansi-150lb",
+    sku: "SSYS",
+    name: "Stainless Steel Y Strainer CF8M Flanged ANSI 150LB",
+    shortName: "CF8M Y Strainer",
+    brand: "Defender",
+    category: "strainers",
+    subcategory: "y-strainer",
+    description: "Permanent pipeline strainer for filtering debris with 316 stainless steel body. Y-shaped design allows horizontal or vertical installation. Ideal for pre-pump filtration and applications requiring infrequent cleaning.",
+    features: [
+      "316 stainless steel CF8M body for corrosion resistance",
+      "Removable 316SS internal filter screen",
+      "1mm mesh standard (other mesh sizes available)",
+      "Rated to ANSI 150LB / PN20",
+      "Horizontal or vertical installation",
+      "Compact Y-shape design for tight spaces",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "SSYS" },
+      { label: "Brand", value: "Defender" },
+      { label: "Body Material", value: "CF8M (Cast 316 stainless steel)" },
+      { label: "Screen Material", value: "316 stainless steel" },
+      { label: "Mesh Size", value: "1mm standard" },
+      { label: "Pressure Rating", value: "ANSI 150LB / PN20" },
+      { label: "Flange Standard", value: "ANSI 150LB" }
+    ],
+    certifications: "Manufactured to ISO 9001 quality standards. 316 stainless steel construction suitable for potable water, corrosive fluids, and demanding industrial applications.",
+    sizeOptions: [
+      { value: "50mm", label: "DN50 (2\")", price: 395, sku: "SSYS-50" },
+      { value: "80mm", label: "DN80 (3\")", price: 495, sku: "SSYS-80" },
+      { value: "100mm", label: "DN100 (4\")", price: 595, sku: "SSYS-100" },
+      { value: "150mm", label: "DN150 (6\")", price: 795, sku: "SSYS-150" },
+      { value: "200mm", label: "DN200 (8\")", price: 1095, sku: "SSYS-200" },
+      { value: "250mm", label: "DN250 (10\")", price: 1495, sku: "SSYS-250" },
+      { value: "300mm", label: "DN300 (12\")", price: 1895, sku: "SSYS-300" }
+    ],
+    images: [
+      { url: "/images/products/strainers/y-strainer-316ss.jpg", alt: "Stainless Steel Y Strainer CF8M", type: "image" }
+    ],
+    leadTime: "7-10 days if nil stock",
+    materials: {
+      body: "CF8M/316SS"
+    },
+    pressureRange: "0-20 BAR",
+    sizeFrom: "50mm",
+    applications: ["Pre-pump protection", "Process water", "Chemical plants", "Food & beverage", "Marine", "Mining"],
+    priceVaries: true,
+    priceNote: "Prices shown are for standard 1mm mesh. Other mesh sizes available on request. All prices exclude GST."
+  },
+
+  // FSF Single Sphere Rubber Expansion Joint
+  {
+    id: "FSFREJ",
+    slug: "fsf-single-sphere-rubber-expansion-joint-zinc-flanges",
+    sku: "FSFREJ",
+    name: "FSF Single Sphere Rubber Expansion Joint - Table E / ANSI 150LB Zinc Flanges",
+    shortName: "FSF Single Sphere",
+    brand: "Defender",
+    category: "rubber-expansion-joints",
+    subcategory: "single-sphere",
+    description: "Economical single sphere rubber expansion joint for vibration elimination, expansion, contraction, and angular movement. Molded spherical design with EPDM rubber element and zinc-plated steel flanges. Suitable for both suction and discharge pipes.",
+    features: [
+      "Moulded single sphere design for flexibility",
+      "Handles one movement at a time (compression OR extension OR angular)",
+      "EPDM rubber element with WRAS approval for potable water",
+      "Zinc-plated steel flanges - Table E or ANSI 150LB",
+      "Pressure rating: 7.5 to 16 Bar",
+      "Vacuum rating: Up to 600mm Hg (vacuum ring available for higher negative pressure)",
+      "Size range DN32 to DN600",
+      "12 months warranty (24 months available on request)"
+    ],
+    specifications: [
+      { label: "SKU", value: "FSFREJ" },
+      { label: "Brand", value: "Defender" },
+      { label: "Element Material", value: "EPDM rubber" },
+      { label: "Flange Material", value: "Zinc-plated steel" },
+      { label: "Flange Standard", value: "AS2129 Table E / ANSI 150LB" },
+      { label: "Pressure Rating", value: "7.5-16 Bar" },
+      { label: "Vacuum Rating", value: "600mm Hg (without vacuum ring)" }
+    ],
+    certifications: "EPDM rubber WRAS-approved for potable water use. Suitable for pumps, de-watering, mining, power generation, waste water treatment, marine, and HVAC applications.",
+    sizeOptions: [
+      { value: "32mm", label: "DN32", price: 174, sku: "FSFREJ-32" },
+      { value: "50mm", label: "DN50 (2\")", price: 195, sku: "FSFREJ-50" },
+      { value: "65mm", label: "DN65", price: 215, sku: "FSFREJ-65" },
+      { value: "80mm", label: "DN80 (3\")", price: 235, sku: "FSFREJ-80" },
+      { value: "100mm", label: "DN100 (4\")", price: 265, sku: "FSFREJ-100" },
+      { value: "125mm", label: "DN125 (5\")", price: 295, sku: "FSFREJ-125" },
+      { value: "150mm", label: "DN150 (6\")", price: 325, sku: "FSFREJ-150" },
+      { value: "200mm", label: "DN200 (8\")", price: 395, sku: "FSFREJ-200" },
+      { value: "250mm", label: "DN250 (10\")", price: 495, sku: "FSFREJ-250" },
+      { value: "300mm", label: "DN300 (12\")", price: 595, sku: "FSFREJ-300" }
+    ],
+    images: [
+      { url: "/images/products/expansion-joints/fsf-single-sphere.jpg", alt: "FSF Single Sphere Rubber Expansion Joint", type: "image" }
+    ],
+    leadTime: "5-7 days if nil stock",
+    materials: {
+      body: "EPDM/Zinc plated flanges"
+    },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "32mm",
+    applications: ["Pumps", "De-watering", "Mining", "Power generation", "Waste water treatment", "Marine", "HVAC", "Industrial air compressors"],
+    priceVaries: true,
+    priceNote: "Optional upgrades: 316SS flanges, vacuum rings, control rods, PTFE lining. Contact us for custom requirements."
+  },
+
+  // Simplex Basket Strainer
+  {
+    id: "SBSANSI",
+    slug: "simplex-basket-strainer-316-ss-flanged-ansi-150lb",
+    sku: "SBSANSI",
+    name: "ANSI 150LB 316SS Simplex Basket Strainer",
+    shortName: "Simplex Basket Strainer",
+    brand: "Defender",
+    category: "strainers",
+    subcategory: "simplex-basket-strainer",
+    description: "Single basket strainer with higher flow rates and easier cleaning than Y strainers. 316 stainless steel body with removable perforated basket for frequent maintenance applications. Less pressure drop and head loss compared to Y strainers.",
+    features: [
+      "316 stainless steel body and basket",
+      "Larger filtration area than Y strainers",
+      "Easy basket removal for cleaning",
+      "Lower pressure drop than Y strainers",
+      "Uni-directional flow design",
+      "Quick-open cover (optional)",
+      "Multiple mesh sizes available",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "SBSANSI" },
+      { label: "Brand", value: "Defender" },
+      { label: "Body Material", value: "316 stainless steel" },
+      { label: "Basket Material", value: "316SS perforated" },
+      { label: "Pressure Rating", value: "ANSI 150LB" },
+      { label: "Flange Standard", value: "ANSI Class 150" },
+      { label: "Flow Direction", value: "Uni-directional" }
+    ],
+    certifications: "Manufactured to ISO 9001 quality standards. 316 stainless steel construction suitable for corrosive environments and potable water applications.",
+    sizeOptions: [
+      { value: "50mm", label: "DN50 (2\")", price: 625, sku: "SBSANSI-50" },
+      { value: "65mm", label: "DN65", price: 695, sku: "SBSANSI-65" },
+      { value: "80mm", label: "DN80 (3\")", price: 795, sku: "SBSANSI-80" },
+      { value: "100mm", label: "DN100 (4\")", price: 925, sku: "SBSANSI-100" },
+      { value: "125mm", label: "DN125 (5\")", price: 1095, sku: "SBSANSI-125" },
+      { value: "150mm", label: "DN150 (6\")", price: 1295, sku: "SBSANSI-150" },
+      { value: "200mm", label: "DN200 (8\")", price: 1695, sku: "SBSANSI-200" },
+      { value: "250mm", label: "DN250 (10\")", price: 2295, sku: "SBSANSI-250" },
+      { value: "300mm", label: "DN300 (12\")", price: 2895, sku: "SBSANSI-300" }
+    ],
+    images: [
+      { url: "/images/products/strainers/simplex-basket-strainer-316ss.jpg", alt: "Simplex Basket Strainer 316SS", type: "image" }
+    ],
+    leadTime: "10-14 days if nil stock",
+    materials: {
+      body: "316SS"
+    },
+    pressureRange: "0-20 BAR",
+    sizeFrom: "50mm",
+    applications: ["Process water", "Chemical plants", "Food & beverage", "Pharmaceuticals", "Corrosive fluids", "High-flow applications"],
+    priceVaries: true,
+    priceNote: "Optional: quick-open covers, differential pressure gauges, custom mesh sizes. Duplex 2205 stainless steel available on request."
+  },
+
+  // Flange Adaptor
+  {
+    id: "SSFA",
+    slug: "stainless-steel-flange-adapter-316ss-epdm",
+    sku: "SSFA",
+    name: "Stainless Steel Flange Adapter - 316SS Body with EPDM Seal",
+    shortName: "316SS Flange Adaptor",
+    brand: "Defender",
+    category: "flange-adaptors",
+    subcategory: "flange-adaptor",
+    description: "Versatile flange adaptor for connecting plain-ended pipes to flanged equipment. 316 stainless steel construction with EPDM seal. Suitable for pipe OD range 30mm to 4064mm. Wide range of flange specifications available.",
+    features: [
+      "316 stainless steel body for corrosion resistance",
+      "EPDM or NBR sealing gasket options",
+      "Connects plain-ended pipe to flanged equipment",
+      "Wide size range: 30mm to 4064mm OD",
+      "Multiple flange standards available",
+      "Pressure rated to PN16 standard sizes",
+      "Custom sizes and specifications available",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "SSFA" },
+      { label: "Brand", value: "Defender" },
+      { label: "Body Material", value: "316 stainless steel" },
+      { label: "Seal Material", value: "EPDM (NBR available)" },
+      { label: "Pressure Rating", value: "PN16 (standard sizes)" },
+      { label: "Flange Standards", value: "AS2129 Table D/E, AS4087 PN16, ANSI 150LB" },
+      { label: "Size Range", value: "30mm to 4064mm OD" }
+    ],
+    certifications: "WRAS-approved EPDM seals for potable water. Manufactured to ISO 9001 quality standards. Suitable for water distribution, sewerage, and industrial applications.",
+    sizeOptions: [
+      { value: "50mm", label: "DN50 (2\") - 60.3mm OD", price: 195, sku: "SSFA-50" },
+      { value: "80mm", label: "DN80 (3\") - 88.9mm OD", price: 245, sku: "SSFA-80" },
+      { value: "100mm", label: "DN100 (4\") - 114.3mm OD", price: 295, sku: "SSFA-100" },
+      { value: "150mm", label: "DN150 (6\") - 168.3mm OD", price: 395, sku: "SSFA-150" },
+      { value: "200mm", label: "DN200 (8\") - 219.1mm OD", price: 495, sku: "SSFA-200" },
+      { value: "250mm", label: "DN250 (10\") - 273mm OD", price: 625, sku: "SSFA-250" },
+      { value: "300mm", label: "DN300 (12\") - 323.9mm OD", price: 795, sku: "SSFA-300" }
+    ],
+    images: [
+      { url: "/images/products/flange-adaptors/ss-flange-adapter-316.jpg", alt: "Stainless Steel Flange Adapter 316SS", type: "image" }
+    ],
+    leadTime: "10-14 days if nil stock",
+    materials: {
+      body: "316SS",
+      seat: "EPDM"
+    },
+    pressureRange: "0-16 BAR",
+    sizeFrom: "50mm",
+    applications: ["Water distribution", "Sewerage", "Mining", "Industrial process", "Desalination", "Pipe repair"],
+    priceVaries: true,
+    priceNote: "Custom sizes over 300mm available on request. Contact us for large diameter and special flange specifications."
   }
 ];
 
