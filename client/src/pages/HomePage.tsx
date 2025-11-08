@@ -62,8 +62,8 @@ export default function HomePage() {
       {/* Hero Section - Hoseflex Style */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
+          className="absolute inset-0 bg-cover"
+          style={{ backgroundImage: `url(${heroImage})`, backgroundPosition: 'center 30%' }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
         
