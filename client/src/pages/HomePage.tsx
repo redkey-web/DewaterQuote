@@ -65,7 +65,7 @@ export default function HomePage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center py-20">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">
