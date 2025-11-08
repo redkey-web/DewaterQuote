@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle, Users, Award, Clock } from "lucide-react";
-const heroImage = "/images/hero-pipes.png";
+const heroImage = "/images/hero-pipes.webp";
 
 export default function HomePage() {
   const productCategories = [
