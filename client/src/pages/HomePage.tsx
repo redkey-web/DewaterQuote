@@ -63,7 +63,7 @@ export default function HomePage() {
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover"
-          style={{ backgroundImage: `url(${heroImage})`, backgroundPosition: 'center 30%' }}
+          style={{ backgroundImage: `url(${heroImage})`, backgroundPosition: 'center 15%' }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
         
