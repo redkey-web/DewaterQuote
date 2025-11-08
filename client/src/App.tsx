@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -22,10 +22,28 @@ import IndustryPage from "@/pages/IndustryPage";
 import NotFound from "@/pages/not-found";
 import type { Product } from "@shared/schema";
 
+const QUOTE_STORAGE_KEY = "dewater_quote_items";
+
 function Router() {
   const [, navigate] = useLocation();
-  const [quoteItems, setQuoteItems] = useState<Product[]>([]);
+  const [quoteItems, setQuoteItems] = useState<Product[]>(() => {
+    try {
+      const stored = localStorage.getItem(QUOTE_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error("Failed to load quote items from localStorage:", error);
+      return [];
+    }
+  });
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(QUOTE_STORAGE_KEY, JSON.stringify(quoteItems));
+    } catch (error) {
+      console.error("Failed to save quote items to localStorage:", error);
+    }
+  }, [quoteItems]);
 
   const handleAddToQuote = (product: Product) => {
     const exists = quoteItems.find((item) => item.id === product.id);

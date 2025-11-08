@@ -65,6 +65,11 @@ The application is designed for professional industrial buyers who need quick ac
   - Success confirmation page after submission
   - Quote cart automatically cleared after successful submission
 - **Quote cart integration**: Connected RFQ form to existing quote cart state in App.tsx
+- **localStorage persistence**: Quote cart items now persist across page navigation and browser refreshes
+  - Items stored in localStorage under key "dewater_quote_items"
+  - State initialized from localStorage on component mount
+  - Automatic sync to localStorage on every state change
+  - Error handling with try/catch and console logging
 - **SPA navigation**: Updated to use Wouter's `navigate()` instead of `window.location` for consistent routing
 
 ### Navigation System Fixes (November 2025)
