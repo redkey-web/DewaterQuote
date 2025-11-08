@@ -79,12 +79,12 @@ export default function HomePage() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/products">
-              <Button size="lg" className="bg-primary text-primary-foreground border border-primary-border" data-testid="button-view-products">
+              <Button size="lg" className="bg-[#48c5db] text-white border border-[#48c5db] hover:bg-[#3ab0c5]" data-testid="button-view-products">
                 View Product Range <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
             <Link href="/request-quote">
-              <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20" data-testid="button-request-quote">
+              <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm text-white border-[#48c5db] hover:bg-[#48c5db]/20" data-testid="button-request-quote">
                 Request a Trade Quote
               </Button>
             </Link>
