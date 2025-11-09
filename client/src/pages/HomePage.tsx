@@ -16,11 +16,6 @@ const heroImage = "/images/hero-pipes.webp";
 export default function HomePage() {
   const productCategories = [
     {
-      name: "Stainless Steel Hoses",
-      url: "/pipe-couplings",
-      image: "/images/products/orbit/orbit-standard-coupling.jpg",
-    },
-    {
       name: "Valves",
       url: "/valves",
       image: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg",
@@ -29,11 +24,6 @@ export default function HomePage() {
       name: "Pipe Couplings",
       url: "/pipe-couplings/pipe-couplings",
       image: "/images/products/orbit/flex-grip-l.jpg",
-    },
-    {
-      name: "Fittings and Couplings",
-      url: "/pipe-repair-clamps",
-      image: "/images/products/orbit/orbit-pipe-repair-clamp-55mm.jpg",
     },
     {
       name: "Expansion Joints",
@@ -173,7 +163,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
-                    <div className="flex items-center text-white/90 text-sm font-medium">
+                    <div className="flex items-center text-primary text-sm font-medium">
                       View all <ArrowRight className="ml-2 w-4 h-4" />
                     </div>
                   </div>
