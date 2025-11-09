@@ -1,224 +1,72 @@
 # deWater Products - Industrial Pipe Fittings Website
 
 ## Overview
-
-deWater Products is a B2B e-commerce website for industrial pipe fittings, valves, couplings, expansion joints, and strainers. The site serves as a product catalog and quote request platform for industrial customers in Australia. It features product browsing by category and brand, with a quote-based purchasing workflow rather than traditional e-commerce cart checkout.
-
-The application is designed for professional industrial buyers who need quick access to technical specifications, SKU information, and pricing for plumbing and pipe fitting components from brands like Straub, Orbit, and Teekay.
-
-## Recent Changes (November 2025)
-
-### Product Catalog Integration
-- **Expanded catalog with pricing**: Increased from 4 to 25+ real products with comprehensive technical details, pricing, and authentic product photography
-  - Valves (5 products): Butterfly Valve (with pricing), Duckbill Check Valve, Foot Valve, Ball Valve, Gate Valve
-  - Pipe Couplings (8 products): Orbit Standard Coupling, Flex Grip L, Flex Grip S, Metal Lock L, Metal Lock S, Fire Protection Coupling, Open Flex 300-L, Open Flex 400-L
-  - Pipe Repair Clamps (4 products): Orbit Pipe Repair Clamp 55mm, 200mm Wide, 300mm Wide, Elbow Repair Clamp
-  - Strainers (3 products): Y-Strainer CF8M 316SS (with pricing), Simplex Basket Strainer 316SS (with pricing), Y-Strainer original
-  - Rubber Expansion Joints (2 products): FSF Single Sphere (with pricing), Rubber Expansion Joint original
-  - Flange Adaptors (1 product): 316SS Flange Adaptor (with pricing)
-- **Real product data**: All products sourced from live dewaterproducts.com.au site with authentic SKUs, specifications, and features
-- **Authentic product photography**: Orbit Couplings products now display real product images from the manufacturer
-- **Brand logo integration**: Orbit Couplings logo displayed on homepage brand section
-- **Centralized data model**: All products sourced from `shared/data/catalog.ts` with proper TypeScript types
-- **Organized image structure**: All Orbit product images consolidated into `/public/images/products/orbit/` for better organization and maintainability
-- **Category pages updated**: ValvesPage, ClampsCouplingsPage, StrainersPage, and ExpansionJointsPage now display real catalog products
-- **Product filtering**: ProductListPage filters products by subcategory using catalog helper functions
-- **Routing alignment**: Fixed subcategory navigation to match App.tsx route definitions
-- **Key product additions** (November 2025):
-  - Flex Grip L (OCFG-L): Long model flexible coupling for axial movement and vibration
-  - Flex Grip S (OCFG-S): Short model compact flexible coupling
-  - Metal Lock L (OCML-L): Long model with axial restraint and pull-out resistance
-  - Metal Lock S (OCML-S): Short model with axial restraint
-  - Fire Protection Coupling (OCFPC): IACS compliant for fire protection systems
-  - Elbow Repair Clamp (OCERC): Specialised clamp for elbow and bend repairs
-  - Open Flex 300-L (OCOF300L): Large diameter coupling for 220mm pipes
-  - Open Flex 400-L (OCOF400L): Extra-large diameter coupling for heavy-duty applications
-  - Orbit Pipe Repair Clamp 200mm Wide (OCRC200): Wide clamp with reinforced mesh backing
-  - Orbit Pipe Repair Clamp 300mm Wide (OCRC300): Heavy-duty clamp for extensive leak coverage
-
-### Product Pricing System (November 2025)
-- **Enhanced product schema**: Added pricing fields to Product interface
-  - `price`: Optional base price for simple products
-  - `priceVaries`: Boolean to indicate variable pricing by size/variation
-  - `priceNote`: Optional pricing disclaimer or notes
-  - Enhanced `SizeOption` interface with `price` and `sku` fields per variation
-- **Product detail page pricing table**: When `priceVaries` is true, displays comprehensive pricing table
-  - Shows all available sizes with individual SKUs and prices
-  - Striped row styling for readability
-  - Prices displayed excluding GST with clear labeling
-  - "POA" (Price on Application) shown for sizes without pricing
-  - Maintains dropdown selector for products without pricing
-- **Realistic pricing data**: Added authentic pricing tiers for 5 products
-  - Butterfly Valve CF8M 316SS: $285-$1425 (9 sizes)
-  - Y-Strainer CF8M 316SS: $395-$1895 (7 sizes)
-  - FSF Single Sphere Expansion Joint: $174-$595 (10 sizes)
-  - Simplex Basket Strainer 316SS: $625-$2895 (9 sizes)
-  - Stainless Steel Flange Adaptor: $195-$795 (7 sizes)
-- **Product SKU structure**: Each size variation has unique SKU (e.g., BFLYW316-50, BFLYW316-80)
-- **Pricing notes**: Custom disclaimers per product for optional upgrades and custom sizes
-
-### Request for Quote (RFQ) System
-- **Complete RFQ form**: Built comprehensive quote request form at `/request-quote`
-  - Form fields: Name, Email, Phone, Company (optional), Message (optional)
-  - Validation using react-hook-form with Zod schemas
-  - Displays all quote items with ability to remove individual items
-  - Success confirmation page after submission
-  - Quote cart automatically cleared after successful submission
-- **Quote cart integration**: Connected RFQ form to existing quote cart state in App.tsx
-- **localStorage persistence**: Quote cart items now persist across page navigation and browser refreshes
-  - Items stored in localStorage under key "dewater_quote_items"
-  - State initialized from localStorage on component mount
-  - Automatic sync to localStorage on every state change
-  - Error handling with try/catch and console logging
-- **SPA navigation**: Updated to use Wouter's `navigate()` instead of `window.location` for consistent routing
-
-### Navigation System Fixes (November 2025)
-- **Complete URL structure alignment**: Fixed all navigation components to use NEW URL structure consistently
-  - Header dropdown menu: Updated all category and subcategory URLs
-  - Made category titles clickable in Header dropdown navigation
-  - HomePage category cards: Changed URLs from old structure (/clamps-couplings, /expansion-joints) to new (/pipe-couplings, /rubber-expansion-joints)
-  - Footer product links: Updated to match new URL patterns
-- **ProductListPage critical fix**: Corrected product filtering logic
-  - Now properly determines category from matched route
-  - Passes BOTH category and subcategory parameters to getProductsBySubcategory()
-  - Maps URL subcategory keys to catalog subcategory identifiers
-  - Fixed issue where /pipe-couplings/pipe-couplings showed "No products available"
-- **Architect review**: PASS - All navigation components aligned with revised slug structure, product filtering restored
-
-### UI Improvements (November 2025)
-- **Added delivery notice to hero section**: "Free delivery to metro areas" displayed below hero CTA buttons
-  - Features small truck icon from Lucide React
-  - Uses white text at 90% opacity for subtle appearance on hero background
-  - Small font size (14px) to maintain focus on primary CTAs
-  - 16px spacing from buttons above for clean separation
-- **Enhanced header search bar** (November 2025):
-  - Removed delivery notice from header
-  - Made search bar more prominent with increased width (192px on large screens, 224px on extra-large)
-  - Updated placeholder text to "Search products..." for clarity
-  - Positioned first in contact info section for better visibility
-- **Updated colour scheme to match logo with WCAG AA compliance** (November 2025):
-  - Primary colour based on logo cyan (#48c5db) but darkened for accessibility
-  - Light mode primary: 187 85% 25% (achieves 6.4:1 contrast with white text)
-  - Dark mode primary: 187 75% 28% (achieves 5.8:1 contrast with white text)
-  - Accent orange: 25 95% 35% light mode, 25 90% 38% dark mode (both >4.5:1 contrast)
-  - All action buttons and interactive elements meet WCAG AA standards
-  - Logo cyan (#48c5db at 57% lightness) reserved for borders, accents, and highlights where contrast isn't critical
-  - Neutral grays based on logo gray (#5e5e5e)
-  - Subtle cyan glow on hover states with darker base for visibility
-
-### Testing & Verification
-- **E2E tests passed**: Complete user journey tested successfully
-  - Browse products by category (homepage cards and header dropdown)
-  - Navigate to category pages (/pipe-couplings, /valves, etc.)
-  - Navigate to subcategory pages (/pipe-couplings/pipe-couplings, /valves/gate-valves)
-  - View product details with certifications
-  - Add products to quote cart
-  - Submit quote requests through RFQ form
-  - Receive confirmation after submission
-  - All navigation links working without 404 errors
+deWater Products is a B2B e-commerce website for industrial pipe fittings, valves, couplings, expansion joints, and strainers, serving the Australian market. Its primary purpose is to function as a product catalog and a quote request platform for professional industrial buyers. The site emphasizes access to technical specifications, SKUs, and pricing for plumbing and pipe fitting components from brands like Straub, Orbit, and Teekay, operating on a quote-based purchasing model instead of direct e-commerce checkout. The project aims to provide comprehensive product details, transparent pricing, and an efficient request-for-quote process.
 
 ## User Preferences
-
 Preferred communication style: Simple, everyday language.
 
 ## System Architecture
 
+### UI/UX Decisions
+The design adheres to Material Design principles adapted for industrial B2B contexts, utilizing the "new-york" style variant within `shadcn/ui`. The color scheme is based on the deWater Products logo, featuring a primary cyan (`#39C2D9`) and an accent orange, both designed to meet WCAG AA compliance for accessibility. Typography uses Inter for general text and JetBrains Mono for technical data. The site supports both light and dark modes.
+
 ### Frontend Architecture
-
-**Framework**: React 18 with TypeScript, using Vite as the build tool and development server.
-
-**Routing**: Wouter (lightweight client-side routing library) handles navigation without full page reloads.
-
-**UI Component System**: Radix UI primitives with shadcn/ui styling patterns. The design follows Material Design principles adapted for industrial B2B contexts, using the "new-york" style variant.
-
-**Styling**: Tailwind CSS with custom CSS variables for theming. The color system supports both light and dark modes with industrial-focused colors (Deep Industrial Blue, Navy Accent, Steel Gray). Typography uses Inter for headings/body and JetBrains Mono for technical data.
-
-**State Management**: React Query (@tanstack/react-query) for server state. Local component state with useState for UI interactions like the quote cart.
-
-**Form Handling**: React Hook Form with Zod schema validation through @hookform/resolvers.
-
-**Key Features**:
-- Quote cart system (add products, view cart, submit quote requests)
-- Product catalog with filtering by category, brand, and industry
-- Responsive design with mobile-first approach
-- Interactive product finder matching industries to product categories
-- Sticky quote button for easy access to cart
-
-**Rationale**: This stack provides a modern, performant SPA with excellent TypeScript support. Vite offers fast HMR for development. The component library provides accessible, customizable components without building from scratch. React Query simplifies data fetching and caching.
+- **Framework**: React 18 with TypeScript, built with Vite.
+- **Routing**: Wouter for lightweight client-side navigation.
+- **UI Components**: Radix UI primitives styled with `shadcn/ui`.
+- **Styling**: Tailwind CSS with custom CSS variables for theming.
+- **State Management**: @tanstack/react-query for server state; `useState` for local component state, including a quote cart persisted in `localStorage`.
+- **Form Handling**: React Hook Form with Zod for validation.
+- **Key Features**: Product catalog with filtering, a comprehensive quote cart system, responsive design, and an interactive product finder.
 
 ### Backend Architecture
+- **Framework**: Express.js on Node.js with TypeScript.
+- **API Pattern**: RESTful API design.
+- **Development Server**: Vite integration for HMR and serving both client and API.
+- **Storage Interface**: Abstracted `IStorage` interface, currently with an in-memory implementation (`MemStorage`), designed for future database integration.
 
-**Framework**: Express.js running on Node.js with TypeScript.
+### System Design Choices
+The application is a modern, performant Single Page Application (SPA). A key decision is the quote-based purchasing workflow, catering to B2B industrial procurement. The architecture allows for scalability and maintainability through modular components, type-safe development, and an abstracted storage layer.
 
-**API Pattern**: RESTful API design with routes prefixed with `/api`. Currently minimal routes are implemented - the storage interface is prepared but routes need to be registered.
-
-**Development Server**: Custom Vite integration for HMR in development, serving both the React app and API from a single server.
-
-**Storage Interface**: Abstracted storage layer with an `IStorage` interface. Currently using an in-memory implementation (`MemStorage`) for user management. Designed to be swapped with database-backed storage.
-
-**Session Management**: The codebase includes connect-pg-simple for PostgreSQL session storage, suggesting session-based authentication is planned.
-
-**Production Build**: Uses esbuild to bundle the server code, Vite to bundle the client. Static files served from dist/public.
-
-**Rationale**: Express provides a mature, flexible foundation for the API. The storage abstraction allows starting with simple in-memory storage and migrating to a database later without changing application logic. TypeScript across the stack ensures type safety.
-
-### Database Schema
-
-**ORM**: Drizzle ORM configured for PostgreSQL with Neon Database serverless driver.
-
-**Current Schema**: Single `users` table with id (UUID), username (unique text), and password (text). Uses Drizzle-Zod for type-safe schema validation.
-
-**Migration Strategy**: Drizzle Kit manages schema migrations with files output to `./migrations` directory.
-
-**Future Schema Needs**: The application will require tables for products, categories, brands, quotes, quote items, and potentially user sessions. The product catalog structure suggests many-to-many relationships between products and categories/industries.
-
-**Rationale**: Drizzle provides type-safe database queries with excellent TypeScript integration. PostgreSQL offers robust relational data modeling needed for product catalogs. Neon's serverless PostgreSQL is cost-effective for variable workloads.
+### Feature Specifications
+- **Product Catalog**: Displays over 25 industrial pipe fittings, valves, couplings, expansion joints, and strainers with real product data, SKUs, technical specifications, and authentic photography. Products are categorized by type and brand.
+- **Product Pricing**: Products can have static prices, variable pricing based on size/variation (displayed in a detailed table), or "Price on Application" (POA). Prices are shown excluding GST.
+- **Request for Quote (RFQ) System**: A comprehensive form allows users to submit quote requests for items in their quote cart. The cart persists across sessions using `localStorage`.
+- **Navigation**: Consistent URL structure across header, homepage, and footer, with dynamic product filtering based on categories and subcategories.
 
 ## External Dependencies
 
-### UI Component Library
-- **Radix UI**: Comprehensive set of unstyled, accessible React components (@radix-ui/react-*)
-- **shadcn/ui**: Component patterns and styling conventions built on Radix
-
-### Styling & Design
-- **Tailwind CSS**: Utility-first CSS framework
-- **class-variance-authority**: Component variant styling
-- **Google Fonts**: Inter (headings/body), JetBrains Mono (technical data)
+### UI/Styling
+- **Radix UI**: Unstyled, accessible React components.
+- **shadcn/ui**: Component patterns and styling.
+- **Tailwind CSS**: Utility-first CSS framework.
+- **class-variance-authority**: Component variant styling.
+- **Google Fonts**: Inter, JetBrains Mono.
+- **Lucide React**: Icon library.
 
 ### Data & State Management
-- **@tanstack/react-query**: Server state management and caching
-- **React Hook Form**: Form state and validation
-- **Zod**: Schema validation
+- **@tanstack/react-query**: Server state management.
+- **React Hook Form**: Form state and validation.
+- **Zod**: Schema validation.
 
 ### Database & ORM
-- **Drizzle ORM**: Type-safe ORM for PostgreSQL
-- **@neondatabase/serverless**: Serverless PostgreSQL driver
-- **Neon Database**: Hosted PostgreSQL database (connection via DATABASE_URL environment variable)
+- **Drizzle ORM**: Type-safe ORM for PostgreSQL.
+- **@neondatabase/serverless**: Serverless PostgreSQL driver.
+- **Neon Database**: Hosted PostgreSQL.
 
-### Development Tools
-- **Vite**: Build tool and dev server
-- **TypeScript**: Type safety across frontend and backend
-- **ESBuild**: Server-side bundling for production
+### Development & Build Tools
+- **Vite**: Frontend build tool and dev server.
+- **TypeScript**: Language for frontend and backend.
+- **ESBuild**: Backend bundling for production.
 
-### Routing & Navigation
-- **Wouter**: Lightweight client-side routing
+### Routing
+- **Wouter**: Lightweight client-side router.
 
-### Animations & UI Enhancement
-- **Framer Motion**: Animation library (used in InteractiveProductFinder)
-- **embla-carousel-react**: Carousel component
-- **Lucide React**: Icon library
-
-### Session Management
-- **connect-pg-simple**: PostgreSQL session store for Express (configured but not yet implemented)
-
-### Backend Framework
-- **Express**: Web application framework
-- **Node.js**: Runtime environment
-
-### Additional Libraries
-- **date-fns**: Date manipulation and formatting
-- **cmdk**: Command menu component
-- **nanoid**: Unique ID generation
-
-### Deployment Platform
-- **Replit**: Development and hosting environment (indicated by Replit-specific Vite plugins)
+### Other Libraries
+- **Framer Motion**: Animation library.
+- **embla-carousel-react**: Carousel component.
+- **date-fns**: Date manipulation.
+- **cmdk**: Command menu component.
+- **nanoid**: Unique ID generation.
+- **connect-pg-simple**: PostgreSQL session store for Express (planned for use).
