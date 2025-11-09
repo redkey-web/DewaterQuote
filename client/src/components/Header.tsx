@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search } from "lucide-react";
-import logoImage from "@assets/website_logo_1761097322396.webp";
+import logoImage from "@assets/ChatGPT Image Nov 9, 2025 at 11_04_31 PM_1762689891003.png";
 
 interface HeaderProps {
   cartItemCount?: number;
@@ -95,7 +95,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
         <div className="flex items-center justify-between py-1.5 gap-6">
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0 py-[0.84px]" data-testid="link-home">
-            <img src={logoImage} alt="deWater Products" className="h-[68px] md:h-[80px]" />
+            <img src={logoImage} alt="deWater Products" className="h-[102px] md:h-[120px] object-cover scale-110" style={{ objectPosition: 'center' }} />
           </Link>
 
           {/* Search Bar */}
