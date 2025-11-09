@@ -92,9 +92,9 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900 border-b border-border">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between py-[1.8px] gap-6">
+        <div className="flex items-center justify-between py-0 gap-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0 py-[0.25px]" data-testid="link-home">
+          <Link href="/" className="flex items-center flex-shrink-0 py-0" data-testid="link-home">
             <img src={logoImage} alt="deWater Products" className="h-[102px] md:h-[120px] object-cover scale-110" style={{ objectPosition: 'center' }} />
           </Link>
 
