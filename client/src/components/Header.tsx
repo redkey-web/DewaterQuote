@@ -98,6 +98,17 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
             <img src={logoImage} alt="deWater Products" className="h-[68px] md:h-[80px]" />
           </Link>
 
+          {/* Search Bar */}
+          <div className="hidden lg:block relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search products..."
+              className="pl-9 w-48 xl:w-56 h-9"
+              data-testid="input-search"
+            />
+          </div>
+
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-6 flex-1">
             <div
@@ -206,17 +217,8 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
             </Link>
           </nav>
 
-          {/* Contact Info, Search & Quote */}
+          {/* Contact Info & Quote */}
           <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="pl-9 w-48 xl:w-56 h-9"
-                data-testid="input-search"
-              />
-            </div>
             <div className="flex flex-col gap-1">
               <a 
                 href="tel:0892712577" 
