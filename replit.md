@@ -30,11 +30,12 @@ The design adheres to Material Design principles adapted for industrial B2B cont
 The application is a modern, performant Single Page Application (SPA). A key decision is the quote-based purchasing workflow, catering to B2B industrial procurement. The architecture allows for scalability and maintainability through modular components, type-safe development, and an abstracted storage layer.
 
 ### Feature Specifications
-- **Product Catalog**: Displays over 25 industrial pipe fittings, valves, couplings, expansion joints, and strainers with real product data, SKUs, technical specifications, and authentic photography. Products are categorized by type and brand.
+- **Product Catalog**: Displays over 25 industrial pipe fittings, valves, couplings, expansion joints, and strainers with real product data, SKUs, technical specifications, and professional photography. Products are categorized by type and brand. All valve products now feature professional industrial photography imported from stock image library.
 - **Product Pricing**: Products can have static prices, variable pricing based on size/variation (displayed in a detailed table), or "Price on Application" (POA). Prices are shown excluding GST.
-- **Request for Quote (RFQ) System**: A comprehensive form allows users to submit quote requests for items in their quote cart. The cart persists across sessions using `localStorage`.
+- **Request for Quote (RFQ) System**: A comprehensive form allows users to submit quote requests for items in their quote cart. The cart persists across sessions using `localStorage`. Quote items include complete size/SKU/price variation details for accurate procurement.
 - **Navigation**: Consistent URL structure across header, homepage, and footer, with dynamic product filtering based on categories and subcategories.
 - **Industry Solutions**: Visual card-based layout featuring professional photography for each industry sector (Construction, Fire Services, Food & Beverage, HVAC, Irrigation, Marine, Mining, Water & Wastewater).
+- **Homepage Categories**: Displays 4 main product categories in a balanced grid layout with teal accent color for "View all" links.
 
 ## External Dependencies
 

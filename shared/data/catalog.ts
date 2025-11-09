@@ -208,7 +208,8 @@ export const products: Product[] = [
       { label: "Flange Standard", value: "Table D" }
     ],
     images: [
-      { url: "/placeholder-foot-valve.jpg", alt: "Foot Valve - Galvanised", type: "image" }
+      { url: "/images/products/valves/foot-valve-galv.jpg", alt: "Foot Valve - Galvanised", type: "image" },
+      { url: "/images/products/valves/foot-valve-galv-detail.jpg", alt: "Foot Valve - Galvanised - Detail View", type: "image" }
     ],
     materials: {
       body: "GALV",
@@ -779,7 +780,8 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-20°C to +180°C" }
     ],
     images: [
-      { url: "/placeholder-ball-valve.jpg", alt: "316ss Ball Valve", type: "image" }
+      { url: "/images/products/valves/ball-valve-316ss.jpg", alt: "316ss Ball Valve", type: "image" },
+      { url: "/images/products/valves/ball-valve-316ss-detail.jpg", alt: "316ss Ball Valve - Lever Detail", type: "image" }
     ],
     materials: {
       body: "316ss",
@@ -820,7 +822,8 @@ export const products: Product[] = [
       { label: "Flange Standard", value: "AS2129 Table D/E" }
     ],
     images: [
-      { url: "/placeholder-gate-valve.jpg", alt: "DI Gate Valve", type: "image" }
+      { url: "/images/products/valves/gate-valve-di.jpg", alt: "DI Gate Valve", type: "image" },
+      { url: "/images/products/valves/gate-valve-di-detail.jpg", alt: "DI Gate Valve - Handwheel Detail", type: "image" }
     ],
     materials: {
       body: "DI",
