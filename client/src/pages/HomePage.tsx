@@ -152,7 +152,7 @@ export default function HomePage() {
       {/* Product Categories - Large Image Cards (Hoseflex Style) */}
       <section className="py-20 px-6 lg:px-8 bg-background">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {productCategories.map((category) => (
               <Link key={category.name} href={category.url}>
                 <Card className="group overflow-hidden h-80 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border">
@@ -163,7 +163,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
-                    <div className="flex items-center text-primary text-sm font-medium">
+                    <div className="flex items-center text-primary/80 text-sm font-medium">
                       View all <ArrowRight className="ml-2 w-4 h-4" />
                     </div>
                   </div>
