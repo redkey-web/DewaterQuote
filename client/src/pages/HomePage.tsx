@@ -3,6 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle, Users, Award, Clock } from "lucide-react";
+import constructionImage from "@assets/CONSTRUCTION DEWATERING PRODUCTS-min_1762663874717.webp";
+import fireServicesImage from "@assets/FIRE PIPELINE PRODUCTS-min_1762663874717.webp";
+import foodBeverageImage from "@assets/FOOD INDUSTRY PIPELINE SUPPLIES-min_1762663874717.webp";
+import hvacImage from "@assets/HVAC PIPES AND VALVES ONLINE-min_1762663874717.webp";
+import irrigationImage from "@assets/IRRIGATION PIPELINE SUPPLIES-min_1762663874717.webp";
+import marineImage from "@assets/MARINE INDUSTRY PIPELINE SUPPLIES-min_1762663874717.webp";
+import miningImage from "@assets/MINING INDUSTRY VALVES AND PIPELINE PRODUCTS-min_1762663874717.webp";
+import wastewaterImage from "@assets/WASTEWATER PIPELINE SUPPLIER_1762664220723.webp";
 const heroImage = "/images/hero-pipes.webp";
 
 export default function HomePage() {
@@ -43,42 +51,42 @@ export default function HomePage() {
     { 
       name: "Water & Wastewater", 
       url: "/industries/water-wastewater",
-      image: "/images/industries/water-wastewater.webp"
+      image: wastewaterImage
     },
     { 
       name: "Irrigation", 
       url: "/industries/irrigation",
-      image: "/attached_assets/IRRIGATION PIPELINE SUPPLIES-min_1762663874717.webp"
+      image: irrigationImage
     },
     { 
       name: "Fire Services", 
       url: "/industries/fire-services",
-      image: "/attached_assets/FIRE PIPELINE PRODUCTS-min_1762663874717.webp"
+      image: fireServicesImage
     },
     { 
       name: "Mining", 
       url: "/industries/mining",
-      image: "/attached_assets/MINING INDUSTRY VALVES AND PIPELINE PRODUCTS-min_1762663874717.webp"
+      image: miningImage
     },
     { 
       name: "Marine", 
       url: "/industries/marine",
-      image: "/attached_assets/MARINE INDUSTRY PIPELINE SUPPLIES-min_1762663874717.webp"
+      image: marineImage
     },
     { 
       name: "HVAC", 
       url: "/industries/hvac",
-      image: "/attached_assets/HVAC PIPES AND VALVES ONLINE-min_1762663874717.webp"
+      image: hvacImage
     },
     { 
       name: "Food & Beverage", 
       url: "/industries/food-beverage",
-      image: "/attached_assets/FOOD INDUSTRY PIPELINE SUPPLIES-min_1762663874717.webp"
+      image: foodBeverageImage
     },
     { 
       name: "Construction", 
       url: "/industries/construction",
-      image: "/attached_assets/CONSTRUCTION DEWATERING PRODUCTS-min_1762663874717.webp"
+      image: constructionImage
     },
   ];
 
