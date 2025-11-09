@@ -34,6 +34,7 @@ The application is a modern, performant Single Page Application (SPA). A key dec
 - **Product Pricing**: Products can have static prices, variable pricing based on size/variation (displayed in a detailed table), or "Price on Application" (POA). Prices are shown excluding GST.
 - **Request for Quote (RFQ) System**: A comprehensive form allows users to submit quote requests for items in their quote cart. The cart persists across sessions using `localStorage`.
 - **Navigation**: Consistent URL structure across header, homepage, and footer, with dynamic product filtering based on categories and subcategories.
+- **Industry Solutions**: Visual card-based layout featuring professional photography for each industry sector (Construction, Fire Services, Food & Beverage, HVAC, Irrigation, Marine, Mining, Water & Wastewater).
 
 ## External Dependencies
 

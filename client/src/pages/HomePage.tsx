@@ -40,14 +40,46 @@ export default function HomePage() {
   ];
 
   const industries = [
-    { name: "Water & Wastewater", url: "/industries/water-wastewater" },
-    { name: "Irrigation", url: "/industries/irrigation" },
-    { name: "Fire Services", url: "/industries/fire-services" },
-    { name: "Mining", url: "/industries/mining" },
-    { name: "Marine", url: "/industries/marine" },
-    { name: "HVAC", url: "/industries/hvac" },
-    { name: "Food & Beverage", url: "/industries/food-beverage" },
-    { name: "Construction", url: "/industries/construction" },
+    { 
+      name: "Water & Wastewater", 
+      url: "/industries/water-wastewater",
+      image: "/images/industries/water-wastewater.webp"
+    },
+    { 
+      name: "Irrigation", 
+      url: "/industries/irrigation",
+      image: "/attached_assets/IRRIGATION PIPELINE SUPPLIES-min_1762663874717.webp"
+    },
+    { 
+      name: "Fire Services", 
+      url: "/industries/fire-services",
+      image: "/attached_assets/FIRE PIPELINE PRODUCTS-min_1762663874717.webp"
+    },
+    { 
+      name: "Mining", 
+      url: "/industries/mining",
+      image: "/attached_assets/MINING INDUSTRY VALVES AND PIPELINE PRODUCTS-min_1762663874717.webp"
+    },
+    { 
+      name: "Marine", 
+      url: "/industries/marine",
+      image: "/attached_assets/MARINE INDUSTRY PIPELINE SUPPLIES-min_1762663874717.webp"
+    },
+    { 
+      name: "HVAC", 
+      url: "/industries/hvac",
+      image: "/attached_assets/HVAC PIPES AND VALVES ONLINE-min_1762663874717.webp"
+    },
+    { 
+      name: "Food & Beverage", 
+      url: "/industries/food-beverage",
+      image: "/attached_assets/FOOD INDUSTRY PIPELINE SUPPLIES-min_1762663874717.webp"
+    },
+    { 
+      name: "Construction", 
+      url: "/industries/construction",
+      image: "/attached_assets/CONSTRUCTION DEWATERING PRODUCTS-min_1762663874717.webp"
+    },
   ];
 
   return (
@@ -154,11 +186,16 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {industries.map((industry) => (
               <Link key={industry.name} href={industry.url}>
-                <div className="text-center py-6 px-4 hover-elevate active-elevate-2 rounded-lg transition-all">
-                  <span className="text-base font-medium hover:text-primary transition-colors">
-                    {industry.name}
-                  </span>
-                </div>
+                <Card className="group overflow-hidden h-56 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border" data-testid={`card-industry-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${industry.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-base font-semibold text-white text-center">{industry.name}</h3>
+                  </div>
+                </Card>
               </Link>
             ))}
           </div>
