@@ -87,3 +87,25 @@ export interface Category {
   image?: string;
   subcategories?: Subcategory[];
 }
+
+// Quote Cart Types
+export interface QuoteItemVariation {
+  size: string;
+  sizeLabel: string;
+  sku: string;
+  unitPrice: number;
+}
+
+export interface QuoteItem {
+  id: string;
+  productId: string;
+  name: string;
+  brand: string;
+  category: string;
+  image: string;
+  basePrice?: number;
+  baseSku?: string;
+  priceVaries: boolean;
+  variation?: QuoteItemVariation;
+  quantity: number;
+}

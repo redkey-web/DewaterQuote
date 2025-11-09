@@ -1,13 +1,14 @@
-import ProductCard, { type Product } from "@/components/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import { useToast } from "@/hooks/use-toast";
 import { SEO } from "@/components/SEO";
+import type { Product, QuoteItem } from "@shared/schema";
 import productImage1 from "@assets/generated_images/Pipe_coupling_product_shot_53e8a7d5.png";
 import productImage2 from "@assets/generated_images/Duckbill_check_valve_product_cb995e5f.png";
 
 interface BrandPageProps {
   brandName: string;
   description: string;
-  onAddToQuote: (product: Product) => void;
+  onAddToQuote: (item: QuoteItem) => void;
 }
 
 export default function BrandPage({ brandName, description, onAddToQuote }: BrandPageProps) {
@@ -17,37 +18,52 @@ export default function BrandPage({ brandName, description, onAddToQuote }: Bran
   const mockProducts: Product[] = [
     {
       id: `${brandName.toLowerCase()}-1`,
+      slug: `${brandName.toLowerCase()}-pipe-coupling-dn100`,
       name: `${brandName} Pipe Coupling DN100`,
       sku: `${brandName.substring(0, 2).toUpperCase()}-PC-100`,
       price: 195.00,
-      image: productImage1,
-      category: "Pipe Couplings",
+      images: [{ url: productImage1, alt: `${brandName} Pipe Coupling DN100` }],
+      category: "pipe-couplings",
       brand: brandName,
+      description: "",
+      specifications: [],
+      materials: { body: "" },
+      pressureRange: "",
     },
     {
       id: `${brandName.toLowerCase()}-2`,
+      slug: `${brandName.toLowerCase()}-check-valve-dn100`,
       name: `${brandName} Check Valve DN100`,
       sku: `${brandName.substring(0, 2).toUpperCase()}-CV-100`,
       price: 245.00,
-      image: productImage2,
-      category: "Check Valves",
+      images: [{ url: productImage2, alt: `${brandName} Check Valve DN100` }],
+      category: "valves",
       brand: brandName,
+      description: "",
+      specifications: [],
+      materials: { body: "" },
+      pressureRange: "",
     },
     {
       id: `${brandName.toLowerCase()}-3`,
+      slug: `${brandName.toLowerCase()}-gate-valve-dn100`,
       name: `${brandName} Gate Valve DN100`,
       sku: `${brandName.substring(0, 2).toUpperCase()}-GV-100`,
-      image: productImage2,
-      category: "Gate Valves",
+      images: [{ url: productImage2, alt: `${brandName} Gate Valve DN100` }],
+      category: "valves",
       brand: brandName,
+      description: "",
+      specifications: [],
+      materials: { body: "" },
+      pressureRange: "",
     },
   ];
 
-  const handleAddToQuote = (product: Product) => {
-    onAddToQuote(product);
+  const handleAddToQuote = (item: QuoteItem) => {
+    onAddToQuote(item);
     toast({
       title: "Added to Quote",
-      description: `${product.name} has been added to your quote request.`,
+      description: `${item.name} has been added to your quote request.`,
     });
   };
 

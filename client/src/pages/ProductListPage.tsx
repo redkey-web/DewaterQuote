@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { SEO } from "@/components/SEO";
 import { getProductsBySubcategory } from "@shared/data/catalog";
-import type { Product } from "@shared/schema";
+import type { QuoteItem } from "@shared/schema";
 
 interface ProductListPageProps {
-  onAddToQuote: (product: Product) => void;
+  onAddToQuote: (item: QuoteItem) => void;
 }
 
 // Subcategory content configuration
@@ -170,11 +170,11 @@ export default function ProductListPage({ onAddToQuote }: ProductListPageProps) 
   // Get products from catalog based on category and subcategory
   const subcategoryProducts = getProductsBySubcategory(categoryKey, catalogSubcategory);
 
-  const handleAddToQuote = (product: Product) => {
-    onAddToQuote(product);
+  const handleAddToQuote = (item: QuoteItem) => {
+    onAddToQuote(item);
     toast({
       title: "Added to Quote",
-      description: `${product.name} has been added to your quote request.`,
+      description: `${item.name} has been added to your quote request.`,
     });
   };
 

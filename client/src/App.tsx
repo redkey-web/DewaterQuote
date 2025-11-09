@@ -20,13 +20,13 @@ import StrainersPage from "@/pages/StrainersPage";
 import BrandPage from "@/pages/BrandPage";
 import IndustryPage from "@/pages/IndustryPage";
 import NotFound from "@/pages/not-found";
-import type { Product } from "@shared/schema";
+import type { QuoteItem } from "@shared/schema";
 
 const QUOTE_STORAGE_KEY = "dewater_quote_items";
 
 function Router() {
   const [, navigate] = useLocation();
-  const [quoteItems, setQuoteItems] = useState<Product[]>(() => {
+  const [quoteItems, setQuoteItems] = useState<QuoteItem[]>(() => {
     try {
       const stored = localStorage.getItem(QUOTE_STORAGE_KEY);
       return stored ? JSON.parse(stored) : [];
@@ -45,15 +45,26 @@ function Router() {
     }
   }, [quoteItems]);
 
-  const handleAddToQuote = (product: Product) => {
-    const exists = quoteItems.find((item) => item.id === product.id);
-    if (!exists) {
-      setQuoteItems([...quoteItems, product]);
+  const handleAddToQuote = (item: QuoteItem) => {
+    const exists = quoteItems.find((existing) => {
+      if (existing.productId !== item.productId) return false;
+      if (!item.variation) return !existing.variation;
+      return existing.variation?.size === item.variation?.size;
+    });
+    
+    if (exists) {
+      setQuoteItems(quoteItems.map((existing) => 
+        (existing.productId === item.productId && existing.variation?.size === item.variation?.size)
+          ? { ...existing, quantity: existing.quantity + 1 }
+          : existing
+      ));
+    } else {
+      setQuoteItems([...quoteItems, item]);
     }
   };
 
-  const handleRemoveItem = (productId: string) => {
-    setQuoteItems(quoteItems.filter((item) => item.id !== productId));
+  const handleRemoveItem = (itemId: string) => {
+    setQuoteItems(quoteItems.filter((item) => item.id !== itemId));
   };
 
   const handleClearQuote = () => {

@@ -12,7 +12,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CheckCircle2, X, Package } from "lucide-react";
 import { SEO } from "@/components/SEO";
-import type { Product } from "@shared/schema";
+import { getQuoteItemSKU } from "@/lib/quote";
+import type { QuoteItem } from "@shared/schema";
 
 const quoteFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -25,8 +26,8 @@ const quoteFormSchema = z.object({
 type QuoteFormValues = z.infer<typeof quoteFormSchema>;
 
 interface RequestQuotePageProps {
-  quoteItems: Product[];
-  onRemoveFromQuote: (productId: string) => void;
+  quoteItems: QuoteItem[];
+  onRemoveFromQuote: (itemId: string) => void;
   onClearQuote: () => void;
 }
 
@@ -53,9 +54,10 @@ export default function RequestQuotePage({
     console.log("Quote request submitted:", {
       ...data,
       items: quoteItems.map(item => ({
-        sku: item.sku,
+        sku: getQuoteItemSKU(item),
         name: item.name,
         brand: item.brand,
+        quantity: item.quantity,
       })),
     });
     setIsSubmitted(true);
@@ -147,14 +149,24 @@ export default function RequestQuotePage({
                     <div className="flex items-start gap-4" data-testid={`quote-item-${item.id}`}>
                       <div className="flex-1">
                         <h3 className="font-semibold" data-testid={`text-product-name-${item.id}`}>
-                          {item.shortName || item.name}
+                          {item.name}
                         </h3>
                         <p className="text-sm text-muted-foreground font-mono" data-testid={`text-sku-${item.id}`}>
-                          SKU: {item.sku}
+                          SKU: {getQuoteItemSKU(item)}
                         </p>
-                        <Badge variant="secondary" className="mt-2" data-testid={`badge-brand-${item.id}`}>
-                          {item.brand}
-                        </Badge>
+                        {item.variation && (
+                          <p className="text-sm text-muted-foreground" data-testid={`text-size-${item.id}`}>
+                            Size: {item.variation.sizeLabel}
+                          </p>
+                        )}
+                        <div className="flex items-center gap-2 mt-2">
+                          <Badge variant="secondary" data-testid={`badge-brand-${item.id}`}>
+                            {item.brand}
+                          </Badge>
+                          <Badge variant="outline" data-testid={`badge-quantity-${item.id}`}>
+                            Qty: {item.quantity}
+                          </Badge>
+                        </div>
                       </div>
                       <Button
                         variant="ghost"

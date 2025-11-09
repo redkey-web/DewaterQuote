@@ -9,10 +9,11 @@ import { Download, ShoppingCart, Package, Clock, FileText, Truck } from "lucide-
 import { SEO } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { getProductBySlug, getProductsBySubcategory } from "@shared/data/catalog";
-import type { Product } from "@shared/schema";
+import { productToQuoteItem } from "@/lib/quote";
+import type { Product, QuoteItem } from "@shared/schema";
 
 interface ProductDetailPageProps {
-  onAddToQuote: (product: any) => void;
+  onAddToQuote: (item: QuoteItem) => void;
 }
 
 export default function ProductDetailPage({ onAddToQuote }: ProductDetailPageProps) {
@@ -47,20 +48,29 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
     : [];
 
   const handleAddToQuote = () => {
-    onAddToQuote({
-      id: product.id,
-      name: product.name,
-      sku: product.sku,
-      image: product.images[0]?.url || "/placeholder.jpg",
-      sizeFrom: product.sizeFrom,
-      pressureRange: product.pressureRange,
-      materials: `${product.materials.body}/${product.materials.seat || product.materials.sleeve || ''}`,
-    });
+    try {
+      const quoteItem = productToQuoteItem(product, {
+        selectedSize,
+        quantity: 1,
+      });
+      
+      onAddToQuote(quoteItem);
 
-    toast({
-      title: "Added to Quote",
-      description: `${product.name} has been added to your quote request.`,
-    });
+      const sizeInfo = quoteItem.variation 
+        ? ` (${quoteItem.variation.sizeLabel})`
+        : '';
+
+      toast({
+        title: "Added to Quote",
+        description: `${product.name}${sizeInfo} has been added to your quote request.`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Please select a size first",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -158,6 +168,26 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                     {product.priceNote && (
                       <p className="text-sm text-muted-foreground mb-4">{product.priceNote}</p>
                     )}
+                    
+                    {/* Size Selector */}
+                    <div className="mb-4">
+                      <label className="text-sm font-medium mb-2 block">
+                        Select Size <span className="text-destructive">*</span>
+                      </label>
+                      <Select value={selectedSize} onValueChange={setSelectedSize}>
+                        <SelectTrigger data-testid="select-size" className="w-full md:w-96">
+                          <SelectValue placeholder="Choose a size to add to quote" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {product.sizeOptions.map((size) => (
+                            <SelectItem key={size.value} value={size.value}>
+                              {size.label} - {size.price ? `$${size.price.toFixed(2)}` : 'POA'}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
                     <div className="border rounded-md overflow-hidden">
                       <table className="w-full">
                         <thead className="bg-muted">
@@ -171,12 +201,20 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                         </thead>
                         <tbody>
                           {product.sizeOptions?.map((size, idx) => (
-                            <tr key={size.value} className={idx % 2 === 0 ? 'bg-background' : 'bg-muted/30'}>
-                              <td className="p-3">{size.label}</td>
+                            <tr 
+                              key={size.value} 
+                              className={`
+                                ${idx % 2 === 0 ? 'bg-background' : 'bg-muted/30'}
+                                ${selectedSize === size.value ? 'ring-2 ring-primary' : ''}
+                              `}
+                            >
+                              <td className={`p-3 ${selectedSize === size.value ? 'font-semibold' : ''}`}>
+                                {size.label}
+                              </td>
                               {product.sizeOptions?.some(s => s.sku) && (
                                 <td className="p-3 text-sm text-muted-foreground">{size.sku || '-'}</td>
                               )}
-                              <td className="p-3 text-right font-medium">
+                              <td className={`p-3 text-right font-medium ${selectedSize === size.value ? 'text-primary' : ''}`}>
                                 {size.price ? `$${size.price.toFixed(2)}` : 'POA'}
                               </td>
                             </tr>
@@ -184,7 +222,7 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                         </tbody>
                       </table>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-2">Prices shown exclude GST. Add your required sizes to quote for final pricing.</p>
+                    <p className="text-xs text-muted-foreground mt-2">Prices shown exclude GST. Select a size above to add to your quote request.</p>
                   </div>
                 ) : (
                   <div>

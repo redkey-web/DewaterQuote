@@ -3,10 +3,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { products, getProductsByCategory } from "@shared/data/catalog";
-import type { Product } from "@shared/schema";
+import type { QuoteItem } from "@shared/schema";
 
 interface ValvesPageProps {
-  onAddToQuote: (product: Product) => void;
+  onAddToQuote: (item: QuoteItem) => void;
 }
 
 export default function ValvesPage({ onAddToQuote }: ValvesPageProps) {
@@ -23,11 +23,11 @@ export default function ValvesPage({ onAddToQuote }: ValvesPageProps) {
     { name: "Air Release / Non-Return", url: "/valves/air-release" },
   ];
 
-  const handleAddToQuote = (product: Product) => {
-    onAddToQuote(product);
+  const handleAddToQuote = (item: QuoteItem) => {
+    onAddToQuote(item);
     toast({
       title: "Added to Quote",
-      description: `${product.name} has been added to your quote request.`,
+      description: `${item.name} has been added to your quote request.`,
     });
   };
 

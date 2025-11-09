@@ -3,10 +3,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { getProductsByCategory } from "@shared/data/catalog";
-import type { Product } from "@shared/schema";
+import type { QuoteItem } from "@shared/schema";
 
 interface StrainersPageProps {
-  onAddToQuote: (product: Product) => void;
+  onAddToQuote: (item: QuoteItem) => void;
 }
 
 export default function StrainersPage({ onAddToQuote }: StrainersPageProps) {
@@ -21,11 +21,11 @@ export default function StrainersPage({ onAddToQuote }: StrainersPageProps) {
     { name: "Duplex Strainers", url: "/strainers/duplex" },
   ];
 
-  const handleAddToQuote = (product: Product) => {
-    onAddToQuote(product);
+  const handleAddToQuote = (item: QuoteItem) => {
+    onAddToQuote(item);
     toast({
       title: "Added to Quote",
-      description: `${product.name} has been added to your quote request.`,
+      description: `${item.name} has been added to your quote request.`,
     });
   };
 
