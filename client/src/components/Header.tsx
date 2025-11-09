@@ -207,7 +207,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
           </nav>
 
           {/* Contact Info, Search & Quote */}
-          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
@@ -217,21 +217,23 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 data-testid="input-search"
               />
             </div>
-            <a 
-              href="tel:0892712577" 
-              className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20 text-sm transition-all"
-            >
-              <Phone className="w-4 h-4" />
-              <span>(08) 9271 2577</span>
-            </a>
-            <a 
-              href="mailto:sales@dewaterproducts.com.au" 
-              className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20 text-sm transition-all"
-            >
-              <Mail className="w-4 h-4" />
-              <span className="hidden xl:inline">sales@dewaterproducts.com.au</span>
-              <span className="xl:hidden">Email Us</span>
-            </a>
+            <div className="flex flex-col gap-1">
+              <a 
+                href="tel:0892712577" 
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-xs"
+              >
+                <Phone className="w-4 h-4 text-primary" />
+                <span>(08) 9271 2577</span>
+              </a>
+              <a 
+                href="mailto:sales@dewaterproducts.com.au" 
+                className="flex items-center gap-2 text-foreground hover:text-primary transition-colors text-sm font-medium"
+              >
+                <Mail className="w-4 h-4 text-primary" />
+                <span className="hidden xl:inline">sales@dewaterproducts.com.au</span>
+                <span className="xl:hidden">Email Us</span>
+              </a>
+            </div>
             <Button
               variant="outline"
               size="icon"
@@ -303,21 +305,23 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               <Link href="/contact" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-contact">
                 Contact
               </Link>
-              <div className="pt-4 border-t border-border space-y-3">
-                <a 
-                  href="tel:0892712577" 
-                  className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>(08) 9271 2577</span>
-                </a>
-                <a 
-                  href="mailto:sales@dewaterproducts.com.au" 
-                  className="flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 text-primary font-semibold hover-elevate active-elevate-2 border border-primary/20"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>sales@dewaterproducts.com.au</span>
-                </a>
+              <div className="pt-4 border-t border-border">
+                <div className="flex flex-col gap-2 px-3">
+                  <a 
+                    href="tel:0892712577" 
+                    className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+                  >
+                    <Phone className="w-4 h-4 text-primary" />
+                    <span>(08) 9271 2577</span>
+                  </a>
+                  <a 
+                    href="mailto:sales@dewaterproducts.com.au" 
+                    className="flex items-center gap-2 text-foreground hover:text-primary transition-colors text-base font-medium"
+                  >
+                    <Mail className="w-4 h-4 text-primary" />
+                    <span>sales@dewaterproducts.com.au</span>
+                  </a>
+                </div>
               </div>
             </nav>
           </div>
