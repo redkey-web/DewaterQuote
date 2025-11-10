@@ -48,9 +48,11 @@
 
   --popover-border: 189 20% 82%;
 
-  --primary: 189 68% 42%;
+  --primary: 189 68% 32%;
 
   --primary-foreground: 0 0% 100%;
+  
+  --primary-glow: 189 68% 42%;
 
   --secondary: 0 0% 94%;
 
@@ -166,9 +168,11 @@
 
   --popover-border: 189 20% 27%;
 
-  --primary: 189 68% 58%;
+  --primary: 189 68% 45%;
 
   --primary-foreground: 0 0% 100%;
+  
+  --primary-glow: 189 68% 58%;
 
   --secondary: 0 0% 18%;
 
@@ -370,5 +374,20 @@
   /* Subtle cyan glow on card hover - darker for WCAG compliance */
   .hover-elevate:hover {
     box-shadow: 0 0 20px rgba(6, 108, 128, 0.30);
+  }
+
+  /* Primary button glow and hover effect */
+  button.bg-primary, 
+  a.bg-primary,
+  [class*="bg-primary"] {
+    box-shadow: 0 0 24px hsla(var(--primary-glow) / 0.5);
+    transition: all 0.3s ease;
+  }
+
+  button.bg-primary:hover,
+  a.bg-primary:hover,
+  [class*="bg-primary"]:hover {
+    background-color: hsl(var(--primary-glow)) !important;
+    box-shadow: 0 0 32px hsla(var(--primary-glow) / 0.7);
   }
 }
