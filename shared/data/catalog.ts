@@ -221,46 +221,6 @@ export const products: Product[] = [
     certifications: "WRAS-approved EPDM seals for potable water applications. Galvanised steel construction to AS/NZS standards. Suitable for water supply and irrigation systems."
   },
 
-  // Orbit Standard Coupling
-  {
-    id: "ORBIT-STD",
-    slug: "orbit-standard-coupling-series-1",
-    sku: "ORBIT-STD",
-    name: "Orbit Standard Coupling Series 1",
-    shortName: "Orbit Standard Coupling",
-    brand: "Orbit",
-    category: "pipe-couplings",
-    subcategory: "orbit-couplings",
-    description: "The Orbit Standard Coupling Series 1 is a flexible pipe coupling for joining plain-ended pipes. Features 316 stainless steel construction with WRAS-approved EPDM rubber sleeve for potable water applications.",
-    features: [
-      "Flexible coupling allows angular deflection",
-      "WRAS-approved EPDM rubber sleeve for potable water",
-      "316 stainless steel bands and bolts",
-      "Accommodates slight misalignment",
-      "Quick and easy installation",
-      "12 months warranty on manufacturing defects only"
-    ],
-    specifications: [
-      { label: "SKU", value: "ORBIT-STD" },
-      { label: "Brand", value: "Orbit" },
-      { label: "Sleeve Material", value: "EPDM" },
-      { label: "Band Material", value: "316 Stainless Steel" },
-      { label: "Bolts", value: "4" },
-      { label: "Series", value: "1" }
-    ],
-    images: [
-      { url: "/placeholder-coupling.jpg", alt: "Orbit Standard Coupling", type: "image" }
-    ],
-    materials: {
-      body: "316ss",
-      sleeve: "EPDM"
-    },
-    pressureRange: "0 TO 16 BAR",
-    sizeFrom: "48.3mm",
-    applications: ["Water supply pipelines", "Pressure pipelines", "Pipe joining"],
-    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
-  },
-
   // Flex Grip L
   {
     id: "OCFG-L",
