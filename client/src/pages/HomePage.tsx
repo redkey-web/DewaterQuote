@@ -200,12 +200,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose deWater Products */}
+      {/* Why Choose Dewater Products */}
       <section className="py-20 px-6 lg:px-8 bg-background">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">why choose us</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose deWater Products</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dewater Products</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Trusted by civil contractors, water authorities, irrigation specialists, and industrial maintenance companies across Australia
             </p>
