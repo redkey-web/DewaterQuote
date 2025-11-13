@@ -44,6 +44,7 @@ The application is a modern, performant Single Page Application (SPA). A key dec
 - **Navigation**: Consistent URL structure across header, homepage, and footer, with dynamic product filtering based on categories and subcategories.
 - **Industry Solutions**: Visual card-based layout featuring professional photography for each industry sector (Construction, Fire Services, Food & Beverage, HVAC, Irrigation, Marine, Mining, Water & Wastewater).
 - **Homepage Categories**: Displays 4 main product categories in a balanced grid layout with teal accent color for "View all" links.
+- **How It Works Section**: Educational 3-step process section on homepage explaining the quote-based purchasing workflow: (1) Browse & Select products, (2) Submit quote request with details, (3) Receive final quote with trade discounts and lead times via email. Features circular icon backgrounds with Search, ClipboardList, and Mail icons, plus staggered typewriter effects on descriptions.
 - **Neto API Integration**: Real-time product data, pricing, and variations fetched from Neto/Maropost ecommerce platform (dewaterproducts.com.au).
 
 ## External Dependencies
