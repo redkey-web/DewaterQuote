@@ -109,7 +109,20 @@ export default function HomePage() {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/products">
-              <Button size="lg" className="bg-[#48c5db] text-white border border-[#48c5db] hover:bg-[#3ab0c5]" data-testid="button-view-products">
+              <Button 
+                size="lg" 
+                className="bg-[#48c5db] text-white border-2 border-gray-800 transition-all duration-300 hover:border-[#48c5db] hover:bg-[#3ab0c5]" 
+                data-testid="button-view-products"
+                style={{
+                  boxShadow: '0 0 8px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(72,197,219,0.8), 0 0 40px rgba(72,197,219,0.4), 0 4px 12px rgba(72,197,219,0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 8px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3)';
+                }}
+              >
                 View Product Range <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
