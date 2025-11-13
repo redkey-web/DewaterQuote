@@ -5,7 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download, ShoppingCart, Package, Clock, FileText, Truck } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Download, ShoppingCart, Package, Clock, FileText, Truck, Plus, Minus } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { getProductBySlug, getProductsBySubcategory } from "@shared/data/catalog";
@@ -20,6 +22,8 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
   const { slug } = useParams<{ slug: string }>();
   const { toast } = useToast();
   const [selectedSize, setSelectedSize] = useState<string>("");
+  const [quantity, setQuantity] = useState<number>(1);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   
   const product = getProductBySlug(slug || "");
@@ -51,7 +55,7 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
     try {
       const quoteItem = productToQuoteItem(product, {
         selectedSize,
-        quantity: 1,
+        quantity,
       });
       
       onAddToQuote(quoteItem);
@@ -59,10 +63,11 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
       const sizeInfo = quoteItem.variation 
         ? ` (${quoteItem.variation.sizeLabel})`
         : '';
+      const quantityInfo = quantity > 1 ? ` × ${quantity}` : '';
 
       toast({
         title: "Added to Quote",
-        description: `${product.name}${sizeInfo} has been added to your quote request.`,
+        description: `${product.name}${sizeInfo}${quantityInfo} has been added to your quote request.`,
       });
     } catch (error) {
       toast({
@@ -71,6 +76,10 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
         variant: "destructive",
       });
     }
+  };
+
+  const handleQuantityChange = (delta: number) => {
+    setQuantity(prev => Math.max(1, prev + delta));
   };
 
   return (
@@ -88,10 +97,10 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
           {/* Images */}
           <div>
             <div className="aspect-square bg-muted rounded-md mb-4 overflow-hidden flex items-center justify-center">
-              {product.images[0]?.url ? (
+              {product.images[currentImageIndex]?.url ? (
                 <img 
-                  src={product.images[0].url} 
-                  alt={product.images[0].alt}
+                  src={product.images[currentImageIndex].url} 
+                  alt={product.images[currentImageIndex].alt}
                   className="w-full h-full object-contain"
                   loading="lazy"
                 />
@@ -101,8 +110,15 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
             </div>
             {product.images.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
-                {product.images.slice(1).map((img, idx) => (
-                  <div key={idx} className="aspect-square bg-muted rounded-md overflow-hidden flex items-center justify-center">
+                {product.images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    data-testid={`button-thumbnail-${idx}`}
+                    className={`aspect-square bg-muted rounded-md overflow-hidden flex items-center justify-center cursor-pointer transition-all hover:ring-2 hover:ring-primary ${
+                      currentImageIndex === idx ? 'ring-2 ring-primary' : ''
+                    }`}
+                  >
                     {img.url ? (
                       <img 
                         src={img.url} 
@@ -113,7 +129,7 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                     ) : (
                       <Package className="w-8 h-8 text-muted-foreground" />
                     )}
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
@@ -180,7 +196,11 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                         </SelectTrigger>
                         <SelectContent>
                           {product.sizeOptions.map((size) => (
-                            <SelectItem key={size.value} value={size.value}>
+                            <SelectItem 
+                              key={size.value} 
+                              value={size.value}
+                              data-testid={`select-option-${size.value}`}
+                            >
                               {size.label} - {size.price ? `$${size.price.toFixed(2)}` : 'POA'}
                             </SelectItem>
                           ))}
@@ -235,7 +255,11 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                       </SelectTrigger>
                       <SelectContent>
                         {product.sizeOptions.map((size) => (
-                          <SelectItem key={size.value} value={size.value}>
+                          <SelectItem 
+                            key={size.value} 
+                            value={size.value}
+                            data-testid={`select-option-${size.value}`}
+                          >
                             {size.label}
                           </SelectItem>
                         ))}
@@ -245,6 +269,38 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                 )}
               </div>
             )}
+
+            {/* Quantity Selector */}
+            <div className="mb-6">
+              <label className="text-sm font-medium mb-2 block">Quantity</label>
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleQuantityChange(-1)}
+                  disabled={quantity <= 1}
+                  data-testid="button-decrease-quantity"
+                >
+                  <Minus className="w-4 h-4" />
+                </Button>
+                <Input
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="w-20 text-center"
+                  data-testid="input-quantity"
+                />
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleQuantityChange(1)}
+                  data-testid="button-increase-quantity"
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
 
             <div className="flex gap-4 mb-6">
               <Button 
@@ -257,9 +313,14 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                 Add to Quote
               </Button>
               {product.downloads && product.downloads.length > 0 && (
-                <Button size="lg" variant="outline" data-testid="button-download">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  data-testid="button-download"
+                  onClick={() => product.downloads && window.open(product.downloads[0].url, '_blank')}
+                >
                   <Download className="mr-2 w-5 h-5" />
-                  Downloads
+                  {product.downloads[0].label}
                 </Button>
               )}
             </div>
@@ -282,50 +343,76 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
           </div>
         </div>
 
-        {/* Description and Features */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <div className="lg:col-span-2">
-            <Card>
-              <CardContent className="p-8">
-                <h2 className="text-2xl font-bold mb-4">Description</h2>
-                <p className="text-muted-foreground mb-6" data-testid="text-description">
-                  {product.description}
-                </p>
+        {/* Tabbed Product Information */}
+        <Card className="mb-12">
+          <CardContent className="p-8">
+            <Tabs defaultValue="description" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 mb-6" data-testid="tabs-product-info">
+                <TabsTrigger value="description" data-testid="tab-description">Description</TabsTrigger>
+                <TabsTrigger value="specifications" data-testid="tab-specifications">Specifications</TabsTrigger>
+                {product.video && <TabsTrigger value="video" data-testid="tab-video">Video</TabsTrigger>}
+              </TabsList>
+              
+              <TabsContent value="description" className="mt-0">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="lg:col-span-3">
+                    <h2 className="text-2xl font-bold mb-4">Description</h2>
+                    <p className="text-muted-foreground mb-6" data-testid="text-description">
+                      {product.description}
+                    </p>
 
-                {product.features && product.features.length > 0 && (
-                  <>
-                    <h3 className="text-xl font-semibold mb-4">Features</h3>
-                    <ul className="space-y-2">
-                      {product.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
-                          <span className="text-muted-foreground">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Specifications */}
-          <div>
-            <Card>
-              <CardContent className="p-8">
-                <h2 className="text-2xl font-bold mb-4">Specifications</h2>
-                <div className="space-y-3">
+                    {product.features && product.features.length > 0 && (
+                      <>
+                        <h3 className="text-xl font-semibold mb-4">Features</h3>
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          {product.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-start gap-2">
+                              <span className="text-primary mt-1">•</span>
+                              <span className="text-muted-foreground">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="specifications" className="mt-0">
+                <h2 className="text-2xl font-bold mb-6">Technical Specifications</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {product.specifications.map((spec, idx) => (
-                    <div key={idx} className="border-b border-border pb-2 last:border-0">
-                      <div className="text-sm text-muted-foreground">{spec.label}</div>
-                      <div className="font-medium">{spec.value}</div>
+                    <div key={idx} className="border-b border-border pb-3">
+                      <div className="text-sm text-muted-foreground mb-1">{spec.label}</div>
+                      <div className="font-medium text-lg">{spec.value}</div>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+              </TabsContent>
+              
+              {product.video && (
+                <TabsContent value="video" className="mt-0">
+                  <h2 className="text-2xl font-bold mb-6">Product Video</h2>
+                  <div className="aspect-video w-full bg-muted rounded-md overflow-hidden">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={product.video.replace('watch?v=', 'embed/')}
+                      title="Product Video"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    ></iframe>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-4">
+                    Watch this video demonstration showing the {product.name} installation and features.
+                  </p>
+                </TabsContent>
+              )}
+            </Tabs>
+          </CardContent>
+        </Card>
 
         {/* Applications */}
         {product.applications && product.applications.length > 0 && (
