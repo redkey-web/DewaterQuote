@@ -224,10 +224,10 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 href="tel:0892712577" 
                 className="flex items-center gap-2 transition-colors text-xs"
               >
-                <Phone className="w-4 h-4" style={{ filter: 'drop-shadow(0 0 2px white) drop-shadow(0 0 4px rgba(0,0,0,0.8))' }} />
+                <Phone className="w-4 h-4" style={{ filter: 'drop-shadow(0 0 1px white) drop-shadow(0 0 2px rgba(0,0,0,0.4))' }} />
                 <span className="font-semibold" style={{ 
                   color: 'white',
-                  textShadow: '0 0 8px rgba(0,0,0,0.9), 0 0 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.8), 1px -1px 2px rgba(0,0,0,0.8), -1px 1px 2px rgba(0,0,0,0.8)'
+                  textShadow: '0 0 3px rgba(0,0,0,0.5), 1px 1px 1px rgba(0,0,0,0.4), -1px -1px 1px rgba(0,0,0,0.4), 1px -1px 1px rgba(0,0,0,0.4), -1px 1px 1px rgba(0,0,0,0.4)'
                 }}>(08) 9271 2577</span>
               </a>
               <a 
