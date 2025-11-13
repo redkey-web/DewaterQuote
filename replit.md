@@ -32,10 +32,20 @@ The application is a modern, performant Single Page Application (SPA). A key dec
 ### Feature Specifications
 - **Product Catalog**: Displays over 25 industrial pipe fittings, valves, couplings, expansion joints, and strainers with real product data, SKUs, technical specifications, and professional photography. Products are categorized by type and brand. All valve products now feature professional industrial photography imported from stock image library.
 - **Product Pricing**: Products can have static prices, variable pricing based on size/variation (displayed in a detailed table), or "Price on Application" (POA). Prices are shown excluding GST.
+- **Enhanced Product Detail Pages**: Comprehensive product pages with:
+  - **Image Gallery**: Multi-image gallery with clickable thumbnails for product photography (4+ images)
+  - **Quantity Selector**: Adjustable quantity with +/- buttons and manual input (minimum 1)
+  - **Size/SKU Selection**: Dropdown showing all size variations with individual prices from Neto API
+  - **Pricing Table**: Detailed table showing all size options with SKUs and prices, highlighting selected size
+  - **Tabbed Content**: Organized tabs for Description, Technical Specifications, and Product Video
+  - **Video Embed**: YouTube video demonstrations embedded in dedicated Video tab
+  - **Datasheet Download**: PDF technical datasheets with download button
+  - **Reference Implementation**: Flex Grip L product serves as complete working example with 48 size variations ($336-$944), 4 images, video, and datasheet
 - **Request for Quote (RFQ) System**: A comprehensive form allows users to submit quote requests for items in their quote cart. The cart persists across sessions using `localStorage`. Quote items include complete size/SKU/price variation details for accurate procurement.
 - **Navigation**: Consistent URL structure across header, homepage, and footer, with dynamic product filtering based on categories and subcategories.
 - **Industry Solutions**: Visual card-based layout featuring professional photography for each industry sector (Construction, Fire Services, Food & Beverage, HVAC, Irrigation, Marine, Mining, Water & Wastewater).
 - **Homepage Categories**: Displays 4 main product categories in a balanced grid layout with teal accent color for "View all" links.
+- **Neto API Integration**: Real-time product data, pricing, and variations fetched from Neto/Maropost ecommerce platform (dewaterproducts.com.au).
 
 ## External Dependencies
 
