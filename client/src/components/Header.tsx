@@ -224,7 +224,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 href="tel:0892712577" 
                 className="flex items-center gap-2 transition-colors text-xs"
               >
-                <Phone className="w-4 h-4" style={{ filter: 'drop-shadow(0 0 1px white) drop-shadow(0 0 2px rgba(0,0,0,0.4))' }} />
+                <Phone className="w-4 h-4 text-primary" />
                 <span className="font-semibold" style={{ 
                   color: 'white',
                   textShadow: '0 0 3px rgba(0,0,0,0.5), 1px 1px 1px rgba(0,0,0,0.4), -1px -1px 1px rgba(0,0,0,0.4), 1px -1px 1px rgba(0,0,0,0.4), -1px 1px 1px rgba(0,0,0,0.4)'
