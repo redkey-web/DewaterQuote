@@ -91,7 +91,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/40 dark:bg-gray-950/40 backdrop-blur-md">
+    <header className="sticky top-0 z-50 bg-white/10 dark:bg-gray-950/10 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between py-0 gap-6">
           {/* Logo */}
