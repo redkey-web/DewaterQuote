@@ -34,9 +34,8 @@ The application is a modern, performant Single Page Application (SPA). A key dec
 - **Product Pricing**: Products can have static prices, variable pricing based on size/variation (displayed in a detailed table), or "Price on Application" (POA). Prices are shown excluding GST.
 - **Enhanced Product Detail Pages**: Comprehensive product pages with:
   - **Image Gallery**: Multi-image gallery with clickable thumbnails for product photography (4+ images)
-  - **Quantity Selector**: Adjustable quantity with +/- buttons and manual input (minimum 1)
-  - **Size/SKU Selection**: Dropdown showing all size variations with individual prices from Neto API
-  - **Pricing Table**: Detailed table showing all size options with SKUs and prices, highlighting selected size
+  - **Multi-Variation Selector**: ScrollArea-based interface (320px height) displaying all size variations with inline +/- quantity controls, allowing users to select quantities for multiple sizes simultaneously in a single "Add to Quote" action. Each variation row shows size label, SKU, and price with real-time quantity tracking.
+  - **Smart Add to Quote**: Button displays total item count badge, is disabled when no selections made, and shows helpful guidance text. Upon adding, all selected variations are added to the cart with their respective quantities, and the selector resets to zero.
   - **Tabbed Content**: Organized tabs for Description, Technical Specifications, and Product Video
   - **Video Embed**: YouTube video demonstrations embedded in dedicated Video tab
   - **Datasheet Download**: PDF technical datasheets with download button
