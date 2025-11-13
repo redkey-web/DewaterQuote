@@ -1,13 +1,12 @@
 import { useParams } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Download, ShoppingCart, Package, Clock, FileText, Truck, Plus, Minus } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Download, ShoppingCart, Package, Clock, Truck, Plus, Minus } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { getProductBySlug, getProductsBySubcategory } from "@shared/data/catalog";
@@ -21,8 +20,7 @@ interface ProductDetailPageProps {
 export default function ProductDetailPage({ onAddToQuote }: ProductDetailPageProps) {
   const { slug } = useParams<{ slug: string }>();
   const { toast } = useToast();
-  const [selectedSize, setSelectedSize] = useState<string>("");
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   
@@ -53,34 +51,59 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
 
   const handleAddToQuote = () => {
     try {
-      const quoteItem = productToQuoteItem(product, {
-        selectedSize,
-        quantity,
-      });
+      const selections = Object.entries(quantities).filter(([, qty]) => qty > 0);
       
-      onAddToQuote(quoteItem);
+      if (selections.length === 0) {
+        toast({
+          title: "No Variations Selected",
+          description: "Please select at least one size and quantity to add to your quote.",
+          variant: "destructive",
+        });
+        return;
+      }
 
-      const sizeInfo = quoteItem.variation 
-        ? ` (${quoteItem.variation.sizeLabel})`
-        : '';
-      const quantityInfo = quantity > 1 ? ` × ${quantity}` : '';
+      // Add each selected variation to the quote
+      selections.forEach(([sizeValue, qty]) => {
+        const quoteItem = productToQuoteItem(product, {
+          selectedSize: sizeValue,
+          quantity: qty,
+        });
+        onAddToQuote(quoteItem);
+      });
+
+      // Show success toast with summary
+      const totalItems = selections.reduce((sum, [, qty]) => sum + qty, 0);
+      const summary = selections.length === 1
+        ? `${selections[0][1]} × ${product.sizeOptions?.find(s => s.value === selections[0][0])?.label || 'item'}`
+        : `${selections.length} sizes (${totalItems} total items)`;
 
       toast({
         title: "Added to Quote",
-        description: `${product.name}${sizeInfo}${quantityInfo} has been added to your quote request.`,
+        description: `${product.name} - ${summary} added to your quote request.`,
       });
+
+      // Reset quantities after adding to quote
+      setQuantities({});
     } catch (error) {
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Please select a size first",
+        description: error instanceof Error ? error.message : "Failed to add to quote",
         variant: "destructive",
       });
     }
   };
 
-  const handleQuantityChange = (delta: number) => {
-    setQuantity(prev => Math.max(1, prev + delta));
-  };
+  const handleQuantityChange = useCallback((sizeValue: string, delta: number) => {
+    setQuantities(prev => {
+      const currentQty = prev[sizeValue] || 0;
+      const newQty = Math.max(0, currentQty + delta);
+      if (newQty === 0) {
+        const { [sizeValue]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [sizeValue]: newQty };
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -175,143 +198,97 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
               </div>
             </div>
 
-            {/* Size and Pricing Options */}
+            {/* Multi-Variation Selector */}
             {product.sizeOptions && product.sizeOptions.length > 0 && (
               <div className="mb-6">
-                {product.priceVaries ? (
-                  <div>
-                    <h3 className="text-lg font-semibold mb-4">Available Sizes & Pricing</h3>
-                    {product.priceNote && (
-                      <p className="text-sm text-muted-foreground mb-4">{product.priceNote}</p>
-                    )}
-                    
-                    {/* Size Selector */}
-                    <div className="mb-4">
-                      <label className="text-sm font-medium mb-2 block">
-                        Select Size <span className="text-destructive">*</span>
-                      </label>
-                      <Select value={selectedSize} onValueChange={setSelectedSize}>
-                        <SelectTrigger data-testid="select-size" className="w-full md:w-96">
-                          <SelectValue placeholder="Choose a size to add to quote" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {product.sizeOptions.map((size) => (
-                            <SelectItem 
-                              key={size.value} 
-                              value={size.value}
-                              data-testid={`select-option-${size.value}`}
-                            >
-                              {size.label} - {size.price ? `$${size.price.toFixed(2)}` : 'POA'}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <div className="border rounded-md overflow-hidden">
-                      <table className="w-full">
-                        <thead className="bg-muted">
-                          <tr>
-                            <th className="text-left p-3 font-semibold">Size</th>
-                            {product.sizeOptions?.some(s => s.sku) && (
-                              <th className="text-left p-3 font-semibold">SKU</th>
-                            )}
-                            <th className="text-right p-3 font-semibold">Price (ex GST)</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {product.sizeOptions?.map((size, idx) => (
-                            <tr 
-                              key={size.value} 
-                              className={`
-                                ${idx % 2 === 0 ? 'bg-background' : 'bg-muted/30'}
-                                ${selectedSize === size.value ? 'ring-2 ring-primary' : ''}
-                              `}
-                            >
-                              <td className={`p-3 ${selectedSize === size.value ? 'font-semibold' : ''}`}>
-                                {size.label}
-                              </td>
-                              {product.sizeOptions?.some(s => s.sku) && (
-                                <td className="p-3 text-sm text-muted-foreground">{size.sku || '-'}</td>
-                              )}
-                              <td className={`p-3 text-right font-medium ${selectedSize === size.value ? 'text-primary' : ''}`}>
-                                {size.price ? `$${size.price.toFixed(2)}` : 'POA'}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-2">Prices shown exclude GST. Select a size above to add to your quote request.</p>
-                  </div>
-                ) : (
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      Size - please check product sizing before ordering
-                    </label>
-                    <Select value={selectedSize} onValueChange={setSelectedSize}>
-                      <SelectTrigger data-testid="select-size">
-                        <SelectValue placeholder="Select size" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {product.sizeOptions.map((size) => (
-                          <SelectItem 
-                            key={size.value} 
-                            value={size.value}
-                            data-testid={`select-option-${size.value}`}
-                          >
-                            {size.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                <h3 className="text-lg font-semibold mb-2">Select Sizes & Quantities</h3>
+                {product.priceNote && (
+                  <p className="text-sm text-muted-foreground mb-4">{product.priceNote}</p>
                 )}
+                <p className="text-sm text-muted-foreground mb-4">
+                  Select quantities for one or more sizes to add to your quote.
+                </p>
+                
+                <ScrollArea className="h-[320px] border rounded-md">
+                  <div className="p-4">
+                    {product.sizeOptions?.map((size, idx) => (
+                      <div 
+                        key={size.value}
+                        data-testid={`variation-row-${size.value}`}
+                        className={`flex items-center justify-between py-3 ${
+                          idx !== (product.sizeOptions?.length || 0) - 1 ? 'border-b border-border' : ''
+                        }`}
+                      >
+                        <div className="flex-1">
+                          <div className="font-medium">{size.label}</div>
+                          {size.sku && (
+                            <div className="text-xs text-muted-foreground">SKU: {size.sku}</div>
+                          )}
+                          <div className="text-sm font-semibold text-primary mt-1">
+                            {size.price ? `$${size.price.toFixed(2)} ex GST` : 'POA'}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleQuantityChange(size.value, -1)}
+                            disabled={(quantities[size.value] || 0) <= 0}
+                            data-testid={`button-decrease-${size.value}`}
+                            className="h-8 w-8"
+                          >
+                            <Minus className="w-4 h-4" />
+                          </Button>
+                          <Badge 
+                            variant="secondary" 
+                            className="w-12 h-8 flex items-center justify-center font-semibold"
+                            data-testid={`quantity-${size.value}`}
+                          >
+                            {quantities[size.value] || 0}
+                          </Badge>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleQuantityChange(size.value, 1)}
+                            data-testid={`button-increase-${size.value}`}
+                            className="h-8 w-8"
+                          >
+                            <Plus className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Prices shown exclude GST. Use +/- buttons to select quantities.
+                </p>
               </div>
             )}
 
-            {/* Quantity Selector */}
             <div className="mb-6">
-              <label className="text-sm font-medium mb-2 block">Quantity</label>
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleQuantityChange(-1)}
-                  disabled={quantity <= 1}
-                  data-testid="button-decrease-quantity"
+              {Object.values(quantities).filter(q => q > 0).length === 0 && (
+                <p className="text-sm text-muted-foreground mb-2">
+                  Select at least one size and quantity above to add to your quote.
+                </p>
+              )}
+              <div className="flex gap-4">
+                <Button 
+                  size="lg" 
+                  onClick={handleAddToQuote}
+                  disabled={Object.values(quantities).filter(q => q > 0).length === 0}
+                  className="flex-1"
+                  data-testid="button-add-to-quote"
                 >
-                  <Minus className="w-4 h-4" />
+                  <ShoppingCart className="mr-2 w-5 h-5" />
+                  Add to Quote
+                  {Object.values(quantities).filter(q => q > 0).length > 0 && (
+                    <Badge variant="secondary" className="ml-2">
+                      {Object.values(quantities).reduce((sum, q) => sum + q, 0)}
+                    </Badge>
+                  )}
                 </Button>
-                <Input
-                  type="number"
-                  min="1"
-                  value={quantity}
-                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-20 text-center"
-                  data-testid="input-quantity"
-                />
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleQuantityChange(1)}
-                  data-testid="button-increase-quantity"
-                >
-                  <Plus className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex gap-4 mb-6">
-              <Button 
-                size="lg" 
-                onClick={handleAddToQuote}
-                className="flex-1"
-                data-testid="button-add-to-quote"
-              >
-                <ShoppingCart className="mr-2 w-5 h-5" />
-                Add to Quote
-              </Button>
               {product.downloads && product.downloads.length > 0 && (
                 <Button 
                   size="lg" 
@@ -323,6 +300,7 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                   {product.downloads[0].label}
                 </Button>
               )}
+              </div>
             </div>
 
             {/* SKU and Lead Time under button */}
