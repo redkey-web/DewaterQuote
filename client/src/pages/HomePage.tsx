@@ -3,7 +3,7 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "wouter";
-import { ArrowRight, CheckCircle, Users, Award, Clock } from "lucide-react";
+import { ArrowRight, CheckCircle, Users, Award, Clock, Search, ClipboardList, Mail } from "lucide-react";
 import TypewriterText from "@/components/TypewriterText";
 import constructionImage from "@assets/CONSTRUCTION DEWATERING PRODUCTS-min_1762663874717.webp";
 import fireServicesImage from "@assets/FIRE PIPELINE PRODUCTS-min_1762663874717.webp";
@@ -213,6 +213,64 @@ export default function HomePage() {
                 </Card>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-20 px-6 lg:px-8 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">simple process</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">HOW IT WORKS</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto min-h-[28px]">
+              <TypewriterText 
+                text="Request a quote in three easy steps and receive competitive pricing with detailed lead times" 
+                delay={0}
+                speed={15}
+              />
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="p-8 text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="font-semibold text-xl mb-3">1. Browse & Select</h4>
+              <p className="text-muted-foreground min-h-[48px]">
+                <TypewriterText 
+                  text="Browse our product range and add items to your quote request form" 
+                  delay={0}
+                  speed={12}
+                />
+              </p>
+            </Card>
+            <Card className="p-8 text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ClipboardList className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="font-semibold text-xl mb-3">2. Submit Request</h4>
+              <p className="text-muted-foreground min-h-[48px]">
+                <TypewriterText 
+                  text="Fill out the quote form with your contact details and project requirements" 
+                  delay={1200}
+                  speed={12}
+                />
+              </p>
+            </Card>
+            <Card className="p-8 text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-8 h-8 text-primary" />
+              </div>
+              <h4 className="font-semibold text-xl mb-3">3. Receive Quote</h4>
+              <p className="text-muted-foreground min-h-[48px]">
+                <TypewriterText 
+                  text="Get your final quote with trade discounts and accurate lead times via email" 
+                  delay={2400}
+                  speed={12}
+                />
+              </p>
+            </Card>
           </div>
         </div>
       </section>
