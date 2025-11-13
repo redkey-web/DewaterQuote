@@ -111,7 +111,7 @@ export default function HomePage() {
             <Link href="/products">
               <Button 
                 size="lg" 
-                className="bg-[#48c5db] text-black border border-gray-400 transition-all duration-300 hover:border-[#48c5db] hover:bg-[#3ab0c5] hover:text-white" 
+                className="bg-[#48c5db] text-black border border-gray-400 transition-all duration-300 hover:border-[#48c5db] hover:bg-[#48c5db]/10 hover:text-white" 
                 data-testid="button-view-products"
                 style={{
                   boxShadow: '0 0 8px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3)'
