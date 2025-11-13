@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, CheckCircle, Users, Award, Clock } from "lucide-react";
+import TypewriterText from "@/components/TypewriterText";
 import constructionImage from "@assets/CONSTRUCTION DEWATERING PRODUCTS-min_1762663874717.webp";
 import fireServicesImage from "@assets/FIRE PIPELINE PRODUCTS-min_1762663874717.webp";
 import foodBeverageImage from "@assets/FOOD INDUSTRY PIPELINE SUPPLIES-min_1762663874717.webp";
@@ -102,10 +103,18 @@ export default function HomePage() {
             Industry Leading Pipe Fittings & Valves
           </h1>
           <p className="text-xl md:text-2xl text-white/95 mb-2 max-w-3xl mx-auto font-medium">
-            Supplying Australia's pipeline industry since 2015
+            <TypewriterText 
+              text="Supplying Australia's pipeline industry since 2015" 
+              delay={500}
+              speed={40}
+            />
           </p>
-          <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto">
-            Certified quality • Fast nationwide delivery • Trade pricing
+          <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto min-h-[28px]">
+            <TypewriterText 
+              text="Certified quality • Fast nationwide delivery • Trade pricing" 
+              delay={2800}
+              speed={30}
+            />
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/products">
