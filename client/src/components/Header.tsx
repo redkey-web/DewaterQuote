@@ -96,7 +96,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
         <div className="flex items-center justify-between py-0 gap-6">
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0 py-0 my-0" data-testid="link-home">
-            <img src={logoImage} alt="deWater Products" className="h-[117px] md:h-[138px] object-cover scale-110 block mt-3 -mb-8" style={{ objectPosition: 'center' }} />
+            <img src={logoImage} alt="deWater Products" className="h-[117px] md:h-[138px] object-cover scale-110 block -my-6" style={{ objectPosition: 'center' }} />
           </Link>
 
           {/* Search Bar */}
