@@ -39,6 +39,26 @@ export default function HomePage() {
 
   const industries = [
     { 
+      name: "Mining", 
+      url: "/industries/mining",
+      image: miningImage
+    },
+    { 
+      name: "Construction", 
+      url: "/industries/construction",
+      image: constructionImage
+    },
+    { 
+      name: "Marine", 
+      url: "/industries/marine",
+      image: marineImage
+    },
+    { 
+      name: "Food & Beverage", 
+      url: "/industries/food-beverage",
+      image: foodBeverageImage
+    },
+    { 
       name: "Water & Wastewater", 
       url: "/industries/water-wastewater",
       image: wastewaterImage
@@ -54,29 +74,9 @@ export default function HomePage() {
       image: fireServicesImage
     },
     { 
-      name: "Mining", 
-      url: "/industries/mining",
-      image: miningImage
-    },
-    { 
-      name: "Marine", 
-      url: "/industries/marine",
-      image: marineImage
-    },
-    { 
       name: "HVAC", 
       url: "/industries/hvac",
       image: hvacImage
-    },
-    { 
-      name: "Food & Beverage", 
-      url: "/industries/food-beverage",
-      image: foodBeverageImage
-    },
-    { 
-      name: "Construction", 
-      url: "/industries/construction",
-      image: constructionImage
     },
   ];
 
@@ -217,7 +217,7 @@ export default function HomePage() {
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
                     style={{ backgroundImage: `url(${industry.image})` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/10" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <h3 className="text-base font-semibold text-white text-center">{industry.name}</h3>
                   </div>

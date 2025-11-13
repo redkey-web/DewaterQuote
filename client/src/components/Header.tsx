@@ -75,13 +75,14 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
   ];
 
   const industriesMenu = [
+    { name: "Mining", url: "/industries/mining" },
+    { name: "Construction", url: "/industries/construction" },
+    { name: "Marine", url: "/industries/marine" },
+    { name: "Food & Beverage", url: "/industries/food-beverage" },
     { name: "Water & Wastewater", url: "/industries/water-wastewater" },
     { name: "Irrigation", url: "/industries/irrigation" },
     { name: "Fire Services", url: "/industries/fire-services" },
-    { name: "Mining", url: "/industries/mining" },
-    { name: "Marine", url: "/industries/marine" },
     { name: "HVAC", url: "/industries/hvac" },
-    { name: "Food & Beverage", url: "/industries/food-beverage" },
   ];
 
   const moreMenu = [
@@ -117,7 +118,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md text-sm"
+                className="flex items-center gap-1 text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
                 data-testid="button-products-menu"
               >
                 Products <ChevronDown className="w-4 h-4" />
@@ -158,7 +159,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md text-sm"
+                className="flex items-center gap-1 text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
                 data-testid="button-industries-menu"
               >
                 Industries <ChevronDown className="w-4 h-4" />
@@ -188,7 +189,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className="flex items-center gap-1 text-foreground hover-elevate px-3 py-2 rounded-md text-sm"
+                className="flex items-center gap-1 text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
                 data-testid="button-more-menu"
               >
                 More <ChevronDown className="w-4 h-4" />
@@ -212,7 +213,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               )}
             </div>
 
-            <Link href="/contact" className="text-foreground hover-elevate px-3 py-2 rounded-md text-sm" data-testid="link-contact">
+            <Link href="/contact" className="text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm" data-testid="link-contact">
               Contact
             </Link>
           </nav>
