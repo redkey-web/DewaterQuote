@@ -124,7 +124,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 Products <ChevronDown className="w-4 h-4" />
               </button>
               {activeMenu === "products" && (
-                <div className="absolute top-full left-0 mt-2 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-5 gap-6 w-[900px]">
+                <div className="absolute top-full left-0 mt-0 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-5 gap-6 w-[900px]">
                   {productsMenu.map((category) => (
                     <div key={category.title}>
                       <Link 
@@ -165,7 +165,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 Industries <ChevronDown className="w-4 h-4" />
               </button>
               {activeMenu === "industries" && (
-                <div className="absolute top-full left-0 mt-2 bg-popover border border-popover-border rounded-md shadow-lg p-4 w-56">
+                <div className="absolute top-full left-0 mt-0 bg-popover border border-popover-border rounded-md shadow-lg p-4 w-56">
                   <ul className="space-y-2">
                     {industriesMenu.map((industry) => (
                       <li key={industry.name}>
@@ -195,7 +195,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 More <ChevronDown className="w-4 h-4" />
               </button>
               {activeMenu === "more" && (
-                <div className="absolute top-full left-0 mt-2 bg-popover border border-popover-border rounded-md shadow-lg p-4 w-48">
+                <div className="absolute top-full left-0 mt-0 bg-popover border border-popover-border rounded-md shadow-lg p-4 w-48">
                   <ul className="space-y-2">
                     {moreMenu.map((item) => (
                       <li key={item.name}>
