@@ -222,11 +222,13 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
             <div className="flex flex-col gap-1">
               <a 
                 href="tel:0892712577" 
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-xs"
-                style={{ mixBlendMode: 'difference' }}
+                className="flex items-center gap-2 transition-colors text-xs"
               >
-                <Phone className="w-4 h-4 text-primary" style={{ mixBlendMode: 'difference' }} />
-                <span className="text-white" style={{ mixBlendMode: 'difference' }}>(08) 9271 2577</span>
+                <Phone className="w-4 h-4" style={{ filter: 'drop-shadow(0 0 2px white) drop-shadow(0 0 4px rgba(0,0,0,0.8))' }} />
+                <span className="font-semibold" style={{ 
+                  color: 'white',
+                  textShadow: '0 0 8px rgba(0,0,0,0.9), 0 0 4px rgba(0,0,0,0.9), 1px 1px 2px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.8), 1px -1px 2px rgba(0,0,0,0.8), -1px 1px 2px rgba(0,0,0,0.8)'
+                }}>(08) 9271 2577</span>
               </a>
               <a 
                 href="mailto:sales@dewaterproducts.com.au" 
