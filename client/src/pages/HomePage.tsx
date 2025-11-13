@@ -111,17 +111,8 @@ export default function HomePage() {
             <Link href="/products">
               <Button 
                 size="lg" 
-                className="bg-[#48c5db] text-black border border-gray-400 transition-all duration-300 hover:border-[#48c5db] hover:bg-[#48c5db]/10 hover:text-white" 
+                variant="cyanGlow"
                 data-testid="button-view-products"
-                style={{
-                  boxShadow: '0 0 8px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3)'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 20px rgba(72,197,219,0.8), 0 0 40px rgba(72,197,219,0.4), 0 4px 12px rgba(72,197,219,0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 0 8px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3)';
-                }}
               >
                 View Product Range <ArrowRight className="ml-2 w-5 h-5" />
               </Button>

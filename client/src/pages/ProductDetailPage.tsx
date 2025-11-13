@@ -276,21 +276,11 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
               <div className="flex gap-4">
                 <Button 
                   size="lg" 
+                  variant="cyanGlow"
                   onClick={handleAddToQuote}
                   disabled={Object.values(quantities).filter(q => q > 0).length === 0}
-                  className="flex-1 bg-[#48c5db] text-black border border-gray-400 transition-all duration-300 hover:border-[#48c5db] hover:bg-[#48c5db]/10 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1"
                   data-testid="button-add-to-quote"
-                  style={{
-                    boxShadow: '0 0 8px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3)'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!e.currentTarget.disabled) {
-                      e.currentTarget.style.boxShadow = '0 0 20px rgba(72,197,219,0.8), 0 0 40px rgba(72,197,219,0.4), 0 4px 12px rgba(72,197,219,0.3)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 0 8px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3)';
-                  }}
                 >
                   <ShoppingCart className="mr-2 w-5 h-5" />
                   Add to Quote
