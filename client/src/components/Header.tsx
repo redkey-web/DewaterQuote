@@ -227,6 +227,7 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
                 <Phone className="w-4 h-4 text-primary" />
                 <span className="font-semibold" style={{ 
                   color: 'white',
+                  letterSpacing: '0.05em',
                   textShadow: '1px 1px 0 rgba(0,0,0,0.5), -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 rgba(0,0,0,0.5)'
                 }}>(08) 9271 2577</span>
               </a>
