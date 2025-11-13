@@ -127,8 +127,32 @@ export default function HomePage() {
               </Button>
             </Link>
             <Link href="/request-quote">
-              <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm text-white border-[#48c5db] hover:bg-[#48c5db]/20" data-testid="button-request-quote">
-                Request a Trade Quote
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="bg-white/10 backdrop-blur-sm text-white border border-[#48c5db] transition-all duration-300 hover:bg-white/20" 
+                data-testid="button-request-quote"
+                style={{
+                  boxShadow: '0 0 4px rgba(72,197,219,0.3)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(72,197,219,0.9), 0 0 40px rgba(72,197,219,0.5), 0 4px 12px rgba(72,197,219,0.4)';
+                  const span = e.currentTarget.querySelector('span');
+                  if (span) {
+                    (span as HTMLElement).style.color = 'black';
+                    (span as HTMLElement).style.textShadow = '0 0 1px #48c5db, 0 0 2px #48c5db, 1px 0 0 #48c5db, -1px 0 0 #48c5db, 0 1px 0 #48c5db, 0 -1px 0 #48c5db';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 4px rgba(72,197,219,0.3)';
+                  const span = e.currentTarget.querySelector('span');
+                  if (span) {
+                    (span as HTMLElement).style.color = 'white';
+                    (span as HTMLElement).style.textShadow = 'none';
+                  }
+                }}
+              >
+                <span className="transition-colors duration-300">Request a Trade Quote</span>
               </Button>
             </Link>
           </div>
