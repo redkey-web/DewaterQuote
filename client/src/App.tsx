@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import QuoteCart from "@/components/QuoteCart";
 import StickyQuoteButton from "@/components/StickyQuoteButton";
 import HomePage from "@/pages/HomePage";
+import ProductRangePage from "@/pages/ProductRangePage";
 import ProductListPage from "@/pages/ProductListPage";
 import ProductDetailPage from "@/pages/ProductDetailPage";
 import RequestQuotePage from "@/pages/RequestQuotePage";
@@ -86,6 +87,9 @@ function Router() {
       <main className="flex-1">
         <Switch>
           <Route path="/" component={HomePage} />
+          
+          {/* Product Range Page - Must come before /products/:slug */}
+          <Route path="/products" component={ProductRangePage} />
           
           {/* Product Detail Pages */}
           <Route path="/products/:slug">
