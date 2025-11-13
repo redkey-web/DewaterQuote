@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -15,6 +16,9 @@ import wastewaterImage from "@assets/WASTEWATER PIPELINE SUPPLIER_1762664220723.
 const heroImage = "/images/hero-pipes.webp";
 
 export default function HomePage() {
+  const [heroComplete, setHeroComplete] = useState(false);
+  const [hero2Complete, setHero2Complete] = useState(false);
+
   const productCategories = [
     {
       name: "Valves",
@@ -105,15 +109,17 @@ export default function HomePage() {
           <p className="text-xl md:text-2xl text-white/95 mb-2 max-w-3xl mx-auto font-medium">
             <TypewriterText 
               text="Supplying Australia's pipeline industry since 2015" 
-              delay={500}
-              speed={40}
+              delay={300}
+              speed={20}
+              onComplete={() => setHeroComplete(true)}
             />
           </p>
           <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto min-h-[28px]">
             <TypewriterText 
               text="Certified quality • Fast nationwide delivery • Trade pricing" 
-              delay={2800}
-              speed={30}
+              delay={1500}
+              speed={15}
+              onComplete={() => setHero2Complete(true)}
             />
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
@@ -216,7 +222,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">INDUSTRY SOLUTIONS</h2>
-            <p className="text-lg text-muted-foreground">No matter what field you're in, we have the perfect solution for you.</p>
+            <p className="text-lg text-muted-foreground min-h-[28px]">
+              <TypewriterText 
+                text="No matter what field you're in, we have the perfect solution for you." 
+                delay={0}
+                speed={15}
+              />
+            </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {industries.map((industry) => (
@@ -243,8 +255,12 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">why choose us</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dewater Products</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Trusted by civil contractors, water authorities, irrigation specialists, and industrial maintenance companies across Australia
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto min-h-[28px]">
+              <TypewriterText 
+                text="Trusted by civil contractors, water authorities, irrigation specialists, and industrial maintenance companies across Australia" 
+                delay={0}
+                speed={12}
+              />
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -282,11 +298,19 @@ export default function HomePage() {
               <h3 className="text-xl font-semibold text-muted-foreground mb-4">
                 The leader in industrial pipe fittings and valves
               </h3>
-              <p className="text-base text-foreground/80 mb-6 leading-relaxed">
-                Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. deWater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, and Teekay.
+              <p className="text-base text-foreground/80 mb-6 leading-relaxed min-h-[72px]">
+                <TypewriterText 
+                  text="Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. deWater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, and Teekay." 
+                  delay={0}
+                  speed={12}
+                />
               </p>
-              <p className="text-base text-foreground/80 mb-8 leading-relaxed">
-                Supplying the Australian market since 2015, our commitment to quality ensures we provide the most reliable solutions for water treatment, mining, irrigation, and industrial applications.
+              <p className="text-base text-foreground/80 mb-8 leading-relaxed min-h-[48px]">
+                <TypewriterText 
+                  text="Supplying the Australian market since 2015, our commitment to quality ensures we provide the most reliable solutions for water treatment, mining, irrigation, and industrial applications." 
+                  delay={2500}
+                  speed={12}
+                />
               </p>
               <Link href="/about">
                 <Button size="lg" data-testid="button-learn-more">
@@ -297,15 +321,33 @@ export default function HomePage() {
             <div className="grid grid-cols-1 gap-6">
               <Card className="p-8">
                 <h4 className="font-semibold text-xl mb-3">Authorised Distributor</h4>
-                <p className="text-muted-foreground mb-4">Exclusive partnerships with Straub, Orbit, and Teekay ensure genuine products and factory support</p>
+                <p className="text-muted-foreground mb-4 min-h-[48px]">
+                  <TypewriterText 
+                    text="Exclusive partnerships with Straub, Orbit, and Teekay ensure genuine products and factory support" 
+                    delay={0}
+                    speed={12}
+                  />
+                </p>
               </Card>
               <Card className="p-8">
                 <h4 className="font-semibold text-xl mb-3">Technical Transparency</h4>
-                <p className="text-muted-foreground mb-4">Detailed specs, drawings, and pressure ratings available for every product to support your approval process</p>
+                <p className="text-muted-foreground mb-4 min-h-[48px]">
+                  <TypewriterText 
+                    text="Detailed specs, drawings, and pressure ratings available for every product to support your approval process" 
+                    delay={1200}
+                    speed={12}
+                  />
+                </p>
               </Card>
               <Card className="p-8">
                 <h4 className="font-semibold text-xl mb-3">Trade Accounts Welcome</h4>
-                <p className="text-muted-foreground">Competitive trade pricing and bulk ordering for contractors and industrial clients</p>
+                <p className="text-muted-foreground min-h-[48px]">
+                  <TypewriterText 
+                    text="Competitive trade pricing and bulk ordering for contractors and industrial clients" 
+                    delay={2400}
+                    speed={12}
+                  />
+                </p>
               </Card>
             </div>
           </div>
@@ -317,7 +359,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">FEATURED BRANDS</h2>
-            <p className="text-lg text-muted-foreground">Authorised distributor of industry-leading manufacturers</p>
+            <p className="text-lg text-muted-foreground min-h-[28px]">
+              <TypewriterText 
+                text="Authorised distributor of industry-leading manufacturers" 
+                delay={0}
+                speed={15}
+              />
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Link href="/brands/straub">
