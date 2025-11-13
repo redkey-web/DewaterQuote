@@ -223,9 +223,10 @@ export default function Header({ cartItemCount = 0, onCartClick }: HeaderProps) 
               <a 
                 href="tel:0892712577" 
                 className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-xs"
+                style={{ mixBlendMode: 'difference' }}
               >
-                <Phone className="w-4 h-4 text-primary" />
-                <span>(08) 9271 2577</span>
+                <Phone className="w-4 h-4 text-primary" style={{ mixBlendMode: 'difference' }} />
+                <span className="text-white" style={{ mixBlendMode: 'difference' }}>(08) 9271 2577</span>
               </a>
               <a 
                 href="mailto:sales@dewaterproducts.com.au" 
