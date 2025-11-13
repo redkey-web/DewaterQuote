@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search } from "lucide-react";
-import logoImage from "@assets/Dewater logo 2025_1763021357141.png";
+import logoImage from "@assets/ChatGPT Image Nov 9, 2025 at 11_13_19 PM_1763021547967.png";
 
 interface HeaderProps {
   cartItemCount?: number;
