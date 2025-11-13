@@ -46,21 +46,25 @@ function Router() {
   }, [quoteItems]);
 
   const handleAddToQuote = (item: QuoteItem) => {
-    const exists = quoteItems.find((existing) => {
-      if (existing.productId !== item.productId) return false;
-      if (!item.variation) return !existing.variation;
-      return existing.variation?.size === item.variation?.size;
+    setQuoteItems(prev => {
+      const existingIndex = prev.findIndex((existing) => {
+        if (existing.productId !== item.productId) return false;
+        if (!item.variation) return !existing.variation;
+        return existing.variation?.size === item.variation?.size;
+      });
+      
+      if (existingIndex >= 0) {
+        // Merge quantities for existing variation
+        return prev.map((existing, idx) => 
+          idx === existingIndex
+            ? { ...existing, quantity: existing.quantity + item.quantity }
+            : existing
+        );
+      } else {
+        // Add new item
+        return [...prev, item];
+      }
     });
-    
-    if (exists) {
-      setQuoteItems(quoteItems.map((existing) => 
-        (existing.productId === item.productId && existing.variation?.size === item.variation?.size)
-          ? { ...existing, quantity: existing.quantity + 1 }
-          : existing
-      ));
-    } else {
-      setQuoteItems([...quoteItems, item]);
-    }
   };
 
   const handleRemoveItem = (itemId: string) => {
