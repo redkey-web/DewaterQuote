@@ -250,7 +250,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
     sizeOptions: [
-      { value: "21.3mm", label: "21.3mm Pipe Outside Diameter", price: 336, sku: "OCFG-L21.3" },
+      { value: "48.3mm", label: "48.3mm Pipe Outside Diameter", price: 370, sku: "OCFG-L48.3" },
       { value: "50.0mm", label: "50.0mm Pipe Outside Diameter", price: 370, sku: "OCFG-L50.0" },
       { value: "54.0mm", label: "54.0mm Pipe Outside Diameter", price: 370, sku: "OCFG-L54.0" },
       { value: "57.0mm", label: "57.0mm Pipe Outside Diameter", price: 371, sku: "OCFG-L57.0" },
@@ -284,30 +284,16 @@ export const products: Product[] = [
       { value: "154.0mm", label: "154.0mm Pipe Outside Diameter", price: 512, sku: "OCFG-L154.0" },
       { value: "159.0mm", label: "159.0mm Pipe Outside Diameter", price: 513, sku: "OCFG-L159.0" },
       { value: "160.0mm", label: "160.0mm Pipe Outside Diameter", price: 514, sku: "OCFG-L160.0" },
-      { value: "168.3mm", label: "168.3mm Pipe Outside Diameter", price: 516, sku: "OCFG-L168.3" },
-      { value: "180.0mm", label: "180.0mm Pipe Outside Diameter", price: 817, sku: "OCFG-L180.0" },
-      { value: "180.3mm", label: "180.3mm Pipe Outside Diameter", price: 817, sku: "OCFG-L180.3" },
-      { value: "193.7mm", label: "193.7mm Pipe Outside Diameter", price: 824, sku: "OCFG-L193.7" },
-      { value: "200.0mm", label: "200.0mm Pipe Outside Diameter", price: 830, sku: "OCFG-L200.0" },
-      { value: "204.0mm", label: "204.0mm Pipe Outside Diameter", price: 837, sku: "OCFG-L204.0" },
-      { value: "206.0mm", label: "206.0mm Pipe Outside Diameter", price: 844, sku: "OCFG-L206.0" },
-      { value: "219.1mm", label: "219.1mm Pipe Outside Diameter", price: 905, sku: "OCFG-L219.1" },
-      { value: "225.0mm", label: "225.0mm Pipe Outside Diameter", price: 911, sku: "OCFG-L225.0" },
-      { value: "231.1mm", label: "231.1mm Pipe Outside Diameter", price: 918, sku: "OCFG-L231.1" },
-      { value: "232.0mm", label: "232.0mm Pipe Outside Diameter", price: 918, sku: "OCFG-L232.0" },
-      { value: "243.0mm", label: "243.0mm Pipe Outside Diameter", price: 932, sku: "OCFG-L243.0" },
-      { value: "244.5mm", label: "244.5mm Pipe Outside Diameter", price: 933, sku: "OCFG-L244.5" },
-      { value: "250.0mm", label: "250.0mm Pipe Outside Diameter", price: 938, sku: "OCFG-L250.0" },
-      { value: "254.0mm", label: "254.0mm Pipe Outside Diameter", price: 944, sku: "OCFG-L254.0" }
+      { value: "168.3mm", label: "168.3mm Pipe Outside Diameter", price: 516, sku: "OCFG-L168.3" }
     ],
     images: [
-      { url: "/images/products/orbit/flex-grip-l-main.jpg", alt: "Flex Grip L Pipe Coupling - Main View", type: "image" },
-      { url: "/images/products/orbit/flex-grip-l-alt1.jpg", alt: "Flex Grip L Pipe Coupling - Installation View", type: "image" },
-      { url: "/images/products/orbit/flex-grip-l-alt2.jpg", alt: "Flex Grip L Pipe Coupling - Detail View", type: "image" },
-      { url: "/images/products/orbit/flex-grip-l-alt3.jpg", alt: "Flex Grip L Pipe Coupling - Application View", type: "image" }
+      { url: "https://www.dewaterproducts.com.au/assets/full/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling - Main View", type: "image" },
+      { url: "https://www.dewaterproducts.com.au/assets/alt_1/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling - Installation View", type: "image" },
+      { url: "https://www.dewaterproducts.com.au/assets/alt_2/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling - Detail View", type: "image" },
+      { url: "https://www.dewaterproducts.com.au/assets/alt_3/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling - Application View", type: "image" }
     ],
     downloads: [
-      { url: "/assets/datasheets/flex-grip-l-datasheet.pdf", label: "Product Datasheet" }
+      { url: "https://www.dewaterproducts.com.au/assets/brochures/OCFG-L.pdf", label: "Product Datasheet" }
     ],
     video: "https://www.youtube.com/watch?v=sUyxmHis4gg",
     materials: {
@@ -315,7 +301,7 @@ export const products: Product[] = [
       sleeve: "EPDM"
     },
     pressureRange: "0 TO 32 BAR",
-    sizeFrom: "21.3mm",
+    sizeFrom: "48.3mm",
     leadTime: "12 days if nil stock",
     priceVaries: true,
     priceNote: "Please check product sizing carefully before ordering. Prices shown exclude GST. High pressure ratings and alternative rubber materials (NBR, Viton) available - contact us for a quote.",
