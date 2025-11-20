@@ -6,11 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Download, ShoppingCart, Package, Clock, Truck, Plus, Minus } from "lucide-react";
+import { Download, ShoppingCart, Package, Clock, Truck, Plus, Minus, TrendingDown } from "lucide-react";
 import { SEO } from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { getProductBySlug, getProductsBySubcategory } from "@shared/data/catalog";
-import { productToQuoteItem } from "@/lib/quote";
+import { productToQuoteItem, getDiscountTier, getDiscountPercentage, calculateDiscountedPrice } from "@/lib/quote";
 import type { Product, QuoteItem } from "@shared/schema";
 
 interface ProductDetailPageProps {
@@ -224,9 +224,33 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                           {size.sku && (
                             <div className="text-xs text-muted-foreground">SKU: {size.sku}</div>
                           )}
-                          <div className="text-sm font-semibold text-primary mt-1">
-                            {size.price ? `$${size.price.toFixed(2)} ex GST` : 'POA'}
-                          </div>
+                          {(() => {
+                            const qty = quantities[size.value] || 0;
+                            const discountPercentage = getDiscountPercentage(qty);
+                            const hasDiscount = discountPercentage > 0 && size.price;
+                            
+                            return (
+                              <div className="mt-1 flex items-center gap-2 flex-wrap">
+                                {hasDiscount ? (
+                                  <>
+                                    <div className="text-sm line-through text-destructive">
+                                      ${size.price?.toFixed(2)}
+                                    </div>
+                                    <div className="text-sm font-semibold text-primary">
+                                      ${calculateDiscountedPrice(size.price!, qty).toFixed(2)} ex GST
+                                    </div>
+                                    <Badge variant="secondary" className="bg-destructive/10 text-destructive text-xs">
+                                      {discountPercentage}% OFF
+                                    </Badge>
+                                  </>
+                                ) : (
+                                  <div className="text-sm font-semibold text-primary">
+                                    {size.price ? `$${size.price.toFixed(2)} ex GST` : 'POA'}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })()}
                         </div>
                         
                         <div className="flex items-center gap-2">
@@ -261,6 +285,15 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
                     ))}
                   </div>
                 </ScrollArea>
+                <div className="mt-3 p-3 bg-primary/5 border border-primary/20 rounded-md">
+                  <div className="flex items-start gap-2">
+                    <TrendingDown className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <div className="text-xs space-y-1">
+                      <p className="font-semibold text-foreground">Volume Discounts Available:</p>
+                      <p className="text-muted-foreground">2-4 items: 5% off • 5-9 items: 10% off • 10+ items: 15% off</p>
+                    </div>
+                  </div>
+                </div>
                 <p className="text-xs text-muted-foreground mt-2">
                   Prices shown exclude GST. Use +/- buttons to select quantities.
                 </p>
