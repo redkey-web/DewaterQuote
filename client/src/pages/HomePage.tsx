@@ -129,6 +129,10 @@ export default function HomePage() {
                 className="btn-industrial-primary"
                 data-testid="button-view-products"
               >
+                <span className="bolt bolt-tl"></span>
+                <span className="bolt bolt-tr"></span>
+                <span className="bolt bolt-bl"></span>
+                <span className="bolt bolt-br"></span>
                 View Product Range <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
@@ -138,6 +142,10 @@ export default function HomePage() {
                 className="btn-industrial-secondary" 
                 data-testid="button-request-quote"
               >
+                <span className="bolt bolt-tl"></span>
+                <span className="bolt bolt-tr"></span>
+                <span className="bolt bolt-bl"></span>
+                <span className="bolt bolt-br"></span>
                 Request a Trade Quote
               </Button>
             </Link>
