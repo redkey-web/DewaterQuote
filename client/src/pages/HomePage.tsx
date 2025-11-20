@@ -3,7 +3,7 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "wouter";
-import { ArrowRight, CheckCircle, Users, Award, Clock, Search, ClipboardList, Mail } from "lucide-react";
+import { ArrowRight, CheckCircle, Users, Award, Clock, Search, ClipboardList, Mail, TrendingDown } from "lucide-react";
 import TypewriterText from "@/components/TypewriterText";
 import constructionImage from "@assets/CONSTRUCTION DEWATERING PRODUCTS-min_1762663874717.webp";
 import fireServicesImage from "@assets/FIRE PIPELINE PRODUCTS-min_1762663874717.webp";
@@ -213,6 +213,37 @@ export default function HomePage() {
                 </Card>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Volume Discount Banner */}
+      <section className="py-16 px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-primary/5 to-background border-y border-primary/20">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="bg-primary/10 p-6 rounded-full shrink-0">
+              <TrendingDown className="w-12 h-12 text-primary" />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2">Volume Discounts Available</h2>
+              <p className="text-muted-foreground mb-4">
+                Save more when you order in quantity. Our volume discounts apply automatically to your quote.
+              </p>
+              <div className="flex flex-wrap justify-center md:justify-start gap-3">
+                <div className="bg-card border border-border rounded-md px-4 py-2">
+                  <div className="text-sm text-muted-foreground">2-4 items</div>
+                  <div className="text-xl font-bold text-destructive">5% OFF</div>
+                </div>
+                <div className="bg-card border border-border rounded-md px-4 py-2">
+                  <div className="text-sm text-muted-foreground">5-9 items</div>
+                  <div className="text-xl font-bold text-destructive">10% OFF</div>
+                </div>
+                <div className="bg-card border border-border rounded-md px-4 py-2">
+                  <div className="text-sm text-muted-foreground">10+ items</div>
+                  <div className="text-xl font-bold text-destructive">15% OFF</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
