@@ -11,6 +11,8 @@ Preferred communication style: Simple, everyday language.
 ### UI/UX Decisions
 The design adheres to Material Design principles adapted for industrial B2B contexts, utilizing the "new-york" style variant within `shadcn/ui`. The color scheme is based on the deWater Products logo, featuring a primary cyan (`#39C2D9`) and an accent orange, both designed to meet WCAG AA compliance for accessibility. Typography uses Inter for general text and JetBrains Mono for technical data. The site supports both light and dark modes.
 
+**Hero Section Industrial Buttons**: Hero CTA buttons feature custom industrial metallic styling inspired by pipe coupling hardware, with brushed metal gradients (HSL-based), bold 3px dark borders, and four decorative blue bolt elements positioned at corners. Primary button uses cyan-tinted metallic finish (hsl(189, 15-24%, 28-40%)) with prominent glow, while secondary button uses darker pure grayscale (hsl(0, 0%, 24-35%)) with subtle glow. Both meet WCAG AA contrast standards (≥5:1 primary, ≥6:1 secondary) and maintain clear visual hierarchy. Hover effects brighten the metallic finish and intensify blue bolt glow without transform animations.
+
 ### Frontend Architecture
 - **Framework**: React 18 with TypeScript, built with Vite.
 - **Routing**: Wouter for lightweight client-side navigation.
