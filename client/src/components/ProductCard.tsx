@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Package } from "lucide-react";
+import { Plus, Package, TrendingDown } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import type { Product as CatalogProduct, QuoteItem } from "@shared/schema";
 import { productToQuoteItem } from "@/lib/quote";
@@ -28,6 +28,11 @@ export default function ProductCard({ product, onAddToQuote }: ProductCardProps)
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const mainImage = product.images?.[0]?.url;
+  
+  // Check if product has pricing (not POA)
+  const hasPrice = product.priceVaries 
+    ? (product.sizeOptions?.some(opt => opt.price && opt.price > 0))
+    : (product.price && product.price > 0);
 
   useEffect(() => {
     setImageError(false);
@@ -86,6 +91,12 @@ export default function ProductCard({ product, onAddToQuote }: ProductCardProps)
                 <h3 className="font-semibold text-base line-clamp-2 break-words min-w-0 flex-1" data-testid={`text-product-name-${product.id}`}>
                   {product.shortName || product.name}
                 </h3>
+                {hasPrice && (
+                  <Badge variant="secondary" className="bg-primary/10 text-primary shrink-0 text-xs flex items-center gap-1">
+                    <TrendingDown className="w-3 h-3" />
+                    Discounts
+                  </Badge>
+                )}
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-xs text-muted-foreground font-mono" data-testid={`text-sku-${product.id}`}>
