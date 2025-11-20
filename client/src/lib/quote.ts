@@ -96,3 +96,70 @@ export function getQuoteItemSubtotal(item: QuoteItem): number | undefined {
   if (price === undefined) return undefined;
   return price * item.quantity;
 }
+
+/**
+ * Discount tier thresholds
+ * 2-4 items: 5% discount
+ * 5-9 items: 10% discount
+ * 10+ items: 15% discount
+ */
+export interface DiscountTier {
+  minQuantity: number;
+  percentage: number;
+  label: string;
+}
+
+export const DISCOUNT_TIERS: DiscountTier[] = [
+  { minQuantity: 10, percentage: 15, label: "10+ items" },
+  { minQuantity: 5, percentage: 10, label: "5+ items" },
+  { minQuantity: 2, percentage: 5, label: "2+ items" },
+];
+
+/**
+ * Gets the applicable discount tier for a given quantity
+ */
+export function getDiscountTier(quantity: number): DiscountTier | null {
+  for (const tier of DISCOUNT_TIERS) {
+    if (quantity >= tier.minQuantity) {
+      return tier;
+    }
+  }
+  return null;
+}
+
+/**
+ * Gets the discount percentage for a given quantity
+ */
+export function getDiscountPercentage(quantity: number): number {
+  const tier = getDiscountTier(quantity);
+  return tier ? tier.percentage : 0;
+}
+
+/**
+ * Calculates the discounted price based on quantity
+ */
+export function calculateDiscountedPrice(unitPrice: number, quantity: number): number {
+  const discountPercentage = getDiscountPercentage(quantity);
+  if (discountPercentage === 0) return unitPrice;
+  return unitPrice * (1 - discountPercentage / 100);
+}
+
+/**
+ * Calculates the discounted subtotal for a quote item
+ */
+export function getQuoteItemDiscountedSubtotal(item: QuoteItem): number | undefined {
+  const price = getQuoteItemPrice(item);
+  if (price === undefined) return undefined;
+  const discountedPrice = calculateDiscountedPrice(price, item.quantity);
+  return discountedPrice * item.quantity;
+}
+
+/**
+ * Gets the total savings for a quote item due to volume discount
+ */
+export function getQuoteItemSavings(item: QuoteItem): number {
+  const originalSubtotal = getQuoteItemSubtotal(item);
+  const discountedSubtotal = getQuoteItemDiscountedSubtotal(item);
+  if (originalSubtotal === undefined || discountedSubtotal === undefined) return 0;
+  return originalSubtotal - discountedSubtotal;
+}
