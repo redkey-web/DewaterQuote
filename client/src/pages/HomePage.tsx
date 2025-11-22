@@ -97,23 +97,26 @@ export default function HomePage() {
       {/* Hero Section - Hoseflex Style */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Compact Volume Discount Strip - Top of Hero */}
-        <div className="absolute top-0 left-0 right-0 z-20 py-3 px-6 lg:px-8 bg-gradient-to-r from-primary/15 via-primary/10 to-primary/15 border-b border-primary/30" data-testid="section-volume-discounts">
+        <div className="absolute top-0 left-0 right-0 z-20 py-3 px-6 lg:px-8 border-b" style={{ 
+          background: 'linear-gradient(135deg, hsl(0, 0%, 24%) 0%, hsl(0, 0%, 30%) 50%, hsl(0, 0%, 24%) 100%)',
+          borderColor: 'hsl(0, 0%, 12%)'
+        }} data-testid="section-volume-discounts">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-wrap items-center justify-center gap-1 text-sm">
-              <TrendingDown className="w-4 h-4 text-primary mr-2" />
-              <span className="font-semibold text-foreground mr-3">Volume Discounts:</span>
+              <TrendingDown className="w-4 h-4 text-white mr-2" />
+              <span className="font-semibold text-white mr-3">Volume Discounts:</span>
               <div className="flex items-center gap-1">
-                <span className="text-muted-foreground">2-4 items</span>
+                <span className="text-white/70">2-4 items</span>
                 <span className="font-bold text-destructive mx-1">5% OFF</span>
-                <span className="text-muted-foreground mx-2">•</span>
+                <span className="text-white/70 mx-2">•</span>
               </div>
               <div className="flex items-center gap-1">
-                <span className="text-muted-foreground">5-9 items</span>
+                <span className="text-white/70">5-9 items</span>
                 <span className="font-bold text-destructive mx-1">10% OFF</span>
-                <span className="text-muted-foreground mx-2">•</span>
+                <span className="text-white/70 mx-2">•</span>
               </div>
               <div className="flex items-center gap-1">
-                <span className="text-muted-foreground">10+ items</span>
+                <span className="text-white/70">10+ items</span>
                 <span className="font-bold text-destructive mx-1">15% OFF</span>
               </div>
             </div>
