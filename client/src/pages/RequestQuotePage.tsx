@@ -10,9 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { CheckCircle2, X, Package } from "lucide-react";
+import { CheckCircle2, X, Package, TrendingDown, AlertCircle } from "lucide-react";
 import { SEO } from "@/components/SEO";
-import { getQuoteItemSKU } from "@/lib/quote";
+import { getQuoteItemSKU, getQuoteItemPrice, getQuoteItemDiscountedSubtotal, getQuoteItemSavings } from "@/lib/quote";
 import type { QuoteItem } from "@shared/schema";
 
 const quoteFormSchema = z.object({
@@ -38,6 +38,13 @@ export default function RequestQuotePage({
 }: RequestQuotePageProps) {
   const [, navigate] = useLocation();
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Calculate pricing totals
+  const pricedItems = quoteItems.filter((item) => getQuoteItemPrice(item) !== undefined);
+  const unpricedItems = quoteItems.filter((item) => getQuoteItemPrice(item) === undefined);
+  const hasUnpricedItems = unpricedItems.length > 0;
+  const discountedTotal = pricedItems.reduce((sum, item) => sum + (getQuoteItemDiscountedSubtotal(item) || 0), 0);
+  const totalSavings = pricedItems.reduce((sum, item) => sum + getQuoteItemSavings(item), 0);
 
   const form = useForm<QuoteFormValues>({
     resolver: zodResolver(quoteFormSchema),
@@ -292,6 +299,48 @@ export default function RequestQuotePage({
                   <p className="text-2xl font-bold" data-testid="text-total-items">{quoteItems.length}</p>
                 </div>
                 <Separator />
+                
+                {/* Estimated Total Section */}
+                {quoteItems.length > 0 && (
+                  <>
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-sm">Estimated Total</h4>
+                      {pricedItems.length > 0 && (
+                        <div className="space-y-2">
+                          {totalSavings > 0 && (
+                            <div className="flex justify-between items-center text-sm">
+                              <span className="text-destructive font-medium flex items-center gap-1">
+                                <TrendingDown className="w-4 h-4" />
+                                Volume Savings:
+                              </span>
+                              <span className="text-destructive font-medium" data-testid="text-total-savings">-${totalSavings.toFixed(2)}</span>
+                            </div>
+                          )}
+                          <div className="flex justify-between items-center">
+                            <span className="font-semibold">Subtotal:</span>
+                            <span className="text-xl font-bold text-primary" data-testid="text-estimated-total">${discountedTotal.toFixed(2)}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground">Prices exclude GST</p>
+                        </div>
+                      )}
+                      {hasUnpricedItems && (
+                        <div className="flex items-start gap-2 p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-md">
+                          <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" />
+                          <div>
+                            <p className="text-sm font-medium text-amber-800 dark:text-amber-200" data-testid="text-price-confirmation">
+                              Final price to be confirmed
+                            </p>
+                            <p className="text-xs text-amber-700 dark:text-amber-300 mt-1">
+                              {unpricedItems.length} item{unpricedItems.length !== 1 ? 's require' : ' requires'} pricing confirmation after submission
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <Separator />
+                  </>
+                )}
+
                 <div className="space-y-2">
                   <h4 className="font-semibold text-sm">What happens next?</h4>
                   <ul className="space-y-2 text-sm text-muted-foreground">
