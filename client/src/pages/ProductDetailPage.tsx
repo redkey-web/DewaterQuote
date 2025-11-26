@@ -178,8 +178,12 @@ export default function ProductDetailPage({ onAddToQuote }: ProductDetailPagePro
               <h2 className="text-lg font-semibold mb-2">Product Details</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <span className="text-sm text-muted-foreground">Size From:</span>
-                  <p className="font-medium">{product.sizeFrom}</p>
+                  <span className="text-sm text-muted-foreground">Size Range:</span>
+                  <p className="font-medium">
+                    {product.sizeOptions && product.sizeOptions.length > 1 
+                      ? `${product.sizeOptions[0].value} - ${product.sizeOptions[product.sizeOptions.length - 1].value}`
+                      : product.sizeFrom}
+                  </p>
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">Body:</span>
