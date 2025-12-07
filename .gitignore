@@ -1,6 +1,23 @@
+# Dependencies
 node_modules
+
+# Build outputs
 dist
+.next
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# System files
 .DS_Store
-server/public
-vite.config.ts.*
+
+# Vercel
+.vercel
+
+# Deprecated code (old Vite/Express)
+_deprecated
+
+# Archives
 *.tar.gz

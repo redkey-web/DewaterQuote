@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "project": "dewater-products",
+  "project_type": "webdev",
+  "level": "project",
+  "tracking_files": [
+    ".planning/current/migration-plan.md",
+    "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
+    "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
+  ],
+  "parent_track": "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
+  "require_marker_file": false,
+  "description": "deWater Products full-scope website migration with CMS"
+}
