@@ -4,7 +4,7 @@ import ProductCard from "@/components/ProductCard"
 import type { Metadata } from "next"
 
 interface BrandPageProps {
-  params: { brand: string }
+  params: Promise<{ brand: string }>
 }
 
 const brandInfo: Record<string, { name: string; description: string }> = {
@@ -31,8 +31,9 @@ export function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }: BrandPageProps): Metadata {
-  const brand = brandInfo[params.brand.toLowerCase()]
+export async function generateMetadata({ params }: BrandPageProps): Promise<Metadata> {
+  const { brand: brandSlug } = await params
+  const brand = brandInfo[brandSlug.toLowerCase()]
   if (!brand) return { title: "Brand Not Found" }
 
   return {
@@ -41,8 +42,9 @@ export function generateMetadata({ params }: BrandPageProps): Metadata {
   }
 }
 
-export default function BrandPage({ params }: BrandPageProps) {
-  const brandKey = params.brand.toLowerCase()
+export default async function BrandPage({ params }: BrandPageProps) {
+  const { brand: brandSlug } = await params
+  const brandKey = brandSlug.toLowerCase()
   const brand = brandInfo[brandKey]
 
   if (!brand) {

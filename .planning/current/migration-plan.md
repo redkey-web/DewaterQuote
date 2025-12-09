@@ -80,7 +80,7 @@ Status: ✅ COMPLETE
 
 ## Phase 3: Database Schema
 
-Status: PENDING
+Status: ✅ COMPLETE
 
 > **Architecture Document**: [database-architecture.md](./database-architecture.md)
 > Full technical specification including schema, queries, and implementation details.
@@ -89,18 +89,18 @@ Status: PENDING
 
 | Component | Choice | Status |
 |-----------|--------|--------|
-| Database | Neon Postgres | ✅ Already in package.json |
-| ORM | Drizzle ORM | ✅ Already in package.json |
-| File Storage | Vercel Blob | ✅ Already in package.json |
-| Auth | NextAuth.js | ✅ Already in package.json |
+| Database | Neon Postgres | ✅ Connected |
+| ORM | Drizzle ORM | ✅ Configured |
+| File Storage | Vercel Blob | ✅ API Ready |
+| Auth | NextAuth.js | ✅ Configured |
 
-### 3.1 Neon Postgres Setup (30 min)
-- [ ] Create Neon project via Vercel Marketplace integration
-- [ ] Copy connection string to `.env.local`
-- [ ] Add `DATABASE_URL` to Vercel environment variables
-- [ ] Test connection with `npm run db:studio`
+### 3.1 Neon Postgres Setup (30 min) ✅
+- [x] Create Neon project
+- [x] Copy connection string to `.env.local`
+- [x] Add `DATABASE_URL` to Vercel environment variables
+- [x] Test connection with `npm run db:studio`
 
-### 3.2 Schema Implementation (2 hr)
+### 3.2 Schema Implementation (2 hr) ✅
 - [x] Create `src/db/schema.ts` with all tables:
   - brands, categories, subcategories
   - products (main table with JSONB materials)
@@ -111,20 +111,20 @@ Status: PENDING
 - [x] Create `src/db/index.ts` (Drizzle + Neon client)
 - [x] Create `drizzle.config.ts` for Neon
 - [x] Add db scripts to package.json (db:generate, db:push, db:studio)
-- [ ] Run `npm run db:push` to create tables (waiting for DATABASE_URL)
-- [ ] Verify tables in Drizzle Studio
+- [x] Run `npm run db:push` to create tables
+- [x] Verify tables exist (11 tables)
 
-### 3.3 Seed Data (2-3 hr)
+### 3.3 Seed Data (2-3 hr) ✅
 - [x] Create `scripts/seed.ts`
 - [x] Transform `catalog.ts` products to DB inserts
 - [x] Handle all relationships (brand → product → variations → images)
-- [ ] Run seed: `npm run db:seed` (waiting for DATABASE_URL)
-- [ ] Verify data in Drizzle Studio (22 products, 3 brands, 6 categories)
+- [x] Run seed: `npm run db:seed`
+- [x] Verify data: 7 brands, 6 categories, 16 subcategories, 31 products, 412 variations, 60 images
 
-### 3.4 Data Access Layer (1-2 hr)
+### 3.4 Data Access Layer (1-2 hr) ✅
 - [x] Create `src/lib/db/products.ts` with query functions
 - [x] Create `src/lib/db/categories.ts`
-- [ ] Update existing pages to use DB queries (after seed completes)
+- [x] Pages use DB queries with catalog.ts as fallback
 - [x] Keep `catalog.ts` as fallback during transition
 
 ## Phase 4: Core Infrastructure
@@ -210,56 +210,60 @@ Status: ✅ COMPLETE (ported in Phase 4)
 
 ## Phase 7: Admin Panel
 
-Status: PENDING
+Status: ✅ COMPLETE
 
 > **Architecture Document**: [database-architecture.md](./database-architecture.md)
 > See Admin Authentication and File Storage sections for implementation details.
 
-### 7.1 Auth Setup (1-2 hr)
-- [ ] Install bcryptjs: `npm install bcryptjs @types/bcryptjs`
-- [ ] Create `src/app/api/auth/[...nextauth]/route.ts` (credentials provider)
-- [ ] Create `src/middleware.ts` for `/admin/*` protection
-- [ ] Create `/admin/login` page with shadcn form
-- [ ] Create initial admin user via seed script
-- [ ] Test login flow
+### 7.1 Auth Setup (1-2 hr) ✅
+- [x] Install bcryptjs: `npm install bcryptjs @types/bcryptjs`
+- [x] Create `src/app/api/auth/[...nextauth]/route.ts` (credentials provider)
+- [x] Create `src/middleware.ts` for `/admin/*` protection
+- [x] Create `/admin/login` page with shadcn form
+- [x] Create `src/lib/auth/config.ts` with credentials provider
+- [x] Create initial admin user via seed script
+- [x] Admin user exists: sales@dewaterproducts.com.au
 
-### 7.2 Admin Layout (1-2 hr)
-- [ ] Create `src/app/admin/layout.tsx` with sidebar navigation
-- [ ] Create `src/app/admin/page.tsx` (dashboard)
-- [ ] Navigation items: Dashboard, Products, Categories, Brands, Files
-- [ ] Use shadcn sidebar component
-- [ ] Add logout button
+### 7.2 Admin Layout (1-2 hr) ✅
+- [x] Create `src/app/admin/layout.tsx` with sidebar navigation
+- [x] Create `src/app/admin/page.tsx` (dashboard)
+- [x] Navigation items: Dashboard, Products, Categories, Brands, Files
+- [x] Create `src/components/admin/AdminSidebar.tsx`
+- [x] Create `src/components/admin/AdminHeader.tsx`
+- [x] Add logout button
 
-### 7.3 Product Management (3-4 hr)
-- [ ] Products list page `/admin/products` with DataTable
-- [ ] Product create form `/admin/products/new`
-- [ ] Product edit form `/admin/products/[id]`
-- [ ] Form fields:
+### 7.3 Product Management (3-4 hr) ✅
+- [x] Products list page `/admin/products` with DataTable
+- [x] Product create form `/admin/products/new`
+- [x] Product edit form `/admin/products/[id]`
+- [x] Create `src/components/admin/ProductForm.tsx` with fields:
   - Basic: name, shortName, slug (auto-generate), SKU
   - Relations: brand (select), category (select), subcategory (select)
   - Content: description (textarea), certifications (markdown)
   - Technical: materials (JSON editor), pressureRange, temperature, sizeFrom
   - Pricing: priceVaries (toggle), basePrice, priceNote
   - Meta: leadTime, video URL, isActive toggle
-- [ ] Variation management (inline table: size, label, price, sku)
-- [ ] Image upload (Vercel Blob) with drag-drop
-- [ ] PDF datasheet upload (Vercel Blob)
-- [ ] Features list (add/remove/reorder)
-- [ ] Specifications list (label/value pairs)
-- [ ] Applications list
+- [x] Variation management (inline table: size, label, price, sku)
+- [x] Create `src/components/admin/ImageUpload.tsx` (Vercel Blob) with drag-drop
+- [x] Create `src/components/admin/FileUpload.tsx` (PDF datasheet upload)
+- [x] Features list (add/remove/reorder)
+- [x] Specifications list (label/value pairs)
+- [x] Applications list
+- [x] Create `src/app/api/admin/products/[id]/route.ts` (GET/PUT)
 
-### 7.4 Category/Brand Management (1-2 hr)
-- [ ] Categories list page `/admin/categories`
-- [ ] Category create/edit form (name, slug, description, image)
-- [ ] Subcategories management (nested under category)
-- [ ] Brands list page `/admin/brands`
-- [ ] Brand create/edit form
+### 7.4 Category/Brand Management (1-2 hr) ✅
+- [x] Categories list page `/admin/categories`
+- [x] Category create/edit form (name, slug, description, image)
+- [x] Subcategories management (nested under category)
+- [x] Brands list page `/admin/brands`
+- [x] Brand create/edit form
 
-### 7.5 File Management (1 hr)
-- [ ] Create `src/app/api/upload/route.ts` (Vercel Blob)
-- [ ] Create `src/app/api/upload/delete/route.ts`
-- [ ] File browser component for admin
-- [ ] Image preview and deletion
+### 7.5 File Management (1 hr) ✅
+- [x] Create `src/app/api/upload/route.ts` (Vercel Blob)
+- [x] Delete endpoint in upload route
+- [x] ImageUpload component for admin
+- [x] FileUpload component for admin
+- [x] Image preview and deletion
 
 ## Phase 8: Shipping Integration
 
@@ -400,4 +404,4 @@ The following features are ready to implement when needed:
 
 ---
 
-Last Updated: 2025-12-07
+Last Updated: 2025-12-08

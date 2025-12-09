@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import sgMail from "@sendgrid/mail"
+import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -15,6 +17,11 @@ interface ContactFormData {
 }
 
 export async function POST(request: NextRequest) {
+  // Check rate limit first
+  const ip = getClientIp(request)
+  const rateLimitResponse = await checkRateLimit(ip)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const data: ContactFormData = await request.json()
 
@@ -38,6 +45,15 @@ export async function POST(request: NextRequest) {
     const toEmail = process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au"
     const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
 
+    // Sanitize all user inputs for HTML context
+    const safeName = escapeHtml(data.name)
+    const safeEmail = escapeHtml(data.email)
+    const safeEmailHref = escapeEmailHref(data.email)
+    const safePhone = data.phone ? escapeHtml(data.phone) : ""
+    const safePhoneHref = data.phone ? escapeTelHref(data.phone) : ""
+    const safeCompany = data.company ? escapeHtml(data.company) : ""
+    const safeMessage = escapeHtml(data.message)
+
     // Email to business
     const businessEmail = {
       to: toEmail,
@@ -49,27 +65,27 @@ export async function POST(request: NextRequest) {
         <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Name</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${data.name}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${safeName}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Email</td>
-            <td style="padding: 10px; border: 1px solid #ddd;"><a href="mailto:${data.email}">${data.email}</a></td>
+            <td style="padding: 10px; border: 1px solid #ddd;"><a href="mailto:${safeEmailHref}">${safeEmail}</a></td>
           </tr>
-          ${data.phone ? `
+          ${safePhone ? `
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Phone</td>
-            <td style="padding: 10px; border: 1px solid #ddd;"><a href="tel:${data.phone}">${data.phone}</a></td>
+            <td style="padding: 10px; border: 1px solid #ddd;"><a href="tel:${safePhoneHref}">${safePhone}</a></td>
           </tr>
           ` : ""}
-          ${data.company ? `
+          ${safeCompany ? `
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Company</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${data.company}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${safeCompany}</td>
           </tr>
           ` : ""}
         </table>
         <h3 style="margin-top: 20px;">Message</h3>
-        <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${data.message}</div>
+        <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${safeMessage}</div>
         <p style="margin-top: 20px; color: #666; font-size: 12px;">
           Sent from deWater Products website contact form
         </p>
@@ -95,12 +111,12 @@ ${data.message}
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #1a1a1a;">Thank you for your enquiry</h2>
-          <p>Hi ${data.name},</p>
+          <p>Hi ${safeName},</p>
           <p>We've received your message and will get back to you within 1-2 business days.</p>
           <p>If you have an urgent enquiry, please call us on <strong>(08) 9271 2577</strong>.</p>
           <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
           <h3 style="color: #666;">Your Message</h3>
-          <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${data.message}</div>
+          <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${safeMessage}</div>
           <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
           <p style="color: #666; font-size: 14px;">
             <strong>deWater Products Pty Ltd</strong><br />

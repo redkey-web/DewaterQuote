@@ -15,54 +15,49 @@ export default function Header() {
 
   const productsMenu = [
     {
-      title: "Clamps & Couplings",
+      title: "Brands",
+      url: "/straub",
+      items: [
+        { name: "Straub Couplings", url: "/straub" },
+        { name: "Orbit Couplings", url: "/orbit" },
+        { name: "Teekay Products", url: "/teekay" },
+      ],
+    },
+    {
+      title: "Couplings & Repair",
       url: "/pipe-couplings",
       items: [
-        { name: "Pipe Couplings", url: "/pipe-couplings/pipe-couplings" },
-        { name: "Pipe Repair Clamps", url: "/pipe-repair-clamps/pipe-repair-clamps" },
-        { name: "Muff/Sleeve Couplings", url: "/pipe-couplings/muff-couplings" },
-        { name: "Flange Adaptors", url: "/pipe-couplings/flange-adaptors" },
+        { name: "Pipe Couplings", url: "/pipe-couplings" },
+        { name: "Pipe Repair", url: "/pipe-repair" },
+        { name: "Flange Adaptors", url: "/flange-adaptors" },
       ],
     },
     {
       title: "Valves",
       url: "/valves",
       items: [
-        { name: "Butterfly Valves", url: "/valves/butterfly-valves" },
-        { name: "Duckbill Check Valves", url: "/valves/check-valves/duckbill" },
-        { name: "Ball Check Valves", url: "/valves/check-valves/ball" },
-        { name: "Swing Check Valves", url: "/valves/check-valves/swing" },
-        { name: "Gate Valves", url: "/valves/gate-valves" },
-        { name: "Ball Valves", url: "/valves/ball-valves" },
-        { name: "Air Release / Non-Return", url: "/valves/air-release" },
+        { name: "Butterfly Valves", url: "/valves/butterfly-valve" },
+        { name: "Duckbill Check Valves", url: "/valves/duckbill-check-valve" },
+        { name: "Swing Check Valves", url: "/valves/swing-check-valve" },
+        { name: "Gate Valves", url: "/valves/gate-valve" },
+        { name: "Ball Valves", url: "/valves/ball-valve" },
+        { name: "Knife Gate Valves", url: "/valves/knife-gate-valve" },
       ],
     },
     {
       title: "Expansion Joints",
       url: "/rubber-expansion-joints",
       items: [
-        { name: "Rubber Expansion Joints", url: "/rubber-expansion-joints/rubber" },
-        { name: "PTFE Expansion Joints", url: "/rubber-expansion-joints/ptfe" },
-        { name: "Stainless/Fabric Joints", url: "/rubber-expansion-joints/stainless-fabric" },
+        { name: "Single Sphere", url: "/rubber-expansion-joints/single-sphere" },
+        { name: "Twin Sphere", url: "/rubber-expansion-joints/twin-sphere" },
       ],
     },
     {
-      title: "Strainers & Filters",
+      title: "Strainers",
       url: "/strainers",
       items: [
-        { name: "Y Strainers", url: "/strainers/y-strainers" },
-        { name: "Basket Strainers", url: "/strainers/basket" },
-        { name: "T Strainers", url: "/strainers/t-strainers" },
-        { name: "Duplex Strainers", url: "/strainers/duplex" },
-      ],
-    },
-    {
-      title: "Brands",
-      url: "/brands/straub",
-      items: [
-        { name: "Straub", url: "/brands/straub" },
-        { name: "Orbit", url: "/brands/orbit" },
-        { name: "Teekay", url: "/brands/teekay" },
+        { name: "Y Strainers", url: "/strainers/y-strainer" },
+        { name: "Basket Strainers", url: "/strainers/basket-strainer" },
       ],
     },
   ]

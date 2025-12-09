@@ -30,12 +30,14 @@ import {
 } from "@/lib/quote"
 import { useQuote } from "@/context/QuoteContext"
 
+import { use } from "react"
+
 interface ProductDetailPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export default function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const { slug } = params
+  const { slug } = use(params)
   const { toast } = useToast()
   const { addItem } = useQuote()
   const [quantities, setQuantities] = useState<Record<string, number>>({})
@@ -179,9 +181,16 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 
           {/* Product Info */}
           <div>
-            <Badge variant="secondary" className="mb-2" data-testid="badge-brand">
-              {product.brand}
-            </Badge>
+            <div className="flex flex-wrap gap-2 mb-2">
+              <Badge variant="secondary" data-testid="badge-brand">
+                {product.brand}
+              </Badge>
+              {product.straubEquivalent && (
+                <Badge variant="outline" className="border-primary text-primary" data-testid="badge-straub">
+                  Equivalent to {product.straubEquivalent}
+                </Badge>
+              )}
+            </div>
             <h1 className="text-4xl font-bold mb-4" data-testid="text-product-title">
               {product.name}
             </h1>

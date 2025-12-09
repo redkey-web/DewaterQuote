@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import sgMail from "@sendgrid/mail"
+import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -43,6 +45,11 @@ function getItemPrice(item: QuoteItem): number | undefined {
 }
 
 export async function POST(request: NextRequest) {
+  // Check rate limit first
+  const ip = getClientIp(request)
+  const rateLimitResponse = await checkRateLimit(ip)
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const data: QuoteFormData = await request.json()
 
@@ -73,19 +80,34 @@ export async function POST(request: NextRequest) {
     const toEmail = process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au"
     const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
 
+    // Sanitize user inputs for HTML context
+    const safeName = escapeHtml(data.name)
+    const safeEmail = escapeHtml(data.email)
+    const safeEmailHref = escapeEmailHref(data.email)
+    const safePhone = escapeHtml(data.phone)
+    const safePhoneHref = escapeTelHref(data.phone)
+    const safeCompany = data.company ? escapeHtml(data.company) : ""
+    const safeMessage = data.message ? escapeHtml(data.message) : ""
+
     // Build items table
     const itemsTableRows = data.items.map((item) => {
       const price = getItemPrice(item)
       const priceDisplay = price ? `$${price.toFixed(2)}` : "POA"
       const lineTotal = price ? `$${(price * item.quantity).toFixed(2)}` : "POA"
 
+      // Sanitize item data (from database, but could be manipulated)
+      const safeItemSku = escapeHtml(getItemSKU(item))
+      const safeItemName = escapeHtml(item.name)
+      const safeItemBrand = escapeHtml(item.brand)
+      const safeVariationLabel = item.variation ? escapeHtml(item.variation.sizeLabel) : ""
+
       return `
         <tr>
-          <td style="padding: 10px; border: 1px solid #ddd;">${getItemSKU(item)}</td>
+          <td style="padding: 10px; border: 1px solid #ddd;">${safeItemSku}</td>
           <td style="padding: 10px; border: 1px solid #ddd;">
-            <strong>${item.name}</strong><br />
-            <span style="color: #666; font-size: 12px;">${item.brand}</span>
-            ${item.variation ? `<br /><span style="color: #666; font-size: 12px;">Size: ${item.variation.sizeLabel}</span>` : ""}
+            <strong>${safeItemName}</strong><br />
+            <span style="color: #666; font-size: 12px;">${safeItemBrand}</span>
+            ${safeVariationLabel ? `<br /><span style="color: #666; font-size: 12px;">Size: ${safeVariationLabel}</span>` : ""}
           </td>
           <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${item.quantity}</td>
           <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">${priceDisplay}</td>
@@ -113,20 +135,20 @@ export async function POST(request: NextRequest) {
         <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; width: 120px;">Name</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${data.name}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${safeName}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Email</td>
-            <td style="padding: 10px; border: 1px solid #ddd;"><a href="mailto:${data.email}">${data.email}</a></td>
+            <td style="padding: 10px; border: 1px solid #ddd;"><a href="mailto:${safeEmailHref}">${safeEmail}</a></td>
           </tr>
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Phone</td>
-            <td style="padding: 10px; border: 1px solid #ddd;"><a href="tel:${data.phone}">${data.phone}</a></td>
+            <td style="padding: 10px; border: 1px solid #ddd;"><a href="tel:${safePhoneHref}">${safePhone}</a></td>
           </tr>
-          ${data.company ? `
+          ${safeCompany ? `
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Company</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${data.company}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${safeCompany}</td>
           </tr>
           ` : ""}
         </table>
@@ -175,9 +197,9 @@ export async function POST(request: NextRequest) {
           </table>
         </div>
 
-        ${data.message ? `
+        ${safeMessage ? `
         <h3 style="margin-top: 30px;">Additional Requirements</h3>
-        <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${data.message}</div>
+        <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${safeMessage}</div>
         ` : ""}
 
         <p style="margin-top: 30px; color: #666; font-size: 12px;">
@@ -210,7 +232,7 @@ ${data.message ? `Additional Requirements:\n${data.message}` : ""}
     // Confirmation email to customer
     const customerItemsList = data.items.map((item) => `
       <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.name}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #eee;">${escapeHtml(item.name)}</td>
         <td style="padding: 8px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
       </tr>
     `).join("")
@@ -222,7 +244,7 @@ ${data.message ? `Additional Requirements:\n${data.message}` : ""}
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #1a1a1a;">Thank you for your quote request</h2>
-          <p>Hi ${data.name},</p>
+          <p>Hi ${safeName},</p>
           <p>We've received your quote request for ${data.items.length} item${data.items.length !== 1 ? "s" : ""}. Our team will review your requirements and send you a detailed quote within <strong>1-2 business days</strong>.</p>
 
           <h3 style="color: #666; margin-top: 30px;">Items Requested</h3>

@@ -21,3 +21,4 @@ _deprecated
 
 # Archives
 *.tar.gz
+.env*.local

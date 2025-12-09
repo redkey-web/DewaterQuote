@@ -48,6 +48,7 @@ export interface Product {
   price?: number
   priceVaries?: boolean
   priceNote?: string
+  straubEquivalent?: string // Cross-reference to Straub equivalent product
 }
 
 export interface Subcategory {

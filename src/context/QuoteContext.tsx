@@ -19,10 +19,24 @@ interface QuoteContextValue {
 
 const QuoteContext = createContext<QuoteContextValue | null>(null)
 
+// Default no-op context for SSR/SSG
+const defaultContextValue: QuoteContextValue = {
+  items: [],
+  itemCount: 0,
+  isCartOpen: false,
+  openCart: () => {},
+  closeCart: () => {},
+  addItem: () => {},
+  removeItem: () => {},
+  updateItemQuantity: () => {},
+  clearQuote: () => {},
+}
+
 export function useQuote() {
   const context = useContext(QuoteContext)
+  // Return default no-op context during SSR/SSG when provider isn't available
   if (!context) {
-    throw new Error("useQuote must be used within a QuoteProvider")
+    return defaultContextValue
   }
   return context
 }

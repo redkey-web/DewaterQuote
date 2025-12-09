@@ -119,7 +119,7 @@ export const products: Product[] = [
       { value: "630.0mm", label: "630.0mm" }
     ],
     images: [
-      { url: "/placeholder-duckbill.jpg", alt: "DB-1 Slip On Duckbill Check Valve", type: "image" }
+      { url: "/images/products/valves/duckbill-check-valve.png", alt: "DB-1 Slip On Duckbill Check Valve", type: "image" }
     ],
     downloads: [
       { url: "#", label: "Datasheet" }
@@ -180,7 +180,8 @@ export const products: Product[] = [
     },
     pressureRange: "0 TO 16 BAR",
     sizeFrom: "48.3mm",
-    applications: ["Emergency pipe repairs", "Leak sealing", "Crack repair"]
+    applications: ["Emergency pipe repairs", "Leak sealing", "Crack repair"],
+    straubEquivalent: "STRAUB-REP 1"
   },
 
   // Foot Valve
@@ -306,7 +307,8 @@ export const products: Product[] = [
     priceVaries: true,
     priceNote: "Please check product sizing carefully before ordering. Prices shown exclude GST. High pressure ratings and alternative rubber materials (NBR, Viton) available - contact us for a quote.",
     applications: ["Systems with thermal expansion or dynamic movement", "Marine applications", "Industrial piping", "Building services"],
-    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards.",
+    straubEquivalent: "STRAUB-FLEX 1L"
   },
 
   // Flex Grip S
@@ -347,7 +349,8 @@ export const products: Product[] = [
     sizeFrom: "21.3mm",
     leadTime: "12 days if nil stock",
     applications: ["Compact installations", "Pipe repair", "Industrial piping", "Pressure systems"],
-    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards.",
+    straubEquivalent: "STRAUB-FLEX 1"
   },
 
   // Metal Lock L
@@ -388,7 +391,8 @@ export const products: Product[] = [
     sizeFrom: "48.3mm",
     leadTime: "12 days if nil stock",
     applications: ["High-pressure systems requiring axial restraint", "Water supply networks", "Industrial process piping", "Infrastructure projects"],
-    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 304 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 304 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards.",
+    straubEquivalent: "STRAUB-METAL-GRIP L"
   },
 
   // Metal Lock S
@@ -429,7 +433,8 @@ export const products: Product[] = [
     sizeFrom: "26.9mm",
     leadTime: "12 days if nil stock",
     applications: ["Compact high-pressure installations", "Pipe repair with restraint", "Water distribution systems", "Industrial applications"],
-    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+    certifications: "WRAS-approved EPDM rubber sleeves suitable for potable water applications. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards.",
+    straubEquivalent: "STRAUB-METAL-GRIP"
   },
 
   // Fire Protection Coupling
@@ -471,7 +476,8 @@ export const products: Product[] = [
     sizeFrom: "114.3mm",
     leadTime: "12 days if nil stock",
     applications: ["Fire protection systems", "Marine fire suppression", "Industrial fire safety", "Building fire services"],
-    certifications: "IACS compliant for fire protection applications. WRAS-approved EPDM rubber sleeves suitable for potable water. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards."
+    certifications: "IACS compliant for fire protection applications. WRAS-approved EPDM rubber sleeves suitable for potable water. 316 stainless steel components provide excellent corrosion resistance. Manufactured to ISO 9001 quality standards.",
+    straubEquivalent: "STRAUB-FIRE COUPLING"
   },
 
   // Elbow Repair Clamp
@@ -704,7 +710,7 @@ export const products: Product[] = [
       { label: "Flange Standard", value: "Table D/E" }
     ],
     images: [
-      { url: "/placeholder-strainer.jpg", alt: "Y-Strainer Cast Iron", type: "image" }
+      { url: "/images/products/valves/y-strainer-ci.jpg", alt: "Y-Strainer Cast Iron", type: "image" }
     ],
     materials: {
       body: "Cast Iron",
@@ -745,7 +751,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-30°C to +110°C" }
     ],
     images: [
-      { url: "/placeholder-expansion.jpg", alt: "Rubber Expansion Joint EPDM", type: "image" }
+      { url: "/images/products/expansion-joints/fsf-single-sphere.jpg", alt: "Rubber Expansion Joint EPDM", type: "image" }
     ],
     materials: {
       body: "EPDM",
@@ -1049,7 +1055,7 @@ export const products: Product[] = [
       { value: "300mm", label: "DN300 (12\") - 323.9mm OD", price: 795, sku: "SSFA-300" }
     ],
     images: [
-      { url: "/images/products/flange-adaptors/ss-flange-adapter-316.jpg", alt: "Stainless Steel Flange Adapter 316SS", type: "image" }
+      { url: "/images/products/flange-adaptors/ss-flange-adapter-316.png", alt: "Stainless Steel Flange Adapter 316SS", type: "image" }
     ],
     leadTime: "10-14 days if nil stock",
     materials: {
@@ -1233,6 +1239,24 @@ export const subcategories: Subcategory[] = [
     name: "Duplex Basket Strainers",
     description: "Twin basket strainers for continuous filtration.",
     category: "strainers"
+  },
+
+  // Rubber Expansion Joints subcategories
+  {
+    id: "single-sphere",
+    slug: "single-sphere",
+    name: "Single Sphere Expansion Joints",
+    description: "Single sphere rubber expansion joints for pump connections and vibration isolation.",
+    category: "rubber-expansion-joints"
+  },
+
+  // Flange Adaptors subcategories
+  {
+    id: "flange-adaptor",
+    slug: "flange-adaptor",
+    name: "Flange Adaptors",
+    description: "Stainless steel flange adaptors for connecting plain-ended pipes to flanged equipment.",
+    category: "flange-adaptors"
   }
 ];
 

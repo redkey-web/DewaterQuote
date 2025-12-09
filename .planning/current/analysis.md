@@ -1,28 +1,65 @@
 # Codebase Analysis
 
-**Last Updated**: 2025-12-07
-**Analyzed By**: webdev:port
+**Last Updated**: 2025-12-09
+**Analyzed By**: webdev:refresh
+**Previous Update**: 2025-12-08
 
 ## Structure Overview
-- **Framework**: Vite + Express + TypeScript
+- **Framework**: Next.js 14 (App Router) ✅ MIGRATED
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS + shadcn/ui
-- **Routing**: wouter (client-side SPA)
-- **State**: React Query + localStorage
+- **Routing**: File-based (App Router)
+- **State**: Context + localStorage
+- **Database**: Drizzle ORM + Neon Postgres
+- **Auth**: NextAuth.js (credentials)
 
 ## File Counts
-| Type | Count | Location |
-|------|-------|----------|
-| Pages | 13 | client/src/pages/ |
-| Components | 72 | client/src/components/ (50 UI + 22 custom) |
-| API Routes | 2 | server/routes.ts (Neto integration) |
-| Utils/Lib | 5+ | client/src/lib/, shared/ |
+| Type | Count | Location | Change |
+|------|-------|----------|--------|
+| Pages | 29 | src/app/ | No change |
+| Components | 63 | src/components/ (47 UI + 16 custom) | No change |
+| API Routes | 10 | src/app/api/ | No change |
+| Utils/Lib | 7 | src/lib/ | +2 new (security) |
+
+## Recent Changes (since 2025-12-08)
+- **Security fixes implemented**:
+  - Added src/lib/sanitize.ts with XSS prevention utilities
+  - Added src/lib/rate-limit.ts with Upstash rate limiting
+  - Updated api/contact/route.ts and api/quote/route.ts to use sanitization
+  - Rate limiting now active on form submission endpoints
+- Added admin products/new page for creating products
+- Added admin categories CRUD (list, new, edit pages)
+- Added admin brands CRUD (list, new, edit pages)
+- Added CategoryForm and BrandForm components
+- Added API routes for categories and brands management
 
 ## Total LOC
-- Pages: ~4,000
-- Components: ~4,500
-- Server: ~500
-- **Total**: ~9,500
+- Pages: ~6,000
+- Components: ~6,500
+- Admin: ~4,000
+- **Total**: ~16,500
+
+## Security Status (Audited 2025-12-09)
+
+### Critical Issues
+| Issue | Location | Status |
+|-------|----------|--------|
+| XSS in email templates | api/contact/route.ts, api/quote/route.ts | ✅ Fixed |
+| No rate limiting on forms | api/contact, api/quote | ✅ Fixed |
+
+### High Priority
+| Issue | Location | Status |
+|-------|----------|--------|
+| No Turnstile/CAPTCHA | Contact/quote forms | ⏳ Pending |
+| Missing security headers | next.config.js | ⏳ Pending |
+
+### Medium Priority
+| Issue | Location | Status |
+|-------|----------|--------|
+| Admin input validation | api/admin/* routes | ⏳ Pending |
+| Blob URL ownership check | api/upload/route.ts | ⏳ Pending |
+
+See security audit for full details and remediation plan.
 
 ## Dependencies (Key)
 

@@ -1,173 +1,1024 @@
 import { notFound } from "next/navigation"
+import Link from "next/link"
 import { products } from "@/data/catalog"
 import ProductCard from "@/components/ProductCard"
+import { BreadcrumbJsonLd } from "@/components/JsonLd"
+import {
+  CheckCircle,
+  ArrowRight,
+  Droplets,
+  Flame,
+  Mountain,
+  Anchor,
+  Wind,
+  Apple,
+  Wheat,
+  AlertTriangle,
+  Wrench,
+  Shield,
+  Clock,
+  DollarSign,
+} from "lucide-react"
 import type { Metadata } from "next"
 
 interface IndustryPageProps {
-  params: { industry: string }
+  params: Promise<{ industry: string }>
 }
 
-const industryInfo: Record<
-  string,
-  {
-    name: string
+interface IndustryData {
+  name: string
+  tagline: string
+  description: string
+  metaDescription: string
+  keywords: string[]
+  icon: typeof Droplets
+  heroColor: string
+  challenges: { title: string; description: string }[]
+  solutions: { category: string; description: string; products: string[] }[]
+  applications: string[]
+  recommendedProducts: string[] // Product IDs
+  faqs: { question: string; answer: string }[]
+  caseStudy?: {
+    title: string
     description: string
-    applications: string[]
-    recommendedCategories: string[]
+    result: string
   }
-> = {
+}
+
+const industryData: Record<string, IndustryData> = {
   "water-wastewater": {
     name: "Water & Wastewater",
+    tagline: "Reliable Solutions for Critical Water Infrastructure",
     description:
-      "Complete piping solutions for water treatment plants, sewage systems, and water distribution networks. Our products meet strict standards for potable water and wastewater applications.",
+      "Complete piping solutions for water treatment plants, sewage systems, and water distribution networks. Our products meet strict Australian standards for potable water and wastewater applications, with certifications including AS/NZS 4020 compliance.",
+    metaDescription:
+      "Industrial pipe fittings for water treatment plants, sewage systems, and water distribution. AS/NZS 4020 compliant valves, couplings, and expansion joints. Fast delivery Australia-wide.",
+    keywords: [
+      "water treatment pipe fittings",
+      "wastewater valves",
+      "sewage pump couplings",
+      "potable water pipe",
+      "water authority supplies",
+      "stormwater products",
+    ],
+    icon: Droplets,
+    heroColor: "from-blue-500/10 to-cyan-500/10",
+    challenges: [
+      {
+        title: "Corrosion Resistance",
+        description:
+          "Water and wastewater environments accelerate corrosion. Our 316 stainless steel and EPDM rubber products resist degradation.",
+      },
+      {
+        title: "Potable Water Compliance",
+        description:
+          "Products must meet AS/NZS 4020 for drinking water contact. We stock WRAS-approved and WaterMark certified options.",
+      },
+      {
+        title: "24/7 Operations",
+        description:
+          "Treatment plants run continuously. Our quick-install couplings minimise downtime during maintenance and repairs.",
+      },
+      {
+        title: "Variable Flow Conditions",
+        description:
+          "Pump start/stop cycles create water hammer. Expansion joints and check valves protect your infrastructure.",
+      },
+    ],
+    solutions: [
+      {
+        category: "Pump Connections",
+        description: "Isolate vibration and allow for thermal movement with rubber expansion joints.",
+        products: ["rubber-expansion-joints"],
+      },
+      {
+        category: "Backflow Prevention",
+        description: "Check valves prevent reverse flow in pump stations and rising mains.",
+        products: ["valves"],
+      },
+      {
+        category: "Pipe Repair",
+        description: "Repair damaged mains without shutdown using Straub and Orbit clamps.",
+        products: ["pipe-couplings"],
+      },
+      {
+        category: "Strainer Protection",
+        description: "Protect pumps and equipment with Y-strainers and basket strainers.",
+        products: ["strainers"],
+      },
+    ],
     applications: [
       "Water treatment plants",
       "Sewage pumping stations",
       "Desalination facilities",
-      "Stormwater management",
+      "Stormwater management systems",
       "Municipal water networks",
+      "Reservoir and dam infrastructure",
+      "Recycled water systems",
+      "Sludge handling pipelines",
     ],
-    recommendedCategories: ["valves", "pipe-couplings", "strainers", "rubber-expansion-joints"],
+    recommendedProducts: ["BFLYW316", "DB-1", "FSF-REJ", "SBS316"],
+    faqs: [
+      {
+        question: "Are your products approved for potable water applications?",
+        answer:
+          "Yes, we stock products with WRAS approval, WaterMark certification, and AS/NZS 4020 compliance for contact with drinking water. EPDM rubber seals are the standard for potable water.",
+      },
+      {
+        question: "Can you supply products certified to water authority specifications?",
+        answer:
+          "Absolutely. We regularly supply products to Water Corporation, Sydney Water, SA Water, and other authorities. Contact us with your project specifications.",
+      },
+      {
+        question: "What materials are best for sewage and wastewater?",
+        answer:
+          "For sewage, we recommend 316 stainless steel bodies with NBR or EPDM seals. Duckbill check valves in neoprene are ideal for outfalls. Avoid brass in sewage due to dezincification.",
+      },
+      {
+        question: "Do you offer emergency supply for burst mains?",
+        answer:
+          "Yes, we understand water infrastructure emergencies. Call us directly on (08) 9271 2577 for urgent orders. We stock common repair clamp sizes for fast dispatch.",
+      },
+    ],
+    caseStudy: {
+      title: "Perth Metro Pump Station Upgrade",
+      description:
+        "Supplied expansion joints and check valves for a major pump station refurbishment, enabling connection of new high-efficiency pumps to existing pipework.",
+      result: "Zero unplanned shutdowns during 6-month installation period",
+    },
   },
   irrigation: {
     name: "Irrigation",
+    tagline: "Durable Products for Agricultural Water Management",
     description:
-      "Reliable irrigation solutions for agricultural and landscaping applications. Products designed for efficient water distribution and long-term durability in outdoor conditions.",
+      "Reliable irrigation solutions for agricultural and landscaping applications. Products designed for efficient water distribution and long-term durability in outdoor conditions, from broadacre farming to precision drip systems.",
+    metaDescription:
+      "Irrigation pipe fittings, valves, and couplings for farms, vineyards, and landscaping. UV-resistant materials, foot valves for pumps, and strainers. Delivered Australia-wide.",
+    keywords: [
+      "irrigation valves",
+      "farm pipe fittings",
+      "foot valves for pumps",
+      "agricultural water",
+      "vineyard irrigation",
+      "pivot irrigation supplies",
+    ],
+    icon: Wheat,
+    heroColor: "from-green-500/10 to-lime-500/10",
+    challenges: [
+      {
+        title: "UV Exposure",
+        description:
+          "Above-ground pipework faces harsh sun. Our products use UV-stabilised materials for long outdoor service life.",
+      },
+      {
+        title: "Debris and Sediment",
+        description:
+          "Dam and bore water contains debris that damages pumps. Strainers and foot valves protect your investment.",
+      },
+      {
+        title: "Remote Locations",
+        description:
+          "Farm infrastructure is often far from suppliers. We deliver Australia-wide with regional freight options.",
+      },
+      {
+        title: "Seasonal Demand",
+        description:
+          "Peak irrigation season means urgent repairs. We stock common sizes for quick turnaround.",
+      },
+    ],
+    solutions: [
+      {
+        category: "Pump Suction",
+        description: "Foot valves maintain prime and prevent backflow in suction lines.",
+        products: ["valves"],
+      },
+      {
+        category: "Flow Control",
+        description: "Butterfly and gate valves control water distribution across zones.",
+        products: ["valves"],
+      },
+      {
+        category: "Filtration",
+        description: "Y-strainers remove debris before it reaches sprinklers and drippers.",
+        products: ["strainers"],
+      },
+      {
+        category: "Pipe Joining",
+        description: "Couplings connect different pipe materials and repair damaged sections.",
+        products: ["pipe-couplings"],
+      },
+    ],
     applications: [
       "Agricultural irrigation systems",
       "Drip irrigation networks",
       "Sprinkler systems",
-      "Pivot irrigation",
+      "Centre pivot irrigation",
       "Golf course irrigation",
+      "Vineyard and orchard systems",
+      "Sports field irrigation",
+      "Nursery and greenhouse supply",
     ],
-    recommendedCategories: ["valves", "pipe-couplings", "strainers"],
+    recommendedProducts: ["FV-GALV-TD", "CIYSE", "BFLYWCI"],
+    faqs: [
+      {
+        question: "What foot valve should I use for my irrigation pump?",
+        answer:
+          "For most farm pumps, a galvanised foot valve with EPDM seal is ideal. Match the size to your suction pipe diameter. For corrosive bore water, consider a stainless steel option.",
+      },
+      {
+        question: "How do I protect my pump from debris?",
+        answer:
+          "Install a Y-strainer on the discharge side and ensure your foot valve has an integrated strainer basket. For very dirty water, add a basket strainer with cleanable element.",
+      },
+      {
+        question: "Can your products handle fertiliser injection systems?",
+        answer:
+          "Yes, but material selection is important. EPDM seals handle most fertilisers well. For aggressive chemicals, specify NBR or contact us for recommendations.",
+      },
+      {
+        question: "Do you supply fittings for poly pipe?",
+        answer:
+          "Our couplings work with various pipe materials including PE/poly pipe. Specify the outside diameter when ordering for correct sizing.",
+      },
+    ],
   },
   "fire-services": {
     name: "Fire Services",
+    tagline: "Certified Components for Life Safety Systems",
     description:
-      "Fire protection piping components meeting Australian standards for fire safety systems. Trusted by fire protection contractors across Australia.",
+      "Fire protection piping components meeting Australian standards for fire safety systems. Trusted by fire protection contractors across Australia for sprinkler systems, hydrant networks, and pump stations.",
+    metaDescription:
+      "Fire protection pipe fittings, valves, and couplings. AS 2118 compliant products for sprinkler systems, hydrants, and fire pumps. FM/UL approved options available.",
+    keywords: [
+      "fire sprinkler fittings",
+      "fire protection valves",
+      "fire pump couplings",
+      "hydrant supplies",
+      "AS 2118 compliant",
+      "fire rated pipe fittings",
+    ],
+    icon: Flame,
+    heroColor: "from-red-500/10 to-orange-500/10",
+    challenges: [
+      {
+        title: "Regulatory Compliance",
+        description:
+          "Fire systems require certified components. We stock products compliant with AS 2118 and international standards.",
+      },
+      {
+        title: "Reliability Critical",
+        description:
+          "Fire systems must work when needed. Our valves are tested and certified for fire service applications.",
+      },
+      {
+        title: "Project Documentation",
+        description:
+          "Compliance requires traceability. We provide test certificates and material documentation.",
+      },
+      {
+        title: "Specialist Knowledge",
+        description:
+          "Fire systems have specific requirements. Our team understands fire protection standards.",
+      },
+    ],
+    solutions: [
+      {
+        category: "Flow Control",
+        description: "Butterfly valves for isolation and flow control in sprinkler mains.",
+        products: ["valves"],
+      },
+      {
+        category: "Check Valves",
+        description: "Prevent backflow in fire pump discharge and sprinkler feed mains.",
+        products: ["valves"],
+      },
+      {
+        category: "Pump Connections",
+        description: "Flexible connections for fire pumps with vibration isolation.",
+        products: ["rubber-expansion-joints"],
+      },
+      {
+        category: "Pipe Joining",
+        description: "Couplings for grooved and plain-end fire sprinkler pipe.",
+        products: ["pipe-couplings"],
+      },
+    ],
     applications: [
       "Fire sprinkler systems",
       "Fire hydrant networks",
       "Fire pump stations",
       "Deluge systems",
       "Fire hose reels",
+      "Wet/dry riser systems",
+      "Foam systems",
+      "Water storage connections",
     ],
-    recommendedCategories: ["valves", "pipe-couplings"],
+    recommendedProducts: ["BFLYW316", "DPCHK316", "FSF-REJ"],
+    faqs: [
+      {
+        question: "Are your butterfly valves approved for fire protection?",
+        answer:
+          "Our 316 stainless steel butterfly valves are suitable for fire protection applications. For UL/FM listed requirements, contact us to confirm specific product approvals.",
+      },
+      {
+        question: "Can you provide test certificates for fire system products?",
+        answer:
+          "Yes, we provide material test certificates, pressure test reports, and compliance documentation for fire system projects as required.",
+      },
+      {
+        question: "What couplings are suitable for grooved fire pipe?",
+        answer:
+          "For grooved pipe systems, we recommend Straub GRIP couplings which provide axial restraint. For plain-end connections, both GRIP and FLEX options are available.",
+      },
+      {
+        question: "Do you supply products for heritage building fire upgrades?",
+        answer:
+          "Yes, our pipe repair couplings are ideal for connecting new fire services to existing pipework in heritage buildings without major structural work.",
+      },
+    ],
   },
   mining: {
     name: "Mining",
+    tagline: "Heavy-Duty Solutions for Demanding Environments",
     description:
-      "Heavy-duty piping solutions for demanding mining environments. Products engineered to handle abrasive slurries, high pressures, and harsh conditions.",
+      "Heavy-duty piping solutions for demanding mining environments. Products engineered to handle abrasive slurries, high pressures, and harsh conditions found in underground and open-cut operations.",
+    metaDescription:
+      "Mining pipe fittings for dewatering, slurry transport, and process water. Heavy-duty valves, couplings, and expansion joints rated for abrasive and high-pressure service.",
+    keywords: [
+      "mining pipe fittings",
+      "slurry valves",
+      "dewatering couplings",
+      "mine water management",
+      "heavy duty pipe fittings",
+      "tailings pipe",
+    ],
+    icon: Mountain,
+    heroColor: "from-amber-500/10 to-yellow-500/10",
+    challenges: [
+      {
+        title: "Abrasive Slurries",
+        description:
+          "Mining fluids contain abrasive particles. We stock heavy-wall products and wear-resistant materials.",
+      },
+      {
+        title: "High Pressures",
+        description:
+          "Deep mine dewatering operates at high pressure. Our products are rated for demanding service.",
+      },
+      {
+        title: "Remote Sites",
+        description:
+          "Mine sites are often remote. We coordinate deliveries to site compounds across Australia.",
+      },
+      {
+        title: "Shutdown Windows",
+        description:
+          "Limited maintenance windows require fast repairs. Our couplings enable quick pipe connection.",
+      },
+    ],
+    solutions: [
+      {
+        category: "Dewatering",
+        description: "Check valves and foot valves for mine dewatering pump systems.",
+        products: ["valves"],
+      },
+      {
+        category: "Slurry Isolation",
+        description: "Knife gate valves for positive shut-off of slurry and tailings lines.",
+        products: ["valves"],
+      },
+      {
+        category: "Vibration Control",
+        description: "Expansion joints absorb pump vibration and pipe movement.",
+        products: ["rubber-expansion-joints"],
+      },
+      {
+        category: "Emergency Repair",
+        description: "Repair clamps fix damaged pipes fast without shutdown.",
+        products: ["pipe-couplings"],
+      },
+    ],
     applications: [
       "Mine dewatering systems",
       "Slurry transport pipelines",
       "Process water systems",
       "Tailings management",
       "Dust suppression",
+      "Wash plant supply",
+      "Underground services",
+      "Bore water supply",
     ],
-    recommendedCategories: ["valves", "pipe-couplings", "strainers", "rubber-expansion-joints"],
+    recommendedProducts: ["KGV-SS316", "BFLYW316", "FSF-REJ", "DB-1"],
+    faqs: [
+      {
+        question: "What valves work best for slurry service?",
+        answer:
+          "Knife gate valves are preferred for slurry isolation as the blade cuts through solids. For modulating duty, use a full-bore butterfly valve with hardened disc.",
+      },
+      {
+        question: "Can you supply to remote mine sites?",
+        answer:
+          "Yes, we regularly deliver to mine sites across WA, QLD, and NT. We can coordinate with site logistics for gate pass requirements and delivery windows.",
+      },
+      {
+        question: "What products suit high-pressure dewatering?",
+        answer:
+          "Our PN16 rated couplings and valves handle most dewatering applications. For higher pressures, contact us to discuss PN25 or PN40 options.",
+      },
+      {
+        question: "Do you provide wear-resistant options?",
+        answer:
+          "Yes, for abrasive applications we recommend 316 stainless steel bodies and NBR rubber for better abrasion resistance than EPDM.",
+      },
+    ],
+    caseStudy: {
+      title: "Pilbara Iron Ore Dewatering",
+      description:
+        "Emergency supply of repair clamps and expansion joints for a pit dewatering upgrade during wet season operations.",
+      result: "48-hour delivery to site, zero pump downtime",
+    },
   },
   marine: {
     name: "Marine",
+    tagline: "Corrosion-Resistant Solutions for Maritime Applications",
     description:
-      "Corrosion-resistant piping components for marine and offshore applications. Designed to withstand saltwater environments and meet maritime standards.",
+      "Corrosion-resistant piping components for marine and offshore applications. Designed to withstand saltwater environments and meet maritime standards for vessels, ports, and offshore installations.",
+    metaDescription:
+      "Marine pipe fittings in 316 stainless steel. Saltwater-resistant valves, couplings, and expansion joints for ships, ports, and offshore platforms.",
+    keywords: [
+      "marine pipe fittings",
+      "316 stainless steel marine",
+      "boat plumbing",
+      "offshore pipe fittings",
+      "saltwater resistant valves",
+      "port infrastructure",
+    ],
+    icon: Anchor,
+    heroColor: "from-cyan-500/10 to-blue-500/10",
+    challenges: [
+      {
+        title: "Saltwater Corrosion",
+        description:
+          "Marine environments accelerate corrosion. 316 stainless steel is essential for long service life.",
+      },
+      {
+        title: "Space Constraints",
+        description:
+          "Vessel engine rooms have limited space. Compact wafer-style valves maximise available room.",
+      },
+      {
+        title: "Vibration",
+        description:
+          "Ship engines and wave action create constant vibration. Flexible couplings prevent fatigue failures.",
+      },
+      {
+        title: "Classification Society Requirements",
+        description:
+          "Maritime standards require certified products. We provide documentation for classification surveys.",
+      },
+    ],
+    solutions: [
+      {
+        category: "Seawater Systems",
+        description: "316SS valves and strainers for cooling water and ballast systems.",
+        products: ["valves", "strainers"],
+      },
+      {
+        category: "Bilge Systems",
+        description: "Check valves prevent flooding and duckbills for overboard discharge.",
+        products: ["valves"],
+      },
+      {
+        category: "Engine Room",
+        description: "Expansion joints for engine cooling connections with vibration isolation.",
+        products: ["rubber-expansion-joints"],
+      },
+      {
+        category: "Deck Equipment",
+        description: "Couplings for fire main connections and washdown systems.",
+        products: ["pipe-couplings"],
+      },
+    ],
     applications: [
       "Ship ballast systems",
       "Offshore platforms",
       "Port facilities",
       "Dredging operations",
       "Marine cooling systems",
+      "Bilge and drainage",
+      "Fire fighting systems",
+      "Aquaculture facilities",
     ],
-    recommendedCategories: ["valves", "pipe-couplings", "strainers"],
+    recommendedProducts: ["BFLYW316", "SBS316", "SSYS", "DB-1"],
+    faqs: [
+      {
+        question: "Is 316 stainless steel sufficient for seawater?",
+        answer:
+          "316SS is suitable for most marine applications with good seawater resistance. For continuous seawater immersion at elevated temperatures, consider 316L or duplex grades.",
+      },
+      {
+        question: "Can you supply products with marine certification?",
+        answer:
+          "We can provide material certificates and test documentation. For specific classification society approvals (Lloyd's, DNV, etc.), contact us with your requirements.",
+      },
+      {
+        question: "What duckbill material is best for seawater discharge?",
+        answer:
+          "Neoprene is our standard for marine applications offering good seawater resistance. For fuel or oil contact, specify NBR or Viton materials.",
+      },
+      {
+        question: "Do you supply to shipyards and boat builders?",
+        answer:
+          "Yes, we supply commercial shipyards, boat builders, and marine maintenance facilities. Trade accounts available for regular purchasers.",
+      },
+    ],
   },
   hvac: {
     name: "HVAC",
+    tagline: "Precision Components for Climate Control Systems",
     description:
-      "Heating, ventilation, and air conditioning piping solutions. Products designed for chilled water, hot water, and refrigerant systems in commercial buildings.",
+      "Heating, ventilation, and air conditioning piping solutions. Products designed for chilled water, hot water, and refrigerant systems in commercial and industrial buildings.",
+    metaDescription:
+      "HVAC pipe fittings including expansion joints, valves, and strainers for chilled water, heating, and cooling systems. Vibration isolation products for mechanical plant.",
+    keywords: [
+      "HVAC pipe fittings",
+      "chilled water valves",
+      "expansion joints HVAC",
+      "building services pipe",
+      "cooling tower fittings",
+      "mechanical services",
+    ],
+    icon: Wind,
+    heroColor: "from-sky-500/10 to-indigo-500/10",
+    challenges: [
+      {
+        title: "Noise & Vibration",
+        description:
+          "Mechanical plant generates noise transmitted through pipework. Expansion joints isolate vibration.",
+      },
+      {
+        title: "Temperature Cycles",
+        description:
+          "Heating/cooling cycles cause thermal expansion. Flexible connections accommodate movement.",
+      },
+      {
+        title: "System Cleanliness",
+        description:
+          "Debris damages chillers and valves. Strainers protect expensive equipment.",
+      },
+      {
+        title: "Tight Programmes",
+        description:
+          "Construction schedules are demanding. We support fast-track projects with quick supply.",
+      },
+    ],
+    solutions: [
+      {
+        category: "Pump Isolation",
+        description: "Rubber expansion joints absorb vibration at pump connections.",
+        products: ["rubber-expansion-joints"],
+      },
+      {
+        category: "Flow Control",
+        description: "Butterfly valves for isolation at plant connections.",
+        products: ["valves"],
+      },
+      {
+        category: "Equipment Protection",
+        description: "Strainers capture debris before chillers and heat exchangers.",
+        products: ["strainers"],
+      },
+      {
+        category: "Pipe Connection",
+        description: "Couplings for connecting to existing services during upgrades.",
+        products: ["pipe-couplings"],
+      },
+    ],
     applications: [
       "Chilled water systems",
       "Hot water circulation",
       "Cooling tower pipework",
-      "Air handling units",
+      "Air handling unit connections",
       "Building automation",
+      "Data centre cooling",
+      "Hospital mechanical services",
+      "Shopping centre plant rooms",
     ],
-    recommendedCategories: ["rubber-expansion-joints", "valves", "strainers", "pipe-couplings"],
+    recommendedProducts: ["FSF-REJ", "BFLYW316", "SBS316", "SSYS"],
+    faqs: [
+      {
+        question: "What expansion joint is best for chiller connections?",
+        answer:
+          "Single sphere EPDM expansion joints are ideal for chilled water up to 90°C. For higher temperatures, specify Viton or fabric expansion joints.",
+      },
+      {
+        question: "How do I reduce pump noise transmission?",
+        answer:
+          "Install rubber expansion joints on both suction and discharge sides of pumps. Combined with flexible electrical connections and inertia bases, this isolates most pump vibration.",
+      },
+      {
+        question: "What strainer mesh size for chilled water?",
+        answer:
+          "Typical chilled water systems use 1.6mm (16 mesh) perforated baskets. Finer mesh may be required for plate heat exchangers - consult the exchanger manufacturer.",
+      },
+      {
+        question: "Can you supply to mechanical contractors?",
+        answer:
+          "Yes, we supply mechanical contractors, building services consultants, and facility managers. Trade accounts and project pricing available.",
+      },
+    ],
   },
   "food-beverage": {
     name: "Food & Beverage",
+    tagline: "Hygienic Solutions for Process Industries",
     description:
-      "Hygienic piping solutions meeting food-grade standards. Products suitable for CIP systems, beverage processing, and food manufacturing facilities.",
+      "Hygienic piping solutions meeting food-grade standards. Products suitable for CIP systems, beverage processing, and food manufacturing facilities requiring clean, contamination-free fluid handling.",
+    metaDescription:
+      "Food-grade pipe fittings, valves, and strainers for breweries, wineries, and food processing. FDA compliant materials, CIP compatible, stainless steel construction.",
+    keywords: [
+      "food grade valves",
+      "brewery fittings",
+      "winery pipe fittings",
+      "CIP system components",
+      "food processing valves",
+      "beverage industry pipe",
+    ],
+    icon: Apple,
+    heroColor: "from-emerald-500/10 to-green-500/10",
+    challenges: [
+      {
+        title: "Hygiene Requirements",
+        description:
+          "Food contact requires certified materials. Our products use FDA-compliant PTFE and food-grade EPDM.",
+      },
+      {
+        title: "CIP Compatibility",
+        description:
+          "Products must withstand chemical cleaning cycles. 316SS and appropriate seals handle CIP processes.",
+      },
+      {
+        title: "Contamination Prevention",
+        description:
+          "Dead legs and crevices harbour bacteria. Our products feature hygienic designs.",
+      },
+      {
+        title: "Traceability",
+        description:
+          "Food safety requires documentation. We provide material certificates and compliance statements.",
+      },
+    ],
+    solutions: [
+      {
+        category: "Process Control",
+        description: "PTFE-seated butterfly valves for clean, leak-free operation.",
+        products: ["valves"],
+      },
+      {
+        category: "Filtration",
+        description: "Stainless steel strainers protect pumps and remove particulates.",
+        products: ["strainers"],
+      },
+      {
+        category: "Pump Connections",
+        description: "Food-grade expansion joints for pump vibration isolation.",
+        products: ["rubber-expansion-joints"],
+      },
+      {
+        category: "Utility Connections",
+        description: "Couplings for water supply and waste connections.",
+        products: ["pipe-couplings"],
+      },
+    ],
     applications: [
       "CIP (Clean-in-Place) systems",
       "Beverage production lines",
       "Food processing plants",
       "Dairy facilities",
       "Brewery operations",
+      "Winery tank farms",
+      "Pharmaceutical water systems",
+      "Bottling plant utilities",
     ],
-    recommendedCategories: ["valves", "pipe-couplings", "strainers"],
+    recommendedProducts: ["BFLYW316", "SBS316", "SSYS", "FSF-REJ"],
+    faqs: [
+      {
+        question: "Are your products FDA compliant for food contact?",
+        answer:
+          "Our 316SS bodied products with PTFE seats are suitable for food contact applications. EPDM seals comply with FDA 21 CFR 177.2600 requirements.",
+      },
+      {
+        question: "What materials are suitable for brewery applications?",
+        answer:
+          "316 stainless steel is standard for breweries. Use EPDM seals for hot water and wort, PTFE seats for chemical dosing lines.",
+      },
+      {
+        question: "Can your valves handle CIP temperatures?",
+        answer:
+          "Yes, our PTFE-seated butterfly valves handle CIP temperatures up to 120°C. Specify high-temperature seals for sustained hot service.",
+      },
+      {
+        question: "Do you provide certificates of compliance?",
+        answer:
+          "Yes, we provide material certificates, FDA compliance statements, and food contact suitability documentation as required.",
+      },
+    ],
+    caseStudy: {
+      title: "Swan Valley Winery Expansion",
+      description:
+        "Supplied 316SS butterfly valves and strainers for a new tank farm installation with full material traceability documentation.",
+      result: "Passed food safety audit first time with full documentation package",
+    },
   },
 }
 
 export function generateStaticParams() {
-  return Object.keys(industryInfo).map((industry) => ({
+  return Object.keys(industryData).map((industry) => ({
     industry,
   }))
 }
 
-export function generateMetadata({ params }: IndustryPageProps): Metadata {
-  const industry = industryInfo[params.industry]
+export async function generateMetadata({ params }: IndustryPageProps): Promise<Metadata> {
+  const { industry: industrySlug } = await params
+  const industry = industryData[industrySlug]
   if (!industry) return { title: "Industry Not Found" }
 
   return {
-    title: `${industry.name} Solutions - Industrial Pipe Fittings`,
-    description: `${industry.description} Specialised pipe couplings, valves, and fittings for ${industry.name.toLowerCase()}.`,
+    title: `${industry.name} Pipe Fittings & Valves | Dewater Products`,
+    description: industry.metaDescription,
+    keywords: industry.keywords,
+    openGraph: {
+      title: `${industry.name} Solutions | Dewater Products`,
+      description: industry.metaDescription,
+      type: "website",
+    },
+    alternates: {
+      canonical: `https://dewater-products.vercel.app/industries/${industrySlug}`,
+    },
   }
 }
 
-export default function IndustryPage({ params }: IndustryPageProps) {
-  const industry = industryInfo[params.industry]
+export default async function IndustryPage({ params }: IndustryPageProps) {
+  const { industry: industrySlug } = await params
+  const industry = industryData[industrySlug]
 
   if (!industry) {
     notFound()
   }
 
-  // Get products from recommended categories
-  const recommendedProducts = products
-    .filter((p) => industry.recommendedCategories.includes(p.category))
-    .slice(0, 8)
+  // Get recommended products by ID or filter by recommended categories
+  const recommendedProducts = products.filter(
+    (p) =>
+      industry.recommendedProducts.includes(p.id) ||
+      industry.solutions.some((s) => s.products.includes(p.category))
+  ).slice(0, 8)
+
+  const breadcrumbs = [
+    { name: "Home", url: "https://dewater-products.vercel.app" },
+    { name: "Industries", url: "https://dewater-products.vercel.app/industries" },
+    { name: industry.name, url: `https://dewater-products.vercel.app/industries/${industrySlug}` },
+  ]
+
+  const IconComponent = industry.icon
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">{industry.name}</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mb-8">{industry.description}</p>
+      <BreadcrumbJsonLd items={breadcrumbs} />
 
-          <div className="bg-card border border-border rounded-md p-6">
-            <h3 className="text-xl font-semibold mb-4">Applications</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              {industry.applications.map((app, index) => (
-                <li key={index}>• {app}</li>
-              ))}
-            </ul>
+      {/* Hero Section */}
+      <div className={`bg-gradient-to-br ${industry.heroColor} border-b`}>
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="flex flex-col lg:flex-row gap-8 items-center">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+                <IconComponent className="w-4 h-4" />
+                Industry Solutions
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-4">{industry.name}</h1>
+              <p className="text-xl text-muted-foreground mb-2">{industry.tagline}</p>
+              <p className="text-muted-foreground mb-6 max-w-2xl">{industry.description}</p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="#products"
+                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                >
+                  View Products
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+                <Link
+                  href="/request-quote"
+                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                >
+                  Request a Quote
+                </Link>
+              </div>
+            </div>
+            <div className="flex-shrink-0">
+              <div className="w-32 h-32 rounded-full bg-card border border-border flex items-center justify-center">
+                <IconComponent className="w-16 h-16 text-primary" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Challenges Section */}
+        <div className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
+            <AlertTriangle className="w-6 h-6 text-amber-500" />
+            <h2 className="text-2xl font-bold">Industry Challenges We Solve</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {industry.challenges.map((challenge) => (
+              <div
+                key={challenge.title}
+                className="p-6 rounded-lg bg-card border border-border"
+              >
+                <h3 className="font-semibold mb-2">{challenge.title}</h3>
+                <p className="text-sm text-muted-foreground">{challenge.description}</p>
+              </div>
+            ))}
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold mb-6">Recommended Products for {industry.name}</h2>
-        {recommendedProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {recommendedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+        {/* Solutions Section */}
+        <div className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
+            <Wrench className="w-6 h-6 text-primary" />
+            <h2 className="text-2xl font-bold">Our Solutions</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {industry.solutions.map((solution) => (
+              <div
+                key={solution.category}
+                className="p-6 rounded-lg bg-primary/5 border border-primary/20"
+              >
+                <h3 className="font-semibold mb-2 text-primary">{solution.category}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{solution.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {solution.products.map((prod) => (
+                    <Link
+                      key={prod}
+                      href={`/${prod}`}
+                      className="text-xs px-2 py-1 rounded bg-background border border-border hover:border-primary/50 transition-colors"
+                    >
+                      {prod.replace(/-/g, " ")}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
-        ) : (
-          <p className="text-muted-foreground">
-            Contact us for product recommendations for your {industry.name.toLowerCase()}{" "}
-            application.
-          </p>
+        </div>
+
+        {/* Applications List */}
+        <div className="mb-16 p-8 bg-card border border-border rounded-lg">
+          <h2 className="text-xl font-bold mb-6">Common Applications in {industry.name}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+            {industry.applications.map((app) => (
+              <div key={app} className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                <span className="text-sm">{app}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Products Section */}
+        <div id="products" className="mb-16">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">Recommended Products for {industry.name}</h2>
+            <span className="text-muted-foreground">{recommendedProducts.length} products</span>
+          </div>
+
+          {recommendedProducts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {recommendedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-card rounded-lg border">
+              <p className="text-muted-foreground mb-4">
+                Contact us for product recommendations specific to your {industry.name.toLowerCase()} application.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90"
+              >
+                Contact Us
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Case Study */}
+        {industry.caseStudy && (
+          <div className="mb-16 p-8 bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/20 rounded-lg">
+            <div className="flex items-center gap-2 text-primary text-sm font-medium mb-3">
+              <Shield className="w-4 h-4" />
+              Case Study
+            </div>
+            <h3 className="text-xl font-bold mb-2">{industry.caseStudy.title}</h3>
+            <p className="text-muted-foreground mb-4">{industry.caseStudy.description}</p>
+            <div className="flex items-center gap-2 text-primary font-medium">
+              <CheckCircle className="w-5 h-5" />
+              {industry.caseStudy.result}
+            </div>
+          </div>
         )}
+
+        {/* FAQ Section */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-6">{industry.name} FAQs</h2>
+          <div className="space-y-4">
+            {industry.faqs.map((faq) => (
+              <div key={faq.question} className="p-6 bg-card border border-border rounded-lg">
+                <h3 className="font-semibold mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Why Choose Us */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-6">Why Choose Dewater Products</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex items-start gap-4 p-6 bg-card border border-border rounded-lg">
+              <Clock className="w-8 h-8 text-primary flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Fast Delivery</h3>
+                <p className="text-sm text-muted-foreground">
+                  Stock items dispatched same day. Delivery Australia-wide including remote sites.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-6 bg-card border border-border rounded-lg">
+              <Shield className="w-8 h-8 text-primary flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Technical Support</h3>
+                <p className="text-sm text-muted-foreground">
+                  Expert advice on product selection and specifications for your application.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-6 bg-card border border-border rounded-lg">
+              <DollarSign className="w-8 h-8 text-primary flex-shrink-0" />
+              <div>
+                <h3 className="font-semibold mb-1">Competitive Pricing</h3>
+                <p className="text-sm text-muted-foreground">
+                  Trade accounts and project pricing available. Request a quote for volume discounts.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
+          <h2 className="text-2xl font-semibold mb-3">
+            Need Help with Your {industry.name} Project?
+          </h2>
+          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            Our technical team can help you specify the right products for your {industry.name.toLowerCase()} application.
+            Call us on (08) 9271 2577 or request a quote.
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+            >
+              Contact Us
+            </Link>
+            <Link
+              href="/request-quote"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+            >
+              Request a Quote
+            </Link>
+          </div>
+        </div>
       </div>
+
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: industry.faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
     </div>
   )
 }

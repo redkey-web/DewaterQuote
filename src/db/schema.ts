@@ -74,6 +74,8 @@ export const products = pgTable('products', {
   priceNote: text('price_note'),
   basePrice: decimal('base_price', { precision: 10, scale: 2 }),
   isActive: boolean('is_active').default(true),
+  // Cross-reference fields for competitor equivalents
+  straubEquivalent: text('straub_equivalent'), // e.g., "STRAUB-FLEX 1L"
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 }, (table) => ({

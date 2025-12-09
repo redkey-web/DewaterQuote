@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next"
-import { products } from "@/data/catalog"
+import { products, categories, subcategories } from "@/data/catalog"
 
 const BASE_URL = "https://dewaterproducts.com.au"
 
@@ -35,16 +35,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   // Category pages
-  const categoryPages: MetadataRoute.Sitemap = [
-    "pipe-couplings",
-    "valves",
-    "rubber-expansion-joints",
-    "strainers",
-  ].map((category) => ({
-    url: `${BASE_URL}/${category}`,
+  const categoryPages: MetadataRoute.Sitemap = categories.map((category) => ({
+    url: `${BASE_URL}/${category.slug}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
+  }))
+
+  // Subcategory pages
+  const subcategoryPages: MetadataRoute.Sitemap = subcategories.map((subcat) => ({
+    url: `${BASE_URL}/${subcat.category}/${subcat.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.75,
   }))
 
   // Product detail pages
@@ -55,13 +58,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  // Brand pages
-  const brandPages: MetadataRoute.Sitemap = ["orbit", "straub", "teekay"].map((brand) => ({
-    url: `${BASE_URL}/brands/${brand}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }))
+  // Brand pages (top-level)
+  const brandPages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/straub`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.9, // High priority - primary keyword target
+    },
+    {
+      url: `${BASE_URL}/orbit`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.85,
+    },
+    {
+      url: `${BASE_URL}/teekay`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+  ]
+
+  // Application pages
+  const applicationPages: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/pipe-repair`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+  ]
 
   // Industry pages
   const industryPages: MetadataRoute.Sitemap = [
@@ -79,5 +106,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticPages, ...categoryPages, ...productPages, ...brandPages, ...industryPages]
+  return [...staticPages, ...categoryPages, ...subcategoryPages, ...productPages, ...brandPages, ...applicationPages, ...industryPages]
 }
