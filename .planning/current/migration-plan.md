@@ -394,6 +394,7 @@ Set these in Vercel Dashboard > Settings > Environment Variables:
 | 2025-12-07 | 12 | Vercel deployment | - |
 | 2025-12-07 | 13 | Cleanup, archive old code | - |
 | 2025-12-11 | 7 | Admin polish: ProductFormNew media tab, delete functionality | - |
+| 2025-12-11 | Security | Fixed middleware to protect /admin route, verified production | - |
 
 ---
 

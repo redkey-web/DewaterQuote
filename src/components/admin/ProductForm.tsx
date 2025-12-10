@@ -247,14 +247,14 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                 <div className="space-y-2">
                   <Label>Subcategory</Label>
                   <Select
-                    value={formData.subcategoryId}
-                    onValueChange={(v) => setFormData({ ...formData, subcategoryId: v })}
+                    value={formData.subcategoryId || 'none'}
+                    onValueChange={(v) => setFormData({ ...formData, subcategoryId: v === 'none' ? '' : v })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select subcategory" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">None</SelectItem>
+                      <SelectItem value="none">None</SelectItem>
                       {filteredSubcategories.map((s) => (
                         <SelectItem key={s.id} value={String(s.id)}>
                           {s.name}
