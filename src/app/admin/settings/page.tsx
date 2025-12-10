@@ -117,12 +117,12 @@ export default function SettingsPage() {
           <CardContent>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="text-gray-500">Environment</p>
-                <p className="font-medium">{process.env.NODE_ENV}</p>
+                <p className="text-gray-500">Vercel Environment</p>
+                <p className="font-medium capitalize">{process.env.NEXT_PUBLIC_VERCEL_ENV || 'local'}</p>
               </div>
               <div>
-                <p className="text-gray-500">Vercel Environment</p>
-                <p className="font-medium">{process.env.NEXT_PUBLIC_VERCEL_ENV || 'local'}</p>
+                <p className="text-gray-500">Build</p>
+                <p className="font-medium">Next.js 15</p>
               </div>
             </div>
           </CardContent>
