@@ -194,3 +194,41 @@ export async function PATCH(
     );
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  // Check auth
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const { id } = await params;
+  const productId = parseInt(id, 10);
+  if (isNaN(productId)) {
+    return NextResponse.json({ error: 'Invalid product ID' }, { status: 400 });
+  }
+
+  try {
+    // Delete related records first (cascade should handle this, but being explicit)
+    await db.delete(productFeatures).where(eq(productFeatures.productId, productId));
+    await db.delete(productSpecifications).where(eq(productSpecifications.productId, productId));
+    await db.delete(productApplications).where(eq(productApplications.productId, productId));
+    await db.delete(productVariations).where(eq(productVariations.productId, productId));
+    await db.delete(productImages).where(eq(productImages.productId, productId));
+    await db.delete(productDownloads).where(eq(productDownloads.productId, productId));
+
+    // Delete the product
+    await db.delete(products).where(eq(products.id, productId));
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Failed to delete product:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete product' },
+      { status: 500 }
+    );
+  }
+}

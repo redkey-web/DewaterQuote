@@ -18,6 +18,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Save, Trash2, Plus, GripVertical } from 'lucide-react';
 import type { Brand, Category, Subcategory } from '@/db/schema';
+import { ImageUpload } from './ImageUpload';
+import { FileUpload } from './FileUpload';
+
+interface ProductImage {
+  url: string;
+  alt: string;
+  isPrimary: boolean;
+}
+
+interface ProductDownload {
+  url: string;
+  label: string;
+  fileType: string;
+  fileSize: number;
+}
 
 interface ProductFormNewProps {
   brands: Brand[];
@@ -67,6 +82,8 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
   const [specifications, setSpecifications] = useState<{ label: string; value: string }[]>([]);
   const [applications, setApplications] = useState<string[]>([]);
   const [variations, setVariations] = useState<{ size: string; label: string; price: string; sku: string }[]>([]);
+  const [images, setImages] = useState<ProductImage[]>([]);
+  const [downloads, setDownloads] = useState<ProductDownload[]>([]);
 
   const filteredSubcategories = subcategories.filter(
     s => String(s.categoryId) === formData.categoryId
@@ -108,6 +125,8 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
           specifications: specifications.filter(s => s.label.trim() && s.value.trim()),
           applications: applications.filter(a => a.trim()),
           variations: variations.filter(v => v.size.trim() && v.label.trim()),
+          images: images.filter(i => i.url),
+          downloads: downloads.filter(d => d.url),
         }),
       });
 
@@ -136,6 +155,7 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
       <Tabs defaultValue="basic" className="space-y-4">
         <TabsList>
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
+          <TabsTrigger value="media">Images & Files</TabsTrigger>
           <TabsTrigger value="technical">Technical</TabsTrigger>
           <TabsTrigger value="pricing">Pricing & Sizes</TabsTrigger>
           <TabsTrigger value="content">Features & Specs</TabsTrigger>
@@ -275,6 +295,43 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* Media Tab */}
+        <TabsContent value="media">
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Product Images</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ImageUpload
+                  images={images}
+                  onChange={setImages}
+                  folder={`products/${formData.slug || 'new'}`}
+                />
+                <p className="text-xs text-gray-500 mt-2">
+                  Upload product images. The first image will be set as primary by default.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Datasheets & Downloads</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <FileUpload
+                  files={downloads}
+                  onChange={setDownloads}
+                  folder={`downloads/${formData.slug || 'new'}`}
+                />
+                <p className="text-xs text-gray-500 mt-2">
+                  Upload PDF datasheets, specification sheets, and other downloadable files.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
 
         {/* Technical Tab */}

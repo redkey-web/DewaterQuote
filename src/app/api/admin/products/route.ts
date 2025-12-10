@@ -8,6 +8,8 @@ import {
   productSpecifications,
   productApplications,
   productVariations,
+  productImages,
+  productDownloads,
 } from '@/db/schema';
 
 export async function POST(request: NextRequest) {
@@ -44,6 +46,8 @@ export async function POST(request: NextRequest) {
       specifications,
       applications,
       variations,
+      images,
+      downloads,
     } = body;
 
     // Validate required fields
@@ -139,6 +143,38 @@ export async function POST(request: NextRequest) {
         }));
       if (variationInserts.length > 0) {
         await db.insert(productVariations).values(variationInserts);
+      }
+    }
+
+    // Insert images
+    if (images && images.length > 0) {
+      const imageInserts = images
+        .filter((i: { url: string }) => i.url)
+        .map((i: { url: string; alt: string; isPrimary: boolean }, idx: number) => ({
+          productId,
+          url: i.url,
+          alt: i.alt || '',
+          isPrimary: i.isPrimary ?? false,
+          displayOrder: idx,
+        }));
+      if (imageInserts.length > 0) {
+        await db.insert(productImages).values(imageInserts);
+      }
+    }
+
+    // Insert downloads
+    if (downloads && downloads.length > 0) {
+      const downloadInserts = downloads
+        .filter((d: { url: string }) => d.url)
+        .map((d: { url: string; label: string; fileType: string; fileSize: number }) => ({
+          productId,
+          url: d.url,
+          label: d.label || 'Download',
+          fileType: d.fileType || 'pdf',
+          fileSize: d.fileSize || 0,
+        }));
+      if (downloadInserts.length > 0) {
+        await db.insert(productDownloads).values(downloadInserts);
       }
     }
 

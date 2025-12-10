@@ -1,6 +1,6 @@
 import { db } from '@/db';
 import { products, brands, categories } from '@/db/schema';
-import { eq, desc } from 'drizzle-orm';
+import { desc } from 'drizzle-orm';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Pencil } from 'lucide-react';
+import { DeleteProductButton } from './DeleteProductButton';
 
 async function getProducts() {
   try {
@@ -88,11 +89,14 @@ export default async function ProductsListPage() {
                     )}
                   </TableCell>
                   <TableCell className="text-right">
-                    <Link href={`/admin/products/${product.id}`}>
-                      <Button variant="ghost" size="sm">
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                    </Link>
+                    <div className="flex justify-end gap-1">
+                      <Link href={`/admin/products/${product.id}`}>
+                        <Button variant="ghost" size="sm">
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                      </Link>
+                      <DeleteProductButton productId={product.id} productName={product.name} />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))

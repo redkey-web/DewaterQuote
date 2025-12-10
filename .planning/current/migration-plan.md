@@ -1,9 +1,9 @@
 ---
 type: migration-plan
-status: complete
+status: active
 project: dewater-products
 created: 2025-12-07
-updated: 2025-12-07
+updated: 2025-12-11
 source_framework: Vite + Express + Neto API
 target_framework: Next.js 14 (App Router) + Vercel
 ---
@@ -39,18 +39,18 @@ target_framework: Next.js 14 (App Router) + Vercel
 
 ## Expanded Feature Requirements
 
-- [ ] Product CMS (add/edit products, prices, lead times)
-- [ ] PDF datasheet uploads per product
-- [ ] Image management (product images, certifications)
-- [ ] Category/tag system for products
-- [ ] Industry classification
-- [ ] Breadcrumb navigation
-- [ ] Sitemap.xml generation
-- [ ] robots.txt
-- [ ] SEO metadata per page
-- [ ] Shipping cost estimation (Australia Post/Sendle API)
-- [ ] Quote cart system (existing - port)
-- [ ] Contact/Quote forms with email
+- [x] Product CMS (add/edit products, prices, lead times) ✅
+- [x] PDF datasheet uploads per product ✅
+- [x] Image management (product images, certifications) ✅
+- [x] Category/tag system for products ✅
+- [x] Industry classification ✅
+- [x] Breadcrumb navigation ✅
+- [x] Sitemap.xml generation ✅
+- [x] robots.txt ✅
+- [x] SEO metadata per page ✅
+- [ ] Shipping cost estimation (Australia Post/Sendle API) - PENDING
+- [x] Quote cart system (existing - port) ✅
+- [x] Contact/Quote forms with email ✅ (mailto fallback)
 
 ---
 
@@ -145,7 +145,7 @@ Status: ✅ COMPLETE
 - [x] Update layout.tsx with providers
 - [x] Install nanoid dependency
 - [x] Verify: `npm run build` - SUCCESS
-- [ ] Create `lib/db.ts` (database client) - Deferred to Phase 3
+- [x] Create `lib/db.ts` (database client) - Done in Phase 3 as `src/db/index.ts`
 
 ## Phase 5: Page Migration
 
@@ -249,7 +249,9 @@ Status: ✅ COMPLETE
 - [x] Features list (add/remove/reorder)
 - [x] Specifications list (label/value pairs)
 - [x] Applications list
-- [x] Create `src/app/api/admin/products/[id]/route.ts` (GET/PUT)
+- [x] Create `src/app/api/admin/products/[id]/route.ts` (GET/PUT/DELETE)
+- [x] Delete product functionality with confirmation dialog
+- [x] ProductFormNew includes Images & Files tab
 
 ### 7.4 Category/Brand Management (1-2 hr) ✅
 - [x] Categories list page `/admin/categories`
@@ -330,10 +332,10 @@ Status: ✅ COMPLETE
 
 Status: ✅ COMPLETE
 
-- [x] Move deprecated Vite/Express code to `_deprecated/`
-- [x] Remove old scripts from package.json
-- [x] Update .gitignore
-- [x] Final build verification
+- [x] No deprecated Vite/Express code (clean Next.js project)
+- [x] No old scripts in package.json
+- [x] .gitignore is clean
+- [x] Final build verification ✅
 - [x] Clean directory structure
 
 ---
@@ -391,17 +393,18 @@ Set these in Vercel Dashboard > Settings > Environment Variables:
 | 2025-12-07 | 11 | Testing all pages and functionality | - |
 | 2025-12-07 | 12 | Vercel deployment | - |
 | 2025-12-07 | 13 | Cleanup, archive old code | - |
+| 2025-12-11 | 7 | Admin polish: ProductFormNew media tab, delete functionality | - |
 
 ---
 
-## Deferred Features
+## Remaining Work
 
-The following features are ready to implement when needed:
-- **Phase 3**: Database (Neon Postgres + Drizzle) - schema designed
-- **Phase 7**: Admin Panel - for product CMS
-- **Phase 8**: Shipping Integration - carrier API
-- **SendGrid**: API routes exist, needs domain verification
+The following features are pending:
+- **Phase 8**: Shipping Integration - carrier API research & implementation
+- **Phase 10**: Turnstile CAPTCHA - spam protection for forms
+- **Phase 10**: Security headers - CSP, X-Frame-Options in next.config.js
+- **Vercel Setup**: DATABASE_URL not set in Vercel environment variables
 
 ---
 
-Last Updated: 2025-12-08
+Last Updated: 2025-12-11

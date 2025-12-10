@@ -1,13 +1,13 @@
 # Installed Services
 
-**Last Updated**: 2025-12-09
+**Last Updated**: 2025-12-11
 
 ## Active Services
 
 ### Database: Neon Postgres + Drizzle
-- **Status**: ✅ Active & Seeded
+- **Status**: ✅ Active
 - **Purpose**: Product data, categories, files
-- **Env Vars**: DATABASE_URL ✅ Set
+- **Env Vars**: DATABASE_URL ✅ Set (Production, Preview)
 - **Data**: 7 brands, 6 categories, 16 subcategories, 31 products, 412 variations, 60 images, 1 admin user
 - **Files**:
   - src/db/index.ts ✅
