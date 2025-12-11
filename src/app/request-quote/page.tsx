@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { CheckCircle2, X, Package, TrendingDown, AlertCircle } from "lucide-react"
+import { CheckCircle2, X, Package, TrendingDown, AlertCircle, Loader2 } from "lucide-react"
 import {
   getQuoteItemSKU,
   getQuoteItemPrice,
@@ -28,6 +28,7 @@ import {
 } from "@/lib/quote"
 import { useQuote } from "@/context/QuoteContext"
 import { useToast } from "@/hooks/use-toast"
+import { Turnstile } from "@/components/Turnstile"
 
 const quoteFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -44,6 +45,8 @@ export default function RequestQuotePage() {
   const { toast } = useToast()
   const { items: quoteItems, removeItem, clearQuote } = useQuote()
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
   // Calculate pricing totals
   const pricedItems = quoteItems.filter((item) => getQuoteItemPrice(item) !== undefined)
@@ -66,60 +69,73 @@ export default function RequestQuotePage() {
     },
   })
 
-  const onSubmit = (data: QuoteFormValues) => {
-    // Build items list for email
-    const itemsList = quoteItems
-      .map((item) => {
-        const sku = getQuoteItemSKU(item)
-        const price = getQuoteItemPrice(item)
-        const priceStr = price ? `$${price.toFixed(2)} ea` : "POA"
-        const sizeStr = item.variation ? ` (${item.variation.sizeLabel})` : ""
-        return `- ${item.name}${sizeStr}\n  SKU: ${sku} | Qty: ${item.quantity} | ${priceStr}`
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token)
+  }, [])
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken(null)
+  }, [])
+
+  // Check if Turnstile is required (env var set)
+  const turnstileRequired = !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  const canSubmit = !turnstileRequired || turnstileToken
+
+  const onSubmit = async (data: QuoteFormValues) => {
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          items: quoteItems.map((item) => ({
+            id: item.id,
+            name: item.name,
+            sku: getQuoteItemSKU(item),
+            brand: item.brand,
+            quantity: item.quantity,
+            variation: item.variation ? {
+              sku: item.variation.sku,
+              sizeLabel: item.variation.sizeLabel,
+              price: item.variation.unitPrice,
+            } : undefined,
+          })),
+          totals: {
+            itemCount: quoteItems.length,
+            pricedTotal: discountedTotal,
+            savings: totalSavings,
+            hasUnpricedItems,
+          },
+          turnstileToken,
+        }),
       })
-      .join("\n")
 
-    // Build totals section
-    let totalsStr = `\nTotal Items: ${quoteItems.length}`
-    if (discountedTotal > 0) {
-      totalsStr += `\nEstimated Total: $${discountedTotal.toFixed(2)} (ex GST)`
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to submit quote request")
+      }
+
+      setIsSubmitted(true)
+      clearQuote()
+      toast({
+        title: "Quote Request Submitted",
+        description: "Our team will contact you within 1-2 business days.",
+      })
+    } catch (error) {
+      console.error("Quote form error:", error)
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to submit quote request. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
     }
-    if (totalSavings > 0) {
-      totalsStr += `\nVolume Savings: -$${totalSavings.toFixed(2)}`
-    }
-    if (hasUnpricedItems) {
-      totalsStr += `\nNote: ${unpricedItems.length} item(s) require pricing confirmation`
-    }
-
-    const subject = encodeURIComponent(
-      `Quote Request: ${data.name}${data.company ? ` - ${data.company}` : ""} (${quoteItems.length} items)`
-    )
-
-    const body = encodeURIComponent(
-      `QUOTE REQUEST
-
-Customer Details
-================
-Name: ${data.name}
-Email: ${data.email}
-Phone: ${data.phone}
-${data.company ? `Company: ${data.company}\n` : ""}
-Requested Items
-===============
-${itemsList}
-${totalsStr}
-${data.message ? `\nAdditional Requirements\n=======================\n${data.message}` : ""}`
-    )
-
-    // Open email client
-    window.location.href = `mailto:sales@dewaterproducts.com.au?subject=${subject}&body=${body}`
-
-    toast({
-      title: "Opening Email Client",
-      description: "Your default email app will open with the quote request pre-filled.",
-    })
-
-    setIsSubmitted(true)
-    clearQuote()
   }
 
   if (isSubmitted) {
@@ -343,13 +359,28 @@ ${data.message ? `\nAdditional Requirements\n=======================\n${data.mes
                       )}
                     />
 
+                    {/* Turnstile Widget */}
+                    <Turnstile
+                      onVerify={handleTurnstileVerify}
+                      onExpire={handleTurnstileExpire}
+                      className="flex justify-center"
+                    />
+
                     <Button
                       type="submit"
                       className="w-full"
                       size="lg"
+                      disabled={isSubmitting || !canSubmit}
                       data-testid="button-submit"
                     >
-                      Submit Quote Request
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Submit Quote Request"
+                      )}
                     </Button>
                   </form>
                 </Form>

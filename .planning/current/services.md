@@ -44,12 +44,15 @@
 ## Pending Services
 
 ### Spam Protection: Cloudflare Turnstile
-- **Status**: ⏳ Pending setup (SECURITY: HIGH PRIORITY)
+- **Status**: ✅ Implemented (pending env vars)
 - **Purpose**: Form protection against bots
 - **Env Vars**: NEXT_PUBLIC_TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY
-- **Files to create**:
-  - src/components/Turnstile.tsx
-  - src/lib/turnstile.ts
+- **Files**:
+  - src/components/Turnstile.tsx ✅
+  - src/lib/turnstile.ts ✅
+- **Forms using Turnstile**:
+  - /contact ✅
+  - /request-quote ✅
 
 ### Rate Limiting: Upstash Redis
 - **Status**: ✅ Implemented (awaiting env vars)
@@ -85,8 +88,8 @@
 ### High Priority - Remaining
 | Issue | Files | Fix |
 |-------|-------|-----|
-| No CAPTCHA | Contact/quote forms | Implement Turnstile |
-| Missing headers | next.config.js | Add CSP, X-Frame-Options |
+| ~~No CAPTCHA~~ | ~~Contact/quote forms~~ | ✅ Turnstile implemented |
+| ~~Missing headers~~ | ~~next.config.js~~ | ✅ CSP, X-Frame-Options added |
 
 ### Medium Priority - Remaining
 | Issue | Files | Fix |

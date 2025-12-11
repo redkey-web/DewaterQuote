@@ -1,13 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
-import { Mail, Phone, MapPin, Send } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react"
+import { Turnstile } from "@/components/Turnstile"
 
 export default function ContactPage() {
   const { toast } = useToast()
@@ -18,34 +19,86 @@ export default function ContactPage() {
     company: "",
     message: "",
   })
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token)
+  }, [])
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken(null)
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
 
-    // Build mailto link with form data
-    const subject = encodeURIComponent(
-      `Website Enquiry: ${formData.name}${formData.company ? ` from ${formData.company}` : ""}`
-    )
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken,
+        }),
+      })
 
-    const body = encodeURIComponent(
-      `Name: ${formData.name}
-Email: ${formData.email}
-${formData.phone ? `Phone: ${formData.phone}\n` : ""}${formData.company ? `Company: ${formData.company}\n` : ""}
-Message:
-${formData.message}`
-    )
+      const data = await response.json()
 
-    // Open email client
-    window.location.href = `mailto:sales@dewaterproducts.com.au?subject=${subject}&body=${body}`
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send message")
+      }
 
-    toast({
-      title: "Opening Email Client",
-      description: "Your default email app will open with the message pre-filled.",
-    })
+      setIsSubmitted(true)
+      toast({
+        title: "Message Sent",
+        description: "Thank you for your enquiry. We'll get back to you within 1-2 business days.",
+      })
+    } catch (error) {
+      console.error("Contact form error:", error)
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to send message. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  // Check if Turnstile is required (env var set)
+  const turnstileRequired = !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  const canSubmit = !turnstileRequired || turnstileToken
+
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen bg-background py-12">
+        <div className="max-w-2xl mx-auto px-6">
+          <Card>
+            <CardContent className="pt-12 pb-12 text-center">
+              <div className="flex justify-center mb-6">
+                <div className="rounded-full bg-green-100 dark:bg-green-900/30 p-4">
+                  <CheckCircle2 className="w-16 h-16 text-green-600 dark:text-green-400" />
+                </div>
+              </div>
+              <h1 className="text-3xl font-bold mb-4">Message Sent</h1>
+              <p className="text-lg text-muted-foreground mb-8">
+                Thank you for your enquiry. Our team will review your message and contact you within 1-2 business days.
+              </p>
+              <Button onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -130,14 +183,31 @@ ${formData.message}`
                     />
                   </div>
 
+                  {/* Turnstile Widget */}
+                  <Turnstile
+                    onVerify={handleTurnstileVerify}
+                    onExpire={handleTurnstileExpire}
+                    className="flex justify-center"
+                  />
+
                   <Button
                     type="submit"
                     size="lg"
                     className="w-full md:w-auto"
+                    disabled={isSubmitting || !canSubmit}
                     data-testid="button-submit-contact"
                   >
-                    <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Send Message
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>

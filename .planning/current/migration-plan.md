@@ -266,6 +266,8 @@ Status: ✅ COMPLETE
 - [x] ImageUpload component for admin
 - [x] FileUpload component for admin
 - [x] Image preview and deletion
+- [x] Files browser page `/admin/files` (view all images/documents)
+- [x] Settings page `/admin/settings` (account info, service status)
 
 ## Phase 8: Shipping Integration
 
@@ -298,13 +300,14 @@ Status: ✅ COMPLETE
 
 ## Phase 10: Services Integration
 
-Status: ✅ COMPLETE (mailto fallback)
+Status: ✅ COMPLETE
 
-### Email (mailto fallback)
-- [x] Contact form opens email client with pre-filled data
-- [x] Quote form opens email client with detailed quote items
-- [x] SendGrid API routes preserved for future use
-- [ ] Cloudflare Turnstile (deferred - optional)
+### Email (SendGrid Ready)
+- [x] Contact form uses SendGrid API (with fallback error handling)
+- [x] Quote form uses SendGrid API (with fallback error handling)
+- [x] SendGrid API routes with XSS sanitization + rate limiting
+- [x] Cloudflare Turnstile integrated (pending env vars)
+- [x] Security headers (CSP, X-Frame-Options, etc.)
 
 ## Phase 11: Testing
 
@@ -395,6 +398,8 @@ Set these in Vercel Dashboard > Settings > Environment Variables:
 | 2025-12-07 | 13 | Cleanup, archive old code | - |
 | 2025-12-11 | 7 | Admin polish: ProductFormNew media tab, delete functionality | - |
 | 2025-12-11 | Security | Fixed middleware to protect /admin route, verified production | - |
+| 2025-12-11 | 7.5 | Added Files browser page and Settings page to admin panel | - |
+| 2025-12-11 | 10 | Security hardening: Turnstile, SendGrid API integration, CSP headers | - |
 
 ---
 
@@ -402,9 +407,33 @@ Set these in Vercel Dashboard > Settings > Environment Variables:
 
 The following features are pending:
 - **Phase 8**: Shipping Integration - carrier API research & implementation
-- **Phase 10**: Turnstile CAPTCHA - spam protection for forms
-- **Phase 10**: Security headers - CSP, X-Frame-Options in next.config.js
-- **Vercel Setup**: DATABASE_URL not set in Vercel environment variables
+
+### Pending Environment Variables
+To enable services, set these in Vercel:
+- `SENDGRID_API_KEY` - Email sending
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` - Spam protection (public)
+- `TURNSTILE_SECRET_KEY` - Spam protection (server)
+
+See `.planning/current/SETUP_GUIDE.md` for setup instructions.
+
+---
+
+## Future Enhancements
+
+Features to add when client requests:
+
+### Admin User Management (Settings Page)
+Currently admin users are created via CLI script. Future enhancement:
+- [ ] Change password form in Settings page (no CLI needed)
+- [ ] Add/remove admin users via portal UI
+- [ ] User roles (admin, editor, viewer)
+- [ ] Activity log / audit trail
+
+### Other Enhancements
+- [ ] Convert `<img>` to `<Image>` from next/image (optimization)
+- [ ] Add canonical URLs to pages
+- [ ] Add Open Graph images for social sharing
+- [ ] SendGrid email integration (replace mailto fallback)
 
 ---
 

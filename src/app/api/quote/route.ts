@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import sgMail from "@sendgrid/mail"
 import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
+import { verifyTurnstileToken } from "@/lib/turnstile"
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -34,6 +35,7 @@ interface QuoteFormData {
     savings: number
     hasUnpricedItems: boolean
   }
+  turnstileToken?: string
 }
 
 function getItemSKU(item: QuoteItem): string {
@@ -68,6 +70,24 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Verify Turnstile token (if configured)
+    if (process.env.TURNSTILE_SECRET_KEY) {
+      if (!data.turnstileToken) {
+        return NextResponse.json(
+          { error: "Please complete the verification challenge" },
+          { status: 400 }
+        )
+      }
+
+      const verification = await verifyTurnstileToken(data.turnstileToken, ip)
+      if (!verification.success) {
+        return NextResponse.json(
+          { error: verification.error || "Verification failed" },
+          { status: 400 }
+        )
+      }
+    }
+
     // Check for SendGrid API key
     if (!process.env.SENDGRID_API_KEY) {
       console.error("SENDGRID_API_KEY is not configured")
@@ -77,7 +97,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const toEmail = process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au"
+    // Support multiple recipients (comma-separated)
+    const toEmails = (process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au")
+      .split(",")
+      .map((email) => email.trim())
+      .filter(Boolean)
     const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
 
     // Sanitize user inputs for HTML context
@@ -122,9 +146,9 @@ export async function POST(request: NextRequest) {
       return `- ${getItemSKU(item)} | ${item.name} | Qty: ${item.quantity} | ${price ? `$${price.toFixed(2)} ea` : "POA"}`
     }).join("\n")
 
-    // Email to business
+    // Email to business (supports multiple recipients)
     const businessEmail = {
-      to: toEmail,
+      to: toEmails,
       from: fromEmail,
       replyTo: data.email,
       subject: `Quote Request: ${data.name}${data.company ? ` - ${data.company}` : ""} (${data.items.length} items)`,
