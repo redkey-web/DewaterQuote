@@ -27,21 +27,25 @@ export default function HomePage() {
       name: "Valves",
       url: "/valves",
       image: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg",
+      alt: "Valves",
     },
     {
       name: "Pipe Couplings",
       url: "/pipe-couplings",
       image: "/images/products/orbit/flex-grip-l.jpg",
+      alt: "Pipe Couplings",
     },
     {
       name: "Expansion Joints",
       url: "/rubber-expansion-joints",
       image: "/images/products/orbit/flex-grip-s.jpg",
+      alt: "Expansion Joints",
     },
     {
       name: "Strainers & Filters",
       url: "/strainers",
       image: "/images/products/orbit/metal-lock-l.jpg",
+      alt: "Strainers and Filters",
     },
   ]
 
@@ -191,7 +195,7 @@ export default function HomePage() {
             <div className="flex items-center gap-3">
               <Image
                 src="/images/brands/straub-logo.png"
-                alt="Straub"
+                alt="Straub logo"
                 width={120}
                 height={40}
                 className="h-8 md:h-10 w-auto object-contain"
@@ -200,7 +204,7 @@ export default function HomePage() {
             <div className="flex items-center gap-3">
               <Image
                 src="/images/brands/teekay-logo.png"
-                alt="Teekay"
+                alt="Teekay logo"
                 width={120}
                 height={40}
                 className="h-8 md:h-10 w-auto object-contain"
@@ -209,7 +213,7 @@ export default function HomePage() {
             <div className="flex items-center gap-3">
               <Image
                 src="/images/brands/orbit-couplings.png"
-                alt="Orbit Couplings"
+                alt="Orbit Couplings logo"
                 width={120}
                 height={40}
                 className="h-8 md:h-10 w-auto object-contain p-0 m-0"
@@ -236,9 +240,12 @@ export default function HomePage() {
             {productCategories.map((category) => (
               <Link key={category.name} href={category.url}>
                 <Card className="group overflow-hidden h-80 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${category.image})` }}
+                  <Image
+                    src={category.image}
+                    alt={category.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -487,7 +494,7 @@ export default function HomePage() {
               <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
                 <Image
                   src="/images/brands/straub-logo.png"
-                  alt="Straub"
+                  alt="Straub logo"
                   width={160}
                   height={64}
                   className="h-16 mx-auto object-contain"
@@ -498,7 +505,7 @@ export default function HomePage() {
               <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
                 <Image
                   src="/images/brands/orbit-couplings.png"
-                  alt="Orbit Couplings"
+                  alt="Orbit Couplings logo"
                   width={160}
                   height={64}
                   className="h-16 mx-auto object-contain p-0 m-0"
@@ -509,7 +516,7 @@ export default function HomePage() {
               <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
                 <Image
                   src="/images/brands/teekay-logo.png"
-                  alt="Teekay"
+                  alt="Teekay logo"
                   width={160}
                   height={64}
                   className="h-16 mx-auto object-contain"

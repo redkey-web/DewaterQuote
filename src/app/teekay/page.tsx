@@ -145,7 +145,7 @@ export default function TeekayPage() {
             <div className="flex-shrink-0">
               <Image
                 src="/images/brands/teekay-logo.png"
-                alt="Teekay Logo"
+                alt="Teekay Duckbill Check Valves and Rubber Expansion Joints"
                 width={256}
                 height={128}
                 className="w-64 h-auto"

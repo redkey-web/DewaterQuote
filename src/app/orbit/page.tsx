@@ -158,7 +158,7 @@ export default function OrbitPage() {
             <div className="flex-shrink-0">
               <Image
                 src="/images/brands/orbit-couplings.png"
-                alt="Orbit Couplings Logo"
+                alt="Orbit Flexible Pipe Couplings and Repair Clamps Australia"
                 width={256}
                 height={128}
                 className="w-64 h-auto"

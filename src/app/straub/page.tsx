@@ -145,7 +145,7 @@ export default function StraubPage() {
             <div className="flex-shrink-0">
               <Image
                 src="/images/brands/straub-logo.png"
-                alt="Straub Logo"
+                alt="Straub Pipe Couplings - Swiss Engineered Industrial Pipe Connections"
                 width={256}
                 height={128}
                 className="w-64 h-auto"
