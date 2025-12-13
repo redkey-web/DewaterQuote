@@ -1,6 +1,6 @@
 # Installed Services
 
-**Last Updated**: 2025-12-11
+**Last Updated**: 2025-12-14
 
 ## Active Services
 
@@ -41,18 +41,26 @@
   - src/app/api/contact/route.ts ✅
   - src/app/api/quote/route.ts ✅
 
-## Pending Services
-
 ### Spam Protection: Cloudflare Turnstile
-- **Status**: ✅ Implemented (pending env vars)
+- **Status**: ✅ Active
 - **Purpose**: Form protection against bots
-- **Env Vars**: NEXT_PUBLIC_TURNSTILE_SITE_KEY, TURNSTILE_SECRET_KEY
+- **Env Vars**: NEXT_PUBLIC_TURNSTILE_SITE_KEY ✅, TURNSTILE_SECRET_KEY ✅
 - **Files**:
   - src/components/Turnstile.tsx ✅
   - src/lib/turnstile.ts ✅
 - **Forms using Turnstile**:
   - /contact ✅
   - /request-quote ✅
+
+### Analytics: Google Analytics (GA4)
+- **Status**: ✅ Active
+- **Purpose**: User behavior tracking
+- **Env Vars**: NEXT_PUBLIC_GA_MEASUREMENT_ID ✅
+- **Files**:
+  - src/components/GoogleAnalytics.tsx ✅
+  - src/app/layout.tsx ✅
+
+## Pending Services
 
 ### Rate Limiting: Upstash Redis
 - **Status**: ✅ Implemented (awaiting env vars)

@@ -1,6 +1,6 @@
 # Key File Pointers
 
-**Last Updated**: 2025-12-09
+**Last Updated**: 2025-12-14
 **Status**: ✅ MIGRATED TO NEXT.JS
 
 ## Current Structure (Next.js 14)
@@ -86,7 +86,18 @@
 Security implementations:
 1. **src/lib/sanitize.ts** - XSS prevention utilities ✅
 2. **src/lib/rate-limit.ts** - Upstash rate limiting ✅
-3. **api/contact/route.ts** - Uses sanitization + rate limiting ✅
-4. **api/quote/route.ts** - Uses sanitization + rate limiting ✅
-5. **api/upload/route.ts** - Needs ownership verification ⏳
-6. **middleware.ts** - Auth protection scope
+3. **src/lib/turnstile.ts** - Turnstile verification ✅
+4. **src/components/Turnstile.tsx** - CAPTCHA widget ✅
+5. **api/contact/route.ts** - Uses sanitization + rate limiting + Turnstile ✅
+6. **api/quote/route.ts** - Uses sanitization + rate limiting + Turnstile ✅
+7. **api/upload/route.ts** - Needs ownership verification ⏳
+8. **middleware.ts** - Auth protection scope
+
+## Analytics
+
+- **src/components/GoogleAnalytics.tsx** - GA4 tracking ✅
+- **src/app/layout.tsx** - Analytics integration
+
+## New Routes (since last update)
+
+- **src/app/[slug]/page.tsx** - Root-level product URLs for SEO

@@ -3,7 +3,7 @@ type: migration-plan
 status: active
 project: dewater-products
 created: 2025-12-07
-updated: 2025-12-11
+updated: 2025-12-14
 source_framework: Vite + Express + Neto API
 target_framework: Next.js 14 (App Router) + Vercel
 ---
@@ -366,15 +366,15 @@ Status: ✅ COMPLETE
 ### Vercel Environment Variables
 
 Set these in Vercel Dashboard > Settings > Environment Variables:
-- [ ] `SENDGRID_API_KEY`
-- [ ] `CONTACT_EMAIL`
-- [ ] `FROM_EMAIL`
-- [ ] `NEXT_PUBLIC_TURNSTILE_SITE_KEY`
-- [ ] `TURNSTILE_SECRET_KEY`
-- [ ] `DATABASE_URL` (auto-set by Neon integration)
-- [ ] `NEXTAUTH_SECRET`
-- [ ] `NEXTAUTH_URL` (production URL)
-- [ ] `BLOB_READ_WRITE_TOKEN` (auto-set by Vercel Blob)
+- [x] `SENDGRID_API_KEY` ✅
+- [x] `CONTACT_EMAIL` ✅
+- [x] `FROM_EMAIL` ✅
+- [x] `NEXT_PUBLIC_TURNSTILE_SITE_KEY` ✅
+- [x] `TURNSTILE_SECRET_KEY` ✅
+- [x] `DATABASE_URL` (auto-set by Neon integration) ✅
+- [x] `NEXTAUTH_SECRET` ✅
+- [x] `NEXTAUTH_URL` (production URL) ✅
+- [x] `BLOB_READ_WRITE_TOKEN` (auto-set by Vercel Blob) ✅
 
 ---
 
@@ -407,12 +407,10 @@ Set these in Vercel Dashboard > Settings > Environment Variables:
 
 The following features are pending:
 - **Phase 8**: Shipping Integration - carrier API research & implementation
+- **Feature**: Download Price List PDF button (currently non-functional)
 
-### Pending Environment Variables
-To enable services, set these in Vercel:
-- `SENDGRID_API_KEY` - Email sending
-- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` - Spam protection (public)
-- `TURNSTILE_SECRET_KEY` - Spam protection (server)
+### Environment Variables
+All environment variables are now configured in Vercel. ✅
 
 See `.planning/current/SETUP_GUIDE.md` for setup instructions.
 
@@ -421,6 +419,12 @@ See `.planning/current/SETUP_GUIDE.md` for setup instructions.
 ## Future Enhancements
 
 Features to add when client requests:
+
+### Download Price List PDF
+- [ ] Create price list PDF generation (server-side or static upload)
+- [ ] Wire up "Download Price List" button on /contact page
+- [ ] Option: Static PDF uploaded to Vercel Blob
+- [ ] Option: Dynamic PDF generated from product database
 
 ### Admin User Management (Settings Page)
 Currently admin users are created via CLI script. Future enhancement:
@@ -433,8 +437,7 @@ Currently admin users are created via CLI script. Future enhancement:
 - [ ] Convert `<img>` to `<Image>` from next/image (optimization)
 - [ ] Add canonical URLs to pages
 - [ ] Add Open Graph images for social sharing
-- [ ] SendGrid email integration (replace mailto fallback)
 
 ---
 
-Last Updated: 2025-12-11
+Last Updated: 2025-12-14
