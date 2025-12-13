@@ -94,8 +94,19 @@ export const productVariations = pgTable('product_variations', {
   label: text('label').notNull(), // "48.3mm Pipe Outside Diameter"
   price: decimal('price', { precision: 10, scale: 2 }),
   sku: text('sku'),
+  source: text('source').default('neto'), // 'neto' | 'manual' - where this size came from
   displayOrder: integer('display_order').default(0),
 });
+
+// Junction table for products <-> categories (many-to-many)
+export const productCategories = pgTable('product_categories', {
+  id: serial('id').primaryKey(),
+  productId: integer('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull(),
+  categoryId: integer('category_id').references(() => categories.id, { onDelete: 'cascade' }).notNull(),
+  displayOrder: integer('display_order').default(0),
+}, (table) => ({
+  uniqueProductCategory: uniqueIndex('product_categories_unique_idx').on(table.productId, table.categoryId),
+}));
 
 export const productImages = pgTable('product_images', {
   id: serial('id').primaryKey(),
@@ -162,6 +173,7 @@ export const brandsRelations = relations(brands, ({ many }) => ({
 export const categoriesRelations = relations(categories, ({ many }) => ({
   subcategories: many(subcategories),
   products: many(products),
+  productCategories: many(productCategories),
 }));
 
 export const subcategoriesRelations = relations(subcategories, ({ one, many }) => ({
@@ -185,6 +197,7 @@ export const productsRelations = relations(products, ({ one, many }) => ({
     fields: [products.subcategoryId],
     references: [subcategories.id],
   }),
+  productCategories: many(productCategories),
   variations: many(productVariations),
   images: many(productImages),
   downloads: many(productDownloads),
@@ -235,6 +248,17 @@ export const productApplicationsRelations = relations(productApplications, ({ on
   }),
 }));
 
+export const productCategoriesRelations = relations(productCategories, ({ one }) => ({
+  product: one(products, {
+    fields: [productCategories.productId],
+    references: [products.id],
+  }),
+  category: one(categories, {
+    fields: [productCategories.categoryId],
+    references: [categories.id],
+  }),
+}));
+
 // ============================================
 // TYPE EXPORTS
 // ============================================
@@ -257,5 +281,7 @@ export type ProductDownload = typeof productDownloads.$inferSelect;
 export type ProductFeature = typeof productFeatures.$inferSelect;
 export type ProductSpecification = typeof productSpecifications.$inferSelect;
 export type ProductApplication = typeof productApplications.$inferSelect;
+export type ProductCategory = typeof productCategories.$inferSelect;
+export type NewProductCategory = typeof productCategories.$inferInsert;
 
 export type AdminUser = typeof adminUsers.$inferSelect;

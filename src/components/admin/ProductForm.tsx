@@ -17,6 +17,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Save, Trash2, Plus, GripVertical } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import type { Brand, Category, Subcategory } from '@/db/schema';
 import { ImageUpload } from './ImageUpload';
 import { FileUpload } from './FileUpload';
@@ -42,7 +43,8 @@ interface ProductWithRelations {
   priceNote: string | null;
   basePrice: string | null;
   isActive: boolean | null;
-  variations: Array<{ id: number; size: string; label: string; price: string | null; sku: string | null; displayOrder: number | null }>;
+  productCategories?: Array<{ id: number; categoryId: number; category: Category }>;
+  variations: Array<{ id: number; size: string; label: string; price: string | null; sku: string | null; source?: string | null; displayOrder: number | null }>;
   images: Array<{ id: number; url: string; alt: string; isPrimary: boolean | null; displayOrder: number | null }>;
   downloads: Array<{ id: number; url: string; label: string; fileType: string | null; fileSize: number | null }>;
   features: Array<{ id: number; feature: string; displayOrder: number | null }>;
@@ -91,8 +93,9 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
     product.specifications.map(s => ({ label: s.label, value: s.value }))
   );
   const [applications, setApplications] = useState(product.applications.map(a => a.application));
+  // Variations - track source (neto vs manual)
   const [variations, setVariations] = useState(
-    product.variations.map(v => ({ size: v.size, label: v.label, price: v.price || '', sku: v.sku || '' }))
+    product.variations.map(v => ({ size: v.size, label: v.label, price: v.price || '', sku: v.sku || '', source: v.source || 'neto' }))
   );
   const [images, setImages] = useState(
     product.images.map(i => ({ url: i.url, alt: i.alt, isPrimary: i.isPrimary ?? false }))
@@ -101,9 +104,29 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
     product.downloads.map(d => ({ url: d.url, label: d.label, fileType: d.fileType || 'pdf', fileSize: d.fileSize || 0 }))
   );
 
+  // Multi-category support - get IDs from junction table, fallback to primary categoryId
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>(() => {
+    if (product.productCategories && product.productCategories.length > 0) {
+      return product.productCategories.map(pc => pc.categoryId);
+    }
+    return [product.categoryId];
+  });
+
   const filteredSubcategories = subcategories.filter(
     s => String(s.categoryId) === formData.categoryId
   );
+
+  // Toggle category selection
+  const toggleCategory = (categoryId: number) => {
+    setSelectedCategoryIds(prev => {
+      if (prev.includes(categoryId)) {
+        // Don't allow removing all categories - keep at least one
+        if (prev.length === 1) return prev;
+        return prev.filter(id => id !== categoryId);
+      }
+      return [...prev, categoryId];
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,6 +142,7 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
           brandId: parseInt(formData.brandId, 10),
           categoryId: parseInt(formData.categoryId, 10),
           subcategoryId: formData.subcategoryId ? parseInt(formData.subcategoryId, 10) : null,
+          categoryIds: selectedCategoryIds, // Multi-category support
           basePrice: formData.basePrice || null,
           features,
           specifications,
@@ -207,7 +231,7 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                 </div>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label>Brand *</Label>
                   <Select
@@ -221,24 +245,6 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                       {brands.map((b) => (
                         <SelectItem key={b.id} value={String(b.id)}>
                           {b.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label>Category *</Label>
-                  <Select
-                    value={formData.categoryId}
-                    onValueChange={(v) => setFormData({ ...formData, categoryId: v, subcategoryId: '' })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map((c) => (
-                        <SelectItem key={c.id} value={String(c.id)}>
-                          {c.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -263,6 +269,57 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+
+              {/* Multi-category selection */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <Label>Categories *</Label>
+                  <span className="text-xs text-gray-500">
+                    {selectedCategoryIds.length} selected (first selected is primary for URL)
+                  </span>
+                </div>
+                <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+                  {categories.map((c) => (
+                    <div
+                      key={c.id}
+                      className={`flex items-center space-x-2 p-2 rounded border ${
+                        selectedCategoryIds.includes(c.id)
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200'
+                      }`}
+                    >
+                      <Checkbox
+                        id={`category-${c.id}`}
+                        checked={selectedCategoryIds.includes(c.id)}
+                        onCheckedChange={() => {
+                          toggleCategory(c.id);
+                          // Update primary categoryId if this is the first selection
+                          if (!selectedCategoryIds.includes(c.id)) {
+                            if (selectedCategoryIds.length === 0) {
+                              setFormData({ ...formData, categoryId: String(c.id) });
+                            }
+                          } else if (selectedCategoryIds[0] === c.id && selectedCategoryIds.length > 1) {
+                            // If removing the primary, make the next one primary
+                            setFormData({ ...formData, categoryId: String(selectedCategoryIds[1]) });
+                          }
+                        }}
+                      />
+                      <label
+                        htmlFor={`category-${c.id}`}
+                        className="text-sm cursor-pointer flex-1"
+                      >
+                        {c.name}
+                        {selectedCategoryIds[0] === c.id && (
+                          <span className="ml-1 text-xs text-blue-600">(primary)</span>
+                        )}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-gray-500">
+                  The primary category determines the product URL. Select multiple categories to show this product in multiple sections.
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -481,12 +538,15 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => setVariations([...variations, { size: '', label: '', price: '', sku: '' }])}
+                    onClick={() => setVariations([...variations, { size: '', label: '', price: '', sku: '', source: 'manual' }])}
                   >
                     <Plus className="h-4 w-4 mr-1" />
                     Add Size
                   </Button>
                 </div>
+                <p className="text-xs text-gray-500">
+                  Sizes imported from Neto are marked with a blue badge. You can add custom sizes which will be marked as "manual".
+                </p>
                 <div className="space-y-2">
                   {variations.map((v, i) => (
                     <div key={i} className="flex gap-2 items-center">
@@ -533,6 +593,11 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                         }}
                         className="w-32"
                       />
+                      <span className={`text-xs px-2 py-1 rounded whitespace-nowrap ${
+                        v.source === 'neto' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
+                      }`}>
+                        {v.source || 'neto'}
+                      </span>
                       <Button
                         type="button"
                         variant="ghost"
@@ -543,6 +608,9 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                       </Button>
                     </div>
                   ))}
+                  {variations.length === 0 && (
+                    <p className="text-sm text-gray-500">No size variations. Click "Add Size" to add.</p>
+                  )}
                 </div>
               </div>
             </CardContent>

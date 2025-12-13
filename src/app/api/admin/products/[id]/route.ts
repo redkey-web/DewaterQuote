@@ -10,6 +10,7 @@ import {
   productVariations,
   productImages,
   productDownloads,
+  productCategories,
 } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
@@ -40,6 +41,7 @@ export async function PATCH(
       brandId,
       categoryId,
       subcategoryId,
+      categoryIds, // Multi-category support
       description,
       certifications,
       pressureRange,
@@ -138,12 +140,13 @@ export async function PATCH(
     if (variations && variations.length > 0) {
       const variationInserts = variations
         .filter((v: { size: string; label: string }) => v.size.trim() && v.label.trim())
-        .map((v: { size: string; label: string; price: string; sku: string }, i: number) => ({
+        .map((v: { size: string; label: string; price: string; sku: string; source?: string }, i: number) => ({
           productId,
           size: v.size.trim(),
           label: v.label.trim(),
           price: v.price || null,
           sku: v.sku || null,
+          source: v.source || 'manual',
           displayOrder: i,
         }));
       if (variationInserts.length > 0) {
@@ -183,6 +186,17 @@ export async function PATCH(
       if (downloadInserts.length > 0) {
         await db.insert(productDownloads).values(downloadInserts);
       }
+    }
+
+    // Update product categories (multi-category support)
+    await db.delete(productCategories).where(eq(productCategories.productId, productId));
+    if (categoryIds && categoryIds.length > 0) {
+      const categoryInserts = (categoryIds as number[]).map((catId: number, idx: number) => ({
+        productId,
+        categoryId: catId,
+        displayOrder: idx,
+      }));
+      await db.insert(productCategories).values(categoryInserts);
     }
 
     return NextResponse.json({ success: true });

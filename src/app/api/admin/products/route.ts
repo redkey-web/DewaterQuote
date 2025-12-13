@@ -10,6 +10,7 @@ import {
   productVariations,
   productImages,
   productDownloads,
+  productCategories,
 } from '@/db/schema';
 
 export async function POST(request: NextRequest) {
@@ -30,6 +31,7 @@ export async function POST(request: NextRequest) {
       brandId,
       categoryId,
       subcategoryId,
+      categoryIds, // Multi-category support
       description,
       certifications,
       pressureRange,
@@ -133,12 +135,13 @@ export async function POST(request: NextRequest) {
     if (variations && variations.length > 0) {
       const variationInserts = variations
         .filter((v: { size: string; label: string }) => v.size.trim() && v.label.trim())
-        .map((v: { size: string; label: string; price: string; sku: string }, i: number) => ({
+        .map((v: { size: string; label: string; price: string; sku: string; source?: string }, i: number) => ({
           productId,
           size: v.size.trim(),
           label: v.label.trim(),
           price: v.price || null,
           sku: v.sku || null,
+          source: v.source || 'manual',
           displayOrder: i,
         }));
       if (variationInserts.length > 0) {
@@ -176,6 +179,23 @@ export async function POST(request: NextRequest) {
       if (downloadInserts.length > 0) {
         await db.insert(productDownloads).values(downloadInserts);
       }
+    }
+
+    // Insert product categories (multi-category support)
+    if (categoryIds && categoryIds.length > 0) {
+      const categoryInserts = (categoryIds as number[]).map((catId: number, idx: number) => ({
+        productId,
+        categoryId: catId,
+        displayOrder: idx,
+      }));
+      await db.insert(productCategories).values(categoryInserts);
+    } else {
+      // Fallback: use the primary categoryId
+      await db.insert(productCategories).values({
+        productId,
+        categoryId,
+        displayOrder: 0,
+      });
     }
 
     return NextResponse.json({ success: true, id: productId });

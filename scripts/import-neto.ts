@@ -21,6 +21,7 @@ import {
   productImages,
   productFeatures,
   productSpecifications,
+  productCategories,
 } from '../src/db/schema';
 
 // Neto API configuration
@@ -388,7 +389,7 @@ async function importProducts() {
 
       console.log(`  [IMPORTED] ${group.baseName}`);
 
-      // Import variations
+      // Import variations with source = 'neto'
       if (group.variations.length > 0) {
         const variationInserts = group.variations.map((v, idx) => ({
           productId: newProduct.id,
@@ -396,11 +397,20 @@ async function importProducts() {
           label: v.label,
           price: v.price ? String(v.price) : null,
           sku: v.sku,
+          source: 'neto',
           displayOrder: idx,
         }));
         await db.insert(productVariations).values(variationInserts);
         console.log(`    - ${variationInserts.length} variations`);
       }
+
+      // Populate product_categories junction table
+      await db.insert(productCategories).values({
+        productId: newProduct.id,
+        categoryId,
+        displayOrder: 0,
+      });
+      console.log(`    - added to category ${categoryId}`);
 
       // Import images
       if (group.images.length > 0) {

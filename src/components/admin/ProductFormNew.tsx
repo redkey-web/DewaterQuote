@@ -16,7 +16,8 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Save, Trash2, Plus, GripVertical } from 'lucide-react';
+import { Loader2, Save, Trash2, Plus, GripVertical, Info } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import type { Brand, Category, Subcategory } from '@/db/schema';
 import { ImageUpload } from './ImageUpload';
 import { FileUpload } from './FileUpload';
@@ -85,9 +86,35 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
   const [images, setImages] = useState<ProductImage[]>([]);
   const [downloads, setDownloads] = useState<ProductDownload[]>([]);
 
+  // Multi-category support
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
+
   const filteredSubcategories = subcategories.filter(
     s => String(s.categoryId) === formData.categoryId
   );
+
+  // Toggle category selection
+  const toggleCategory = (categoryId: number) => {
+    setSelectedCategoryIds(prev => {
+      if (prev.includes(categoryId)) {
+        // Allow removing all for new products
+        const newIds = prev.filter(id => id !== categoryId);
+        // Update primary categoryId if needed
+        if (newIds.length > 0 && prev[0] === categoryId) {
+          setFormData({ ...formData, categoryId: String(newIds[0]) });
+        } else if (newIds.length === 0) {
+          setFormData({ ...formData, categoryId: '' });
+        }
+        return newIds;
+      }
+      const newIds = [...prev, categoryId];
+      // Set primary categoryId to first selection
+      if (prev.length === 0) {
+        setFormData({ ...formData, categoryId: String(categoryId) });
+      }
+      return newIds;
+    });
+  };
 
   // Auto-generate slug from name
   const handleNameChange = (name: string) => {
@@ -104,8 +131,14 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
     setError('');
 
     // Validate required fields
-    if (!formData.name || !formData.sku || !formData.brandId || !formData.categoryId || !formData.description) {
-      setError('Please fill in all required fields: Name, SKU, Brand, Category, and Description');
+    if (!formData.name || !formData.sku || !formData.brandId || !formData.description) {
+      setError('Please fill in all required fields: Name, SKU, Brand, and Description');
+      setSaving(false);
+      return;
+    }
+
+    if (selectedCategoryIds.length === 0) {
+      setError('Please select at least one category');
       setSaving(false);
       return;
     }
@@ -118,8 +151,9 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
           ...formData,
           slug: formData.slug || generateSlug(formData.name),
           brandId: parseInt(formData.brandId, 10),
-          categoryId: parseInt(formData.categoryId, 10),
+          categoryId: selectedCategoryIds[0], // Primary category
           subcategoryId: formData.subcategoryId ? parseInt(formData.subcategoryId, 10) : null,
+          categoryIds: selectedCategoryIds, // Multi-category support
           basePrice: formData.basePrice || null,
           features: features.filter(f => f.trim()),
           specifications: specifications.filter(s => s.label.trim() && s.value.trim()),
@@ -214,7 +248,7 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                 </div>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label>Brand *</Label>
                   <Select
@@ -234,29 +268,11 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Category *</Label>
-                  <Select
-                    value={formData.categoryId}
-                    onValueChange={(v) => setFormData({ ...formData, categoryId: v, subcategoryId: '' })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map((c) => (
-                        <SelectItem key={c.id} value={String(c.id)}>
-                          {c.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
                   <Label>Subcategory</Label>
                   <Select
                     value={formData.subcategoryId}
                     onValueChange={(v) => setFormData({ ...formData, subcategoryId: v })}
-                    disabled={!formData.categoryId}
+                    disabled={selectedCategoryIds.length === 0}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select subcategory" />
@@ -271,6 +287,46 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+
+              {/* Multi-category selection */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <Label>Categories *</Label>
+                  <span className="text-xs text-gray-500">
+                    {selectedCategoryIds.length} selected (first selected is primary for URL)
+                  </span>
+                </div>
+                <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+                  {categories.map((c) => (
+                    <div
+                      key={c.id}
+                      className={`flex items-center space-x-2 p-2 rounded border ${
+                        selectedCategoryIds.includes(c.id)
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200'
+                      }`}
+                    >
+                      <Checkbox
+                        id={`category-${c.id}`}
+                        checked={selectedCategoryIds.includes(c.id)}
+                        onCheckedChange={() => toggleCategory(c.id)}
+                      />
+                      <label
+                        htmlFor={`category-${c.id}`}
+                        className="text-sm cursor-pointer flex-1"
+                      >
+                        {c.name}
+                        {selectedCategoryIds[0] === c.id && (
+                          <span className="ml-1 text-xs text-blue-600">(primary)</span>
+                        )}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-gray-500">
+                  The primary category determines the product URL. Select multiple categories to show this product in multiple sections.
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -501,6 +557,13 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                     <Plus className="h-4 w-4 mr-1" />
                     Add Size
                   </Button>
+                </div>
+                <div className="flex items-center gap-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm text-blue-700">
+                  <Info className="h-4 w-4 flex-shrink-0" />
+                  <span>
+                    Note: For products imported from Neto, sizes are automatically synced and cannot be manually modified after import.
+                    Only add sizes manually for products not in the Neto system.
+                  </span>
                 </div>
                 <div className="space-y-2">
                   {variations.length === 0 ? (

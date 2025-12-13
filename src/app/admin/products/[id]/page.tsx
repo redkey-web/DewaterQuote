@@ -15,6 +15,10 @@ async function getProduct(id: string) {
         brand: true,
         category: true,
         subcategory: true,
+        productCategories: {
+          with: { category: true },
+          orderBy: (pc, { asc }) => [asc(pc.displayOrder)],
+        },
         variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
         images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
         downloads: true,
