@@ -269,7 +269,7 @@ function ItemListJsonLd({
       "@type": "ListItem",
       position: index + 1,
       name: product.name,
-      url: `https://dewater-products.vercel.app/products/${product.slug}`,
+      url: `https://dewaterproducts.com.au/${product.slug}`,
       image: product.images[0]?.url,
     })),
     numberOfItems: products.length,

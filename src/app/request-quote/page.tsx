@@ -29,6 +29,7 @@ import {
 import { useQuote } from "@/context/QuoteContext"
 import { useToast } from "@/hooks/use-toast"
 import { Turnstile } from "@/components/Turnstile"
+import { trackQuoteSubmission } from "@/components/GoogleAnalytics"
 
 const quoteFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -119,6 +120,10 @@ export default function RequestQuotePage() {
       if (!response.ok) {
         throw new Error(result.error || "Failed to submit quote request")
       }
+
+      // Track conversion in GA4
+      const productNames = quoteItems.map(item => item.name).join(', ')
+      trackQuoteSubmission(productNames, quoteItems.length)
 
       setIsSubmitted(true)
       clearQuote()

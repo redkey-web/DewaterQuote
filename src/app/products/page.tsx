@@ -143,7 +143,7 @@ export default function ProductRangePage() {
                   >
                     <CardHeader className="p-0">
                       <Link
-                        href={`/products/${product.slug}`}
+                        href={`/${product.slug}`}
                         data-testid={`link-product-image-${product.id}`}
                       >
                         <div className="aspect-square bg-muted rounded-t-md overflow-hidden flex items-center justify-center cursor-pointer">
@@ -166,7 +166,7 @@ export default function ProductRangePage() {
                         {product.brand}
                       </Badge>
                       <Link
-                        href={`/products/${product.slug}`}
+                        href={`/${product.slug}`}
                         data-testid={`link-product-title-${product.id}`}
                       >
                         <h3 className="font-semibold text-lg mb-2 hover:text-primary transition-colors cursor-pointer line-clamp-2">
@@ -194,7 +194,7 @@ export default function ProductRangePage() {
                     </CardContent>
                     <CardFooter className="p-4 pt-0">
                       <Link
-                        href={`/products/${product.slug}`}
+                        href={`/${product.slug}`}
                         className="w-full"
                         data-testid={`link-product-details-${product.id}`}
                       >

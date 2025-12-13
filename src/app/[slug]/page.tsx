@@ -29,6 +29,7 @@ import {
   calculateDiscountedPrice,
 } from "@/lib/quote"
 import { useQuote } from "@/context/QuoteContext"
+import { trackProductView, trackAddToQuote } from "@/components/GoogleAnalytics"
 
 import { use } from "react"
 
@@ -50,6 +51,13 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   useEffect(() => {
     setImageErrors({})
   }, [product?.id])
+
+  // Track product view in GA4
+  useEffect(() => {
+    if (product) {
+      trackProductView(product.name, product.id, product.category)
+    }
+  }, [product])
 
   if (!product) {
     notFound()
@@ -82,6 +90,9 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
           quantity: qty,
         })
         addItem(quoteItem)
+
+        // Track add to quote in GA4
+        trackAddToQuote(product.name, sizeValue, qty)
       })
 
       // Show success toast with summary
@@ -120,11 +131,10 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   }, [])
 
   const baseUrl = "https://dewaterproducts.com.au"
-  const productUrl = `${baseUrl}/products/${product.slug}`
+  const productUrl = `${baseUrl}/${product.slug}`
 
   const breadcrumbs = [
     { name: "Home", url: baseUrl },
-    { name: "Products", url: `${baseUrl}/products` },
     { name: product.name, url: productUrl },
   ]
 
@@ -544,7 +554,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
                       <div>Body: {relatedProduct.materials.body}</div>
                       <div>Pressure: {relatedProduct.pressureRange}</div>
                     </div>
-                    <Link href={`/products/${relatedProduct.slug}`}>
+                    <Link href={`/${relatedProduct.slug}`}>
                       <Button variant="outline" size="sm" className="w-full mt-4">
                         View Details
                       </Button>

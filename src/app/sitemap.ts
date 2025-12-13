@@ -50,9 +50,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }))
 
-  // Product detail pages
+  // Product detail pages (root-level URLs)
   const productPages: MetadataRoute.Sitemap = products.map((product) => ({
-    url: `${BASE_URL}/products/${product.slug}`,
+    url: `${BASE_URL}/${product.slug}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.7,

@@ -42,7 +42,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         title: "Size Selection Required",
         description: "Please select a size on the product page before adding to quote.",
       })
-      router.push(`/products/${product.slug}`)
+      router.push(`/${product.slug}`)
       return
     }
 
@@ -68,7 +68,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       className="overflow-hidden hover-elevate active-elevate-2 transition-all border-border"
       data-testid={`card-product-${product.id}`}
     >
-      <Link href={`/products/${product.slug}`}>
+      <Link href={`/${product.slug}`}>
         <div className="cursor-pointer" data-testid={`link-product-${product.id}`}>
           <div className="aspect-square bg-muted overflow-hidden flex items-center justify-center">
             {mainImage && !imageError ? (

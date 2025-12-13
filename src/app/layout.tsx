@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import AppProviders from "@/components/AppProviders"
 import { OrganizationJsonLd } from "@/components/JsonLd"
+import { GoogleAnalytics } from "@/components/GoogleAnalytics"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -56,6 +57,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
+        <GoogleAnalytics />
         <AppProviders>{children}</AppProviders>
       </body>
     </html>
