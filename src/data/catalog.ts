@@ -222,6 +222,60 @@ export const products: Product[] = [
     certifications: "WRAS-approved EPDM seals for potable water applications. Galvanised steel construction to AS/NZS standards. Suitable for water supply and irrigation systems."
   },
 
+  // CF8M Flanged Float Valve
+  {
+    id: "CF8MDAFV",
+    slug: "cf8m-flanged-float-valve-as4087-pn16",
+    sku: "CF8MDAFV",
+    name: "CF8M Flanged Float Valve AS4087 PN16",
+    shortName: "CF8M Flanged Float Valve",
+    brand: "Straub",
+    category: "valves",
+    subcategory: "float-valve",
+    description: "CF8M Flanged Float Valve AS4087 PN16. Full 316 stainless steel construction. Sizes available: DN65, DN80, DN100. Body material: CF8M 316SS. Lever and float material: 316 stainless steel.",
+    features: [
+      "Full 316 stainless steel construction for superior corrosion resistance",
+      "CF8M body material (cast 316 stainless steel)",
+      "316 stainless steel lever and float",
+      "AS4087 PN16 flanged connection",
+      "Suitable for tanks and reservoir level control",
+      "Available in DN65, DN80, and DN100 sizes",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "CF8MDAFV" },
+      { label: "Brand", value: "CF8M Flanged Float Valve" },
+      { label: "Body Material", value: "CF8M 316SS" },
+      { label: "Lever Material", value: "316 Stainless Steel" },
+      { label: "Float Material", value: "316 Stainless Steel" },
+      { label: "Flange Standard", value: "AS4087 PN16" },
+      { label: "Pressure Rating", value: "PN16" }
+    ],
+    sizeOptions: [
+      { value: "65mm", label: "65mm DN65 (2.5\")", sku: "CF8MDAFV-65" },
+      { value: "80mm", label: "80mm DN80 (3\")", sku: "CF8MDAFV-80" },
+      { value: "100mm", label: "100mm DN100 (4\")", sku: "CF8MDAFV-100" }
+    ],
+    images: [
+      { url: "/images/products/valves/cf8m-flanged-float-valve.png", alt: "CF8M Flanged Float Valve AS4087 PN16", type: "image" },
+      { url: "/images/products/valves/cf8m-flanged-float-valve-alt.png", alt: "CF8M Flanged Float Valve - Alternate View", type: "image" }
+    ],
+    downloads: [
+      { url: "https://www.dewaterproducts.com.au/assets/brochures/CF8MDAFV.pdf", label: "Datasheet" }
+    ],
+    video: "https://www.youtube.com/watch?v=k7S7LLR78rs",
+    leadTime: "9 to 12 weeks if nil stock",
+    materials: {
+      body: "CF8M 316SS"
+    },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "65mm",
+    priceVaries: true,
+    priceNote: "Price on application - contact for quote",
+    applications: ["Tank level control", "Reservoir management", "Water storage systems", "Industrial water tanks"],
+    certifications: "Full 316 stainless steel construction complies with relevant corrosion resistance and food-grade standards. Manufactured to AS4087 PN16 flange specification. Suitable for potable water and industrial applications."
+  },
+
   // Flex Grip L
   {
     id: "OCFG-L",

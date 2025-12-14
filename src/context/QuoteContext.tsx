@@ -1,9 +1,24 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react"
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  type ReactNode,
+} from "react"
 import type { QuoteItem } from "@/types"
+import { getDiscountTier } from "@/lib/quote"
+import { DiscountCelebration } from "@/components/DiscountCelebration"
 
 const QUOTE_STORAGE_KEY = "dewater_quote_items"
+
+interface CelebrationState {
+  discount: number
+  position: { x: number; y: number } | null
+}
 
 interface QuoteContextValue {
   items: QuoteItem[]
@@ -11,9 +26,9 @@ interface QuoteContextValue {
   isCartOpen: boolean
   openCart: () => void
   closeCart: () => void
-  addItem: (item: QuoteItem) => void
+  addItem: (item: QuoteItem, triggerElement?: HTMLElement | null) => void
   removeItem: (itemId: string) => void
-  updateItemQuantity: (itemId: string, quantity: number) => void
+  updateItemQuantity: (itemId: string, quantity: number, triggerElement?: HTMLElement | null) => void
   clearQuote: () => void
 }
 
@@ -49,13 +64,61 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
   const [items, setItems] = useState<QuoteItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isHydrated, setIsHydrated] = useState(false)
+  const [celebration, setCelebration] = useState<CelebrationState>({
+    discount: 0,
+    position: null,
+  })
+  const previousTierRef = useRef<number>(0)
+
+  // Calculate total quantity across all items
+  const getTotalQuantity = useCallback((itemsList: QuoteItem[]) => {
+    return itemsList.reduce((sum, item) => sum + item.quantity, 0)
+  }, [])
+
+  // Check if discount tier changed and trigger celebration
+  const checkDiscountTierChange = useCallback(
+    (newItems: QuoteItem[], triggerElement?: HTMLElement | null) => {
+      const newTotalQty = getTotalQuantity(newItems)
+      const newTier = getDiscountTier(newTotalQty)
+      const newTierPercentage = newTier?.percentage || 0
+
+      // Only celebrate if we moved UP to a new tier
+      if (newTierPercentage > previousTierRef.current) {
+        // Get position from trigger element or use center of screen
+        let position = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+        if (triggerElement) {
+          const rect = triggerElement.getBoundingClientRect()
+          position = {
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2,
+          }
+        }
+
+        setCelebration({
+          discount: newTierPercentage,
+          position,
+        })
+      }
+
+      previousTierRef.current = newTierPercentage
+    },
+    [getTotalQuantity]
+  )
 
   // Load from localStorage on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem(QUOTE_STORAGE_KEY)
       if (stored) {
-        setItems(JSON.parse(stored))
+        const loadedItems = JSON.parse(stored)
+        setItems(loadedItems)
+        // Set initial tier without celebration
+        const totalQty = loadedItems.reduce(
+          (sum: number, item: QuoteItem) => sum + item.quantity,
+          0
+        )
+        const tier = getDiscountTier(totalQty)
+        previousTierRef.current = tier?.percentage || 0
       }
     } catch (error) {
       console.error("Failed to load quote items from localStorage:", error)
@@ -76,46 +139,72 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
   const openCart = useCallback(() => setIsCartOpen(true), [])
   const closeCart = useCallback(() => setIsCartOpen(false), [])
 
-  const addItem = useCallback((item: QuoteItem) => {
-    setItems((prev) => {
-      const existingIndex = prev.findIndex((existing) => {
-        if (existing.productId !== item.productId) return false
-        if (!item.variation) return !existing.variation
-        return existing.variation?.size === item.variation?.size
-      })
+  const addItem = useCallback(
+    (item: QuoteItem, triggerElement?: HTMLElement | null) => {
+      setItems((prev) => {
+        const existingIndex = prev.findIndex((existing) => {
+          if (existing.productId !== item.productId) return false
+          if (!item.variation) return !existing.variation
+          return existing.variation?.size === item.variation?.size
+        })
 
-      if (existingIndex >= 0) {
-        // Merge quantities for existing variation
-        return prev.map((existing, idx) =>
-          idx === existingIndex
-            ? { ...existing, quantity: existing.quantity + item.quantity }
-            : existing
-        )
-      } else {
-        // Add new item
-        return [...prev, item]
-      }
+        let newItems: QuoteItem[]
+        if (existingIndex >= 0) {
+          // Merge quantities for existing variation
+          newItems = prev.map((existing, idx) =>
+            idx === existingIndex
+              ? { ...existing, quantity: existing.quantity + item.quantity }
+              : existing
+          )
+        } else {
+          // Add new item
+          newItems = [...prev, item]
+        }
+
+        // Check for tier change after state update
+        setTimeout(() => checkDiscountTierChange(newItems, triggerElement), 0)
+        return newItems
+      })
+    },
+    [checkDiscountTierChange]
+  )
+
+  const removeItem = useCallback((itemId: string) => {
+    setItems((prev) => {
+      const newItems = prev.filter((item) => item.id !== itemId)
+      // Update tier reference (no celebration on removal)
+      const totalQty = newItems.reduce((sum, item) => sum + item.quantity, 0)
+      const tier = getDiscountTier(totalQty)
+      previousTierRef.current = tier?.percentage || 0
+      return newItems
     })
   }, [])
 
-  const removeItem = useCallback((itemId: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== itemId))
-  }, [])
-
-  const updateItemQuantity = useCallback((itemId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeItem(itemId)
-      return
-    }
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === itemId ? { ...item, quantity } : item
-      )
-    )
-  }, [removeItem])
+  const updateItemQuantity = useCallback(
+    (itemId: string, quantity: number, triggerElement?: HTMLElement | null) => {
+      if (quantity <= 0) {
+        removeItem(itemId)
+        return
+      }
+      setItems((prev) => {
+        const newItems = prev.map((item) =>
+          item.id === itemId ? { ...item, quantity } : item
+        )
+        // Check for tier change
+        setTimeout(() => checkDiscountTierChange(newItems, triggerElement), 0)
+        return newItems
+      })
+    },
+    [removeItem, checkDiscountTierChange]
+  )
 
   const clearQuote = useCallback(() => {
     setItems([])
+    previousTierRef.current = 0
+  }, [])
+
+  const handleCelebrationComplete = useCallback(() => {
+    setCelebration({ discount: 0, position: null })
   }, [])
 
   const value: QuoteContextValue = {
@@ -133,6 +222,11 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
   return (
     <QuoteContext.Provider value={value}>
       {children}
+      <DiscountCelebration
+        discount={celebration.discount}
+        triggerPosition={celebration.position}
+        onComplete={handleCelebrationComplete}
+      />
     </QuoteContext.Provider>
   )
 }

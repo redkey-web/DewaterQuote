@@ -1,10 +1,11 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { X, Trash2, Send, TrendingDown } from "lucide-react"
+import { X, Trash2, Send, TrendingDown, Plus, Minus } from "lucide-react"
 import {
   getQuoteItemPrice,
   getQuoteItemSKU,
@@ -12,14 +13,31 @@ import {
   getQuoteItemSubtotal,
   getQuoteItemDiscountedSubtotal,
   getQuoteItemSavings,
-  getDiscountTier,
   getDiscountPercentage,
 } from "@/lib/quote"
 import { useQuote } from "@/context/QuoteContext"
+import OrderBumps from "./OrderBumps"
 
 export default function QuoteCart() {
   const router = useRouter()
-  const { items, isCartOpen, closeCart, removeItem } = useQuote()
+  const { items, isCartOpen, closeCart, removeItem, updateItemQuantity, addItem } = useQuote()
+  const [isVisible, setIsVisible] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  useEffect(() => {
+    if (isCartOpen) {
+      setIsVisible(true)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setIsAnimating(true)
+        })
+      })
+    } else {
+      setIsAnimating(false)
+      const timer = setTimeout(() => setIsVisible(false), 200)
+      return () => clearTimeout(timer)
+    }
+  }, [isCartOpen])
 
   const pricedItems = items.filter((item) => getQuoteItemPrice(item) !== undefined)
   const unpricedItems = items.filter((item) => getQuoteItemPrice(item) === undefined)
@@ -35,17 +53,19 @@ export default function QuoteCart() {
     router.push("/request-quote")
   }
 
-  if (!isCartOpen) return null
+  if (!isVisible) return null
 
   return (
     <>
       <div
-        className="fixed inset-0 bg-black/50 z-40"
+        className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-200"
+        style={{ opacity: isAnimating ? 1 : 0 }}
         onClick={closeCart}
         data-testid="overlay-quote-cart"
       />
       <div
-        className="fixed right-0 top-0 h-full w-full md:w-[480px] bg-background border-l border-border shadow-xl z-50 flex flex-col"
+        className="fixed right-0 top-0 h-full w-full md:w-[480px] bg-background border-l border-border shadow-xl z-50 flex flex-col transition-transform duration-200 ease-out"
+        style={{ transform: isAnimating ? "translateX(0)" : "translateX(100%)" }}
         data-testid="panel-quote-cart"
       >
         <div className="p-6 border-b border-border flex items-center justify-between">
@@ -130,32 +150,46 @@ export default function QuoteCart() {
                               ) : (
                                 <p className="text-sm font-bold text-primary">${price?.toFixed(2)}</p>
                               )}
+                            </div>
+                            {/* Quantity Controls */}
+                            <div className="flex items-center gap-2 mt-2">
+                              <div className="flex items-center border border-border rounded-md">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-7 w-7"
+                                  onClick={() =>
+                                    updateItemQuantity(item.id, Math.max(1, item.quantity - 1))
+                                  }
+                                  disabled={item.quantity <= 1}
+                                  data-testid={`button-decrease-${item.id}`}
+                                >
+                                  <Minus className="w-3 h-3" />
+                                </Button>
+                                <span className="px-3 text-sm font-medium min-w-[2rem] text-center">
+                                  {item.quantity}
+                                </span>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-7 w-7"
+                                  onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+                                  data-testid={`button-increase-${item.id}`}
+                                >
+                                  <Plus className="w-3 h-3" />
+                                </Button>
+                              </div>
                               {item.quantity > 1 && (
-                                <>
-                                  <span className="text-xs text-muted-foreground">×</span>
-                                  <Badge variant="secondary" className="text-xs">
-                                    {item.quantity}
-                                  </Badge>
-                                  <span className="text-xs text-muted-foreground">=</span>
+                                <span className="text-sm text-muted-foreground">
+                                  ={" "}
                                   {hasDiscount ? (
-                                    <>
-                                      <p
-                                        className="text-sm line-through text-destructive"
-                                        data-testid={`text-original-subtotal-${item.id}`}
-                                      >
-                                        ${itemSubtotal?.toFixed(2)}
-                                      </p>
-                                      <p
-                                        className="text-sm font-semibold text-primary"
-                                        data-testid={`text-discounted-subtotal-${item.id}`}
-                                      >
-                                        ${itemDiscountedSubtotal?.toFixed(2)}
-                                      </p>
-                                    </>
+                                    <span className="font-semibold text-primary">
+                                      ${itemDiscountedSubtotal?.toFixed(2)}
+                                    </span>
                                   ) : (
-                                    <p className="text-sm font-semibold">${itemSubtotal?.toFixed(2)}</p>
+                                    <span className="font-semibold">${itemSubtotal?.toFixed(2)}</span>
                                   )}
-                                </>
+                                </span>
                               )}
                             </div>
                             {hasDiscount && savings > 0 && (
@@ -261,16 +295,35 @@ export default function QuoteCart() {
                               <p className="text-xs text-muted-foreground">Size: {sizeLabel}</p>
                             )}
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
-                            <div className="flex items-center gap-2 mt-1">
-                              <p className="text-sm text-chart-3 font-medium">Price on request</p>
-                              {item.quantity > 1 && (
-                                <>
-                                  <span className="text-xs text-muted-foreground">×</span>
-                                  <Badge variant="secondary" className="text-xs">
-                                    {item.quantity}
-                                  </Badge>
-                                </>
-                              )}
+                            <p className="text-sm text-chart-3 font-medium mt-1">Price on request</p>
+                            {/* Quantity Controls for Unpriced Items */}
+                            <div className="flex items-center gap-2 mt-2">
+                              <div className="flex items-center border border-border rounded-md">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-7 w-7"
+                                  onClick={() =>
+                                    updateItemQuantity(item.id, Math.max(1, item.quantity - 1))
+                                  }
+                                  disabled={item.quantity <= 1}
+                                  data-testid={`button-decrease-${item.id}`}
+                                >
+                                  <Minus className="w-3 h-3" />
+                                </Button>
+                                <span className="px-3 text-sm font-medium min-w-[2rem] text-center">
+                                  {item.quantity}
+                                </span>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-7 w-7"
+                                  onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+                                  data-testid={`button-increase-${item.id}`}
+                                >
+                                  <Plus className="w-3 h-3" />
+                                </Button>
+                              </div>
                             </div>
                           </div>
                           <Button
@@ -293,24 +346,28 @@ export default function QuoteCart() {
         </div>
 
         {items.length > 0 && (
-          <div className="p-6 border-t border-border space-y-3">
-            <Button
-              className="w-full"
-              size="lg"
-              onClick={handleSubmitQuote}
-              data-testid="button-submit-quote"
-            >
-              <Send className="w-4 h-4 mr-2" />
-              Submit Quote Request
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={closeCart}
-              data-testid="button-continue-browsing"
-            >
-              Continue Browsing
-            </Button>
+          <div className="p-6 border-t border-border space-y-4">
+            {/* Order Bumps - Cross-sell suggestions */}
+            <OrderBumps cartItems={items} onAddToQuote={addItem} />
+            <div className="space-y-3">
+              <Button
+                className="w-full"
+                size="lg"
+                onClick={handleSubmitQuote}
+                data-testid="button-submit-quote"
+              >
+                <Send className="w-4 h-4 mr-2" />
+                Submit Quote Request
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={closeCart}
+                data-testid="button-continue-browsing"
+              >
+                Continue Browsing
+              </Button>
+            </div>
           </div>
         )}
       </div>

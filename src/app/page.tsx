@@ -17,6 +17,13 @@ import {
   TrendingDown,
 } from "lucide-react"
 import TypewriterText from "@/components/TypewriterText"
+import { TestimonialsSection } from "@/components/Testimonials"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export default function HomePage() {
   const [heroComplete, setHeroComplete] = useState(false)
@@ -476,6 +483,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <TestimonialsSection />
+
       {/* Brands Section */}
       <section className="py-20 px-6 lg:px-8 bg-background">
         <div className="max-w-7xl mx-auto">
@@ -524,6 +534,88 @@ export default function HomePage() {
               </Card>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 px-6 lg:px-8 bg-muted/30">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
+              got questions?
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">FREQUENTLY ASKED QUESTIONS</h2>
+            <p className="text-lg text-muted-foreground">
+              Everything you need to know about our products and services
+            </p>
+          </div>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            <AccordionItem value="item-1" className="bg-background border rounded-lg px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                What brands do you stock?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground">
+                We are authorized distributors for Straub, Orbit Couplings, and Teekay - all
+                industry-leading manufacturers of pipe fittings, couplings, valves, and expansion
+                joints. All products are genuine and come with full factory support.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2" className="bg-background border rounded-lg px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                How do I request a quote?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground">
+                Simply browse our product catalog, add items to your quote cart, and submit the
+                request form with your contact details and project requirements. Our team will
+                respond with competitive pricing and lead times within 24 hours.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3" className="bg-background border rounded-lg px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                Do you offer volume discounts?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground">
+                Yes! We offer automatic volume discounts: 5% off for 2-4 items, 10% off for 5-9
+                items, and 15% off for 10+ items. Discounts apply to your entire order and are
+                calculated automatically.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4" className="bg-background border rounded-lg px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                Where do you deliver?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground">
+                We deliver Australia-wide with FREE delivery to all metro areas. Items are
+                dispatched from our Perth warehouse with fast turnaround times across the country.
+                Express delivery options are available for urgent requirements.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5" className="bg-background border rounded-lg px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                Are technical specifications available?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground">
+                Absolutely. Every product page includes detailed technical specifications, pressure
+                ratings, material certifications, and downloadable PDF datasheets. We provide
+                complete transparency to support your approval and engineering processes.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6" className="bg-background border rounded-lg px-6">
+              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
+                Do you offer trade accounts?
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground">
+                Yes, we welcome trade accounts for contractors, industrial clients, and water
+                authorities. Trade customers receive competitive pricing, bulk ordering options,
+                and dedicated account management. Contact us to set up your account.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
     </div>
