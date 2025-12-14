@@ -1,0 +1,96 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Roboto Condensed",
+      "role": "body"
+    }
+  ],
+  "colors": {
+    "primary": "#39C2D9",
+    "accent": "#006FF5",
+    "background": "#FFFFFF",
+    "textPrimary": "#000000",
+    "link": "#006FF5"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Roboto Condensed",
+      "heading": "Roboto Condensed"
+    },
+    "fontStacks": {
+      "heading": [
+        "Roboto Condensed",
+        "sans-serif"
+      ],
+      "body": [
+        "Roboto Condensed",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "Roboto Condensed",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "26.249px",
+      "h2": "26.249px",
+      "body": "14px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "3px"
+  },
+  "components": {
+    "input": {
+      "borderColor": "#CCCCCC",
+      "borderRadius": "3px"
+    },
+    "buttonPrimary": {
+      "background": "#000000",
+      "textColor": "#FFFFFF",
+      "borderColor": "#000000",
+      "borderRadius": "0px",
+      "shadow": "none"
+    }
+  },
+  "images": {
+    "logo": "https://www.dewaterproducts.com.au/assets/website_logo.png?1762929407",
+    "favicon": "https://www.dewaterproducts.com.au/assets/favicon_logo.png?1762929407",
+    "ogImage": "https://www.dewaterproducts.com.au/assets/full/CF8MDAFV.png?20231201130248"
+  },
+  "__framework_hints": [],
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "The logo 'Dewater Products Pty Ltd logo' matches the brand name 'Dewater Products' and is located in the header, making it the main brand logo.",
+    "confidence": 0.95
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": 0,
+      "text": "See Options",
+      "reasoning": "The button 'See Options' has a dark background color (#000000) which is not vibrant or saturated. However, it is the only button available, and since there are no other buttons to compare, it is classified as the primary button by default."
+    },
+    "secondary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "There is no secondary button available as there is only one button present on the page."
+    },
+    "confidence": 0.8
+  },
+  "personality": {
+    "tone": "professional",
+    "energy": "medium",
+    "targetAudience": "industrial and commercial clients in water management and plumbing sectors"
+  },
+  "designSystem": {
+    "framework": "unknown",
+    "componentLibrary": null
+  },
+  "confidence": {
+    "buttons": 0.8,
+    "colors": 0.9,
+    "overall": 0.8500000000000001
+  }
+}
