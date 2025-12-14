@@ -33,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     setImageError(false)
   }, [mainImage])
 
-  const handleAddToQuote = (e: React.MouseEvent) => {
+  const handleAddToQuote = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
     // For products with variable pricing, redirect to detail page to select size
@@ -49,7 +49,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     // For single-price products, add directly to quote
     try {
       const quoteItem = productToQuoteItem(product)
-      addItem(quoteItem)
+      addItem(quoteItem, e.currentTarget)
       toast({
         title: "Added to Quote",
         description: `${product.name} has been added to your quote request.`,

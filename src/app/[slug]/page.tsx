@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -44,6 +44,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const [quantities, setQuantities] = useState<Record<string, number>>({})
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+  const addToQuoteButtonRef = useRef<HTMLButtonElement>(null)
 
   const product = getProductBySlug(slug || "")
 
@@ -89,7 +90,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
           selectedSize: sizeValue,
           quantity: qty,
         })
-        addItem(quoteItem)
+        addItem(quoteItem, addToQuoteButtonRef.current)
 
         // Track add to quote in GA4
         trackAddToQuote(product.name, sizeValue, qty)
@@ -361,6 +362,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               )}
               <div className="flex gap-4">
                 <Button
+                  ref={addToQuoteButtonRef}
                   size="lg"
                   onClick={handleAddToQuote}
                   disabled={Object.values(quantities).filter((q) => q > 0).length === 0}
