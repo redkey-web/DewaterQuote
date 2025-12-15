@@ -244,10 +244,10 @@ export async function generateMetadata({ params }: SubcategoryPageProps): Promis
       title: `${content?.title || subcategoryData.name} - deWater Products`,
       description: content?.metaDescription || subcategoryData.description,
       type: "website",
-      url: `https://dewater-products.vercel.app/${category}/${subcategory}`,
+      url: `https://dewaterproducts.com.au/${category}/${subcategory}`,
     },
     alternates: {
-      canonical: `https://dewater-products.vercel.app/${category}/${subcategory}`,
+      canonical: `https://dewaterproducts.com.au/${category}/${subcategory}`,
     },
   }
 }
@@ -323,9 +323,9 @@ export default async function SubcategoryPage({ params }: SubcategoryPageProps) 
   const content = subcategoryContent[subcategory]
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: categoryData.name, url: `https://dewater-products.vercel.app/${category}` },
-    { name: content?.title || subcategoryData.name, url: `https://dewater-products.vercel.app/${category}/${subcategory}` },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: categoryData.name, url: `https://dewaterproducts.com.au/${category}` },
+    { name: content?.title || subcategoryData.name, url: `https://dewaterproducts.com.au/${category}/${subcategory}` },
   ]
 
   return (
