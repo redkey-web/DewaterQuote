@@ -202,20 +202,20 @@ const subcategoryContent: Record<string, {
 
 interface SubcategoryPageProps {
   params: Promise<{
-    category: string
+    slug: string
     subcategory: string
   }>
 }
 
 // Generate static params for all valid category/subcategory combinations
 export async function generateStaticParams() {
-  const params: { category: string; subcategory: string }[] = []
+  const params: { slug: string; subcategory: string }[] = []
 
   for (const cat of categories) {
     const catSubcategories = subcategories.filter((s) => s.category === cat.slug)
     for (const subcat of catSubcategories) {
       params.push({
-        category: cat.slug,
+        slug: cat.slug,
         subcategory: subcat.slug,
       })
     }
@@ -225,7 +225,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: SubcategoryPageProps): Promise<Metadata> {
-  const { category, subcategory } = await params
+  const { slug: category, subcategory } = await params
 
   const categoryData = getCategoryBySlug(category)
   const subcategoryData = getSubcategoryBySlug(subcategory)
@@ -309,7 +309,7 @@ function FAQJsonLd({ faqs }: { faqs: { question: string; answer: string }[] }) {
 }
 
 export default async function SubcategoryPage({ params }: SubcategoryPageProps) {
-  const { category, subcategory } = await params
+  const { slug: category, subcategory } = await params
 
   const categoryData = getCategoryBySlug(category)
   const subcategoryData = getSubcategoryBySlug(subcategory)
