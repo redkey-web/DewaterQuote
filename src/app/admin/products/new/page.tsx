@@ -33,6 +33,11 @@ export default async function ProductNewPage() {
     getSubcategories(),
   ]);
 
+  // Debug logging
+  console.log('Brands:', JSON.stringify(brandsList.map(b => ({ id: b.id, name: b.name }))));
+  console.log('Categories:', JSON.stringify(categoriesList.map(c => ({ id: c.id, name: c.name }))));
+  console.log('Subcategories:', JSON.stringify(subcategoriesList.map(s => ({ id: s.id, name: s.name }))));
+
   return (
     <div className="space-y-6">
       <div>
