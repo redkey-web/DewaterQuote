@@ -1,9 +1,9 @@
-run = "npm run dev"
+run = "npm run dev:replit"
 entrypoint = "src/app/page.tsx"
 modules = ["nodejs-20"]
 
 [deployment]
-run = ["sh", "-c", "npm run build && npm run start"]
+run = ["sh", "-c", "npm run build && npm run start:replit"]
 deploymentTarget = "cloudrun"
 
 [nix]
@@ -34,7 +34,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "npm run dev:replit"
 waitForPort = 5000
 
 [workflows.workflow.metadata]

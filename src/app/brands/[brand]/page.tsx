@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation"
-import { products } from "@/data/catalog"
+import { getProductsByBrand } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import type { Metadata } from "next"
 
 interface BrandPageProps {
   params: Promise<{ brand: string }>
 }
+
+export const revalidate = 60
 
 const brandInfo: Record<string, { name: string; description: string }> = {
   orbit: {
@@ -51,10 +53,8 @@ export default async function BrandPage({ params }: BrandPageProps) {
     notFound()
   }
 
-  // Filter products by brand (case-insensitive, partial match)
-  const brandProducts = products.filter(
-    (p) => p.brand.toLowerCase().includes(brand.name.toLowerCase())
-  )
+  // Get products by brand from database
+  const brandProducts = await getProductsByBrand(brandKey)
 
   return (
     <div className="min-h-screen bg-background">

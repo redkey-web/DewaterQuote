@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,8 +17,11 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Save, Trash2, Plus, GripVertical, Info } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { Loader2, Save, Trash2, Plus, GripVertical, Info, Eye, Package, AlertCircle } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useToast } from '@/hooks/use-toast';
 import type { Brand, Category, Subcategory } from '@/db/schema';
 import { ImageUpload } from './ImageUpload';
 import { FileUpload } from './FileUpload';
@@ -52,8 +56,10 @@ function generateSlug(name: string): string {
 
 export function ProductFormNew({ brands, categories, subcategories }: ProductFormNewProps) {
   const router = useRouter();
+  const { toast } = useToast();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [activeTab, setActiveTab] = useState('basic');
 
   // Form state
   const [formData, setFormData] = useState({
@@ -127,6 +133,17 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Redirect to preview tab if not already there
+    if (activeTab !== 'preview') {
+      setActiveTab('preview');
+      toast({
+        title: "Review Changes",
+        description: "Please check the preview before creating.",
+      });
+      return;
+    }
+
     setSaving(true);
     setError('');
 
@@ -186,13 +203,17 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
         </div>
       )}
 
-      <Tabs defaultValue="basic" className="space-y-4">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList>
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
           <TabsTrigger value="media">Images & Files</TabsTrigger>
           <TabsTrigger value="technical">Technical</TabsTrigger>
           <TabsTrigger value="pricing">Pricing & Sizes</TabsTrigger>
           <TabsTrigger value="content">Features & Specs</TabsTrigger>
+          <TabsTrigger value="preview" className="flex items-center gap-1">
+            <Eye className="h-4 w-4" />
+            Preview
+          </TabsTrigger>
         </TabsList>
 
         {/* Basic Info Tab */}
@@ -335,10 +356,13 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                   id="description"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  rows={4}
+                  rows={8}
                   required
-                  placeholder="Describe the product..."
+                  placeholder="Enter product description (plain text only - formatting is applied automatically on the website)"
                 />
+                <p className="text-xs text-muted-foreground">
+                  Enter plain text only. Website styling is applied automatically for consistent formatting.
+                </p>
               </div>
 
               <div className="flex items-center space-x-2">
@@ -785,6 +809,197 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </TabsContent>
+
+        {/* Preview Tab */}
+        <TabsContent value="preview">
+          <div className="space-y-4">
+            {/* Preview Notice */}
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start gap-3">
+              <Eye className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-medium text-blue-900">Product Preview</p>
+                <p className="text-sm text-blue-700">
+                  This shows how the product page will appear on the website. Review before creating.
+                </p>
+              </div>
+              {!formData.isActive && (
+                <Badge variant="destructive" className="ml-auto">
+                  <AlertCircle className="h-3 w-3 mr-1" />
+                  Product Inactive
+                </Badge>
+              )}
+            </div>
+
+            {/* Simulated Product Page */}
+            <div className="border rounded-lg bg-background overflow-hidden">
+              {/* Product Header Section */}
+              <div className="p-6 lg:p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Image */}
+                  <div className="aspect-square bg-muted rounded-md flex items-center justify-center overflow-hidden">
+                    {images.length > 0 ? (
+                      <Image
+                        src={images.find(i => i.isPrimary)?.url || images[0]?.url || ''}
+                        alt={images.find(i => i.isPrimary)?.alt || formData.name || 'Product image'}
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-contain"
+                        unoptimized
+                      />
+                    ) : (
+                      <Package className="w-32 h-32 text-muted-foreground" />
+                    )}
+                  </div>
+
+                  {/* Product Info */}
+                  <div>
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {brands.find(b => String(b.id) === formData.brandId) && (
+                        <Badge variant="secondary">
+                          {brands.find(b => String(b.id) === formData.brandId)?.name}
+                        </Badge>
+                      )}
+                    </div>
+                    <h1 className="text-3xl font-bold mb-4">{formData.name || 'Product Name'}</h1>
+
+                    <Separator className="my-4" />
+
+                    <div className="mb-6">
+                      <h2 className="text-lg font-semibold mb-2">Product Details</h2>
+                      <div className="grid grid-cols-2 gap-4">
+                        {formData.sizeFrom && (
+                          <div>
+                            <span className="text-sm text-muted-foreground">Size Range:</span>
+                            <p className="font-medium">{formData.sizeFrom}</p>
+                          </div>
+                        )}
+                        {formData.materials.body && (
+                          <div>
+                            <span className="text-sm text-muted-foreground">Body:</span>
+                            <p className="font-medium">{formData.materials.body}</p>
+                          </div>
+                        )}
+                        {formData.pressureRange && (
+                          <div>
+                            <span className="text-sm text-muted-foreground">Pressure Range:</span>
+                            <p className="font-medium">{formData.pressureRange}</p>
+                          </div>
+                        )}
+                        {formData.temperature && (
+                          <div>
+                            <span className="text-sm text-muted-foreground">Max Temperature:</span>
+                            <p className="font-medium">{formData.temperature}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Size Options Preview */}
+                    {variations.filter(v => v.size.trim()).length > 0 && (
+                      <div className="mb-6">
+                        <h3 className="text-lg font-semibold mb-2">Select Sizes & Quantities</h3>
+                        <div className="border rounded-md p-4 bg-muted/30 max-h-48 overflow-y-auto">
+                          {variations.filter(v => v.size.trim()).slice(0, 5).map((v, i) => (
+                            <div key={i} className="flex items-center justify-between py-2 border-b last:border-b-0">
+                              <div>
+                                <span className="font-medium">{v.label || v.size}</span>
+                                {v.sku && <span className="text-xs text-muted-foreground ml-2">SKU: {v.sku}</span>}
+                              </div>
+                              <span className="text-sm font-semibold text-primary">
+                                {v.price ? `$${v.price} ex GST` : 'POA'}
+                              </span>
+                            </div>
+                          ))}
+                          {variations.filter(v => v.size.trim()).length > 5 && (
+                            <p className="text-sm text-muted-foreground pt-2">
+                              + {variations.filter(v => v.size.trim()).length - 5} more sizes available
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Tabbed Content Section (like actual product page) */}
+              <Card className="mx-6 lg:mx-8 mb-6">
+                <CardContent className="p-6 lg:p-8">
+                  <Tabs defaultValue="description" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2 mb-6">
+                      <TabsTrigger value="description">Description</TabsTrigger>
+                      <TabsTrigger value="specifications">Specifications</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="description" className="mt-0">
+                      <h2 className="text-2xl font-bold mb-4">Description</h2>
+                      <p className="text-muted-foreground mb-6">
+                        {formData.description || 'No description provided.'}
+                      </p>
+
+                      {features.filter(f => f.trim()).length > 0 && (
+                        <>
+                          <h3 className="text-xl font-semibold mb-4">Features</h3>
+                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {features.filter(f => f.trim()).map((f, i) => (
+                              <li key={i} className="flex items-start gap-2">
+                                <span className="text-primary mt-1">•</span>
+                                <span className="text-muted-foreground">{f}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </TabsContent>
+
+                    <TabsContent value="specifications" className="mt-0">
+                      <h2 className="text-2xl font-bold mb-6">Technical Specifications</h2>
+                      {specifications.filter(s => s.label.trim() && s.value.trim()).length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          {specifications.filter(s => s.label.trim() && s.value.trim()).map((s, i) => (
+                            <div key={i} className="border-b border-border pb-3">
+                              <div className="text-sm text-muted-foreground mb-1">{s.label}</div>
+                              <div className="font-medium text-lg">{s.value}</div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-muted-foreground">No specifications added.</p>
+                      )}
+                    </TabsContent>
+                  </Tabs>
+                </CardContent>
+              </Card>
+
+              {/* Applications Section */}
+              {applications.filter(a => a.trim()).length > 0 && (
+                <Card className="mx-6 lg:mx-8 mb-6">
+                  <CardContent className="p-6 lg:p-8">
+                    <h2 className="text-2xl font-bold mb-4">Applications</h2>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {applications.filter(a => a.trim()).map((app, idx) => (
+                        <li key={idx} className="flex items-center gap-2">
+                          <span className="text-primary">•</span>
+                          <span className="text-muted-foreground">{app}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Certifications Section */}
+              {formData.certifications && (
+                <Card className="mx-6 lg:mx-8 mb-6">
+                  <CardContent className="p-6 lg:p-8">
+                    <h2 className="text-2xl font-bold mb-4">Approvals / Certifications</h2>
+                    <p className="text-muted-foreground">{formData.certifications}</p>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
           </div>
         </TabsContent>
       </Tabs>

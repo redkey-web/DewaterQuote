@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { products } from "@/data/catalog"
+import { getAllProducts } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import {
@@ -731,6 +731,8 @@ const industryData: Record<string, IndustryData> = {
   },
 }
 
+export const revalidate = 60
+
 export function generateStaticParams() {
   return Object.keys(industryData).map((industry) => ({
     industry,
@@ -765,8 +767,9 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
     notFound()
   }
 
-  // Get recommended products by ID or filter by recommended categories
-  const recommendedProducts = products.filter(
+  // Get all products from database and filter for recommended ones
+  const allProducts = await getAllProducts()
+  const recommendedProducts = allProducts.filter(
     (p) =>
       industry.recommendedProducts.includes(p.id) ||
       industry.solutions.some((s) => s.products.includes(p.category))

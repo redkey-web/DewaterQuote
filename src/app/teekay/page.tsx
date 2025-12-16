@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, CheckCircle, Droplets, Shield, Waves, Zap } from "lucide-react"
-import { products } from "@/data/catalog"
+import { getProductsByBrand } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
@@ -38,6 +38,8 @@ export const metadata: Metadata = {
     canonical: "https://dewater-products.vercel.app/teekay",
   },
 }
+
+export const revalidate = 60
 
 const teekayFeatures = [
   {
@@ -94,11 +96,9 @@ const faqs = [
   },
 ]
 
-export default function TeekayPage() {
-  // Filter products by Teekay brand
-  const teekayProductsList = products.filter((p) =>
-    p.brand.toLowerCase().includes("teekay")
-  )
+export default async function TeekayPage() {
+  // Get products by Teekay brand from database
+  const teekayProductsList = await getProductsByBrand("teekay")
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewater-products.vercel.app" },

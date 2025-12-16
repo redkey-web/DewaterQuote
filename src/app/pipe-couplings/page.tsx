@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, CheckCircle } from "lucide-react"
-import { products } from "@/data/catalog"
+import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
@@ -27,6 +27,8 @@ export const metadata: Metadata = {
     canonical: "https://dewater-products.vercel.app/pipe-couplings",
   },
 }
+
+export const revalidate = 60
 
 const brands = [
   {
@@ -72,11 +74,13 @@ const applications = [
   "Process pipelines - chemical and food-grade applications",
 ]
 
-export default function PipeCouplingsPage() {
-  // Get all coupling products (pipe-couplings and pipe-repair-clamps categories)
-  const couplingProducts = products.filter(
-    (p) => p.category === "pipe-couplings" || p.category === "pipe-repair-clamps"
-  )
+export default async function PipeCouplingsPage() {
+  // Get all coupling products from database (pipe-couplings and pipe-repair-clamps categories)
+  const [pipeCouplingsProducts, repairClampsProducts] = await Promise.all([
+    getProductsByCategory('pipe-couplings'),
+    getProductsByCategory('pipe-repair-clamps'),
+  ])
+  const couplingProducts = [...pipeCouplingsProducts, ...repairClampsProducts]
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewater-products.vercel.app" },
