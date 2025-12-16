@@ -273,7 +273,7 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                 <div className="space-y-2">
                   <Label>Brand *</Label>
                   <Select
-                    value={formData.brandId}
+                    value={formData.brandId || undefined}
                     onValueChange={(v) => setFormData({ ...formData, brandId: v })}
                   >
                     <SelectTrigger>
