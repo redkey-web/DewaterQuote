@@ -280,8 +280,8 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                       <SelectValue placeholder="Select brand" />
                     </SelectTrigger>
                     <SelectContent>
-                      {brands.map((b) => (
-                        <SelectItem key={b.id} value={String(b.id)}>
+                      {brands.filter((b) => b.id != null).map((b) => (
+                        <SelectItem key={b.id} value={String(b.id) || `brand-${b.id}`}>
                           {b.name}
                         </SelectItem>
                       ))}
@@ -300,8 +300,8 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="none">None</SelectItem>
-                      {filteredSubcategories.map((s) => (
-                        <SelectItem key={s.id} value={String(s.id)}>
+                      {filteredSubcategories.filter((s) => s.id != null).map((s) => (
+                        <SelectItem key={s.id} value={String(s.id) || `sub-${s.id}`}>
                           {s.name}
                         </SelectItem>
                       ))}
