@@ -20,6 +20,7 @@ import {
   getProductBySlug as getCatalogProductBySlug,
   getProductsByCategory as getCatalogProductsByCategory,
   getProductsBySubcategory as getCatalogProductsBySubcategory,
+  getSubcategoryBySlug as getCatalogSubcategoryBySlug,
 } from './catalog';
 
 // Type for raw DB product with relations
@@ -396,6 +397,34 @@ export async function getSubcategoriesByCategory(categorySlug: string): Promise<
   } catch (error) {
     console.error('DB error in getSubcategoriesByCategory, falling back to catalog:', error);
     return catalogSubcategories.filter(s => s.category === categorySlug);
+  }
+}
+
+/**
+ * Get subcategory by slug
+ */
+export async function getSubcategoryBySlug(slug: string): Promise<Subcategory | undefined> {
+  try {
+    const dbSubcategory = await db.query.subcategories.findFirst({
+      where: eq(subcategories.slug, slug),
+      with: {
+        category: true,
+      },
+    });
+
+    if (!dbSubcategory) return undefined;
+
+    return {
+      id: dbSubcategory.slug,
+      slug: dbSubcategory.slug,
+      name: dbSubcategory.name,
+      description: dbSubcategory.description || '',
+      category: dbSubcategory.category.slug,
+      image: dbSubcategory.image || undefined,
+    };
+  } catch (error) {
+    console.error('DB error in getSubcategoryBySlug, falling back to catalog:', error);
+    return getCatalogSubcategoryBySlug(slug);
   }
 }
 

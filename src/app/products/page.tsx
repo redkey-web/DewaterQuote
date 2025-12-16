@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { products } from "@/data/catalog"
+import { getAllProducts } from "@/data/products"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -14,6 +14,7 @@ import {
   Repeat,
 } from "lucide-react"
 import type { Metadata } from "next"
+import type { Product } from "@/types"
 
 export const metadata: Metadata = {
   title: "Product Range - Industrial Pipe Fittings & Valves",
@@ -49,7 +50,7 @@ const categoryInfo = {
   },
 }
 
-function formatPriceRange(product: (typeof products)[0]) {
+function formatPriceRange(product: Product) {
   if (product.priceVaries && product.sizeOptions && product.sizeOptions.length > 0) {
     const prices = product.sizeOptions
       .map((opt) => opt.price)
@@ -64,7 +65,9 @@ function formatPriceRange(product: (typeof products)[0]) {
   return "Price on Application"
 }
 
-export default function ProductRangePage() {
+export default async function ProductRangePage() {
+  const products = await getAllProducts()
+
   // Group products by category
   const productsByCategory = products.reduce(
     (acc, product) => {
@@ -75,7 +78,7 @@ export default function ProductRangePage() {
       acc[category].push(product)
       return acc
     },
-    {} as Record<string, typeof products>
+    {} as Record<string, Product[]>
   )
 
   // Sort categories by priority

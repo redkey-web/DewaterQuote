@@ -2,13 +2,17 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 import type { Metadata } from "next"
+// Static data for generateStaticParams (build-time stability)
 import {
-  categories,
-  subcategories,
+  categories as catalogCategories,
+  subcategories as catalogSubcategories,
+} from "@/data/catalog"
+// Database queries for runtime data fetching
+import {
   getSubcategoryBySlug,
   getCategoryBySlug,
   getProductsBySubcategory,
-} from "@/data/catalog"
+} from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 
@@ -208,11 +212,12 @@ interface SubcategoryPageProps {
 }
 
 // Generate static params for all valid category/subcategory combinations
+// Uses static catalog for build-time stability
 export async function generateStaticParams() {
   const params: { slug: string; subcategory: string }[] = []
 
-  for (const cat of categories) {
-    const catSubcategories = subcategories.filter((s) => s.category === cat.slug)
+  for (const cat of catalogCategories) {
+    const catSubcategories = catalogSubcategories.filter((s) => s.category === cat.slug)
     for (const subcat of catSubcategories) {
       params.push({
         slug: cat.slug,
@@ -227,8 +232,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: SubcategoryPageProps): Promise<Metadata> {
   const { slug: category, subcategory } = await params
 
-  const categoryData = getCategoryBySlug(category)
-  const subcategoryData = getSubcategoryBySlug(subcategory)
+  const [categoryData, subcategoryData] = await Promise.all([
+    getCategoryBySlug(category),
+    getSubcategoryBySlug(subcategory),
+  ])
   const content = subcategoryContent[subcategory]
 
   if (!categoryData || !subcategoryData || subcategoryData.category !== category) {
@@ -311,15 +318,17 @@ function FAQJsonLd({ faqs }: { faqs: { question: string; answer: string }[] }) {
 export default async function SubcategoryPage({ params }: SubcategoryPageProps) {
   const { slug: category, subcategory } = await params
 
-  const categoryData = getCategoryBySlug(category)
-  const subcategoryData = getSubcategoryBySlug(subcategory)
+  const [categoryData, subcategoryData] = await Promise.all([
+    getCategoryBySlug(category),
+    getSubcategoryBySlug(subcategory),
+  ])
 
   // Validate the subcategory belongs to this category
   if (!categoryData || !subcategoryData || subcategoryData.category !== category) {
     notFound()
   }
 
-  const products = getProductsBySubcategory(category, subcategory)
+  const products = await getProductsBySubcategory(category, subcategory)
   const content = subcategoryContent[subcategory]
 
   const breadcrumbs = [
