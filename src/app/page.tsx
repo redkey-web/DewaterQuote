@@ -138,8 +138,8 @@ export default function HomePage() {
         <div
           className="absolute inset-0 bg-cover"
           style={{
-            backgroundImage: "url(/images/hero-pipes.webp)",
-            backgroundPosition: "60% 15%",
+            backgroundImage: "url(/images/hero-pipeline.webp)",
+            backgroundPosition: "center center",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
