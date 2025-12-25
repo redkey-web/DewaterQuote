@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -16,7 +15,6 @@ import {
   Mail,
   TrendingDown,
 } from "lucide-react"
-import TypewriterText from "@/components/TypewriterText"
 import { TestimonialsSection } from "@/components/Testimonials"
 import {
   Accordion,
@@ -26,8 +24,6 @@ import {
 } from "@/components/ui/accordion"
 
 export default function HomePage() {
-  const [heroComplete, setHeroComplete] = useState(false)
-  const [hero2Complete, setHero2Complete] = useState(false)
 
   const productCategories = [
     {
@@ -242,12 +238,8 @@ export default function HomePage() {
               simple process
             </p>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">HOW IT WORKS</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto min-h-[28px]">
-              <TypewriterText
-                text="Request a quote in three easy steps and receive competitive pricing with detailed lead times"
-                delay={0}
-                speed={15}
-              />
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Request a quote in three easy steps and receive competitive pricing with detailed lead times
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -256,12 +248,8 @@ export default function HomePage() {
                 <Search className="w-8 h-8 text-primary" />
               </div>
               <h4 className="font-semibold text-xl mb-3">1. Browse & Select</h4>
-              <p className="text-muted-foreground min-h-[48px]">
-                <TypewriterText
-                  text="Browse our product range and add items to your quote request form"
-                  delay={0}
-                  speed={12}
-                />
+              <p className="text-muted-foreground">
+                Browse our product range and add items to your quote request form
               </p>
             </Card>
             <Card className="p-8 text-center">
@@ -269,12 +257,8 @@ export default function HomePage() {
                 <ClipboardList className="w-8 h-8 text-primary" />
               </div>
               <h4 className="font-semibold text-xl mb-3">2. Submit Request</h4>
-              <p className="text-muted-foreground min-h-[48px]">
-                <TypewriterText
-                  text="Fill out the quote form with your contact details and project requirements"
-                  delay={1200}
-                  speed={12}
-                />
+              <p className="text-muted-foreground">
+                Fill out the quote form with your contact details and project requirements
               </p>
             </Card>
             <Card className="p-8 text-center">
@@ -282,12 +266,8 @@ export default function HomePage() {
                 <Mail className="w-8 h-8 text-primary" />
               </div>
               <h4 className="font-semibold text-xl mb-3">3. Receive Quote</h4>
-              <p className="text-muted-foreground min-h-[48px]">
-                <TypewriterText
-                  text="Get your final quote with trade discounts and accurate lead times via email"
-                  delay={2400}
-                  speed={12}
-                />
+              <p className="text-muted-foreground">
+                Get your final quote with trade discounts and accurate lead times via email
               </p>
             </Card>
           </div>
@@ -299,12 +279,8 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">INDUSTRY SOLUTIONS</h2>
-            <p className="text-lg text-muted-foreground min-h-[28px]">
-              <TypewriterText
-                text="No matter what field you're in, we have the perfect solution for you."
-                delay={0}
-                speed={15}
-              />
+            <p className="text-lg text-muted-foreground">
+              No matter what field you're in, we have the perfect solution for you.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -339,12 +315,8 @@ export default function HomePage() {
               why choose us
             </p>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dewater Products</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto min-h-[28px]">
-              <TypewriterText
-                text="Trusted by civil contractors, water authorities, irrigation specialists, and industrial maintenance companies across Australia"
-                delay={0}
-                speed={12}
-              />
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Trusted by civil contractors, water authorities, irrigation specialists, and industrial maintenance companies across Australia
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -390,19 +362,11 @@ export default function HomePage() {
               <h3 className="text-xl font-semibold text-muted-foreground mb-4">
                 The leader in industrial pipe fittings and valves
               </h3>
-              <p className="text-base text-foreground/80 mb-6 leading-relaxed min-h-[72px]">
-                <TypewriterText
-                  text="Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. deWater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, and Teekay."
-                  delay={0}
-                  speed={12}
-                />
+              <p className="text-base text-foreground/80 mb-6 leading-relaxed">
+                Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. deWater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, and Teekay.
               </p>
-              <p className="text-base text-foreground/80 mb-8 leading-relaxed min-h-[48px]">
-                <TypewriterText
-                  text="Supplying the Australian market since 2015, our commitment to quality ensures we provide the most reliable solutions for water treatment, mining, irrigation, and industrial applications."
-                  delay={2500}
-                  speed={12}
-                />
+              <p className="text-base text-foreground/80 mb-8 leading-relaxed">
+                Supplying the Australian market since 2015, our commitment to quality ensures we provide the most reliable solutions for water treatment, mining, irrigation, and industrial applications.
               </p>
               <Link href="/about">
                 <Button size="lg" data-testid="button-learn-more">
@@ -413,32 +377,20 @@ export default function HomePage() {
             <div className="grid grid-cols-1 gap-6">
               <Card className="p-8">
                 <h4 className="font-semibold text-xl mb-3">Authorised Distributor</h4>
-                <p className="text-muted-foreground mb-4 min-h-[48px]">
-                  <TypewriterText
-                    text="Exclusive partnerships with Straub, Orbit, and Teekay ensure genuine products and factory support"
-                    delay={0}
-                    speed={12}
-                  />
+                <p className="text-muted-foreground mb-4">
+                  Exclusive partnerships with Straub, Orbit, and Teekay ensure genuine products and factory support
                 </p>
               </Card>
               <Card className="p-8">
                 <h4 className="font-semibold text-xl mb-3">Technical Transparency</h4>
-                <p className="text-muted-foreground mb-4 min-h-[48px]">
-                  <TypewriterText
-                    text="Detailed specs, drawings, and pressure ratings available for every product to support your approval process"
-                    delay={1200}
-                    speed={12}
-                  />
+                <p className="text-muted-foreground mb-4">
+                  Detailed specs, drawings, and pressure ratings available for every product to support your approval process
                 </p>
               </Card>
               <Card className="p-8">
                 <h4 className="font-semibold text-xl mb-3">Trade Accounts Welcome</h4>
-                <p className="text-muted-foreground min-h-[48px]">
-                  <TypewriterText
-                    text="Competitive trade pricing and bulk ordering for contractors and industrial clients"
-                    delay={2400}
-                    speed={12}
-                  />
+                <p className="text-muted-foreground">
+                  Competitive trade pricing and bulk ordering for contractors and industrial clients
                 </p>
               </Card>
             </div>
@@ -454,12 +406,8 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">FEATURED BRANDS</h2>
-            <p className="text-lg text-muted-foreground min-h-[28px]">
-              <TypewriterText
-                text="Authorised distributor of industry-leading manufacturers"
-                delay={0}
-                speed={15}
-              />
+            <p className="text-lg text-muted-foreground">
+              Authorised distributor of industry-leading manufacturers
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
