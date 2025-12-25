@@ -142,54 +142,19 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center py-20">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">
-            Industry Leading Pipe Fittings & Valves
-          </h1>
-          <p className="text-xl md:text-2xl text-white/95 mb-2 max-w-3xl mx-auto font-medium">
-            <TypewriterText
-              text="Supplying Australia's pipeline industry since 2015"
-              delay={300}
-              speed={20}
-              onComplete={() => setHeroComplete(true)}
+        <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-8 text-center py-24">
+          <div className="relative">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search pipe fittings, valves, couplings..."
+              className="w-full h-14 pl-14 pr-6 text-lg rounded-full border-2 border-white/20 bg-white shadow-2xl focus:outline-none focus:ring-4 focus:ring-primary/30 focus:border-primary transition-all"
+              data-testid="input-hero-search"
             />
-          </p>
-          <p className="text-lg text-white/90 mb-8 max-w-3xl mx-auto min-h-[28px]">
-            <TypewriterText
-              text="Certified quality • Fast nationwide delivery • Trade pricing"
-              delay={1500}
-              speed={15}
-              onComplete={() => setHero2Complete(true)}
-            />
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center mt-2">
-            <Link href="/products">
-              <Button
-                size="lg"
-                className="btn-industrial-primary"
-                data-testid="button-view-products"
-              >
-                <span className="bolt bolt-tl"></span>
-                <span className="bolt bolt-tr"></span>
-                <span className="bolt bolt-bl"></span>
-                <span className="bolt bolt-br"></span>
-                View Product Range <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </Link>
-            <Link href="/request-quote">
-              <Button
-                size="lg"
-                className="btn-industrial-secondary"
-                data-testid="button-request-quote"
-              >
-                <span className="bolt bolt-tl"></span>
-                <span className="bolt bolt-tr"></span>
-                <span className="bolt bolt-bl"></span>
-                <span className="bolt bolt-br"></span>
-                Request a Trade Quote
-              </Button>
-            </Link>
           </div>
+          <p className="text-white/90 mt-6 text-sm">
+            Straub • Orbit • Teekay — Trade pricing available
+          </p>
         </div>
       </section>
 
