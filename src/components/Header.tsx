@@ -316,7 +316,7 @@ export default function Header() {
                   Strainers
                 </Link>
                 <Link href="/pipe-repair" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
-                  Pipe Repair
+                  Repair Clamps
                 </Link>
                 <Link href="/flange-adaptors" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
                   Flange Adaptors

@@ -153,32 +153,32 @@ export default function HomePage() {
           </div>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             <Link href="/valves">
-              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+              <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium min-w-[140px]">
                 Valves
               </Button>
             </Link>
             <Link href="/pipe-couplings">
-              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+              <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium min-w-[140px]">
                 Pipe Couplings
               </Button>
             </Link>
             <Link href="/rubber-expansion-joints">
-              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+              <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium min-w-[140px]">
                 Expansion Joints
               </Button>
             </Link>
             <Link href="/strainers">
-              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+              <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium min-w-[140px]">
                 Strainers
               </Button>
             </Link>
             <Link href="/pipe-repair">
-              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
-                Pipe Repair
+              <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium min-w-[140px]">
+                Repair Clamps
               </Button>
             </Link>
             <Link href="/flange-adaptors">
-              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+              <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium min-w-[140px]">
                 Flange Adaptors
               </Button>
             </Link>
