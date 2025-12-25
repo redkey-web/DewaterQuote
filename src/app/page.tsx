@@ -103,35 +103,33 @@ export default function HomePage() {
     <div>
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Volume Discount Strip */}
+        {/* Volume Discount Ticker */}
         <div
-          className="absolute top-0 left-0 right-0 z-20 py-3 px-6 lg:px-8 border-b"
-          style={{
-            background:
-              "linear-gradient(135deg, hsl(0, 0%, 24%) 0%, hsl(0, 0%, 30%) 50%, hsl(0, 0%, 24%) 100%)",
-            borderColor: "hsl(0, 0%, 12%)",
-          }}
+          className="absolute top-0 left-0 right-0 z-20 py-2 overflow-hidden"
           data-testid="section-volume-discounts"
         >
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-wrap items-center justify-center gap-1 text-sm">
-              <TrendingDown className="w-4 h-4 text-white mr-2" />
-              <span className="font-semibold text-white mr-3">Volume Discounts:</span>
-              <div className="flex items-center gap-1">
-                <span className="text-white/70">2-4 items</span>
-                <span className="font-bold text-destructive mx-1">5% OFF</span>
-                <span className="text-white/70 mx-2">•</span>
+          <div className="animate-ticker flex whitespace-nowrap">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex items-center gap-8 px-8 text-sm">
+                <div className="flex items-center gap-2">
+                  <TrendingDown className="w-4 h-4 text-white" />
+                  <span className="font-semibold text-white">Volume Discounts:</span>
+                  <span className="text-white/80">2-4 items</span>
+                  <span className="font-bold text-orange-400">5% OFF</span>
+                </div>
+                <span className="text-white/50">•</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-white/80">5-9 items</span>
+                  <span className="font-bold text-orange-400">10% OFF</span>
+                </div>
+                <span className="text-white/50">•</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-white/80">10+ items</span>
+                  <span className="font-bold text-orange-400">15% OFF</span>
+                </div>
+                <span className="text-white/50">•</span>
               </div>
-              <div className="flex items-center gap-1">
-                <span className="text-white/70">5-9 items</span>
-                <span className="font-bold text-destructive mx-1">10% OFF</span>
-                <span className="text-white/70 mx-2">•</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="text-white/70">10+ items</span>
-                <span className="font-bold text-destructive mx-1">15% OFF</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
