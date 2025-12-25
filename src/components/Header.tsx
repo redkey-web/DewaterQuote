@@ -112,12 +112,22 @@ export default function Header() {
               onMouseEnter={() => setActiveMenu("products")}
               onMouseLeave={() => setActiveMenu(null)}
             >
-              <button
-                className="flex items-center gap-1 text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
-                data-testid="button-products-menu"
-              >
-                Products <ChevronDown className="w-4 h-4" />
-              </button>
+              <div className="flex items-center">
+                <Link
+                  href="/products"
+                  className="text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
+                  data-testid="link-products"
+                >
+                  Products
+                </Link>
+                <button
+                  className="flex items-center justify-center text-foreground hover:bg-muted/50 p-1 rounded-md border-l border-border/50"
+                  data-testid="button-products-menu"
+                  aria-label="Open products menu"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </div>
               {activeMenu === "products" && (
                 <div className="absolute top-full left-0 mt-0 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-5 gap-6 w-[900px]">
                   {productsMenu.map((category) => (
@@ -289,9 +299,6 @@ export default function Header() {
               </div>
             </div>
             <nav className="space-y-4">
-              <Link href="/" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-home">
-                Home
-              </Link>
               <Link href="/products" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-products">
                 Products
               </Link>
