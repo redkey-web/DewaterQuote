@@ -139,6 +139,9 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center py-24">
+          <h1 className="text-2xl md:text-3xl font-bold text-white mb-6 drop-shadow-lg">
+            Find & Add Products To Quote Form
+          </h1>
           <div className="relative max-w-2xl mx-auto">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
             <input
