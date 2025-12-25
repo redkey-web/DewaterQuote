@@ -169,20 +169,20 @@ export default function HomePage() {
             </div>
             <div className="flex items-center gap-3">
               <Image
+                src="/images/brands/orbit-couplings.png"
+                alt="Orbit Couplings logo"
+                width={180}
+                height={60}
+                className="h-12 md:h-[60px] w-auto object-contain"
+              />
+            </div>
+            <div className="flex items-center gap-3">
+              <Image
                 src="/images/brands/teekay-logo.png"
                 alt="Teekay logo"
                 width={120}
                 height={40}
                 className="h-8 md:h-10 w-auto object-contain"
-              />
-            </div>
-            <div className="flex items-center gap-3">
-              <Image
-                src="/images/brands/orbit-couplings.png"
-                alt="Orbit Couplings logo"
-                width={120}
-                height={40}
-                className="h-8 md:h-10 w-auto object-contain p-0 m-0"
               />
             </div>
           </div>
