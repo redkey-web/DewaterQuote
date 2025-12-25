@@ -180,9 +180,6 @@ export default function HomePage() {
               </Button>
             </Link>
           </div>
-          <p className="text-white/90 mt-6 text-sm">
-            Straub • Orbit • Teekay — Trade pricing available
-          </p>
         </div>
       </section>
 
