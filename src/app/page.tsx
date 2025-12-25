@@ -138,8 +138,8 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
 
-        <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-8 text-center py-24">
-          <div className="relative">
+        <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center py-24">
+          <div className="relative max-w-2xl mx-auto">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
             <input
               type="text"
@@ -147,6 +147,38 @@ export default function HomePage() {
               className="w-full h-14 pl-14 pr-6 text-lg rounded-full border-2 border-white/20 bg-white shadow-2xl focus:outline-none focus:ring-4 focus:ring-primary/30 focus:border-primary transition-all"
               data-testid="input-hero-search"
             />
+          </div>
+          <div className="flex flex-wrap justify-center gap-3 mt-8">
+            <Link href="/valves">
+              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+                Valves
+              </Button>
+            </Link>
+            <Link href="/pipe-couplings">
+              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+                Pipe Couplings
+              </Button>
+            </Link>
+            <Link href="/rubber-expansion-joints">
+              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+                Expansion Joints
+              </Button>
+            </Link>
+            <Link href="/strainers">
+              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+                Strainers
+              </Button>
+            </Link>
+            <Link href="/pipe-repair">
+              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+                Pipe Repair
+              </Button>
+            </Link>
+            <Link href="/flange-adaptors">
+              <Button variant="secondary" size="sm" className="bg-white/90 hover:bg-white text-foreground">
+                Flange Adaptors
+              </Button>
+            </Link>
           </div>
           <p className="text-white/90 mt-6 text-sm">
             Straub • Orbit • Teekay — Trade pricing available

@@ -299,9 +299,29 @@ export default function Header() {
               </div>
             </div>
             <nav className="space-y-4">
-              <Link href="/products" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-products">
-                Products
+              <Link href="/products" className="block text-foreground hover-elevate px-3 py-2 rounded-md font-semibold" data-testid="link-mobile-products">
+                All Products
               </Link>
+              <div className="pl-3 space-y-2 border-l-2 border-primary/30 ml-3">
+                <Link href="/valves" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
+                  Valves
+                </Link>
+                <Link href="/pipe-couplings" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
+                  Pipe Couplings
+                </Link>
+                <Link href="/rubber-expansion-joints" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
+                  Expansion Joints
+                </Link>
+                <Link href="/strainers" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
+                  Strainers
+                </Link>
+                <Link href="/pipe-repair" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
+                  Pipe Repair
+                </Link>
+                <Link href="/flange-adaptors" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
+                  Flange Adaptors
+                </Link>
+              </div>
               <Link href="/industries" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-industries">
                 Industries
               </Link>
