@@ -14,7 +14,14 @@ import {
   ClipboardList,
   Mail,
   TrendingDown,
+  ChevronDown,
 } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { TestimonialsSection } from "@/components/Testimonials"
 import {
   Accordion,
@@ -151,37 +158,35 @@ export default function HomePage() {
               data-testid="input-hero-search"
             />
           </div>
-          <div className="grid grid-cols-3 gap-3 mt-8 max-w-xl mx-auto">
-            <Link href="/valves">
-              <Button variant="secondary" className="w-full bg-white/90 hover:bg-white text-foreground px-4 py-2 text-sm font-medium">
-                Valves
-              </Button>
-            </Link>
-            <Link href="/pipe-couplings">
-              <Button variant="secondary" className="w-full bg-white/90 hover:bg-white text-foreground px-4 py-2 text-sm font-medium">
-                Pipe Couplings
-              </Button>
-            </Link>
-            <Link href="/rubber-expansion-joints">
-              <Button variant="secondary" className="w-full bg-white/90 hover:bg-white text-foreground px-4 py-2 text-sm font-medium">
-                Expansion Joints
-              </Button>
-            </Link>
-            <Link href="/strainers">
-              <Button variant="secondary" className="w-full bg-white/90 hover:bg-white text-foreground px-4 py-2 text-sm font-medium">
-                Strainers
-              </Button>
-            </Link>
-            <Link href="/pipe-repair">
-              <Button variant="secondary" className="w-full bg-white/90 hover:bg-white text-foreground px-4 py-2 text-sm font-medium">
-                Repair Clamps
-              </Button>
-            </Link>
-            <Link href="/flange-adaptors">
-              <Button variant="secondary" className="w-full bg-white/90 hover:bg-white text-foreground px-4 py-2 text-sm font-medium">
-                Flange Adaptors
-              </Button>
-            </Link>
+          <div className="mt-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium">
+                  Browse by Category
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/valves" className="w-full cursor-pointer">Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/rubber-expansion-joints" className="w-full cursor-pointer">Expansion Joints</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/strainers" className="w-full cursor-pointer">Strainers</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/pipe-repair" className="w-full cursor-pointer">Repair Clamps</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </section>
