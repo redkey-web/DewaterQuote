@@ -158,10 +158,10 @@ export default function HomePage() {
               data-testid="input-hero-search"
             />
           </div>
-          <div className="mt-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium">
+                <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-5 py-2 text-sm font-medium">
                   Browse by Category
                   <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
@@ -187,49 +187,48 @@ export default function HomePage() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <span className="text-white/60 text-sm hidden sm:inline">or by brand:</span>
+            <Link href="/brands/straub">
+              <Button variant="secondary" className="bg-white/90 hover:bg-white p-2 h-auto">
+                <Image
+                  src="/images/brands/straub-logo.png"
+                  alt="Straub"
+                  width={80}
+                  height={28}
+                  className="h-6 w-auto object-contain"
+                />
+              </Button>
+            </Link>
+            <Link href="/brands/orbit">
+              <Button variant="secondary" className="bg-white/90 hover:bg-white p-2 h-auto">
+                <Image
+                  src="/images/brands/orbit-couplings.png"
+                  alt="Orbit Couplings"
+                  width={90}
+                  height={32}
+                  className="h-7 w-auto object-contain"
+                />
+              </Button>
+            </Link>
+            <Link href="/brands/teekay">
+              <Button variant="secondary" className="bg-white/90 hover:bg-white p-2 h-auto">
+                <Image
+                  src="/images/brands/teekay-logo.png"
+                  alt="Teekay"
+                  width={80}
+                  height={28}
+                  className="h-6 w-auto object-contain"
+                />
+              </Button>
+            </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Trust Bar */}
-      <section className="py-8 px-6 lg:px-8 bg-muted/50 border-b border-border">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            <div className="flex items-center gap-3">
-              <Image
-                src="/images/brands/straub-logo.png"
-                alt="Straub logo"
-                width={120}
-                height={40}
-                className="h-8 md:h-10 w-auto object-contain"
-              />
-            </div>
-            <div className="flex items-center gap-3">
-              <Image
-                src="/images/brands/orbit-couplings.png"
-                alt="Orbit Couplings logo"
-                width={180}
-                height={60}
-                className="h-12 md:h-[60px] w-auto object-contain"
-              />
-            </div>
-            <div className="flex items-center gap-3">
-              <Image
-                src="/images/brands/teekay-logo.png"
-                alt="Teekay logo"
-                width={120}
-                height={40}
-                className="h-8 md:h-10 w-auto object-contain"
-              />
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8 mt-6 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-white/90 text-sm">
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-primary" />
+              <CheckCircle className="w-4 h-4 text-white" />
               <span>15+ years industry experience</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-primary" />
+              <CheckCircle className="w-4 h-4 text-white" />
               <span>Fast Perth warehouse dispatch</span>
             </div>
           </div>
