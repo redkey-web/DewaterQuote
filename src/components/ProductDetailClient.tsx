@@ -60,8 +60,14 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
     .filter((img) => {
       const urlLower = img.url.toLowerCase()
       const altLower = img.alt.toLowerCase()
-      return !urlLower.includes('warranty') && !altLower.includes('warranty') &&
-             !urlLower.includes('5-year') && !urlLower.includes('5year')
+      // Filter out warranty images (by text or by alt_3 folder which contains warranty images)
+      const isWarranty = urlLower.includes('warranty') || altLower.includes('warranty') ||
+                         urlLower.includes('5-year') || urlLower.includes('5year') ||
+                         urlLower.includes('5_year') || urlLower.includes('5 year') ||
+                         urlLower.includes('years') || urlLower.includes('/alt_3/')
+      // Filter out alt_1 images (duplicates of main product image)
+      const isDuplicate = urlLower.includes('/alt_1/')
+      return !isWarranty && !isDuplicate
     })
 
   // Helper to get human-readable category name
@@ -187,7 +193,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               {/* Warranty Badge Overlay */}
               <div className="absolute bottom-3 right-3 bg-emerald-600 text-white px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5 text-sm font-medium">
                 <Shield className="w-4 h-4" />
-                Up to 5 Year Warranty
+                Up to 5 Year Warranty*
               </div>
             </div>
             {uniqueImages.length > 1 && (
