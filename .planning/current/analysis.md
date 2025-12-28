@@ -1,8 +1,8 @@
 # Codebase Analysis
 
-**Last Updated**: 2025-12-14
+**Last Updated**: 2025-12-28
 **Analyzed By**: webdev:refresh
-**Previous Update**: 2025-12-09
+**Previous Update**: 2025-12-14
 
 ## Structure Overview
 - **Framework**: Next.js 14 (App Router) ✅ MIGRATED
@@ -16,12 +16,26 @@
 ## File Counts
 | Type | Count | Location | Change |
 |------|-------|----------|--------|
-| Pages | 31 | src/app/ | +2 (GA, root slug) |
-| Components | 65 | src/components/ (47 UI + 18 custom) | +2 (GoogleAnalytics, Turnstile) |
+| Pages | 32 | src/app/ | +1 (Replit changes) |
+| Components | 68 | src/components/ (47 UI + 21 custom) | +3 (DiscountCelebration, OrderBumps, Testimonials) |
 | API Routes | 10 | src/app/api/ | No change |
-| Utils/Lib | 7 | src/lib/ | No change |
+| Utils/Lib | 8 | src/lib/ | +1 |
 
-## Recent Changes (since 2025-12-09)
+## Recent Changes (since 2025-12-14)
+- **Replit integration**:
+  - Added .replit, replit.nix config files
+  - Replit backup folder with original code
+- **New components**:
+  - DiscountCelebration, OrderBumps, Testimonials
+- **Route changes**:
+  - [category]/[subcategory] → [slug]/[subcategory]
+- **Branding update**:
+  - "deWater Products" → "Dewater Products"
+- **Admin database sync plans** (pending):
+  - ADMIN_DATA_SYNC_PLAN.md
+  - .planning/features/admin-database-sync.md
+
+## Previous Changes (2025-12-09 to 2025-12-14)
 - **Google Analytics (GA4)**:
   - Added src/components/GoogleAnalytics.tsx
   - Integrated into layout.tsx
@@ -32,10 +46,9 @@
 - **Spam protection**:
   - Added Turnstile CAPTCHA component
   - Integrated into contact and quote forms
-- **Previous changes (2025-12-08 to 2025-12-09)**:
-  - Security fixes (XSS sanitization, rate limiting)
-  - Admin panel completion (products, categories, brands CRUD)
-  - Files browser and settings pages
+- **Security fixes**:
+  - XSS sanitization, rate limiting
+  - Admin panel completion
 
 ## Total LOC
 - Pages: ~6,000
@@ -54,8 +67,8 @@
 ### High Priority
 | Issue | Location | Status |
 |-------|----------|--------|
-| No Turnstile/CAPTCHA | Contact/quote forms | ⏳ Pending |
-| Missing security headers | next.config.js | ⏳ Pending |
+| No Turnstile/CAPTCHA | Contact/quote forms | ✅ Fixed |
+| Missing security headers | next.config.js | ✅ Fixed |
 
 ### Medium Priority
 | Issue | Location | Status |

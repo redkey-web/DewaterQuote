@@ -1,6 +1,6 @@
 # Installed Services
 
-**Last Updated**: 2025-12-14
+**Last Updated**: 2025-12-28
 
 ## Active Services
 
@@ -48,6 +48,7 @@
 - **Files**:
   - src/components/Turnstile.tsx ✅
   - src/lib/turnstile.ts ✅
+  - src/lib/rate-limit.ts ✅
 - **Forms using Turnstile**:
   - /contact ✅
   - /request-quote ✅

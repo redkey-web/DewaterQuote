@@ -8,7 +8,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import {
   Download,
   ShoppingCart,
@@ -38,14 +44,17 @@ interface ProductDetailClientProps {
 export function ProductDetailClient({ product, relatedProducts }: ProductDetailClientProps) {
   const { toast } = useToast()
   const { addItem } = useQuote()
-  const [quantities, setQuantities] = useState<Record<string, number>>({})
+  const [selectedSize, setSelectedSize] = useState<string>("")
+  const [quantity, setQuantity] = useState<number>(1)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
   const addToQuoteButtonRef = useRef<HTMLButtonElement>(null)
 
-  // Reset image error states when product changes
+  // Reset states when product changes
   useEffect(() => {
     setImageErrors({})
+    setSelectedSize("")
+    setQuantity(1)
   }, [product.id])
 
   // Track product view in GA4
@@ -53,45 +62,41 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
     trackProductView(product.name, product.id, product.category)
   }, [product])
 
+  // Get the selected size option details
+  const selectedSizeOption = product.sizeOptions?.find((s) => s.value === selectedSize)
+  const discountPercentage = getDiscountPercentage(quantity)
+  const hasDiscount = discountPercentage > 0 && selectedSizeOption?.price
+
   const handleAddToQuote = () => {
     try {
-      const selections = Object.entries(quantities).filter(([, qty]) => qty > 0)
-
-      if (selections.length === 0) {
+      if (!selectedSize) {
         toast({
-          title: "No Variations Selected",
-          description: "Please select at least one size and quantity to add to your quote.",
+          title: "No Size Selected",
+          description: "Please select a size to add to your quote.",
           variant: "destructive",
         })
         return
       }
 
-      // Add each selected variation to the quote
-      selections.forEach(([sizeValue, qty]) => {
-        const quoteItem = productToQuoteItem(product, {
-          selectedSize: sizeValue,
-          quantity: qty,
-        })
-        addItem(quoteItem, addToQuoteButtonRef.current)
-
-        // Track add to quote in GA4
-        trackAddToQuote(product.name, sizeValue, qty)
+      const quoteItem = productToQuoteItem(product, {
+        selectedSize: selectedSize,
+        quantity: quantity,
       })
+      addItem(quoteItem, addToQuoteButtonRef.current)
 
-      // Show success toast with summary
-      const totalItems = selections.reduce((sum, [, qty]) => sum + qty, 0)
-      const summary =
-        selections.length === 1
-          ? `${selections[0][1]} × ${product.sizeOptions?.find((s) => s.value === selections[0][0])?.label || "item"}`
-          : `${selections.length} sizes (${totalItems} total items)`
+      // Track add to quote in GA4
+      trackAddToQuote(product.name, selectedSize, quantity)
 
+      // Show success toast
+      const sizeLabel = selectedSizeOption?.label || selectedSize
       toast({
         title: "Added to Quote",
-        description: `${product.name} - ${summary} added to your quote request.`,
+        description: `${product.name} - ${quantity} × ${sizeLabel} added to your quote request.`,
       })
 
-      // Reset quantities after adding to quote
-      setQuantities({})
+      // Reset after adding
+      setSelectedSize("")
+      setQuantity(1)
     } catch (error) {
       toast({
         title: "Error",
@@ -101,16 +106,8 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
     }
   }
 
-  const handleQuantityChange = useCallback((sizeValue: string, delta: number) => {
-    setQuantities((prev) => {
-      const currentQty = prev[sizeValue] || 0
-      const newQty = Math.max(0, currentQty + delta)
-      if (newQty === 0) {
-        const { [sizeValue]: _, ...rest } = prev
-        return rest
-      }
-      return { ...prev, [sizeValue]: newQty }
-    })
+  const handleQuantityChange = useCallback((delta: number) => {
+    setQuantity((prev) => Math.max(1, prev + delta))
   }, [])
 
   const baseUrl = "https://dewaterproducts.com.au"
@@ -226,120 +223,132 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               </div>
             </div>
 
-            {/* Multi-Variation Selector */}
+            {/* Size & Quantity Selector */}
             {product.sizeOptions && product.sizeOptions.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">Select Sizes & Quantities</h3>
+                <h3 className="text-lg font-semibold mb-2">Select Size & Quantity</h3>
                 {product.priceNote && (
                   <p className="text-sm text-muted-foreground mb-4">{product.priceNote}</p>
                 )}
-                <p className="text-sm text-muted-foreground mb-4">
-                  Select quantities for one or more sizes to add to your quote.
-                </p>
 
-                <ScrollArea className="h-[320px] border rounded-md">
-                  <div className="p-4">
-                    {product.sizeOptions?.map((size, idx) => (
-                      <div
-                        key={size.value}
-                        data-testid={`variation-row-${size.value}`}
-                        className={`flex items-center justify-between py-3 ${
-                          idx !== (product.sizeOptions?.length || 0) - 1
-                            ? "border-b border-border"
-                            : ""
-                        }`}
-                      >
-                        <div className="flex-1">
-                          <div className="font-medium">{size.label}</div>
-                          {size.sku && (
-                            <div className="text-xs text-muted-foreground">SKU: {size.sku}</div>
+                {/* Size Dropdown */}
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Size</label>
+                    <Select value={selectedSize} onValueChange={setSelectedSize}>
+                      <SelectTrigger className="w-full h-12" data-testid="select-size">
+                        <SelectValue placeholder="Choose a size..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {product.sizeOptions.map((size) => (
+                          <SelectItem key={size.value} value={size.value}>
+                            <div className="flex items-center justify-between w-full gap-4">
+                              <span>{size.label}</span>
+                              <span className="text-muted-foreground">
+                                {size.price ? `$${size.price.toFixed(2)}` : "POA"}
+                              </span>
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Selected Size Details */}
+                  {selectedSizeOption && (
+                    <div className="p-4 bg-card border border-card-border rounded-lg">
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          <div className="font-semibold">{selectedSizeOption.label}</div>
+                          {selectedSizeOption.sku && (
+                            <div className="text-xs text-muted-foreground">SKU: {selectedSizeOption.sku}</div>
                           )}
-                          {(() => {
-                            const qty = quantities[size.value] || 0
-                            const discountPercentage = getDiscountPercentage(qty)
-                            const hasDiscount = discountPercentage > 0 && size.price
-
-                            return (
-                              <div className="mt-1 flex items-center gap-2 flex-wrap">
-                                {hasDiscount ? (
-                                  <>
-                                    <div className="text-sm line-through text-destructive">
-                                      ${size.price?.toFixed(2)}
-                                    </div>
-                                    <div className="text-sm font-semibold text-primary">
-                                      ${calculateDiscountedPrice(size.price!, qty).toFixed(2)} ex
-                                      GST
-                                    </div>
-                                    <Badge
-                                      variant="secondary"
-                                      className="bg-destructive/10 text-destructive text-xs"
-                                    >
-                                      {discountPercentage}% OFF
-                                    </Badge>
-                                  </>
-                                ) : (
-                                  <div className="text-sm font-semibold text-primary">
-                                    {size.price ? `$${size.price.toFixed(2)} ex GST` : "POA"}
-                                  </div>
-                                )}
-                              </div>
-                            )
-                          })()}
                         </div>
+                        <div className="text-right">
+                          {hasDiscount ? (
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm line-through text-muted-foreground">
+                                ${selectedSizeOption.price?.toFixed(2)}
+                              </span>
+                              <span className="text-lg font-bold text-primary">
+                                ${calculateDiscountedPrice(selectedSizeOption.price!, quantity).toFixed(2)}
+                              </span>
+                              <Badge variant="secondary" className="bg-destructive/10 text-destructive text-xs">
+                                {discountPercentage}% OFF
+                              </Badge>
+                            </div>
+                          ) : (
+                            <span className="text-lg font-bold text-primary">
+                              {selectedSizeOption.price ? `$${selectedSizeOption.price.toFixed(2)} ex GST` : "POA"}
+                            </span>
+                          )}
+                        </div>
+                      </div>
 
-                        <div className="flex items-center gap-2">
+                      {/* Quantity Controls */}
+                      <div className="flex items-center justify-between">
+                        <label className="text-sm font-medium">Quantity</label>
+                        <div className="flex items-center gap-3">
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             size="icon"
-                            onClick={() => handleQuantityChange(size.value, -1)}
-                            disabled={(quantities[size.value] || 0) <= 0}
-                            data-testid={`button-decrease-${size.value}`}
-                            className="h-8 w-8"
+                            onClick={() => handleQuantityChange(-1)}
+                            disabled={quantity <= 1}
+                            data-testid="button-decrease-qty"
+                            className="h-10 w-10"
                           >
                             <Minus className="w-4 h-4" />
                           </Button>
-                          <Badge
-                            variant="secondary"
-                            className="w-12 h-8 flex items-center justify-center font-semibold"
-                            data-testid={`quantity-${size.value}`}
-                          >
-                            {quantities[size.value] || 0}
-                          </Badge>
+                          <span className="text-xl font-bold min-w-[3rem] text-center" data-testid="quantity-display">
+                            {quantity}
+                          </span>
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             size="icon"
-                            onClick={() => handleQuantityChange(size.value, 1)}
-                            data-testid={`button-increase-${size.value}`}
-                            className="h-8 w-8"
+                            onClick={() => handleQuantityChange(1)}
+                            data-testid="button-increase-qty"
+                            className="h-10 w-10"
                           >
                             <Plus className="w-4 h-4" />
                           </Button>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </ScrollArea>
-                <div className="mt-3 p-3 bg-primary/5 border border-primary/20 rounded-md">
-                  <div className="flex items-start gap-2">
-                    <TrendingDown className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                    <div className="text-xs space-y-1">
-                      <p className="font-semibold text-foreground">Volume Discounts Available:</p>
-                      <p className="text-muted-foreground">
-                        2-4 items: 5% off | 5-9 items: 10% off | 10+ items: 15% off
-                      </p>
+
+                      {/* Line Total */}
+                      {selectedSizeOption.price && quantity > 1 && (
+                        <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">Line Total:</span>
+                          <span className="text-lg font-bold text-primary">
+                            ${(hasDiscount
+                              ? calculateDiscountedPrice(selectedSizeOption.price, quantity) * quantity
+                              : selectedSizeOption.price * quantity
+                            ).toFixed(2)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Volume Discount Info */}
+                  <div className="p-3 bg-primary/5 border border-primary/20 rounded-md">
+                    <div className="flex items-start gap-2">
+                      <TrendingDown className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                      <div className="text-xs space-y-1">
+                        <p className="font-semibold text-foreground">Volume Discounts Available:</p>
+                        <p className="text-muted-foreground">
+                          2-4 items: 5% off | 5-9 items: 10% off | 10+ items: 15% off
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">
-                  Prices shown exclude GST. Use +/- buttons to select quantities.
-                </p>
               </div>
             )}
 
             <div className="mb-6">
-              {Object.values(quantities).filter((q) => q > 0).length === 0 && (
+              {!selectedSize && (
                 <p className="text-sm text-muted-foreground mb-2">
-                  Select at least one size and quantity above to add to your quote.
+                  Select a size above to add to your quote.
                 </p>
               )}
               <div className="flex gap-4">
@@ -347,15 +356,15 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                   ref={addToQuoteButtonRef}
                   size="lg"
                   onClick={handleAddToQuote}
-                  disabled={Object.values(quantities).filter((q) => q > 0).length === 0}
-                  className="flex-1"
+                  disabled={!selectedSize}
+                  className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg hover:shadow-xl transition-all"
                   data-testid="button-add-to-quote"
                 >
                   <ShoppingCart className="mr-2 w-5 h-5" />
                   Add to Quote
-                  {Object.values(quantities).filter((q) => q > 0).length > 0 && (
-                    <Badge variant="secondary" className="ml-2">
-                      {Object.values(quantities).reduce((sum, q) => sum + q, 0)}
+                  {selectedSize && quantity > 0 && (
+                    <Badge variant="secondary" className="ml-2 bg-white/20 text-white">
+                      {quantity}
                     </Badge>
                   )}
                 </Button>

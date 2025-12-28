@@ -1,6 +1,6 @@
 # Key File Pointers
 
-**Last Updated**: 2025-12-14
+**Last Updated**: 2025-12-28
 **Status**: ✅ MIGRATED TO NEXT.JS
 
 ## Current Structure (Next.js 14)
@@ -101,3 +101,10 @@ Security implementations:
 ## New Routes (since last update)
 
 - **src/app/[slug]/page.tsx** - Root-level product URLs for SEO
+- **src/app/[slug]/[subcategory]/page.tsx** - Subcategory pages (renamed from [category])
+
+## New Components (since Replit sync)
+
+- **src/components/DiscountCelebration.tsx** - Discount celebration UI
+- **src/components/OrderBumps.tsx** - Order bump suggestions
+- **src/components/Testimonials.tsx** - Customer testimonials

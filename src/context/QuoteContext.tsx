@@ -165,6 +165,8 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
         setTimeout(() => checkDiscountTierChange(newItems, triggerElement), 0)
         return newItems
       })
+      // Auto-open cart when item is added
+      setIsCartOpen(true)
     },
     [checkDiscountTierChange]
   )

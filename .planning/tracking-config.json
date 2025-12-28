@@ -5,10 +5,10 @@
   "level": "project",
   "tracking_files": [
     ".planning/current/migration-plan.md",
-    "/Users/mechatronmike/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
-    "/Users/mechatronmike/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
+    "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
+    "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
   ],
-  "parent_track": "/Users/mechatronmike/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
+  "parent_track": "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
   "require_marker_file": false,
-  "description": "deWater Products full-scope website migration with CMS"
+  "description": "Dewater Products full-scope website migration with CMS"
 }

@@ -400,6 +400,10 @@ Set these in Vercel Dashboard > Settings > Environment Variables:
 | 2025-12-11 | Security | Fixed middleware to protect /admin route, verified production | - |
 | 2025-12-11 | 7.5 | Added Files browser page and Settings page to admin panel | - |
 | 2025-12-11 | 10 | Security hardening: Turnstile, SendGrid API integration, CSP headers | - |
+| 2025-12-14 | SEO | GA4 integration, root-level URLs, redirect mapping | - |
+| 2025-12-14 | SEO | Favicon, OG image, apple icon, alt tags | - |
+| 2025-12-28 | Merge | Replit UI changes merged, SEO verified intact | - |
+| 2025-12-28 | Align | hosting.md updated, production status confirmed | - |
 
 ---
 
@@ -436,8 +440,14 @@ Currently admin users are created via CLI script. Future enhancement:
 ### Other Enhancements
 - [ ] Convert `<img>` to `<Image>` from next/image (optimization)
 - [ ] Add canonical URLs to pages
-- [ ] Add Open Graph images for social sharing
+- [x] Add Open Graph images for social sharing ✅ (opengraph-image.tsx)
+
+### DNS Cutover (When Ready)
+- [ ] Add dewaterproducts.com.au in Vercel Dashboard
+- [ ] Update DNS records at registrar
+- [ ] Update NEXTAUTH_URL to production domain
+- [ ] Verify SSL and redirects work
 
 ---
 
-Last Updated: 2025-12-14
+Last Updated: 2025-12-28
