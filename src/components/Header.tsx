@@ -16,7 +16,7 @@ export default function Header() {
   const productsMenu = [
     {
       title: "Brands",
-      url: "/straub",
+      url: "/brands",
       items: [
         { name: "Straub Couplings", url: "/straub" },
         { name: "Orbit Couplings", url: "/orbit" },
