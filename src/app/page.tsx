@@ -225,37 +225,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Product Categories */}
-      <section className="py-20 px-6 lg:px-8 bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {productCategories.map((category) => (
-              <Link key={category.name} href={category.url}>
-                <Card className="group overflow-hidden h-80 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border">
-                  <Image
-                    src={category.image}
-                    alt={category.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
-                    <div
-                      className="flex items-center text-[hsl(189,68%,32%)] dark:text-[hsl(189,68%,45%)] text-sm font-medium transition-all duration-300 group-hover:text-[hsl(189,68%,52%)] dark:group-hover:text-[hsl(189,68%,65%)]"
-                      style={{ textShadow: "0 0 16px hsla(189, 68%, 52%, 0.6)" }}
-                    >
-                      View all <ArrowRight className="ml-2 w-4 h-4" />
-                    </div>
-                  </div>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Brand Logos */}
       <section className="py-12 px-6 lg:px-8 bg-muted/50 border-y border-border">
         <div className="max-w-4xl mx-auto">
@@ -288,6 +257,37 @@ export default function HomePage() {
                 className="h-10 w-auto object-contain"
               />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Categories */}
+      <section className="py-20 px-6 lg:px-8 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {productCategories.map((category) => (
+              <Link key={category.name} href={category.url}>
+                <Card className="group overflow-hidden h-80 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border">
+                  <Image
+                    src={category.image}
+                    alt={category.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
+                    <div
+                      className="flex items-center text-[hsl(189,68%,32%)] dark:text-[hsl(189,68%,45%)] text-sm font-medium transition-all duration-300 group-hover:text-[hsl(189,68%,52%)] dark:group-hover:text-[hsl(189,68%,65%)]"
+                      style={{ textShadow: "0 0 16px hsla(189, 68%, 52%, 0.6)" }}
+                    >
+                      View all <ArrowRight className="ml-2 w-4 h-4" />
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
