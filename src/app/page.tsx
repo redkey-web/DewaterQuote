@@ -197,7 +197,7 @@ export default function HomePage() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link href="/products" className="text-white/70 hover:text-white text-sm underline underline-offset-2 transition-colors">
+            <Link href="/brands" className="text-white/70 hover:text-white text-sm underline underline-offset-2 transition-colors">
               or browse by brand
             </Link>
           </div>

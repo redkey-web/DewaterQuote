@@ -1,0 +1,91 @@
+import Link from "next/link"
+import Image from "next/image"
+import { Card } from "@/components/ui/card"
+import { ArrowRight } from "lucide-react"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Our Brands - Straub, Orbit & Teekay | DeWater Products",
+  description: "Browse industrial pipe fittings by brand. We are authorised distributors for Straub, Orbit Couplings, and Teekay pipe coupling solutions.",
+}
+
+const brands = [
+  {
+    slug: "straub",
+    href: "/straub",
+    name: "Straub",
+    logo: "/images/brands/straub-logo.png",
+    description: "Global leader in pipe coupling technology, offering innovative solutions for secure and maintenance-free pipe connections across all industries.",
+    specialties: ["Pipe Couplings", "Repair Clamps", "Flange Adaptors"],
+  },
+  {
+    slug: "orbit",
+    href: "/orbit",
+    name: "Orbit Couplings",
+    logo: "/images/brands/orbit-couplings.png",
+    description: "High-quality pipe couplings and fittings designed for demanding industrial applications. Known for reliability and precision engineering.",
+    specialties: ["Grip Couplings", "Transition Couplings", "Repair Clamps"],
+  },
+  {
+    slug: "teekay",
+    href: "/teekay",
+    name: "Teekay",
+    logo: "/images/brands/teekay-logo.png",
+    description: "Specialists in rubber expansion joints and flexible connectors, providing vibration absorption and thermal compensation solutions.",
+    specialties: ["Expansion Joints", "Duckbill Valves", "Flexible Connectors"],
+  },
+]
+
+export default function BrandsPage() {
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Our Brands</h1>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            DeWater Products is an authorised distributor for leading industrial pipe fitting manufacturers. 
+            Browse products by brand below.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {brands.map((brand) => (
+            <Link key={brand.slug} href={brand.href}>
+              <Card className="group h-full p-8 hover:shadow-lg transition-all cursor-pointer border-border hover:border-primary/30">
+                <div className="flex flex-col items-center text-center">
+                  <div className="h-20 flex items-center justify-center mb-6">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      width={160}
+                      height={60}
+                      className="h-14 w-auto object-contain"
+                    />
+                  </div>
+                  <h2 className="text-xl font-semibold mb-3">{brand.name}</h2>
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                    {brand.description}
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2 mb-6">
+                    {brand.specialties.map((specialty) => (
+                      <span
+                        key={specialty}
+                        className="text-xs bg-muted px-2 py-1 rounded-full"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center text-primary text-sm font-medium group-hover:underline">
+                    View {brand.name} Products
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
