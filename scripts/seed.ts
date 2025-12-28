@@ -45,7 +45,20 @@ if (!process.env.DATABASE_URL) {
 }
 
 const sql = neon(process.env.DATABASE_URL);
-const db = drizzle(sql);
+const db = drizzle(sql, {
+  schema: {
+    brands,
+    categories,
+    subcategories,
+    products,
+    productVariations,
+    productImages,
+    productDownloads,
+    productFeatures,
+    productSpecifications,
+    productApplications,
+  }
+});
 
 // Brand mapping (extracted from catalog products)
 const BRANDS = [

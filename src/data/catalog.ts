@@ -2259,6 +2259,20 @@ export const subcategories: Subcategory[] = [
     description: "Australian industrial range of flexible and restrained pipe couplings.",
     category: "pipe-couplings"
   },
+  {
+    id: "straub-couplings",
+    slug: "straub-couplings",
+    name: "Straub Couplings",
+    description: "Swiss-engineered GRIP and FLEX pipe couplings for axial restraint and flexible connections.",
+    category: "pipe-couplings"
+  },
+  {
+    id: "straub-shaped-parts",
+    slug: "straub-shaped-parts",
+    name: "Straub Shaped Parts",
+    description: "Swiss-engineered elbows, tees, reducers, and end caps for pipe systems.",
+    category: "pipe-couplings"
+  },
 
   // Repair Clamps subcategories
   {
