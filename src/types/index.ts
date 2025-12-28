@@ -90,4 +90,5 @@ export interface QuoteItem {
   priceVaries: boolean
   variation?: QuoteItemVariation
   quantity: number
+  materialTestCert?: boolean
 }

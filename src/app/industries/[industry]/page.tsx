@@ -1027,7 +1027,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
               <div>
                 <h3 className="font-semibold mb-1">Competitive Pricing</h3>
                 <p className="text-sm text-muted-foreground">
-                  Trade accounts and project pricing available. Request a quote for volume discounts.
+                  Trade accounts and project pricing available. Request a quote for bulk pricing.
                 </p>
               </div>
             </div>

@@ -442,3 +442,19 @@
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.2);
 }
+
+/* Sparkle animation for discount text */
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 4px currentColor, 0 0 8px currentColor;
+  }
+  50% {
+    opacity: 0.85;
+    text-shadow: 0 0 2px currentColor, 0 0 4px currentColor, 0 0 12px currentColor;
+  }
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}

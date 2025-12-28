@@ -106,28 +106,28 @@ export default function HomePage() {
     <div>
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Volume Discount Ticker */}
+        {/* Bulk Pricing Ticker */}
         <div
           className="absolute top-0 left-0 right-0 z-20 py-2 overflow-hidden"
-          data-testid="section-volume-discounts"
+          data-testid="section-bulk-pricing"
         >
           <div className="ticker-wrapper">
             <div className="ticker-content">
               <div className="flex items-center gap-8 px-8 text-sm">
                 <div className="flex items-center gap-2">
                   <TrendingDown className="w-4 h-4 text-white" />
-                  <span className="font-semibold text-white">Volume Discounts:</span>
-                  <span className="text-white/80">2-4 items</span>
+                  <span className="font-semibold text-white">Bulk Pricing:</span>
+                  <span className="text-white/80">Buy 2-4</span>
                   <span className="font-bold text-yellow-400">5% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-white/80">5-9 items</span>
+                  <span className="text-white/80">Buy 5-9</span>
                   <span className="font-bold text-orange-400">10% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-white/80">10+ items</span>
+                  <span className="text-white/80">Buy 10+</span>
                   <span className="font-bold text-rose-400">15% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
@@ -137,18 +137,18 @@ export default function HomePage() {
               <div className="flex items-center gap-8 px-8 text-sm">
                 <div className="flex items-center gap-2">
                   <TrendingDown className="w-4 h-4 text-white" />
-                  <span className="font-semibold text-white">Volume Discounts:</span>
-                  <span className="text-white/80">2-4 items</span>
+                  <span className="font-semibold text-white">Bulk Pricing:</span>
+                  <span className="text-white/80">Buy 2-4</span>
                   <span className="font-bold text-yellow-400">5% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-white/80">5-9 items</span>
+                  <span className="text-white/80">Buy 5-9</span>
                   <span className="font-bold text-orange-400">10% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-white/80">10+ items</span>
+                  <span className="text-white/80">Buy 10+</span>
                   <span className="font-bold text-rose-400">15% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
@@ -498,12 +498,11 @@ export default function HomePage() {
 
             <AccordionItem value="item-3" className="bg-background border rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold hover:no-underline">
-                Do you offer volume discounts?
+                Do you offer bulk pricing?
               </AccordionTrigger>
               <AccordionContent className="text-base text-muted-foreground">
-                Yes! We offer automatic volume discounts: 5% off for 2-4 items, 10% off for 5-9
-                items, and 15% off for 10+ items. Discounts apply to your entire order and are
-                calculated automatically.
+                Yes! We offer automatic bulk discounts: 5% off when you buy 2-4, 10% off for 5-9,
+                and 15% off for 10+. Discounts are calculated automatically and shown in your quote.
               </AccordionContent>
             </AccordionItem>
 

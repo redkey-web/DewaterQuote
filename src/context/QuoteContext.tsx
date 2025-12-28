@@ -151,9 +151,14 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
         let newItems: QuoteItem[]
         if (existingIndex >= 0) {
           // Merge quantities for existing variation
+          // Also OR the materialTestCert flag (if either has it, keep it)
           newItems = prev.map((existing, idx) =>
             idx === existingIndex
-              ? { ...existing, quantity: existing.quantity + item.quantity }
+              ? {
+                  ...existing,
+                  quantity: existing.quantity + item.quantity,
+                  materialTestCert: existing.materialTestCert || item.materialTestCert,
+                }
               : existing
           )
         } else {

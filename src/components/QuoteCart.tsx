@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { X, Trash2, Send, TrendingDown, Plus, Minus } from "lucide-react"
+import { X, Trash2, Send, TrendingDown, Plus, Minus, Truck, FileCheck } from "lucide-react"
 import {
   getQuoteItemPrice,
   getQuoteItemSKU,
@@ -14,6 +14,8 @@ import {
   getQuoteItemDiscountedSubtotal,
   getQuoteItemSavings,
   getDiscountPercentage,
+  calculateMaterialCertFee,
+  getMaterialCertCount,
 } from "@/lib/quote"
 import { useQuote } from "@/context/QuoteContext"
 import OrderBumps from "./OrderBumps"
@@ -47,6 +49,8 @@ export default function QuoteCart() {
     0
   )
   const totalSavings = pricedItems.reduce((sum, item) => sum + getQuoteItemSavings(item), 0)
+  const certFeeTotal = calculateMaterialCertFee(items)
+  const certCount = getMaterialCertCount(items)
 
   const handleSubmitQuote = () => {
     closeCart()
@@ -131,6 +135,12 @@ export default function QuoteCart() {
                               <p className="text-xs text-muted-foreground">Size: {sizeLabel}</p>
                             )}
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
+                            {item.materialTestCert && (
+                              <Badge variant="outline" className="text-xs mt-1 gap-1">
+                                <FileCheck className="w-3 h-3" />
+                                + Cert
+                              </Badge>
+                            )}
                             <div className="flex items-center gap-2 mt-1 flex-wrap">
                               {hasDiscount ? (
                                 <>
@@ -229,35 +239,45 @@ export default function QuoteCart() {
                         <div className="flex justify-between items-center text-sm">
                           <span className="text-destructive font-medium flex items-center gap-1">
                             <TrendingDown className="w-4 h-4" />
-                            Volume Discount:
+                            Bulk Discount:
                           </span>
                           <span className="text-destructive font-medium" data-testid="text-total-savings">
                             -${totalSavings.toFixed(2)}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center pt-2 border-t border-border">
-                          <span className="font-bold">Total:</span>
-                          <span
-                            className="text-xl font-bold text-primary"
-                            data-testid="text-discounted-total"
-                          >
-                            ${discountedSubtotal.toFixed(2)}
-                          </span>
-                        </div>
                       </>
                     )}
                     {totalSavings === 0 && (
-                      <div className="flex justify-between items-center">
-                        <span className="font-semibold">Subtotal:</span>
-                        <span className="text-xl font-bold text-primary" data-testid="text-subtotal">
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-muted-foreground">Subtotal:</span>
+                        <span data-testid="text-subtotal">
                           ${subtotal.toFixed(2)}
                         </span>
                       </div>
                     )}
+                    {/* Material Certificate Fee */}
+                    {certFeeTotal > 0 && (
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-muted-foreground flex items-center gap-1">
+                          <FileCheck className="w-4 h-4" />
+                          Certificates ({certCount}):
+                        </span>
+                        <span>${certFeeTotal.toFixed(2)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between items-center pt-2 border-t border-border">
+                      <span className="font-bold">Total:</span>
+                      <span
+                        className="text-xl font-bold text-primary"
+                        data-testid="text-discounted-total"
+                      >
+                        ${(discountedSubtotal + certFeeTotal).toFixed(2)}
+                      </span>
+                    </div>
                     <p className="text-xs text-muted-foreground pt-2">
                       {totalSavings > 0
-                        ? `You're saving $${totalSavings.toFixed(2)} with volume discounts!`
-                        : "Add 2+ items of the same product to unlock volume discounts (5-15% off)"}
+                        ? `You're saving $${totalSavings.toFixed(2)} with bulk pricing!`
+                        : "Add 2+ of the same product for bulk discounts (5-15% off)"}
                     </p>
                   </div>
                 </div>
@@ -295,6 +315,12 @@ export default function QuoteCart() {
                               <p className="text-xs text-muted-foreground">Size: {sizeLabel}</p>
                             )}
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
+                            {item.materialTestCert && (
+                              <Badge variant="outline" className="text-xs mt-1 gap-1">
+                                <FileCheck className="w-3 h-3" />
+                                + Cert
+                              </Badge>
+                            )}
                             <p className="text-sm text-chart-3 font-medium mt-1">Price on request</p>
                             {/* Quantity Controls for Unpriced Items */}
                             <div className="flex items-center gap-2 mt-2">
@@ -350,6 +376,11 @@ export default function QuoteCart() {
             {/* Order Bumps - Cross-sell suggestions */}
             <OrderBumps cartItems={items} onAddToQuote={addItem} />
             <div className="space-y-3">
+              {/* Delivery Note */}
+              <p className="text-xs text-muted-foreground text-center px-2">
+                <Truck className="w-3 h-3 inline mr-1" />
+                Free metro delivery via road freight. Non-metro? We&apos;ll ship to your nearest metro depot.
+              </p>
               <Button
                 className="w-full"
                 size="lg"

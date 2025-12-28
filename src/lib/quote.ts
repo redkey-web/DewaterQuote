@@ -4,6 +4,7 @@ import type { Product, QuoteItem, QuoteItemVariation } from "@/types"
 export interface ProductToQuoteItemOptions {
   selectedSize?: string
   quantity?: number
+  materialTestCert?: boolean
 }
 
 /**
@@ -14,7 +15,7 @@ export function productToQuoteItem(
   product: Product,
   options: ProductToQuoteItemOptions = {}
 ): QuoteItem {
-  const { selectedSize, quantity = 1 } = options
+  const { selectedSize, quantity = 1, materialTestCert = false } = options
 
   let variation: QuoteItemVariation | undefined
   let basePrice: number | undefined
@@ -55,6 +56,7 @@ export function productToQuoteItem(
     priceVaries: product.priceVaries || false,
     variation,
     quantity,
+    materialTestCert,
   }
 }
 
@@ -155,11 +157,41 @@ export function getQuoteItemDiscountedSubtotal(item: QuoteItem): number | undefi
 }
 
 /**
- * Gets the total savings for a quote item due to volume discount
+ * Gets the total savings for a quote item due to bulk pricing discount
  */
 export function getQuoteItemSavings(item: QuoteItem): number {
   const originalSubtotal = getQuoteItemSubtotal(item)
   const discountedSubtotal = getQuoteItemDiscountedSubtotal(item)
   if (originalSubtotal === undefined || discountedSubtotal === undefined) return 0
   return originalSubtotal - discountedSubtotal
+}
+
+/**
+ * Material Test Certificate fee (applies once per unique SKU)
+ */
+export const MATERIAL_CERT_FEE = 350
+
+/**
+ * Calculates the total material test certificate fee for quote items.
+ * Fee applies once per unique SKU that has materialTestCert = true.
+ */
+export function calculateMaterialCertFee(items: QuoteItem[]): number {
+  const skusWithCert = new Set(
+    items
+      .filter((item) => item.materialTestCert)
+      .map((item) => getQuoteItemSKU(item))
+  )
+  return skusWithCert.size * MATERIAL_CERT_FEE
+}
+
+/**
+ * Gets the count of unique SKUs with material test certificates
+ */
+export function getMaterialCertCount(items: QuoteItem[]): number {
+  const skusWithCert = new Set(
+    items
+      .filter((item) => item.materialTestCert)
+      .map((item) => getQuoteItemSKU(item))
+  )
+  return skusWithCert.size
 }

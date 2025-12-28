@@ -15,6 +15,7 @@ interface QuoteItem {
   sku: string
   brand: string
   quantity: number
+  materialTestCert?: boolean
   variation?: {
     sku: string
     sizeLabel: string
@@ -22,18 +23,29 @@ interface QuoteItem {
   }
 }
 
+interface Address {
+  street: string
+  suburb: string
+  state: string
+  postcode: string
+}
+
 interface QuoteFormData {
-  name: string
+  companyName: string
+  contactName: string
   email: string
   phone: string
-  company?: string
-  message?: string
+  deliveryAddress: Address
+  billingAddress: Address
+  notes?: string
   items: QuoteItem[]
   totals: {
     itemCount: number
     pricedTotal: number
     savings: number
     hasUnpricedItems: boolean
+    certFee?: number
+    certCount?: number
   }
   turnstileToken?: string
 }
@@ -56,9 +68,17 @@ export async function POST(request: NextRequest) {
     const data: QuoteFormData = await request.json()
 
     // Validate required fields
-    if (!data.name || !data.email || !data.phone) {
+    if (!data.companyName || !data.contactName || !data.email || !data.phone) {
       return NextResponse.json(
-        { error: "Name, email, and phone are required" },
+        { error: "Company name, contact name, email, and phone are required" },
+        { status: 400 }
+      )
+    }
+
+    if (!data.deliveryAddress?.street || !data.deliveryAddress?.suburb ||
+        !data.deliveryAddress?.state || !data.deliveryAddress?.postcode) {
+      return NextResponse.json(
+        { error: "Complete delivery address is required" },
         { status: 400 }
       )
     }
@@ -105,13 +125,31 @@ export async function POST(request: NextRequest) {
     const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
 
     // Sanitize user inputs for HTML context
-    const safeName = escapeHtml(data.name)
+    const safeCompanyName = escapeHtml(data.companyName)
+    const safeContactName = escapeHtml(data.contactName)
     const safeEmail = escapeHtml(data.email)
     const safeEmailHref = escapeEmailHref(data.email)
     const safePhone = escapeHtml(data.phone)
     const safePhoneHref = escapeTelHref(data.phone)
-    const safeCompany = data.company ? escapeHtml(data.company) : ""
-    const safeMessage = data.message ? escapeHtml(data.message) : ""
+    const safeNotes = data.notes ? escapeHtml(data.notes) : ""
+
+    // Sanitize addresses
+    const safeDeliveryAddress = {
+      street: escapeHtml(data.deliveryAddress.street),
+      suburb: escapeHtml(data.deliveryAddress.suburb),
+      state: escapeHtml(data.deliveryAddress.state),
+      postcode: escapeHtml(data.deliveryAddress.postcode),
+    }
+    const safeBillingAddress = {
+      street: escapeHtml(data.billingAddress.street),
+      suburb: escapeHtml(data.billingAddress.suburb),
+      state: escapeHtml(data.billingAddress.state),
+      postcode: escapeHtml(data.billingAddress.postcode),
+    }
+
+    // Format address for display
+    const formatAddress = (addr: typeof safeDeliveryAddress) =>
+      `${addr.street}, ${addr.suburb} ${addr.state} ${addr.postcode}`
 
     // Build items table
     const itemsTableRows = data.items.map((item) => {
@@ -125,6 +163,10 @@ export async function POST(request: NextRequest) {
       const safeItemBrand = escapeHtml(item.brand)
       const safeVariationLabel = item.variation ? escapeHtml(item.variation.sizeLabel) : ""
 
+      const certBadge = item.materialTestCert
+        ? `<br /><span style="display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-top: 4px;">+ Material Cert</span>`
+        : ""
+
       return `
         <tr>
           <td style="padding: 10px; border: 1px solid #ddd;">${safeItemSku}</td>
@@ -132,6 +174,7 @@ export async function POST(request: NextRequest) {
             <strong>${safeItemName}</strong><br />
             <span style="color: #666; font-size: 12px;">${safeItemBrand}</span>
             ${safeVariationLabel ? `<br /><span style="color: #666; font-size: 12px;">Size: ${safeVariationLabel}</span>` : ""}
+            ${certBadge}
           </td>
           <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${item.quantity}</td>
           <td style="padding: 10px; border: 1px solid #ddd; text-align: right;">${priceDisplay}</td>
@@ -143,23 +186,31 @@ export async function POST(request: NextRequest) {
     // Build plain text items list
     const itemsText = data.items.map((item) => {
       const price = getItemPrice(item)
-      return `- ${getItemSKU(item)} | ${item.name} | Qty: ${item.quantity} | ${price ? `$${price.toFixed(2)} ea` : "POA"}`
+      const certNote = item.materialTestCert ? " [+ Material Cert]" : ""
+      return `- ${getItemSKU(item)} | ${item.name} | Qty: ${item.quantity} | ${price ? `$${price.toFixed(2)} ea` : "POA"}${certNote}`
     }).join("\n")
+
+    // Check if billing address is different from delivery
+    const billingIsDifferent = formatAddress(safeDeliveryAddress) !== formatAddress(safeBillingAddress)
 
     // Email to business (supports multiple recipients)
     const businessEmail = {
       to: toEmails,
       from: fromEmail,
       replyTo: data.email,
-      subject: `Quote Request: ${data.name}${data.company ? ` - ${data.company}` : ""} (${data.items.length} items)`,
+      subject: `Quote Request: ${data.companyName} - ${data.contactName} (${data.items.length} items)`,
       html: `
         <h2>New Quote Request</h2>
 
-        <h3>Customer Details</h3>
+        <h3>Company Details</h3>
         <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
           <tr>
-            <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; width: 120px;">Name</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${safeName}</td>
+            <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; width: 140px;">Company</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${safeCompanyName}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Contact Name</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${safeContactName}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Email</td>
@@ -169,13 +220,21 @@ export async function POST(request: NextRequest) {
             <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Phone</td>
             <td style="padding: 10px; border: 1px solid #ddd;"><a href="tel:${safePhoneHref}">${safePhone}</a></td>
           </tr>
-          ${safeCompany ? `
-          <tr>
-            <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">Company</td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${safeCompany}</td>
-          </tr>
-          ` : ""}
         </table>
+
+        <h3 style="margin-top: 20px;">Delivery Address</h3>
+        <div style="padding: 15px; background: #f0f9ff; border-radius: 5px; border-left: 4px solid #0ea5e9;">
+          ${safeDeliveryAddress.street}<br />
+          ${safeDeliveryAddress.suburb} ${safeDeliveryAddress.state} ${safeDeliveryAddress.postcode}
+        </div>
+
+        ${billingIsDifferent ? `
+        <h3 style="margin-top: 20px;">Billing Address</h3>
+        <div style="padding: 15px; background: #fef9c3; border-radius: 5px; border-left: 4px solid #eab308;">
+          ${safeBillingAddress.street}<br />
+          ${safeBillingAddress.suburb} ${safeBillingAddress.state} ${safeBillingAddress.postcode}
+        </div>
+        ` : ""}
 
         <h3 style="margin-top: 30px;">Requested Items (${data.items.length})</h3>
         <table style="border-collapse: collapse; width: 100%;">
@@ -207,8 +266,14 @@ export async function POST(request: NextRequest) {
             ` : ""}
             ${data.totals.savings > 0 ? `
             <tr>
-              <td><strong>Volume Discount:</strong></td>
+              <td><strong>Bulk Discount:</strong></td>
               <td style="text-align: right; color: #dc2626;">-$${data.totals.savings.toFixed(2)}</td>
+            </tr>
+            ` : ""}
+            ${data.totals.certFee && data.totals.certFee > 0 ? `
+            <tr>
+              <td><strong>Material Certificates (${data.totals.certCount}):</strong></td>
+              <td style="text-align: right;">$${data.totals.certFee.toFixed(2)}</td>
             </tr>
             ` : ""}
             ${data.totals.hasUnpricedItems ? `
@@ -218,12 +283,19 @@ export async function POST(request: NextRequest) {
               </td>
             </tr>
             ` : ""}
+            ${data.totals.certCount && data.totals.certCount > 0 ? `
+            <tr>
+              <td colspan="2" style="color: #0369a1; padding-top: 10px;">
+                📋 ${data.totals.certCount} item(s) require material test certificates - may extend lead time
+              </td>
+            </tr>
+            ` : ""}
           </table>
         </div>
 
-        ${safeMessage ? `
-        <h3 style="margin-top: 30px;">Additional Requirements</h3>
-        <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${safeMessage}</div>
+        ${safeNotes ? `
+        <h3 style="margin-top: 30px;">Additional Notes</h3>
+        <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${safeNotes}</div>
         ` : ""}
 
         <p style="margin-top: 30px; color: #666; font-size: 12px;">
@@ -233,23 +305,35 @@ export async function POST(request: NextRequest) {
       text: `
 NEW QUOTE REQUEST
 
-Customer Details
-================
-Name: ${data.name}
+Company Details
+===============
+Company: ${data.companyName}
+Contact: ${data.contactName}
 Email: ${data.email}
 Phone: ${data.phone}
-${data.company ? `Company: ${data.company}` : ""}
 
+Delivery Address
+================
+${data.deliveryAddress.street}
+${data.deliveryAddress.suburb} ${data.deliveryAddress.state} ${data.deliveryAddress.postcode}
+${billingIsDifferent ? `
+Billing Address
+===============
+${data.billingAddress.street}
+${data.billingAddress.suburb} ${data.billingAddress.state} ${data.billingAddress.postcode}
+` : ""}
 Requested Items (${data.items.length})
 ================
 ${itemsText}
 
 Total Items: ${data.totals.itemCount}
 ${data.totals.pricedTotal > 0 ? `Listed Price Total: $${data.totals.pricedTotal.toFixed(2)}` : ""}
-${data.totals.savings > 0 ? `Volume Discount: -$${data.totals.savings.toFixed(2)}` : ""}
+${data.totals.savings > 0 ? `Bulk Discount: -$${data.totals.savings.toFixed(2)}` : ""}
+${data.totals.certFee && data.totals.certFee > 0 ? `Material Certificates (${data.totals.certCount}): $${data.totals.certFee.toFixed(2)}` : ""}
 ${data.totals.hasUnpricedItems ? "Note: Some items require manual pricing" : ""}
+${data.totals.certCount && data.totals.certCount > 0 ? `Note: ${data.totals.certCount} item(s) require material test certificates - may extend lead time` : ""}
 
-${data.message ? `Additional Requirements:\n${data.message}` : ""}
+${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       `.trim(),
     }
 
@@ -268,8 +352,14 @@ ${data.message ? `Additional Requirements:\n${data.message}` : ""}
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #1a1a1a;">Thank you for your quote request</h2>
-          <p>Hi ${safeName},</p>
+          <p>Hi ${safeContactName},</p>
           <p>We've received your quote request for ${data.items.length} item${data.items.length !== 1 ? "s" : ""}. Our team will review your requirements and send you a detailed quote within <strong>1-2 business days</strong>.</p>
+
+          <h3 style="color: #666; margin-top: 30px;">Delivery Address</h3>
+          <p style="padding: 10px; background: #f5f5f5; border-radius: 5px;">
+            ${safeDeliveryAddress.street}<br />
+            ${safeDeliveryAddress.suburb} ${safeDeliveryAddress.state} ${safeDeliveryAddress.postcode}
+          </p>
 
           <h3 style="color: #666; margin-top: 30px;">Items Requested</h3>
           <table style="width: 100%; border-collapse: collapse;">
@@ -283,6 +373,15 @@ ${data.message ? `Additional Requirements:\n${data.message}` : ""}
               ${customerItemsList}
             </tbody>
           </table>
+
+          <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 5px; border-left: 4px solid #0ea5e9;">
+            <p style="margin: 0; font-size: 14px;"><strong>Quote Terms:</strong></p>
+            <ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 14px; color: #666;">
+              <li>Quote valid for 30 days</li>
+              <li>Free metro delivery via road freight</li>
+              <li>All prices exclude GST</li>
+            </ul>
+          </div>
 
           <p style="margin-top: 20px;">If you have any questions or need to make changes to your request, please don't hesitate to contact us.</p>
 

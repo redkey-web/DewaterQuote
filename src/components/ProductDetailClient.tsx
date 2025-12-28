@@ -3,9 +3,11 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import Picker from "react-mobile-picker"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
@@ -24,6 +26,7 @@ import {
   Plus,
   Minus,
   TrendingDown,
+  FileCheck,
 } from "lucide-react"
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd"
 import { useToast } from "@/hooks/use-toast"
@@ -46,6 +49,8 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const { addItem } = useQuote()
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [quantity, setQuantity] = useState<number>(1)
+  const [materialTestCert, setMaterialTestCert] = useState<boolean>(false)
+  const [isPickerOpen, setIsPickerOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
   const addToQuoteButtonRef = useRef<HTMLButtonElement>(null)
@@ -55,6 +60,8 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
     setImageErrors({})
     setSelectedSize("")
     setQuantity(1)
+    setMaterialTestCert(false)
+    setIsPickerOpen(false)
   }, [product.id])
 
   // Track product view in GA4
@@ -81,22 +88,17 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       const quoteItem = productToQuoteItem(product, {
         selectedSize: selectedSize,
         quantity: quantity,
+        materialTestCert: materialTestCert,
       })
       addItem(quoteItem, addToQuoteButtonRef.current)
 
       // Track add to quote in GA4
       trackAddToQuote(product.name, selectedSize, quantity)
 
-      // Show success toast
-      const sizeLabel = selectedSizeOption?.label || selectedSize
-      toast({
-        title: "Added to Quote",
-        description: `${product.name} - ${quantity} × ${sizeLabel} added to your quote request.`,
-      })
-
       // Reset after adding
       setSelectedSize("")
       setQuantity(1)
+      setMaterialTestCert(false)
     } catch (error) {
       toast({
         title: "Error",
@@ -123,11 +125,28 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       <ProductJsonLd product={product} url={productUrl} />
       <BreadcrumbJsonLd items={breadcrumbs} />
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Mobile-only: Product name above images */}
+        <div className="lg:hidden mb-6">
+          <div className="flex flex-wrap gap-2 mb-2">
+            <Badge variant="secondary" data-testid="badge-brand-mobile">
+              {product.brand}
+            </Badge>
+            {product.straubEquivalent && (
+              <Badge variant="outline" className="border-primary text-primary">
+                Equivalent to {product.straubEquivalent}
+              </Badge>
+            )}
+          </div>
+          <h1 className="text-3xl font-bold" data-testid="text-product-title-mobile">
+            {product.name}
+          </h1>
+        </div>
+
         {/* Product Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
           {/* Images */}
           <div>
-            <div className="aspect-square bg-muted rounded-md mb-4 overflow-hidden flex items-center justify-center">
+            <div className="aspect-square glass rounded-lg mb-4 overflow-hidden flex items-center justify-center shadow-md">
               {product.images[currentImageIndex]?.url ? (
                 <Image
                   src={product.images[currentImageIndex].url}
@@ -148,7 +167,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     key={idx}
                     onClick={() => setCurrentImageIndex(idx)}
                     data-testid={`button-thumbnail-${idx}`}
-                    className={`aspect-square bg-muted rounded-md overflow-hidden flex items-center justify-center cursor-pointer transition-all hover:ring-2 hover:ring-primary ${
+                    className={`aspect-square glass-subtle rounded-lg overflow-hidden flex items-center justify-center cursor-pointer transition-all hover:ring-2 hover:ring-primary shadow-sm ${
                       currentImageIndex === idx ? "ring-2 ring-primary" : ""
                     }`}
                   >
@@ -171,7 +190,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
           {/* Product Info */}
           <div>
-            <div className="flex flex-wrap gap-2 mb-2">
+            <div className="hidden lg:flex flex-wrap gap-2 mb-2">
               <Badge variant="secondary" data-testid="badge-brand">
                 {product.brand}
               </Badge>
@@ -181,16 +200,45 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 </Badge>
               )}
             </div>
-            <h1 className="text-4xl font-bold mb-4" data-testid="text-product-title">
+            <h1 className="hidden lg:block text-4xl font-bold mb-4" data-testid="text-product-title">
               {product.name}
             </h1>
 
-            <div className="flex items-center justify-end gap-2 mb-6 text-accent">
-              <Truck className="w-8 h-8" />
+            <div className="flex items-center justify-start gap-2 mb-4 text-orange-500">
               <p className="text-2xl font-medium">Free delivery to metro areas</p>
+              <Truck className="w-8 h-8" />
+            </div>
+
+            {/* Bulk Pricing Info */}
+            <div className="py-2 px-3 border border-border rounded-md mb-6">
+              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm">
+                <span className="font-semibold text-foreground whitespace-nowrap">
+                  <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-primary inline mr-1" />
+                  Bulk Pricing:
+                </span>
+                <span className="whitespace-nowrap">
+                  <span className="text-muted-foreground">2-4 qty</span>
+                  <span className="font-bold text-yellow-600 dark:text-yellow-500 ml-1">5% off</span>
+                </span>
+                <span className="whitespace-nowrap">
+                  <span className="text-muted-foreground">5-9 qty</span>
+                  <span className="font-bold text-orange-600 dark:text-orange-500 ml-1">10% off</span>
+                </span>
+                <span className="whitespace-nowrap">
+                  <span className="text-muted-foreground">10+ qty</span>
+                  <span className="font-bold text-rose-600 dark:text-rose-500 ml-1">15% off</span>
+                </span>
+              </div>
             </div>
 
             <Separator className="my-6" />
+
+            {/* Short Description */}
+            {product.description && (
+              <p className="text-muted-foreground mb-6 line-clamp-3">
+                {product.description}
+              </p>
+            )}
 
             <div className="mb-6">
               <h2 className="text-lg font-semibold mb-2">Product Details</h2>
@@ -231,32 +279,94 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                   <p className="text-sm text-muted-foreground mb-4">{product.priceNote}</p>
                 )}
 
-                {/* Size Dropdown */}
+                {/* Size Selector */}
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium mb-2 block">Size</label>
-                    <Select value={selectedSize} onValueChange={setSelectedSize}>
-                      <SelectTrigger className="w-full h-12" data-testid="select-size">
-                        <SelectValue placeholder="Choose a size..." />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {product.sizeOptions.map((size) => (
-                          <SelectItem key={size.value} value={size.value}>
-                            <div className="flex items-center justify-between w-full gap-4">
-                              <span>{size.label}</span>
-                              <span className="text-muted-foreground">
-                                {size.price ? `$${size.price.toFixed(2)}` : "POA"}
-                              </span>
-                            </div>
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+
+                    {/* Mobile: Wheel Picker */}
+                    <div className="lg:hidden">
+                      {!isPickerOpen ? (
+                        <button
+                          onClick={() => setIsPickerOpen(true)}
+                          className={`w-full h-12 px-4 flex items-center justify-between rounded-lg border bg-card text-left ${!selectedSize ? "ring-2 ring-primary border-primary" : ""}`}
+                        >
+                          <span className={selectedSize ? "text-foreground" : "text-muted-foreground"}>
+                            {selectedSize
+                              ? product.sizeOptions.find(s => s.value === selectedSize)?.label
+                              : "Tap to choose a size..."}
+                          </span>
+                          <span className="text-muted-foreground">▼</span>
+                        </button>
+                      ) : (
+                        <div className={`rounded-lg border bg-card overflow-hidden ${!selectedSize ? "ring-2 ring-primary border-primary" : ""}`}>
+                          {/* Picker container */}
+                          <div className="relative" style={{ height: 180 }}>
+                            <Picker
+                              value={{ size: selectedSize || product.sizeOptions[0]?.value || "" }}
+                              onChange={(newValue) => setSelectedSize(newValue.size)}
+                              wheelMode="natural"
+                              height={180}
+                            >
+                              <Picker.Column name="size">
+                                {product.sizeOptions.map((size) => (
+                                  <Picker.Item key={size.value} value={size.value}>
+                                    {({ selected }) => (
+                                      <div className={`flex items-center justify-center gap-3 px-4 ${selected ? "font-semibold text-primary" : "text-muted-foreground"}`}>
+                                        <span>{size.label}</span>
+                                        <span className={selected ? "text-primary" : ""}>
+                                          {size.price ? `$${size.price.toFixed(2)}` : "POA"}
+                                        </span>
+                                      </div>
+                                    )}
+                                  </Picker.Item>
+                                ))}
+                              </Picker.Column>
+                            </Picker>
+                            {/* Selection highlight bar - centered in picker only */}
+                            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-9 border-y border-primary/20 bg-primary/5 pointer-events-none" />
+                          </div>
+                          {/* Confirm button - outside picker container */}
+                          <button
+                            onClick={() => {
+                              if (!selectedSize && product.sizeOptions?.[0]) {
+                                setSelectedSize(product.sizeOptions[0].value || "")
+                              }
+                              setIsPickerOpen(false)
+                            }}
+                            className="w-full py-3 bg-primary text-primary-foreground font-medium"
+                          >
+                            Confirm Size
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Desktop: Dropdown */}
+                    <div className="hidden lg:block">
+                      <Select value={selectedSize} onValueChange={setSelectedSize}>
+                        <SelectTrigger className={`w-full h-12 ${!selectedSize ? "ring-2 ring-primary border-primary" : ""}`} data-testid="select-size">
+                          <SelectValue placeholder="Choose a size..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {product.sizeOptions.map((size) => (
+                            <SelectItem key={size.value} value={size.value}>
+                              <div className="flex items-center justify-between w-full gap-4">
+                                <span>{size.label}</span>
+                                <span className="text-muted-foreground">
+                                  {size.price ? `$${size.price.toFixed(2)}` : "POA"}
+                                </span>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
 
                   {/* Selected Size Details */}
                   {selectedSizeOption && (
-                    <div className="p-4 bg-card border border-card-border rounded-lg">
+                    <div className="p-4 glass rounded-lg shadow-md">
                       <div className="flex items-center justify-between mb-3">
                         <div>
                           <div className="font-semibold">{selectedSizeOption.label}</div>
@@ -295,7 +405,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                             onClick={() => handleQuantityChange(-1)}
                             disabled={quantity <= 1}
                             data-testid="button-decrease-qty"
-                            className="h-10 w-10"
+                            className="h-10 w-10 glass-button"
                           >
                             <Minus className="w-4 h-4" />
                           </Button>
@@ -307,7 +417,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                             size="icon"
                             onClick={() => handleQuantityChange(1)}
                             data-testid="button-increase-qty"
-                            className="h-10 w-10"
+                            className="h-10 w-10 glass-button"
                           >
                             <Plus className="w-4 h-4" />
                           </Button>
@@ -329,35 +439,54 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     </div>
                   )}
 
-                  {/* Volume Discount Info */}
-                  <div className="p-3 bg-primary/5 border border-primary/20 rounded-md">
-                    <div className="flex items-start gap-2">
-                      <TrendingDown className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <div className="text-xs space-y-1">
-                        <p className="font-semibold text-foreground">Volume Discounts Available:</p>
-                        <p className="text-muted-foreground">
-                          2-4 items: 5% off | 5-9 items: 10% off | 10+ items: 15% off
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             )}
 
-            <div className="mb-6">
+            <div className="mb-6 space-y-4">
               {!selectedSize && (
-                <p className="text-sm text-muted-foreground mb-2">
-                  Select a size above to add to your quote.
-                </p>
+                <div className="flex items-center gap-2 p-3 bg-primary/10 border border-primary/30 rounded-lg">
+                  <ShoppingCart className="w-5 h-5 text-primary" />
+                  <p className="text-sm font-medium text-primary">
+                    Select a size above to add to your quote
+                  </p>
+                </div>
               )}
+
+              {/* Material Test Certificate Option */}
+              <div className="p-4 border border-border rounded-lg bg-muted/30 space-y-3">
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="material-test-cert"
+                    checked={materialTestCert}
+                    onCheckedChange={(checked) => setMaterialTestCert(checked === true)}
+                    className="mt-0.5"
+                  />
+                  <div className="space-y-1 flex-1">
+                    <label
+                      htmlFor="material-test-cert"
+                      className="text-sm font-medium cursor-pointer flex items-center gap-2"
+                    >
+                      <FileCheck className="w-4 h-4 text-primary" />
+                      Add Material Test Certificate (+$350)
+                    </label>
+                    <p className="text-xs text-muted-foreground">
+                      Applies once per product type. May extend lead time.
+                    </p>
+                  </div>
+                </div>
+                <p className="text-xs text-amber-600 dark:text-amber-400 pl-6">
+                  Please select now if required—certificates cannot be added after quote submission.
+                </p>
+              </div>
+
               <div className="flex gap-4">
                 <Button
                   ref={addToQuoteButtonRef}
                   size="lg"
                   onClick={handleAddToQuote}
                   disabled={!selectedSize}
-                  className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg hover:shadow-xl transition-all"
+                  className="flex-1"
                   data-testid="button-add-to-quote"
                 >
                   <ShoppingCart className="mr-2 w-5 h-5" />
@@ -373,6 +502,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     size="lg"
                     variant="outline"
                     data-testid="button-download"
+                    className="glass-button"
                     onClick={() =>
                       product.downloads && window.open(product.downloads[0].url, "_blank")
                     }
@@ -405,7 +535,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
         </div>
 
         {/* Tabbed Product Information */}
-        <Card className="mb-12">
+        <Card className="mb-12 glass shadow-lg">
           <CardContent className="p-8">
             <Tabs defaultValue="description" className="w-full">
               <TabsList className="grid w-full grid-cols-3 mb-6" data-testid="tabs-product-info">
@@ -486,7 +616,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
         {/* Applications */}
         {product.applications && product.applications.length > 0 && (
-          <Card className="mb-12">
+          <Card className="mb-12 glass shadow-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold mb-4">Applications</h2>
               <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -503,7 +633,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
         {/* Approvals / Certifications */}
         {product.certifications && (
-          <Card className="mb-12">
+          <Card className="mb-12 glass shadow-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold mb-4">Approvals / Certifications</h2>
               <p className="text-muted-foreground">{product.certifications}</p>
@@ -517,9 +647,9 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
             <h2 className="text-2xl font-bold mb-6">More From This Category</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedProducts.map((relatedProduct) => (
-                <Card key={relatedProduct.id} className="hover-elevate transition-all">
+                <Card key={relatedProduct.id} className="glass hover-elevate transition-all shadow-md">
                   <CardContent className="p-6">
-                    <div className="aspect-square bg-muted rounded-md mb-4 overflow-hidden flex items-center justify-center">
+                    <div className="aspect-square glass-subtle rounded-lg mb-4 overflow-hidden flex items-center justify-center">
                       {relatedProduct.images[0]?.url &&
                       !imageErrors[relatedProduct.images[0].url] ? (
                         <Image
@@ -548,7 +678,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                       <div>Pressure: {relatedProduct.pressureRange}</div>
                     </div>
                     <Link href={`/${relatedProduct.slug}`}>
-                      <Button variant="outline" size="sm" className="w-full mt-4">
+                      <Button variant="outline" size="sm" className="w-full mt-4 glass-button">
                         View Details
                       </Button>
                     </Link>
