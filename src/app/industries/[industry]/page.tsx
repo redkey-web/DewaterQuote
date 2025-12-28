@@ -38,11 +38,6 @@ interface IndustryData {
   applications: string[]
   recommendedProducts: string[] // Product IDs
   faqs: { question: string; answer: string }[]
-  caseStudy?: {
-    title: string
-    description: string
-    result: string
-  }
 }
 
 const industryData: Record<string, IndustryData> = {
@@ -140,12 +135,6 @@ const industryData: Record<string, IndustryData> = {
           "Yes, we understand water infrastructure emergencies. Call us directly on (08) 9271 2577 for urgent orders. We stock common repair clamp sizes for fast dispatch.",
       },
     ],
-    caseStudy: {
-      title: "Perth Metro Pump Station Upgrade",
-      description:
-        "Supplied expansion joints and check valves for a major pump station refurbishment, enabling connection of new high-efficiency pumps to existing pipework.",
-      result: "Zero unplanned shutdowns during 6-month installation period",
-    },
   },
   irrigation: {
     name: "Irrigation",
@@ -431,12 +420,6 @@ const industryData: Record<string, IndustryData> = {
           "Yes, for abrasive applications we recommend 316 stainless steel bodies and NBR rubber for better abrasion resistance than EPDM.",
       },
     ],
-    caseStudy: {
-      title: "Pilbara Iron Ore Dewatering",
-      description:
-        "Emergency supply of repair clamps and expansion joints for a pit dewatering upgrade during wet season operations.",
-      result: "48-hour delivery to site, zero pump downtime",
-    },
   },
   construction: {
     name: "Construction",
@@ -532,12 +515,6 @@ const industryData: Record<string, IndustryData> = {
           "Our pipe couplings are ideal for connecting new services to existing pipework in heritage buildings, allowing upgrades without major structural changes.",
       },
     ],
-    caseStudy: {
-      title: "Perth CBD Commercial Tower",
-      description:
-        "Supplied complete mechanical floor package including expansion joints, butterfly valves, and strainers for a 40-storey commercial development.",
-      result: "On-time delivery across 18-month construction programme",
-    },
   },
   marine: {
     name: "Marine",
@@ -823,12 +800,6 @@ const industryData: Record<string, IndustryData> = {
           "Yes, we provide material certificates, FDA compliance statements, and food contact suitability documentation as required.",
       },
     ],
-    caseStudy: {
-      title: "Swan Valley Winery Expansion",
-      description:
-        "Supplied 316SS butterfly valves and strainers for a new tank farm installation with full material traceability documentation.",
-      result: "Passed food safety audit first time with full documentation package",
-    },
   },
 }
 
@@ -1012,22 +983,6 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
             </div>
           )}
         </div>
-
-        {/* Case Study */}
-        {industry.caseStudy && (
-          <div className="mb-16 p-8 bg-gradient-to-r from-primary/5 to-primary/10 border border-primary/20 rounded-lg">
-            <div className="flex items-center gap-2 text-primary text-sm font-medium mb-3">
-              <Shield className="w-4 h-4" />
-              Case Study
-            </div>
-            <h3 className="text-xl font-bold mb-2">{industry.caseStudy.title}</h3>
-            <p className="text-muted-foreground mb-4">{industry.caseStudy.description}</p>
-            <div className="flex items-center gap-2 text-primary font-medium">
-              <CheckCircle className="w-5 h-5" />
-              {industry.caseStudy.result}
-            </div>
-          </div>
-        )}
 
         {/* FAQ Section */}
         <div className="mb-16">
