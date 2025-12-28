@@ -16,6 +16,18 @@ function getOptimizedImages(sku: string, productName: string, altCount: number =
   return images;
 }
 
+
+// Helper for Straub products - converts filename to nobg path format
+// e.g., "straub-metal-grip" -> nobg file "STRAUB-METAL_GRIP_nobg.png"
+function getStraubImages(filename: string, productName: string): { url: string; alt: string; type: "image" }[] {
+  // Convert filename to nobg format: straub-metal-grip -> STRAUB-METAL_GRIP
+  const nobgName = filename.replace('straub-', 'STRAUB-').replace(/-/g, '_').toUpperCase().replace('STRAUB_', 'STRAUB-');
+  return [
+    { url: `/images/products/nobg/${nobgName}_nobg.png`, alt: productName, type: "image" },
+    { url: `/images/products/straub/${filename}.png`, alt: `${productName} - Product Photo`, type: "image" }
+  ];
+}
+
 // Real Products from dewaterproducts.com.au
 export const products: Product[] = [
   // Butterfly Valves
@@ -1131,9 +1143,7 @@ export const products: Product[] = [
       { label: "Sealing Material", value: "EPDM/NBR" },
       { label: "Body Material", value: "Stainless Steel" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-metal-grip.png", alt: "STRAUB-METAL-GRIP Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-metal-grip", "STRAUB-METAL-GRIP Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 67 BAR",
     sizeFrom: "30.0mm",
@@ -1168,9 +1178,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-30°C to +100°C" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-metal-grip-ff.png", alt: "STRAUB-METAL-GRIP FF Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-metal-grip-ff", "STRAUB-METAL-GRIP FF Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 67 BAR",
     sizeFrom: "30.0mm",
@@ -1205,9 +1213,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-30°C to +100°C" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-grip.png", alt: "STRAUB-GRIP Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-grip", "STRAUB-GRIP Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 40 BAR",
     sizeFrom: "25mm",
@@ -1241,9 +1247,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-30°C to +100°C" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-grip-ff.png", alt: "STRAUB-GRIP FF Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-grip-ff", "STRAUB-GRIP FF Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 40 BAR",
     sizeFrom: "25.0mm",
@@ -1277,9 +1281,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-30°C to +80°C" },
       { label: "Sealing Material", value: "EPDM" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-plast-grip.png", alt: "STRAUB-PLAST-GRIP Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-plast-grip", "STRAUB-PLAST-GRIP Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 16 BAR",
     sizeFrom: "40.0mm",
@@ -1313,9 +1315,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-30°C to +80°C" },
       { label: "Sealing Material", value: "EPDM" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-combi-grip.png", alt: "STRAUB-COMBI-GRIP Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-combi-grip", "STRAUB-COMBI-GRIP Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 16 BAR",
     sizeFrom: "40.0mm",
@@ -1349,9 +1349,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-30°C to +80°C" },
       { label: "Sealing Material", value: "EPDM" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-plast-pro.png", alt: "STRAUB-PLAST-PRO Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-plast-pro", "STRAUB-PLAST-PRO Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 16 BAR",
     sizeFrom: "63.0mm",
@@ -1388,9 +1386,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-20°C to +180°C" },
       { label: "Sealing Material", value: "EPDM/NBR/FPM" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-flex-1.png", alt: "STRAUB-FLEX 1 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-flex-1", "STRAUB-FLEX 1 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 25 BAR",
     sizeFrom: "48.3mm",
@@ -1424,9 +1420,7 @@ export const products: Product[] = [
       { label: "Temperature Range", value: "-30°C to +100°C" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-flex-2.png", alt: "STRAUB-FLEX 2 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-flex-2", "STRAUB-FLEX 2 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 16 BAR",
     sizeFrom: "172.0mm",
@@ -1458,9 +1452,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "219.1 to 2032.0 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-flex-3.png", alt: "STRAUB-FLEX 3 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-flex-3", "STRAUB-FLEX 3 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "219.1mm",
@@ -1492,9 +1484,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "323.9 to 1219.2 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-flex-35.png", alt: "STRAUB-FLEX 3.5 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-flex-35", "STRAUB-FLEX 3.5 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "323.9mm",
@@ -1526,9 +1516,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "323.9 to 812.8 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-flex-4.png", alt: "STRAUB-FLEX 4 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-flex-4", "STRAUB-FLEX 4 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "323.9mm",
@@ -1560,9 +1548,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "48.3 to 168.3 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-open-flex-1.png", alt: "STRAUB-OPEN-FLEX 1 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-open-flex-1", "STRAUB-OPEN-FLEX 1 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 25 BAR",
     sizeFrom: "48.3mm",
@@ -1594,9 +1580,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "172.0 to 2032.0 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-open-flex-2.png", alt: "STRAUB-OPEN-FLEX 2 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-open-flex-2", "STRAUB-OPEN-FLEX 2 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 16 BAR",
     sizeFrom: "172.0mm",
@@ -1628,9 +1612,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "219.1 to 4064.0 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-open-flex-3.png", alt: "STRAUB-OPEN-FLEX 3 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-open-flex-3", "STRAUB-OPEN-FLEX 3 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "219.1mm",
@@ -1662,9 +1644,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "323.9 to 4064.0 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-open-flex-35.png", alt: "STRAUB-OPEN-FLEX 3.5 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-open-flex-35", "STRAUB-OPEN-FLEX 3.5 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "323.9mm",
@@ -1696,9 +1676,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "323.9 to 4064.0 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-open-flex-4.png", alt: "STRAUB-OPEN-FLEX 4 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-open-flex-4", "STRAUB-OPEN-FLEX 4 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "323.9mm",
@@ -1730,9 +1708,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "219.1 to 812.8 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-step-flex-2.png", alt: "STRAUB-STEP-FLEX 2 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-step-flex-2", "STRAUB-STEP-FLEX 2 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "219.1mm",
@@ -1764,9 +1740,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "914.4 to 2032.0 mm" },
       { label: "Sealing Material", value: "EPDM/NBR" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-step-flex-3.png", alt: "STRAUB-STEP-FLEX 3 Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-step-flex-3", "STRAUB-STEP-FLEX 3 Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "914.4mm",
@@ -1798,9 +1772,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "60, 80, 100 mm" },
       { label: "Sealing Material", value: "EPDM" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-square-flex.png", alt: "STRAUB-SQUARE-FLEX Pipe Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-square-flex", "STRAUB-SQUARE-FLEX Pipe Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 6 BAR",
     sizeFrom: "60mm",
@@ -1833,9 +1805,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "46.0 to 429.0 mm" },
       { label: "Sealing Material", value: "EPDM" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-rep-flex.png", alt: "STRAUB-REP-FLEX Pipe Repair Coupling", type: "image" }
-    ],
+    images: getStraubImages("straub-rep-flex", "STRAUB-REP-FLEX Pipe Repair Coupling"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 16 BAR",
     sizeFrom: "46.0mm",
@@ -1868,9 +1838,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "44.0 to 330.0 mm" },
       { label: "Sealing Material", value: "EPDM" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-clamp-1pc.png", alt: "STRAUB-CLAMP One-Piece", type: "image" }
-    ],
+    images: getStraubImages("straub-clamp-1pc", "STRAUB-CLAMP One-Piece"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "44.0mm",
@@ -1903,9 +1871,7 @@ export const products: Product[] = [
       { label: "Size Range", value: "88.0 to 440.0 mm" },
       { label: "Sealing Material", value: "EPDM" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-clamp-2pc.png", alt: "STRAUB-CLAMP Two-Piece", type: "image" }
-    ],
+    images: getStraubImages("straub-clamp-2pc", "STRAUB-CLAMP Two-Piece"),
     materials: { body: "Stainless Steel", sleeve: "EPDM" },
     pressureRange: "0 TO 10 BAR",
     sizeFrom: "88.0mm",
@@ -1939,9 +1905,7 @@ export const products: Product[] = [
       { label: "Material", value: "1.4571 Stainless Steel" },
       { label: "Pressure Rating", value: "25 bar" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-elbow-90.png", alt: "STRAUB Elbow 90°", type: "image" }
-    ],
+    images: getStraubImages("straub-elbow-90", "STRAUB Elbow 90°"),
     materials: { body: "1.4571 Stainless Steel" },
     pressureRange: "0 TO 25 BAR",
     leadTime: "2-3 weeks",
@@ -1972,9 +1936,7 @@ export const products: Product[] = [
       { label: "Material", value: "1.4571 Stainless Steel" },
       { label: "Pressure Rating", value: "25 bar" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-elbow-45.png", alt: "STRAUB Elbow 45°", type: "image" }
-    ],
+    images: getStraubImages("straub-elbow-45", "STRAUB Elbow 45°"),
     materials: { body: "1.4571 Stainless Steel" },
     pressureRange: "0 TO 25 BAR",
     leadTime: "2-3 weeks",
@@ -2004,9 +1966,7 @@ export const products: Product[] = [
       { label: "Material", value: "1.4571 Stainless Steel" },
       { label: "Pressure Rating", value: "25 bar" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-equal-tee.png", alt: "STRAUB Equal Tee", type: "image" }
-    ],
+    images: getStraubImages("straub-equal-tee", "STRAUB Equal Tee"),
     materials: { body: "1.4571 Stainless Steel" },
     pressureRange: "0 TO 25 BAR",
     leadTime: "2-3 weeks",
@@ -2036,9 +1996,7 @@ export const products: Product[] = [
       { label: "Material", value: "1.4571 Stainless Steel" },
       { label: "Pressure Rating", value: "25 bar" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-reducing-tee.png", alt: "STRAUB Reducing Tee", type: "image" }
-    ],
+    images: getStraubImages("straub-reducing-tee", "STRAUB Reducing Tee"),
     materials: { body: "1.4571 Stainless Steel" },
     pressureRange: "0 TO 25 BAR",
     leadTime: "2-3 weeks",
@@ -2069,9 +2027,7 @@ export const products: Product[] = [
       { label: "Material", value: "1.4571 Stainless Steel" },
       { label: "Pressure Rating", value: "25 bar" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-reducer.png", alt: "STRAUB Concentric Reducer", type: "image" }
-    ],
+    images: getStraubImages("straub-reducer", "STRAUB Concentric Reducer"),
     materials: { body: "1.4571 Stainless Steel" },
     pressureRange: "0 TO 25 BAR",
     leadTime: "2-3 weeks",
@@ -2102,9 +2058,7 @@ export const products: Product[] = [
       { label: "Material", value: "1.4571 Stainless Steel" },
       { label: "Pressure Rating", value: "25 bar" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-flange-adapter.png", alt: "STRAUB Flange Adapter", type: "image" }
-    ],
+    images: getStraubImages("straub-flange-adapter", "STRAUB Flange Adapter"),
     materials: { body: "1.4571 Stainless Steel" },
     pressureRange: "0 TO 25 BAR",
     leadTime: "2-3 weeks",
@@ -2134,9 +2088,7 @@ export const products: Product[] = [
       { label: "Material", value: "1.4571 Stainless Steel" },
       { label: "Pressure Rating", value: "25 bar" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-end-cap.png", alt: "STRAUB Pipe End Cap", type: "image" }
-    ],
+    images: getStraubImages("straub-end-cap", "STRAUB Pipe End Cap"),
     materials: { body: "1.4571 Stainless Steel" },
     pressureRange: "0 TO 25 BAR",
     leadTime: "2-3 weeks",
@@ -2167,9 +2119,7 @@ export const products: Product[] = [
       { label: "Material", value: "1.4571 Stainless Steel" },
       { label: "Pressure Rating", value: "25 bar" }
     ],
-    images: [
-      { url: "/images/products/straub/straub-threaded.png", alt: "STRAUB Threaded Connection", type: "image" }
-    ],
+    images: getStraubImages("straub-threaded", "STRAUB Threaded Connection"),
     materials: { body: "1.4571 Stainless Steel" },
     pressureRange: "0 TO 25 BAR",
     leadTime: "2-3 weeks",
