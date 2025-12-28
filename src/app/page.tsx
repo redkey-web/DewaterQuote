@@ -240,9 +240,9 @@ export default function HomePage() {
               <Image
                 src="/images/brands/orbit-couplings.png"
                 alt="Orbit Couplings"
-                width={150}
-                height={50}
-                className="h-12 w-auto object-contain"
+                width={180}
+                height={60}
+                className="h-14 w-auto object-contain"
               />
             </Link>
             <Link href="/brands/teekay" className="opacity-80 hover:opacity-100 transition-opacity">
