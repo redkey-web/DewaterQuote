@@ -14,7 +14,14 @@ import {
   ClipboardList,
   Mail,
   TrendingDown,
+  ChevronDown,
 } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { TestimonialsSection } from "@/components/Testimonials"
 import {
   Accordion,
@@ -161,41 +168,37 @@ export default function HomePage() {
               data-testid="input-hero-search"
             />
           </div>
-          <div className="flex flex-wrap justify-center gap-2 mt-6 max-w-2xl mx-auto">
-            <Link href="/valves">
-              <span className="inline-block px-4 py-2 bg-white/90 hover:bg-white text-foreground text-sm font-medium rounded-full transition-colors cursor-pointer">
-                Valves
-              </span>
-            </Link>
-            <Link href="/pipe-couplings">
-              <span className="inline-block px-4 py-2 bg-white/90 hover:bg-white text-foreground text-sm font-medium rounded-full transition-colors cursor-pointer">
-                Pipe Couplings
-              </span>
-            </Link>
-            <Link href="/rubber-expansion-joints">
-              <span className="inline-block px-4 py-2 bg-white/90 hover:bg-white text-foreground text-sm font-medium rounded-full transition-colors cursor-pointer">
-                Expansion Joints
-              </span>
-            </Link>
-            <Link href="/strainers">
-              <span className="inline-block px-4 py-2 bg-white/90 hover:bg-white text-foreground text-sm font-medium rounded-full transition-colors cursor-pointer">
-                Strainers
-              </span>
-            </Link>
-            <Link href="/pipe-repair">
-              <span className="inline-block px-4 py-2 bg-white/90 hover:bg-white text-foreground text-sm font-medium rounded-full transition-colors cursor-pointer">
-                Repair Clamps
-              </span>
-            </Link>
-            <Link href="/flange-adaptors">
-              <span className="inline-block px-4 py-2 bg-white/90 hover:bg-white text-foreground text-sm font-medium rounded-full transition-colors cursor-pointer">
-                Flange Adaptors
-              </span>
-            </Link>
-          </div>
-          <div className="mt-4">
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium">
+                  Browse by Category
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/valves" className="w-full cursor-pointer">Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/rubber-expansion-joints" className="w-full cursor-pointer">Expansion Joints</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/strainers" className="w-full cursor-pointer">Strainers</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/pipe-repair" className="w-full cursor-pointer">Repair Clamps</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Link href="/products" className="text-white/70 hover:text-white text-sm underline underline-offset-2 transition-colors">
-              or browse by brand →
+              or browse by brand
             </Link>
           </div>
         </div>
