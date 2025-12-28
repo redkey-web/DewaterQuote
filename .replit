@@ -1,6 +1,6 @@
 run = "npm run dev:replit"
 entrypoint = "src/app/page.tsx"
-modules = ["nodejs-20"]
+modules = ["nodejs-20", "postgresql-16"]
 
 [deployment]
 run = ["sh", "-c", "npm run build && npm run start:replit"]
