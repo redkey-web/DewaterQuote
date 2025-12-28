@@ -27,6 +27,7 @@ import {
   Minus,
   TrendingDown,
   FileCheck,
+  Shield,
 } from "lucide-react"
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd"
 import { useToast } from "@/hooks/use-toast"
@@ -52,6 +53,30 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const [materialTestCert, setMaterialTestCert] = useState<boolean>(false)
   const [isPickerOpen, setIsPickerOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
+
+  // Deduplicate images by URL and filter out warranty/promotional images
+  const uniqueImages = product.images
+    .filter((img, idx, arr) => arr.findIndex((i) => i.url === img.url) === idx)
+    .filter((img) => {
+      const urlLower = img.url.toLowerCase()
+      const altLower = img.alt.toLowerCase()
+      return !urlLower.includes('warranty') && !altLower.includes('warranty') &&
+             !urlLower.includes('5-year') && !urlLower.includes('5year')
+    })
+
+  // Helper to get human-readable category name
+  const getCategoryDisplayName = (slug: string): string => {
+    const names: Record<string, string> = {
+      'pipe-couplings': 'Pipe Couplings',
+      'valves': 'Industrial Valves',
+      'repair-clamps': 'Pipe Repair Clamps',
+      'dismantling-joints': 'Dismantling Joints',
+    }
+    return names[slug] || slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  }
+
+  // SEO-optimized alt text for main image
+  const mainImageAlt = `${product.name} - ${getCategoryDisplayName(product.category)} | Australia-wide delivery`
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
   const addToQuoteButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -146,11 +171,11 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
           {/* Images */}
           <div>
-            <div className="aspect-square glass rounded-lg mb-4 overflow-hidden flex items-center justify-center shadow-md">
-              {product.images[currentImageIndex]?.url ? (
+            <div className="aspect-square glass rounded-lg mb-4 overflow-hidden flex items-center justify-center shadow-md relative">
+              {uniqueImages[currentImageIndex]?.url ? (
                 <Image
-                  src={product.images[currentImageIndex].url}
-                  alt={product.images[currentImageIndex].alt}
+                  src={uniqueImages[currentImageIndex].url}
+                  alt={currentImageIndex === 0 ? mainImageAlt : uniqueImages[currentImageIndex].alt}
                   width={600}
                   height={600}
                   className="w-full h-full object-contain"
@@ -159,10 +184,15 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               ) : (
                 <Package className="w-32 h-32 text-muted-foreground" />
               )}
+              {/* Warranty Badge Overlay */}
+              <div className="absolute bottom-3 right-3 bg-emerald-600 text-white px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5 text-sm font-medium">
+                <Shield className="w-4 h-4" />
+                Up to 5 Year Warranty
+              </div>
             </div>
-            {product.images.length > 1 && (
+            {uniqueImages.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
-                {product.images.map((img, idx) => (
+                {uniqueImages.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setCurrentImageIndex(idx)}
@@ -233,10 +263,10 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
             <Separator className="my-6" />
 
-            {/* Short Description */}
+            {/* Short Description - first sentence only */}
             {product.description && (
-              <p className="text-muted-foreground mb-6 line-clamp-3">
-                {product.description}
+              <p className="text-muted-foreground mb-6">
+                {product.description.split('. ')[0]}.
               </p>
             )}
 
@@ -364,52 +394,23 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     </div>
                   </div>
 
-                  {/* Selected Size Details */}
+                  {/* Quantity Controls - only show when size selected */}
                   {selectedSizeOption && (
-                    <div className="p-4 glass rounded-lg shadow-md">
-                      <div className="flex items-center justify-between mb-3">
-                        <div>
-                          <div className="font-semibold">{selectedSizeOption.label}</div>
-                          {selectedSizeOption.sku && (
-                            <div className="text-xs text-muted-foreground">SKU: {selectedSizeOption.sku}</div>
-                          )}
-                        </div>
-                        <div className="text-right">
-                          {hasDiscount ? (
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm line-through text-muted-foreground">
-                                ${selectedSizeOption.price?.toFixed(2)}
-                              </span>
-                              <span className="text-lg font-bold text-primary">
-                                ${calculateDiscountedPrice(selectedSizeOption.price!, quantity).toFixed(2)}
-                              </span>
-                              <Badge variant="secondary" className="bg-destructive/10 text-destructive text-xs">
-                                {discountPercentage}% OFF
-                              </Badge>
-                            </div>
-                          ) : (
-                            <span className="text-lg font-bold text-primary">
-                              {selectedSizeOption.price ? `$${selectedSizeOption.price.toFixed(2)} ex GST` : "POA"}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Quantity Controls */}
-                      <div className="flex items-center justify-between">
-                        <label className="text-sm font-medium">Quantity</label>
-                        <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-between py-2">
+                      <div className="flex items-center gap-4">
+                        <label className="text-sm font-medium">Qty</label>
+                        <div className="flex items-center gap-2">
                           <Button
                             variant="outline"
                             size="icon"
                             onClick={() => handleQuantityChange(-1)}
                             disabled={quantity <= 1}
                             data-testid="button-decrease-qty"
-                            className="h-10 w-10 glass-button"
+                            className="h-9 w-9"
                           >
                             <Minus className="w-4 h-4" />
                           </Button>
-                          <span className="text-xl font-bold min-w-[3rem] text-center" data-testid="quantity-display">
+                          <span className="text-lg font-bold min-w-[2.5rem] text-center" data-testid="quantity-display">
                             {quantity}
                           </span>
                           <Button
@@ -417,17 +418,20 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                             size="icon"
                             onClick={() => handleQuantityChange(1)}
                             data-testid="button-increase-qty"
-                            className="h-10 w-10 glass-button"
+                            className="h-9 w-9"
                           >
                             <Plus className="w-4 h-4" />
                           </Button>
                         </div>
+                        {hasDiscount && (
+                          <Badge variant="secondary" className="bg-destructive/10 text-destructive text-xs">
+                            {discountPercentage}% OFF
+                          </Badge>
+                        )}
                       </div>
-
-                      {/* Line Total */}
-                      {selectedSizeOption.price && quantity > 1 && (
-                        <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
-                          <span className="text-sm text-muted-foreground">Line Total:</span>
+                      {/* Show total when qty > 1 or discount applies */}
+                      {selectedSizeOption.price && (quantity > 1 || hasDiscount) && (
+                        <div className="text-right">
                           <span className="text-lg font-bold text-primary">
                             ${(hasDiscount
                               ? calculateDiscountedPrice(selectedSizeOption.price, quantity) * quantity
@@ -444,15 +448,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
             )}
 
             <div className="mb-6 space-y-4">
-              {!selectedSize && (
-                <div className="flex items-center gap-2 p-3 bg-primary/10 border border-primary/30 rounded-lg">
-                  <ShoppingCart className="w-5 h-5 text-primary" />
-                  <p className="text-sm font-medium text-primary">
-                    Select a size above to add to your quote
-                  </p>
-                </div>
-              )}
-
               {/* Material Test Certificate Option */}
               <div className="p-4 border border-border rounded-lg bg-muted/30 space-y-3">
                 <div className="flex items-start gap-3">
