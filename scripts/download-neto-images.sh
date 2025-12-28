@@ -2,6 +2,7 @@
 
 # Download product images from Neto (dewaterproducts.com.au)
 # Run this before migrating away from Neto to preserve all product images
+# Uses curl (available by default on macOS) instead of wget
 
 BASE_URL="https://www.dewaterproducts.com.au/assets"
 OUTPUT_DIR="/Users/redkey/Documents/NEXUS/RED-KEY/websites/DewaterQuote/public/images/products/neto-download"
@@ -46,31 +47,71 @@ SKUS=(
   "OCRC400"
 )
 
+# Function to download a file if it doesn't exist
+download_if_missing() {
+  local url="$1"
+  local filename="$2"
+  local filepath="$OUTPUT_DIR/$filename"
+
+  if [ -f "$filepath" ]; then
+    echo "  ✓ $filename (already exists)"
+    return 0
+  fi
+
+  # Try to download, checking HTTP status
+  local http_code=$(curl -s -o "$filepath" -w "%{http_code}" "$url")
+
+  if [ "$http_code" = "200" ]; then
+    echo "  ✓ $filename (downloaded)"
+    return 0
+  else
+    # Remove empty/failed file
+    rm -f "$filepath"
+    return 1
+  fi
+}
+
+echo "=========================================="
 echo "Downloading product images from Neto..."
+echo "=========================================="
 echo "Output directory: $OUTPUT_DIR"
 echo ""
 
+TOTAL_DOWNLOADED=0
+TOTAL_FAILED=0
+
 for SKU in "${SKUS[@]}"; do
+  echo ""
   echo "Processing $SKU..."
 
   # Download main/full image (try both .jpg and .png)
-  wget -q --show-progress -nc -P "$OUTPUT_DIR" "$BASE_URL/full/$SKU.jpg" 2>/dev/null || \
-  wget -q --show-progress -nc -P "$OUTPUT_DIR" "$BASE_URL/full/$SKU.png" 2>/dev/null
-
-  # Download thumbnail
-  wget -q --show-progress -nc -P "$OUTPUT_DIR" "$BASE_URL/thumb/$SKU.jpg" 2>/dev/null || \
-  wget -q --show-progress -nc -P "$OUTPUT_DIR" "$BASE_URL/thumb/$SKU.png" 2>/dev/null
+  if download_if_missing "$BASE_URL/full/$SKU.jpg" "$SKU.jpg"; then
+    ((TOTAL_DOWNLOADED++))
+  elif download_if_missing "$BASE_URL/full/$SKU.png" "$SKU.png"; then
+    ((TOTAL_DOWNLOADED++))
+  else
+    echo "  ✗ No main image found"
+    ((TOTAL_FAILED++))
+  fi
 
   # Download alternate images (alt_1 through alt_4)
   for ALT in 1 2 3 4; do
-    wget -q --show-progress -nc -P "$OUTPUT_DIR" "$BASE_URL/alt_$ALT/$SKU.jpg" 2>/dev/null || \
-    wget -q --show-progress -nc -P "$OUTPUT_DIR" "$BASE_URL/alt_$ALT/$SKU.png" 2>/dev/null
+    if download_if_missing "$BASE_URL/alt_$ALT/$SKU.jpg" "${SKU}_alt${ALT}.jpg"; then
+      ((TOTAL_DOWNLOADED++))
+    elif download_if_missing "$BASE_URL/alt_$ALT/$SKU.png" "${SKU}_alt${ALT}.png"; then
+      ((TOTAL_DOWNLOADED++))
+    fi
   done
 done
 
 echo ""
+echo "=========================================="
 echo "Download complete!"
-echo "Images saved to: $OUTPUT_DIR"
+echo "=========================================="
+echo "Downloaded: $TOTAL_DOWNLOADED files"
+echo "Failed: $TOTAL_FAILED main images"
+echo ""
+echo "Files saved to: $OUTPUT_DIR"
 echo ""
 echo "Downloaded files:"
-ls -la "$OUTPUT_DIR"
+ls -la "$OUTPUT_DIR" | head -30
