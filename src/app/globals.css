@@ -379,10 +379,18 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 
-.animate-ticker {
+.ticker-wrapper {
+  display: flex;
+  width: max-content;
+}
+
+.ticker-content {
+  flex-shrink: 0;
+  display: flex;
+  white-space: nowrap;
   animation: ticker 20s linear infinite;
 }

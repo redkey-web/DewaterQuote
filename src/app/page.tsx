@@ -111,9 +111,9 @@ export default function HomePage() {
           className="absolute top-0 left-0 right-0 z-20 py-2 overflow-hidden"
           data-testid="section-volume-discounts"
         >
-          <div className="animate-ticker flex whitespace-nowrap">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex items-center gap-8 px-8 text-sm">
+          <div className="ticker-wrapper">
+            <div className="ticker-content">
+              <div className="flex items-center gap-8 px-8 text-sm">
                 <div className="flex items-center gap-2">
                   <TrendingDown className="w-4 h-4 text-white" />
                   <span className="font-semibold text-white">Volume Discounts:</span>
@@ -132,7 +132,28 @@ export default function HomePage() {
                 </div>
                 <span className="text-white/50">•</span>
               </div>
-            ))}
+            </div>
+            <div className="ticker-content" aria-hidden="true">
+              <div className="flex items-center gap-8 px-8 text-sm">
+                <div className="flex items-center gap-2">
+                  <TrendingDown className="w-4 h-4 text-white" />
+                  <span className="font-semibold text-white">Volume Discounts:</span>
+                  <span className="text-white/80">2-4 items</span>
+                  <span className="font-bold text-orange-400">5% OFF</span>
+                </div>
+                <span className="text-white/50">•</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-white/80">5-9 items</span>
+                  <span className="font-bold text-orange-400">10% OFF</span>
+                </div>
+                <span className="text-white/50">•</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-white/80">10+ items</span>
+                  <span className="font-bold text-orange-400">15% OFF</span>
+                </div>
+                <span className="text-white/50">•</span>
+              </div>
+            </div>
           </div>
         </div>
 
