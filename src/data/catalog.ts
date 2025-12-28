@@ -1,5 +1,17 @@
 import type { Product, Category, Subcategory } from "@/types";
 
+// Helper to generate image array from SKU using local optimized images
+function getOptimizedImages(sku: string, productName: string, altCount: number = 0): { url: string; alt: string; type: "image" }[] {
+  const base = `/images/products/optimized/${sku}`;
+  const images: { url: string; alt: string; type: "image" }[] = [
+    { url: `${base}.jpg`, alt: productName, type: "image" }
+  ];
+  for (let i = 1; i <= altCount; i++) {
+    images.push({ url: `${base}_alt${i}.jpg`, alt: `${productName} - View ${i + 1}`, type: "image" });
+  }
+  return images;
+}
+
 // Real Products from dewaterproducts.com.au
 export const products: Product[] = [
   // Butterfly Valves
@@ -41,10 +53,7 @@ export const products: Product[] = [
       { value: "250mm", label: "250mm", price: 1125, sku: "BFLYW316-250" },
       { value: "300mm", label: "300mm", price: 1425, sku: "BFLYW316-300" }
     ],
-    images: [
-      { url: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg", alt: "Butterfly Valve - CF8M Full 316 Stainless Steel", type: "image" },
-      { url: "/images/products/valves/butterfly-valve-cf8m-316ss-angle2.jpg", alt: "Butterfly Valve - CF8M 316SS - Lever Handle View", type: "image" }
-    ],
+    images: getOptimizedImages("BFLYW316", "CF8M Butterfly Valve 316 Stainless Steel", 2),
     leadTime: "7 days if nil stock",
     materials: {
       body: "CF8M",
@@ -118,9 +127,7 @@ export const products: Product[] = [
       { value: "609.6mm", label: "609.6mm Pipe Outside Diameter sizing" },
       { value: "630.0mm", label: "630.0mm" }
     ],
-    images: [
-      { url: "/images/products/valves/duckbill-check-valve.png", alt: "DB-1 Slip On Duckbill Check Valve", type: "image" }
-    ],
+    images: getOptimizedImages("DB-1", "DB-1 Duckbill Check Valve Neoprene", 3),
     downloads: [
       { url: "#", label: "Datasheet" }
     ],
@@ -169,9 +176,7 @@ export const products: Product[] = [
       { value: "54.0mm", label: "54.0mm" },
       { value: "57.0mm", label: "57.0mm" }
     ],
-    images: [
-      { url: "/images/products/orbit/pipe-repair-clamp-200mm.jpg", alt: "Orbit Pipe Repair Clamp 55mm", type: "image" }
-    ],
+    images: getOptimizedImages("OCRC55", "Orbit Pipe Repair Clamp 55mm", 3),
     video: "https://www.youtube.com/watch?v=VRei4m3c3Ck",
     leadTime: "12 days if nil stock",
     materials: {
@@ -208,10 +213,7 @@ export const products: Product[] = [
       { label: "Seal Material", value: "EPDM" },
       { label: "Flange Standard", value: "Table D" }
     ],
-    images: [
-      { url: "/images/products/valves/foot-valve-galv.jpg", alt: "Foot Valve - Galvanised", type: "image" },
-      { url: "/images/products/valves/foot-valve-galv-detail.jpg", alt: "Foot Valve - Galvanised - Detail View", type: "image" }
-    ],
+    images: getOptimizedImages("FVGALV", "Galvanised Foot Valve Flanged Table D", 4),
     materials: {
       body: "GALV",
       seat: "EPDM"
@@ -256,10 +258,7 @@ export const products: Product[] = [
       { value: "80mm", label: "80mm DN80 (3\")", sku: "CF8MDAFV-80" },
       { value: "100mm", label: "100mm DN100 (4\")", sku: "CF8MDAFV-100" }
     ],
-    images: [
-      { url: "/images/products/valves/cf8m-flanged-float-valve.png", alt: "CF8M Flanged Float Valve AS4087 PN16", type: "image" },
-      { url: "/images/products/valves/cf8m-flanged-float-valve-alt.png", alt: "CF8M Flanged Float Valve - Alternate View", type: "image" }
-    ],
+    images: getOptimizedImages("CF8MDAFV", "CF8M Flanged Float Valve AS4087 PN16", 1),
     downloads: [
       { url: "https://www.dewaterproducts.com.au/assets/brochures/CF8MDAFV.pdf", label: "Datasheet" }
     ],
@@ -341,12 +340,7 @@ export const products: Product[] = [
       { value: "160.0mm", label: "160.0mm Pipe Outside Diameter", price: 514, sku: "OCFG-L160.0" },
       { value: "168.3mm", label: "168.3mm Pipe Outside Diameter", price: 516, sku: "OCFG-L168.3" }
     ],
-    images: [
-      { url: "https://www.dewaterproducts.com.au/assets/full/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling - Main View", type: "image" },
-      { url: "https://www.dewaterproducts.com.au/assets/alt_1/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling - Installation View", type: "image" },
-      { url: "https://www.dewaterproducts.com.au/assets/alt_2/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling - Detail View", type: "image" },
-      { url: "https://www.dewaterproducts.com.au/assets/alt_3/OCFG-L.jpg", alt: "Flex Grip L Pipe Coupling - Application View", type: "image" }
-    ],
+    images: getOptimizedImages("OCFG-L", "Flex Grip L Pipe Coupling", 3),
     downloads: [
       { url: "https://www.dewaterproducts.com.au/assets/brochures/OCFG-L.pdf", label: "Product Datasheet" }
     ],
@@ -392,9 +386,7 @@ export const products: Product[] = [
       { label: "Body Material", value: "316 Stainless Steel" },
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
-    images: [
-      { url: "/images/products/orbit/flex-grip-s.jpg", alt: "Flex Grip S Pipe Coupling", type: "image" }
-    ],
+    images: getOptimizedImages("OCFG-S", "Flex Grip S Pipe Coupling", 2),
     materials: {
       body: "316ss",
       sleeve: "EPDM"
@@ -434,9 +426,7 @@ export const products: Product[] = [
       { label: "Body Material", value: "304 Stainless Steel" },
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
-    images: [
-      { url: "/images/products/orbit/metal-lock-l.jpg", alt: "Metal Lock L Pipe Coupling", type: "image" }
-    ],
+    images: getOptimizedImages("OCML-L", "Metal Lock L Pipe Coupling", 4),
     materials: {
       body: "304ss",
       sleeve: "EPDM"
@@ -476,9 +466,7 @@ export const products: Product[] = [
       { label: "Body Material", value: "316 Stainless Steel" },
       { label: "Pressure Rating", value: "0 to 32 BAR" }
     ],
-    images: [
-      { url: "/images/products/orbit/metal-lock-s.jpg", alt: "Metal Lock S Pipe Coupling", type: "image" }
-    ],
+    images: getOptimizedImages("OCML-S", "Metal Lock S Pipe Coupling", 3),
     materials: {
       body: "316ss",
       sleeve: "EPDM"
@@ -519,9 +507,7 @@ export const products: Product[] = [
       { label: "Pressure Rating", value: "0 to 28 BAR" },
       { label: "Compliance", value: "IACS" }
     ],
-    images: [
-      { url: "/images/products/orbit/fire-protection-coupling.jpg", alt: "Fire Protection Coupling", type: "image" }
-    ],
+    images: getOptimizedImages("OCFPC", "Fire Protection Coupling IACS Compliant", 3),
     materials: {
       body: "316ss",
       sleeve: "EPDM"
@@ -560,9 +546,7 @@ export const products: Product[] = [
       { label: "Casing Material", value: "316 Stainless Steel" },
       { label: "Pressure Rating", value: "0 to 25 BAR" }
     ],
-    images: [
-      { url: "/images/products/orbit/elbow-repair-clamp.jpg", alt: "Elbow Repair Clamp", type: "image" }
-    ],
+    images: getOptimizedImages("OCELBRC", "Elbow Repair Clamp Orbit Couplings", 4),
     materials: {
       sleeve: "EPDM",
       body: "316ss"
@@ -601,9 +585,7 @@ export const products: Product[] = [
       { label: "Pipe Diameter", value: "220.0mm" },
       { label: "Pressure Rating", value: "0 to 40 BAR" }
     ],
-    images: [
-      { url: "/images/products/orbit/open-flex-300-l.jpg", alt: "Open Flex 300-L Pipe Coupling", type: "image" }
-    ],
+    images: getOptimizedImages("OCOF300-L", "Open Flex 300-L Pipe Coupling", 3),
     materials: {
       body: "316ss",
       sleeve: "EPDM"
@@ -642,9 +624,7 @@ export const products: Product[] = [
       { label: "Body Material", value: "316 Stainless Steel" },
       { label: "Pressure Rating", value: "0 to 40 BAR" }
     ],
-    images: [
-      { url: "/images/products/orbit/open-flex-400-l.jpg", alt: "Open Flex 400-L Pipe Coupling", type: "image" }
-    ],
+    images: getOptimizedImages("OCOF400-L", "Open Flex 400-L Pipe Coupling", 4),
     materials: {
       body: "316ss",
       sleeve: "EPDM"
@@ -683,9 +663,7 @@ export const products: Product[] = [
       { label: "Casing Material", value: "316 Stainless Steel" },
       { label: "Width", value: "200mm" }
     ],
-    images: [
-      { url: "/images/products/orbit/pipe-repair-clamp-200mm.jpg", alt: "Orbit Pipe Repair Clamp 200mm Wide", type: "image" }
-    ],
+    images: getOptimizedImages("OCRC200", "Orbit Pipe Repair Clamp 200mm Wide", 3),
     materials: {
       sleeve: "EPDM",
       body: "316ss"
@@ -723,9 +701,7 @@ export const products: Product[] = [
       { label: "Casing Material", value: "316 Stainless Steel" },
       { label: "Width", value: "300mm" }
     ],
-    images: [
-      { url: "/images/products/orbit/pipe-repair-clamp-300mm.jpg", alt: "Orbit Pipe Repair Clamp 300mm Wide", type: "image" }
-    ],
+    images: getOptimizedImages("OCRC300", "Orbit Pipe Repair Clamp 300mm Wide", 3),
     materials: {
       sleeve: "EPDM",
       body: "316ss"
@@ -941,9 +917,7 @@ export const products: Product[] = [
       { value: "250mm", label: "DN250 (10\")", price: 1495, sku: "SSYS-250" },
       { value: "300mm", label: "DN300 (12\")", price: 1895, sku: "SSYS-300" }
     ],
-    images: [
-      { url: "/images/products/strainers/y-strainer-316ss.jpg", alt: "Stainless Steel Y Strainer CF8M", type: "image" }
-    ],
+    images: getOptimizedImages("SSYS", "Stainless Steel Y Strainer CF8M ANSI 150LB", 3),
     leadTime: "7-10 days if nil stock",
     materials: {
       body: "CF8M/316SS"
@@ -998,9 +972,7 @@ export const products: Product[] = [
       { value: "250mm", label: "DN250 (10\")", price: 495, sku: "FSFREJ-250" },
       { value: "300mm", label: "DN300 (12\")", price: 595, sku: "FSFREJ-300" }
     ],
-    images: [
-      { url: "/images/products/expansion-joints/fsf-single-sphere.jpg", alt: "FSF Single Sphere Rubber Expansion Joint", type: "image" }
-    ],
+    images: getOptimizedImages("FSFREJ", "FSF Single Sphere Rubber Expansion Joint", 3),
     leadTime: "5-7 days if nil stock",
     materials: {
       body: "EPDM/Zinc plated flanges"
