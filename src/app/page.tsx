@@ -461,53 +461,6 @@ export default function HomePage() {
       {/* Testimonials Section */}
       <TestimonialsSection />
 
-      {/* Brands Section */}
-      <section className="py-20 px-6 lg:px-8 bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">FEATURED BRANDS</h2>
-            <p className="text-lg text-muted-foreground">
-              Authorised distributor of industry-leading manufacturers
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link href="/brands/straub">
-              <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
-                <Image
-                  src="/images/brands/straub-logo.png"
-                  alt="Straub logo"
-                  width={160}
-                  height={64}
-                  className="h-16 mx-auto object-contain"
-                />
-              </Card>
-            </Link>
-            <Link href="/brands/orbit">
-              <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
-                <Image
-                  src="/images/brands/orbit-couplings.png"
-                  alt="Orbit Couplings logo"
-                  width={160}
-                  height={64}
-                  className="h-16 mx-auto object-contain p-0 m-0"
-                />
-              </Card>
-            </Link>
-            <Link href="/brands/teekay">
-              <Card className="p-8 text-center hover-elevate active-elevate-2 transition-all cursor-pointer">
-                <Image
-                  src="/images/brands/teekay-logo.png"
-                  alt="Teekay logo"
-                  width={160}
-                  height={64}
-                  className="h-16 mx-auto object-contain"
-                />
-              </Card>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section className="py-20 px-6 lg:px-8 bg-muted/30">
         <div className="max-w-4xl mx-auto">
