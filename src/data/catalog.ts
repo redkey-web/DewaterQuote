@@ -1097,6 +1097,1084 @@ export const products: Product[] = [
     applications: ["Water distribution", "Sewerage", "Mining", "Industrial process", "Desalination", "Pipe repair"],
     priceVaries: true,
     priceNote: "Custom sizes over 300mm available on request. Contact us for large diameter and special flange specifications."
+  },
+
+  // ========== STRAUB PRODUCTS ==========
+  // Swiss-engineered pipe couplings - Premium range
+
+  // Axial Restraint Couplings
+  {
+    id: "STRAUB-METAL-GRIP",
+    slug: "straub-metal-grip",
+    sku: "STRAUB-METAL-GRIP",
+    name: "STRAUB-METAL-GRIP Pipe Coupling",
+    shortName: "STRAUB Metal-Grip",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Pull-out resistant pipe coupling for all metal pipes to meet the highest standards. Swiss precision engineering with 67 bar pressure rating. The STRAUB-METAL-GRIP provides axial restraint, preventing pipe separation under pressure.",
+    features: [
+      "Axial restraint (pull-out resistant) design",
+      "Pressure rating: 67 bar",
+      "Size range: 30.0 to 609.6 mm",
+      "EPDM and NBR sealing sleeves available",
+      "Temperature range: -30°C to +100°C (EPDM)",
+      "DIN 86128-1 and 86128-2 compliant",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-METAL-GRIP" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "67 bar" },
+      { label: "Size Range", value: "30.0 to 609.6 mm" },
+      { label: "Temperature Range", value: "-30°C to +100°C" },
+      { label: "Sealing Material", value: "EPDM/NBR" },
+      { label: "Body Material", value: "Stainless Steel" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-metal-grip.png", alt: "STRAUB-METAL-GRIP Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 67 BAR",
+    sizeFrom: "30.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Industrial piping", "Marine", "Chemical plants", "Water treatment", "Oil & gas"],
+    certifications: "DIN 86128-1 and 86128-2 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-METAL-GRIP-FF",
+    slug: "straub-metal-grip-ff",
+    sku: "STRAUB-METAL-GRIP-FF",
+    name: "STRAUB-METAL-GRIP FF Pipe Coupling",
+    shortName: "STRAUB Metal-Grip FF",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Full-face sealing version of the STRAUB-METAL-GRIP for maximum sealing security. Swiss precision engineering with 67 bar pressure rating and axial restraint.",
+    features: [
+      "Full-face sealing design for maximum security",
+      "Axial restraint (pull-out resistant)",
+      "Pressure rating: 67 bar",
+      "Size range: 30.0 to 457.2 mm",
+      "EPDM and NBR sealing sleeves",
+      "DIN 86128 compliant",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-METAL-GRIP-FF" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "67 bar" },
+      { label: "Size Range", value: "30.0 to 457.2 mm" },
+      { label: "Temperature Range", value: "-30°C to +100°C" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-metal-grip-ff.png", alt: "STRAUB-METAL-GRIP FF Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 67 BAR",
+    sizeFrom: "30.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["High-pressure systems", "Marine", "Chemical plants", "Critical infrastructure"],
+    certifications: "DIN 86128-1 and 86128-2 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-GRIP",
+    slug: "straub-grip",
+    sku: "STRAUB-GRIP",
+    name: "STRAUB-GRIP Pipe Coupling",
+    shortName: "STRAUB Grip",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Axially restrained pipe coupling with 40 bar pressure rating. Wide size range from 25mm to 711.2mm for versatile applications.",
+    features: [
+      "Axial restraint design",
+      "Pressure rating: 40 bar",
+      "Size range: 25 to 711.2 mm",
+      "EPDM and NBR sealing sleeves",
+      "Temperature range: -30°C to +100°C",
+      "DIN 86128 compliant",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-GRIP" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "40 bar" },
+      { label: "Size Range", value: "25 to 711.2 mm" },
+      { label: "Temperature Range", value: "-30°C to +100°C" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-grip.png", alt: "STRAUB-GRIP Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 40 BAR",
+    sizeFrom: "25mm",
+    leadTime: "2-3 weeks",
+    applications: ["Industrial piping", "Water treatment", "Building services", "Process piping"],
+    certifications: "DIN 86128-1 and 86128-2 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-GRIP-FF",
+    slug: "straub-grip-ff",
+    sku: "STRAUB-GRIP-FF",
+    name: "STRAUB-GRIP FF Pipe Coupling",
+    shortName: "STRAUB Grip FF",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Full-face sealing version of STRAUB-GRIP with 40 bar pressure rating. Enhanced sealing for critical applications.",
+    features: [
+      "Full-face sealing design",
+      "Axial restraint",
+      "Pressure rating: 40 bar",
+      "Size range: 25.0 to 406.4 mm",
+      "EPDM and NBR sealing sleeves",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-GRIP-FF" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "40 bar" },
+      { label: "Size Range", value: "25.0 to 406.4 mm" },
+      { label: "Temperature Range", value: "-30°C to +100°C" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-grip-ff.png", alt: "STRAUB-GRIP FF Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 40 BAR",
+    sizeFrom: "25.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Industrial piping", "Water treatment", "Critical systems"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-PLAST-GRIP",
+    slug: "straub-plast-grip",
+    sku: "STRAUB-PLAST-GRIP",
+    name: "STRAUB-PLAST-GRIP Pipe Coupling",
+    shortName: "STRAUB Plast-Grip",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Axially restrained coupling specifically designed for plastic pipes. 16 bar pressure rating with gentle gripping action to prevent pipe damage.",
+    features: [
+      "Designed for plastic pipes",
+      "Gentle gripping action",
+      "Pressure rating: 16 bar",
+      "Size range: 40.0 to 355.0 mm",
+      "EPDM sealing sleeve",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-PLAST-GRIP" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "16 bar" },
+      { label: "Size Range", value: "40.0 to 355.0 mm" },
+      { label: "Temperature Range", value: "-30°C to +80°C" },
+      { label: "Sealing Material", value: "EPDM" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-plast-grip.png", alt: "STRAUB-PLAST-GRIP Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "40.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Plastic pipelines", "PVC/PE pipes", "Water distribution", "Irrigation"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-COMBI-GRIP",
+    slug: "straub-combi-grip",
+    sku: "STRAUB-COMBI-GRIP",
+    name: "STRAUB-COMBI-GRIP Pipe Coupling",
+    shortName: "STRAUB Combi-Grip",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Versatile coupling for connecting metal to plastic pipes with axial restraint. Ideal for mixed material pipeline systems.",
+    features: [
+      "Connects metal to plastic pipes",
+      "Axial restraint on both sides",
+      "Pressure rating: 16 bar",
+      "Size range: 40.0/38.0 to 355.0/355.6 mm",
+      "EPDM sealing sleeve",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-COMBI-GRIP" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "16 bar" },
+      { label: "Size Range", value: "40.0/38.0 to 355.0/355.6 mm" },
+      { label: "Temperature Range", value: "-30°C to +80°C" },
+      { label: "Sealing Material", value: "EPDM" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-combi-grip.png", alt: "STRAUB-COMBI-GRIP Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "40.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Mixed material systems", "Retrofitting", "Pipeline upgrades"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-PLAST-PRO",
+    slug: "straub-plast-pro",
+    sku: "STRAUB-PLAST-PRO",
+    name: "STRAUB-PLAST-PRO Pipe Coupling",
+    shortName: "STRAUB Plast-Pro",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Professional-grade coupling for plastic pipes with optimised gripping force distribution. Advanced design for demanding plastic pipeline applications.",
+    features: [
+      "Optimised for plastic pipes",
+      "Advanced grip force distribution",
+      "Pressure rating: 16 bar",
+      "Size range: 63.0-180.0 / 125.0-355.0 mm",
+      "EPDM sealing sleeve",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-PLAST-PRO" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "16 bar" },
+      { label: "Size Range", value: "63.0-180.0 / 125.0-355.0 mm" },
+      { label: "Temperature Range", value: "-30°C to +80°C" },
+      { label: "Sealing Material", value: "EPDM" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-plast-pro.png", alt: "STRAUB-PLAST-PRO Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "63.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["PE/PP pipelines", "Large diameter plastic pipes", "Industrial applications"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+
+  // Non-Axial Restraint (Flex) Couplings
+  {
+    id: "STRAUB-FLEX-1",
+    slug: "straub-flex-1",
+    sku: "STRAUB-FLEX-1",
+    name: "STRAUB-FLEX 1 Pipe Coupling",
+    shortName: "STRAUB Flex 1",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Axially flexible pipe coupling for pipes of all materials. Accommodates axial movement, vibration, and minor misalignment. Equivalent to Orbit Flex Grip L.",
+    features: [
+      "Flexible design for movement absorption",
+      "Pressure rating: 25 bar",
+      "Size range: 48.3 to 168.3 mm",
+      "EPDM, NBR, and FPM sealing options",
+      "Temperature range: -20°C to +180°C",
+      "DIN 86128 compliant",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-FLEX-1" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "25 bar" },
+      { label: "Size Range", value: "48.3 to 168.3 mm" },
+      { label: "Temperature Range", value: "-20°C to +180°C" },
+      { label: "Sealing Material", value: "EPDM/NBR/FPM" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-flex-1.png", alt: "STRAUB-FLEX 1 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 25 BAR",
+    sizeFrom: "48.3mm",
+    leadTime: "2-3 weeks",
+    applications: ["Pump connections", "Vibration isolation", "Thermal expansion", "Building services"],
+    certifications: "DIN 86128-1 and 86128-2 compliant. Swiss quality manufacturing with 5-year system warranty. Equivalent to Orbit OCFG-L."
+  },
+  {
+    id: "STRAUB-FLEX-2",
+    slug: "straub-flex-2",
+    sku: "STRAUB-FLEX-2",
+    name: "STRAUB-FLEX 2 Pipe Coupling",
+    shortName: "STRAUB Flex 2",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Large diameter flexible coupling for pipes up to 2032mm. Ideal for infrastructure and industrial applications.",
+    features: [
+      "Large diameter range",
+      "Flexible design",
+      "Pressure rating: 16 bar",
+      "Size range: 172.0 to 2032.0 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-FLEX-2" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "16 bar" },
+      { label: "Size Range", value: "172.0 to 2032.0 mm" },
+      { label: "Temperature Range", value: "-30°C to +100°C" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-flex-2.png", alt: "STRAUB-FLEX 2 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "172.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Large diameter pipes", "Infrastructure", "Water mains", "Industrial piping"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-FLEX-3",
+    slug: "straub-flex-3",
+    sku: "STRAUB-FLEX-3",
+    name: "STRAUB-FLEX 3 Pipe Coupling",
+    shortName: "STRAUB Flex 3",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Heavy-duty flexible coupling for very large diameter pipelines up to 2032mm with 10 bar pressure rating.",
+    features: [
+      "Heavy-duty construction",
+      "Pressure rating: 10 bar",
+      "Size range: 219.1 to 2032.0 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-FLEX-3" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "219.1 to 2032.0 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-flex-3.png", alt: "STRAUB-FLEX 3 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "219.1mm",
+    leadTime: "2-3 weeks",
+    applications: ["Large infrastructure", "Water mains", "Sewerage", "Industrial"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-FLEX-35",
+    slug: "straub-flex-35",
+    sku: "STRAUB-FLEX-35",
+    name: "STRAUB-FLEX 3.5 Pipe Coupling",
+    shortName: "STRAUB Flex 3.5",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Intermediate size flexible coupling for large diameter applications from 323.9 to 1219.2mm.",
+    features: [
+      "Intermediate size range",
+      "Pressure rating: 10 bar",
+      "Size range: 323.9 to 1219.2 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-FLEX-35" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "323.9 to 1219.2 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-flex-35.png", alt: "STRAUB-FLEX 3.5 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "323.9mm",
+    leadTime: "2-3 weeks",
+    applications: ["Large diameter pipes", "Infrastructure", "Water treatment"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-FLEX-4",
+    slug: "straub-flex-4",
+    sku: "STRAUB-FLEX-4",
+    name: "STRAUB-FLEX 4 Pipe Coupling",
+    shortName: "STRAUB Flex 4",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Extra-wide flexible coupling for large diameter pipes from 323.9 to 812.8mm.",
+    features: [
+      "Extra-wide design",
+      "Pressure rating: 10 bar",
+      "Size range: 323.9 to 812.8 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-FLEX-4" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "323.9 to 812.8 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-flex-4.png", alt: "STRAUB-FLEX 4 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "323.9mm",
+    leadTime: "2-3 weeks",
+    applications: ["Large diameter pipes", "Municipal water", "Industrial"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-OPEN-FLEX-1",
+    slug: "straub-open-flex-1",
+    sku: "STRAUB-OPEN-FLEX-1",
+    name: "STRAUB-OPEN-FLEX 1 Pipe Coupling",
+    shortName: "STRAUB Open-Flex 1",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Open design flexible coupling for easy installation around existing pipes. 25 bar pressure rating.",
+    features: [
+      "Open design for retrofit installation",
+      "Pressure rating: 25 bar",
+      "Size range: 48.3 to 168.3 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-OPEN-FLEX-1" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "25 bar" },
+      { label: "Size Range", value: "48.3 to 168.3 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-open-flex-1.png", alt: "STRAUB-OPEN-FLEX 1 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 25 BAR",
+    sizeFrom: "48.3mm",
+    leadTime: "2-3 weeks",
+    applications: ["Retrofit installations", "Pipe repair", "Building services"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-OPEN-FLEX-2",
+    slug: "straub-open-flex-2",
+    sku: "STRAUB-OPEN-FLEX-2",
+    name: "STRAUB-OPEN-FLEX 2 Pipe Coupling",
+    shortName: "STRAUB Open-Flex 2",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Large diameter open design coupling for retrofit installation on pipes up to 2032mm.",
+    features: [
+      "Open design for large pipes",
+      "Pressure rating: 16 bar",
+      "Size range: 172.0 to 2032.0 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-OPEN-FLEX-2" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "16 bar" },
+      { label: "Size Range", value: "172.0 to 2032.0 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-open-flex-2.png", alt: "STRAUB-OPEN-FLEX 2 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "172.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Large diameter retrofit", "Infrastructure repair", "Water mains"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-OPEN-FLEX-3",
+    slug: "straub-open-flex-3",
+    sku: "STRAUB-OPEN-FLEX-3",
+    name: "STRAUB-OPEN-FLEX 3 Pipe Coupling",
+    shortName: "STRAUB Open-Flex 3",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Extra-large diameter open design coupling for pipes up to 4064mm. Ideal for major infrastructure projects.",
+    features: [
+      "Extra-large diameter range up to 4064mm",
+      "Open design",
+      "Pressure rating: 10 bar",
+      "Size range: 219.1 to 4064.0 mm",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-OPEN-FLEX-3" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "219.1 to 4064.0 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-open-flex-3.png", alt: "STRAUB-OPEN-FLEX 3 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "219.1mm",
+    leadTime: "2-3 weeks",
+    applications: ["Major infrastructure", "Large water mains", "Tunnels"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-OPEN-FLEX-35",
+    slug: "straub-open-flex-35",
+    sku: "STRAUB-OPEN-FLEX-35",
+    name: "STRAUB-OPEN-FLEX 3.5 Pipe Coupling",
+    shortName: "STRAUB Open-Flex 3.5",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Large diameter open coupling for pipes from 323.9 to 4064mm with 10 bar pressure rating.",
+    features: [
+      "Large diameter open design",
+      "Pressure rating: 10 bar",
+      "Size range: 323.9 to 4064.0 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-OPEN-FLEX-35" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "323.9 to 4064.0 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-open-flex-35.png", alt: "STRAUB-OPEN-FLEX 3.5 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "323.9mm",
+    leadTime: "2-3 weeks",
+    applications: ["Infrastructure", "Large diameter retrofit", "Water treatment"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-OPEN-FLEX-4",
+    slug: "straub-open-flex-4",
+    sku: "STRAUB-OPEN-FLEX-4",
+    name: "STRAUB-OPEN-FLEX 4 Pipe Coupling",
+    shortName: "STRAUB Open-Flex 4",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Heavy-duty open design coupling for very large diameter pipes up to 4064mm.",
+    features: [
+      "Heavy-duty open design",
+      "Pressure rating: 10 bar",
+      "Size range: 323.9 to 4064.0 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-OPEN-FLEX-4" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "323.9 to 4064.0 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-open-flex-4.png", alt: "STRAUB-OPEN-FLEX 4 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "323.9mm",
+    leadTime: "2-3 weeks",
+    applications: ["Major infrastructure", "Large water mains", "Industrial"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-STEP-FLEX-2",
+    slug: "straub-step-flex-2",
+    sku: "STRAUB-STEP-FLEX-2",
+    name: "STRAUB-STEP-FLEX 2 Pipe Coupling",
+    shortName: "STRAUB Step-Flex 2",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Stepped coupling for connecting pipes of different diameters. Flexible design with 10 bar pressure rating.",
+    features: [
+      "Connects different diameter pipes",
+      "Stepped design",
+      "Pressure rating: 10 bar",
+      "Size range: 219.1 to 812.8 mm",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-STEP-FLEX-2" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "219.1 to 812.8 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-step-flex-2.png", alt: "STRAUB-STEP-FLEX 2 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "219.1mm",
+    leadTime: "2-3 weeks",
+    applications: ["Pipe transitions", "Mixed systems", "Retrofitting"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-STEP-FLEX-3",
+    slug: "straub-step-flex-3",
+    sku: "STRAUB-STEP-FLEX-3",
+    name: "STRAUB-STEP-FLEX 3 Pipe Coupling",
+    shortName: "STRAUB Step-Flex 3",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Large diameter stepped coupling for connecting different sized pipes from 914.4 to 2032mm.",
+    features: [
+      "Large diameter stepped design",
+      "Pressure rating: 10 bar",
+      "Size range: 914.4 to 2032.0 mm",
+      "EPDM and NBR sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-STEP-FLEX-3" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "914.4 to 2032.0 mm" },
+      { label: "Sealing Material", value: "EPDM/NBR" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-step-flex-3.png", alt: "STRAUB-STEP-FLEX 3 Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "914.4mm",
+    leadTime: "2-3 weeks",
+    applications: ["Large pipe transitions", "Infrastructure"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-SQUARE-FLEX",
+    slug: "straub-square-flex",
+    sku: "STRAUB-SQUARE-FLEX",
+    name: "STRAUB-SQUARE-FLEX Pipe Coupling",
+    shortName: "STRAUB Square-Flex",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-couplings",
+    description: "Specialised coupling for square/rectangular profile pipes. Available in 60, 80, and 100mm sizes.",
+    features: [
+      "For square profile pipes",
+      "Pressure rating: 6 bar",
+      "Size range: 60, 80, 100 mm",
+      "EPDM sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-SQUARE-FLEX" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "6 bar" },
+      { label: "Size Range", value: "60, 80, 100 mm" },
+      { label: "Sealing Material", value: "EPDM" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-square-flex.png", alt: "STRAUB-SQUARE-FLEX Pipe Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 6 BAR",
+    sizeFrom: "60mm",
+    leadTime: "2-3 weeks",
+    applications: ["Square profile pipes", "HVAC ducting", "Industrial"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-REP-FLEX",
+    slug: "straub-rep-flex",
+    sku: "STRAUB-REP-FLEX",
+    name: "STRAUB-REP-FLEX Pipe Repair Coupling",
+    shortName: "STRAUB Rep-Flex",
+    brand: "Straub",
+    category: "pipe-repair-clamps",
+    subcategory: "straub-pipe-repair-clamps",
+    description: "Flexible pipe repair coupling for sealing leaks and cracks. Quick installation without welding or cutting.",
+    features: [
+      "Quick repair without welding",
+      "Flexible sealing",
+      "Pressure rating: 16 bar",
+      "Size range: 46.0 to 429.0 mm",
+      "EPDM sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-REP-FLEX" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "16 bar" },
+      { label: "Size Range", value: "46.0 to 429.0 mm" },
+      { label: "Sealing Material", value: "EPDM" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-rep-flex.png", alt: "STRAUB-REP-FLEX Pipe Repair Coupling", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 16 BAR",
+    sizeFrom: "46.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Pipe repair", "Emergency fixes", "Leak sealing"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-CLAMP-1PC",
+    slug: "straub-clamp-one-piece",
+    sku: "STRAUB-CLAMP-1PC",
+    name: "STRAUB-CLAMP One-Piece",
+    shortName: "STRAUB Clamp 1PC",
+    brand: "Straub",
+    category: "pipe-repair-clamps",
+    subcategory: "straub-pipe-repair-clamps",
+    description: "One-piece pipe repair clamp for quick emergency repairs. Wraps around pipe to seal leaks and cracks.",
+    features: [
+      "One-piece design",
+      "Quick installation",
+      "Pressure rating: 10 bar",
+      "Size range: 44.0 to 330.0 mm",
+      "EPDM sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-CLAMP-1PC" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "44.0 to 330.0 mm" },
+      { label: "Sealing Material", value: "EPDM" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-clamp-1pc.png", alt: "STRAUB-CLAMP One-Piece", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "44.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Emergency repair", "Leak sealing", "Pipe maintenance"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-CLAMP-2PC",
+    slug: "straub-clamp-two-piece",
+    sku: "STRAUB-CLAMP-2PC",
+    name: "STRAUB-CLAMP Two-Piece",
+    shortName: "STRAUB Clamp 2PC",
+    brand: "Straub",
+    category: "pipe-repair-clamps",
+    subcategory: "straub-pipe-repair-clamps",
+    description: "Two-piece pipe repair clamp for larger diameter pipes. Easy installation with two-part design.",
+    features: [
+      "Two-piece design for larger pipes",
+      "Easy installation",
+      "Pressure rating: 10 bar",
+      "Size range: 88.0 to 440.0 mm",
+      "EPDM sealing",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-CLAMP-2PC" },
+      { label: "Brand", value: "Straub" },
+      { label: "Pressure Rating", value: "10 bar" },
+      { label: "Size Range", value: "88.0 to 440.0 mm" },
+      { label: "Sealing Material", value: "EPDM" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-clamp-2pc.png", alt: "STRAUB-CLAMP Two-Piece", type: "image" }
+    ],
+    materials: { body: "Stainless Steel", sleeve: "EPDM" },
+    pressureRange: "0 TO 10 BAR",
+    sizeFrom: "88.0mm",
+    leadTime: "2-3 weeks",
+    applications: ["Large pipe repair", "Emergency fixes", "Leak sealing"],
+    certifications: "DIN 86128 compliant. Swiss quality manufacturing with 5-year system warranty."
+  },
+
+  // Shaped Parts
+  {
+    id: "STRAUB-ELBOW-90",
+    slug: "straub-elbow-90",
+    sku: "STRAUB-ELBOW-90",
+    name: "STRAUB Elbow 90°",
+    shortName: "STRAUB Elbow 90°",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-shaped-parts",
+    description: "90-degree pipe elbow with extended ends. Manufactured from 1.4571 stainless steel (V4A). Premium Swiss engineering.",
+    features: [
+      "90-degree angle",
+      "Extended ends (Type 3)",
+      "1.4571 stainless steel",
+      "Pressure rating: 25 bar",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-ELBOW-90" },
+      { label: "Brand", value: "Straub" },
+      { label: "Angle", value: "90°" },
+      { label: "Material", value: "1.4571 Stainless Steel" },
+      { label: "Pressure Rating", value: "25 bar" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-elbow-90.png", alt: "STRAUB Elbow 90°", type: "image" }
+    ],
+    materials: { body: "1.4571 Stainless Steel" },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "2-3 weeks",
+    applications: ["Pipeline direction changes", "Building services", "Industrial piping"],
+    certifications: "Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-ELBOW-45",
+    slug: "straub-elbow-45",
+    sku: "STRAUB-ELBOW-45",
+    name: "STRAUB Elbow 45°",
+    shortName: "STRAUB Elbow 45°",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-shaped-parts",
+    description: "45-degree pipe elbow with extended ends. Manufactured from 1.4571 stainless steel.",
+    features: [
+      "45-degree angle",
+      "Extended ends",
+      "1.4571 stainless steel",
+      "Pressure rating: 25 bar",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-ELBOW-45" },
+      { label: "Brand", value: "Straub" },
+      { label: "Angle", value: "45°" },
+      { label: "Material", value: "1.4571 Stainless Steel" },
+      { label: "Pressure Rating", value: "25 bar" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-elbow-45.png", alt: "STRAUB Elbow 45°", type: "image" }
+    ],
+    materials: { body: "1.4571 Stainless Steel" },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "2-3 weeks",
+    applications: ["Gradual direction changes", "Building services", "Industrial"],
+    certifications: "Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-EQUAL-TEE",
+    slug: "straub-equal-tee",
+    sku: "STRAUB-EQUAL-TEE",
+    name: "STRAUB Equal Tee",
+    shortName: "STRAUB Equal Tee",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-shaped-parts",
+    description: "Equal tee fitting for pipeline branching. All three connections are the same diameter.",
+    features: [
+      "Equal diameter branches",
+      "1.4571 stainless steel",
+      "Pressure rating: 25 bar",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-EQUAL-TEE" },
+      { label: "Brand", value: "Straub" },
+      { label: "Type", value: "Equal Tee" },
+      { label: "Material", value: "1.4571 Stainless Steel" },
+      { label: "Pressure Rating", value: "25 bar" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-equal-tee.png", alt: "STRAUB Equal Tee", type: "image" }
+    ],
+    materials: { body: "1.4571 Stainless Steel" },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "2-3 weeks",
+    applications: ["Pipeline branching", "Distribution systems", "Industrial"],
+    certifications: "Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-REDUCING-TEE",
+    slug: "straub-reducing-tee",
+    sku: "STRAUB-REDUCING-TEE",
+    name: "STRAUB Reducing Tee",
+    shortName: "STRAUB Reducing Tee",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-shaped-parts",
+    description: "Reducing tee for branching to a smaller diameter pipe. Main run maintains diameter, branch is reduced.",
+    features: [
+      "Reducing branch connection",
+      "1.4571 stainless steel",
+      "Pressure rating: 25 bar",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-REDUCING-TEE" },
+      { label: "Brand", value: "Straub" },
+      { label: "Type", value: "Reducing Tee" },
+      { label: "Material", value: "1.4571 Stainless Steel" },
+      { label: "Pressure Rating", value: "25 bar" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-reducing-tee.png", alt: "STRAUB Reducing Tee", type: "image" }
+    ],
+    materials: { body: "1.4571 Stainless Steel" },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "2-3 weeks",
+    applications: ["Branch connections", "Size transitions", "Distribution systems"],
+    certifications: "Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-REDUCER",
+    slug: "straub-reducer-concentric",
+    sku: "STRAUB-REDUCER",
+    name: "STRAUB Concentric Reducer",
+    shortName: "STRAUB Reducer",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-shaped-parts",
+    description: "Concentric reducer for transitioning between different pipe diameters. Maintains centre line alignment.",
+    features: [
+      "Concentric design",
+      "Smooth diameter transition",
+      "1.4571 stainless steel",
+      "Pressure rating: 25 bar",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-REDUCER" },
+      { label: "Brand", value: "Straub" },
+      { label: "Type", value: "Concentric Reducer" },
+      { label: "Material", value: "1.4571 Stainless Steel" },
+      { label: "Pressure Rating", value: "25 bar" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-reducer.png", alt: "STRAUB Concentric Reducer", type: "image" }
+    ],
+    materials: { body: "1.4571 Stainless Steel" },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "2-3 weeks",
+    applications: ["Pipe size transitions", "Pump connections", "Equipment connections"],
+    certifications: "Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-FLANGE-ADAPTER",
+    slug: "straub-flange-adapter",
+    sku: "STRAUB-FLANGE-ADAPTER",
+    name: "STRAUB Flange Adapter",
+    shortName: "STRAUB Flange Adapter",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-shaped-parts",
+    description: "Flange adapter for connecting plain-ended pipes to flanged equipment or valves.",
+    features: [
+      "Plain end to flange connection",
+      "1.4571 stainless steel",
+      "Various flange standards",
+      "Pressure rating: 25 bar",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-FLANGE-ADAPTER" },
+      { label: "Brand", value: "Straub" },
+      { label: "Type", value: "Flange Adapter" },
+      { label: "Material", value: "1.4571 Stainless Steel" },
+      { label: "Pressure Rating", value: "25 bar" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-flange-adapter.png", alt: "STRAUB Flange Adapter", type: "image" }
+    ],
+    materials: { body: "1.4571 Stainless Steel" },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "2-3 weeks",
+    applications: ["Valve connections", "Equipment connections", "Pipeline terminations"],
+    certifications: "Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-END-CAP",
+    slug: "straub-pipe-end-cap",
+    sku: "STRAUB-END-CAP",
+    name: "STRAUB Pipe End Cap",
+    shortName: "STRAUB End Cap",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-shaped-parts",
+    description: "End cap for sealing off pipe ends. Pressure-tight closure for pipeline terminations.",
+    features: [
+      "Pressure-tight seal",
+      "1.4571 stainless steel",
+      "Pressure rating: 25 bar",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-END-CAP" },
+      { label: "Brand", value: "Straub" },
+      { label: "Type", value: "End Cap" },
+      { label: "Material", value: "1.4571 Stainless Steel" },
+      { label: "Pressure Rating", value: "25 bar" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-end-cap.png", alt: "STRAUB Pipe End Cap", type: "image" }
+    ],
+    materials: { body: "1.4571 Stainless Steel" },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "2-3 weeks",
+    applications: ["Pipeline termination", "Pressure testing", "Future expansion points"],
+    certifications: "Swiss quality manufacturing with 5-year system warranty."
+  },
+  {
+    id: "STRAUB-THREADED",
+    slug: "straub-threaded-connection",
+    sku: "STRAUB-THREADED",
+    name: "STRAUB Threaded Connection",
+    shortName: "STRAUB Threaded",
+    brand: "Straub",
+    category: "pipe-couplings",
+    subcategory: "straub-shaped-parts",
+    description: "Threaded connection fitting for integrating threaded components into plain-end piping systems.",
+    features: [
+      "Plain end to threaded connection",
+      "1.4571 stainless steel",
+      "Various thread standards",
+      "Pressure rating: 25 bar",
+      "5-year system warranty"
+    ],
+    specifications: [
+      { label: "SKU", value: "STRAUB-THREADED" },
+      { label: "Brand", value: "Straub" },
+      { label: "Type", value: "Threaded Connection" },
+      { label: "Material", value: "1.4571 Stainless Steel" },
+      { label: "Pressure Rating", value: "25 bar" }
+    ],
+    images: [
+      { url: "/images/products/straub/straub-threaded.png", alt: "STRAUB Threaded Connection", type: "image" }
+    ],
+    materials: { body: "1.4571 Stainless Steel" },
+    pressureRange: "0 TO 25 BAR",
+    leadTime: "2-3 weeks",
+    applications: ["Threaded equipment", "Instrumentation", "Small bore connections"],
+    certifications: "Swiss quality manufacturing with 5-year system warranty."
   }
 ];
 
