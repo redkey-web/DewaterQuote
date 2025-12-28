@@ -1,10 +1,17 @@
 import { MetadataRoute } from "next"
-import { products, categories, subcategories } from "@/data/catalog"
+import { getAllProducts, getAllCategories, getAllSubcategories } from "@/data/products"
 
 const BASE_URL = "https://dewaterproducts.com.au"
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
+
+  // Fetch data from database
+  const [products, categories, subcategories] = await Promise.all([
+    getAllProducts(),
+    getAllCategories(),
+    getAllSubcategories(),
+  ])
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

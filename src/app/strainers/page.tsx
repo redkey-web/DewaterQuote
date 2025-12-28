@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/catalog"
+import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
@@ -19,9 +19,13 @@ export const metadata: Metadata = {
   },
 }
 
-export default function StrainersPage() {
-  const strainerProducts = getProductsByCategory("strainers")
-  const strainerSubcategories = getSubcategoriesByCategory("strainers")
+export const revalidate = 60
+
+export default async function StrainersPage() {
+  const [strainerProducts, strainerSubcategories] = await Promise.all([
+    getProductsByCategory("strainers"),
+    getSubcategoriesByCategory("strainers"),
+  ])
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewater-products.vercel.app" },

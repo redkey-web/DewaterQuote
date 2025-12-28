@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { products } from "@/data/catalog"
+import { getProductsByBrand } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { ArrowLeft } from "lucide-react"
 import type { Metadata } from "next"
@@ -9,6 +9,8 @@ import type { Metadata } from "next"
 interface BrandPageProps {
   params: Promise<{ brand: string }>
 }
+
+export const revalidate = 60
 
 const brandInfo: Record<string, { name: string; description: string; logo: string }> = {
   orbit: {
@@ -66,9 +68,8 @@ export default async function BrandPage({ params }: BrandPageProps) {
     notFound()
   }
 
-  const brandProducts = products.filter(
-    (p) => p.brand.toLowerCase().includes(brand.name.toLowerCase())
-  )
+  // Get products by brand from database
+  const brandProducts = await getProductsByBrand(brandKey)
 
   const productsByCategory = brandProducts.reduce((acc, product) => {
     const category = product.category
@@ -77,7 +78,7 @@ export default async function BrandPage({ params }: BrandPageProps) {
     }
     acc[category].push(product)
     return acc
-  }, {} as Record<string, typeof products>)
+  }, {} as Record<string, typeof brandProducts>)
 
   const categories = Object.keys(productsByCategory)
 

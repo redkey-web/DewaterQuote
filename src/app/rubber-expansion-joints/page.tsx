@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/catalog"
+import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
@@ -19,9 +19,13 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ExpansionJointsPage() {
-  const expansionProducts = getProductsByCategory("rubber-expansion-joints")
-  const expansionSubcategories = getSubcategoriesByCategory("rubber-expansion-joints")
+export const revalidate = 60
+
+export default async function ExpansionJointsPage() {
+  const [expansionProducts, expansionSubcategories] = await Promise.all([
+    getProductsByCategory("rubber-expansion-joints"),
+    getSubcategoriesByCategory("rubber-expansion-joints"),
+  ])
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewater-products.vercel.app" },

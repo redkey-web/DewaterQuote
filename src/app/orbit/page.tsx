@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, CheckCircle, Shield, DollarSign, Package, Wrench } from "lucide-react"
-import { products } from "@/data/catalog"
+import { getProductsByBrand } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
@@ -38,6 +38,8 @@ export const metadata: Metadata = {
     canonical: "https://dewater-products.vercel.app/orbit",
   },
 }
+
+export const revalidate = 60
 
 const orbitFeatures = [
   {
@@ -108,11 +110,9 @@ const faqs = [
   },
 ]
 
-export default function OrbitPage() {
-  // Filter products by Orbit brand
-  const orbitProductsList = products.filter((p) =>
-    p.brand.toLowerCase().includes("orbit")
-  )
+export default async function OrbitPage() {
+  // Get products by Orbit brand from database
+  const orbitProductsList = await getProductsByBrand("orbit")
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewater-products.vercel.app" },

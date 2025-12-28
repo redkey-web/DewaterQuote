@@ -37,7 +37,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://*.blob.vercel-storage.com https://dewaterproducts.com.au https://www.dewaterproducts.com.au",
               "font-src 'self'",
-              "frame-src https://challenges.cloudflare.com",
+              "frame-src https://challenges.cloudflare.com https://www.youtube.com https://youtube.com https://www.youtube-nocookie.com",
               "connect-src 'self' https://challenges.cloudflare.com",
               "object-src 'none'",
               "base-uri 'self'",
