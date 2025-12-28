@@ -177,7 +177,7 @@ export default function HomePage() {
               <span>Fast Perth dispatch</span>
             </div>
           </div>
-          <div className="relative max-w-3xl mx-auto">
+          <div className="relative max-w-5xl mx-auto">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
             <input
               type="text"
