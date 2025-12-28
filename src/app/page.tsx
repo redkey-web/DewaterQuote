@@ -370,8 +370,9 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 px-6 lg:px-8 bg-background">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-primary/5 to-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/images/hero-pipeline.webp')] bg-cover bg-center opacity-5" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
               why choose us
@@ -382,32 +383,32 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="p-6 text-center">
+            <div className="p-6 text-center rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-lg hover:shadow-xl hover:bg-white/70 dark:hover:bg-white/15 transition-all duration-300">
               <CheckCircle className="w-12 h-12 text-primary mx-auto mb-4" />
               <h4 className="font-semibold text-lg mb-2">Locally Stocked</h4>
               <p className="text-sm text-muted-foreground">
                 Fast dispatch from Perth warehouse, ready to ship
               </p>
-            </Card>
-            <Card className="p-6 text-center">
+            </div>
+            <div className="p-6 text-center rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-lg hover:shadow-xl hover:bg-white/70 dark:hover:bg-white/15 transition-all duration-300">
               <Award className="w-12 h-12 text-primary mx-auto mb-4" />
               <h4 className="font-semibold text-lg mb-2">Certified Quality</h4>
               <p className="text-sm text-muted-foreground">
                 AS/NZS, WRAS, and ISO certified products
               </p>
-            </Card>
-            <Card className="p-6 text-center">
+            </div>
+            <div className="p-6 text-center rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-lg hover:shadow-xl hover:bg-white/70 dark:hover:bg-white/15 transition-all duration-300">
               <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
               <h4 className="font-semibold text-lg mb-2">Fast Nationwide Delivery</h4>
               <p className="text-sm text-muted-foreground">
                 Quick turnaround times across Australia
               </p>
-            </Card>
-            <Card className="p-6 text-center">
+            </div>
+            <div className="p-6 text-center rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-lg hover:shadow-xl hover:bg-white/70 dark:hover:bg-white/15 transition-all duration-300">
               <Users className="w-12 h-12 text-primary mx-auto mb-4" />
               <h4 className="font-semibold text-lg mb-2">Engineering Support</h4>
               <p className="text-sm text-muted-foreground">Talk to a specialist on call</p>
-            </Card>
+            </div>
           </div>
         </div>
       </section>
