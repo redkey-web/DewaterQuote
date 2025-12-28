@@ -118,7 +118,7 @@ export default function HomePage() {
                   <TrendingDown className="w-4 h-4 text-white" />
                   <span className="font-semibold text-white">Volume Discounts:</span>
                   <span className="text-white/80">2-4 items</span>
-                  <span className="font-bold text-orange-400">5% OFF</span>
+                  <span className="font-bold text-yellow-400">5% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
                 <div className="flex items-center gap-2">
@@ -128,7 +128,7 @@ export default function HomePage() {
                 <span className="text-white/50">•</span>
                 <div className="flex items-center gap-2">
                   <span className="text-white/80">10+ items</span>
-                  <span className="font-bold text-orange-400">15% OFF</span>
+                  <span className="font-bold text-rose-400">15% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
               </div>
@@ -139,7 +139,7 @@ export default function HomePage() {
                   <TrendingDown className="w-4 h-4 text-white" />
                   <span className="font-semibold text-white">Volume Discounts:</span>
                   <span className="text-white/80">2-4 items</span>
-                  <span className="font-bold text-orange-400">5% OFF</span>
+                  <span className="font-bold text-yellow-400">5% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
                 <div className="flex items-center gap-2">
@@ -149,7 +149,7 @@ export default function HomePage() {
                 <span className="text-white/50">•</span>
                 <div className="flex items-center gap-2">
                   <span className="text-white/80">10+ items</span>
-                  <span className="font-bold text-orange-400">15% OFF</span>
+                  <span className="font-bold text-rose-400">15% OFF</span>
                 </div>
                 <span className="text-white/50">•</span>
               </div>
