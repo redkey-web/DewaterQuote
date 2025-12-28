@@ -1,13 +1,17 @@
 import type { Product, Category, Subcategory } from "@/types";
 
 // Helper to generate image array from SKU using local optimized images
+// First image is transparent background (nobg), followed by original and alts
 function getOptimizedImages(sku: string, productName: string, altCount: number = 0): { url: string; alt: string; type: "image" }[] {
-  const base = `/images/products/optimized/${sku}`;
   const images: { url: string; alt: string; type: "image" }[] = [
-    { url: `${base}.jpg`, alt: productName, type: "image" }
+    // Transparent background version first (hero image)
+    { url: `/images/products/nobg/${sku}_nobg.png`, alt: productName, type: "image" },
+    // Original with background second
+    { url: `/images/products/optimized/${sku}.jpg`, alt: `${productName} - Product Photo`, type: "image" }
   ];
+  // Additional alt views
   for (let i = 1; i <= altCount; i++) {
-    images.push({ url: `${base}_alt${i}.jpg`, alt: `${productName} - View ${i + 1}`, type: "image" });
+    images.push({ url: `/images/products/optimized/${sku}_alt${i}.jpg`, alt: `${productName} - View ${i + 1}`, type: "image" });
   }
   return images;
 }
