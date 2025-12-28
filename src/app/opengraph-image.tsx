@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og"
 
 export const runtime = "edge"
 
-export const alt = "deWater Products - Industrial Pipe Fittings & Valves"
+export const alt = "Dewater Products - Industrial Pipe Fittings & Valves"
 export const size = {
   width: 1200,
   height: 630,
@@ -63,7 +63,7 @@ export default async function Image() {
               letterSpacing: "-0.02em",
             }}
           >
-            deWater Products
+            Dewater Products
           </span>
         </div>
 

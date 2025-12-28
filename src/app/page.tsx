@@ -426,7 +426,7 @@ export default function HomePage() {
                 The leader in industrial pipe fittings and valves
               </h3>
               <p className="text-base text-foreground/80 mb-6 leading-relaxed">
-                Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. deWater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, and Teekay.
+                Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. Dewater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, and Teekay.
               </p>
               <p className="text-base text-foreground/80 mb-8 leading-relaxed">
                 Supplying the Australian market since 2015, our commitment to quality ensures we provide the most reliable solutions for water treatment, mining, irrigation, and industrial applications.

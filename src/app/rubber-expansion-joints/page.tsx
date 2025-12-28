@@ -6,11 +6,11 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Rubber Expansion Joints | Single & Twin Sphere | deWater Products",
+  title: "Rubber Expansion Joints | Single & Twin Sphere | Dewater Products",
   description:
     "Rubber expansion joints for thermal expansion, vibration absorption, and pipe misalignment. EPDM rubber with zinc or 316SS flanges. WRAS approved. PN16 rated. Australia-wide delivery.",
   openGraph: {
-    title: "Rubber Expansion Joints - deWater Products",
+    title: "Rubber Expansion Joints - Dewater Products",
     description: "Flexible rubber joints for pumps, HVAC, and industrial piping systems.",
     type: "website",
   },

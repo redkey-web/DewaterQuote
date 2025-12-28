@@ -31,7 +31,7 @@ export function AdminSidebar() {
         {/* Logo */}
         <div className="flex h-16 shrink-0 items-center">
           <Link href="/admin" className="text-xl font-bold text-blue-600">
-            deWater Admin
+            Dewater Admin
           </Link>
         </div>
 

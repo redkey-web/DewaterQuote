@@ -6,11 +6,11 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Pipe Repair Clamps | Emergency & Permanent Repairs | deWater Products",
+  title: "Pipe Repair Clamps | Emergency & Permanent Repairs | Dewater Products",
   description:
     "Pipe repair clamps in 316 stainless steel for emergency and permanent leak repairs. Orbit repair clamps. WRAS approved EPDM seals. 55mm to 300mm widths. Australia-wide delivery.",
   openGraph: {
-    title: "Pipe Repair Clamps - deWater Products",
+    title: "Pipe Repair Clamps - Dewater Products",
     description: "Stainless steel pipe repair clamps for leak sealing and crack repairs.",
     type: "website",
   },

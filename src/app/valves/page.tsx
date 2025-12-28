@@ -6,11 +6,11 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Industrial Valves | Check, Gate, Ball & Butterfly Valves | deWater Products",
+  title: "Industrial Valves | Check, Gate, Ball & Butterfly Valves | Dewater Products",
   description:
     "Industrial valves including butterfly valves, duckbill check valves, gate valves, ball valves, and foot valves. 316 stainless steel and ductile iron. Australia-wide delivery.",
   openGraph: {
-    title: "Industrial Valves - deWater Products",
+    title: "Industrial Valves - Dewater Products",
     description: "Industrial valves for water, process, and HVAC applications. Butterfly, gate, ball, and check valves.",
     type: "website",
   },

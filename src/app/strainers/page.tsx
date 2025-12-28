@@ -6,11 +6,11 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Strainers | Y Strainers & Basket Strainers | deWater Products",
+  title: "Strainers | Y Strainers & Basket Strainers | Dewater Products",
   description:
     "Industrial pipeline strainers in 316 stainless steel and cast iron. Y strainers, simplex basket strainers, and duplex strainers. Protect pumps and equipment. Australia-wide delivery.",
   openGraph: {
-    title: "Pipeline Strainers - deWater Products",
+    title: "Pipeline Strainers - Dewater Products",
     description: "Y strainers and basket strainers for pipeline filtration and equipment protection.",
     type: "website",
   },

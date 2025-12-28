@@ -86,7 +86,7 @@ export default function Header() {
           <Link href="/" className="flex items-center flex-shrink-0 py-0 my-0" data-testid="link-home">
             <Image
               src="/images/logo.png"
-              alt="deWater Products"
+              alt="Dewater Products"
               width={200}
               height={138}
               className="h-[117px] md:h-[138px] w-auto object-cover scale-110 block -my-6"

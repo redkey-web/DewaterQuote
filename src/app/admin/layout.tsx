@@ -5,7 +5,7 @@ import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminHeader } from '@/components/admin/AdminHeader';
 
 export const metadata = {
-  title: 'Admin - deWater Products',
+  title: 'Admin - Dewater Products',
   robots: 'noindex, nofollow',
 };
 

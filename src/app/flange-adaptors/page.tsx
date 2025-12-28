@@ -6,11 +6,11 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Flange Adaptors | 316SS Flange Adapters | deWater Products",
+  title: "Flange Adaptors | 316SS Flange Adapters | Dewater Products",
   description:
     "316 stainless steel flange adaptors for connecting plain-ended pipes to flanged equipment. EPDM seals. Wide size range 30mm to 4064mm OD. WRAS approved. Australia-wide delivery.",
   openGraph: {
-    title: "Flange Adaptors - deWater Products",
+    title: "Flange Adaptors - Dewater Products",
     description: "Stainless steel flange adaptors for pipe-to-flange connections.",
     type: "website",
   },

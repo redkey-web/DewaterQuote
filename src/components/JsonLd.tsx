@@ -8,7 +8,7 @@ export function OrganizationJsonLd({ url = "https://dewaterproducts.com.au" }: O
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "deWater Products",
+    name: "Dewater Products",
     url,
     logo: `${url}/images/logo.png`,
     description:

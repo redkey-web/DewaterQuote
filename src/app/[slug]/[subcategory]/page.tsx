@@ -238,10 +238,10 @@ export async function generateMetadata({ params }: SubcategoryPageProps): Promis
   }
 
   return {
-    title: `${content?.title || subcategoryData.name} | ${categoryData.name} | deWater Products`,
+    title: `${content?.title || subcategoryData.name} | ${categoryData.name} | Dewater Products`,
     description: content?.metaDescription || subcategoryData.description,
     openGraph: {
-      title: `${content?.title || subcategoryData.name} - deWater Products`,
+      title: `${content?.title || subcategoryData.name} - Dewater Products`,
       description: content?.metaDescription || subcategoryData.description,
       type: "website",
       url: `https://dewaterproducts.com.au/${category}/${subcategory}`,

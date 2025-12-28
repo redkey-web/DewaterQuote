@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
         <h3 style="margin-top: 20px;">Message</h3>
         <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${safeMessage}</div>
         <p style="margin-top: 20px; color: #666; font-size: 12px;">
-          Sent from deWater Products website contact form
+          Sent from Dewater Products website contact form
         </p>
       `,
       text: `
@@ -131,7 +131,7 @@ ${data.message}
     const customerEmail = {
       to: data.email,
       from: fromEmail,
-      subject: "Thank you for contacting deWater Products",
+      subject: "Thank you for contacting Dewater Products",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #1a1a1a;">Thank you for your enquiry</h2>
@@ -143,7 +143,7 @@ ${data.message}
           <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${safeMessage}</div>
           <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
           <p style="color: #666; font-size: 14px;">
-            <strong>deWater Products Pty Ltd</strong><br />
+            <strong>Dewater Products Pty Ltd</strong><br />
             Phone: (08) 9271 2577<br />
             Email: sales@dewaterproducts.com.au<br />
             Perth, Western Australia

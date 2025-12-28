@@ -100,7 +100,7 @@ export default function AdminLoginPage() {
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Admin Login</CardTitle>
           <CardDescription className="text-center">
-            deWater Products Management
+            Dewater Products Management
           </CardDescription>
         </CardHeader>
         <CardContent>

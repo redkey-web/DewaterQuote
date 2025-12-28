@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 export const metadata: Metadata = {
   title: {
-    default: "deWater Products - Industrial Pipe Fittings & Valves",
-    template: "%s | deWater Products",
+    default: "Dewater Products - Industrial Pipe Fittings & Valves",
+    template: "%s | Dewater Products",
   },
   description:
     "Premium industrial pipe fittings, valves, couplings, and expansion joints. Trusted supplier for water, wastewater, mining, and irrigation industries across Australia.",
@@ -20,23 +20,23 @@ export const metadata: Metadata = {
     "pipe couplings",
     "expansion joints",
     "strainers",
-    "dewater products",
+    "Dewater Products",
     "Australia",
   ],
-  authors: [{ name: "deWater Products" }],
-  creator: "deWater Products",
+  authors: [{ name: "Dewater Products" }],
+  creator: "Dewater Products",
   openGraph: {
     type: "website",
     locale: "en_AU",
     url: "https://dewaterproducts.com.au",
-    siteName: "deWater Products",
-    title: "deWater Products - Industrial Pipe Fittings & Valves",
+    siteName: "Dewater Products",
+    title: "Dewater Products - Industrial Pipe Fittings & Valves",
     description:
       "Premium industrial pipe fittings, valves, couplings, and expansion joints. Trusted supplier across Australia.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "deWater Products - Industrial Pipe Fittings & Valves",
+    title: "Dewater Products - Industrial Pipe Fittings & Valves",
     description:
       "Premium industrial pipe fittings, valves, couplings, and expansion joints.",
   },

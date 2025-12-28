@@ -57,7 +57,7 @@ export function AdminHeader({ user }: AdminHeaderProps) {
         </SheetTrigger>
         <SheetContent side="left" className="w-64 p-0">
           <div className="flex h-16 shrink-0 items-center px-6">
-            <span className="text-xl font-bold text-blue-600">deWater Admin</span>
+            <span className="text-xl font-bold text-blue-600">Dewater Admin</span>
           </div>
           <nav className="px-4">
             <ul className="space-y-1">
