@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import {
   Select,
   SelectContent,
@@ -28,6 +30,17 @@ import {
   TrendingDown,
   FileCheck,
   Shield,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Award,
+  Play,
+  X,
+  Expand,
+  Ruler,
+  Gauge,
+  Thermometer,
+  CircleDot,
 } from "lucide-react"
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd"
 import { useToast } from "@/hooks/use-toast"
@@ -53,6 +66,9 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const [materialTestCert, setMaterialTestCert] = useState<boolean>(false)
   const [isPickerOpen, setIsPickerOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
+  const [showVideo, setShowVideo] = useState(false)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [certOpen, setCertOpen] = useState(false)
 
   // Deduplicate images by URL and filter out warranty/promotional images
   const uniqueImages = product.images
@@ -70,6 +86,36 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       return !isWarranty && !isDuplicate
     })
 
+  // Total items count (images + video if exists)
+  const totalItems = uniqueImages.length + (product.video ? 1 : 0)
+
+  // Navigation functions for image/video gallery
+  const goToPrevious = useCallback(() => {
+    if (showVideo) {
+      setShowVideo(false)
+      setCurrentImageIndex(uniqueImages.length - 1)
+    } else if (currentImageIndex > 0) {
+      setCurrentImageIndex(currentImageIndex - 1)
+    } else if (product.video) {
+      setShowVideo(true)
+    } else {
+      setCurrentImageIndex(uniqueImages.length - 1)
+    }
+  }, [showVideo, currentImageIndex, uniqueImages.length, product.video])
+
+  const goToNext = useCallback(() => {
+    if (showVideo) {
+      setShowVideo(false)
+      setCurrentImageIndex(0)
+    } else if (currentImageIndex < uniqueImages.length - 1) {
+      setCurrentImageIndex(currentImageIndex + 1)
+    } else if (product.video) {
+      setShowVideo(true)
+    } else {
+      setCurrentImageIndex(0)
+    }
+  }, [showVideo, currentImageIndex, uniqueImages.length, product.video])
+
   // Helper to get human-readable category name
   const getCategoryDisplayName = (slug: string): string => {
     const names: Record<string, string> = {
@@ -83,6 +129,17 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
   // SEO-optimized alt text for main image
   const mainImageAlt = `${product.name} - ${getCategoryDisplayName(product.category)} | Australia-wide delivery`
+
+  // Brand logo mapping
+  const getBrandLogo = (brand: string): string | null => {
+    const logos: Record<string, string> = {
+      'Orbit': '/images/brands/orbit-couplings.png',
+      'Straub': '/images/brands/straub-logo.png',
+      'Teekay': '/images/brands/teekay-logo.png',
+    }
+    return logos[brand] || null
+  }
+  const brandLogo = getBrandLogo(product.brand)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
   const addToQuoteButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -158,10 +215,21 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Mobile-only: Product name above images */}
         <div className="lg:hidden mb-6">
-          <div className="flex flex-wrap gap-2 mb-2">
-            <Badge variant="secondary" data-testid="badge-brand-mobile">
-              {product.brand}
-            </Badge>
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            {brandLogo ? (
+              <Image
+                src={brandLogo}
+                alt={product.brand}
+                width={100}
+                height={40}
+                className={`w-auto object-contain ${product.brand === 'Orbit' ? 'h-10' : 'h-6'}`}
+                data-testid="brand-logo-mobile"
+              />
+            ) : (
+              <Badge variant="secondary" data-testid="badge-brand-mobile">
+                {product.brand}
+              </Badge>
+            )}
             {product.straubEquivalent && (
               <Badge variant="outline" className="border-primary text-primary">
                 Equivalent to {product.straubEquivalent}
@@ -175,36 +243,96 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
         {/* Product Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-          {/* Images */}
+          {/* Images & Video */}
           <div>
-            <div className="aspect-square glass rounded-lg mb-4 overflow-hidden flex items-center justify-center shadow-md relative">
-              {uniqueImages[currentImageIndex]?.url ? (
-                <Image
-                  src={uniqueImages[currentImageIndex].url}
-                  alt={currentImageIndex === 0 ? mainImageAlt : uniqueImages[currentImageIndex].alt}
-                  width={600}
-                  height={600}
-                  className="w-full h-full object-contain"
-                  priority
+            <div className="aspect-square glass rounded-lg mb-4 overflow-hidden flex items-center justify-center shadow-md relative group">
+              {showVideo && product.video ? (
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={product.video.replace("watch?v=", "embed/")}
+                  title="Product Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
                 />
+              ) : uniqueImages[currentImageIndex]?.url ? (
+                <button
+                  onClick={() => setLightboxOpen(true)}
+                  className="w-full h-full cursor-zoom-in"
+                >
+                  <Image
+                    src={uniqueImages[currentImageIndex].url}
+                    alt={currentImageIndex === 0 ? mainImageAlt : uniqueImages[currentImageIndex].alt}
+                    width={600}
+                    height={600}
+                    className="w-full h-full object-contain"
+                    priority
+                  />
+                </button>
               ) : (
                 <Package className="w-32 h-32 text-muted-foreground" />
               )}
-              {/* Warranty Badge Overlay */}
-              <div className="absolute bottom-3 right-3 bg-emerald-600 text-white px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5 text-sm font-medium">
-                <Shield className="w-4 h-4" />
-                Up to 5 Year Warranty*
-              </div>
+
+              {/* Navigation Arrows - show when more than 1 item */}
+              {totalItems > 1 && (
+                <>
+                  <button
+                    onClick={goToPrevious}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background text-foreground p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={goToNext}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background text-foreground p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
+
+              {/* Expand icon - show on images only */}
+              {!showVideo && uniqueImages[currentImageIndex]?.url && (
+                <button
+                  onClick={() => setLightboxOpen(true)}
+                  className="absolute top-3 right-3 bg-background/80 hover:bg-background text-foreground p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                  aria-label="Enlarge image"
+                >
+                  <Expand className="w-4 h-4" />
+                </button>
+              )}
+
+              {/* Warranty Badge Overlay - hide when video playing */}
+              {!showVideo && (
+                <div className="absolute bottom-3 right-3 bg-emerald-600 text-white px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5 text-sm font-medium">
+                  <Shield className="w-4 h-4" />
+                  Up to 5 Year Warranty*
+                </div>
+              )}
+
+              {/* Image counter */}
+              {totalItems > 1 && (
+                <div className="absolute bottom-3 left-3 bg-background/80 text-foreground px-2 py-1 rounded-md text-xs font-medium">
+                  {showVideo ? totalItems : currentImageIndex + 1} / {totalItems}
+                </div>
+              )}
             </div>
-            {uniqueImages.length > 1 && (
+            {(uniqueImages.length > 1 || product.video) && (
               <div className="grid grid-cols-4 gap-2">
                 {uniqueImages.map((img, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setCurrentImageIndex(idx)}
+                    onClick={() => {
+                      setCurrentImageIndex(idx)
+                      setShowVideo(false)
+                    }}
                     data-testid={`button-thumbnail-${idx}`}
                     className={`aspect-square glass-subtle rounded-lg overflow-hidden flex items-center justify-center cursor-pointer transition-all hover:ring-2 hover:ring-primary shadow-sm ${
-                      currentImageIndex === idx ? "ring-2 ring-primary" : ""
+                      !showVideo && currentImageIndex === idx ? "ring-2 ring-primary" : ""
                     }`}
                   >
                     {img.url ? (
@@ -220,16 +348,41 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     )}
                   </button>
                 ))}
+                {/* Video Thumbnail */}
+                {product.video && (
+                  <button
+                    onClick={() => setShowVideo(true)}
+                    className={`aspect-square glass-subtle rounded-lg overflow-hidden flex items-center justify-center cursor-pointer transition-all hover:ring-2 hover:ring-primary shadow-sm bg-muted ${
+                      showVideo ? "ring-2 ring-primary" : ""
+                    }`}
+                  >
+                    <div className="flex flex-col items-center gap-1">
+                      <Play className="w-8 h-8 text-primary fill-primary" />
+                      <span className="text-xs text-muted-foreground">Video</span>
+                    </div>
+                  </button>
+                )}
               </div>
             )}
           </div>
 
           {/* Product Info */}
           <div>
-            <div className="hidden lg:flex flex-wrap gap-2 mb-2">
-              <Badge variant="secondary" data-testid="badge-brand">
-                {product.brand}
-              </Badge>
+            <div className="hidden lg:flex flex-wrap items-center gap-2 mb-2">
+              {brandLogo ? (
+                <Image
+                  src={brandLogo}
+                  alt={product.brand}
+                  width={120}
+                  height={48}
+                  className={`w-auto object-contain ${product.brand === 'Orbit' ? 'h-12' : 'h-8'}`}
+                  data-testid="brand-logo"
+                />
+              ) : (
+                <Badge variant="secondary" data-testid="badge-brand">
+                  {product.brand}
+                </Badge>
+              )}
               {product.straubEquivalent && (
                 <Badge variant="outline" className="border-primary text-primary" data-testid="badge-straub">
                   Equivalent to {product.straubEquivalent}
@@ -241,8 +394,8 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
             </h1>
 
             <div className="flex items-center justify-start gap-2 mb-4 text-orange-500">
-              <p className="text-2xl font-medium">Free delivery to metro areas</p>
-              <Truck className="w-8 h-8" />
+              <p className="text-base font-medium">Free delivery to metro areas</p>
+              <Truck className="w-5 h-5" />
             </div>
 
             {/* Bulk Pricing Info */}
@@ -276,35 +429,37 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               </p>
             )}
 
-            <div className="mb-6">
-              <h2 className="text-lg font-semibold mb-2">Product Details</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <span className="text-sm text-muted-foreground">Size Range:</span>
-                  <p className="font-medium">
-                    {product.sizeOptions && product.sizeOptions.length > 1
-                      ? `${product.sizeOptions[0].value} - ${product.sizeOptions[product.sizeOptions.length - 1].value}`
-                      : product.sizeFrom}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-sm text-muted-foreground">Body:</span>
-                  <p className="font-medium">
-                    {product.materials.body}
-                    {product.materials.seat && `/${product.materials.seat}`}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-sm text-muted-foreground">Pressure Range:</span>
-                  <p className="font-medium">{product.pressureRange}</p>
-                </div>
-                {product.temperature && (
-                  <div>
-                    <span className="text-sm text-muted-foreground">Max Temperature:</span>
-                    <p className="font-medium">{product.temperature}</p>
-                  </div>
-                )}
+            {/* Product Specs Badges */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 border border-border text-sm">
+                <Ruler className="w-3.5 h-3.5 text-primary" />
+                <span className="text-muted-foreground">Size:</span>
+                <span className="font-medium">
+                  {product.sizeOptions && product.sizeOptions.length > 1
+                    ? `${product.sizeOptions[0].value} - ${product.sizeOptions[product.sizeOptions.length - 1].value}`
+                    : product.sizeFrom}
+                </span>
               </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 border border-border text-sm">
+                <CircleDot className="w-3.5 h-3.5 text-primary" />
+                <span className="text-muted-foreground">Body:</span>
+                <span className="font-medium">
+                  {product.materials.body}
+                  {product.materials.seat && `/${product.materials.seat}`}
+                </span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 border border-border text-sm">
+                <Gauge className="w-3.5 h-3.5 text-primary" />
+                <span className="text-muted-foreground">Pressure:</span>
+                <span className="font-medium">{product.pressureRange}</span>
+              </div>
+              {product.temperature && (
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 border border-border text-sm">
+                  <Thermometer className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-muted-foreground">Max Temp:</span>
+                  <span className="font-medium">{product.temperature}</span>
+                </div>
+              )}
             </div>
 
             {/* Size & Quantity Selector */}
@@ -535,6 +690,28 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
           </div>
         </div>
 
+        {/* Approvals / Certifications - Collapsible */}
+        {product.certifications && (
+          <Collapsible open={certOpen} onOpenChange={setCertOpen} className="mb-8">
+            <Card className="glass shadow-md">
+              <CollapsibleTrigger asChild>
+                <button className="w-full p-4 flex items-center justify-between hover:bg-muted/50 transition-colors rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <Award className="w-5 h-5 text-primary" />
+                    <h2 className="text-lg font-semibold">Approvals / Certifications</h2>
+                  </div>
+                  <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform ${certOpen ? 'rotate-180' : ''}`} />
+                </button>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <CardContent className="pt-0 pb-4 px-4">
+                  <p className="text-muted-foreground">{product.certifications}</p>
+                </CardContent>
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
+        )}
+
         {/* Tabbed Product Information */}
         <Card className="mb-12 glass shadow-lg">
           <CardContent className="p-8">
@@ -632,16 +809,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
           </Card>
         )}
 
-        {/* Approvals / Certifications */}
-        {product.certifications && (
-          <Card className="mb-12 glass shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-4">Approvals / Certifications</h2>
-              <p className="text-muted-foreground">{product.certifications}</p>
-            </CardContent>
-          </Card>
-        )}
-
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div>
@@ -690,6 +857,50 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
           </div>
         )}
       </div>
+
+      {/* Lightbox Dialog */}
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogContent className="max-w-4xl w-full p-0 bg-background/95 backdrop-blur-sm border-0">
+          <div className="relative w-full aspect-square md:aspect-video flex items-center justify-center">
+            {uniqueImages[currentImageIndex]?.url && (
+              <Image
+                src={uniqueImages[currentImageIndex].url}
+                alt={currentImageIndex === 0 ? mainImageAlt : uniqueImages[currentImageIndex].alt}
+                fill
+                className="object-contain p-4"
+                priority
+              />
+            )}
+
+            {/* Navigation Arrows in Lightbox */}
+            {totalItems > 1 && (
+              <>
+                <button
+                  onClick={goToPrevious}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background text-foreground p-3 rounded-full shadow-md"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={goToNext}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background text-foreground p-3 rounded-full shadow-md"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </>
+            )}
+
+            {/* Image counter in lightbox */}
+            {totalItems > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-background/80 text-foreground px-3 py-1 rounded-md text-sm font-medium">
+                {currentImageIndex + 1} / {uniqueImages.length}
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
