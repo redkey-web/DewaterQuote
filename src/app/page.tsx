@@ -276,7 +276,7 @@ export default function HomePage() {
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
                     <div
-                      className="flex items-center text-[hsl(189,68%,32%)] dark:text-[hsl(189,68%,45%)] text-sm font-medium transition-all duration-300 group-hover:text-[hsl(189,68%,52%)] dark:group-hover:text-[hsl(189,68%,65%)]"
+                      className="flex items-center text-[hsl(189,68%,55%)] dark:text-[hsl(189,68%,60%)] text-sm font-medium transition-all duration-300 group-hover:text-[hsl(189,68%,70%)] dark:group-hover:text-[hsl(189,68%,75%)]"
                       style={{ textShadow: "0 0 16px hsla(189, 68%, 52%, 0.6)" }}
                     >
                       View all <ArrowRight className="ml-2 w-4 h-4" />
