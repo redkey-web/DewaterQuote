@@ -166,7 +166,7 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
           <div className="flex flex-wrap items-center justify-center gap-4 mb-6 text-white/80 text-sm">
             <div className="flex items-center gap-1.5">
               <CheckCircle className="w-4 h-4" />
@@ -177,7 +177,7 @@ export default function HomePage() {
               <span>Fast Perth dispatch</span>
             </div>
           </div>
-          <div className="relative max-w-5xl mx-auto">
+          <div className="relative w-full">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
             <input
               type="text"
