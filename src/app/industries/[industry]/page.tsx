@@ -438,6 +438,107 @@ const industryData: Record<string, IndustryData> = {
       result: "48-hour delivery to site, zero pump downtime",
     },
   },
+  construction: {
+    name: "Construction",
+    tagline: "Reliable Pipe Solutions for Building Projects",
+    description:
+      "Industrial piping solutions for construction and civil engineering projects. From high-rise buildings to infrastructure developments, we supply durable fittings that meet project deadlines and Australian standards.",
+    metaDescription:
+      "Construction pipe fittings, valves, and couplings for building projects and civil works. Quick-install couplings, expansion joints, and valves. Fast delivery to Australian construction sites.",
+    keywords: [
+      "construction pipe fittings",
+      "building services plumbing",
+      "civil engineering pipe",
+      "mechanical services fittings",
+      "construction valves",
+      "builder pipe supplies",
+    ],
+    icon: Wrench,
+    heroColor: "from-orange-500/10 to-amber-500/10",
+    challenges: [
+      {
+        title: "Tight Deadlines",
+        description:
+          "Construction schedules are demanding. Our stock availability and fast dispatch keep your project on track.",
+      },
+      {
+        title: "Mixed Pipe Materials",
+        description:
+          "Sites often have different pipe types. Our transition couplings join dissimilar materials reliably.",
+      },
+      {
+        title: "Quality Compliance",
+        description:
+          "Building certifications require documented products. We provide test certificates and compliance documentation.",
+      },
+      {
+        title: "Site Logistics",
+        description:
+          "Deliveries need to match construction stages. We coordinate with your schedule for timely supply.",
+      },
+    ],
+    solutions: [
+      {
+        category: "Building Services",
+        description: "Valves and fittings for mechanical plant rooms and riser connections.",
+        products: ["valves"],
+      },
+      {
+        category: "Vibration Isolation",
+        description: "Expansion joints isolate pump and equipment vibration from building structure.",
+        products: ["rubber-expansion-joints"],
+      },
+      {
+        category: "Quick Connections",
+        description: "Pipe couplings speed up installation and allow for future modifications.",
+        products: ["pipe-couplings"],
+      },
+      {
+        category: "Equipment Protection",
+        description: "Strainers protect chillers, boilers, and other equipment from debris.",
+        products: ["strainers"],
+      },
+    ],
+    applications: [
+      "Commercial building services",
+      "High-rise mechanical systems",
+      "Hospital and healthcare facilities",
+      "Data centre cooling",
+      "Industrial facility fit-out",
+      "Civil infrastructure projects",
+      "Stormwater drainage systems",
+      "Plant room installations",
+    ],
+    recommendedProducts: ["BFLYW316", "FSF-REJ", "SBS316", "CIYSE"],
+    faqs: [
+      {
+        question: "Can you deliver directly to construction sites?",
+        answer:
+          "Yes, we deliver to construction sites across Australia. Provide site contact details and any access requirements when ordering.",
+      },
+      {
+        question: "Do you offer trade accounts for builders?",
+        answer:
+          "Yes, we offer trade accounts for regular purchasers including builders, plumbers, and mechanical contractors. Contact us to set up an account.",
+      },
+      {
+        question: "What documentation do you provide for building certifications?",
+        answer:
+          "We supply material test certificates, pressure ratings, and compliance documentation as required for building certifications and commissioning.",
+      },
+      {
+        question: "Can you supply products for heritage building renovations?",
+        answer:
+          "Our pipe couplings are ideal for connecting new services to existing pipework in heritage buildings, allowing upgrades without major structural changes.",
+      },
+    ],
+    caseStudy: {
+      title: "Perth CBD Commercial Tower",
+      description:
+        "Supplied complete mechanical floor package including expansion joints, butterfly valves, and strainers for a 40-storey commercial development.",
+      result: "On-time delivery across 18-month construction programme",
+    },
+  },
   marine: {
     name: "Marine",
     tagline: "Corrosion-Resistant Solutions for Maritime Applications",
