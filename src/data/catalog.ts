@@ -82,6 +82,163 @@ export const products: Product[] = [
     priceNote: "Please check product sizing carefully before ordering. All prices exclude GST."
   },
 
+  // Lugged Butterfly Valve - CF8M 316 Stainless Steel
+  {
+    id: "BFLYLE316",
+    slug: "lugged-butterfly-valve-cf8m-316-stainless-steel",
+    sku: "BFLYLE316",
+    name: "Lugged Butterfly Valve - CF8M 316 Stainless Steel - EPDM or PTFE - Table E",
+    shortName: "Lugged CF8M Butterfly Valve",
+    brand: "Straub",
+    category: "valves",
+    subcategory: "butterfly-valve",
+    description: "Stainless steel bodied CF8M Butterfly Valve, lugged Table E, with an EPDM/PTFE seat. Rated to PN16 up to size 300mm. Lever operated. The lugged design suits end-of-pipeline installations, typically at tank or hopper inlets.",
+    features: [
+      "Lugged Table E design for end-of-line installations",
+      "Rated to PN16 working pressure up to DN300",
+      "CF8M (316 stainless steel) body and disc",
+      "EPDM or PTFE seat options available",
+      "Lever operated",
+      "Ideal for tank and hopper inlet applications",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "BFLYLE316" },
+      { label: "Brand", value: "Lugged CF8M Butterfly Valve - EPDM or PTFE - T/E" },
+      { label: "Body Material", value: "CF8M (Cast 316 stainless steel)" },
+      { label: "Disc Material", value: "CF8M" },
+      { label: "Seat Material", value: "EPDM or PTFE" },
+      { label: "Flange Standard", value: "Table E" },
+      { label: "Pressure Rating", value: "PN16" }
+    ],
+    certifications: "Manufactured to ISO 9001 quality standards. Table E flange compliance.",
+    sizeOptions: [
+      { value: "50mm", label: "50mm DN50 (2\") Nominal Bore", price: 776, sku: "BFLYLE316-50" },
+      { value: "65mm", label: "65mm", price: 850, sku: "BFLYLE316-65" },
+      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore", price: 925, sku: "BFLYLE316-80" },
+      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore", price: 1050, sku: "BFLYLE316-100" },
+      { value: "125mm", label: "125mm", price: 1250, sku: "BFLYLE316-125" },
+      { value: "150mm", label: "150mm", price: 1450, sku: "BFLYLE316-150" },
+      { value: "200mm", label: "200mm", price: 1850, sku: "BFLYLE316-200" },
+      { value: "250mm", label: "250mm", price: 2450, sku: "BFLYLE316-250" },
+      { value: "300mm", label: "300mm", price: 3050, sku: "BFLYLE316-300" }
+    ],
+    images: getOptimizedImages("BFLYLE316", "Lugged CF8M Butterfly Valve 316 Stainless Steel", 1),
+    leadTime: "3 weeks if nil stock",
+    materials: {
+      body: "CF8M",
+      disc: "CF8M",
+      seat: "EPDM/PTFE"
+    },
+    pressureRange: "0-16 BAR",
+    sizeFrom: "50mm",
+    priceVaries: true,
+    priceNote: "Please check product sizing carefully before ordering. EPDM or PTFE seat - contact us to specify. All prices exclude GST."
+  },
+
+  // PTFE Lined Butterfly Valve - Universal Wafer
+  {
+    id: "PTFELBFLYW",
+    slug: "ptfe-lined-butterfly-valve-universal-wafer",
+    sku: "PTFELBFLYW",
+    name: "PTFE Lined Butterfly Valve - Universal Wafer",
+    shortName: "PTFE Lined Butterfly Valve",
+    brand: "Straub",
+    category: "valves",
+    subcategory: "butterfly-valve",
+    description: "PTFE Lined Butterfly Valve with disc and seat fully encapsulated with PTFE. Universal wafer pattern to suit ANSI 150LB/Table D/E flanges. Lever operated for smaller sizes, gearbox operated for larger sizes.",
+    features: [
+      "Disc and seat fully encapsulated with PTFE",
+      "Maximum operating temperature: 120°C",
+      "Rated to PN10 working pressure up to DN200",
+      "Universal wafer pattern (ANSI 150LB/Table D/E)",
+      "Lever operated (small sizes) / Gearbox operated (large sizes)",
+      "Excellent chemical resistance",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "PTFELBFLYW" },
+      { label: "Brand", value: "PTFE Lined Butterfly Valve - Universal Wafer" },
+      { label: "Body Material", value: "Ductile Iron (DI)" },
+      { label: "Lining Material", value: "PTFE" },
+      { label: "Seat Material", value: "PTFE" },
+      { label: "Pressure Rating", value: "PN10" },
+      { label: "Max Temperature", value: "120°C" }
+    ],
+    certifications: "Manufactured to ISO 9001 quality standards. PTFE lining suitable for chemical and food-grade applications.",
+    sizeOptions: [
+      { value: "50mm", label: "50mm DN50 (2\") Nominal Bore", price: 1214, sku: "PTFELBFLYW-50" },
+      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore", price: 1450, sku: "PTFELBFLYW-80" },
+      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore", price: 1650, sku: "PTFELBFLYW-100" },
+      { value: "150mm", label: "150mm", price: 2150, sku: "PTFELBFLYW-150" },
+      { value: "200mm", label: "200mm", price: 2850, sku: "PTFELBFLYW-200" }
+    ],
+    images: getOptimizedImages("PTFELBFLYW", "PTFE Lined Butterfly Valve Universal Wafer", 1),
+    leadTime: "5-7 days if nil stock",
+    materials: {
+      body: "Ductile Iron (PTFE Lined)",
+      seat: "PTFE"
+    },
+    pressureRange: "0-10 BAR",
+    temperature: "-20°C to +120°C",
+    sizeFrom: "50mm",
+    priceVaries: true,
+    priceNote: "Please check product sizing carefully before ordering. All prices exclude GST."
+  },
+
+  // CF8M Wafer Butterfly Valve EPDM
+  {
+    id: "CF8MWEBFVL",
+    slug: "cf8m-wafer-butterfly-valve-epdm-lever-operated",
+    sku: "CF8MWEBFVL",
+    name: "CF8M Wafer Butterfly Valve - EPDM - Lever Operated",
+    shortName: "CF8M EPDM Butterfly Valve",
+    brand: "Straub",
+    category: "valves",
+    subcategory: "butterfly-valve",
+    description: "CF8M body Universal Wafer Butterfly Valve with EPDM rubber seat, lever operated. Rated PN16. Full 316 stainless steel construction for excellent corrosion resistance.",
+    features: [
+      "CF8M (316 stainless steel) body and disc",
+      "EPDM rubber seat for excellent sealing",
+      "Universal wafer design",
+      "Lever operated",
+      "Rated to PN16 working pressure",
+      "Bi-directional and blow out proof",
+      "12 months warranty on manufacturing defects only"
+    ],
+    specifications: [
+      { label: "SKU", value: "CF8MWEBFVL" },
+      { label: "Brand", value: "Butterfly Valve - Full 316 Stainless Steel - EPDM" },
+      { label: "Body Material", value: "CF8M (Cast 316 stainless steel)" },
+      { label: "Disc Material", value: "CF8M" },
+      { label: "Seat Material", value: "EPDM" },
+      { label: "Pressure Rating", value: "PN16" }
+    ],
+    certifications: "Manufactured to ISO 9001 quality standards. EPDM seat suitable for water and general industrial applications.",
+    sizeOptions: [
+      { value: "50mm", label: "50mm DN50 (2\") Nominal Bore", price: 450, sku: "CF8MWEBFVL-50" },
+      { value: "65mm", label: "65mm", price: 495, sku: "CF8MWEBFVL-65" },
+      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore", price: 545, sku: "CF8MWEBFVL-80" },
+      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore", price: 585, sku: "CF8MWEBFVL-100" },
+      { value: "125mm", label: "125mm", price: 695, sku: "CF8MWEBFVL-125" },
+      { value: "150mm", label: "150mm", price: 825, sku: "CF8MWEBFVL-150" },
+      { value: "200mm", label: "200mm", price: 1095, sku: "CF8MWEBFVL-200" },
+      { value: "250mm", label: "250mm", price: 1495, sku: "CF8MWEBFVL-250" },
+      { value: "300mm", label: "300mm", price: 1895, sku: "CF8MWEBFVL-300" }
+    ],
+    images: getOptimizedImages("CF8MWEBFVL", "CF8M Wafer Butterfly Valve EPDM", 1),
+    leadTime: "2-4 weeks if nil stock",
+    materials: {
+      body: "CF8M",
+      disc: "CF8M",
+      seat: "EPDM"
+    },
+    pressureRange: "0-16 BAR",
+    sizeFrom: "50mm",
+    priceVaries: true,
+    priceNote: "Please check product sizing carefully before ordering. All prices exclude GST."
+  },
+
   // Duckbill Check Valve
   {
     id: "DB-1",
