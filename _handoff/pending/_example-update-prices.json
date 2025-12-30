@@ -1,0 +1,16 @@
+{
+  "_comment": "This is an EXAMPLE file - rename without underscore prefix to use",
+  "operation": "update_prices",
+  "priority": "normal",
+  "data": {
+    "productSku": "OFG-SS",
+    "variations": [
+      { "size": "48.3mm", "newPrice": "52.00" },
+      { "size": "60.3mm", "newPrice": "58.50" },
+      { "size": "76.1mm", "newPrice": "67.00" }
+    ]
+  },
+  "notes": "Example price update - do not process. Prices increased 5% for 2025.",
+  "createdBy": "documentation",
+  "createdAt": "2025-01-01T00:00:00Z"
+}

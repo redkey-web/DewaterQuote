@@ -1,0 +1,53 @@
+{
+  "_comment": "This is an EXAMPLE file - rename without underscore prefix to use",
+  "operation": "create_product",
+  "priority": "normal",
+  "data": {
+    "name": "Example Butterfly Valve 316SS",
+    "shortName": "Butterfly Valve 316SS",
+    "slug": "example-butterfly-valve-316ss",
+    "sku": "EXBV-316",
+    "brandId": 1,
+    "categoryId": 1,
+    "subcategoryId": 1,
+    "description": "High-quality butterfly valve manufactured from 316 stainless steel for superior corrosion resistance. Features PTFE seat for chemical compatibility and quarter-turn operation for quick shutoff.",
+    "materials": {
+      "body": "316 Stainless Steel (CF8M)",
+      "seat": "PTFE"
+    },
+    "pressureRange": "PN16",
+    "temperature": "-20°C to +180°C",
+    "sizeFrom": "DN50 to DN300",
+    "leadTime": "2-3 weeks",
+    "priceVaries": true,
+    "features": [
+      "316 stainless steel body (CF8M)",
+      "PTFE seat for chemical resistance",
+      "Quarter-turn operation",
+      "Wafer or lug pattern available",
+      "ISO 5211 actuator mounting pad"
+    ],
+    "specifications": [
+      { "label": "Body Material", "value": "316 Stainless Steel (CF8M)" },
+      { "label": "Seat Material", "value": "PTFE" },
+      { "label": "Pressure Rating", "value": "PN16" },
+      { "label": "Temperature Range", "value": "-20°C to +180°C" },
+      { "label": "End Connection", "value": "Wafer / Lug" }
+    ],
+    "applications": [
+      "Water treatment",
+      "Chemical processing",
+      "HVAC systems",
+      "Food and beverage"
+    ],
+    "variations": [
+      { "size": "50mm", "label": "DN50 (2\")", "price": "245.00", "sku": "EXBV-316-50" },
+      { "size": "80mm", "label": "DN80 (3\")", "price": "385.00", "sku": "EXBV-316-80" },
+      { "size": "100mm", "label": "DN100 (4\")", "price": "485.00", "sku": "EXBV-316-100" }
+    ],
+    "images": []
+  },
+  "notes": "Example product - do not process. Rename file (remove underscore) to create a real request.",
+  "createdBy": "documentation",
+  "createdAt": "2025-01-01T00:00:00Z"
+}
