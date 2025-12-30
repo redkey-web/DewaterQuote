@@ -1082,13 +1082,13 @@ export const products: Product[] = [
     ],
     certifications: "Manufactured to ISO 9001 quality standards. 316 stainless steel construction suitable for potable water, corrosive fluids, and demanding industrial applications.",
     sizeOptions: [
-      { value: "50mm", label: "DN50 (2\")", price: 395, sku: "SSYS-50" },
-      { value: "80mm", label: "DN80 (3\")", price: 495, sku: "SSYS-80" },
-      { value: "100mm", label: "DN100 (4\")", price: 595, sku: "SSYS-100" },
-      { value: "150mm", label: "DN150 (6\")", price: 795, sku: "SSYS-150" },
-      { value: "200mm", label: "DN200 (8\")", price: 1095, sku: "SSYS-200" },
-      { value: "250mm", label: "DN250 (10\")", price: 1495, sku: "SSYS-250" },
-      { value: "300mm", label: "DN300 (12\")", price: 1895, sku: "SSYS-300" }
+      { value: "50mm", label: "DN50 (2\")", price: 938, sku: "SSYS-50" },
+      { value: "80mm", label: "DN80 (3\")", price: 1445, sku: "SSYS-80" },
+      { value: "100mm", label: "DN100 (4\")", price: 2040, sku: "SSYS-100" },
+      { value: "150mm", label: "DN150 (6\")", price: 3038, sku: "SSYS-150" },
+      { value: "200mm", label: "DN200 (8\")", price: 4982, sku: "SSYS-200" },
+      { value: "250mm", label: "DN250 (10\")", price: 6408, sku: "SSYS-250" },
+      { value: "300mm", label: "DN300 (12\")", price: 8532, sku: "SSYS-300" }
     ],
     images: getOptimizedImages("SSYS", "Stainless Steel Y Strainer CF8M ANSI 150LB", 3),
     leadTime: "7-10 days if nil stock",
