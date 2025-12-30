@@ -52,10 +52,11 @@ export async function POST(request: NextRequest) {
     const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
     const pathname = `${folder}/${timestamp}-${safeName}`;
 
-    // Upload to Vercel Blob
+    // Upload to Vercel Blob with 1-year cache (product images are stable)
     const blob = await put(pathname, file, {
       access: 'public',
       addRandomSuffix: false,
+      cacheControlMaxAge: 31536000, // 1 year in seconds
       token: BLOB_TOKEN,
     });
 
