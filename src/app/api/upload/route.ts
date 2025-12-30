@@ -3,8 +3,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/config';
 import { put, del } from '@vercel/blob';
 
-// Get blob token - Vercel names it based on store name
-const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN || process.env.DeWaPro_READ_WRITE_TOKEN;
+// Vercel Blob token (auto-set when Blob store is connected)
+const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
 
 export async function POST(request: NextRequest) {
   // Check auth

@@ -25,3 +25,4 @@ _deprecated
 *.tsbuildinfo
 .playwright-mcp/
 test-results/
+.env.vercel
