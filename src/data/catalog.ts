@@ -114,14 +114,14 @@ export const products: Product[] = [
     certifications: "Manufactured to ISO 9001 quality standards. Table E flange compliance.",
     sizeOptions: [
       { value: "50mm", label: "50mm DN50 (2\") Nominal Bore", price: 776, sku: "BFLYLE316-50" },
-      { value: "65mm", label: "65mm", price: 850, sku: "BFLYLE316-65" },
-      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore", price: 925, sku: "BFLYLE316-80" },
-      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore", price: 1050, sku: "BFLYLE316-100" },
-      { value: "125mm", label: "125mm", price: 1250, sku: "BFLYLE316-125" },
-      { value: "150mm", label: "150mm", price: 1450, sku: "BFLYLE316-150" },
-      { value: "200mm", label: "200mm", price: 1850, sku: "BFLYLE316-200" },
-      { value: "250mm", label: "250mm", price: 2450, sku: "BFLYLE316-250" },
-      { value: "300mm", label: "300mm", price: 3050, sku: "BFLYLE316-300" }
+      { value: "65mm", label: "65mm", price: 829, sku: "BFLYLE316-65" },
+      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore", price: 1011, sku: "BFLYLE316-80" },
+      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore", price: 1146, sku: "BFLYLE316-100" },
+      { value: "125mm", label: "125mm", price: 1619, sku: "BFLYLE316-125" },
+      { value: "150mm", label: "150mm", price: 1754, sku: "BFLYLE316-150" },
+      { value: "200mm", label: "200mm", price: 2660, sku: "BFLYLE316-200" },
+      { value: "250mm", label: "250mm", price: 4046, sku: "BFLYLE316-250" },
+      { value: "300mm", label: "300mm", price: 5396, sku: "BFLYLE316-300" }
     ],
     images: getOptimizedImages("BFLYLE316", "Lugged CF8M Butterfly Valve 316 Stainless Steel", 1),
     leadTime: "3 weeks if nil stock",
@@ -168,10 +168,10 @@ export const products: Product[] = [
     certifications: "Manufactured to ISO 9001 quality standards. PTFE lining suitable for chemical and food-grade applications.",
     sizeOptions: [
       { value: "50mm", label: "50mm DN50 (2\") Nominal Bore", price: 1214, sku: "PTFELBFLYW-50" },
-      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore", price: 1450, sku: "PTFELBFLYW-80" },
-      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore", price: 1650, sku: "PTFELBFLYW-100" },
-      { value: "150mm", label: "150mm", price: 2150, sku: "PTFELBFLYW-150" },
-      { value: "200mm", label: "200mm", price: 2850, sku: "PTFELBFLYW-200" }
+      { value: "80mm", label: "80mm DN80 (3\") Nominal Bore", price: 1456, sku: "PTFELBFLYW-80" },
+      { value: "100mm", label: "100mm DN100 (4\") Nominal Bore", price: 1993, sku: "PTFELBFLYW-100" },
+      { value: "150mm", label: "150mm", price: 3031, sku: "PTFELBFLYW-150" },
+      { value: "200mm", label: "200mm", price: 4398, sku: "PTFELBFLYW-200" }
     ],
     images: getOptimizedImages("PTFELBFLYW", "PTFE Lined Butterfly Valve Universal Wafer", 1),
     leadTime: "5-7 days if nil stock",
