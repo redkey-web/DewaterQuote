@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Loader2, Save, Trash2, Plus, GripVertical, Eye, Package, AlertCircle } from 'lucide-react';
+import { Loader2, Save, Trash2, Plus, GripVertical, Eye, Package, AlertCircle, ArrowRight, Check, ExternalLink } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { stripHtml } from '@/lib/utils';
@@ -135,9 +135,11 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
     // Redirect to preview tab if not already there
     if (activeTab !== 'preview') {
       setActiveTab('preview');
+      // Scroll to top to see preview
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       toast({
-        title: "Review Changes",
-        description: "Please check the preview before saving.",
+        title: "Step 2: Review Your Changes",
+        description: "Check the preview below, then click 'Save Changes' to confirm.",
       });
       return;
     }
@@ -170,6 +172,22 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
         throw new Error(data.error || 'Failed to save');
       }
 
+      toast({
+        title: "Changes Saved!",
+        description: (
+          <div className="flex flex-col gap-2">
+            <span>{formData.name} has been updated.</span>
+            <a
+              href={`/${formData.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-blue-600 hover:underline"
+            >
+              View live product <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
+        ),
+      });
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save product');
@@ -180,11 +198,40 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* Sticky error banner */}
       {error && (
-        <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-sm">
-          {error}
+        <div className="sticky top-0 z-50 mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-md flex items-start gap-3 shadow-sm">
+          <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="font-medium">Error</p>
+            <p className="text-sm">{error}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setError('')}
+            className="ml-auto text-red-500 hover:text-red-700"
+          >
+            ×
+          </button>
         </div>
       )}
+
+      {/* Progress Stepper */}
+      <div className="mb-6 flex items-center justify-center gap-2 text-sm">
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${activeTab !== 'preview' ? 'bg-blue-100 text-blue-700 font-medium' : 'bg-gray-100 text-gray-600'}`}>
+          <span className={`flex items-center justify-center w-5 h-5 rounded-full text-xs ${activeTab !== 'preview' ? 'bg-blue-600 text-white' : 'bg-green-500 text-white'}`}>
+            {activeTab === 'preview' ? <Check className="h-3 w-3" /> : '1'}
+          </span>
+          Edit Details
+        </div>
+        <ArrowRight className="h-4 w-4 text-gray-400" />
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${activeTab === 'preview' ? 'bg-blue-100 text-blue-700 font-medium' : 'bg-gray-100 text-gray-500'}`}>
+          <span className={`flex items-center justify-center w-5 h-5 rounded-full text-xs ${activeTab === 'preview' ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'}`}>
+            2
+          </span>
+          Review & Save
+        </div>
+      </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList>
@@ -991,10 +1038,15 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Saving...
             </>
-          ) : (
+          ) : activeTab === 'preview' ? (
             <>
               <Save className="mr-2 h-4 w-4" />
               Save Changes
+            </>
+          ) : (
+            <>
+              Review & Save
+              <ArrowRight className="ml-2 h-4 w-4" />
             </>
           )}
         </Button>

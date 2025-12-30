@@ -7,10 +7,11 @@
     ".planning/current/migration-plan.md",
     ".planning/features/quote-form-redesign.md",
     ".planning/features/product-price-audit.md",
-    "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
-    "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
+    ".planning/features/site-audit.md",
+    "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
+    "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
   ],
-  "parent_track": "/Users/redkey/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
+  "parent_track": "~/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
   "require_marker_file": false,
   "description": "Dewater Products full-scope website migration with CMS"
 }

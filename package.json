@@ -14,7 +14,15 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed": "npx tsx scripts/seed.ts",
-    "db:sync": "npx tsx scripts/sync-catalog-to-db.ts"
+    "db:sync": "npx tsx scripts/sync-catalog-to-db.ts",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:nav": "playwright test tests/navigation/",
+    "test:pages": "playwright test tests/pages/",
+    "test:forms": "playwright test tests/forms/",
+    "test:assets": "playwright test tests/assets/"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -82,6 +90,7 @@
     "zod-validation-error": "^3.4.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "20.16.11",
     "@types/react": "^18.3.11",

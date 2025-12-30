@@ -2,7 +2,7 @@
 
 **Created**: 2025-12-16
 **Type**: fix
-**Status**: Planning
+**Status**: Complete
 **Priority**: High
 
 ## Summary
@@ -145,6 +145,40 @@ Product pages use `revalidate = 60`:
 - Existing pages: Revalidated every 60 seconds
 - New products: Available on first request (on-demand)
 - No deployment needed for new products to appear
+
+## Implementation (2025-12-30)
+
+**Approach**: Option C - Improved Two-Step UX
+
+### Changes Made
+
+1. **Dynamic button text**:
+   - "Review & Create →" when not on Preview tab
+   - "Create Product" when on Preview tab
+
+2. **Visual progress stepper** at top of form:
+   - Step 1: Fill Details (blue when active, green check when complete)
+   - Step 2: Review & Create (blue when active)
+
+3. **Improved toast messaging**:
+   - "Step 2: Review Your Product" with clear instruction
+   - Auto-scroll to top when switching to Preview
+
+4. **Sticky error banner**:
+   - Stays visible at top of form
+   - Includes dismiss button
+   - More prominent styling with icon
+
+5. **Success toast with product link**:
+   - Shows product name
+   - Includes "View live product" link that opens in new tab
+
+### Files Modified
+- `src/components/admin/ProductFormNew.tsx` (create product form)
+- `src/components/admin/ProductForm.tsx` (edit product form)
+
+### Dependencies Added
+- `react-mobile-picker` (was missing, unrelated to this fix)
 
 ## Related
 
