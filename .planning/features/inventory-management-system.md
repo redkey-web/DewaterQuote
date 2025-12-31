@@ -1,9 +1,9 @@
 # Inventory Management System & Product Migration
 
 **Created**: 2025-12-31
-**Updated**: 2025-12-31 (Session 4 Complete)
+**Updated**: 2026-01-01
 **Type**: Feature / System Enhancement
-**Status**: In Progress (F1 + F2a + F2b + F2c + F4 + F5 Complete)
+**Status**: ✅ COMPLETE
 **Priority**: High
 
 ## Summary
@@ -363,38 +363,18 @@ Tabbed interface:
 
 ## Phase F3: Frontend Availability States
 
-### Availability Logic
+**Status**: ⏸️ DEFERRED
 
-```typescript
-function getProductAvailability(product: Product, stock: ProductStock) {
-  if (!product.isActive) return 'hidden';
-  if (product.isSuspended) return 'suspended';
-  if (product.isQuoteOnly) return 'quote-only';
-  if (stock.qtyInStock === 0) return 'out-of-stock';
-  if (stock.qtyInStock < stock.reorderPoint) return 'low-stock';
-  return 'available';
-}
-```
+> **Decision (2026-01-01)**: This site operates on a quote-only basis. Stock badges (In Stock, Low Stock, Out of Stock) are not relevant since customers request quotes rather than purchase directly. The admin Inventory page provides internal visibility; frontend badges are not needed.
 
-### UI States
+### Deferred Tasks (for reference)
+- Create `ProductAvailabilityBadge.tsx`
+- Update `ProductCard.tsx`
+- Update product detail page
+- Create `QuoteRequestForm.tsx`
+- Update quote API for product quotes
 
-| State | Badge | Button | Price |
-|-------|-------|--------|-------|
-| Available | None | "Add to Cart" | Shown |
-| Low Stock | "Low Stock" | "Add to Cart" | Shown |
-| Out of Stock | "Out of Stock" | "Notify Me" | Shown |
-| Quote Only | "Request Quote" | "Get Quote" | "POA" |
-| Suspended | "Unavailable" | Disabled | Hidden |
-
-### Tasks
-
-- [ ] Create `ProductAvailabilityBadge.tsx`
-- [ ] Update `ProductCard.tsx`
-- [ ] Update product detail page
-- [ ] Create `QuoteRequestForm.tsx`
-- [ ] Update quote API for product quotes
-
-**Estimate**: 4-5 hours
+**Original Estimate**: 4-5 hours | **Actual**: 0 hours (not applicable)
 
 ---
 
@@ -514,117 +494,44 @@ Import all active products from Neto CSV export.
 
 ## Phase F6: Backup & Export System
 
-**Goal**: Data protection and client self-service exports
+**Status**: ✅ COMPLETE (Simplified scope)
 
-### Backup Layers
+**Goal**: Client self-service inventory export
 
-| Layer | What | Protection Against |
-|-------|------|---------------------|
-| **Neon PITR** | Point-in-time recovery (7-30 days) | Accidental deletes, bad updates |
-| **S3 Backups** | Nightly pg_dump to external storage | Neon outage, account issues |
-| **Admin Exports** | CSV downloads per page | Client self-service, analysis |
-| **CSV Exports** | Admin export functionality | Self-service data backups |
+### Backup Layers (Existing)
 
-### F6a: Admin Export Buttons
+| Layer | What | Status |
+|-------|------|--------|
+| **Neon PITR** | Point-in-time recovery (7+ days) | ✅ Built-in |
+| **Admin Export** | Inventory CSV download | ✅ Implemented |
 
-Add export functionality to each admin page:
+> **Note**: S3 automated backups deferred - Neon's PITR provides sufficient protection. Can add later if needed.
 
-| Page | Export Button | Contents |
-|------|---------------|----------|
-| Inventory | [Export CSV] | SKU, Name, Stock, Incoming, Status |
-| Pricing | [Export CSV] | SKU, Cost, RRP, Sell, Margin% |
-| Products | [Export CSV] | Full product data with variations |
-| Logistics | [Export CSV] | Dimensions, weights, supplier info |
-| Settings | [Full Backup] | Complete database (JSON or SQL) |
+### Implemented
 
-**API Endpoint**: `/api/admin/export/[type]/route.ts`
+- [x] `/api/admin/export/inventory/route.ts` - CSV export endpoint
+- [x] Export button on Inventory page
 
-```typescript
-// Types: inventory, pricing, products, logistics, full
-export async function GET(request: Request, { params }) {
-  // 1. Verify admin session
-  // 2. Query relevant data
-  // 3. Format as CSV
-  // 4. Return with download headers
-  return new Response(csvContent, {
-    headers: {
-      'Content-Type': 'text/csv',
-      'Content-Disposition': `attachment; filename="dewater-${type}-${date}.csv"`
-    }
-  });
-}
-```
+### Export Contents
 
-### F6b: Automated S3 Backups
+| Column | Description |
+|--------|-------------|
+| SKU | Product/variation SKU |
+| Product Name | Full product name |
+| Size | Variation size (if applicable) |
+| Category | Product category |
+| Brand | Product brand |
+| Price | Unit price |
+| Qty In Stock | Current stock level |
+| Incoming Qty | Expected incoming stock |
+| Preorder Qty | Preorder quantity |
+| Reorder Point | Low stock threshold |
+| Status | Active/Inactive/Suspended/Quote Only |
+| Quote Only | Yes/No |
+| Suspended | Yes/No |
+| Lead Time | Lead time text |
 
-GitHub Action for nightly database backups:
-
-```yaml
-# .github/workflows/backup.yml
-name: Database Backup
-
-on:
-  schedule:
-    - cron: '0 0 * * *'  # Daily at midnight UTC
-  workflow_dispatch:      # Manual trigger
-
-jobs:
-  backup:
-    runs-on: ubuntu-latest
-    env:
-      RETENTION: 30  # Days to keep backups
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      S3_BUCKET: ${{ secrets.S3_BUCKET }}
-
-    steps:
-      - name: Install PostgreSQL
-        run: sudo apt install -y postgresql-16
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-southeast-2
-
-      - name: Run pg_dump
-        run: |
-          BACKUP_FILE="dewater-$(date +'%Y-%m-%d').sql.gz"
-          pg_dump $DATABASE_URL | gzip > $BACKUP_FILE
-
-      - name: Upload to S3
-        run: aws s3 cp $BACKUP_FILE s3://$S3_BUCKET/backups/
-
-      - name: Delete old backups
-        run: |
-          CUTOFF=$(date -d "-$RETENTION days" +%Y-%m-%dT%H:%M:%SZ)
-          aws s3api list-objects --bucket $S3_BUCKET --prefix "backups/" \
-            --query "Contents[?LastModified<'${CUTOFF}'].Key" --output text | \
-            xargs -I {} aws s3 rm s3://$S3_BUCKET/{}
-```
-
-### F6c: Neon Configuration
-
-Verify/configure in Neon dashboard:
-- [ ] Restore window set to 7+ days
-- [ ] Understand PITR process
-- [ ] Document recovery procedure
-
-### Tasks
-
-- [ ] Create `/api/admin/export/[type]/route.ts`
-- [ ] Add Export button to Inventory page
-- [ ] Add Export button to Pricing page
-- [ ] Add Export button to Products page
-- [ ] Add Export button to Logistics page
-- [ ] Add Full Backup to Settings page
-- [ ] Create GitHub Action backup workflow
-- [ ] Set up S3 bucket (or use Vercel Blob)
-- [ ] Add secrets to GitHub repository
-- [ ] Update client guide with backup info
-- [ ] Test restore procedure
-
-**Estimate**: 6-8 hours
+**Actual**: 30 minutes
 
 ---
 
@@ -651,13 +558,13 @@ See **Client Guide** for detailed explanation: `docs/client-admin-guide.md`
 | F2a | Inventory Page | 4-5 | 2 | ✅ Complete |
 | F2b | Pricing Page | 3-4 | 1.5 | ✅ Complete |
 | F2c | Logistics Page | 2-3 | 1 | ✅ Complete |
-| F3 | Frontend States | 4-5 | - | ⏳ Next |
+| F3 | Frontend States | 4-5 | 0 | ⏸️ Deferred (quote-only site) |
 | F5 | Migration | 4-6 | 1 | ✅ Complete |
-| F6 | Backup & Export | 6-8 | - | ⏳ Pending |
+| F6 | Backup & Export | 6-8 | 0.5 | ✅ Complete (simplified) |
 
 **Total Estimate**: ~30-39 hours
-**Completed**: 9 hours (F1 + F2a + F2b + F2c + F4 + F5)
-**Remaining**: ~10-14 hours (F3 + F6)
+**Completed**: 9.5 hours (F1 + F2a + F2b + F2c + F4 + F5 + F6)
+**Remaining**: 0 hours - Inventory Management System complete!
 
 ### Session Progress
 
@@ -693,8 +600,11 @@ See **Client Guide** for detailed explanation: `docs/client-admin-guide.md`
    - Created import-active-products.ts script
    - Database now has 126 active products, 1,277 variations
 
-5. **Session 5** (4-5 hrs): F3 (Frontend States) - NEXT
-6. **Session 6** (6-8 hrs): F6 (Backup & Export)
+5. **Session 5** ✅ COMPLETE (30 min actual)
+   - F3: Deferred (quote-only site doesn't need stock badges)
+   - F6: Inventory CSV export implemented
+   - Export button added to /admin/inventory
+   - API route: /api/admin/export/inventory
 
 ---
 

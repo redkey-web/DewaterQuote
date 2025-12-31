@@ -3,6 +3,8 @@ import { products, productStock } from '@/db/schema';
 import { desc, inArray } from 'drizzle-orm';
 import { InventoryManagementTable } from '@/components/admin/InventoryManagementTable';
 import { StatsCard } from '@/components/admin/StatsCard';
+import { Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface VariationStock {
   qtyInStock: number | null;
@@ -200,6 +202,12 @@ export default async function InventoryPage() {
             Manage products, pricing, stock levels, and availability
           </p>
         </div>
+        <Button asChild variant="outline">
+          <a href="/api/admin/export/inventory" download>
+            <Download className="h-4 w-4 mr-2" />
+            Export CSV
+          </a>
+        </Button>
       </div>
 
       {/* Stats Cards */}

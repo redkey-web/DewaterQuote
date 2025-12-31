@@ -43,6 +43,9 @@ import {
   Loader2,
   Trash2,
   AlertTriangle,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown,
 } from 'lucide-react';
 import {
   Tooltip,
@@ -137,6 +140,14 @@ interface NewVariation {
 type EditedProducts = Record<number, EditedProduct>;
 type EditedVariations = Record<number, EditedVariation>;
 
+type SortKey = 'sku' | 'name' | 'brand' | 'status' | 'stock' | 'incoming' | 'leadTime' | 'price' | 'sizes';
+type SortDirection = 'asc' | 'desc';
+
+interface SortConfig {
+  key: SortKey;
+  direction: SortDirection;
+}
+
 function formatPrice(value: string | number | null | undefined): string {
   if (value === null || value === undefined || value === '') return '--';
   const num = typeof value === 'string' ? parseFloat(value) : value;
@@ -152,6 +163,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
   const [brandFilter, setBrandFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [expandedProducts, setExpandedProducts] = useState<Set<number>>(new Set());
+  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'stock', direction: 'desc' });
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [editedProducts, setEditedProducts] = useState<EditedProducts>({});
@@ -308,6 +320,44 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
     });
     return Array.from(unique).sort();
   }, [products]);
+
+  // Handle sort toggle
+  const handleSort = useCallback((key: SortKey) => {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === 'desc' ? 'asc' : 'desc',
+    }));
+  }, []);
+
+  // Sortable header component
+  const SortableHeader = useCallback(
+    ({ sortKey, children, className }: { sortKey: SortKey; children: React.ReactNode; className?: string }) => {
+      const isActive = sortConfig.key === sortKey;
+      return (
+        <button
+          type="button"
+          onClick={() => handleSort(sortKey)}
+          className={cn(
+            'flex items-center gap-1 hover:text-gray-900 transition-colors font-medium',
+            isActive ? 'text-gray-900' : 'text-gray-600',
+            className
+          )}
+        >
+          {children}
+          {isActive ? (
+            sortConfig.direction === 'desc' ? (
+              <ArrowDown className="h-3.5 w-3.5" />
+            ) : (
+              <ArrowUp className="h-3.5 w-3.5" />
+            )
+          ) : (
+            <ArrowUpDown className="h-3.5 w-3.5 opacity-40" />
+          )}
+        </button>
+      );
+    },
+    [sortConfig, handleSort]
+  );
 
   // Get effective value (edited or original)
   const getEffectiveValue = useCallback(
@@ -485,9 +535,10 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
     }
   }, [deletingVariation, router]);
 
-  // Filter products
+  // Filter and sort products
   const filteredProducts = useMemo(() => {
-    return products.filter((p) => {
+    // First filter
+    const filtered = products.filter((p) => {
       // Search filter
       const searchLower = search.toLowerCase();
       const matchesSearch =
@@ -514,7 +565,88 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
 
       return matchesSearch && matchesStatus && matchesBrand && matchesCategory;
     });
-  }, [products, search, statusFilter, brandFilter, categoryFilter]);
+
+    // Then sort
+    const sorted = [...filtered].sort((a, b) => {
+      const { key, direction } = sortConfig;
+      const multiplier = direction === 'asc' ? 1 : -1;
+
+      // Get comparable values based on sort key
+      let aVal: string | number;
+      let bVal: string | number;
+
+      switch (key) {
+        case 'sku':
+          aVal = a.sku.toLowerCase();
+          bVal = b.sku.toLowerCase();
+          break;
+        case 'name':
+          aVal = (a.shortName || a.name).toLowerCase();
+          bVal = (b.shortName || b.name).toLowerCase();
+          break;
+        case 'brand':
+          aVal = (a.brand?.name || '').toLowerCase();
+          bVal = (b.brand?.name || '').toLowerCase();
+          break;
+        case 'status': {
+          // Sort by status priority: in-stock > low-stock > out-of-stock > quote-only > suspended
+          const statusOrder: Record<string, number> = {
+            'in-stock': 5,
+            'low-stock': 4,
+            'out-of-stock': 3,
+            'quote-only': 2,
+            'suspended': 1,
+          };
+          const aStatus = getStockStatus(a.isActive, a.isSuspended, a.isQuoteOnly, a.stock?.qtyInStock ?? null, a.stock?.reorderPoint ?? null);
+          const bStatus = getStockStatus(b.isActive, b.isSuspended, b.isQuoteOnly, b.stock?.qtyInStock ?? null, b.stock?.reorderPoint ?? null);
+          aVal = statusOrder[aStatus] || 0;
+          bVal = statusOrder[bStatus] || 0;
+          break;
+        }
+        case 'stock':
+          aVal = a.stock?.qtyInStock ?? 0;
+          bVal = b.stock?.qtyInStock ?? 0;
+          break;
+        case 'incoming':
+          aVal = a.stock?.incomingQty ?? 0;
+          bVal = b.stock?.incomingQty ?? 0;
+          break;
+        case 'leadTime':
+          aVal = (a.leadTimeText || '').toLowerCase();
+          bVal = (b.leadTimeText || '').toLowerCase();
+          break;
+        case 'price': {
+          // Get min price for comparison
+          const getMinPrice = (p: InventoryProduct): number => {
+            if (p.priceVaries && p.variations.length > 0) {
+              const prices = p.variations
+                .map((v) => (v.price ? parseFloat(v.price) : null))
+                .filter((x): x is number => x !== null);
+              return prices.length > 0 ? Math.min(...prices) : 0;
+            }
+            return p.basePrice ? parseFloat(p.basePrice) : 0;
+          };
+          aVal = getMinPrice(a);
+          bVal = getMinPrice(b);
+          break;
+        }
+        case 'sizes':
+          aVal = a.variations.length;
+          bVal = b.variations.length;
+          break;
+        default:
+          return 0;
+      }
+
+      // Compare
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
+        return aVal.localeCompare(bVal) * multiplier;
+      }
+      return ((aVal as number) - (bVal as number)) * multiplier;
+    });
+
+    return sorted;
+  }, [products, search, statusFilter, brandFilter, categoryFilter, sortConfig]);
 
   // Toggle product expansion
   const toggleExpand = (id: number) => {
@@ -805,15 +937,33 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                 />
               </TableHead>
               <TableHead className="w-[40px] sticky top-[116px] bg-gray-100 z-20"></TableHead>
-              <TableHead className="sticky top-[116px] bg-gray-100 z-20">SKU</TableHead>
-              <TableHead className="sticky top-[116px] bg-gray-100 z-20">Name</TableHead>
-              <TableHead className="sticky top-[116px] bg-gray-100 z-20">Brand</TableHead>
-              <TableHead className="text-center sticky top-[116px] bg-gray-100 z-20">Status</TableHead>
-              <TableHead className="text-center w-[80px] sticky top-[116px] bg-gray-100 z-20">Stock</TableHead>
-              <TableHead className="text-center w-[80px] sticky top-[116px] bg-gray-100 z-20">Incoming</TableHead>
-              <TableHead className="w-[120px] sticky top-[116px] bg-gray-100 z-20">Lead Time</TableHead>
-              <TableHead className="text-right w-[100px] sticky top-[116px] bg-gray-100 z-20">Price</TableHead>
-              <TableHead className="text-center sticky top-[116px] bg-gray-100 z-20">Sizes</TableHead>
+              <TableHead className="sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="sku">SKU</SortableHeader>
+              </TableHead>
+              <TableHead className="sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="name">Name</SortableHeader>
+              </TableHead>
+              <TableHead className="sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="brand">Brand</SortableHeader>
+              </TableHead>
+              <TableHead className="text-center sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="status" className="justify-center">Status</SortableHeader>
+              </TableHead>
+              <TableHead className="text-center w-[80px] sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="stock" className="justify-center">Stock</SortableHeader>
+              </TableHead>
+              <TableHead className="text-center w-[80px] sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="incoming" className="justify-center">Incoming</SortableHeader>
+              </TableHead>
+              <TableHead className="w-[120px] sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="leadTime">Lead Time</SortableHeader>
+              </TableHead>
+              <TableHead className="text-right w-[100px] sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="price" className="justify-end">Price</SortableHeader>
+              </TableHead>
+              <TableHead className="text-center sticky top-[116px] bg-gray-100 z-20">
+                <SortableHeader sortKey="sizes" className="justify-center">Sizes</SortableHeader>
+              </TableHead>
               <TableHead className="text-right sticky top-[116px] bg-gray-100 z-20">Actions</TableHead>
             </TableRow>
           </TableHeader>
