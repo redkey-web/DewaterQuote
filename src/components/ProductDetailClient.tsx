@@ -70,20 +70,15 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [certOpen, setCertOpen] = useState(false)
 
-  // Deduplicate images by URL and filter out warranty/promotional images
+  // Deduplicate images by URL and filter out duplicate images
   const uniqueImages = product.images
     .filter((img, idx, arr) => arr.findIndex((i) => i.url === img.url) === idx)
     .filter((img) => {
       const urlLower = img.url.toLowerCase()
       const altLower = img.alt.toLowerCase()
-      // Filter out warranty images (by text or by alt_3 folder which contains warranty images)
-      const isWarranty = urlLower.includes('warranty') || altLower.includes('warranty') ||
-                         urlLower.includes('5-year') || urlLower.includes('5year') ||
-                         urlLower.includes('5_year') || urlLower.includes('5 year') ||
-                         urlLower.includes('years') || urlLower.includes('/alt_3/')
-      // Filter out alt_1 images (duplicates of main product image)
-      const isDuplicate = urlLower.includes('/alt_1/')
-      return !isWarranty && !isDuplicate
+      // Filter out duplicate images (alt_1 is usually same as main product image)
+      const isDuplicate = urlLower.includes('/alt_1/') || altLower.includes('duplicate')
+      return !isDuplicate
     })
 
   // Total items count (images + video if exists)
