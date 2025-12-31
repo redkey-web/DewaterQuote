@@ -1,7 +1,7 @@
 # Site Audit - Dewater Products
 
 **Created**: 2025-12-30
-**Updated**: 2025-12-30
+**Updated**: 2025-12-31
 **Type**: audit
 **Status**: Complete (Playwright testing done)
 **Priority**: High
@@ -9,6 +9,16 @@
 ## Summary
 
 Comprehensive audit of all pages, links, assets, and interactive elements on the Dewater Products website to identify broken references, missing pages, and ensure all functionality works correctly.
+
+### Current Architecture (2025-12-31)
+
+**Database-First Model**:
+- **Neon PostgreSQL** = SOLE runtime data source for products, categories, brands
+- **Vercel Blob** = Product images (CDN-cached, 1-year browser cache)
+- **catalog.ts** = Build-time only (generateStaticParams, client suggestions) - NOT used for display
+- **No fallbacks**: If database fails, site shows errors (no silent degradation)
+
+**Related**: [[product-price-audit.md]] - Data integrity (Neto sync, SKUs, prices)
 
 ### Playwright Test Results
 - **216 passed** | **0 failed** | **84 skipped**
@@ -514,8 +524,9 @@ tests/
 - [x] Verify all Header links have corresponding pages (10 MISSING identified)
 - [x] Verify all Footer links have corresponding pages (9 MISSING identified)
 - [x] Check all static image references exist (233 images found, logo verified)
-- [ ] Verify all API routes respond correctly
-- [ ] Check database queries return expected data
+- [x] Verify all API routes respond correctly
+- [x] Check database queries return expected data
+- [x] **Architecture update (2025-12-31)**: Removed catalog.ts fallbacks, DB-only mode
 
 ### Phase 2: Create Missing Pages
 - [ ] `/about` page
@@ -577,11 +588,16 @@ tests/
 - Industry pages use `[industry]` - need to verify data source
 - Subcategory pages use `[slug]/[subcategory]` pattern
 
-### Database Dependencies
-- Products: Loaded from Neon Postgres
-- Categories: Loaded from Neon Postgres
-- Brands: Loaded from Neon Postgres
-- Images: Mix of static `/public/` and Vercel Blob
+### Database Dependencies (2025-12-31)
+
+**Neon PostgreSQL is THE SOLE runtime source:**
+- Products: Database only (no catalog.ts fallback)
+- Categories: Database only (no fallback)
+- Brands: Database only (no fallback)
+- Product images: Vercel Blob (CDN-cached)
+- Static images: `/public/` (logos, backgrounds, etc.)
+
+If database is unavailable, pages will error (intentional - no silent degradation).
 
 ### Authentication
 - Admin pages protected by NextAuth middleware
@@ -591,6 +607,8 @@ tests/
 
 ## Related
 
+- [[product-price-audit.md]] - Data integrity (Neto sync, SKUs, prices)
+- [[playwright-test-findings.md]] - Detailed Playwright test analysis
 - [[analysis.md]]
 - [[pointers.md]]
 - [[services.md]]

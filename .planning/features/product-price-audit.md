@@ -1,20 +1,28 @@
 # Product & Price Audit System
 
 **Created**: 2025-12-30
+**Updated**: 2025-12-31
 **Type**: System / Data Integrity
 **Status**: In Progress
 **Priority**: High
 
 ## Summary
 
-**CONTEXT**: Migrating FROM Neto TO new Next.js site. Neto is the SOURCE OF TRUTH.
+**CONTEXT**: Database-first architecture. Neto is the import source, Database is the runtime source.
 
-Selective migration approach:
-1. **Neto Store** - SOURCE OF TRUTH (1328 products, 74 families)
-2. **catalog.ts** - CURATED SELECTION being migrated (12 products so far)
-3. **Neon Database** - Stores migrated products (404 variations)
+**Current Architecture** (as of 2025-12-31):
+1. **Neto Store** - SOURCE for importing products/prices (1328 products, 74 families)
+2. **Neon Database** - **SOLE RUNTIME SOURCE** for all product data (404 variations)
+3. **catalog.ts** - BUILD-TIME ONLY (generateStaticParams, client-side suggestions) - NOT used for display
+4. **Vercel Blob** - Product images (CDN-cached, 1-year browser cache)
+
+**Data Flow**:
+- Neto → Database (import/sync) → Website (runtime)
+- No fallbacks: if DB fails, site shows errors (intentional - no silent degradation)
 
 **Goal**: Ensure migrated products are COMPLETE and ACCURATE before adding more.
+
+**Related**: [[site-audit.md]] - Functionality testing (links, pages, UI)
 
 ---
 
@@ -25,11 +33,12 @@ Selective migration approach:
 | **SKU Format** | Match Neto EXACTLY | Single source of truth, no mapping needed |
 | **Size Coverage** | ALL sizes from Neto | Complete product offerings |
 | **Priority** | Fix first, then add | Ensure quality before expanding |
+| **Architecture** | Database-only (no fallbacks) | Clear error visibility, single source |
 
 **Implications:**
-- Need to update catalog.ts SKUs to match Neto format
-- Need to add all missing sizes for migrated products
-- Database SKUs need updating to match
+- Database is THE source for all runtime product data
+- Sync scripts import from Neto → Database directly
+- catalog.ts only used for build-time static generation (not runtime)
 
 ---
 
@@ -74,29 +83,35 @@ Update our SKUs to match Neto exactly:
 
 ## Data Sources
 
-### Source 1: catalog.ts
-- Location: `src/data/catalog.ts`
-- Contains: Product definitions with sizeOptions arrays
-- Fields: id, sku, name, price, sizeOptions[{value, label, price, sku}]
-- ~40+ products
-
-### Source 2: Neon Database
-- Tables: `products`, `product_variations`
-- Populated by: `scripts/seed.ts` (uses onConflictDoNothing)
+### Source 1: Neon Database (RUNTIME SOURCE)
+- Tables: `products`, `product_variations`, `product_images`, etc.
+- Populated by: `scripts/seed.ts`, `scripts/sync-catalog-to-db.ts`
 - Fields: sku, price, product_id, size, attributes
 - Queried via: `src/lib/db/products.ts`
+- **THIS IS THE ONLY SOURCE FOR RUNTIME DATA**
 
-### Source 3: Neto API
+### Source 2: Neto Store (IMPORT SOURCE)
 - Endpoint: `https://www.dewaterproducts.com.au/do/WS/NetoAPI`
 - Auth: NETOAPI_KEY header only
 - Action: GetItem
 - Returns: SKU, Name, DefaultPrice, ParentSKU, IsActive
 - Total products: ~1328 items
+- **Used for syncing prices/products TO database**
+
+### Source 3: catalog.ts (BUILD-TIME ONLY)
+- Location: `src/data/catalog.ts`
+- Contains: Product definitions with sizeOptions arrays
+- **NO LONGER USED FOR RUNTIME DISPLAY** (as of 2025-12-31)
+- Only used for: generateStaticParams (build-time), OrderBumps (client-side suggestions)
+- Historical: Was used as fallback before database-first architecture
 
 ---
 
 ## Phase A: Code Audit ✅ COMPLETE
 **Goal**: Map all price/product fields in codebase
+
+> **Note (2025-12-31)**: This phase was completed before the architecture change.
+> catalog.ts fallbacks have since been removed. Database is now the sole runtime source.
 
 ### A1. Extract catalog.ts products
 - [x] Parse catalog.ts programmatically
@@ -110,13 +125,14 @@ Update our SKUs to match Neto exactly:
 - [x] Found: 404 variations in database
 
 ### A3. Map data flow
-- [x] Document: catalog.ts -> seed.ts -> database
+- [x] ~~Document: catalog.ts -> seed.ts -> database~~ (obsolete)
 - [x] Document: database -> products.ts -> pages
-- [x] Note: seed uses onConflictDoNothing (doesn't update existing)
+- [x] **Updated (2025-12-31)**: Now just Database → Pages (no fallback)
 
 ### A4. Find hardcoded prices
 - [x] Prices only in catalog.ts sizeOptions
 - [x] No hardcoded prices in components
+- [x] **Updated (2025-12-31)**: All prices now from database only
 
 ### A5. Generate Code Audit Report
 - [x] Created `scripts/full-audit.ts`
@@ -214,13 +230,15 @@ Update our SKUs to match Neto exactly:
 ## Phase E: Reconciliation Scripts 🔄 IN PROGRESS
 **Goal**: Fix issues for MIGRATED products and prevent future drift
 
+> **Updated (2025-12-31)**: Sync now goes Neto → Database directly (no catalog.ts step)
+
 ### E1. SKU standardization
 - [x] **Decision: Match Neto SKUs exactly**
-- [ ] Update catalog.ts SKUs to match Neto format
+- [x] ~~Update catalog.ts SKUs~~ (not needed - catalog.ts not used for runtime)
 - [ ] Update database SKUs to match Neto format
 - [ ] Products needing SKU changes: PTFELBFLYW, FSFREJ, CF8MWEBFVL, others
 
-### E2. Add ALL missing sizes to migrated products
+### E2. Add ALL missing sizes to migrated products (DATABASE)
 - [ ] SSYS: Add 7 sizes (65mm, 125mm, 350-600mm) - $1,214 to $40,635
 - [ ] OCFG-S: Add 47 sizes (all pipe diameters)
 - [ ] DB-1: Add 31 sizes (all OD sizes)
@@ -231,14 +249,15 @@ Update our SKUs to match Neto exactly:
 - [ ] CF8MWEBFVL: Add 1 size
 - [ ] OCFG-L: Add 1 size
 
-### E3. Price sync script (exists)
+### E3. Price sync script (Neto → Database)
 - [x] neto-price-check.ts with --fix flag
-- [ ] Update to use Neto CSV as source
-- [ ] Add catalog.ts auto-update capability
+- [ ] Update to sync Neto → Database directly (bypass catalog.ts)
+- [x] ~~Add catalog.ts auto-update~~ (not needed - DB is source)
 
 ### E4. Ongoing sync script
 - [ ] Schedule-able price check (cron or manual)
-- [ ] Compare against Neto CSV export
+- [ ] Compare Neto prices against Database
+- [ ] Update Database directly from Neto export
 - [ ] Alert on price drift > threshold
 
 ---
@@ -274,11 +293,12 @@ Update our SKUs to match Neto exactly:
 ### Scripts
 | File | Purpose | Status |
 |------|---------|--------|
-| `scripts/full-audit.ts` | Complete audit (CSV + catalog + DB) | ✅ Done |
-| `scripts/neto-price-check.ts` | Price comparison & fix (API) | ✅ Done |
+| `scripts/full-audit.ts` | Complete audit (CSV + DB comparison) | ✅ Done |
+| `scripts/neto-price-check.ts` | Price comparison & fix (Neto → DB) | ✅ Done |
 | `scripts/find-strainers.ts` | Search Neto products | ✅ Done |
-| `scripts/fix-sku-format.ts` | Update SKUs to match Neto | 📋 Needed |
-| `scripts/add-missing-sizes.ts` | Add all sizes from Neto | 📋 Needed |
+| `scripts/check-prices.ts` | Verify DB prices vs source | ✅ Done |
+| `scripts/fix-sku-format.ts` | Update Database SKUs to match Neto | 📋 Needed |
+| `scripts/add-missing-sizes.ts` | Add all sizes to Database | 📋 Needed |
 | `scripts/playwright-verify.ts` | Headless price verification | 📋 Phase D |
 
 ### Reports
@@ -329,14 +349,25 @@ fetch('https://www.dewaterproducts.com.au/do/WS/NetoAPI', {
 });
 ```
 
-### Database Schema
-```sql
--- products table
-id, sku, name, slug, description, category_id, brand_id, ...
+### Database Schema (Neon PostgreSQL)
 
--- product_variations table
-id, product_id, sku, price, size, attributes, stock_status, ...
+**This is THE source for all runtime product data.**
+
+```sql
+-- products table (67+ products)
+id, sku, name, slug, description, category_id, subcategory_id, brand_id,
+materials, pressure_range, temperature, size_from, lead_time, price_varies, is_active
+
+-- product_variations table (404+ variations)
+id, product_id, sku, price, size, label, source, display_order
+
+-- product_images table (Vercel Blob URLs)
+id, product_id, url, alt, type, is_primary, display_order
+
+-- product_features, product_specifications, product_applications, product_downloads
 ```
+
+See `CLAUDE.md` for full schema documentation.
 
 ### SKU Patterns Observed
 - Parent: SSYS, BFLYW316, etc.
@@ -347,6 +378,13 @@ id, product_id, sku, price, size, attributes, stock_status, ...
 1. SSYS missing 7 sizes: 65mm, 125mm, 350mm, 400mm, 450mm, 500mm, 600mm
 2. Multiple butterfly valves had incorrect prices (fixed)
 3. 79 SKUs not found in Neto (may be different format or manual additions)
+
+### Architecture Changes (2025-12-31)
+- ✅ Removed catalog.ts fallback from `src/data/products.ts`
+- ✅ Removed catalog.ts fallback from `src/lib/db/products.ts`
+- ✅ Removed catalog.ts fallback from `src/lib/db/categories.ts`
+- ✅ Database errors now throw (no silent fallback)
+- ✅ Vercel Blob images with 1-year cache
 
 ---
 
