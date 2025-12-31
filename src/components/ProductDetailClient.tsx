@@ -506,12 +506,12 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                                 {product.sizeOptions.map((size) => (
                                   <Picker.Item key={size.value} value={size.value}>
                                     {({ selected }) => (
-                                      <div className={`flex items-center justify-center gap-3 px-4 ${selected ? "font-semibold text-primary" : "text-muted-foreground"}`}>
-                                        <span>
+                                      <div className={`grid grid-cols-[1fr_auto] w-full gap-4 px-4 items-center ${selected ? "font-semibold text-primary" : "text-muted-foreground"}`}>
+                                        <span className="text-left truncate">
                                           {size.value}
-                                          {size.label && ` - ${size.label}`}
+                                          {size.label && <span className="opacity-70 ml-1">- {size.label}</span>}
                                         </span>
-                                        <span className={selected ? "text-primary" : ""}>
+                                        <span className={`text-right tabular-nums ${selected ? "text-primary" : ""}`}>
                                           {size.price ? `$${size.price.toFixed(2)}` : "POA"}
                                         </span>
                                       </div>
@@ -546,14 +546,18 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                           <SelectValue placeholder="Choose a size..." />
                         </SelectTrigger>
                         <SelectContent>
-                          {product.sizeOptions.map((size) => (
-                            <SelectItem key={size.value} value={size.value}>
-                              <div className="flex items-center justify-between w-full gap-4">
-                                <span>
+                          {product.sizeOptions.map((size, index) => (
+                            <SelectItem
+                              key={size.value}
+                              value={size.value}
+                              className={`rounded-none ${index % 2 === 0 ? "bg-muted/40" : "bg-transparent"}`}
+                            >
+                              <div className="grid grid-cols-[1fr_auto] w-full gap-6 items-center">
+                                <span className="text-left">
                                   {size.value}
-                                  {size.label && ` - ${size.label}`}
+                                  {size.label && <span className="text-muted-foreground ml-1">- {size.label}</span>}
                                 </span>
-                                <span className="text-muted-foreground">
+                                <span className="text-right text-muted-foreground tabular-nums font-medium min-w-[80px]">
                                   {size.price ? `$${size.price.toFixed(2)}` : "POA"}
                                 </span>
                               </div>
