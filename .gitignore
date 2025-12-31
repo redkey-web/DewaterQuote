@@ -26,3 +26,4 @@ _deprecated
 .playwright-mcp/
 test-results/
 .env.vercel
+playwright-report/
