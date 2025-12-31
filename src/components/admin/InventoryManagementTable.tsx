@@ -874,7 +874,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               <Input
                                 type="text"
                                 className={cn(
-                                  'w-28 h-8 text-sm font-mono uppercase',
+                                  'w-32 h-8 text-sm font-mono uppercase',
                                   editedProducts[product.id]?.sku !== undefined && 'border-yellow-400 bg-yellow-50',
                                   skuWarning && 'border-orange-500 bg-orange-50'
                                 )}
@@ -904,7 +904,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               <Input
                                 type="text"
                                 className={cn(
-                                  'w-48 h-8 text-sm font-medium',
+                                  'w-64 h-8 text-sm font-medium',
                                   (editedProducts[product.id]?.name !== undefined || editedProducts[product.id]?.shortName !== undefined) && 'border-yellow-400 bg-yellow-50',
                                   nameWarning && 'border-orange-500 bg-orange-50'
                                 )}
@@ -1000,7 +1000,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                             step="0.01"
                             min="0"
                             className={cn(
-                              "w-24 h-8 text-right text-sm font-mono",
+                              "w-28 h-8 text-right text-sm font-mono",
                               editedProducts[product.id]?.basePrice !== undefined && "border-yellow-400 bg-yellow-50"
                             )}
                             value={getEffectiveValue(product.id, 'basePrice', product.basePrice ?? '') as string}
@@ -1097,7 +1097,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                   <Input
                                     type="text"
                                     className={cn(
-                                      'w-24 h-7 text-xs font-mono uppercase',
+                                      'w-28 h-7 text-xs font-mono uppercase',
                                       editedVariations[variation.id]?.sku !== undefined &&
                                         'border-yellow-400 bg-yellow-50',
                                       varSkuWarning && 'border-orange-500 bg-orange-50'
@@ -1126,7 +1126,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                     <Input
                                       type="text"
                                       className={cn(
-                                        'w-20 h-7 text-xs',
+                                        'w-24 h-7 text-xs',
                                         editedVariations[variation.id]?.size !== undefined &&
                                           'border-yellow-400 bg-yellow-50',
                                         sizeWarning && 'border-orange-500 bg-orange-50'
@@ -1151,7 +1151,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                   <Input
                                     type="text"
                                     className={cn(
-                                      'w-32 h-7 text-xs',
+                                      'w-44 h-7 text-xs',
                                       editedVariations[variation.id]?.label !== undefined &&
                                         'border-yellow-400 bg-yellow-50'
                                     )}
@@ -1224,7 +1224,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                   step="0.01"
                                   min="0"
                                   className={cn(
-                                    'w-20 h-7 text-right text-xs font-mono',
+                                    'w-24 h-7 text-right text-xs font-mono',
                                     editedVariations[variation.id]?.price !== undefined &&
                                       'border-yellow-400 bg-yellow-50'
                                   )}
@@ -1258,7 +1258,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                     <Input
                                       type="text"
                                       className={cn(
-                                        'w-24 h-7 text-xs font-mono uppercase',
+                                        'w-28 h-7 text-xs font-mono uppercase',
                                         newSkuWarning && 'border-orange-500 bg-orange-50'
                                       )}
                                       placeholder="SKU"
@@ -1285,7 +1285,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                       <Input
                                         type="text"
                                         className={cn(
-                                          'w-20 h-7 text-xs',
+                                          'w-24 h-7 text-xs',
                                           newSizeWarning && 'border-orange-500 bg-orange-50'
                                         )}
                                         placeholder="Size *"
@@ -1307,7 +1307,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                     </div>
                                     <Input
                                       type="text"
-                                      className="w-32 h-7 text-xs"
+                                      className="w-44 h-7 text-xs"
                                       placeholder="Label"
                                       value={newVariation.label}
                                       onChange={(e) =>
@@ -1326,7 +1326,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                     type="number"
                                     step="0.01"
                                     min="0"
-                                    className="w-20 h-7 text-right text-xs font-mono"
+                                    className="w-24 h-7 text-right text-xs font-mono"
                                     placeholder="Price"
                                     value={newVariation.price}
                                     onChange={(e) =>
