@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
   Package,
+  PackageSearch,
   Tags,
   Building2,
   FileImage,
@@ -15,6 +16,7 @@ import {
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Inventory', href: '/admin/inventory', icon: PackageSearch },
   { name: 'Products', href: '/admin/products', icon: Package },
   { name: 'Categories', href: '/admin/categories', icon: Tags },
   { name: 'Brands', href: '/admin/brands', icon: Building2 },

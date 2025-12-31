@@ -1,9 +1,9 @@
 # Inventory Management System & Product Migration
 
 **Created**: 2025-12-31
-**Updated**: 2025-12-31 (Session 1 Complete)
+**Updated**: 2025-12-31 (Session 2 Complete)
 **Type**: Feature / System Enhancement
-**Status**: In Progress (F1 + F4 Complete)
+**Status**: In Progress (F1 + F2a + F4 Complete)
 **Priority**: High
 
 ## Summary
@@ -232,15 +232,15 @@ subtitle: text('subtitle'),
 
 ### Tasks
 
-- [ ] Create `/admin/inventory/page.tsx`
-- [ ] Create `InventoryTable.tsx` with DataTable
-- [ ] Create `StockStatusBadge.tsx`
-- [ ] Create `BulkInventoryActions.tsx`
-- [ ] Create `/api/admin/inventory/route.ts` (GET, PATCH)
-- [ ] Add sidebar navigation item
-- [ ] Add data refresh endpoint
+- [x] Create `/admin/inventory/page.tsx` ✅ 2025-12-31
+- [x] Create `InventoryTable.tsx` with DataTable ✅ 2025-12-31
+- [x] Create `StockStatusBadge.tsx` ✅ 2025-12-31
+- [x] Create `BulkInventoryActions.tsx` (integrated into InventoryTable) ✅ 2025-12-31
+- [x] Create `/api/admin/inventory/route.ts` (GET, PATCH) ✅ 2025-12-31
+- [x] Add sidebar navigation item ✅ 2025-12-31
+- [x] Add data refresh endpoint (integrated via router.refresh()) ✅ 2025-12-31
 
-**Estimate**: 4-5 hours
+**Actual**: 2 hours
 
 ---
 
@@ -611,16 +611,16 @@ See **Client Guide** for detailed explanation: `docs/client-admin-guide.md`
 |-------|-------------|------------|--------|--------|
 | F1 | Schema Extension | 3-4 | 1.5 | ✅ Complete |
 | F4 | Complete Migration | 3-4 | 2 | ✅ Complete |
-| F2a | Inventory Page | 4-5 | - | ⏳ Next |
-| F2b | Pricing Page | 3-4 | - | ⏳ Pending |
+| F2a | Inventory Page | 4-5 | 2 | ✅ Complete |
+| F2b | Pricing Page | 3-4 | - | ⏳ Next |
 | F2c | Logistics Page | 2-3 | - | ⏳ Pending |
 | F3 | Frontend States | 4-5 | - | ⏳ Pending |
 | F5 | Migration | 4-6 | - | ⏳ Pending |
 | F6 | Backup & Export | 6-8 | - | ⏳ Pending |
 
 **Total Estimate**: ~30-39 hours
-**Completed**: 3.5 hours (F1 + F4)
-**Remaining**: ~26-35 hours
+**Completed**: 5.5 hours (F1 + F2a + F4)
+**Remaining**: ~24-33 hours
 
 ### Session Progress
 
@@ -629,8 +629,15 @@ See **Client Guide** for detailed explanation: `docs/client-admin-guide.md`
    - F4: Data Migration (2 hrs)
    - Commit: `5d06dcb`
 
-2. **Session 2** (4-5 hrs): F2a (Inventory Page) - NEXT
-3. **Session 3** (5-7 hrs): F2b + F2c (Pricing + Logistics)
+2. **Session 2** ✅ COMPLETE (2 hrs actual)
+   - F2a: Inventory Page (2 hrs)
+   - Created /admin/inventory with stock visibility
+   - 5 stats cards, filters, bulk actions
+   - InventoryTable with checkbox selection
+   - StockStatusBadge component
+   - API route for bulk updates
+
+3. **Session 3** (5-7 hrs): F2b + F2c (Pricing + Logistics) - NEXT
 4. **Session 4** (4-5 hrs): F3 (Frontend States)
 5. **Session 5** (4-6 hrs): F5 (Migration)
 6. **Session 6** (6-8 hrs): F6 (Backup & Export)
