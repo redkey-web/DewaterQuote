@@ -484,7 +484,10 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                         >
                           <span className={selectedSize ? "text-foreground" : "text-muted-foreground"}>
                             {selectedSize
-                              ? product.sizeOptions.find(s => s.value === selectedSize)?.label
+                              ? (() => {
+                                  const opt = product.sizeOptions.find(s => s.value === selectedSize);
+                                  return opt ? `${opt.value}${opt.label ? ` - ${opt.label}` : ''}` : selectedSize;
+                                })()
                               : "Tap to choose a size..."}
                           </span>
                           <span className="text-muted-foreground">▼</span>
@@ -504,7 +507,10 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                                   <Picker.Item key={size.value} value={size.value}>
                                     {({ selected }) => (
                                       <div className={`flex items-center justify-center gap-3 px-4 ${selected ? "font-semibold text-primary" : "text-muted-foreground"}`}>
-                                        <span>{size.label}</span>
+                                        <span>
+                                          {size.value}
+                                          {size.label && ` - ${size.label}`}
+                                        </span>
                                         <span className={selected ? "text-primary" : ""}>
                                           {size.price ? `$${size.price.toFixed(2)}` : "POA"}
                                         </span>
@@ -543,7 +549,10 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                           {product.sizeOptions.map((size) => (
                             <SelectItem key={size.value} value={size.value}>
                               <div className="flex items-center justify-between w-full gap-4">
-                                <span>{size.label}</span>
+                                <span>
+                                  {size.value}
+                                  {size.label && ` - ${size.label}`}
+                                </span>
                                 <span className="text-muted-foreground">
                                   {size.price ? `$${size.price.toFixed(2)}` : "POA"}
                                 </span>
