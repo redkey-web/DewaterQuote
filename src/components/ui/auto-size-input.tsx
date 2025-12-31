@@ -9,32 +9,42 @@ interface AutoSizeInputProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
 }
 
 const AutoSizeInput = React.forwardRef<HTMLInputElement, AutoSizeInputProps>(
-  ({ className, value, placeholder, minWidth = 60, maxWidth = 400, ...props }, ref) => {
-    const [width, setWidth] = React.useState(minWidth);
-    const measureRef = React.useRef<HTMLSpanElement>(null);
+  ({ className, value, placeholder, minWidth = 60, maxWidth = 500, ...props }, ref) => {
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const sizerRef = React.useRef<HTMLSpanElement>(null);
+    const [inputWidth, setInputWidth] = React.useState<number>(minWidth);
 
-    React.useEffect(() => {
-      if (measureRef.current) {
-        const textToMeasure = String(value || placeholder || '');
-        measureRef.current.textContent = textToMeasure || 'W'; // 'W' as fallback for empty
-        const measuredWidth = measureRef.current.offsetWidth + 24; // Add padding
-        setWidth(Math.max(minWidth, Math.min(maxWidth, measuredWidth)));
+    // Calculate width based on content
+    React.useLayoutEffect(() => {
+      if (sizerRef.current) {
+        // Get computed styles from container for accurate measurement
+        const computed = window.getComputedStyle(sizerRef.current);
+        const textContent = String(value || '') || placeholder || '';
+        sizerRef.current.textContent = textContent;
+
+        // Measure the text width
+        const textWidth = sizerRef.current.scrollWidth;
+        // Add padding (px-3 = 12px each side = 24px total) + some buffer
+        const newWidth = Math.max(minWidth, Math.min(maxWidth, textWidth + 32));
+        setInputWidth(newWidth);
       }
     }, [value, placeholder, minWidth, maxWidth]);
 
     return (
-      <div className="relative inline-block">
-        {/* Hidden span for measuring text width */}
+      <div ref={containerRef} className="relative inline-flex items-center">
+        {/* Hidden sizer element - must match input styles exactly */}
         <span
-          ref={measureRef}
+          ref={sizerRef}
           className={cn(
-            'invisible absolute whitespace-pre',
-            className
+            'absolute invisible whitespace-pre pointer-events-none',
+            // Match the text styling from className
+            className?.includes('font-mono') && 'font-mono',
+            className?.includes('uppercase') && 'uppercase',
+            className?.includes('text-xs') ? 'text-xs' : 'text-sm'
           )}
           style={{
-            font: 'inherit',
-            padding: 0,
-            border: 0,
+            left: 0,
+            top: 0,
           }}
           aria-hidden="true"
         />
@@ -43,10 +53,10 @@ const AutoSizeInput = React.forwardRef<HTMLInputElement, AutoSizeInputProps>(
           value={value}
           placeholder={placeholder}
           className={cn(
-            'flex h-8 rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+            'flex rounded-md border border-input bg-background px-3 py-1 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
             className
           )}
-          style={{ width: `${width}px` }}
+          style={{ width: `${inputWidth}px`, minWidth: `${minWidth}px`, maxWidth: `${maxWidth}px` }}
           {...props}
         />
       </div>

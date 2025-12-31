@@ -875,7 +875,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               <AutoSizeInput
                                 type="text"
                                 minWidth={80}
-                                maxWidth={180}
+                                maxWidth={200}
                                 className={cn(
                                   'h-8 text-sm font-mono uppercase',
                                   editedProducts[product.id]?.sku !== undefined && 'border-yellow-400 bg-yellow-50',
@@ -906,8 +906,8 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                             <div className="flex items-center gap-1">
                               <AutoSizeInput
                                 type="text"
-                                minWidth={120}
-                                maxWidth={350}
+                                minWidth={150}
+                                maxWidth={500}
                                 className={cn(
                                   'h-8 text-sm font-medium',
                                   (editedProducts[product.id]?.name !== undefined || editedProducts[product.id]?.shortName !== undefined) && 'border-yellow-400 bg-yellow-50',
@@ -1161,8 +1161,8 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                   </div>
                                   <AutoSizeInput
                                     type="text"
-                                    minWidth={100}
-                                    maxWidth={250}
+                                    minWidth={120}
+                                    maxWidth={400}
                                     className={cn(
                                       'h-7 text-xs',
                                       editedVariations[variation.id]?.label !== undefined &&
@@ -1324,8 +1324,8 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                     </div>
                                     <AutoSizeInput
                                       type="text"
-                                      minWidth={100}
-                                      maxWidth={250}
+                                      minWidth={120}
+                                      maxWidth={400}
                                       className="h-7 text-xs"
                                       placeholder="Label"
                                       value={newVariation.label}
