@@ -1,9 +1,9 @@
 # Inventory Management System & Product Migration
 
 **Created**: 2025-12-31
-**Updated**: 2025-12-31 (Session 2 Complete)
+**Updated**: 2025-12-31 (Session 3 Complete)
 **Type**: Feature / System Enhancement
-**Status**: In Progress (F1 + F2a + F4 Complete)
+**Status**: In Progress (F1 + F2a + F2b + F2c + F4 Complete)
 **Priority**: High
 
 ## Summary
@@ -310,14 +310,14 @@ subtitle: text('subtitle'),
 
 ### Tasks
 
-- [ ] Create `/admin/pricing/page.tsx`
-- [ ] Create `PricingTable.tsx` with margin calculator
-- [ ] Create `MarginBadge.tsx`
-- [ ] Create `PromotionForm.tsx`
-- [ ] Create `/api/admin/pricing/route.ts`
-- [ ] Add sidebar navigation item
+- [x] Create `/admin/pricing/page.tsx` ✅ 2025-12-31
+- [x] Create `PricingTable.tsx` with margin calculator ✅ 2025-12-31
+- [x] Create `MarginBadge.tsx` ✅ 2025-12-31
+- [x] Create `PromotionForm.tsx` (integrated into PricingTable) ✅ 2025-12-31
+- [x] Create `/api/admin/pricing/route.ts` ✅ 2025-12-31
+- [x] Add sidebar navigation item ✅ 2025-12-31
 
-**Estimate**: 3-4 hours
+**Actual**: 1.5 hours
 
 ---
 
@@ -351,13 +351,13 @@ Tabbed interface:
 
 ### Tasks
 
-- [ ] Create `/admin/logistics/page.tsx`
-- [ ] Create `ShippingTab.tsx`
-- [ ] Create `SuppliersTab.tsx`
-- [ ] Create `/api/admin/logistics/route.ts`
-- [ ] Add sidebar navigation item
+- [x] Create `/admin/logistics/page.tsx` ✅ 2025-12-31
+- [x] Create `LogisticsTabs.tsx` (combined Shipping + Suppliers) ✅ 2025-12-31
+- [x] Add sidebar navigation item ✅ 2025-12-31
 
-**Estimate**: 2-3 hours
+**Actual**: 1 hour
+
+**Note**: API route not needed - data is read-only in this view. Edits go through product edit form.
 
 ---
 
@@ -612,15 +612,15 @@ See **Client Guide** for detailed explanation: `docs/client-admin-guide.md`
 | F1 | Schema Extension | 3-4 | 1.5 | ✅ Complete |
 | F4 | Complete Migration | 3-4 | 2 | ✅ Complete |
 | F2a | Inventory Page | 4-5 | 2 | ✅ Complete |
-| F2b | Pricing Page | 3-4 | - | ⏳ Next |
-| F2c | Logistics Page | 2-3 | - | ⏳ Pending |
-| F3 | Frontend States | 4-5 | - | ⏳ Pending |
+| F2b | Pricing Page | 3-4 | 1.5 | ✅ Complete |
+| F2c | Logistics Page | 2-3 | 1 | ✅ Complete |
+| F3 | Frontend States | 4-5 | - | ⏳ Next |
 | F5 | Migration | 4-6 | - | ⏳ Pending |
 | F6 | Backup & Export | 6-8 | - | ⏳ Pending |
 
 **Total Estimate**: ~30-39 hours
-**Completed**: 5.5 hours (F1 + F2a + F4)
-**Remaining**: ~24-33 hours
+**Completed**: 8 hours (F1 + F2a + F2b + F2c + F4)
+**Remaining**: ~14-23 hours
 
 ### Session Progress
 
@@ -636,9 +636,21 @@ See **Client Guide** for detailed explanation: `docs/client-admin-guide.md`
    - InventoryTable with checkbox selection
    - StockStatusBadge component
    - API route for bulk updates
+   - Commit: `d80f171`
 
-3. **Session 3** (5-7 hrs): F2b + F2c (Pricing + Logistics) - NEXT
-4. **Session 4** (4-5 hrs): F3 (Frontend States)
+3. **Session 3** ✅ COMPLETE (2.5 hrs actual)
+   - F2b: Pricing Page (1.5 hrs)
+     - PricingTable with margin calculator
+     - MarginBadge component
+     - Promotion dialog with dates
+     - CSV export functionality
+     - API route for bulk promotion updates
+   - F2c: Logistics Page (1 hr)
+     - LogisticsTabs with Shipping/Suppliers tabs
+     - Stats cards for shipping/supplier coverage
+     - CSV export per tab
+
+4. **Session 4** (4-5 hrs): F3 (Frontend States) - NEXT
 5. **Session 5** (4-6 hrs): F5 (Migration)
 6. **Session 6** (6-8 hrs): F6 (Backup & Export)
 
