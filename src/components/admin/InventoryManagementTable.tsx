@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import { AutoSizeInput } from '@/components/ui/auto-size-input';
 import {
   Select,
   SelectContent,
@@ -870,11 +871,13 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                           const currentSku = getEffectiveValue(product.id, 'sku', product.sku) as string;
                           const skuWarning = isDuplicateProductSku(currentSku, product.id);
                           return (
-                            <div className="relative">
-                              <Input
+                            <div className="flex items-center gap-1">
+                              <AutoSizeInput
                                 type="text"
+                                minWidth={80}
+                                maxWidth={180}
                                 className={cn(
-                                  'w-32 h-8 text-sm font-mono uppercase',
+                                  'h-8 text-sm font-mono uppercase',
                                   editedProducts[product.id]?.sku !== undefined && 'border-yellow-400 bg-yellow-50',
                                   skuWarning && 'border-orange-500 bg-orange-50'
                                 )}
@@ -884,7 +887,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               {skuWarning && (
                                 <Tooltip>
                                   <TooltipTrigger asChild>
-                                    <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-500 cursor-help" />
+                                    <AlertTriangle className="h-4 w-4 text-orange-500 cursor-help flex-shrink-0" />
                                   </TooltipTrigger>
                                   <TooltipContent side="top" className="max-w-xs">
                                     <p className="text-sm">{skuWarning}</p>
@@ -900,11 +903,13 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                           const currentName = getEffectiveValue(product.id, 'shortName', product.shortName ?? '') as string || getEffectiveValue(product.id, 'name', product.name) as string;
                           const nameWarning = isDuplicateProductName(currentName, product.id);
                           return (
-                            <div className="relative">
-                              <Input
+                            <div className="flex items-center gap-1">
+                              <AutoSizeInput
                                 type="text"
+                                minWidth={120}
+                                maxWidth={350}
                                 className={cn(
-                                  'w-64 h-8 text-sm font-medium',
+                                  'h-8 text-sm font-medium',
                                   (editedProducts[product.id]?.name !== undefined || editedProducts[product.id]?.shortName !== undefined) && 'border-yellow-400 bg-yellow-50',
                                   nameWarning && 'border-orange-500 bg-orange-50'
                                 )}
@@ -922,7 +927,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               {nameWarning && (
                                 <Tooltip>
                                   <TooltipTrigger asChild>
-                                    <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-500 cursor-help" />
+                                    <AlertTriangle className="h-4 w-4 text-orange-500 cursor-help flex-shrink-0" />
                                   </TooltipTrigger>
                                   <TooltipContent side="top" className="max-w-xs">
                                     <p className="text-sm">{nameWarning}</p>
@@ -980,10 +985,12 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                         )}
                       </TableCell>
                       <TableCell>
-                        <Input
+                        <AutoSizeInput
                           type="text"
+                          minWidth={80}
+                          maxWidth={150}
                           className={cn(
-                            "w-full h-8 text-sm",
+                            "h-8 text-sm",
                             editedProducts[product.id]?.leadTimeText !== undefined && "border-yellow-400 bg-yellow-50"
                           )}
                           placeholder="e.g. 2-3 weeks"
@@ -1093,11 +1100,13 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                 </Tooltip>
                               </TableCell>
                               <TableCell className="font-mono text-xs pl-4">
-                                <div className="relative">
-                                  <Input
+                                <div className="flex items-center gap-1">
+                                  <AutoSizeInput
                                     type="text"
+                                    minWidth={60}
+                                    maxWidth={140}
                                     className={cn(
-                                      'w-28 h-7 text-xs font-mono uppercase',
+                                      'h-7 text-xs font-mono uppercase',
                                       editedVariations[variation.id]?.sku !== undefined &&
                                         'border-yellow-400 bg-yellow-50',
                                       varSkuWarning && 'border-orange-500 bg-orange-50'
@@ -1111,7 +1120,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                   {varSkuWarning && (
                                     <Tooltip>
                                       <TooltipTrigger asChild>
-                                        <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 text-orange-500 cursor-help" />
+                                        <AlertTriangle className="h-3 w-3 text-orange-500 cursor-help flex-shrink-0" />
                                       </TooltipTrigger>
                                       <TooltipContent side="top" className="max-w-xs">
                                         <p className="text-xs">{varSkuWarning}</p>
@@ -1121,12 +1130,14 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                 </div>
                               </TableCell>
                               <TableCell className="text-sm">
-                                <div className="flex gap-1">
-                                  <div className="relative">
-                                    <Input
+                                <div className="flex gap-1 items-center">
+                                  <div className="flex items-center gap-1">
+                                    <AutoSizeInput
                                       type="text"
+                                      minWidth={50}
+                                      maxWidth={100}
                                       className={cn(
-                                        'w-24 h-7 text-xs',
+                                        'h-7 text-xs',
                                         editedVariations[variation.id]?.size !== undefined &&
                                           'border-yellow-400 bg-yellow-50',
                                         sizeWarning && 'border-orange-500 bg-orange-50'
@@ -1140,7 +1151,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                     {sizeWarning && (
                                       <Tooltip>
                                         <TooltipTrigger asChild>
-                                          <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 text-orange-500 cursor-help" />
+                                          <AlertTriangle className="h-3 w-3 text-orange-500 cursor-help flex-shrink-0" />
                                         </TooltipTrigger>
                                         <TooltipContent side="top" className="max-w-xs">
                                           <p className="text-xs">{sizeWarning}</p>
@@ -1148,10 +1159,12 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                       </Tooltip>
                                     )}
                                   </div>
-                                  <Input
+                                  <AutoSizeInput
                                     type="text"
+                                    minWidth={100}
+                                    maxWidth={250}
                                     className={cn(
-                                      'w-44 h-7 text-xs',
+                                      'h-7 text-xs',
                                       editedVariations[variation.id]?.label !== undefined &&
                                         'border-yellow-400 bg-yellow-50'
                                     )}
@@ -1160,7 +1173,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                       variation.id,
                                       'label',
                                       variation.label ?? ''
-                                    )}
+                                    ) as string}
                                     onChange={(e) =>
                                       handleVariationEdit(variation.id, 'label', e.target.value)
                                     }
@@ -1254,11 +1267,13 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell className="font-mono text-xs pl-4">
-                                  <div className="relative">
-                                    <Input
+                                  <div className="flex items-center gap-1">
+                                    <AutoSizeInput
                                       type="text"
+                                      minWidth={60}
+                                      maxWidth={140}
                                       className={cn(
-                                        'w-28 h-7 text-xs font-mono uppercase',
+                                        'h-7 text-xs font-mono uppercase',
                                         newSkuWarning && 'border-orange-500 bg-orange-50'
                                       )}
                                       placeholder="SKU"
@@ -1270,7 +1285,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                     {newSkuWarning && (
                                       <Tooltip>
                                         <TooltipTrigger asChild>
-                                          <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 text-orange-500 cursor-help" />
+                                          <AlertTriangle className="h-3 w-3 text-orange-500 cursor-help flex-shrink-0" />
                                         </TooltipTrigger>
                                         <TooltipContent side="top" className="max-w-xs">
                                           <p className="text-xs">{newSkuWarning}</p>
@@ -1280,12 +1295,14 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                   </div>
                                 </TableCell>
                                 <TableCell>
-                                  <div className="flex gap-1">
-                                    <div className="relative">
-                                      <Input
+                                  <div className="flex gap-1 items-center">
+                                    <div className="flex items-center gap-1">
+                                      <AutoSizeInput
                                         type="text"
+                                        minWidth={50}
+                                        maxWidth={100}
                                         className={cn(
-                                          'w-24 h-7 text-xs',
+                                          'h-7 text-xs',
                                           newSizeWarning && 'border-orange-500 bg-orange-50'
                                         )}
                                         placeholder="Size *"
@@ -1297,7 +1314,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                       {newSizeWarning && (
                                         <Tooltip>
                                           <TooltipTrigger asChild>
-                                            <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 text-orange-500 cursor-help" />
+                                            <AlertTriangle className="h-3 w-3 text-orange-500 cursor-help flex-shrink-0" />
                                           </TooltipTrigger>
                                           <TooltipContent side="top" className="max-w-xs">
                                             <p className="text-xs">{newSizeWarning}</p>
@@ -1305,9 +1322,11 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                         </Tooltip>
                                       )}
                                     </div>
-                                    <Input
+                                    <AutoSizeInput
                                       type="text"
-                                      className="w-44 h-7 text-xs"
+                                      minWidth={100}
+                                      maxWidth={250}
+                                      className="h-7 text-xs"
                                       placeholder="Label"
                                       value={newVariation.label}
                                       onChange={(e) =>
