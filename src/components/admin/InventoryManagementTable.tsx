@@ -68,6 +68,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { StockStatusBadge, StockQtyBadge, getStockStatus } from './StockStatusBadge';
 import { cn } from '@/lib/utils';
+import { sortVariationsBySize } from '@/lib/utils/size-sort';
 
 interface VariationStock {
   qtyInStock: number | null;
@@ -1279,7 +1280,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                     {/* Expanded variations */}
                     {expandedProducts.has(product.id) && (
                       <>
-                        {product.variations.map((variation) => {
+                        {sortVariationsBySize(product.variations).map((variation) => {
                           const isVariationEdited = !!editedVariations[variation.id];
                           const currentVarSku = getEffectiveVariationValue(variation.id, 'sku', variation.sku ?? '') as string;
                           const currentSize = getEffectiveVariationValue(variation.id, 'size', variation.size) as string;
