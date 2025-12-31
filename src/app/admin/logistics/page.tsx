@@ -3,7 +3,6 @@ import { products, productShipping, productSupplier } from '@/db/schema';
 import { desc } from 'drizzle-orm';
 import { LogisticsTabs } from '@/components/admin/LogisticsTabs';
 import { StatsCard } from '@/components/admin/StatsCard';
-import { Truck, Building, Scale, Package } from 'lucide-react';
 
 interface LogisticsProduct {
   id: number;
@@ -119,25 +118,25 @@ export default async function LogisticsPage() {
         <StatsCard
           title="Total Products"
           value={stats.total}
-          icon={Package}
+          icon="package"
           variant="default"
         />
         <StatsCard
           title="With Weight"
           value={stats.hasWeight}
-          icon={Scale}
+          icon="scale"
           variant={stats.hasWeight === stats.total ? 'success' : 'warning'}
         />
         <StatsCard
           title="With Dimensions"
           value={stats.hasDimensions}
-          icon={Truck}
+          icon="truck"
           variant={stats.hasDimensions === stats.total ? 'success' : 'warning'}
         />
         <StatsCard
           title="Unique Suppliers"
           value={stats.uniqueSuppliers}
-          icon={Building}
+          icon="building"
           variant="info"
         />
       </div>

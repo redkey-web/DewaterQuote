@@ -7,7 +7,6 @@ import {
   LayoutDashboard,
   Package,
   PackageSearch,
-  DollarSign,
   Truck,
   Tags,
   Building2,
@@ -19,7 +18,6 @@ import {
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Inventory', href: '/admin/inventory', icon: PackageSearch },
-  { name: 'Pricing', href: '/admin/pricing', icon: DollarSign },
   { name: 'Products', href: '/admin/products', icon: Package },
   { name: 'Logistics', href: '/admin/logistics', icon: Truck },
   { name: 'Categories', href: '/admin/categories', icon: Tags },

@@ -1,12 +1,47 @@
 'use client';
 
-import { LucideIcon } from 'lucide-react';
+import {
+  Package,
+  CheckCircle,
+  AlertTriangle,
+  MessageSquare,
+  Ban,
+  DollarSign,
+  TrendingUp,
+  Tag,
+  Truck,
+  Building,
+  Scale,
+  Layers,
+  List,
+  FileText,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+// Map of icon names to components
+const iconMap = {
+  package: Package,
+  'check-circle': CheckCircle,
+  'alert-triangle': AlertTriangle,
+  'message-square': MessageSquare,
+  ban: Ban,
+  'dollar-sign': DollarSign,
+  'trending-up': TrendingUp,
+  tag: Tag,
+  truck: Truck,
+  building: Building,
+  scale: Scale,
+  layers: Layers,
+  list: List,
+  'file-text': FileText,
+} as const;
+
+export type IconName = keyof typeof iconMap;
 
 interface StatsCardProps {
   title: string;
   value: number | string;
-  icon: LucideIcon;
+  icon: IconName;
   variant?: 'default' | 'success' | 'warning' | 'error' | 'info';
 }
 
@@ -38,8 +73,9 @@ const variantStyles = {
   },
 };
 
-export function StatsCard({ title, value, icon: Icon, variant = 'default' }: StatsCardProps) {
+export function StatsCard({ title, value, icon, variant = 'default' }: StatsCardProps) {
   const styles = variantStyles[variant];
+  const Icon = iconMap[icon];
 
   return (
     <div className={cn('rounded-lg border p-4', styles.bg)}>
