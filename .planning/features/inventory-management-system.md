@@ -3,7 +3,7 @@
 **Created**: 2025-12-31
 **Updated**: 2025-12-31
 **Type**: Feature / System Enhancement
-**Status**: Planning (Refined)
+**Status**: In Progress (F1 + F4 Complete)
 **Priority**: High
 
 ## Summary
@@ -152,14 +152,14 @@ subtitle: text('subtitle'),
 
 ### Tasks
 
-- [ ] Add new fields to `src/db/schema.ts`
-- [ ] Create new tables (product_stock, product_shipping, product_supplier, product_seo)
-- [ ] Add relations
-- [ ] Run `npx drizzle-kit push`
-- [ ] Update TypeScript types
-- [ ] Test migrations
+- [x] Add new fields to `src/db/schema.ts` ✅ 2025-12-31
+- [x] Create new tables (product_stock, product_shipping, product_supplier, product_seo) ✅ 2025-12-31
+- [x] Add relations ✅ 2025-12-31
+- [x] Run `npx drizzle-kit push` ✅ 2025-12-31
+- [x] Update TypeScript types ✅ 2025-12-31
+- [x] Test migrations ✅ 2025-12-31
 
-**Estimate**: 3-4 hours
+**Actual**: 1.5 hours
 
 ---
 
@@ -447,14 +447,20 @@ const FIELD_MAPPING = {
 
 ### Tasks
 
-- [ ] Update `import-products.ts` with all 65 fields
-- [ ] Add upsert logic for new tables
-- [ ] Add SEO parent-only logic
-- [ ] Create import log for verification
-- [ ] Run one-time import from Neto CSV
-- [ ] Verify data in admin panel
+- [x] Update `import-products.ts` with all 65 fields ✅ 2025-12-31
+  - Created `scripts/import-inventory-data.ts` with full field mapping
+- [x] Add upsert logic for new tables ✅ 2025-12-31
+- [x] Add SEO parent-only logic ✅ 2025-12-31
+- [x] Create import log for verification ✅ 2025-12-31
+- [x] Run one-time import from Neto CSV ✅ 2025-12-31
+  - 24 products updated with pricing/availability fields
+  - 24 stock records created
+  - 24 shipping records created
+  - 24 supplier records created
+  - 12 SEO records created (parent products only)
+- [ ] Verify data in admin panel (pending F2a implementation)
 
-**Estimate**: 3-4 hours
+**Actual**: 2 hours
 
 > **After this phase:** Admin panel becomes the sole interface for product management.
 > No further imports from Neto needed.

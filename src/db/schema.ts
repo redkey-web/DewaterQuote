@@ -54,6 +54,7 @@ export const products = pgTable('products', {
   sku: text('sku').notNull().unique(),
   name: text('name').notNull(),
   shortName: text('short_name'),
+  subtitle: text('subtitle'), // Additional product subtitle
   brandId: integer('brand_id').references(() => brands.id).notNull(),
   categoryId: integer('category_id').references(() => categories.id).notNull(),
   subcategoryId: integer('subcategory_id').references(() => subcategories.id),
@@ -76,12 +77,106 @@ export const products = pgTable('products', {
   isActive: boolean('is_active').default(true),
   // Cross-reference fields for competitor equivalents
   straubEquivalent: text('straub_equivalent'), // e.g., "STRAUB-FLEX 1L"
+
+  // ============================================
+  // AVAILABILITY CONTROLS (Phase F1)
+  // ============================================
+  isQuoteOnly: boolean('is_quote_only').default(false), // Show "Request Quote" instead of price
+  isSuspended: boolean('is_suspended').default(false), // Temporarily unavailable
+  suspendedReason: text('suspended_reason'), // Why product is suspended
+  handlingTimeDays: integer('handling_time_days'), // Processing time in days
+  leadTimeText: text('lead_time_text'), // e.g., "2-3 weeks"
+
+  // ============================================
+  // PRICING FIELDS (Phase F1)
+  // ============================================
+  costPrice: decimal('cost_price', { precision: 10, scale: 2 }), // What we pay supplier
+  rrp: decimal('rrp', { precision: 10, scale: 2 }), // Recommended retail price
+  promotionPrice: decimal('promotion_price', { precision: 10, scale: 2 }), // Sale price
+  promotionStartDate: timestamp('promotion_start_date'), // When promotion starts
+  promotionEndDate: timestamp('promotion_end_date'), // When promotion ends
+  promotionId: text('promotion_id'), // Reference ID for promotion
+
+  // ============================================
+  // TAX FIELDS (Phase F1)
+  // ============================================
+  taxFree: boolean('tax_free').default(false), // GST exempt
+  taxCategory: text('tax_category'), // Tax classification
+
+  // ============================================
+  // PRICE TIERS - Customer Groups (Phase F1)
+  // ============================================
+  priceA: decimal('price_a', { precision: 10, scale: 2 }), // Trade pricing
+  priceB: decimal('price_b', { precision: 10, scale: 2 }), // Wholesale pricing
+  priceC: decimal('price_c', { precision: 10, scale: 2 }), // Tier C
+  priceD: decimal('price_d', { precision: 10, scale: 2 }), // Tier D
+  priceE: decimal('price_e', { precision: 10, scale: 2 }), // Tier E
+  priceF: decimal('price_f', { precision: 10, scale: 2 }), // Tier F
+
+  // ============================================
+  // OTHER FIELDS (Phase F1)
+  // ============================================
+  isVirtual: boolean('is_virtual').default(false), // Digital/non-physical product
+  isService: boolean('is_service').default(false), // Service rather than product
+  customCode: text('custom_code'), // Custom product code
+
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 }, (table) => ({
   slugIdx: uniqueIndex('products_slug_idx').on(table.slug),
   skuIdx: uniqueIndex('products_sku_idx').on(table.sku),
 }));
+
+// ============================================
+// INVENTORY & LOGISTICS TABLES (Phase F1)
+// ============================================
+
+// Stock tracking - managed via admin panel
+export const productStock = pgTable('product_stock', {
+  id: serial('id').primaryKey(),
+  productId: integer('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull(),
+  variationId: integer('variation_id'), // Optional - for variation-level stock (references productVariations)
+  qtyInStock: integer('qty_in_stock').default(0),
+  incomingQty: integer('incoming_qty').default(0),
+  preorderQty: integer('preorder_qty').default(0),
+  reorderPoint: integer('reorder_point').default(5), // Alert when stock falls below this
+  expectedArrival: timestamp('expected_arrival'), // When incoming stock arrives
+  lastUpdatedAt: timestamp('last_updated_at').defaultNow(),
+});
+
+// Shipping dimensions - for freight quotes
+export const productShipping = pgTable('product_shipping', {
+  id: serial('id').primaryKey(),
+  productId: integer('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull(),
+  variationId: integer('variation_id'), // Optional - for variation-level shipping
+  weightKg: decimal('weight_kg', { precision: 10, scale: 3 }),
+  heightCm: decimal('height_cm', { precision: 10, scale: 2 }),
+  widthCm: decimal('width_cm', { precision: 10, scale: 2 }),
+  lengthCm: decimal('length_cm', { precision: 10, scale: 2 }),
+  cubicM3: decimal('cubic_m3', { precision: 10, scale: 4 }), // Calculated volume
+  shippingCategory: text('shipping_category'), // Freight class
+  pickZone: text('pick_zone'), // Warehouse location
+  unitOfMeasure: text('unit_of_measure').default('ea'), // 'ea', 'pack', 'box'
+});
+
+// Supplier information - internal use only
+export const productSupplier = pgTable('product_supplier', {
+  id: serial('id').primaryKey(),
+  productId: integer('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull(),
+  primarySupplier: text('primary_supplier'), // Supplier company name
+  supplierItemCode: text('supplier_item_code'), // Their SKU
+  supplierProductName: text('supplier_product_name'), // Their product name
+  purchasePrice: decimal('purchase_price', { precision: 10, scale: 2 }), // What we pay
+});
+
+// SEO fields - parent products only (variations inherit)
+export const productSeo = pgTable('product_seo', {
+  id: serial('id').primaryKey(),
+  productId: integer('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull().unique(),
+  metaKeywords: text('meta_keywords'),
+  metaDescription: text('meta_description'),
+  pageTitle: text('page_title'), // Custom page title (overrides default)
+});
 
 // ============================================
 // PRODUCT RELATED TABLES (1:N)
@@ -204,6 +299,11 @@ export const productsRelations = relations(products, ({ one, many }) => ({
   features: many(productFeatures),
   specifications: many(productSpecifications),
   applications: many(productApplications),
+  // Phase F1 relations
+  stock: many(productStock),
+  shipping: many(productShipping),
+  supplier: one(productSupplier), // 1:1 relationship
+  seo: one(productSeo), // 1:1 relationship
 }));
 
 export const productVariationsRelations = relations(productVariations, ({ one }) => ({
@@ -260,6 +360,38 @@ export const productCategoriesRelations = relations(productCategories, ({ one })
 }));
 
 // ============================================
+// PHASE F1 RELATIONS
+// ============================================
+
+export const productStockRelations = relations(productStock, ({ one }) => ({
+  product: one(products, {
+    fields: [productStock.productId],
+    references: [products.id],
+  }),
+}));
+
+export const productShippingRelations = relations(productShipping, ({ one }) => ({
+  product: one(products, {
+    fields: [productShipping.productId],
+    references: [products.id],
+  }),
+}));
+
+export const productSupplierRelations = relations(productSupplier, ({ one }) => ({
+  product: one(products, {
+    fields: [productSupplier.productId],
+    references: [products.id],
+  }),
+}));
+
+export const productSeoRelations = relations(productSeo, ({ one }) => ({
+  product: one(products, {
+    fields: [productSeo.productId],
+    references: [products.id],
+  }),
+}));
+
+// ============================================
 // TYPE EXPORTS
 // ============================================
 
@@ -283,5 +415,15 @@ export type ProductSpecification = typeof productSpecifications.$inferSelect;
 export type ProductApplication = typeof productApplications.$inferSelect;
 export type ProductCategory = typeof productCategories.$inferSelect;
 export type NewProductCategory = typeof productCategories.$inferInsert;
+
+// Phase F1 types
+export type ProductStock = typeof productStock.$inferSelect;
+export type NewProductStock = typeof productStock.$inferInsert;
+export type ProductShipping = typeof productShipping.$inferSelect;
+export type NewProductShipping = typeof productShipping.$inferInsert;
+export type ProductSupplier = typeof productSupplier.$inferSelect;
+export type NewProductSupplier = typeof productSupplier.$inferInsert;
+export type ProductSeo = typeof productSeo.$inferSelect;
+export type NewProductSeo = typeof productSeo.$inferInsert;
 
 export type AdminUser = typeof adminUsers.$inferSelect;
