@@ -46,6 +46,9 @@ import {
   ArrowUp,
   ArrowDown,
   ArrowUpDown,
+  EyeOff,
+  Eye,
+  Ban,
 } from 'lucide-react';
 import {
   Tooltip,
@@ -78,6 +81,7 @@ interface ProductVariation {
   label: string | null;
   price: string | null;
   sku: string | null;
+  isSuspended: boolean | null;
   stock: VariationStock | null;
 }
 
@@ -535,6 +539,30 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
     }
   }, [deletingVariation, router]);
 
+  // Suspend/unsuspend variation
+  const handleVariationSuspend = useCallback(async (variationId: number, currentlySuspended: boolean) => {
+    try {
+      const response = await fetch('/api/admin/inventory/variation', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          variationId,
+          action: currentlySuspended ? 'unsuspend' : 'suspend',
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to update variation');
+      }
+
+      router.refresh();
+    } catch (error) {
+      console.error('Suspend variation failed:', error);
+      alert(error instanceof Error ? error.message : 'Failed to update variation');
+    }
+  }, [router]);
+
   // Filter and sort products
   const filteredProducts = useMemo(() => {
     // First filter
@@ -991,7 +1019,8 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                       className={cn(
                         'hover:bg-gray-50',
                         selectedIds.has(product.id) && 'bg-blue-50',
-                        isEdited && 'bg-yellow-50'
+                        isEdited && 'bg-yellow-50',
+                        product.isSuspended && 'bg-red-50/50 opacity-70'
                       )}
                     >
                       <TableCell>
@@ -1001,20 +1030,51 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                         />
                       </TableCell>
                       <TableCell>
-                        {product.priceVaries && product.variations.length > 0 && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-6 w-6 p-0"
-                            onClick={() => toggleExpand(product.id)}
-                          >
-                            {expandedProducts.has(product.id) ? (
-                              <ChevronDown className="h-4 w-4" />
-                            ) : (
-                              <ChevronRight className="h-4 w-4" />
-                            )}
-                          </Button>
-                        )}
+                        <div className="flex gap-0.5">
+                          {product.priceVaries && product.variations.length > 0 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="h-6 w-6 p-0"
+                              onClick={() => toggleExpand(product.id)}
+                            >
+                              {expandedProducts.has(product.id) ? (
+                                <ChevronDown className="h-4 w-4" />
+                              ) : (
+                                <ChevronRight className="h-4 w-4" />
+                              )}
+                            </Button>
+                          )}
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className={cn(
+                                  'h-6 w-6 p-0',
+                                  product.isSuspended
+                                    ? 'text-gray-400 hover:text-blue-600'
+                                    : 'text-blue-600 hover:text-gray-400'
+                                )}
+                                onClick={() => {
+                                  setSelectedIds(new Set([product.id]));
+                                  handleBulkAction(product.isSuspended ? 'unsuspend' : 'suspend');
+                                }}
+                              >
+                                {product.isSuspended ? (
+                                  <EyeOff className="h-4 w-4" />
+                                ) : (
+                                  <Eye className="h-4 w-4" />
+                                )}
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent side="top">
+                              <p className="text-xs font-medium">
+                                {product.isSuspended ? 'Click to show product on website' : 'Click to hide product from website'}
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </div>
                       </TableCell>
                       <TableCell className="font-mono text-sm">
                         {(() => {
@@ -1054,6 +1114,12 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                           const nameWarning = isDuplicateProductName(currentName, product.id);
                           return (
                             <div className="flex items-center gap-1">
+                              {product.isSuspended && (
+                                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700 flex-shrink-0">
+                                  <Ban className="h-3 w-3" />
+                                  Hidden
+                                </span>
+                              )}
                               <AutoSizeInput
                                 type="text"
                                 minWidth={150}
@@ -1224,30 +1290,59 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               key={`${product.id}-${variation.id}`}
                               className={cn(
                                 'bg-gray-50/50',
-                                isVariationEdited && 'bg-yellow-50/70'
+                                isVariationEdited && 'bg-yellow-50/70',
+                                variation.isSuspended && 'bg-red-50/50 opacity-60'
                               )}
                             >
                               <TableCell></TableCell>
                               <TableCell>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      className="h-6 w-6 p-0 text-gray-400 hover:text-red-600"
-                                      onClick={() => setDeletingVariation({
-                                        id: variation.id,
-                                        productName: product.shortName || product.name,
-                                        size: variation.size,
-                                      })}
-                                    >
-                                      <Trash2 className="h-3 w-3" />
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent side="top">
-                                    <p className="text-xs">Delete this size</p>
-                                  </TooltipContent>
-                                </Tooltip>
+                                <div className="flex gap-0.5">
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className={cn(
+                                          'h-6 w-6 p-0',
+                                          variation.isSuspended
+                                            ? 'text-gray-400 hover:text-blue-600'
+                                            : 'text-blue-600 hover:text-gray-400'
+                                        )}
+                                        onClick={() => handleVariationSuspend(variation.id, variation.isSuspended ?? false)}
+                                      >
+                                        {variation.isSuspended ? (
+                                          <EyeOff className="h-3 w-3" />
+                                        ) : (
+                                          <Eye className="h-3 w-3" />
+                                        )}
+                                      </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top">
+                                      <p className="text-xs font-medium">
+                                        {variation.isSuspended ? 'Click to show size on website' : 'Click to hide size from website'}
+                                      </p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="h-6 w-6 p-0 text-gray-400 hover:text-red-600"
+                                        onClick={() => setDeletingVariation({
+                                          id: variation.id,
+                                          productName: product.shortName || product.name,
+                                          size: variation.size,
+                                        })}
+                                      >
+                                        <Trash2 className="h-3 w-3" />
+                                      </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top">
+                                      <p className="text-xs">Delete this size</p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </div>
                               </TableCell>
                               <TableCell className="font-mono text-xs pl-4">
                                 <div className="flex items-center gap-1">
@@ -1281,18 +1376,25 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               </TableCell>
                               <TableCell className="text-sm">
                                 <div className="flex gap-1 items-center">
+                                  {variation.isSuspended && (
+                                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700">
+                                      <Ban className="h-3 w-3" />
+                                      Hidden
+                                    </span>
+                                  )}
                                   <div className="flex items-center gap-1">
                                     <AutoSizeInput
                                       type="text"
-                                      minWidth={50}
-                                      maxWidth={100}
+                                      minWidth={60}
+                                      maxWidth={90}
                                       className={cn(
-                                        'h-7 text-xs',
+                                        'h-7 text-xs font-mono',
                                         editedVariations[variation.id]?.size !== undefined &&
                                           'border-yellow-400 bg-yellow-50',
-                                        sizeWarning && 'border-orange-500 bg-orange-50'
+                                        sizeWarning && 'border-orange-500 bg-orange-50',
+                                        variation.isSuspended && 'line-through opacity-60'
                                       )}
-                                      placeholder="Size"
+                                      placeholder="e.g. 21.3mm"
                                       value={currentSize}
                                       onChange={(e) =>
                                         handleVariationEdit(variation.id, 'size', e.target.value)
@@ -1311,14 +1413,14 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                   </div>
                                   <AutoSizeInput
                                     type="text"
-                                    minWidth={120}
-                                    maxWidth={400}
+                                    minWidth={100}
+                                    maxWidth={300}
                                     className={cn(
-                                      'h-7 text-xs',
+                                      'h-7 text-xs text-gray-500',
                                       editedVariations[variation.id]?.label !== undefined &&
                                         'border-yellow-400 bg-yellow-50'
                                     )}
-                                    placeholder="Label"
+                                    placeholder="Extra info (optional)"
                                     value={getEffectiveVariationValue(
                                       variation.id,
                                       'label',

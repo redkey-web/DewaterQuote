@@ -97,6 +97,64 @@ export async function POST(request: NextRequest) {
   }
 }
 
+export async function PATCH(request: NextRequest) {
+  try {
+    // Verify authentication
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { variationId, action } = body;
+
+    if (!variationId || !action) {
+      return NextResponse.json(
+        { error: 'variationId and action are required' },
+        { status: 400 }
+      );
+    }
+
+    if (!['suspend', 'unsuspend'].includes(action)) {
+      return NextResponse.json(
+        { error: 'Invalid action. Use "suspend" or "unsuspend"' },
+        { status: 400 }
+      );
+    }
+
+    // Check variation exists
+    const variation = await db.query.productVariations.findFirst({
+      where: eq(productVariations.id, variationId),
+    });
+
+    if (!variation) {
+      return NextResponse.json(
+        { error: 'Variation not found' },
+        { status: 404 }
+      );
+    }
+
+    // Update suspension status
+    const isSuspended = action === 'suspend';
+    await db
+      .update(productVariations)
+      .set({ isSuspended })
+      .where(eq(productVariations.id, variationId));
+
+    return NextResponse.json({
+      success: true,
+      message: `Variation ${isSuspended ? 'suspended' : 'unsuspended'} successfully`,
+      isSuspended,
+    });
+  } catch (error) {
+    console.error('Update variation error:', error);
+    return NextResponse.json(
+      { error: 'Failed to update variation' },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(request: NextRequest) {
   try {
     // Verify authentication

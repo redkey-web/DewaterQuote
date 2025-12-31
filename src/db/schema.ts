@@ -191,6 +191,7 @@ export const productVariations = pgTable('product_variations', {
   sku: text('sku'),
   source: text('source').default('neto'), // 'neto' | 'manual' - where this size came from
   displayOrder: integer('display_order').default(0),
+  isSuspended: boolean('is_suspended').default(false), // Temporarily hide this size option
 });
 
 // Junction table for products <-> categories (many-to-many)

@@ -40,6 +40,7 @@ interface InventoryProduct {
     label: string | null;
     price: string | null;
     sku: string | null;
+    isSuspended: boolean | null;
     stock: VariationStock | null;
   }[];
 }
@@ -58,6 +59,7 @@ async function getInventoryData(): Promise<InventoryProduct[]> {
             label: true,
             price: true,
             sku: true,
+            isSuspended: true,
           },
           orderBy: (variations, { asc }) => [asc(variations.displayOrder)],
         },

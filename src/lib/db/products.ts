@@ -3,10 +3,15 @@
  *
  * Query functions for fetching products from the database.
  * Database errors are thrown (not silently handled) so issues are visible.
+ *
+ * IMPORTANT: All public-facing queries filter out:
+ * - Products where isActive = false
+ * - Products where isSuspended = true
+ * - Variations where isSuspended = true
  */
 
 import { db } from '@/db';
-import { products, brands, categories } from '@/db/schema';
+import { products, brands, categories, productVariations } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 
 // Type for product with relations
@@ -14,15 +19,21 @@ export type ProductWithRelations = Awaited<ReturnType<typeof getProductBySlug>>;
 
 /**
  * Get a single product by slug with all relations
+ * Returns null if product is inactive or suspended (effectively 404s the page)
  */
 export async function getProductBySlug(slug: string) {
   const product = await db.query.products.findFirst({
-    where: eq(products.slug, slug),
+    where: and(
+      eq(products.slug, slug),
+      eq(products.isActive, true),
+      eq(products.isSuspended, false)
+    ),
     with: {
       brand: true,
       category: true,
       subcategory: true,
       variations: {
+        where: eq(productVariations.isSuspended, false),
         orderBy: (variations, { asc }) => [asc(variations.displayOrder)],
       },
       images: {
@@ -45,26 +56,30 @@ export async function getProductBySlug(slug: string) {
 }
 
 /**
- * Get all active products
+ * Get all active, non-suspended products
  */
 export async function getAllProducts() {
   return await db.query.products.findMany({
-    where: eq(products.isActive, true),
+    where: and(
+      eq(products.isActive, true),
+      eq(products.isSuspended, false)
+    ),
     with: {
       brand: true,
       category: true,
       images: {
-        where: eq(products.isActive, true),
         limit: 1,
       },
-      variations: true,
+      variations: {
+        where: eq(productVariations.isSuspended, false),
+      },
     },
     orderBy: (products, { asc }) => [asc(products.name)],
   });
 }
 
 /**
- * Get products by category slug
+ * Get products by category slug (excluding suspended)
  */
 export async function getProductsByCategory(categorySlug: string) {
   // First get the category ID
@@ -79,7 +94,8 @@ export async function getProductsByCategory(categorySlug: string) {
   return await db.query.products.findMany({
     where: and(
       eq(products.categoryId, category.id),
-      eq(products.isActive, true)
+      eq(products.isActive, true),
+      eq(products.isSuspended, false)
     ),
     with: {
       brand: true,
@@ -87,14 +103,16 @@ export async function getProductsByCategory(categorySlug: string) {
       images: {
         limit: 1,
       },
-      variations: true,
+      variations: {
+        where: eq(productVariations.isSuspended, false),
+      },
     },
     orderBy: (products, { asc }) => [asc(products.name)],
   });
 }
 
 /**
- * Get products by brand slug
+ * Get products by brand slug (excluding suspended)
  */
 export async function getProductsByBrand(brandSlug: string) {
   const brand = await db.query.brands.findFirst({
@@ -108,7 +126,8 @@ export async function getProductsByBrand(brandSlug: string) {
   return await db.query.products.findMany({
     where: and(
       eq(products.brandId, brand.id),
-      eq(products.isActive, true)
+      eq(products.isActive, true),
+      eq(products.isSuspended, false)
     ),
     with: {
       brand: true,
@@ -116,7 +135,9 @@ export async function getProductsByBrand(brandSlug: string) {
       images: {
         limit: 1,
       },
-      variations: true,
+      variations: {
+        where: eq(productVariations.isSuspended, false),
+      },
     },
     orderBy: (products, { asc }) => [asc(products.name)],
   });
@@ -124,12 +145,16 @@ export async function getProductsByBrand(brandSlug: string) {
 
 /**
  * Get all product slugs (for static generation)
+ * Excludes suspended products so they won't be pre-rendered
  */
 export async function getAllProductSlugs() {
   const result = await db
     .select({ slug: products.slug })
     .from(products)
-    .where(eq(products.isActive, true));
+    .where(and(
+      eq(products.isActive, true),
+      eq(products.isSuspended, false)
+    ));
 
   return result.map(r => r.slug);
 }
