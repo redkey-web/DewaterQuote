@@ -6,6 +6,9 @@ import { products, productStock, productVariations } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 
 interface ProductUpdate {
+  name?: string;
+  shortName?: string;
+  sku?: string;
   qtyInStock?: number;
   incomingQty?: number;
   leadTimeText?: string;
@@ -13,6 +16,9 @@ interface ProductUpdate {
 }
 
 interface VariationUpdate {
+  size?: string;
+  label?: string;
+  sku?: string;
   qtyInStock?: number;
   incomingQty?: number;
   price?: string;
@@ -61,8 +67,11 @@ export async function PATCH(request: NextRequest) {
       }
 
       try {
-        // Update product fields (leadTimeText, basePrice)
+        // Update product fields (name, shortName, sku, leadTimeText, basePrice)
         const productFieldUpdates: Partial<{
+          name: string;
+          shortName: string | null;
+          sku: string;
           leadTimeText: string | null;
           basePrice: string | null;
           updatedAt: Date;
@@ -70,16 +79,45 @@ export async function PATCH(request: NextRequest) {
           updatedAt: new Date(),
         };
 
+        let hasProductFieldChanges = false;
+
+        if (update.name !== undefined && update.name.trim()) {
+          productFieldUpdates.name = update.name.trim();
+          hasProductFieldChanges = true;
+        }
+
+        if (update.shortName !== undefined) {
+          productFieldUpdates.shortName = update.shortName.trim() || null;
+          hasProductFieldChanges = true;
+        }
+
+        if (update.sku !== undefined && update.sku.trim()) {
+          // Check for SKU uniqueness (excluding current product)
+          const existingWithSku = await db.query.products.findFirst({
+            where: and(
+              eq(products.sku, update.sku.trim()),
+            ),
+          });
+          if (existingWithSku && existingWithSku.id !== productId) {
+            errors.push(`SKU "${update.sku}" is already in use by another product`);
+            continue;
+          }
+          productFieldUpdates.sku = update.sku.trim();
+          hasProductFieldChanges = true;
+        }
+
         if (update.leadTimeText !== undefined) {
           productFieldUpdates.leadTimeText = update.leadTimeText || null;
+          hasProductFieldChanges = true;
         }
 
         if (update.basePrice !== undefined) {
           productFieldUpdates.basePrice = update.basePrice || null;
+          hasProductFieldChanges = true;
         }
 
         // Update products table if there are product-level changes
-        if (update.leadTimeText !== undefined || update.basePrice !== undefined) {
+        if (hasProductFieldChanges) {
           await db
             .update(products)
             .set(productFieldUpdates)
@@ -163,11 +201,70 @@ export async function PATCH(request: NextRequest) {
           continue;
         }
 
-        // Update variation price if provided
+        // Update variation fields (size, label, sku, price)
+        // Note: label is NOT NULL in schema, so we need to ensure it has a value
+        const variationFieldUpdates: Record<string, string | null> = {};
+
+        let hasVariationFieldChanges = false;
+
+        if (update.size !== undefined && update.size.trim()) {
+          // Check for duplicate size within the same product
+          const existingSizeVariation = await db.query.productVariations.findFirst({
+            where: and(
+              eq(productVariations.productId, variation.productId),
+              eq(productVariations.size, update.size.trim())
+            ),
+          });
+          if (existingSizeVariation && existingSizeVariation.id !== variationId) {
+            errors.push(`Size "${update.size.trim()}" already exists in this product`);
+            continue;
+          }
+          variationFieldUpdates.size = update.size.trim();
+          hasVariationFieldChanges = true;
+        }
+
+        if (update.label !== undefined && update.label.trim()) {
+          // label is NOT NULL, so only set if we have a value
+          variationFieldUpdates.label = update.label.trim();
+          hasVariationFieldChanges = true;
+        }
+
+        if (update.sku !== undefined) {
+          // sku is nullable - check for duplicates if set
+          const skuValue = update.sku.trim() || null;
+          if (skuValue) {
+            // Check if this SKU is used by another variation
+            const existingVariationWithSku = await db.query.productVariations.findFirst({
+              where: eq(productVariations.sku, skuValue),
+            });
+            if (existingVariationWithSku && existingVariationWithSku.id !== variationId) {
+              errors.push(`Variation SKU "${skuValue}" is already in use`);
+              continue;
+            }
+            // Also check if it conflicts with a product SKU
+            const existingProductWithSku = await db.query.products.findFirst({
+              where: eq(products.sku, skuValue),
+            });
+            if (existingProductWithSku) {
+              errors.push(`SKU "${skuValue}" is already used as a product SKU`);
+              continue;
+            }
+          }
+          variationFieldUpdates.sku = skuValue;
+          hasVariationFieldChanges = true;
+        }
+
         if (update.price !== undefined) {
+          // price is nullable
+          variationFieldUpdates.price = update.price || null;
+          hasVariationFieldChanges = true;
+        }
+
+        // Update product_variations table if there are field changes
+        if (hasVariationFieldChanges) {
           await db
             .update(productVariations)
-            .set({ price: update.price || null })
+            .set(variationFieldUpdates)
             .where(eq(productVariations.id, variationId));
         }
 

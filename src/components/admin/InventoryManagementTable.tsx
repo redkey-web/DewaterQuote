@@ -38,7 +38,27 @@ import {
   Download,
   Save,
   X,
+  Plus,
+  Loader2,
+  Trash2,
+  AlertTriangle,
 } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { StockStatusBadge, StockQtyBadge, getStockStatus } from './StockStatusBadge';
 import { cn } from '@/lib/utils';
 
@@ -87,6 +107,9 @@ interface InventoryManagementTableProps {
 }
 
 interface EditedProduct {
+  name?: string;
+  shortName?: string;
+  sku?: string;
   qtyInStock?: number;
   incomingQty?: number;
   leadTimeText?: string;
@@ -94,9 +117,20 @@ interface EditedProduct {
 }
 
 interface EditedVariation {
+  size?: string;
+  label?: string;
+  sku?: string;
   qtyInStock?: number;
   incomingQty?: number;
   price?: string;
+}
+
+interface NewVariation {
+  productId: number;
+  size: string;
+  label: string;
+  sku: string;
+  price: string;
 }
 
 type EditedProducts = Record<number, EditedProduct>;
@@ -121,6 +155,135 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
   const [isSaving, setIsSaving] = useState(false);
   const [editedProducts, setEditedProducts] = useState<EditedProducts>({});
   const [editedVariations, setEditedVariations] = useState<EditedVariations>({});
+  const [addingVariationFor, setAddingVariationFor] = useState<number | null>(null);
+  const [newVariation, setNewVariation] = useState<Omit<NewVariation, 'productId'>>({
+    size: '',
+    label: '',
+    sku: '',
+    price: '',
+  });
+  const [isAddingVariation, setIsAddingVariation] = useState(false);
+  const [deletingVariation, setDeletingVariation] = useState<{
+    id: number;
+    productName: string;
+    size: string;
+  } | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Duplicate detection functions
+  const isDuplicateProductSku = useCallback(
+    (sku: string, currentProductId: number): string | null => {
+      if (!sku.trim()) return null;
+      const normalizedSku = sku.trim().toUpperCase();
+      const duplicate = products.find((p) => {
+        if (p.id === currentProductId) return false;
+        const effectiveSku = editedProducts[p.id]?.sku ?? p.sku;
+        return effectiveSku.toUpperCase() === normalizedSku;
+      });
+      return duplicate ? `SKU "${normalizedSku}" is already used by "${duplicate.shortName || duplicate.name}"` : null;
+    },
+    [products, editedProducts]
+  );
+
+  const isDuplicateProductName = useCallback(
+    (name: string, currentProductId: number): string | null => {
+      if (!name.trim()) return null;
+      const normalizedName = name.trim().toLowerCase();
+      const duplicate = products.find((p) => {
+        if (p.id === currentProductId) return false;
+        const effectiveName = (editedProducts[p.id]?.name ?? p.name).toLowerCase();
+        const effectiveShortName = (editedProducts[p.id]?.shortName ?? p.shortName ?? '').toLowerCase();
+        return effectiveName === normalizedName || effectiveShortName === normalizedName;
+      });
+      return duplicate ? `Name "${name.trim()}" is similar to existing product "${duplicate.sku}"` : null;
+    },
+    [products, editedProducts]
+  );
+
+  const isDuplicateSizeInProduct = useCallback(
+    (size: string, productId: number, currentVariationId: number): string | null => {
+      if (!size.trim()) return null;
+      const normalizedSize = size.trim().toLowerCase();
+      const product = products.find((p) => p.id === productId);
+      if (!product) return null;
+      const duplicate = product.variations.find((v) => {
+        if (v.id === currentVariationId) return false;
+        const effectiveSize = (editedVariations[v.id]?.size ?? v.size).toLowerCase();
+        return effectiveSize === normalizedSize;
+      });
+      return duplicate ? `Size "${size.trim()}" already exists in this product` : null;
+    },
+    [products, editedVariations]
+  );
+
+  const isDuplicateVariationSku = useCallback(
+    (sku: string, currentVariationId: number): string | null => {
+      if (!sku.trim()) return null;
+      const normalizedSku = sku.trim().toUpperCase();
+      for (const product of products) {
+        const duplicate = product.variations.find((v) => {
+          if (v.id === currentVariationId) return false;
+          const effectiveSku = (editedVariations[v.id]?.sku ?? v.sku ?? '').toUpperCase();
+          return effectiveSku === normalizedSku;
+        });
+        if (duplicate) {
+          return `Variation SKU "${normalizedSku}" is already used in "${product.shortName || product.name}"`;
+        }
+      }
+      // Also check product SKUs
+      const productDuplicate = products.find((p) => {
+        const effectiveSku = (editedProducts[p.id]?.sku ?? p.sku).toUpperCase();
+        return effectiveSku === normalizedSku;
+      });
+      if (productDuplicate) {
+        return `SKU "${normalizedSku}" is already used as a product SKU`;
+      }
+      return null;
+    },
+    [products, editedVariations, editedProducts]
+  );
+
+  const isNewVariationDuplicateSize = useCallback(
+    (size: string, productId: number): string | null => {
+      if (!size.trim()) return null;
+      const normalizedSize = size.trim().toLowerCase();
+      const product = products.find((p) => p.id === productId);
+      if (!product) return null;
+      const duplicate = product.variations.find((v) => {
+        const effectiveSize = (editedVariations[v.id]?.size ?? v.size).toLowerCase();
+        return effectiveSize === normalizedSize;
+      });
+      return duplicate ? `Size "${size.trim()}" already exists in this product` : null;
+    },
+    [products, editedVariations]
+  );
+
+  const isNewVariationDuplicateSku = useCallback(
+    (sku: string): string | null => {
+      if (!sku.trim()) return null;
+      const normalizedSku = sku.trim().toUpperCase();
+      // Check variation SKUs
+      for (const product of products) {
+        const duplicate = product.variations.find((v) => {
+          const effectiveSku = (editedVariations[v.id]?.sku ?? v.sku ?? '').toUpperCase();
+          return effectiveSku === normalizedSku;
+        });
+        if (duplicate) {
+          return `Variation SKU "${normalizedSku}" is already in use`;
+        }
+      }
+      // Check product SKUs
+      const productDuplicate = products.find((p) => {
+        const effectiveSku = (editedProducts[p.id]?.sku ?? p.sku).toUpperCase();
+        return effectiveSku === normalizedSku;
+      });
+      if (productDuplicate) {
+        return `SKU "${normalizedSku}" is already used as a product SKU`;
+      }
+      return null;
+    },
+    [products, editedVariations, editedProducts]
+  );
 
   // Check if there are unsaved changes
   const hasProductChanges = Object.keys(editedProducts).length > 0;
@@ -246,6 +409,80 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
       setIsSaving(false);
     }
   }, [editedProducts, editedVariations, hasChanges, router]);
+
+  // Start adding a new variation
+  const handleStartAddVariation = useCallback((productId: number) => {
+    setAddingVariationFor(productId);
+    setNewVariation({ size: '', label: '', sku: '', price: '' });
+  }, []);
+
+  // Cancel adding variation
+  const handleCancelAddVariation = useCallback(() => {
+    setAddingVariationFor(null);
+    setNewVariation({ size: '', label: '', sku: '', price: '' });
+  }, []);
+
+  // Submit new variation
+  const handleAddVariation = useCallback(async (productId: number) => {
+    if (!newVariation.size.trim()) {
+      alert('Size is required');
+      return;
+    }
+
+    setIsAddingVariation(true);
+    try {
+      const response = await fetch('/api/admin/inventory/variation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId,
+          size: newVariation.size.trim(),
+          label: newVariation.label.trim() || newVariation.size.trim(),
+          sku: newVariation.sku.trim() || null,
+          price: newVariation.price.trim() || null,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to add variation');
+      }
+
+      setAddingVariationFor(null);
+      setNewVariation({ size: '', label: '', sku: '', price: '' });
+      router.refresh();
+    } catch (error) {
+      console.error('Add variation failed:', error);
+      alert(error instanceof Error ? error.message : 'Failed to add variation');
+    } finally {
+      setIsAddingVariation(false);
+    }
+  }, [newVariation, router]);
+
+  // Delete variation
+  const handleDeleteVariation = useCallback(async () => {
+    if (!deletingVariation) return;
+
+    setIsDeleting(true);
+    try {
+      const response = await fetch(`/api/admin/inventory/variation?id=${deletingVariation.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to delete variation');
+      }
+
+      setDeletingVariation(null);
+      router.refresh();
+    } catch (error) {
+      console.error('Delete variation failed:', error);
+      alert(error instanceof Error ? error.message : 'Failed to delete variation');
+    } finally {
+      setIsDeleting(false);
+    }
+  }, [deletingVariation, router]);
 
   // Filter products
   const filteredProducts = useMemo(() => {
@@ -398,6 +635,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
   };
 
   return (
+    <TooltipProvider>
     <div className="space-y-4">
       {/* Sticky Header with Filters and Actions - top-16 accounts for 64px AdminHeader */}
       <div className="sticky top-16 z-30 bg-white -mx-6 px-6 py-3 border-b border-gray-200 shadow-sm">
@@ -627,9 +865,73 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                           </Button>
                         )}
                       </TableCell>
-                      <TableCell className="font-mono text-sm">{product.sku}</TableCell>
+                      <TableCell className="font-mono text-sm">
+                        {(() => {
+                          const currentSku = getEffectiveValue(product.id, 'sku', product.sku) as string;
+                          const skuWarning = isDuplicateProductSku(currentSku, product.id);
+                          return (
+                            <div className="relative">
+                              <Input
+                                type="text"
+                                className={cn(
+                                  'w-28 h-8 text-sm font-mono uppercase',
+                                  editedProducts[product.id]?.sku !== undefined && 'border-yellow-400 bg-yellow-50',
+                                  skuWarning && 'border-orange-500 bg-orange-50'
+                                )}
+                                value={currentSku}
+                                onChange={(e) => handleFieldEdit(product.id, 'sku', e.target.value.toUpperCase())}
+                              />
+                              {skuWarning && (
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-500 cursor-help" />
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top" className="max-w-xs">
+                                    <p className="text-sm">{skuWarning}</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              )}
+                            </div>
+                          );
+                        })()}
+                      </TableCell>
                       <TableCell>
-                        <p className="font-medium">{product.shortName || product.name}</p>
+                        {(() => {
+                          const currentName = getEffectiveValue(product.id, 'shortName', product.shortName ?? '') as string || getEffectiveValue(product.id, 'name', product.name) as string;
+                          const nameWarning = isDuplicateProductName(currentName, product.id);
+                          return (
+                            <div className="relative">
+                              <Input
+                                type="text"
+                                className={cn(
+                                  'w-48 h-8 text-sm font-medium',
+                                  (editedProducts[product.id]?.name !== undefined || editedProducts[product.id]?.shortName !== undefined) && 'border-yellow-400 bg-yellow-50',
+                                  nameWarning && 'border-orange-500 bg-orange-50'
+                                )}
+                                value={currentName}
+                                onChange={(e) => {
+                                  // If product has shortName, edit that. Otherwise edit name.
+                                  if (product.shortName) {
+                                    handleFieldEdit(product.id, 'shortName', e.target.value);
+                                  } else {
+                                    handleFieldEdit(product.id, 'name', e.target.value);
+                                  }
+                                }}
+                                title={product.name} // Show full name on hover
+                              />
+                              {nameWarning && (
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-4 w-4 text-orange-500 cursor-help" />
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top" className="max-w-xs">
+                                    <p className="text-sm">{nameWarning}</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </TableCell>
                       <TableCell className="text-gray-600">
                         {product.brand?.name || '--'}
@@ -752,102 +1054,333 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                       </TableCell>
                     </TableRow>
                     {/* Expanded variations */}
-                    {expandedProducts.has(product.id) &&
-                      product.variations.map((variation) => {
-                        const isVariationEdited = !!editedVariations[variation.id];
-                        return (
-                          <TableRow
-                            key={`${product.id}-${variation.id}`}
-                            className={cn(
-                              'bg-gray-50/50',
-                              isVariationEdited && 'bg-yellow-50/70'
-                            )}
-                          >
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell className="font-mono text-xs text-gray-500 pl-4">
-                              {variation.sku || '--'}
-                            </TableCell>
-                            <TableCell className="text-sm text-gray-600">
-                              {variation.label || variation.size}
-                            </TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
-                            <TableCell className="text-center">
-                              <Input
-                                type="number"
-                                min="0"
-                                className={cn(
-                                  'w-16 h-7 text-center text-xs',
-                                  editedVariations[variation.id]?.qtyInStock !== undefined &&
-                                    'border-yellow-400 bg-yellow-50'
-                                )}
-                                value={getEffectiveVariationValue(
-                                  variation.id,
-                                  'qtyInStock',
-                                  variation.stock?.qtyInStock ?? 0
-                                )}
-                                onChange={(e) =>
-                                  handleVariationEdit(
+                    {expandedProducts.has(product.id) && (
+                      <>
+                        {product.variations.map((variation) => {
+                          const isVariationEdited = !!editedVariations[variation.id];
+                          const currentVarSku = getEffectiveVariationValue(variation.id, 'sku', variation.sku ?? '') as string;
+                          const currentSize = getEffectiveVariationValue(variation.id, 'size', variation.size) as string;
+                          const varSkuWarning = isDuplicateVariationSku(currentVarSku, variation.id);
+                          const sizeWarning = isDuplicateSizeInProduct(currentSize, product.id, variation.id);
+                          return (
+                            <TableRow
+                              key={`${product.id}-${variation.id}`}
+                              className={cn(
+                                'bg-gray-50/50',
+                                isVariationEdited && 'bg-yellow-50/70'
+                              )}
+                            >
+                              <TableCell></TableCell>
+                              <TableCell>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-6 w-6 p-0 text-gray-400 hover:text-red-600"
+                                      onClick={() => setDeletingVariation({
+                                        id: variation.id,
+                                        productName: product.shortName || product.name,
+                                        size: variation.size,
+                                      })}
+                                    >
+                                      <Trash2 className="h-3 w-3" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">
+                                    <p className="text-xs">Delete this size</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TableCell>
+                              <TableCell className="font-mono text-xs pl-4">
+                                <div className="relative">
+                                  <Input
+                                    type="text"
+                                    className={cn(
+                                      'w-24 h-7 text-xs font-mono uppercase',
+                                      editedVariations[variation.id]?.sku !== undefined &&
+                                        'border-yellow-400 bg-yellow-50',
+                                      varSkuWarning && 'border-orange-500 bg-orange-50'
+                                    )}
+                                    placeholder="VAR-SKU"
+                                    value={currentVarSku}
+                                    onChange={(e) =>
+                                      handleVariationEdit(variation.id, 'sku', e.target.value.toUpperCase())
+                                    }
+                                  />
+                                  {varSkuWarning && (
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 text-orange-500 cursor-help" />
+                                      </TooltipTrigger>
+                                      <TooltipContent side="top" className="max-w-xs">
+                                        <p className="text-xs">{varSkuWarning}</p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  )}
+                                </div>
+                              </TableCell>
+                              <TableCell className="text-sm">
+                                <div className="flex gap-1">
+                                  <div className="relative">
+                                    <Input
+                                      type="text"
+                                      className={cn(
+                                        'w-20 h-7 text-xs',
+                                        editedVariations[variation.id]?.size !== undefined &&
+                                          'border-yellow-400 bg-yellow-50',
+                                        sizeWarning && 'border-orange-500 bg-orange-50'
+                                      )}
+                                      placeholder="Size"
+                                      value={currentSize}
+                                      onChange={(e) =>
+                                        handleVariationEdit(variation.id, 'size', e.target.value)
+                                      }
+                                    />
+                                    {sizeWarning && (
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                          <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 text-orange-500 cursor-help" />
+                                        </TooltipTrigger>
+                                        <TooltipContent side="top" className="max-w-xs">
+                                          <p className="text-xs">{sizeWarning}</p>
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    )}
+                                  </div>
+                                  <Input
+                                    type="text"
+                                    className={cn(
+                                      'w-32 h-7 text-xs',
+                                      editedVariations[variation.id]?.label !== undefined &&
+                                        'border-yellow-400 bg-yellow-50'
+                                    )}
+                                    placeholder="Label"
+                                    value={getEffectiveVariationValue(
+                                      variation.id,
+                                      'label',
+                                      variation.label ?? ''
+                                    )}
+                                    onChange={(e) =>
+                                      handleVariationEdit(variation.id, 'label', e.target.value)
+                                    }
+                                  />
+                                </div>
+                              </TableCell>
+                              <TableCell></TableCell>
+                              <TableCell></TableCell>
+                              <TableCell className="text-center">
+                                <Input
+                                  type="number"
+                                  min="0"
+                                  className={cn(
+                                    'w-16 h-7 text-center text-xs',
+                                    editedVariations[variation.id]?.qtyInStock !== undefined &&
+                                      'border-yellow-400 bg-yellow-50'
+                                  )}
+                                  value={getEffectiveVariationValue(
                                     variation.id,
                                     'qtyInStock',
-                                    parseInt(e.target.value) || 0
-                                  )
-                                }
-                                disabled={product.isSuspended || product.isQuoteOnly}
-                              />
-                            </TableCell>
-                            <TableCell className="text-center">
-                              <Input
-                                type="number"
-                                min="0"
-                                className={cn(
-                                  'w-16 h-7 text-center text-xs',
-                                  editedVariations[variation.id]?.incomingQty !== undefined &&
-                                    'border-yellow-400 bg-yellow-50'
-                                )}
-                                value={getEffectiveVariationValue(
-                                  variation.id,
-                                  'incomingQty',
-                                  variation.stock?.incomingQty ?? 0
-                                )}
-                                onChange={(e) =>
-                                  handleVariationEdit(
+                                    variation.stock?.qtyInStock ?? 0
+                                  )}
+                                  onChange={(e) =>
+                                    handleVariationEdit(
+                                      variation.id,
+                                      'qtyInStock',
+                                      parseInt(e.target.value) || 0
+                                    )
+                                  }
+                                  disabled={product.isSuspended || product.isQuoteOnly}
+                                />
+                              </TableCell>
+                              <TableCell className="text-center">
+                                <Input
+                                  type="number"
+                                  min="0"
+                                  className={cn(
+                                    'w-16 h-7 text-center text-xs',
+                                    editedVariations[variation.id]?.incomingQty !== undefined &&
+                                      'border-yellow-400 bg-yellow-50'
+                                  )}
+                                  value={getEffectiveVariationValue(
                                     variation.id,
                                     'incomingQty',
-                                    parseInt(e.target.value) || 0
-                                  )
-                                }
-                                disabled={product.isSuspended || product.isQuoteOnly}
-                              />
+                                    variation.stock?.incomingQty ?? 0
+                                  )}
+                                  onChange={(e) =>
+                                    handleVariationEdit(
+                                      variation.id,
+                                      'incomingQty',
+                                      parseInt(e.target.value) || 0
+                                    )
+                                  }
+                                  disabled={product.isSuspended || product.isQuoteOnly}
+                                />
+                              </TableCell>
+                              <TableCell></TableCell>
+                              <TableCell className="text-right">
+                                <Input
+                                  type="number"
+                                  step="0.01"
+                                  min="0"
+                                  className={cn(
+                                    'w-20 h-7 text-right text-xs font-mono',
+                                    editedVariations[variation.id]?.price !== undefined &&
+                                      'border-yellow-400 bg-yellow-50'
+                                  )}
+                                  value={getEffectiveVariationValue(
+                                    variation.id,
+                                    'price',
+                                    variation.price ?? ''
+                                  )}
+                                  onChange={(e) =>
+                                    handleVariationEdit(variation.id, 'price', e.target.value)
+                                  }
+                                  disabled={product.isQuoteOnly}
+                                />
+                              </TableCell>
+                              <TableCell></TableCell>
+                              <TableCell></TableCell>
+                            </TableRow>
+                          );
+                        })}
+                        {/* Add Size Row */}
+                        {addingVariationFor === product.id ? (
+                          (() => {
+                            const newSkuWarning = isNewVariationDuplicateSku(newVariation.sku);
+                            const newSizeWarning = isNewVariationDuplicateSize(newVariation.size, product.id);
+                            return (
+                              <TableRow className="bg-green-50/50">
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell className="font-mono text-xs pl-4">
+                                  <div className="relative">
+                                    <Input
+                                      type="text"
+                                      className={cn(
+                                        'w-24 h-7 text-xs font-mono uppercase',
+                                        newSkuWarning && 'border-orange-500 bg-orange-50'
+                                      )}
+                                      placeholder="SKU"
+                                      value={newVariation.sku}
+                                      onChange={(e) =>
+                                        setNewVariation((prev) => ({ ...prev, sku: e.target.value.toUpperCase() }))
+                                      }
+                                    />
+                                    {newSkuWarning && (
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                          <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 text-orange-500 cursor-help" />
+                                        </TooltipTrigger>
+                                        <TooltipContent side="top" className="max-w-xs">
+                                          <p className="text-xs">{newSkuWarning}</p>
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    )}
+                                  </div>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="flex gap-1">
+                                    <div className="relative">
+                                      <Input
+                                        type="text"
+                                        className={cn(
+                                          'w-20 h-7 text-xs',
+                                          newSizeWarning && 'border-orange-500 bg-orange-50'
+                                        )}
+                                        placeholder="Size *"
+                                        value={newVariation.size}
+                                        onChange={(e) =>
+                                          setNewVariation((prev) => ({ ...prev, size: e.target.value }))
+                                        }
+                                      />
+                                      {newSizeWarning && (
+                                        <Tooltip>
+                                          <TooltipTrigger asChild>
+                                            <AlertTriangle className="absolute right-1 top-1/2 -translate-y-1/2 h-3 w-3 text-orange-500 cursor-help" />
+                                          </TooltipTrigger>
+                                          <TooltipContent side="top" className="max-w-xs">
+                                            <p className="text-xs">{newSizeWarning}</p>
+                                          </TooltipContent>
+                                        </Tooltip>
+                                      )}
+                                    </div>
+                                    <Input
+                                      type="text"
+                                      className="w-32 h-7 text-xs"
+                                      placeholder="Label"
+                                      value={newVariation.label}
+                                      onChange={(e) =>
+                                        setNewVariation((prev) => ({ ...prev, label: e.target.value }))
+                                      }
+                                    />
+                                  </div>
+                                </TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell className="text-right">
+                                  <Input
+                                    type="number"
+                                    step="0.01"
+                                    min="0"
+                                    className="w-20 h-7 text-right text-xs font-mono"
+                                    placeholder="Price"
+                                    value={newVariation.price}
+                                    onChange={(e) =>
+                                      setNewVariation((prev) => ({ ...prev, price: e.target.value }))
+                                    }
+                                  />
+                                </TableCell>
+                                <TableCell></TableCell>
+                                <TableCell>
+                                  <div className="flex gap-1">
+                                    <Button
+                                      size="sm"
+                                      variant="default"
+                                      className="h-7 px-2 bg-green-600 hover:bg-green-700"
+                                      onClick={() => handleAddVariation(product.id)}
+                                      disabled={isAddingVariation || !!newSizeWarning}
+                                    >
+                                      {isAddingVariation ? (
+                                        <Loader2 className="h-3 w-3 animate-spin" />
+                                      ) : (
+                                        <Save className="h-3 w-3" />
+                                      )}
+                                    </Button>
+                                    <Button
+                                      size="sm"
+                                      variant="ghost"
+                                      className="h-7 px-2"
+                                      onClick={handleCancelAddVariation}
+                                      disabled={isAddingVariation}
+                                    >
+                                      <X className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })()
+                        ) : (
+                          <TableRow className="bg-gray-50/30 hover:bg-gray-100/50">
+                            <TableCell colSpan={12}>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-7 text-xs text-blue-600 hover:text-blue-700 ml-4"
+                                onClick={() => handleStartAddVariation(product.id)}
+                              >
+                                <Plus className="h-3 w-3 mr-1" />
+                                Add Size
+                              </Button>
                             </TableCell>
-                            <TableCell></TableCell>
-                            <TableCell className="text-right">
-                              <Input
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                className={cn(
-                                  'w-20 h-7 text-right text-xs font-mono',
-                                  editedVariations[variation.id]?.price !== undefined &&
-                                    'border-yellow-400 bg-yellow-50'
-                                )}
-                                value={getEffectiveVariationValue(
-                                  variation.id,
-                                  'price',
-                                  variation.price ?? ''
-                                )}
-                                onChange={(e) =>
-                                  handleVariationEdit(variation.id, 'price', e.target.value)
-                                }
-                                disabled={product.isQuoteOnly}
-                              />
-                            </TableCell>
-                            <TableCell></TableCell>
-                            <TableCell></TableCell>
                           </TableRow>
-                        );
-                      })}
+                        )}
+                      </>
+                    )}
                   </React.Fragment>
                 );
               })
@@ -865,6 +1398,40 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
           </span>
         )}
       </div>
+
+      {/* Delete Variation Confirmation Dialog */}
+      <AlertDialog open={!!deletingVariation} onOpenChange={() => setDeletingVariation(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Size Variation</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete the size &quot;{deletingVariation?.size}&quot; from{' '}
+              <strong>{deletingVariation?.productName}</strong>?
+              <br />
+              <br />
+              This will also delete any stock records associated with this size. This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteVariation}
+              disabled={isDeleting}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                'Delete'
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
+    </TooltipProvider>
   );
 }
