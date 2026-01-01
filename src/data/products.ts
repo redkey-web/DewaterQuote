@@ -10,7 +10,7 @@
 
 import { db } from '@/db';
 import { products, brands, categories, subcategories } from '@/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, or, ilike } from 'drizzle-orm';
 import type { Product, Category, Subcategory } from '@/types';
 
 // Type for raw DB product with relations
@@ -249,11 +249,25 @@ export async function getProductsBySubcategory(
     return [];
   }
 
-  const dbProducts = await db.query.products.findMany({
-    where: and(
+  // Special handling for ball-valve to also include ball check valves
+  let whereClause;
+  if (subcategorySlug === 'ball-valve') {
+    whereClause = and(
+      or(
+        eq(products.subcategoryId, subcategory.id),
+        ilike(products.name, '%ball check%')
+      ),
+      eq(products.isActive, true)
+    );
+  } else {
+    whereClause = and(
       eq(products.subcategoryId, subcategory.id),
       eq(products.isActive, true)
-    ),
+    );
+  }
+
+  const dbProducts = await db.query.products.findMany({
+    where: whereClause,
     with: {
       brand: true,
       category: true,

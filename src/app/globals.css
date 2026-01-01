@@ -379,20 +379,30 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
 .ticker-wrapper {
   display: flex;
   width: max-content;
+  animation: ticker 20s linear infinite;
 }
 
 .ticker-content {
   flex-shrink: 0;
   display: flex;
   white-space: nowrap;
-  animation: ticker 20s linear infinite;
+}
+
+/* Simple teal hover for dropdown menu items */
+.nav-dropdown-item {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-dropdown-item:hover {
+  background-color: hsl(var(--primary));
+  color: white !important;
 }
 
 /* Glassmorphism effects */

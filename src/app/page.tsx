@@ -26,7 +26,6 @@ import {
   DropdownMenuSubContent,
   DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu"
-import { TestimonialsSection } from "@/components/Testimonials"
 import {
   Accordion,
   AccordionContent,
@@ -58,7 +57,7 @@ export default function HomePage() {
     {
       name: "Strainers & Filters",
       url: "/strainers",
-      image: "/images/products/orbit/metal-lock-l.jpg",
+      image: "/images/products/strainers/simplex-basket-strainer-316ss.jpg",
       alt: "Strainers and Filters",
     },
   ]
@@ -409,6 +408,42 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Why Choose Us - Condensed */}
+      <section className="py-8 px-6 lg:px-8 bg-muted/50 border-y border-border">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            <div className="flex items-center gap-3">
+              <CheckCircle className="w-8 h-8 text-primary flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-sm">Locally Stocked</p>
+                <p className="text-xs text-muted-foreground">Perth warehouse</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Award className="w-8 h-8 text-primary flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-sm">Certified Quality</p>
+                <p className="text-xs text-muted-foreground">AS/NZS, WRAS, ISO</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Clock className="w-8 h-8 text-primary flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-sm">Fast Delivery</p>
+                <p className="text-xs text-muted-foreground">Australia-wide</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Users className="w-8 h-8 text-primary flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-sm">Expert Support</p>
+                <p className="text-xs text-muted-foreground">(08) 9271 2577</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section className="py-20 px-6 lg:px-8 bg-muted/30">
         <div className="max-w-7xl mx-auto">
@@ -486,50 +521,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-20 px-6 lg:px-8 bg-gradient-to-br from-primary/10 via-primary/5 to-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/hero-pipeline.webp')] bg-cover bg-center opacity-5" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-12">
-            <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
-              why choose us
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dewater Products</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Trusted by civil contractors, water authorities, irrigation specialists, and industrial maintenance companies across Australia
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 text-center rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-lg hover:shadow-xl hover:bg-white/70 dark:hover:bg-white/15 transition-all duration-300">
-              <CheckCircle className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h4 className="font-semibold text-lg mb-2">Locally Stocked</h4>
-              <p className="text-sm text-muted-foreground">
-                Fast dispatch from Perth warehouse, ready to ship
-              </p>
-            </div>
-            <div className="p-6 text-center rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-lg hover:shadow-xl hover:bg-white/70 dark:hover:bg-white/15 transition-all duration-300">
-              <Award className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h4 className="font-semibold text-lg mb-2">Certified Quality</h4>
-              <p className="text-sm text-muted-foreground">
-                AS/NZS, WRAS, and ISO certified products
-              </p>
-            </div>
-            <div className="p-6 text-center rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-lg hover:shadow-xl hover:bg-white/70 dark:hover:bg-white/15 transition-all duration-300">
-              <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h4 className="font-semibold text-lg mb-2">Fast Nationwide Delivery</h4>
-              <p className="text-sm text-muted-foreground">
-                Quick turnaround times across Australia
-              </p>
-            </div>
-            <div className="p-6 text-center rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-lg hover:shadow-xl hover:bg-white/70 dark:hover:bg-white/15 transition-all duration-300">
-              <Users className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h4 className="font-semibold text-lg mb-2">Engineering Support</h4>
-              <p className="text-sm text-muted-foreground">Talk to a specialist on call</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* About Section */}
       <section className="py-20 px-6 lg:px-8 bg-muted/30">
         <div className="max-w-7xl mx-auto">
@@ -578,8 +569,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <TestimonialsSection />
 
       {/* FAQ Section */}
       <section className="py-20 px-6 lg:px-8 bg-muted/30">

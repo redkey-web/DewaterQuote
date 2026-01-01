@@ -155,8 +155,8 @@ export default function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-white/10 dark:bg-gray-950/10 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-6">
+    <header className="sticky top-0 z-50 bg-white/10 dark:bg-gray-950/10 backdrop-blur-sm overflow-visible">
+      <div className="max-w-7xl mx-auto px-6 overflow-visible">
         <div className="flex items-center justify-between py-0 gap-6">
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0 py-0 my-0" data-testid="link-home">
@@ -242,7 +242,14 @@ export default function Header() {
                 </button>
               </div>
               {activeMenu === "products" && (
-                <div className="absolute top-full left-0 mt-0 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-5 gap-6 w-[900px]">
+                <>
+                  {/* Invisible bridge to maintain hover */}
+                  <div className="absolute top-full left-0 w-full h-4" />
+                  <div
+                    className="fixed top-[72px] left-1/2 -translate-x-1/2 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-5 gap-4 w-[850px] max-w-[95vw] z-50"
+                    onMouseEnter={() => setActiveMenu("products")}
+                    onMouseLeave={() => setActiveMenu(null)}
+                  >
                   {productsMenu.map((category) => (
                     <div key={category.title}>
                       <Link
@@ -257,7 +264,7 @@ export default function Header() {
                           <li key={item.name}>
                             <Link
                               href={item.url}
-                              className="text-sm text-muted-foreground hover:text-foreground"
+                              className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
                               data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
                             >
                               {item.name}
@@ -268,6 +275,7 @@ export default function Header() {
                     </div>
                   ))}
                 </div>
+                </>
               )}
             </div>
 
@@ -289,7 +297,7 @@ export default function Header() {
                       <li key={industry.name}>
                         <Link
                           href={industry.url}
-                          className="text-sm text-muted-foreground hover:text-foreground"
+                          className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
                           data-testid={`link-industry-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           {industry.name}
@@ -319,7 +327,7 @@ export default function Header() {
                       <li key={item.name}>
                         <Link
                           href={item.url}
-                          className="text-sm text-muted-foreground hover:text-foreground"
+                          className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
                           data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           {item.name}
@@ -436,57 +444,98 @@ export default function Header() {
                 </div>
               )}
             </div>
-            <nav className="space-y-4">
-              <Link href="/products" className="block text-foreground hover-elevate px-3 py-2 rounded-md font-semibold" data-testid="link-mobile-products">
-                All Products
-              </Link>
-              <div className="pl-3 space-y-2 border-l-2 border-primary/30 ml-3">
-                <Link href="/valves" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
-                  Valves
+            <nav className="space-y-1 max-h-[70vh] overflow-y-auto">
+              {/* Brands */}
+              <div className="py-2">
+                <Link href="/brands" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                  Brands
                 </Link>
-                <Link href="/pipe-couplings" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
-                  Pipe Couplings
+                <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
+                  <Link href="/brands/straub" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Straub Couplings
+                  </Link>
+                  <Link href="/brands/orbit" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Orbit Couplings
+                  </Link>
+                  <Link href="/brands/teekay" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Teekay
+                  </Link>
+                  <Link href="/brands/bore-flex-rubber" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Bore-Flex Rubber
+                  </Link>
+                  <Link href="/brands/defender-valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Defender Valves
+                  </Link>
+                </div>
+              </div>
+
+              {/* Products */}
+              <div className="py-2 border-t border-border">
+                <Link href="/products" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                  Products
                 </Link>
-                <Link href="/rubber-expansion-joints" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
-                  Expansion Joints
+                <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
+                  <Link href="/valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Valves
+                  </Link>
+                  <Link href="/pipe-couplings" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Pipe Couplings
+                  </Link>
+                  <Link href="/rubber-expansion-joints" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Expansion Joints
+                  </Link>
+                  <Link href="/strainers" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Strainers
+                  </Link>
+                  <Link href="/pipe-repair" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Repair Clamps
+                  </Link>
+                  <Link href="/flange-adaptors" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Flange Adaptors
+                  </Link>
+                </div>
+              </div>
+
+              {/* Industries */}
+              <div className="py-2 border-t border-border">
+                <Link href="/industries" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                  Industries
                 </Link>
-                <Link href="/strainers" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
-                  Strainers
+                <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
+                  {industriesMenu.map((industry) => (
+                    <Link key={industry.name} href={industry.url} className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                      {industry.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Other Links */}
+              <div className="py-2 border-t border-border space-y-1">
+                <Link href="/about" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                  About Us
                 </Link>
-                <Link href="/pipe-repair" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
-                  Repair Clamps
-                </Link>
-                <Link href="/flange-adaptors" className="block text-muted-foreground hover:text-foreground px-3 py-1 rounded-md text-sm">
-                  Flange Adaptors
+                <Link href="/contact" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                  Contact
                 </Link>
               </div>
-              <Link href="/industries" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-industries">
-                Industries
-              </Link>
-              <Link href="/resources" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-resources">
-                Resources
-              </Link>
-              <Link href="/about" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-about">
-                About
-              </Link>
-              <Link href="/contact" className="block text-foreground hover-elevate px-3 py-2 rounded-md" data-testid="link-mobile-contact">
-                Contact
-              </Link>
-              <div className="pt-4 border-t border-border">
-                <div className="flex flex-col gap-2 px-3">
+
+              {/* Contact Info */}
+              <div className="py-4 border-t border-border">
+                <div className="flex flex-col gap-3 px-3">
                   <a
                     href="tel:0892712577"
-                    className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+                    className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-2"
                   >
-                    <Phone className="w-4 h-4 text-primary" />
-                    <span>(08) 9271 2577</span>
+                    <Phone className="w-5 h-5 text-primary" />
+                    <span className="font-semibold">(08) 9271 2577</span>
                   </a>
                   <a
                     href="mailto:sales@dewaterproducts.com.au"
-                    className="flex items-center gap-2 text-foreground hover:text-primary transition-colors text-base font-medium"
+                    className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-2"
                   >
-                    <Mail className="w-4 h-4 text-primary" />
-                    <span>sales@dewaterproducts.com.au</span>
+                    <Mail className="w-5 h-5 text-primary" />
+                    <span className="text-sm">sales@dewaterproducts.com.au</span>
                   </a>
                 </div>
               </div>

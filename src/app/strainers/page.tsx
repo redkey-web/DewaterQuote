@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
+import USPBar from "@/components/USPBar"
 import type { Metadata } from "next"
 
 const strainerTypes = [
@@ -58,6 +59,7 @@ export default async function StrainersPage() {
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
+      <USPBar />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-6">

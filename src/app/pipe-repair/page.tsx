@@ -153,6 +153,19 @@ export default async function PipeRepairPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Products Section */}
+        <div id="products" className="mb-16">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">All Repair Products</h2>
+            <span className="text-muted-foreground">{repairProducts.length} products</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {repairProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+
         {/* Benefits Grid */}
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-8">Why Use Pipe Repair Clamps?</h2>
@@ -194,7 +207,7 @@ export default async function PipeRepairPage() {
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6">Shop Repair Products by Brand</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link href="/straub">
+            <Link href="/brands/straub">
               <div className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer">
                 <h3 className="text-xl font-bold mb-2">Straub Repair Solutions</h3>
                 <p className="text-muted-foreground mb-4">
@@ -207,7 +220,7 @@ export default async function PipeRepairPage() {
                 </div>
               </div>
             </Link>
-            <Link href="/orbit">
+            <Link href="/brands/orbit">
               <div className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer">
                 <h3 className="text-xl font-bold mb-2">Orbit Repair Clamps</h3>
                 <p className="text-muted-foreground mb-4">
@@ -220,19 +233,6 @@ export default async function PipeRepairPage() {
                 </div>
               </div>
             </Link>
-          </div>
-        </div>
-
-        {/* Products Section */}
-        <div id="products" className="mb-16">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">All Repair Products</h2>
-            <span className="text-muted-foreground">{repairProducts.length} products</span>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {repairProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
           </div>
         </div>
 
@@ -259,13 +259,13 @@ export default async function PipeRepairPage() {
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
-            <Link href="/straub">
+            <Link href="/brands/straub">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
                 <span className="font-medium">Straub Products</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
-            <Link href="/orbit">
+            <Link href="/brands/orbit">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
                 <span className="font-medium">Orbit Products</span>
                 <ArrowRight className="w-4 h-4" />

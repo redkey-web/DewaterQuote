@@ -15,6 +15,7 @@ import {
 } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
+import USPBar from "@/components/USPBar"
 
 // SEO-optimized content for each subcategory
 const subcategoryContent: Record<string, {
@@ -345,6 +346,7 @@ export default async function SubcategoryPage({ params }: SubcategoryPageProps) 
         <ItemListJsonLd products={products} category={category} subcategory={subcategory} />
       )}
       {content?.faqs && <FAQJsonLd faqs={content.faqs} />}
+      <USPBar />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Breadcrumbs */}
