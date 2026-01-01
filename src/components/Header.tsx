@@ -88,9 +88,10 @@ export default function Header() {
       title: "Brands",
       url: "/brands",
       items: [
-        { name: "Straub Couplings", url: "/straub" },
-        { name: "Orbit Couplings", url: "/orbit" },
-        { name: "Teekay Products", url: "/teekay" },
+        { name: "Straub Couplings", url: "/brands/straub" },
+        { name: "Orbit Couplings", url: "/brands/orbit" },
+        { name: "Bore-Flex Rubber", url: "/brands/bore-flex-rubber" },
+        { name: "Defender Valves", url: "/brands/defender-valves" },
       ],
     },
     {
@@ -98,7 +99,7 @@ export default function Header() {
       url: "/pipe-couplings",
       items: [
         { name: "Pipe Couplings", url: "/pipe-couplings" },
-        { name: "Pipe Repair", url: "/pipe-repair" },
+        { name: "Pipe Repair Clamps", url: "/pipe-repair" },
         { name: "Flange Adaptors", url: "/flange-adaptors" },
       ],
     },
@@ -107,11 +108,11 @@ export default function Header() {
       url: "/valves",
       items: [
         { name: "Butterfly Valves", url: "/valves/butterfly-valve" },
-        { name: "Duckbill Check Valves", url: "/valves/duckbill-check-valve" },
-        { name: "Swing Check Valves", url: "/valves/swing-check-valve" },
+        { name: "Check Valves", url: "/valves/check-valves" },
         { name: "Gate Valves", url: "/valves/gate-valve" },
         { name: "Ball Valves", url: "/valves/ball-valve" },
-        { name: "Knife Gate Valves", url: "/valves/knife-gate-valve" },
+        { name: "Float Valves", url: "/valves/float-valve" },
+        { name: "Foot Valves", url: "/valves/foot-valve" },
       ],
     },
     {
@@ -120,6 +121,9 @@ export default function Header() {
       items: [
         { name: "Single Sphere", url: "/rubber-expansion-joints/single-sphere" },
         { name: "Twin Sphere", url: "/rubber-expansion-joints/twin-sphere" },
+        { name: "Single Arch", url: "/rubber-expansion-joints/single-arch" },
+        { name: "Double Arch", url: "/rubber-expansion-joints/double-arch" },
+        { name: "Reducing", url: "/rubber-expansion-joints/reducing" },
       ],
     },
     {
@@ -127,7 +131,8 @@ export default function Header() {
       url: "/strainers",
       items: [
         { name: "Y Strainers", url: "/strainers/y-strainer" },
-        { name: "Basket Strainers", url: "/strainers/basket-strainer" },
+        { name: "Simplex Basket", url: "/strainers/simplex-basket-strainer" },
+        { name: "Duplex Basket", url: "/strainers/duplex-basket-strainer" },
       ],
     },
   ]
@@ -189,20 +194,16 @@ export default function Header() {
                   <button
                     key={result.id}
                     onClick={() => handleResultClick(result.slug)}
-                    className="w-full text-left px-4 py-3 hover:bg-accent border-b border-border last:border-b-0 transition-colors"
+                    className="w-full text-left px-3 py-2 hover:bg-primary/10 hover:text-primary border-b border-border last:border-b-0 transition-colors"
                   >
-                    <div className="font-medium text-sm">{result.name}</div>
-                    <div className="text-xs text-muted-foreground flex gap-2">
-                      <span>{result.brand}</span>
-                      <span>•</span>
-                      <span>{result.categoryName}</span>
-                    </div>
+                    <div className="font-medium text-sm truncate">{result.name}</div>
+                    <div className="text-xs text-muted-foreground">{result.brand}</div>
                   </button>
                 ))}
                 {searchQuery.trim() && (
                   <button
                     onClick={handleSearchSubmit as any}
-                    className="w-full text-left px-4 py-2 text-sm text-primary hover:bg-accent transition-colors"
+                    className="w-full text-left px-3 py-2 text-sm text-primary hover:bg-primary/10 transition-colors font-medium"
                   >
                     View all results for "{searchQuery}"
                   </button>
@@ -425,9 +426,9 @@ export default function Header() {
                         handleResultClick(result.slug)
                         setMobileMenuOpen(false)
                       }}
-                      className="w-full text-left px-4 py-3 hover:bg-accent border-b border-border last:border-b-0"
+                      className="w-full text-left px-3 py-2 hover:bg-primary/10 hover:text-primary border-b border-border last:border-b-0 transition-colors"
                     >
-                      <div className="font-medium text-sm">{result.name}</div>
+                      <div className="font-medium text-sm truncate">{result.name}</div>
                       <div className="text-xs text-muted-foreground">{result.brand}</div>
                     </button>
                   ))}

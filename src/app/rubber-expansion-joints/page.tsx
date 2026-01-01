@@ -6,9 +6,9 @@ import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Rubber Expansion Joints | Single & Twin Sphere | Dewater Products",
+  title: "Rubber Expansion Joints | Single, Twin, Arch & Reducing | Dewater Products",
   description:
-    "Rubber expansion joints for thermal expansion, vibration absorption, and pipe misalignment. EPDM rubber with zinc or 316SS flanges. WRAS approved. PN16 rated. Australia-wide delivery.",
+    "Rubber expansion joints for thermal expansion, vibration absorption, and pipe misalignment. Single sphere, twin sphere, arch and reducing types. EPDM rubber with zinc or 316SS flanges. PN16 rated. Australia-wide delivery.",
   openGraph: {
     title: "Rubber Expansion Joints - Dewater Products",
     description: "Flexible rubber joints for pumps, HVAC, and industrial piping systems.",
@@ -37,10 +37,10 @@ export default async function ExpansionJointsPage() {
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">Rubber Expansion Joints</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
-            Flexible rubber expansion joints for absorbing thermal expansion, reducing vibration transmission, and accommodating pipe misalignment. Essential for pump connections, HVAC systems, and industrial piping where movement occurs.
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold mb-2">Rubber Expansion Joints</h1>
+          <p className="text-muted-foreground">
+            Flexible joints for thermal expansion, vibration absorption, and pipe misalignment.
           </p>
         </div>
 

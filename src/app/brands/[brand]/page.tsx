@@ -37,6 +37,12 @@ const brandInfo: Record<string, { name: string; description: string; logo: strin
       "Defender Valves specializes in high-performance industrial butterfly valves with PTFE lining, offering superior chemical resistance and reliable flow control for demanding applications.",
     logo: "/images/brands/defender-valves-logo.png",
   },
+  "bore-flex-rubber": {
+    name: "Bore-Flex Rubber",
+    description:
+      "Bore-Flex Rubber manufactures high-quality rubber expansion joints and flexible pipe connectors for vibration isolation, thermal expansion compensation, and noise reduction in piping systems.",
+    logo: "/images/brands/bore-flex-rubber-logo.png",
+  },
 }
 
 const categoryNames: Record<string, string> = {
@@ -100,13 +106,13 @@ export default async function BrandPage({ params }: BrandPageProps) {
         </Link>
 
         <div className="flex flex-col md:flex-row md:items-center gap-6 mb-12">
-          <div className="h-16 flex items-center">
+          <div className="h-20 flex items-center">
             <Image
               src={brand.logo}
               alt={brand.name}
-              width={160}
-              height={60}
-              className="h-12 w-auto object-contain"
+              width={brandKey === "bore-flex-rubber" ? 1440 : brandKey === "orbit" ? 270 : 160}
+              height={brandKey === "bore-flex-rubber" ? 540 : brandKey === "orbit" ? 90 : 60}
+              className={brandKey === "bore-flex-rubber" ? "h-[144px] w-auto object-contain" : brandKey === "orbit" ? "h-[72px] w-auto object-contain" : "h-12 w-auto object-contain"}
             />
           </div>
           <div>

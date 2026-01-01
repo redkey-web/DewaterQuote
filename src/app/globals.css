@@ -458,3 +458,29 @@
 .animate-sparkle {
   animation: sparkle 2s ease-in-out infinite;
 }
+
+/* Navigation link hover effect - teal underline */
+.nav-link-hover-transparent {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link-hover-transparent::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: hsl(var(--primary));
+  transition: all 0.2s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link-hover-transparent:hover {
+  color: hsl(var(--primary));
+}
+
+.nav-link-hover-transparent:hover::after {
+  width: 100%;
+}

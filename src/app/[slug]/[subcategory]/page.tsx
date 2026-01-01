@@ -360,22 +360,12 @@ export default async function SubcategoryPage({ params }: SubcategoryPageProps) 
           <span className="text-foreground font-medium">{content?.title || subcategoryData.name}</span>
         </nav>
 
-        {/* Hero Section - Short description + Applications */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">{content?.title || subcategoryData.name}</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mb-4">
+        {/* Hero Section - Minimal */}
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold mb-2">{content?.title || subcategoryData.name}</h1>
+          <p className="text-muted-foreground">
             {content?.heroDescription || subcategoryData.description}
           </p>
-          {content?.applications && (
-            <div className="flex flex-wrap gap-2">
-              <span className="text-sm font-medium text-muted-foreground">Applications:</span>
-              {content.applications.map((app, index) => (
-                <span key={index} className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
-                  {app}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Products Section - Now comes first */}
@@ -408,17 +398,29 @@ export default async function SubcategoryPage({ params }: SubcategoryPageProps) 
         </div>
 
         {/* Additional Info - Below Products */}
-        {(content?.features || content?.longDescription) && (
+        {(content?.features || content?.longDescription || content?.applications) && (
           <div className="mb-10">
             {content?.longDescription && (
-              <div className="mb-8 prose prose-neutral dark:prose-invert max-w-none">
-                <h2 className="text-2xl font-semibold mb-4">About {content?.title || subcategoryData.name}</h2>
+              <div className="mb-6 prose prose-neutral dark:prose-invert max-w-none">
+                <h2 className="text-2xl font-semibold mb-3">About {content?.title || subcategoryData.name}</h2>
                 <p className="text-base leading-relaxed text-muted-foreground">{content.longDescription}</p>
+              </div>
+            )}
+            {content?.applications && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-3">Applications</h3>
+                <div className="flex flex-wrap gap-2">
+                  {content.applications.map((app, index) => (
+                    <span key={index} className="text-sm bg-primary/10 text-primary px-3 py-1 rounded">
+                      {app}
+                    </span>
+                  ))}
+                </div>
               </div>
             )}
             {content?.features && (
               <div className="bg-card border border-border rounded-lg p-6">
-                <h2 className="text-xl font-semibold mb-4">Key Features</h2>
+                <h3 className="text-lg font-semibold mb-4">Key Features</h3>
                 <ul className="grid md:grid-cols-2 gap-2">
                   {content.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">

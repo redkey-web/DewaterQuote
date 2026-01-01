@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, CheckCircle } from "lucide-react"
 import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
@@ -35,15 +36,13 @@ const brands = [
     name: "Straub",
     slug: "straub",
     description: "Swiss-engineered GRIP and FLEX couplings. Premium quality with 25+ year service life.",
-    highlight: "Premium Choice",
-    color: "bg-primary/10 text-primary",
+    logo: "/images/brands/straub-logo.png",
   },
   {
     name: "Orbit",
     slug: "orbit",
     description: "Australian industrial couplings. Straub-compatible dimensions at competitive prices.",
-    highlight: "Best Value",
-    color: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
+    logo: "/images/brands/orbit-couplings.png",
   },
 ]
 
@@ -92,32 +91,31 @@ export default async function PipeCouplingsPage() {
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Pipe Couplings</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
-            Industrial pipe couplings for joining, repair, and transition applications.
-            We supply Straub (Swiss premium) and Orbit (Australian value) couplings
-            in 316 stainless steel with WRAS-approved EPDM seals.
+        {/* Minimal Hero */}
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold mb-2">Pipe Couplings</h1>
+          <p className="text-muted-foreground">
+            316 stainless steel couplings for joining, repair, and transition applications.
           </p>
         </div>
 
-        {/* Brand Cards */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Shop by Brand</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Shop by Brand - Compact */}
+        <div className="mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {brands.map((brand) => (
               <Link key={brand.slug} href={`/${brand.slug}`}>
-                <div className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer h-full">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-xl font-bold">{brand.name} Couplings</h3>
-                    <span className={`px-2 py-1 rounded text-xs font-medium ${brand.color}`}>
-                      {brand.highlight}
-                    </span>
+                <div className="p-4 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer h-full flex items-center gap-4">
+                  <div className="relative h-10 w-28 flex-shrink-0">
+                    <Image
+                      src={brand.logo}
+                      alt={`${brand.name} logo`}
+                      fill
+                      className="object-contain object-left"
+                    />
                   </div>
-                  <p className="text-muted-foreground mb-4">{brand.description}</p>
-                  <div className="flex items-center text-primary font-medium">
-                    View {brand.name} Products
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                  <div className="flex items-center text-primary font-medium text-sm">
+                    View Products
+                    <ArrowRight className="w-4 h-4 ml-1" />
                   </div>
                 </div>
               </Link>
@@ -125,7 +123,20 @@ export default async function PipeCouplingsPage() {
           </div>
         </div>
 
-        {/* Coupling Types */}
+        {/* All Products */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">All Pipe Couplings</h2>
+            <span className="text-muted-foreground">{couplingProducts.length} products</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {couplingProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+
+        {/* Coupling Types - Below Products */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Coupling Types</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -154,19 +165,6 @@ export default async function PipeCouplingsPage() {
                 <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <span>{app}</span>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* All Products */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">All Pipe Couplings</h2>
-            <span className="text-muted-foreground">{couplingProducts.length} products</span>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {couplingProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>
@@ -201,7 +199,7 @@ export default async function PipeCouplingsPage() {
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Coupling?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you choose between Straub and Orbit couplings
-            for your application. Call us on (08) 9271 2577 or request a quote.
+            for your application. Call us on 1300 271 290 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

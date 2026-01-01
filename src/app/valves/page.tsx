@@ -37,10 +37,10 @@ export default async function ValvesPage() {
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">Industrial Valves</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
-            Dewater Products supplies a full range of industrial-grade valves for fluid control, isolation, and backflow prevention. Whether you're working on water treatment, process pipelines, or general infrastructure, our valve selection covers check valves, gate valves, ball valves, butterfly valves and more.
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold mb-2">Industrial Valves</h1>
+          <p className="text-muted-foreground">
+            Industrial-grade valves for fluid control, isolation, and backflow prevention.
           </p>
         </div>
 

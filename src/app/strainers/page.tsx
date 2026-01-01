@@ -37,10 +37,10 @@ export default async function StrainersPage() {
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">Pipeline Strainers</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
-            Industrial strainers and filters to protect pumps, valves, and downstream equipment from debris. Our range includes Y strainers for compact installations and basket strainers for high-flow applications requiring frequent cleaning.
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold mb-2">Pipeline Strainers</h1>
+          <p className="text-muted-foreground">
+            Industrial strainers to protect pumps, valves, and equipment from debris.
           </p>
         </div>
 

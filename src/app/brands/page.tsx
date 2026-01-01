@@ -5,8 +5,8 @@ import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Our Brands - Straub, Orbit, Teekay & Defender Valves | DeWater Products",
-  description: "Browse industrial pipe fittings by brand. We are authorised distributors for Straub, Orbit Couplings, Teekay, and Defender Valves.",
+  title: "Our Brands - Straub, Orbit, Teekay, Bore-Flex & Defender Valves | DeWater Products",
+  description: "Browse industrial pipe fittings by brand. We are authorised distributors for Straub, Orbit Couplings, Teekay, Bore-Flex Rubber, and Defender Valves.",
 }
 
 const brands = [
@@ -42,6 +42,14 @@ const brands = [
     description: "High-performance industrial butterfly valves with PTFE lining, offering superior chemical resistance and reliable flow control.",
     specialties: ["Butterfly Valves", "PTFE Lined Valves", "Stainless Steel Valves"],
   },
+  {
+    slug: "bore-flex-rubber",
+    href: "/brands/bore-flex-rubber",
+    name: "Bore-Flex Rubber",
+    logo: "/images/brands/bore-flex-rubber-logo.png",
+    description: "High-quality rubber expansion joints and flexible pipe connectors for vibration isolation, thermal expansion compensation, and noise reduction in piping systems.",
+    specialties: ["Expansion Joints", "Rubber Bellows", "Vibration Isolators"],
+  },
 ]
 
 export default function BrandsPage() {
@@ -61,13 +69,13 @@ export default function BrandsPage() {
             <Link key={brand.slug} href={brand.href}>
               <Card className="group h-full p-8 hover:shadow-lg transition-all cursor-pointer border-border hover:border-primary/30">
                 <div className="flex flex-col items-center text-center">
-                  <div className="h-20 flex items-center justify-center mb-6">
+                  <div className="h-24 flex items-center justify-center mb-6">
                     <Image
                       src={brand.logo}
                       alt={brand.name}
-                      width={160}
-                      height={60}
-                      className="h-14 w-auto object-contain"
+                      width={brand.slug === "bore-flex-rubber" ? 1440 : brand.slug === "orbit" ? 270 : 160}
+                      height={brand.slug === "bore-flex-rubber" ? 540 : brand.slug === "orbit" ? 90 : 60}
+                      className={brand.slug === "bore-flex-rubber" ? "h-[144px] w-auto object-contain" : brand.slug === "orbit" ? "h-[84px] w-auto object-contain" : "h-14 w-auto object-contain"}
                     />
                   </div>
                   <h2 className="text-xl font-semibold mb-3">{brand.name}</h2>

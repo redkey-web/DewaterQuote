@@ -193,7 +193,7 @@ export default function HomePage() {
           <div className="flex items-center justify-center gap-4 mt-6">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium">
+                <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none">
                   Browse by Category
                   <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
@@ -210,22 +210,13 @@ export default function HomePage() {
                         <Link href="/valves/butterfly-valve" className="w-full cursor-pointer">Butterfly Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
+                        <Link href="/valves/check-valves" className="w-full cursor-pointer">Check Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
                         <Link href="/valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/valves/gate-valve" className="w-full cursor-pointer">Gate Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/valves/knife-gate-valve" className="w-full cursor-pointer">Knife Gate Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/valves/swing-check-valve" className="w-full cursor-pointer">Swing Check Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/valves/ball-check-valve" className="w-full cursor-pointer">Ball Check Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/valves/duckbill-check-valve" className="w-full cursor-pointer">Duckbill Check Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
@@ -257,10 +248,31 @@ export default function HomePage() {
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
 
-                {/* Expansion Joints */}
-                <DropdownMenuItem asChild>
-                  <Link href="/rubber-expansion-joints" className="w-full cursor-pointer">Expansion Joints</Link>
-                </DropdownMenuItem>
+                {/* Expansion Joints with subcategories */}
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="cursor-pointer">
+                    <Link href="/rubber-expansion-joints" className="flex-1">Expansion Joints</Link>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="w-48">
+                      <DropdownMenuItem asChild>
+                        <Link href="/rubber-expansion-joints/single-sphere" className="w-full cursor-pointer">Single Sphere</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/rubber-expansion-joints/twin-sphere" className="w-full cursor-pointer">Twin Sphere</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/rubber-expansion-joints/single-arch" className="w-full cursor-pointer">Single Arch</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/rubber-expansion-joints/double-arch" className="w-full cursor-pointer">Double Arch</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/rubber-expansion-joints/reducing" className="w-full cursor-pointer">Reducing</Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
 
                 {/* Strainers with subcategories */}
                 <DropdownMenuSub>
@@ -330,9 +342,9 @@ export default function HomePage() {
               <Image
                 src="/images/brands/orbit-couplings.png"
                 alt="Orbit Couplings"
-                width={180}
-                height={60}
-                className="h-14 w-auto object-contain"
+                width={270}
+                height={90}
+                className="h-[84px] w-auto object-contain"
               />
             </Link>
             <Link href="/brands/teekay" className="opacity-80 hover:opacity-100 transition-opacity">
@@ -351,6 +363,15 @@ export default function HomePage() {
                 width={200}
                 height={60}
                 className="h-10 w-auto object-contain"
+              />
+            </Link>
+            <Link href="/brands/bore-flex-rubber" className="opacity-80 hover:opacity-100 transition-opacity">
+              <Image
+                src="/images/brands/bore-flex-rubber-logo.png"
+                alt="Bore-Flex Rubber"
+                width={1080}
+                height={360}
+                className="h-[120px] w-auto object-contain"
               />
             </Link>
           </div>

@@ -49,7 +49,8 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/brands/straub" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-straub">Straub</Link></li>
               <li><Link href="/brands/orbit" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-orbit">Orbit</Link></li>
-              <li><Link href="/brands/teekay" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-teekay">Teekay</Link></li>
+              <li><Link href="/brands/bore-flex-rubber" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-bore-flex">Bore-Flex Rubber</Link></li>
+              <li><Link href="/brands/defender-valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-defender">Defender Valves</Link></li>
             </ul>
           </div>
 
@@ -63,14 +64,11 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Customer Service</h4>
+            <h4 className="font-semibold mb-4">Information</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/shipping-delivery" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-shipping">Shipping & Delivery</Link></li>
-              <li><Link href="/returns-refunds" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-returns">Returns & Refunds</Link></li>
-              <li><Link href="/payment-methods" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-payment">Payment Methods</Link></li>
-              <li><Link href="/warranty" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-warranty">Warranty Information</Link></li>
-              <li><Link href="/terms-conditions" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-terms">Terms & Conditions</Link></li>
-              <li><Link href="/privacy-policy" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-privacy">Privacy Policy</Link></li>
+              <li><Link href="/delivery" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-delivery">Delivery Policy</Link></li>
+              <li><Link href="/returns" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-returns">Returns Policy</Link></li>
+              <li><Link href="/privacy" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-privacy">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
