@@ -72,16 +72,51 @@ function transformProduct(dbProduct: DBProductWithRelations): Product {
       : undefined,
     video: dbProduct.video || undefined,
     videos: dbProduct.videos?.length > 0
-      ? dbProduct.videos
-          .filter(v => v.isActive !== false) // Only show active videos on frontend
-          .map(v => ({
-            id: v.id,
-            youtubeId: v.youtubeId,
-            title: v.title,
-            sizeLabel: v.sizeLabel,
-            isPrimary: v.isPrimary ?? false,
-            isActive: v.isActive ?? true,
-          }))
+      ? (() => {
+          // Build lookup for suspended variations
+          const suspendedVariationIds = new Set(
+            dbProduct.variations
+              .filter(v => v.isSuspended === true)
+              .map(v => v.id)
+          );
+          const suspendedSizes = new Set(
+            dbProduct.variations
+              .filter(v => v.isSuspended === true)
+              .map(v => v.size.toLowerCase())
+          );
+
+          return dbProduct.videos
+            .filter(v => {
+              // Must be active
+              if (v.isActive === false) return false;
+
+              // If linked to a suspended variation by ID, filter out
+              if (v.variationId && suspendedVariationIds.has(v.variationId)) return false;
+
+              // If has sizeLabel but no variationId, check if size matches a suspended variation
+              if (v.sizeLabel && !v.variationId) {
+                const normalizedLabel = v.sizeLabel.toLowerCase().replace(/\s/g, '');
+                for (const suspendedSize of suspendedSizes) {
+                  const normalizedSuspended = suspendedSize.replace(/\s/g, '');
+                  if (normalizedLabel === normalizedSuspended ||
+                      normalizedLabel.startsWith(normalizedSuspended) ||
+                      normalizedSuspended.startsWith(normalizedLabel)) {
+                    return false;
+                  }
+                }
+              }
+
+              return true;
+            })
+            .map(v => ({
+              id: v.id,
+              youtubeId: v.youtubeId,
+              title: v.title,
+              sizeLabel: v.sizeLabel,
+              isPrimary: v.isPrimary ?? false,
+              isActive: v.isActive ?? true,
+            }));
+        })()
       : undefined,
     leadTime: dbProduct.leadTime || undefined,
     materials: (dbProduct.materials || { body: '' }) as Product['materials'],
