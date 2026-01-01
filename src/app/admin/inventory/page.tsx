@@ -15,6 +15,7 @@ interface VariationStock {
 interface InventoryProduct {
   id: number;
   sku: string;
+  slug: string;
   name: string;
   shortName: string | null;
   isActive: boolean;
@@ -132,6 +133,7 @@ async function getInventoryData(): Promise<InventoryProduct[]> {
       return {
         id: p.id,
         sku: p.sku,
+        slug: p.slug,
         name: p.name,
         shortName: p.shortName,
         isActive: p.isActive ?? true,

@@ -50,6 +50,7 @@ import {
   Eye,
   Ban,
   Video,
+  ExternalLink,
 } from 'lucide-react';
 import {
   Tooltip,
@@ -91,6 +92,7 @@ interface ProductVariation {
 interface InventoryProduct {
   id: number;
   sku: string;
+  slug: string;
   name: string;
   shortName: string | null;
   isActive: boolean;
@@ -1316,6 +1318,16 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                 <Pencil className="mr-2 h-4 w-4" />
                                 Edit Product
                               </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <a
+                                href={`/${product.slug}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <ExternalLink className="mr-2 h-4 w-4" />
+                                View on Site
+                              </a>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
