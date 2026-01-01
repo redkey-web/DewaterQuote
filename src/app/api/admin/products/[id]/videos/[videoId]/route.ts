@@ -5,6 +5,55 @@ import { eq, and } from 'drizzle-orm';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth/config';
 
+// PATCH /api/admin/products/[id]/videos/[videoId] - Toggle video active state
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string; videoId: string }> }
+) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id, videoId } = await params;
+    const productId = parseInt(id, 10);
+    const videoIdNum = parseInt(videoId, 10);
+
+    if (isNaN(productId) || isNaN(videoIdNum)) {
+      return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+    }
+
+    // Get current video state
+    const video = await db.query.productVideos.findFirst({
+      where: and(
+        eq(productVideos.id, videoIdNum),
+        eq(productVideos.productId, productId)
+      ),
+    });
+
+    if (!video) {
+      return NextResponse.json({ error: 'Video not found' }, { status: 404 });
+    }
+
+    // Toggle isActive
+    const newActiveState = !video.isActive;
+
+    await db
+      .update(productVideos)
+      .set({ isActive: newActiveState })
+      .where(eq(productVideos.id, videoIdNum));
+
+    return NextResponse.json({
+      success: true,
+      isActive: newActiveState
+    });
+  } catch (error) {
+    console.error('Error toggling video active state:', error);
+    return NextResponse.json({ error: 'Failed to toggle video' }, { status: 500 });
+  }
+}
+
 // DELETE /api/admin/products/[id]/videos/[videoId] - Delete a video
 export async function DELETE(
   request: NextRequest,

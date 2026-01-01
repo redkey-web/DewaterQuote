@@ -72,13 +72,16 @@ function transformProduct(dbProduct: DBProductWithRelations): Product {
       : undefined,
     video: dbProduct.video || undefined,
     videos: dbProduct.videos?.length > 0
-      ? dbProduct.videos.map(v => ({
-          id: v.id,
-          youtubeId: v.youtubeId,
-          title: v.title,
-          sizeLabel: v.sizeLabel,
-          isPrimary: v.isPrimary ?? false,
-        }))
+      ? dbProduct.videos
+          .filter(v => v.isActive !== false) // Only show active videos on frontend
+          .map(v => ({
+            id: v.id,
+            youtubeId: v.youtubeId,
+            title: v.title,
+            sizeLabel: v.sizeLabel,
+            isPrimary: v.isPrimary ?? false,
+            isActive: v.isActive ?? true,
+          }))
       : undefined,
     leadTime: dbProduct.leadTime || undefined,
     materials: (dbProduct.materials || { body: '' }) as Product['materials'],

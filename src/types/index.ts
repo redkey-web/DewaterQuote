@@ -23,6 +23,7 @@ export interface ProductVideo {
   title: string | null
   sizeLabel: string | null
   isPrimary: boolean
+  isActive: boolean
 }
 
 export interface Product {

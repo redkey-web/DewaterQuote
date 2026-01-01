@@ -84,6 +84,7 @@ export async function POST(
       sizeLabel: sizeLabel || null,
       variationId: variationId || null,
       isPrimary,
+      isActive: true, // New videos are active by default
       displayOrder: existingCount.length,
     }).returning();
 

@@ -35,7 +35,7 @@ const nextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com",
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https://*.blob.vercel-storage.com https://dewaterproducts.com.au https://www.dewaterproducts.com.au",
+              "img-src 'self' data: blob: https://*.blob.vercel-storage.com https://dewaterproducts.com.au https://www.dewaterproducts.com.au https://img.youtube.com https://i.ytimg.com",
               "font-src 'self'",
               "frame-src https://challenges.cloudflare.com https://www.youtube.com https://youtube.com https://www.youtube-nocookie.com",
               "connect-src 'self' https://challenges.cloudflare.com",
@@ -276,6 +276,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'dewaterproducts.com.au',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
       },
     ],
   },

@@ -257,6 +257,7 @@ export const productVideos = pgTable('product_videos', {
   title: text('title'), // Video title from YouTube
   sizeLabel: text('size_label'), // Extracted size (e.g., "114.3mm")
   isPrimary: boolean('is_primary').default(false), // Main video for product
+  isActive: boolean('is_active').default(true), // Show on live site (admin can toggle)
   displayOrder: integer('display_order').default(0),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
