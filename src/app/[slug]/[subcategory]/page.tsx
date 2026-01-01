@@ -360,54 +360,25 @@ export default async function SubcategoryPage({ params }: SubcategoryPageProps) 
           <span className="text-foreground font-medium">{content?.title || subcategoryData.name}</span>
         </nav>
 
-        {/* Hero Section */}
-        <div className="mb-10">
+        {/* Hero Section - Short description + Applications */}
+        <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{content?.title || subcategoryData.name}</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
+          <p className="text-lg text-muted-foreground max-w-3xl mb-4">
             {content?.heroDescription || subcategoryData.description}
           </p>
+          {content?.applications && (
+            <div className="flex flex-wrap gap-2">
+              <span className="text-sm font-medium text-muted-foreground">Applications:</span>
+              {content.applications.map((app, index) => (
+                <span key={index} className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
+                  {app}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Long Description */}
-        {content?.longDescription && (
-          <div className="mb-10 prose prose-neutral dark:prose-invert max-w-none">
-            <p className="text-base leading-relaxed">{content.longDescription}</p>
-          </div>
-        )}
-
-        {/* Features & Applications */}
-        {(content?.features || content?.applications) && (
-          <div className="grid md:grid-cols-2 gap-8 mb-10">
-            {content.features && (
-              <div className="bg-card border border-border rounded-lg p-6">
-                <h2 className="text-xl font-semibold mb-4">Key Features</h2>
-                <ul className="space-y-2">
-                  {content.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-primary mt-1">✓</span>
-                      <span className="text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {content.applications && (
-              <div className="bg-card border border-border rounded-lg p-6">
-                <h2 className="text-xl font-semibold mb-4">Applications</h2>
-                <ul className="space-y-2">
-                  {content.applications.map((app, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-muted-foreground">{app}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Products Section */}
+        {/* Products Section - Now comes first */}
         <div className="mb-10">
           <h2 className="text-2xl font-semibold mb-6">
             {products.length > 0
@@ -435,6 +406,31 @@ export default async function SubcategoryPage({ params }: SubcategoryPageProps) 
             </div>
           )}
         </div>
+
+        {/* Additional Info - Below Products */}
+        {(content?.features || content?.longDescription) && (
+          <div className="mb-10">
+            {content?.longDescription && (
+              <div className="mb-8 prose prose-neutral dark:prose-invert max-w-none">
+                <h2 className="text-2xl font-semibold mb-4">About {content?.title || subcategoryData.name}</h2>
+                <p className="text-base leading-relaxed text-muted-foreground">{content.longDescription}</p>
+              </div>
+            )}
+            {content?.features && (
+              <div className="bg-card border border-border rounded-lg p-6">
+                <h2 className="text-xl font-semibold mb-4">Key Features</h2>
+                <ul className="grid md:grid-cols-2 gap-2">
+                  {content.features.map((feature, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-primary mt-1">✓</span>
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* FAQs */}
         {content?.faqs && content.faqs.length > 0 && (

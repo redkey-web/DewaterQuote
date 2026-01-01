@@ -135,6 +135,33 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
     return logos[brand] || null
   }
   const brandLogo = getBrandLogo(product.brand)
+
+  // Straub installation video mapping
+  const getStraubInstallationVideo = (slug: string): string | null => {
+    if (product.brand !== 'Straub') return null
+    const slugLower = slug.toLowerCase()
+    if (slugLower.includes('metal-grip') || slugLower.includes('grip-ff') || slugLower.includes('straub-grip')) {
+      return '/videos/straub/metal-grip-installation.mp4'
+    }
+    if (slugLower.includes('open-flex')) {
+      return '/videos/straub/open-flex-1l-installation.mp4'
+    }
+    if (slugLower.includes('flex') && !slugLower.includes('open') && !slugLower.includes('rep') && !slugLower.includes('step') && !slugLower.includes('square')) {
+      return '/videos/straub/flex-1l-installation.mp4'
+    }
+    if (slugLower.includes('rep-flex') || slugLower.includes('rep-clamp')) {
+      return '/videos/straub/rep-flex-installation.mp4'
+    }
+    if (slugLower.includes('plast-pro')) {
+      return '/videos/straub/plast-pro-installation.mp4'
+    }
+    if (slugLower.includes('clamp')) {
+      return '/videos/straub/clamp-installation.mp4'
+    }
+    return null
+  }
+  const installationVideo = getStraubInstallationVideo(product.slug)
+
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
   const addToQuoteButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -787,14 +814,14 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
         <Card className="mb-12 glass shadow-lg">
           <CardContent className="p-8">
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className={`grid w-full mb-6 ${(product.video || (product.videos && product.videos.length > 0)) ? 'grid-cols-3' : 'grid-cols-2'}`} data-testid="tabs-product-info">
+              <TabsList className={`grid w-full mb-6 ${(product.video || (product.videos && product.videos.length > 0) || installationVideo) ? 'grid-cols-3' : 'grid-cols-2'}`} data-testid="tabs-product-info">
                 <TabsTrigger value="description" data-testid="tab-description">
                   Description
                 </TabsTrigger>
                 <TabsTrigger value="specifications" data-testid="tab-specifications">
                   Specifications
                 </TabsTrigger>
-                {(product.video || (product.videos && product.videos.length > 0)) && (
+                {(product.video || (product.videos && product.videos.length > 0) || installationVideo) && (
                   <TabsTrigger value="video" data-testid="tab-video">
                     Video{product.videos && product.videos.length > 1 ? 's' : ''}
                     {product.videos && product.videos.length > 1 && (
@@ -843,16 +870,40 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 </div>
               </TabsContent>
 
-              {(product.video || (product.videos && product.videos.length > 0)) && (
+              {(product.video || (product.videos && product.videos.length > 0) || installationVideo) && (
                 <TabsContent value="video" className="mt-0">
                   <h2 className="text-2xl font-bold mb-6">
-                    Product Video{product.videos && product.videos.length > 1 ? 's' : ''}
+                    {installationVideo && !product.video && !(product.videos && product.videos.length > 0)
+                      ? 'Installation Video'
+                      : `Product Video${product.videos && product.videos.length > 1 ? 's' : ''}`}
                     {product.videos && product.videos.length > 1 && (
                       <Badge variant="secondary" className="ml-2">
                         {product.videos.length} videos
                       </Badge>
                     )}
                   </h2>
+
+                  {/* Straub Installation Video */}
+                  {installationVideo && (
+                    <div className="mb-8">
+                      {(product.video || (product.videos && product.videos.length > 0)) && (
+                        <h3 className="text-lg font-semibold mb-3">Installation Guide</h3>
+                      )}
+                      <div className="aspect-video w-full bg-muted rounded-md overflow-hidden">
+                        <video
+                          controls
+                          className="w-full h-full"
+                          poster={`/images/products/straub/${product.slug.replace('straub-', '')}-photo.jpg`}
+                        >
+                          <source src={installationVideo} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-3">
+                        Watch this installation video to see how to properly fit the {product.name}.
+                      </p>
+                    </div>
+                  )}
 
                   {/* Single video or primary video display */}
                   {product.videos && product.videos.length > 0 ? (

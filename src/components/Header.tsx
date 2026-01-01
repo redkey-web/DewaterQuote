@@ -1,17 +1,87 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search } from "lucide-react"
+import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search, Loader2 } from "lucide-react"
 import { useQuote } from "@/context/QuoteContext"
 
+interface SearchResult {
+  id: number
+  name: string
+  fullName: string
+  slug: string
+  category: string
+  categoryName: string
+  brand: string
+  description: string
+}
+
 export default function Header() {
+  const router = useRouter()
   const { itemCount: cartItemCount, openCart } = useQuote()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [showResults, setShowResults] = useState(false)
+  const searchRef = useRef<HTMLDivElement>(null)
+  const mobileSearchRef = useRef<HTMLDivElement>(null)
+
+  // Close search dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node) &&
+          mobileSearchRef.current && !mobileSearchRef.current.contains(event.target as Node)) {
+        setShowResults(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  // Debounced search
+  useEffect(() => {
+    if (searchQuery.length < 2) {
+      setSearchResults([])
+      setShowResults(false)
+      return
+    }
+
+    const timer = setTimeout(async () => {
+      setIsSearching(true)
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
+        const data = await res.json()
+        setSearchResults(data.results || [])
+        setShowResults(true)
+      } catch (error) {
+        console.error("Search error:", error)
+      } finally {
+        setIsSearching(false)
+      }
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      setShowResults(false)
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`)
+    }
+  }
+
+  const handleResultClick = (slug: string) => {
+    setShowResults(false)
+    setSearchQuery("")
+    router.push(`/${slug}`)
+  }
 
   const productsMenu = [
     {
@@ -95,14 +165,55 @@ export default function Header() {
           </Link>
 
           {/* Search Bar */}
-          <div className="hidden lg:block relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search products..."
-              className="pl-9 w-48 xl:w-56 h-9"
-              data-testid="input-search"
-            />
+          <div className="hidden lg:block relative" ref={searchRef}>
+            <form onSubmit={handleSearchSubmit}>
+              {isSearching ? (
+                <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
+              ) : (
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              )}
+              <Input
+                type="search"
+                placeholder="Search products..."
+                className="pl-9 w-48 xl:w-64 h-9"
+                data-testid="input-search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => searchResults.length > 0 && setShowResults(true)}
+              />
+            </form>
+            {/* Search Results Dropdown */}
+            {showResults && searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-popover border border-border rounded-md shadow-lg max-h-80 overflow-y-auto z-50">
+                {searchResults.map((result) => (
+                  <button
+                    key={result.id}
+                    onClick={() => handleResultClick(result.slug)}
+                    className="w-full text-left px-4 py-3 hover:bg-accent border-b border-border last:border-b-0 transition-colors"
+                  >
+                    <div className="font-medium text-sm">{result.name}</div>
+                    <div className="text-xs text-muted-foreground flex gap-2">
+                      <span>{result.brand}</span>
+                      <span>•</span>
+                      <span>{result.categoryName}</span>
+                    </div>
+                  </button>
+                ))}
+                {searchQuery.trim() && (
+                  <button
+                    onClick={handleSearchSubmit as any}
+                    className="w-full text-left px-4 py-2 text-sm text-primary hover:bg-accent transition-colors"
+                  >
+                    View all results for "{searchQuery}"
+                  </button>
+                )}
+              </div>
+            )}
+            {showResults && searchResults.length === 0 && searchQuery.length >= 2 && !isSearching && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-popover border border-border rounded-md shadow-lg p-4 z-50">
+                <p className="text-sm text-muted-foreground">No products found for "{searchQuery}"</p>
+              </div>
+            )}
           </div>
 
           {/* Desktop Navigation */}
@@ -287,16 +398,41 @@ export default function Header() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border">
-            <div className="mb-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <div className="mb-4" ref={mobileSearchRef}>
+              <form onSubmit={handleSearchSubmit} className="relative">
+                {isSearching ? (
+                  <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
+                ) : (
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                )}
                 <Input
                   type="search"
-                  placeholder="Search..."
+                  placeholder="Search products..."
                   className="pl-9 w-full"
                   data-testid="input-search-mobile"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => searchResults.length > 0 && setShowResults(true)}
                 />
-              </div>
+              </form>
+              {/* Mobile Search Results */}
+              {showResults && searchResults.length > 0 && (
+                <div className="mt-2 bg-card border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
+                  {searchResults.slice(0, 5).map((result) => (
+                    <button
+                      key={result.id}
+                      onClick={() => {
+                        handleResultClick(result.slug)
+                        setMobileMenuOpen(false)
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-accent border-b border-border last:border-b-0"
+                    >
+                      <div className="font-medium text-sm">{result.name}</div>
+                      <div className="text-xs text-muted-foreground">{result.brand}</div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             <nav className="space-y-4">
               <Link href="/products" className="block text-foreground hover-elevate px-3 py-2 rounded-md font-semibold" data-testid="link-mobile-products">
