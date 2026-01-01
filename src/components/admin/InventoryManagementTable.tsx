@@ -49,6 +49,7 @@ import {
   EyeOff,
   Eye,
   Ban,
+  Video,
 } from 'lucide-react';
 import {
   Tooltip,
@@ -67,6 +68,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { StockStatusBadge, StockQtyBadge, getStockStatus } from './StockStatusBadge';
+import { VideoPopup } from './VideoPopup';
 import { cn } from '@/lib/utils';
 import { sortVariationsBySize } from '@/lib/utils/size-sort';
 
@@ -99,6 +101,7 @@ interface InventoryProduct {
   leadTimeText: string | null;
   basePrice: string | null;
   priceVaries: boolean;
+  video: string | null;
   category: { name: string } | null;
   brand: { name: string } | null;
   stock: {
@@ -187,6 +190,11 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
     size: string;
   } | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [videoPopup, setVideoPopup] = useState<{
+    productId: number;
+    productName: string;
+    videoUrl: string | null;
+  } | null>(null);
 
   // Duplicate detection functions
   const isDuplicateProductSku = useCallback(
@@ -993,13 +1001,25 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
               <TableHead className="text-center sticky top-[116px] bg-gray-100 z-20">
                 <SortableHeader sortKey="sizes" className="justify-center">Sizes</SortableHeader>
               </TableHead>
+              <TableHead className="text-center w-[60px] sticky top-[116px] bg-gray-100 z-20">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="flex items-center justify-center">
+                      <Video className="h-4 w-4" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Product Video</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TableHead>
               <TableHead className="text-right sticky top-[116px] bg-gray-100 z-20">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredProducts.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={12} className="text-center py-8 text-gray-500">
+                <TableCell colSpan={13} className="text-center py-8 text-gray-500">
                   No products found matching your filters.
                 </TableCell>
               </TableRow>
@@ -1241,6 +1261,36 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                         ) : (
                           <span className="text-gray-400">--</span>
                         )}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className={cn(
+                                'h-8 w-8 p-0',
+                                product.video
+                                  ? 'text-blue-600 hover:text-blue-700 hover:bg-blue-50'
+                                  : 'text-gray-300 hover:text-gray-500'
+                              )}
+                              onClick={() =>
+                                setVideoPopup({
+                                  productId: product.id,
+                                  productName: product.shortName || product.name,
+                                  videoUrl: product.video,
+                                })
+                              }
+                            >
+                              <Video className="h-4 w-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">
+                              {product.video ? 'View/Edit video' : 'Add video'}
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
                       </TableCell>
                       <TableCell className="text-right">
                         <DropdownMenu>
@@ -1507,6 +1557,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               </TableCell>
                               <TableCell></TableCell>
                               <TableCell></TableCell>
+                              <TableCell></TableCell>
                             </TableRow>
                           );
                         })}
@@ -1607,6 +1658,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                                   />
                                 </TableCell>
                                 <TableCell></TableCell>
+                                <TableCell></TableCell>
                                 <TableCell>
                                   <div className="flex gap-1">
                                     <Button
@@ -1638,7 +1690,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                           })()
                         ) : (
                           <TableRow className="bg-gray-50/30 hover:bg-gray-100/50">
-                            <TableCell colSpan={12}>
+                            <TableCell colSpan={13}>
                               <Button
                                 size="sm"
                                 variant="ghost"
@@ -1703,6 +1755,15 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Video Popup */}
+      <VideoPopup
+        open={!!videoPopup}
+        onOpenChange={(open) => !open && setVideoPopup(null)}
+        productId={videoPopup?.productId ?? 0}
+        productName={videoPopup?.productName ?? ''}
+        currentVideoUrl={videoPopup?.videoUrl ?? null}
+      />
     </div>
     </TooltipProvider>
   );

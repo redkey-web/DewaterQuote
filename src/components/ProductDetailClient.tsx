@@ -724,7 +724,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
         <Card className="mb-12 glass shadow-lg">
           <CardContent className="p-8">
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-6" data-testid="tabs-product-info">
+              <TabsList className={`grid w-full mb-6 ${product.video ? 'grid-cols-3' : 'grid-cols-2'}`} data-testid="tabs-product-info">
                 <TabsTrigger value="description" data-testid="tab-description">
                   Description
                 </TabsTrigger>

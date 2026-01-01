@@ -25,6 +25,7 @@ interface InventoryProduct {
   leadTimeText: string | null;
   basePrice: string | null;
   priceVaries: boolean;
+  video: string | null;
   category: { name: string } | null;
   brand: { name: string } | null;
   stock: {
@@ -139,6 +140,7 @@ async function getInventoryData(): Promise<InventoryProduct[]> {
         leadTimeText: p.leadTimeText,
         basePrice: p.basePrice,
         priceVaries: p.priceVaries ?? false,
+        video: p.video,
         category: p.category,
         brand: p.brand,
         // Use parent stock if no variations, otherwise use aggregate from variations

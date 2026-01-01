@@ -362,6 +362,31 @@ Contact us to schedule.
 
 ---
 
+## Action Required: Products Needing Images
+
+The following products need images uploaded manually (they weren't available in the Neto export):
+
+| SKU | Product Name | Action |
+|-----|--------------|--------|
+| **YSTR-CI** | Y-Strainer - Cast Iron - Flanged PN16 | Upload product photo |
+| **REJ-EPDM** | Rubber Expansion Joint - Single Sphere - EPDM | Upload product photo |
+| **OCRC55X** | Orbit Pipe Repair Clamp 55mm wide | Upload product photo |
+
+### How to Add Images
+
+1. Go to **Admin > Products**
+2. Search for the SKU (e.g., "YSTR-CI")
+3. Click on the product to edit
+4. Go to **Media** tab
+5. Click **Upload Image**
+6. Select your product photo
+7. Set as **Primary** if it's the main image
+8. Save
+
+**Note:** Until images are added, these products will show a placeholder image on the website.
+
+---
+
 ## Quick Reference
 
 | Task | Where | How Often |
@@ -377,5 +402,5 @@ Contact us to schedule.
 
 ---
 
-*Guide Version 2.0 - December 2025*
+*Guide Version 2.1 - January 2026*
 *DeWater Products Website Admin System*
