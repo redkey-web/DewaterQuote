@@ -17,6 +17,14 @@ export interface SizeOption {
   sku?: string
 }
 
+export interface ProductVideo {
+  id: number
+  youtubeId: string
+  title: string | null
+  sizeLabel: string | null
+  isPrimary: boolean
+}
+
 export interface Product {
   id: string
   slug: string
@@ -32,7 +40,8 @@ export interface Product {
   sizeOptions?: SizeOption[]
   images: MediaAsset[]
   downloads?: { url: string; label: string }[]
-  video?: string
+  video?: string // Primary video URL (backwards compat)
+  videos?: ProductVideo[] // All videos
   leadTime?: string
   materials: {
     body: string

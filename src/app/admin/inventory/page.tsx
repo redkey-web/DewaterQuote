@@ -1,6 +1,6 @@
 import { db } from '@/db';
-import { products, productStock } from '@/db/schema';
-import { desc, inArray } from 'drizzle-orm';
+import { products, productStock, productVideos } from '@/db/schema';
+import { desc, inArray, eq, sql } from 'drizzle-orm';
 import { InventoryManagementTable } from '@/components/admin/InventoryManagementTable';
 import { StatsCard } from '@/components/admin/StatsCard';
 import { Download } from 'lucide-react';
@@ -26,6 +26,7 @@ interface InventoryProduct {
   basePrice: string | null;
   priceVaries: boolean;
   video: string | null;
+  videoCount: number;
   category: { name: string } | null;
   brand: { name: string } | null;
   stock: {
@@ -53,6 +54,7 @@ async function getInventoryData(): Promise<InventoryProduct[]> {
         category: true,
         brand: true,
         stock: true,
+        videos: true, // Include videos for count
         variations: {
           columns: {
             id: true,
@@ -141,6 +143,7 @@ async function getInventoryData(): Promise<InventoryProduct[]> {
         basePrice: p.basePrice,
         priceVaries: p.priceVaries ?? false,
         video: p.video,
+        videoCount: p.videos?.length ?? 0,
         category: p.category,
         brand: p.brand,
         // Use parent stock if no variations, otherwise use aggregate from variations

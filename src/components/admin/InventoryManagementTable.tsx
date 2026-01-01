@@ -102,6 +102,7 @@ interface InventoryProduct {
   basePrice: string | null;
   priceVaries: boolean;
   video: string | null;
+  videoCount: number;
   category: { name: string } | null;
   brand: { name: string } | null;
   stock: {
@@ -194,6 +195,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
     productId: number;
     productName: string;
     videoUrl: string | null;
+    videoCount: number;
   } | null>(null);
 
   // Duplicate detection functions
@@ -1269,25 +1271,34 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                               variant="ghost"
                               size="sm"
                               className={cn(
-                                'h-8 w-8 p-0',
-                                product.video
+                                'h-8 p-0 relative',
+                                product.videoCount > 0
                                   ? 'text-blue-600 hover:text-blue-700 hover:bg-blue-50'
-                                  : 'text-gray-300 hover:text-gray-500'
+                                  : 'text-gray-300 hover:text-gray-500',
+                                product.videoCount > 1 ? 'w-10' : 'w-8'
                               )}
                               onClick={() =>
                                 setVideoPopup({
                                   productId: product.id,
                                   productName: product.shortName || product.name,
                                   videoUrl: product.video,
+                                  videoCount: product.videoCount,
                                 })
                               }
                             >
                               <Video className="h-4 w-4" />
+                              {product.videoCount > 1 && (
+                                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                                  {product.videoCount}
+                                </span>
+                              )}
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent side="top">
                             <p className="text-xs">
-                              {product.video ? 'View/Edit video' : 'Add video'}
+                              {product.videoCount > 0
+                                ? `${product.videoCount} video${product.videoCount !== 1 ? 's' : ''}`
+                                : 'Add video'}
                             </p>
                           </TooltipContent>
                         </Tooltip>
@@ -1763,6 +1774,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
         productId={videoPopup?.productId ?? 0}
         productName={videoPopup?.productName ?? ''}
         currentVideoUrl={videoPopup?.videoUrl ?? null}
+        videoCount={videoPopup?.videoCount ?? 0}
       />
     </div>
     </TooltipProvider>

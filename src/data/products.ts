@@ -26,6 +26,7 @@ type DBProductWithRelations = NonNullable<
       downloads: true;
       variations: true;
       applications: true;
+      videos: true;
     };
   }>>>
 >;
@@ -70,6 +71,15 @@ function transformProduct(dbProduct: DBProductWithRelations): Product {
         }))
       : undefined,
     video: dbProduct.video || undefined,
+    videos: dbProduct.videos?.length > 0
+      ? dbProduct.videos.map(v => ({
+          id: v.id,
+          youtubeId: v.youtubeId,
+          title: v.title,
+          sizeLabel: v.sizeLabel,
+          isPrimary: v.isPrimary ?? false,
+        }))
+      : undefined,
     leadTime: dbProduct.leadTime || undefined,
     materials: (dbProduct.materials || { body: '' }) as Product['materials'],
     pressureRange: dbProduct.pressureRange || '',
@@ -148,6 +158,7 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
       downloads: true,
       variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
       applications: { orderBy: (a, { asc }) => [asc(a.displayOrder)] },
+      videos: { orderBy: (v, { desc, asc }) => [desc(v.isPrimary), asc(v.displayOrder)] },
     },
   });
 

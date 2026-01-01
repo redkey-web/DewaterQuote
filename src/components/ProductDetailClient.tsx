@@ -724,16 +724,21 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
         <Card className="mb-12 glass shadow-lg">
           <CardContent className="p-8">
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className={`grid w-full mb-6 ${product.video ? 'grid-cols-3' : 'grid-cols-2'}`} data-testid="tabs-product-info">
+              <TabsList className={`grid w-full mb-6 ${(product.video || (product.videos && product.videos.length > 0)) ? 'grid-cols-3' : 'grid-cols-2'}`} data-testid="tabs-product-info">
                 <TabsTrigger value="description" data-testid="tab-description">
                   Description
                 </TabsTrigger>
                 <TabsTrigger value="specifications" data-testid="tab-specifications">
                   Specifications
                 </TabsTrigger>
-                {product.video && (
+                {(product.video || (product.videos && product.videos.length > 0)) && (
                   <TabsTrigger value="video" data-testid="tab-video">
-                    Video
+                    Video{product.videos && product.videos.length > 1 ? 's' : ''}
+                    {product.videos && product.videos.length > 1 && (
+                      <Badge variant="secondary" className="ml-1 text-xs">
+                        {product.videos.length}
+                      </Badge>
+                    )}
                   </TabsTrigger>
                 )}
               </TabsList>
@@ -775,25 +780,95 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 </div>
               </TabsContent>
 
-              {product.video && (
+              {(product.video || (product.videos && product.videos.length > 0)) && (
                 <TabsContent value="video" className="mt-0">
-                  <h2 className="text-2xl font-bold mb-6">Product Video</h2>
-                  <div className="aspect-video w-full bg-muted rounded-md overflow-hidden">
-                    <iframe
-                      width="100%"
-                      height="100%"
-                      src={product.video.replace("watch?v=", "embed/")}
-                      title="Product Video"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    ></iframe>
-                  </div>
-                  <p className="text-sm text-muted-foreground mt-4">
-                    Watch this video demonstration showing the {product.name} installation and
-                    features.
-                  </p>
+                  <h2 className="text-2xl font-bold mb-6">
+                    Product Video{product.videos && product.videos.length > 1 ? 's' : ''}
+                    {product.videos && product.videos.length > 1 && (
+                      <Badge variant="secondary" className="ml-2">
+                        {product.videos.length} videos
+                      </Badge>
+                    )}
+                  </h2>
+
+                  {/* Single video or primary video display */}
+                  {product.videos && product.videos.length > 0 ? (
+                    <div className="space-y-6">
+                      {/* Main video player - shows selected or primary */}
+                      <div className="aspect-video w-full bg-muted rounded-md overflow-hidden">
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src={`https://www.youtube.com/embed/${product.videos[0].youtubeId}`}
+                          title={product.videos[0].title || "Product Video"}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-full"
+                        />
+                      </div>
+                      {product.videos[0].title && (
+                        <p className="text-sm text-muted-foreground">
+                          {product.videos[0].title}
+                        </p>
+                      )}
+
+                      {/* Video gallery for multiple videos */}
+                      {product.videos.length > 1 && (
+                        <div className="mt-6">
+                          <h3 className="text-lg font-semibold mb-3">More Videos</h3>
+                          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {product.videos.slice(1).map((video) => (
+                              <a
+                                key={video.id}
+                                href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group block"
+                              >
+                                <div className="relative aspect-video bg-muted rounded-lg overflow-hidden border hover:border-primary transition-colors">
+                                  <Image
+                                    src={`https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`}
+                                    alt={video.title || "Video thumbnail"}
+                                    fill
+                                    className="object-cover"
+                                    unoptimized
+                                  />
+                                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors">
+                                    <div className="bg-white/90 rounded-full p-2">
+                                      <Play className="h-6 w-6 text-primary fill-primary" />
+                                    </div>
+                                  </div>
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-1 truncate">
+                                  {video.sizeLabel || video.title || `Video ${video.id}`}
+                                </p>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ) : product.video ? (
+                    <>
+                      <div className="aspect-video w-full bg-muted rounded-md overflow-hidden">
+                        <iframe
+                          width="100%"
+                          height="100%"
+                          src={product.video.replace("watch?v=", "embed/")}
+                          title="Product Video"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-full"
+                        />
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-4">
+                        Watch this video demonstration showing the {product.name} installation and
+                        features.
+                      </p>
+                    </>
+                  ) : null}
                 </TabsContent>
               )}
             </Tabs>

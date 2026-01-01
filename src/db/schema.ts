@@ -246,6 +246,22 @@ export const productApplications = pgTable('product_applications', {
 });
 
 // ============================================
+// PRODUCT VIDEOS TABLE (Multiple YouTube videos per product)
+// ============================================
+
+export const productVideos = pgTable('product_videos', {
+  id: serial('id').primaryKey(),
+  productId: integer('product_id').references(() => products.id, { onDelete: 'cascade' }).notNull(),
+  variationId: integer('variation_id').references(() => productVariations.id, { onDelete: 'set null' }), // Optional - for size-specific videos
+  youtubeId: text('youtube_id').notNull(), // Just the video ID (e.g., "VRei4m3c3Ck")
+  title: text('title'), // Video title from YouTube
+  sizeLabel: text('size_label'), // Extracted size (e.g., "114.3mm")
+  isPrimary: boolean('is_primary').default(false), // Main video for product
+  displayOrder: integer('display_order').default(0),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// ============================================
 // ADMIN USERS (for NextAuth)
 // ============================================
 
@@ -300,6 +316,7 @@ export const productsRelations = relations(products, ({ one, many }) => ({
   features: many(productFeatures),
   specifications: many(productSpecifications),
   applications: many(productApplications),
+  videos: many(productVideos), // Multiple YouTube videos
   // Phase F1 relations
   stock: many(productStock),
   shipping: many(productShipping),
@@ -346,6 +363,17 @@ export const productApplicationsRelations = relations(productApplications, ({ on
   product: one(products, {
     fields: [productApplications.productId],
     references: [products.id],
+  }),
+}));
+
+export const productVideosRelations = relations(productVideos, ({ one }) => ({
+  product: one(products, {
+    fields: [productVideos.productId],
+    references: [products.id],
+  }),
+  variation: one(productVariations, {
+    fields: [productVideos.variationId],
+    references: [productVariations.id],
   }),
 }));
 
@@ -416,6 +444,8 @@ export type ProductSpecification = typeof productSpecifications.$inferSelect;
 export type ProductApplication = typeof productApplications.$inferSelect;
 export type ProductCategory = typeof productCategories.$inferSelect;
 export type NewProductCategory = typeof productCategories.$inferInsert;
+export type ProductVideo = typeof productVideos.$inferSelect;
+export type NewProductVideo = typeof productVideos.$inferInsert;
 
 // Phase F1 types
 export type ProductStock = typeof productStock.$inferSelect;
