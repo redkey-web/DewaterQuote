@@ -11,7 +11,7 @@ async function main() {
            v.sku as variation_sku, v.size, v.price
     FROM products p
     LEFT JOIN product_variations v ON v.product_id = p.id
-    WHERE p.sku LIKE 'BFLY%' OR p.sku LIKE 'PTFE%' OR p.sku LIKE 'CF8M%'
+    WHERE p.sku IN ('DB-1', 'DB4DCV', 'DBCVFE', 'ILDBCV')
     ORDER BY p.sku, v.display_order
   `;
 

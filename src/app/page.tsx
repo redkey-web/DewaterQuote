@@ -21,6 +21,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu"
 import { TestimonialsSection } from "@/components/Testimonials"
 import {
@@ -194,22 +198,108 @@ export default function HomePage() {
                   <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-48">
-                <DropdownMenuItem asChild>
-                  <Link href="/valves" className="w-full cursor-pointer">Valves</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
-                </DropdownMenuItem>
+              <DropdownMenuContent className="w-52">
+                {/* Valves with subcategories */}
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="cursor-pointer">
+                    <Link href="/valves" className="flex-1">Valves</Link>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="w-48">
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/butterfly-valve" className="w-full cursor-pointer">Butterfly Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/gate-valve" className="w-full cursor-pointer">Gate Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/knife-gate-valve" className="w-full cursor-pointer">Knife Gate Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/swing-check-valve" className="w-full cursor-pointer">Swing Check Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/ball-check-valve" className="w-full cursor-pointer">Ball Check Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/duckbill-check-valve" className="w-full cursor-pointer">Duckbill Check Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/valves/float-valve" className="w-full cursor-pointer">Float Valves</Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+
+                {/* Pipe Couplings with subcategories */}
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="cursor-pointer">
+                    <Link href="/pipe-couplings" className="flex-1">Pipe Couplings</Link>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="w-48">
+                      <DropdownMenuItem asChild>
+                        <Link href="/pipe-couplings/orbit-couplings" className="w-full cursor-pointer">Orbit Couplings</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/pipe-couplings/straub-couplings" className="w-full cursor-pointer">Straub Couplings</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/pipe-couplings/straub-shaped-parts" className="w-full cursor-pointer">Straub Shaped Parts</Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+
+                {/* Expansion Joints */}
                 <DropdownMenuItem asChild>
                   <Link href="/rubber-expansion-joints" className="w-full cursor-pointer">Expansion Joints</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/strainers" className="w-full cursor-pointer">Strainers</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/pipe-repair" className="w-full cursor-pointer">Repair Clamps</Link>
-                </DropdownMenuItem>
+
+                {/* Strainers with subcategories */}
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="cursor-pointer">
+                    <Link href="/strainers" className="flex-1">Strainers</Link>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="w-52">
+                      <DropdownMenuItem asChild>
+                        <Link href="/strainers/y-strainer" className="w-full cursor-pointer">Y Strainers</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/strainers/simplex-basket-strainer" className="w-full cursor-pointer">Simplex Basket Strainers</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/strainers/duplex-basket-strainer" className="w-full cursor-pointer">Duplex Basket Strainers</Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+
+                {/* Repair Clamps with subcategories */}
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="cursor-pointer">
+                    <Link href="/pipe-repair" className="flex-1">Repair Clamps</Link>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="w-52">
+                      <DropdownMenuItem asChild>
+                        <Link href="/pipe-repair/orbit-pipe-repair-clamps" className="w-full cursor-pointer">Orbit Repair Clamps</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/pipe-repair/straub-pipe-repair-clamps" className="w-full cursor-pointer">Straub Repair Clamps</Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+
+                {/* Flange Adaptors */}
                 <DropdownMenuItem asChild>
                   <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
                 </DropdownMenuItem>
@@ -226,7 +316,7 @@ export default function HomePage() {
       <section className="py-12 px-6 lg:px-8 bg-muted/50 border-y border-border">
         <div className="max-w-4xl mx-auto">
           <p className="text-center text-sm text-muted-foreground mb-6">Authorised distributor for</p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
             <Link href="/brands/straub" className="opacity-80 hover:opacity-100 transition-opacity">
               <Image
                 src="/images/brands/straub-logo.png"
@@ -251,6 +341,15 @@ export default function HomePage() {
                 alt="Teekay"
                 width={120}
                 height={40}
+                className="h-10 w-auto object-contain"
+              />
+            </Link>
+            <Link href="/brands/defender-valves" className="opacity-80 hover:opacity-100 transition-opacity">
+              <Image
+                src="/images/brands/defender-valves-logo.png"
+                alt="Defender Valves"
+                width={200}
+                height={60}
                 className="h-10 w-auto object-contain"
               />
             </Link>
@@ -423,7 +522,7 @@ export default function HomePage() {
                 The leader in industrial pipe fittings and valves
               </h3>
               <p className="text-base text-foreground/80 mb-6 leading-relaxed">
-                Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. Dewater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, and Teekay.
+                Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. Dewater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, Teekay, and Defender Valves.
               </p>
               <p className="text-base text-foreground/80 mb-8 leading-relaxed">
                 Supplying the Australian market since 2015, our commitment to quality ensures we provide the most reliable solutions for water treatment, mining, irrigation, and industrial applications.
@@ -438,7 +537,7 @@ export default function HomePage() {
               <Card className="p-8">
                 <h4 className="font-semibold text-xl mb-3">Authorised Distributor</h4>
                 <p className="text-muted-foreground mb-4">
-                  Exclusive partnerships with Straub, Orbit, and Teekay ensure genuine products and factory support
+                  Exclusive partnerships with Straub, Orbit, Teekay, and Defender Valves ensure genuine products and factory support
                 </p>
               </Card>
               <Card className="p-8">
@@ -479,7 +578,7 @@ export default function HomePage() {
                 What brands do you stock?
               </AccordionTrigger>
               <AccordionContent className="text-base text-muted-foreground">
-                We are authorized distributors for Straub, Orbit Couplings, and Teekay - all
+                We are authorized distributors for Straub, Orbit Couplings, Teekay, and Defender Valves - all
                 industry-leading manufacturers of pipe fittings, couplings, valves, and expansion
                 joints. All products are genuine and come with full factory support.
               </AccordionContent>

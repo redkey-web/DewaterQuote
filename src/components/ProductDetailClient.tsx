@@ -157,9 +157,13 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const discountPercentage = getDiscountPercentage(quantity)
   const hasDiscount = discountPercentage > 0 && selectedSizeOption?.price
 
+  // Check if product has size options
+  const hasSizeOptions = product.sizeOptions && product.sizeOptions.length > 0
+
   const handleAddToQuote = () => {
     try {
-      if (!selectedSize) {
+      // Only require size selection if product has size options
+      if (hasSizeOptions && !selectedSize) {
         toast({
           title: "No Size Selected",
           description: "Please select a size to add to your quote.",
@@ -169,14 +173,14 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       }
 
       const quoteItem = productToQuoteItem(product, {
-        selectedSize: selectedSize,
+        selectedSize: hasSizeOptions ? selectedSize : "POA - Contact for sizing",
         quantity: quantity,
         materialTestCert: materialTestCert,
       })
       addItem(quoteItem, addToQuoteButtonRef.current)
 
       // Track add to quote in GA4
-      trackAddToQuote(product.name, selectedSize, quantity)
+      trackAddToQuote(product.name, selectedSize || "POA", quantity)
 
       // Reset after adding
       setSelectedSize("")
@@ -431,7 +435,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 <span className="text-muted-foreground">Size:</span>
                 <span className="font-medium">
                   {product.sizeOptions && product.sizeOptions.length > 1
-                    ? `${product.sizeOptions[0].value} - ${product.sizeOptions[product.sizeOptions.length - 1].value}`
+                    ? `${product.sizeOptions?.[0]?.value} - ${product.sizeOptions?.[product.sizeOptions.length - 1]?.value}`
                     : product.sizeFrom}
                 </span>
               </div>
@@ -458,16 +462,23 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
             </div>
 
             {/* Size & Quantity Selector */}
-            {product.sizeOptions && product.sizeOptions.length > 0 && (
+            {hasSizeOptions ? (
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-lg font-semibold">Select Size & Quantity</h3>
-                  <Badge className="bg-emerald-600 hover:bg-emerald-600 text-white font-semibold">
-                    Ex GST
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge className="bg-primary hover:bg-primary text-white font-semibold px-3 py-1">
+                      Ex GST
+                    </Badge>
+                    {product.leadTime && (
+                      <Badge className="bg-orange-500 hover:bg-orange-500 text-white font-semibold px-3 py-1 text-xs">
+                        {product.leadTime}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Please check product sizing carefully before ordering. All prices exclude GST.
+                  Please check product sizing carefully before ordering.
                 </p>
 
                 {/* Size Selector */}
@@ -485,7 +496,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                           <span className={selectedSize ? "text-foreground" : "text-muted-foreground"}>
                             {selectedSize
                               ? (() => {
-                                  const opt = product.sizeOptions.find(s => s.value === selectedSize);
+                                  const opt = product.sizeOptions?.find(s => s.value === selectedSize);
                                   return opt ? `${opt.value}${opt.label ? ` - ${opt.label}` : ''}` : selectedSize;
                                 })()
                               : "Tap to choose a size..."}
@@ -497,13 +508,13 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                           {/* Picker container */}
                           <div className="relative" style={{ height: 180 }}>
                             <Picker
-                              value={{ size: selectedSize || product.sizeOptions[0]?.value || "" }}
+                              value={{ size: selectedSize || product.sizeOptions?.[0]?.value || "" }}
                               onChange={(newValue) => setSelectedSize(newValue.size)}
                               wheelMode="natural"
                               height={180}
                             >
                               <Picker.Column name="size">
-                                {product.sizeOptions.map((size) => (
+                                {product.sizeOptions?.map((size) => (
                                   <Picker.Item key={size.value} value={size.value}>
                                     {({ selected }) => (
                                       <div className={`grid grid-cols-[1fr_auto] w-full gap-4 px-4 items-center ${selected ? "font-semibold text-primary" : "text-muted-foreground"}`}>
@@ -527,7 +538,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                           <button
                             onClick={() => {
                               if (!selectedSize && product.sizeOptions?.[0]) {
-                                setSelectedSize(product.sizeOptions[0].value || "")
+                                setSelectedSize(product.sizeOptions?.[0]?.value || "")
                               }
                               setIsPickerOpen(false)
                             }}
@@ -546,7 +557,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                           <SelectValue placeholder="Choose a size..." />
                         </SelectTrigger>
                         <SelectContent>
-                          {product.sizeOptions.map((size, index) => (
+                          {product.sizeOptions?.map((size, index) => (
                             <SelectItem
                               key={size.value}
                               value={size.value}
@@ -619,6 +630,53 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
                 </div>
               </div>
+            ) : (
+              /* Products without size options - POA pricing */
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-lg font-semibold">Request Quote</h3>
+                  <div className="flex items-center gap-2">
+                    <Badge className="bg-amber-500 hover:bg-amber-500 text-white font-semibold px-3 py-1">
+                      POA
+                    </Badge>
+                    {product.leadTime && (
+                      <Badge className="bg-orange-500 hover:bg-orange-500 text-white font-semibold px-3 py-1 text-xs">
+                        {product.leadTime}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Price on Application. Add to your quote and we&apos;ll provide pricing based on your requirements.
+                </p>
+
+                {/* Quantity Controls */}
+                <div className="flex items-center gap-4 py-2">
+                  <label className="text-sm font-medium">Qty</label>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleQuantityChange(-1)}
+                      disabled={quantity <= 1}
+                      className="h-9 w-9"
+                    >
+                      <Minus className="w-4 h-4" />
+                    </Button>
+                    <span className="text-lg font-bold min-w-[2.5rem] text-center">
+                      {quantity}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleQuantityChange(1)}
+                      className="h-9 w-9"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
             )}
 
             <div className="mb-6 space-y-4">
@@ -654,13 +712,13 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                   ref={addToQuoteButtonRef}
                   size="lg"
                   onClick={handleAddToQuote}
-                  disabled={!selectedSize}
+                  disabled={hasSizeOptions && !selectedSize}
                   className="flex-1"
                   data-testid="button-add-to-quote"
                 >
                   <ShoppingCart className="mr-2 w-5 h-5" />
-                  Add to Quote
-                  {selectedSize && quantity > 0 && (
+                  {hasSizeOptions ? "Add to Quote" : "Request Quote"}
+                  {quantity > 0 && (
                     <Badge variant="secondary" className="ml-2 bg-white/20 text-white">
                       {quantity}
                     </Badge>

@@ -25,6 +25,13 @@ interface IndustryPageProps {
   params: Promise<{ industry: string }>
 }
 
+interface CouplingRecommendation {
+  application: string
+  orbitModel: string
+  straubModel: string
+  notes: string
+}
+
 interface IndustryData {
   name: string
   tagline: string
@@ -33,9 +40,11 @@ interface IndustryData {
   keywords: string[]
   icon: typeof Droplets
   heroColor: string
+  heroImage: string
   challenges: { title: string; description: string }[]
   solutions: { category: string; description: string; products: string[] }[]
   applications: string[]
+  couplingGuide?: CouplingRecommendation[]
   recommendedProducts: string[] // Product IDs
   faqs: { question: string; answer: string }[]
 }
@@ -58,6 +67,7 @@ const industryData: Record<string, IndustryData> = {
     ],
     icon: Droplets,
     heroColor: "from-blue-500/10 to-cyan-500/10",
+    heroImage: "/images/industries/water-wastewater.webp",
     challenges: [
       {
         title: "Corrosion Resistance",
@@ -112,6 +122,32 @@ const industryData: Record<string, IndustryData> = {
       "Recycled water systems",
       "Sludge handling pipelines",
     ],
+    couplingGuide: [
+      {
+        application: "Joining same-sized pipes",
+        orbitModel: "Flex Grip / Metal Lock",
+        straubModel: "Metal Grip / Grip L",
+        notes: "Restrained couplings prevent axial movement"
+      },
+      {
+        application: "Repair clamp for leaking section",
+        orbitModel: "Open Flex 200L/300L",
+        straubModel: "Open Flex / Clamp SCE",
+        notes: "Split-body design for live repairs"
+      },
+      {
+        application: "Joining different OD pipes",
+        orbitModel: "Stepped Coupling",
+        straubModel: "Step Flex 2/3",
+        notes: "For connecting mismatched pipe diameters"
+      },
+      {
+        application: "Plastic-to-metal connection",
+        orbitModel: "Combo Lock",
+        straubModel: "Combi Grip / Plast Grip",
+        notes: "Mixed material joining solution"
+      },
+    ],
     recommendedProducts: ["BFLYW316", "DB-1", "FSF-REJ", "SBS316"],
     faqs: [
       {
@@ -153,6 +189,7 @@ const industryData: Record<string, IndustryData> = {
     ],
     icon: Wheat,
     heroColor: "from-green-500/10 to-lime-500/10",
+    heroImage: "/images/industries/irrigation.webp",
     challenges: [
       {
         title: "UV Exposure",
@@ -248,6 +285,7 @@ const industryData: Record<string, IndustryData> = {
     ],
     icon: Flame,
     heroColor: "from-red-500/10 to-orange-500/10",
+    heroImage: "/images/industries/fire-services.webp",
     challenges: [
       {
         title: "Regulatory Compliance",
@@ -302,6 +340,32 @@ const industryData: Record<string, IndustryData> = {
       "Foam systems",
       "Water storage connections",
     ],
+    couplingGuide: [
+      {
+        application: "Sprinkler mains (restrained)",
+        orbitModel: "Metal Lock / Fire Protection Coupling",
+        straubModel: "Metal Grip Fire Fence",
+        notes: "Fire-rated restrained coupling for mains"
+      },
+      {
+        application: "Grooved pipe connections",
+        orbitModel: "Flex Grip",
+        straubModel: "Metal Grip / Grip L",
+        notes: "Axially restrained for grooved systems"
+      },
+      {
+        application: "Retrofit to existing pipe",
+        orbitModel: "Open Flex",
+        straubModel: "Open Flex",
+        notes: "Split-body for connecting to existing services"
+      },
+      {
+        application: "Pump house flexible connections",
+        orbitModel: "Flex Grip L",
+        straubModel: "Flex 1L/2",
+        notes: "Allows for movement and vibration"
+      },
+    ],
     recommendedProducts: ["BFLYW316", "DPCHK316", "FSF-REJ"],
     faqs: [
       {
@@ -343,6 +407,7 @@ const industryData: Record<string, IndustryData> = {
     ],
     icon: Mountain,
     heroColor: "from-amber-500/10 to-yellow-500/10",
+    heroImage: "/images/industries/mining.webp",
     challenges: [
       {
         title: "Abrasive Slurries",
@@ -397,6 +462,32 @@ const industryData: Record<string, IndustryData> = {
       "Underground services",
       "Bore water supply",
     ],
+    couplingGuide: [
+      {
+        application: "Emergency pipe repair",
+        orbitModel: "Open Flex 200L/300L/400L",
+        straubModel: "Open Flex / Clamp SCE/SCZ",
+        notes: "Split-body for fast live repairs"
+      },
+      {
+        application: "High-pressure dewatering",
+        orbitModel: "Metal Lock S/L",
+        straubModel: "Metal Grip GT",
+        notes: "High-pressure rated (up to 37 bar)"
+      },
+      {
+        application: "Large diameter pipelines",
+        orbitModel: "Flex Grip 3/4",
+        straubModel: "Flex 3/4",
+        notes: "Sizes up to 4000mm available"
+      },
+      {
+        application: "Joining dissimilar pipes",
+        orbitModel: "Stepped Coupling / Combo Lock",
+        straubModel: "Step Flex / Combi Grip",
+        notes: "For PE to steel, different ODs"
+      },
+    ],
     recommendedProducts: ["KGV-SS316", "BFLYW316", "FSF-REJ", "DB-1"],
     faqs: [
       {
@@ -438,6 +529,7 @@ const industryData: Record<string, IndustryData> = {
     ],
     icon: Wrench,
     heroColor: "from-orange-500/10 to-amber-500/10",
+    heroImage: "/images/industries/construction.webp",
     challenges: [
       {
         title: "Tight Deadlines",
@@ -492,6 +584,32 @@ const industryData: Record<string, IndustryData> = {
       "Stormwater drainage systems",
       "Plant room installations",
     ],
+    couplingGuide: [
+      {
+        application: "Quick pipe connections",
+        orbitModel: "Flex Grip S/L",
+        straubModel: "Metal Grip / Flex",
+        notes: "No welding, threading, or beveling required"
+      },
+      {
+        application: "Connecting to existing services",
+        orbitModel: "Open Flex",
+        straubModel: "Open Flex",
+        notes: "Split-body for retrofit installations"
+      },
+      {
+        application: "Mixed pipe materials",
+        orbitModel: "Combo Lock",
+        straubModel: "Combi Grip",
+        notes: "Join PVC to HDPE, steel to ductile iron"
+      },
+      {
+        application: "Vibration zones (pump stations)",
+        orbitModel: "Flex Grip L",
+        straubModel: "Flex 1L/2",
+        notes: "Non-restrained for movement absorption"
+      },
+    ],
     recommendedProducts: ["BFLYW316", "FSF-REJ", "SBS316", "CIYSE"],
     faqs: [
       {
@@ -533,6 +651,7 @@ const industryData: Record<string, IndustryData> = {
     ],
     icon: Anchor,
     heroColor: "from-cyan-500/10 to-blue-500/10",
+    heroImage: "/images/industries/marine.webp",
     challenges: [
       {
         title: "Saltwater Corrosion",
@@ -628,6 +747,7 @@ const industryData: Record<string, IndustryData> = {
     ],
     icon: Wind,
     heroColor: "from-sky-500/10 to-indigo-500/10",
+    heroImage: "/images/industries/hvac.webp",
     challenges: [
       {
         title: "Noise & Vibration",
@@ -723,6 +843,7 @@ const industryData: Record<string, IndustryData> = {
     ],
     icon: Apple,
     heroColor: "from-emerald-500/10 to-green-500/10",
+    heroImage: "/images/industries/food-beverage.webp",
     challenges: [
       {
         title: "Hygiene Requirements",
@@ -860,17 +981,24 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
-      <div className={`bg-gradient-to-br ${industry.heroColor} border-b`}>
-        <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="relative border-b overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${industry.heroImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+
+        <div className="relative max-w-7xl mx-auto px-6 py-20">
           <div className="flex flex-col lg:flex-row gap-8 items-center">
             <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-sm font-medium mb-4 backdrop-blur-sm">
                 <IconComponent className="w-4 h-4" />
                 Industry Solutions
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-4">{industry.name}</h1>
-              <p className="text-xl text-muted-foreground mb-2">{industry.tagline}</p>
-              <p className="text-muted-foreground mb-6 max-w-2xl">{industry.description}</p>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-white">{industry.name}</h1>
+              <p className="text-xl text-white/90 mb-2">{industry.tagline}</p>
+              <p className="text-white/70 mb-6 max-w-2xl">{industry.description}</p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
@@ -881,15 +1009,15 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
                 </Link>
                 <Link
                   href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                  className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-md font-medium hover:bg-white/20 transition-colors"
                 >
                   Request a Quote
                 </Link>
               </div>
             </div>
-            <div className="flex-shrink-0">
-              <div className="w-32 h-32 rounded-full bg-card border border-border flex items-center justify-center">
-                <IconComponent className="w-16 h-16 text-primary" />
+            <div className="flex-shrink-0 hidden lg:block">
+              <div className="w-32 h-32 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                <IconComponent className="w-16 h-16 text-white" />
               </div>
             </div>
           </div>
@@ -958,6 +1086,65 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
             ))}
           </div>
         </div>
+
+        {/* Coupling Selection Guide */}
+        {industry.couplingGuide && industry.couplingGuide.length > 0 && (
+          <div className="mb-16">
+            <div className="flex items-center gap-3 mb-6">
+              <Shield className="w-6 h-6 text-primary" />
+              <h2 className="text-2xl font-bold">Pipe Coupling Selection Guide</h2>
+            </div>
+            <p className="text-muted-foreground mb-6">
+              Choose the right coupling for your {industry.name.toLowerCase()} application. We stock both Orbit (Australian) and Straub (Swiss-engineered) couplings.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="bg-muted/50">
+                    <th className="text-left p-4 border border-border font-semibold">Application</th>
+                    <th className="text-left p-4 border border-border font-semibold">
+                      <span className="text-primary">Orbit</span> Model
+                    </th>
+                    <th className="text-left p-4 border border-border font-semibold">
+                      <span className="text-primary">Straub</span> Model
+                    </th>
+                    <th className="text-left p-4 border border-border font-semibold">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {industry.couplingGuide.map((row, idx) => (
+                    <tr key={row.application} className={idx % 2 === 0 ? "bg-background" : "bg-muted/30"}>
+                      <td className="p-4 border border-border font-medium">{row.application}</td>
+                      <td className="p-4 border border-border">{row.orbitModel}</td>
+                      <td className="p-4 border border-border">{row.straubModel}</td>
+                      <td className="p-4 border border-border text-sm text-muted-foreground">{row.notes}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 flex gap-4">
+              <Link
+                href="/pipe-couplings"
+                className="text-sm text-primary hover:underline flex items-center gap-1"
+              >
+                Browse all Pipe Couplings <ArrowRight className="w-3 h-3" />
+              </Link>
+              <Link
+                href="/orbit"
+                className="text-sm text-primary hover:underline flex items-center gap-1"
+              >
+                Orbit Range <ArrowRight className="w-3 h-3" />
+              </Link>
+              <Link
+                href="/straub"
+                className="text-sm text-primary hover:underline flex items-center gap-1"
+              >
+                Straub Range <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* Products Section */}
         <div id="products" className="mb-16">

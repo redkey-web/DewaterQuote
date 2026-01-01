@@ -5,14 +5,14 @@ import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Our Brands - Straub, Orbit & Teekay | DeWater Products",
-  description: "Browse industrial pipe fittings by brand. We are authorised distributors for Straub, Orbit Couplings, and Teekay pipe coupling solutions.",
+  title: "Our Brands - Straub, Orbit, Teekay & Defender Valves | DeWater Products",
+  description: "Browse industrial pipe fittings by brand. We are authorised distributors for Straub, Orbit Couplings, Teekay, and Defender Valves.",
 }
 
 const brands = [
   {
     slug: "straub",
-    href: "/straub",
+    href: "/brands/straub",
     name: "Straub",
     logo: "/images/brands/straub-logo.png",
     description: "Global leader in pipe coupling technology, offering innovative solutions for secure and maintenance-free pipe connections across all industries.",
@@ -20,7 +20,7 @@ const brands = [
   },
   {
     slug: "orbit",
-    href: "/orbit",
+    href: "/brands/orbit",
     name: "Orbit Couplings",
     logo: "/images/brands/orbit-couplings.png",
     description: "High-quality pipe couplings and fittings designed for demanding industrial applications. Known for reliability and precision engineering.",
@@ -28,11 +28,19 @@ const brands = [
   },
   {
     slug: "teekay",
-    href: "/teekay",
+    href: "/brands/teekay",
     name: "Teekay",
     logo: "/images/brands/teekay-logo.png",
     description: "Specialists in rubber expansion joints and flexible connectors, providing vibration absorption and thermal compensation solutions.",
     specialties: ["Expansion Joints", "Duckbill Valves", "Flexible Connectors"],
+  },
+  {
+    slug: "defender-valves",
+    href: "/brands/defender-valves",
+    name: "Defender Valves",
+    logo: "/images/brands/defender-valves-logo.png",
+    description: "High-performance industrial butterfly valves with PTFE lining, offering superior chemical resistance and reliable flow control.",
+    specialties: ["Butterfly Valves", "PTFE Lined Valves", "Stainless Steel Valves"],
   },
 ]
 

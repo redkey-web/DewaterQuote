@@ -31,6 +31,12 @@ const brandInfo: Record<string, { name: string; description: string; logo: strin
       "Teekay specializes in rubber expansion joints and flexible connectors, providing vibration absorption and thermal compensation solutions for piping systems.",
     logo: "/images/brands/teekay-logo.png",
   },
+  "defender-valves": {
+    name: "Defender Valves",
+    description:
+      "Defender Valves specializes in high-performance industrial butterfly valves with PTFE lining, offering superior chemical resistance and reliable flow control for demanding applications.",
+    logo: "/images/brands/defender-valves-logo.png",
+  },
 }
 
 const categoryNames: Record<string, string> = {
