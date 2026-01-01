@@ -51,7 +51,7 @@ export default function HomePage() {
     {
       name: "Expansion Joints",
       url: "/rubber-expansion-joints",
-      image: "/images/products/orbit/flex-grip-s.jpg",
+      image: "/images/products/expansion-joints/fsf-single-sphere.jpg",
       alt: "Expansion Joints",
     },
     {
