@@ -266,12 +266,22 @@ export default function QuoteCart() {
                       </div>
                     )}
                     <div className="flex justify-between items-center pt-2 border-t border-border">
-                      <span className="font-bold">Total:</span>
+                      <span className="font-medium text-sm">Total (ex GST):</span>
                       <span
-                        className="text-xl font-bold text-primary"
+                        className="font-medium"
                         data-testid="text-discounted-total"
                       >
                         ${(discountedSubtotal + certFeeTotal).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm text-muted-foreground">
+                      <span>GST (10%):</span>
+                      <span>${((discountedSubtotal + certFeeTotal) * 0.1).toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between items-center pt-2 border-t border-border bg-primary/5 -mx-4 px-4 py-2 rounded-md">
+                      <span className="font-bold">Total (inc GST):</span>
+                      <span className="text-xl font-bold text-primary">
+                        ${((discountedSubtotal + certFeeTotal) * 1.1).toFixed(2)}
                       </span>
                     </div>
                     <p className="text-xs text-muted-foreground pt-2">
