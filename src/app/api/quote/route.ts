@@ -276,6 +276,20 @@ export async function POST(request: NextRequest) {
               <td style="text-align: right;">$${data.totals.certFee.toFixed(2)}</td>
             </tr>
             ` : ""}
+            ${data.totals.pricedTotal > 0 ? `
+            <tr style="border-top: 2px solid #ddd;">
+              <td style="padding-top: 10px;"><strong>Subtotal (ex GST):</strong></td>
+              <td style="text-align: right; padding-top: 10px;">$${(data.totals.pricedTotal - data.totals.savings + (data.totals.certFee || 0)).toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td><strong>GST (10%):</strong></td>
+              <td style="text-align: right;">$${((data.totals.pricedTotal - data.totals.savings + (data.totals.certFee || 0)) * 0.1).toFixed(2)}</td>
+            </tr>
+            <tr style="background: #e0f2fe;">
+              <td style="padding: 8px;"><strong style="font-size: 1.1em;">Total (inc GST):</strong></td>
+              <td style="text-align: right; padding: 8px;"><strong style="font-size: 1.1em;">$${((data.totals.pricedTotal - data.totals.savings + (data.totals.certFee || 0)) * 1.1).toFixed(2)}</strong></td>
+            </tr>
+            ` : ""}
             ${data.totals.hasUnpricedItems ? `
             <tr>
               <td colspan="2" style="color: #d97706; padding-top: 10px;">
@@ -330,6 +344,10 @@ Total Items: ${data.totals.itemCount}
 ${data.totals.pricedTotal > 0 ? `Listed Price Total: $${data.totals.pricedTotal.toFixed(2)}` : ""}
 ${data.totals.savings > 0 ? `Bulk Discount: -$${data.totals.savings.toFixed(2)}` : ""}
 ${data.totals.certFee && data.totals.certFee > 0 ? `Material Certificates (${data.totals.certCount}): $${data.totals.certFee.toFixed(2)}` : ""}
+${data.totals.pricedTotal > 0 ? `
+Subtotal (ex GST): $${(data.totals.pricedTotal - data.totals.savings + (data.totals.certFee || 0)).toFixed(2)}
+GST (10%): $${((data.totals.pricedTotal - data.totals.savings + (data.totals.certFee || 0)) * 0.1).toFixed(2)}
+TOTAL (inc GST): $${((data.totals.pricedTotal - data.totals.savings + (data.totals.certFee || 0)) * 1.1).toFixed(2)}` : ""}
 ${data.totals.hasUnpricedItems ? "Note: Some items require manual pricing" : ""}
 ${data.totals.certCount && data.totals.certCount > 0 ? `Note: ${data.totals.certCount} item(s) require material test certificates - may extend lead time` : ""}
 
