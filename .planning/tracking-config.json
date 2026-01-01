@@ -5,6 +5,7 @@
   "level": "project",
   "tracking_files": [
     ".planning/current/migration-plan.md",
+    ".planning/features/pre-launch-checklist.md",
     ".planning/features/quote-form-redesign.md",
     ".planning/features/product-price-audit.md",
     ".planning/features/site-audit.md",
