@@ -460,10 +460,15 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
             {/* Size & Quantity Selector */}
             {product.sizeOptions && product.sizeOptions.length > 0 && (
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">Select Size & Quantity</h3>
-                {product.priceNote && (
-                  <p className="text-sm text-muted-foreground mb-4">{product.priceNote}</p>
-                )}
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-lg font-semibold">Select Size & Quantity</h3>
+                  <Badge className="bg-emerald-600 hover:bg-emerald-600 text-white font-semibold">
+                    Ex GST
+                  </Badge>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Please check product sizing carefully before ordering. All prices exclude GST.
+                </p>
 
                 {/* Size Selector */}
                 <div className="space-y-4">
