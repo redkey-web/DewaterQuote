@@ -1,9 +1,28 @@
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, CheckCircle } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
+
+const applications = [
+  "Potable water distribution systems",
+  "Pump control and isolation",
+  "Sewage and stormwater systems",
+  "Chemical handling and process pipelines",
+  "HVAC regulation and control",
+  "Fire protection systems",
+  "Abrasive material and slurry control",
+]
+
+const valveTypes = [
+  { name: "Butterfly Valves", description: "Compact flow control valves with a rotating disc, ideal for large diameter pipes." },
+  { name: "Check Valves", description: "Non-return valves that prevent reverse flow. Includes swing, ball, and duckbill types." },
+  { name: "Float Valves", description: "Level control valves that maintain liquid levels in tanks and reservoirs." },
+  { name: "Foot Valves", description: "Non-return valves with strainers designed for the suction side of pumps." },
+  { name: "Gate Valves", description: "Full-bore shutoff valves ideal for isolation in water and slurry systems." },
+  { name: "Ball Valves", description: "Quarter-turn valves providing tight shutoff for on/off control applications." },
+]
 
 export const metadata: Metadata = {
   title: "Industrial Valves | Check, Gate, Ball & Butterfly Valves | Dewater Products",
@@ -72,12 +91,38 @@ export default async function ValvesPage() {
           ))}
         </div>
 
+        {/* Valve Types */}
+        <div className="mt-12 mb-12">
+          <h2 className="text-2xl font-bold mb-6">Valve Types</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {valveTypes.map((type) => (
+              <div key={type.name} className="p-4 rounded-lg bg-card border border-border">
+                <h3 className="font-semibold mb-2">{type.name}</h3>
+                <p className="text-sm text-muted-foreground">{type.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Applications */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Common Applications</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {applications.map((app) => (
+              <div key={app} className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <span>{app}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* CTA */}
-        <div className="mt-12 bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Valve?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you find the right valve for your application.
-            Call us on 1300 271 290 or request a quote.
+            Call us on (08) 9271 2577 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

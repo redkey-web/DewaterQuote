@@ -199,7 +199,7 @@ export default async function PipeCouplingsPage() {
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Coupling?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you choose between Straub and Orbit couplings
-            for your application. Call us on 1300 271 290 or request a quote.
+            for your application. Call us on (08) 9271 2577 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

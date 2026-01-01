@@ -1,9 +1,28 @@
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, CheckCircle } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import type { Metadata } from "next"
+
+const features = [
+  "Size range from DN25 to DN3500",
+  "Materials: EPDM, Neoprene, NBR, Viton, Hypalon, natural rubber",
+  "Pressure ratings up to 25 BAR",
+  "Vacuum ratings to 750 mm Hg",
+  "Optional PTFE linings, vacuum rings, and control rods",
+  "Flange options: zinc plated, galvanised, 304/316 stainless steel, epoxy-coated",
+]
+
+const applications = [
+  "Pump vibration isolation",
+  "HVAC systems",
+  "Marine and shipboard piping",
+  "Chemical processing",
+  "Slurry pipelines",
+  "Mining and dredging",
+  "Water treatment plants",
+]
 
 export const metadata: Metadata = {
   title: "Rubber Expansion Joints | Single, Twin, Arch & Reducing | Dewater Products",
@@ -39,8 +58,9 @@ export default async function ExpansionJointsPage() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-2">Rubber Expansion Joints</h1>
-          <p className="text-muted-foreground">
-            Flexible joints for thermal expansion, vibration absorption, and pipe misalignment.
+          <p className="text-muted-foreground max-w-3xl">
+            Designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement,
+            rubber expansion joints are a critical part of many industrial and infrastructure piping systems.
           </p>
         </div>
 
@@ -74,12 +94,38 @@ export default async function ExpansionJointsPage() {
           ))}
         </div>
 
+        {/* Features & Applications */}
+        <div className="mt-12 mb-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h2 className="text-2xl font-bold mb-6">Key Features</h2>
+            <div className="space-y-3">
+              {features.map((feature) => (
+                <div key={feature} className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span>{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold mb-6">Applications</h2>
+            <div className="space-y-3">
+              {applications.map((app) => (
+                <div key={app} className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span>{app}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* CTA */}
-        <div className="mt-12 bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Expansion Joint?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you specify the right expansion joint for your application, including custom flanges and movement requirements.
-            Call us on 1300 271 290 or request a quote.
+            Call us on (08) 9271 2577 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

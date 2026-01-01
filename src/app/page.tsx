@@ -648,16 +648,6 @@ export default function HomePage() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-6" className="bg-background border rounded-lg px-6">
-              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
-                Do you offer trade accounts?
-              </AccordionTrigger>
-              <AccordionContent className="text-base text-muted-foreground">
-                Yes, we welcome trade accounts for contractors, industrial clients, and water
-                authorities. Trade customers receive competitive pricing, bulk ordering options,
-                and dedicated account management. Contact us to set up your account.
-              </AccordionContent>
-            </AccordionItem>
           </Accordion>
         </div>
       </section>

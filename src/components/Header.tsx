@@ -90,6 +90,7 @@ export default function Header() {
       items: [
         { name: "Straub Couplings", url: "/brands/straub" },
         { name: "Orbit Couplings", url: "/brands/orbit" },
+        { name: "Teekay", url: "/brands/teekay" },
         { name: "Bore-Flex Rubber", url: "/brands/bore-flex-rubber" },
         { name: "Defender Valves", url: "/brands/defender-valves" },
       ],

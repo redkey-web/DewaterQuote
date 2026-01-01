@@ -31,8 +31,8 @@ const brands = [
     href: "/brands/teekay",
     name: "Teekay",
     logo: "/images/brands/teekay-logo.png",
-    description: "Specialists in rubber expansion joints and flexible connectors, providing vibration absorption and thermal compensation solutions.",
-    specialties: ["Expansion Joints", "Duckbill Valves", "Flexible Connectors"],
+    description: "Specialists in rubber expansion joints, flexible connectors, strainers, and flange adapters, providing vibration absorption and thermal compensation solutions.",
+    specialties: ["Expansion Joints", "Duckbill Valves", "Strainers", "Flange Adapters"],
   },
   {
     slug: "defender-valves",
