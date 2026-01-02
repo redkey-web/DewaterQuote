@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
-import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2 } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2, AlertTriangle } from "lucide-react"
 import { Turnstile } from "@/components/Turnstile"
 import { trackContactSubmission, trackDownload } from "@/components/GoogleAnalytics"
 
@@ -108,11 +108,24 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
           <p className="text-lg text-muted-foreground">
             Get in touch with our team for quotes, technical support, or general enquiries
           </p>
+        </div>
+
+        {/* Prominent Notice */}
+        <div className="bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-400 dark:border-amber-600 rounded-lg p-6 mb-10">
+          <div className="flex items-start gap-4">
+            <AlertTriangle className="w-8 h-8 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <h2 className="text-xl font-bold text-amber-800 dark:text-amber-300 mb-2">No Counter Sales. Visit by appointment only.</h2>
+              <p className="text-amber-700 dark:text-amber-400">
+                For the fastest response, please email us. All enquiries are typically answered within 1-2 business days.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -223,12 +236,16 @@ export default function ContactPage() {
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-primary/10 rounded-md">
-                    <Phone className="w-5 h-5 text-primary" />
+                    <MapPin className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Phone</h3>
-                    <p className="text-sm text-muted-foreground">(08) 9271 2577</p>
-                    <p className="text-xs text-muted-foreground mt-1">Mon-Fri 8am-5pm AWST</p>
+                    <h3 className="font-semibold mb-1">Address</h3>
+                    <p className="text-sm text-muted-foreground">
+                      67 Howe St
+                      <br />
+                      Osborne Park, WA 6017
+                    </p>
+                    <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 font-medium">By appointment only</p>
                   </div>
                 </div>
 
@@ -237,22 +254,24 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-sm text-muted-foreground">sales@dewaterproducts.com.au</p>
+                    <h3 className="font-semibold mb-1">Email (Recommended)</h3>
+                    <a href="mailto:sales@dewaterproducts.com.au" className="text-sm text-primary hover:underline">
+                      sales@dewaterproducts.com.au
+                    </a>
+                    <p className="text-xs text-muted-foreground mt-1">Fastest response time</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-primary/10 rounded-md">
-                    <MapPin className="w-5 h-5 text-primary" />
+                    <Phone className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Location</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Perth, WA
-                      <br />
-                      Australia
-                    </p>
+                    <h3 className="font-semibold mb-1">Phone</h3>
+                    <a href="tel:0892712577" className="text-sm text-muted-foreground hover:text-primary">
+                      (08) 9271 2577
+                    </a>
+                    <p className="text-xs text-muted-foreground mt-1">Mon-Fri 8am-5pm AWST</p>
                   </div>
                 </div>
               </CardContent>

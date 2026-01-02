@@ -150,8 +150,9 @@ export default function Header() {
   ]
 
   const moreMenu = [
-    { name: "Resources", url: "/resources" },
     { name: "About Us", url: "/about" },
+    { name: "Meet the Team", url: "/meet-the-team" },
+    { name: "Resources", url: "/resources" },
   ]
 
   return (

@@ -29,7 +29,6 @@ import {
   Minus,
   TrendingDown,
   FileCheck,
-  Shield,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -66,7 +65,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const [materialTestCert, setMaterialTestCert] = useState<boolean>(false)
   const [isPickerOpen, setIsPickerOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
-  const [showVideo, setShowVideo] = useState(false)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [certOpen, setCertOpen] = useState(false)
 
@@ -81,35 +79,22 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       return !isDuplicate
     })
 
-  // Total items count (images + video if exists)
-  const totalItems = uniqueImages.length + (product.video ? 1 : 0)
-
-  // Navigation functions for image/video gallery
+  // Navigation functions for image gallery
   const goToPrevious = useCallback(() => {
-    if (showVideo) {
-      setShowVideo(false)
-      setCurrentImageIndex(uniqueImages.length - 1)
-    } else if (currentImageIndex > 0) {
+    if (currentImageIndex > 0) {
       setCurrentImageIndex(currentImageIndex - 1)
-    } else if (product.video) {
-      setShowVideo(true)
     } else {
       setCurrentImageIndex(uniqueImages.length - 1)
     }
-  }, [showVideo, currentImageIndex, uniqueImages.length, product.video])
+  }, [currentImageIndex, uniqueImages.length])
 
   const goToNext = useCallback(() => {
-    if (showVideo) {
-      setShowVideo(false)
-      setCurrentImageIndex(0)
-    } else if (currentImageIndex < uniqueImages.length - 1) {
+    if (currentImageIndex < uniqueImages.length - 1) {
       setCurrentImageIndex(currentImageIndex + 1)
-    } else if (product.video) {
-      setShowVideo(true)
     } else {
       setCurrentImageIndex(0)
     }
-  }, [showVideo, currentImageIndex, uniqueImages.length, product.video])
+  }, [currentImageIndex, uniqueImages.length])
 
   // Helper to get human-readable category name
   const getCategoryDisplayName = (slug: string): string => {
@@ -256,11 +241,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 {product.brand}
               </Badge>
             )}
-            {product.straubEquivalent && (
-              <Badge variant="outline" className="border-primary text-primary">
-                Equivalent to {product.straubEquivalent}
-              </Badge>
-            )}
           </div>
           <h1 className="text-3xl font-bold" data-testid="text-product-title-mobile">
             {product.name}
@@ -272,18 +252,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
           {/* Images & Video */}
           <div>
             <div className="aspect-square glass rounded-lg mb-4 overflow-hidden flex items-center justify-center shadow-md relative group">
-              {showVideo && product.video ? (
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src={product.video.replace("watch?v=", "embed/")}
-                  title="Product Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              ) : uniqueImages[currentImageIndex]?.url ? (
+              {uniqueImages[currentImageIndex]?.url ? (
                 <button
                   onClick={() => setLightboxOpen(true)}
                   className="w-full h-full cursor-zoom-in"
@@ -301,8 +270,8 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 <Package className="w-32 h-32 text-muted-foreground" />
               )}
 
-              {/* Navigation Arrows - show when more than 1 item */}
-              {totalItems > 1 && (
+              {/* Navigation Arrows - show when more than 1 image */}
+              {uniqueImages.length > 1 && (
                 <>
                   <button
                     onClick={goToPrevious}
@@ -322,7 +291,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               )}
 
               {/* Expand icon - show on images only */}
-              {!showVideo && uniqueImages[currentImageIndex]?.url && (
+              {uniqueImages[currentImageIndex]?.url && (
                 <button
                   onClick={() => setLightboxOpen(true)}
                   className="absolute top-3 right-3 bg-background/80 hover:bg-background text-foreground p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
@@ -332,33 +301,22 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 </button>
               )}
 
-              {/* Warranty Badge Overlay - hide when video playing */}
-              {!showVideo && (
-                <div className="absolute bottom-3 right-3 bg-emerald-600 text-white px-3 py-1.5 rounded-md shadow-lg flex items-center gap-1.5 text-sm font-medium">
-                  <Shield className="w-4 h-4" />
-                  Up to 5 Year Warranty*
-                </div>
-              )}
-
               {/* Image counter */}
-              {totalItems > 1 && (
+              {uniqueImages.length > 1 && (
                 <div className="absolute bottom-3 left-3 bg-background/80 text-foreground px-2 py-1 rounded-md text-xs font-medium">
-                  {showVideo ? totalItems : currentImageIndex + 1} / {totalItems}
+                  {currentImageIndex + 1} / {uniqueImages.length}
                 </div>
               )}
             </div>
-            {(uniqueImages.length > 1 || product.video) && (
+            {uniqueImages.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
                 {uniqueImages.map((img, idx) => (
                   <button
                     key={idx}
-                    onClick={() => {
-                      setCurrentImageIndex(idx)
-                      setShowVideo(false)
-                    }}
+                    onClick={() => setCurrentImageIndex(idx)}
                     data-testid={`button-thumbnail-${idx}`}
                     className={`aspect-square glass-subtle rounded-lg overflow-hidden flex items-center justify-center cursor-pointer transition-all hover:ring-2 hover:ring-primary shadow-sm ${
-                      !showVideo && currentImageIndex === idx ? "ring-2 ring-primary" : ""
+                      currentImageIndex === idx ? "ring-2 ring-primary" : ""
                     }`}
                   >
                     {img.url ? (
@@ -374,20 +332,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     )}
                   </button>
                 ))}
-                {/* Video Thumbnail */}
-                {product.video && (
-                  <button
-                    onClick={() => setShowVideo(true)}
-                    className={`aspect-square glass-subtle rounded-lg overflow-hidden flex items-center justify-center cursor-pointer transition-all hover:ring-2 hover:ring-primary shadow-sm bg-muted ${
-                      showVideo ? "ring-2 ring-primary" : ""
-                    }`}
-                  >
-                    <div className="flex flex-col items-center gap-1">
-                      <Play className="w-8 h-8 text-primary fill-primary" />
-                      <span className="text-xs text-muted-foreground">Video</span>
-                    </div>
-                  </button>
-                )}
               </div>
             )}
           </div>
@@ -407,11 +351,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               ) : (
                 <Badge variant="secondary" data-testid="badge-brand">
                   {product.brand}
-                </Badge>
-              )}
-              {product.straubEquivalent && (
-                <Badge variant="outline" className="border-primary text-primary" data-testid="badge-straub">
-                  Equivalent to {product.straubEquivalent}
                 </Badge>
               )}
             </div>
@@ -1070,7 +1009,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
             )}
 
             {/* Navigation Arrows in Lightbox */}
-            {totalItems > 1 && (
+            {uniqueImages.length > 1 && (
               <>
                 <button
                   onClick={goToPrevious}
@@ -1090,7 +1029,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
             )}
 
             {/* Image counter in lightbox */}
-            {totalItems > 1 && (
+            {uniqueImages.length > 1 && (
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-background/80 text-foreground px-3 py-1 rounded-md text-sm font-medium">
                 {currentImageIndex + 1} / {uniqueImages.length}
               </div>

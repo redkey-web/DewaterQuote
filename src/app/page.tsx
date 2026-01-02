@@ -556,12 +556,6 @@ export default function HomePage() {
                   Detailed specs, drawings, and pressure ratings available for every product to support your approval process
                 </p>
               </Card>
-              <Card className="p-8">
-                <h4 className="font-semibold text-xl mb-3">Trade Accounts Welcome</h4>
-                <p className="text-muted-foreground">
-                  Competitive trade pricing and bulk ordering for contractors and industrial clients
-                </p>
-              </Card>
             </div>
           </div>
         </div>

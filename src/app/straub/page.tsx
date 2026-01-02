@@ -69,7 +69,6 @@ const straubApplications = [
   "Pipe repair - Seal leaks and cracks without pipe replacement",
   "Transition couplings - Join different pipe ODs and materials",
   "Vibration absorption - Isolate equipment from pipe stress",
-  "Fire protection - FM/UL approved fire-rated couplings",
   "Process pipelines - Chemical and food-grade applications",
 ]
 

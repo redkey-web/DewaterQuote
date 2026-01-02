@@ -274,14 +274,13 @@ const industryData: Record<string, IndustryData> = {
     description:
       "Fire protection piping components meeting Australian standards for fire safety systems. Trusted by fire protection contractors across Australia for sprinkler systems, hydrant networks, and pump stations.",
     metaDescription:
-      "Fire protection pipe fittings, valves, and couplings. AS 2118 compliant products for sprinkler systems, hydrants, and fire pumps. FM/UL approved options available.",
+      "Fire protection pipe fittings, valves, and couplings. AS 2118 compliant products for sprinkler systems, hydrants, and fire pumps.",
     keywords: [
       "fire sprinkler fittings",
       "fire protection valves",
       "fire pump couplings",
       "hydrant supplies",
       "AS 2118 compliant",
-      "fire rated pipe fittings",
     ],
     icon: Flame,
     heroColor: "from-red-500/10 to-orange-500/10",

@@ -18,12 +18,12 @@ const applications = [
 ]
 
 const valveTypes = [
-  { name: "Butterfly Valves", description: "Compact flow control valves with a rotating disc, ideal for large diameter pipes." },
-  { name: "Check Valves", description: "Non-return valves that prevent reverse flow. Includes swing, ball, and duckbill types." },
-  { name: "Float Valves", description: "Level control valves that maintain liquid levels in tanks and reservoirs." },
-  { name: "Foot Valves", description: "Non-return valves with strainers designed for the suction side of pumps." },
-  { name: "Gate Valves", description: "Full-bore shutoff valves ideal for isolation in water and slurry systems." },
-  { name: "Ball Valves", description: "Quarter-turn valves providing tight shutoff for on/off control applications." },
+  { name: "Butterfly Valves", slug: "butterfly-valve", description: "Compact flow control valves with a rotating disc, ideal for large diameter pipes." },
+  { name: "Check Valves", slug: "check-valves", description: "Non-return valves that prevent reverse flow. Includes swing, ball, and duckbill types." },
+  { name: "Float Valves", slug: "float-valve", description: "Level control valves that maintain liquid levels in tanks and reservoirs." },
+  { name: "Foot Valves", slug: "foot-valve", description: "Non-return valves with strainers designed for the suction side of pumps." },
+  { name: "Gate Valves", slug: "gate-valve", description: "Full-bore shutoff valves ideal for isolation in water and slurry systems." },
+  { name: "Ball Valves", slug: "ball-valve", description: "Quarter-turn valves providing tight shutoff for on/off control applications." },
 ]
 
 export const metadata: Metadata = {
@@ -71,10 +71,10 @@ export default async function ValvesPage() {
           <h2 className="text-2xl font-bold mb-6">Valve Types</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {valveTypes.map((type) => (
-              <div key={type.name} className="p-4 rounded-lg bg-card border border-border">
+              <Link key={type.name} href={`/valves/${type.slug}`} className="p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-md transition-all">
                 <h3 className="font-semibold mb-2">{type.name}</h3>
                 <p className="text-sm text-muted-foreground">{type.description}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
