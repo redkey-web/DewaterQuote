@@ -1,9 +1,10 @@
 import Link from "next/link"
-import { ArrowRight, CheckCircle } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import USPBar from "@/components/USPBar"
+import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 const strainerTypes = [
@@ -69,38 +70,8 @@ export default async function StrainersPage() {
           </p>
         </div>
 
-        {/* Subcategory Links */}
-        {strainerSubcategories.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4">Browse by Type</h2>
-            <div className="flex flex-wrap gap-3">
-              {strainerSubcategories.map((subcat, index) => (
-                <Link key={subcat.slug} href={`/strainers/${subcat.slug}`}>
-                  <div
-                    className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer"
-                    data-testid={`link-subcategory-${index}`}
-                  >
-                    <span className="font-medium">{subcat.name}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* All Products */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4">All Strainer Products</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {strainerProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
-        {/* Strainer Types */}
-        <div className="mt-12 mb-12">
+        {/* Strainer Types - Critical Info */}
+        <div className="mb-10">
           <h2 className="text-2xl font-bold mb-6">Strainer Types</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {strainerTypes.map((type) => (
@@ -110,6 +81,24 @@ export default async function StrainersPage() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Search by Type - Subcategory Tiles */}
+        <SubcategoryTiles
+          categorySlug="strainers"
+          subcategories={strainerSubcategories}
+          title="Search by Type"
+          basePath="/strainers"
+        />
+
+        {/* All Products */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold mb-4">All Strainer Products</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+          {strainerProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
 
         {/* Applications & Selection */}

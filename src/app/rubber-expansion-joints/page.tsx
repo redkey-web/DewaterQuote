@@ -1,9 +1,10 @@
 import Link from "next/link"
-import { ArrowRight, CheckCircle } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import USPBar from "@/components/USPBar"
+import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 const features = [
@@ -66,59 +67,47 @@ export default async function ExpansionJointsPage() {
           </p>
         </div>
 
-        {/* Subcategory Links */}
-        {expansionSubcategories.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4">Browse by Type</h2>
-            <div className="flex flex-wrap gap-3">
-              {expansionSubcategories.map((subcat, index) => (
-                <Link key={subcat.slug} href={`/rubber-expansion-joints/${subcat.slug}`}>
-                  <div
-                    className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer"
-                    data-testid={`link-subcategory-${index}`}
-                  >
-                    <span className="font-medium">{subcat.name}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </Link>
-              ))}
-            </div>
+        {/* Key Features - Critical Info */}
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold mb-6">Key Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {features.map((feature) => (
+              <div key={feature} className="flex items-start gap-3 p-3 rounded-lg bg-card border border-border">
+                <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <span className="text-sm">{feature}</span>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+
+        {/* Search by Type - Subcategory Tiles */}
+        <SubcategoryTiles
+          categorySlug="rubber-expansion-joints"
+          subcategories={expansionSubcategories}
+          title="Search by Type"
+          basePath="/rubber-expansion-joints"
+        />
 
         {/* All Products */}
         <div className="mb-6">
           <h2 className="text-2xl font-semibold mb-4">All Expansion Joint Products</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
           {expansionProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
-        {/* Features & Applications */}
-        <div className="mt-12 mb-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-2xl font-bold mb-6">Key Features</h2>
-            <div className="space-y-3">
-              {features.map((feature) => (
-                <div key={feature} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span>{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold mb-6">Applications</h2>
-            <div className="space-y-3">
-              {applications.map((app) => (
-                <div key={app} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span>{app}</span>
-                </div>
-              ))}
-            </div>
+        {/* Applications */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Applications</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {applications.map((app) => (
+              <div key={app} className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <span>{app}</span>
+              </div>
+            ))}
           </div>
         </div>
 

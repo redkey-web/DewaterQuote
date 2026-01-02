@@ -1,10 +1,11 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, CheckCircle } from "lucide-react"
-import { getProductsByCategory } from "@/data/products"
+import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import USPBar from "@/components/USPBar"
+import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -75,10 +76,11 @@ const applications = [
 ]
 
 export default async function PipeCouplingsPage() {
-  // Get all coupling products from database (pipe-couplings and pipe-repair-clamps categories)
-  const [pipeCouplingsProducts, repairClampsProducts] = await Promise.all([
+  // Get all coupling products and subcategories from database
+  const [pipeCouplingsProducts, repairClampsProducts, couplingSubcategories] = await Promise.all([
     getProductsByCategory('pipe-couplings'),
     getProductsByCategory('pipe-repair-clamps'),
+    getSubcategoriesByCategory('pipe-couplings'),
   ])
   const couplingProducts = [...pipeCouplingsProducts, ...repairClampsProducts]
 
@@ -101,11 +103,40 @@ export default async function PipeCouplingsPage() {
           </p>
         </div>
 
-        {/* Shop by Brand - Compact */}
-        <div className="mb-8">
+        {/* Coupling Types - Critical Info */}
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold mb-6">Coupling Types</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {couplingTypes.map((type) => (
+              <div key={type.name} className="p-6 rounded-lg bg-card border border-border">
+                <h3 className="font-semibold mb-2">{type.name}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{type.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {type.products.map((product) => (
+                    <span key={product} className="px-2 py-1 bg-muted rounded text-xs">
+                      {product}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Search by Type - Subcategory Tiles */}
+        <SubcategoryTiles
+          categorySlug="pipe-couplings"
+          subcategories={couplingSubcategories}
+          title="Search by Type"
+          basePath="/pipe-couplings"
+        />
+
+        {/* Shop by Brand */}
+        <div className="mb-10">
+          <h2 className="text-xl font-semibold mb-4">Shop by Brand</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {brands.map((brand) => (
-              <Link key={brand.slug} href={`/${brand.slug}`}>
+              <Link key={brand.slug} href={`/brands/${brand.slug}`}>
                 <div className="p-4 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer h-full flex items-center gap-4">
                   <div className="relative h-10 w-28 flex-shrink-0">
                     <Image
@@ -134,26 +165,6 @@ export default async function PipeCouplingsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {couplingProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-
-        {/* Coupling Types - Below Products */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Coupling Types</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {couplingTypes.map((type) => (
-              <div key={type.name} className="p-6 rounded-lg bg-card border border-border">
-                <h3 className="font-semibold mb-2">{type.name}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{type.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {type.products.map((product) => (
-                    <span key={product} className="px-2 py-1 bg-muted rounded text-xs">
-                      {product}
-                    </span>
-                  ))}
-                </div>
-              </div>
             ))}
           </div>
         </div>

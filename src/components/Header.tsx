@@ -246,7 +246,7 @@ export default function Header() {
                   {/* Invisible bridge to maintain hover */}
                   <div className="absolute top-full left-0 w-full h-4" />
                   <div
-                    className="fixed top-[72px] left-1/2 -translate-x-1/2 bg-popover border border-popover-border rounded-md shadow-lg p-6 grid grid-cols-5 gap-4 w-[850px] max-w-[95vw] z-50"
+                    className="fixed top-[72px] left-1/2 -translate-x-1/2 bg-popover border border-popover-border rounded-md shadow-lg p-4 lg:p-6 grid grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4 w-[95vw] lg:w-[850px] max-w-[900px] z-50 max-h-[80vh] overflow-y-auto"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >

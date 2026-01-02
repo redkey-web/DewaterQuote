@@ -1,9 +1,10 @@
 import Link from "next/link"
-import { ArrowRight, CheckCircle } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import USPBar from "@/components/USPBar"
+import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 const applications = [
@@ -65,36 +66,8 @@ export default async function ValvesPage() {
           </p>
         </div>
 
-        {/* Subcategory Links */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Browse by Valve Type</h2>
-          <div className="flex flex-wrap gap-3">
-            {valveSubcategories.map((subcat, index) => (
-              <Link key={subcat.slug} href={`/valves/${subcat.slug}`}>
-                <div
-                  className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer"
-                  data-testid={`link-subcategory-${index}`}
-                >
-                  <span className="font-medium">{subcat.name}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* All Products */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4">All Valve Products</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {valveProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
-        {/* Valve Types */}
-        <div className="mt-12 mb-12">
+        {/* Valve Types - Critical Info */}
+        <div className="mb-10">
           <h2 className="text-2xl font-bold mb-6">Valve Types</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {valveTypes.map((type) => (
@@ -104,6 +77,24 @@ export default async function ValvesPage() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Search by Type - Subcategory Tiles */}
+        <SubcategoryTiles
+          categorySlug="valves"
+          subcategories={valveSubcategories}
+          title="Search by Type"
+          basePath="/valves"
+        />
+
+        {/* All Products */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold mb-4">All Valve Products</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+          {valveProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
 
         {/* Applications */}

@@ -3,6 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import GeoStock from "@/components/GeoStock"
 import { Card } from "@/components/ui/card"
 import {
   ArrowRight,
@@ -414,10 +415,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="flex items-center gap-3">
               <CheckCircle className="w-8 h-8 text-primary flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-sm">Locally Stocked</p>
-                <p className="text-xs text-muted-foreground">Perth warehouse</p>
-              </div>
+              <GeoStock />
             </div>
             <div className="flex items-center gap-3">
               <Award className="w-8 h-8 text-primary flex-shrink-0" />

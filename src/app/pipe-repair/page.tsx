@@ -1,8 +1,10 @@
 import Link from "next/link"
-import { ArrowRight, CheckCircle, AlertTriangle, Clock, Shield, Wrench } from "lucide-react"
-import { getProductsByCategory } from "@/data/products"
+import { CheckCircle, Clock, Shield, Wrench, AlertTriangle } from "lucide-react"
+import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
+import USPBar from "@/components/USPBar"
+import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -58,22 +60,18 @@ const repairScenarios = [
   {
     problem: "Pinhole Leaks",
     solution: "Repair clamp or coupling slides over the leak area and seals with EPDM gasket.",
-    products: ["Orbit Repair Clamps", "Straub REP"],
   },
   {
     problem: "Cracked Pipes",
     solution: "Use a repair clamp wide enough to span the entire crack for complete sealing.",
-    products: ["100mm, 150mm, 200mm, 300mm width clamps"],
   },
   {
     problem: "Corroded Sections",
     solution: "Pipe couplings can bridge damaged sections without cutting out the pipe.",
-    products: ["Flex Grip L", "Metal Lock L", "Straub FLEX/GRIP"],
   },
   {
     problem: "Joint Failures",
     solution: "Replace failed mechanical joints with reliable coupling connections.",
-    products: ["All coupling types"],
   },
 ]
 
@@ -101,10 +99,11 @@ const faqs = [
 ]
 
 export default async function PipeRepairPage() {
-  // Get all products that can be used for repair (couplings and repair clamps)
-  const [pipeCouplingsProducts, repairClampsProducts] = await Promise.all([
+  // Get all products and subcategories
+  const [pipeCouplingsProducts, repairClampsProducts, repairSubcategories] = await Promise.all([
     getProductsByCategory('pipe-couplings'),
     getProductsByCategory('pipe-repair-clamps'),
+    getSubcategoriesByCategory('pipe-repair-clamps'),
   ])
   const repairProducts = [...pipeCouplingsProducts, ...repairClampsProducts]
 
@@ -116,45 +115,50 @@ export default async function PipeRepairPage() {
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
-
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950/20 dark:to-orange-900/10 border-b">
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-sm font-medium mb-4">
-              <AlertTriangle className="w-4 h-4" />
-              Emergency & Permanent Solutions
-            </div>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-              Pipe Repair Solutions
-            </h1>
-            <p className="text-xl text-muted-foreground mb-6">
-              Seal leaks, repair cracks, and fix damaged pipes without cutting or welding.
-              Our repair clamps and couplings provide fast, permanent repairs that last
-              the lifetime of the pipe.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="#products"
-                className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
-              >
-                View Repair Products
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
-              >
-                Emergency Support: (08) 9271 2577
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+      <USPBar />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Products Section */}
-        <div id="products" className="mb-16">
+        {/* Title + Description */}
+        <div className="mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-sm font-medium mb-4">
+            <AlertTriangle className="w-4 h-4" />
+            Emergency & Permanent Solutions
+          </div>
+          <h1 className="text-3xl font-bold mb-2">Pipe Repair Solutions</h1>
+          <p className="text-muted-foreground max-w-3xl">
+            Seal leaks, repair cracks, and fix damaged pipes without cutting or welding.
+            Our repair clamps and couplings provide fast, permanent repairs that last
+            the lifetime of the pipe.
+          </p>
+        </div>
+
+        {/* Benefits - Critical Info */}
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold mb-6">Why Use Pipe Repair Clamps?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {repairBenefits.map((benefit) => (
+              <div
+                key={benefit.title}
+                className="p-4 rounded-lg bg-card border border-border"
+              >
+                <benefit.icon className="w-8 h-8 text-red-600 dark:text-red-400 mb-3" />
+                <h3 className="font-semibold mb-1">{benefit.title}</h3>
+                <p className="text-sm text-muted-foreground">{benefit.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Search by Type - Subcategory Tiles */}
+        <SubcategoryTiles
+          categorySlug="pipe-repair-clamps"
+          subcategories={repairSubcategories}
+          title="Search by Type"
+          basePath="/pipe-repair"
+        />
+
+        {/* All Products */}
+        <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">All Repair Products</h2>
             <span className="text-muted-foreground">{repairProducts.length} products</span>
@@ -166,78 +170,24 @@ export default async function PipeRepairPage() {
           </div>
         </div>
 
-        {/* Benefits Grid */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-8">Why Use Pipe Repair Clamps?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {repairBenefits.map((benefit) => (
-              <div
-                key={benefit.title}
-                className="p-6 rounded-lg bg-card border border-border"
-              >
-                <benefit.icon className="w-10 h-10 text-red-600 dark:text-red-400 mb-4" />
-                <h3 className="font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-sm text-muted-foreground">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Repair Scenarios */}
-        <div className="mb-16">
+        {/* Common Repair Scenarios */}
+        <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Common Repair Scenarios</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {repairScenarios.map((scenario) => (
-              <div key={scenario.problem} className="p-6 bg-card border border-border rounded-lg">
-                <h3 className="font-semibold text-lg mb-2">{scenario.problem}</h3>
-                <p className="text-muted-foreground mb-4">{scenario.solution}</p>
-                <div className="flex flex-wrap gap-2">
-                  {scenario.products.map((product) => (
-                    <span key={product} className="px-2 py-1 bg-muted rounded text-xs">
-                      {product}
-                    </span>
-                  ))}
+              <div key={scenario.problem} className="flex items-start gap-3 p-4 bg-card border border-border rounded-lg">
+                <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold mb-1">{scenario.problem}</h3>
+                  <p className="text-sm text-muted-foreground">{scenario.solution}</p>
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Shop by Brand */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">Shop Repair Products by Brand</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link href="/brands/straub">
-              <div className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer">
-                <h3 className="text-xl font-bold mb-2">Straub Repair Solutions</h3>
-                <p className="text-muted-foreground mb-4">
-                  Swiss-engineered GRIP and FLEX couplings plus dedicated REP repair clamps.
-                  Premium quality for critical applications.
-                </p>
-                <div className="flex items-center text-primary font-medium">
-                  View Straub Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </div>
-              </div>
-            </Link>
-            <Link href="/brands/orbit">
-              <div className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer">
-                <h3 className="text-xl font-bold mb-2">Orbit Repair Clamps</h3>
-                <p className="text-muted-foreground mb-4">
-                  Australian industrial repair clamps in 55mm to 300mm widths.
-                  Straub-compatible at competitive prices.
-                </p>
-                <div className="flex items-center text-primary font-medium">
-                  View Orbit Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </div>
-              </div>
-            </Link>
           </div>
         </div>
 
         {/* FAQ Section */}
-        <div className="mb-16">
+        <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Pipe Repair FAQs</h2>
           <div className="space-y-4">
             {faqs.map((faq) => (
@@ -249,32 +199,7 @@ export default async function PipeRepairPage() {
           </div>
         </div>
 
-        {/* Related Pages */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">Related Products</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/pipe-couplings">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
-                <span className="font-medium">Pipe Couplings</span>
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </Link>
-            <Link href="/brands/straub">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
-                <span className="font-medium">Straub Products</span>
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </Link>
-            <Link href="/brands/orbit">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
-                <span className="font-medium">Orbit Products</span>
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </Link>
-          </div>
-        </div>
-
-        {/* Emergency CTA */}
+        {/* CTA */}
         <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-semibold mb-3">Emergency Pipe Repair?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
