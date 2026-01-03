@@ -21,7 +21,7 @@ export default function USPBar() {
             <Clock className="w-6 h-6 text-primary flex-shrink-0" />
             <div>
               <p className="font-semibold text-sm">Fast Delivery</p>
-              <p className="text-xs text-muted-foreground">Australia-wide</p>
+              <p className="text-xs text-muted-foreground">Metro Areas Only</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

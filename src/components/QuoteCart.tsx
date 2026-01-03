@@ -125,7 +125,13 @@ export default function QuoteCart() {
                               {hasDiscount && (
                                 <Badge
                                   variant="secondary"
-                                  className="bg-destructive/10 text-destructive shrink-0 text-xs"
+                                  className={`shrink-0 text-xs font-bold ${
+                                    discountPercentage >= 15
+                                      ? "bg-rose-400/20 text-rose-500"
+                                      : discountPercentage >= 10
+                                      ? "bg-orange-400/20 text-orange-500"
+                                      : "bg-yellow-400/20 text-yellow-600"
+                                  }`}
                                 >
                                   {discountPercentage}% OFF
                                 </Badge>

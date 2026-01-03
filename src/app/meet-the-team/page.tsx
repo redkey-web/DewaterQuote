@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Mail, Phone, Wrench, Users, Award, Handshake } from "lucide-react"
+import { Mail, Phone, Wrench, Users, Handshake } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Meet the Team | Dewater Products",
@@ -15,22 +15,6 @@ export const metadata: Metadata = {
   },
 }
 
-const teamMembers = [
-  {
-    name: "Kris McKeown",
-    role: "Director",
-    image: "/images/team/kris-mckeown.jpg",
-    description: "With over 12 years as a Mechanical Engineer and 17+ years of sales experience, Kris brings deep technical knowledge of mechanical parts and fluid piping products to every customer interaction.",
-    highlights: [
-      "12+ years Mechanical Engineering experience",
-      "17+ years in technical sales",
-      "Expert in pipe couplings and valve selection",
-      "Building manufacturer relationships globally",
-    ],
-    quote: "My goal is to understand and cater to the unique requirements of each customer, ensuring an outstanding experience from enquiry to delivery.",
-  },
-]
-
 export default function MeetTheTeamPage() {
   return (
     <div className="min-h-screen bg-background">
@@ -38,57 +22,63 @@ export default function MeetTheTeamPage() {
       <section className="bg-muted/30 py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-bold mb-4">Meet the Team</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            At Dewater Products, we pride ourselves on providing expert technical support
-            and personalised service to every customer across Australia.
-          </p>
         </div>
       </section>
 
-      {/* Team Members */}
+      {/* Director Message */}
       <section className="py-16 px-6">
-        <div className="max-w-5xl mx-auto">
-          {teamMembers.map((member) => (
-            <Card key={member.name} className="overflow-hidden">
-              <CardContent className="p-0">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-                  {/* Photo */}
-                  <div className="bg-muted flex items-center justify-center p-8 md:p-12">
-                    <div className="w-48 h-48 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Users className="w-24 h-24 text-primary/40" />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="md:col-span-2 p-8">
-                    <div className="mb-6">
-                      <h2 className="text-2xl font-bold mb-1">{member.name}</h2>
-                      <p className="text-primary font-medium">{member.role}</p>
-                    </div>
-
-                    <p className="text-muted-foreground mb-6">
-                      {member.description}
-                    </p>
-
-                    {/* Highlights */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                      {member.highlights.map((highlight) => (
-                        <div key={highlight} className="flex items-start gap-2">
-                          <Award className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                          <span className="text-sm">{highlight}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Quote */}
-                    <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground">
-                      "{member.quote}"
-                    </blockquote>
+        <div className="max-w-4xl mx-auto">
+          <Card className="overflow-hidden">
+            <CardContent className="p-0">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+                {/* Photo */}
+                <div className="bg-muted flex items-center justify-center p-8 md:p-12">
+                  <div className="w-48 h-48 flex-shrink-0 rounded-full overflow-hidden bg-primary/10">
+                    <Image
+                      src="/images/team/kris-mckeown.png"
+                      alt="Kris McKeown"
+                      width={192}
+                      height={192}
+                      className="w-48 h-48 object-cover object-top"
+                    />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+
+                {/* Content */}
+                <div className="md:col-span-2 p-8">
+                  <div className="prose prose-gray max-w-none">
+                    <p className="text-lg mb-4">
+                      Welcome to our website! I want to personally extend a warm welcome and express my gratitude for your visit. My name is Kris McKeown, and I am the Director of Dewater Products.
+                    </p>
+
+                    <p className="mb-4">
+                      Having spent over 12 years as a Mechanical Engineer, I bring a wealth of technical expertise to our offerings. My passion for mechanical parts has been ingrained in me since I can remember, and it drives me to continuously stay updated on the latest advancements in the industry. This allows me to provide you with cutting-edge solutions tailored to your specific needs in every application of our fluid piping products.
+                    </p>
+
+                    <p className="mb-4">
+                      In addition to my engineering background, I have accumulated over 17 years of experience in sales. This experience has shaped my ability to understand and cater to the unique requirements of each customer. Whether you're seeking guidance in product selection or have specific needs in mind, I am here to assist you throughout the entire process.
+                    </p>
+
+                    <p className="mb-4">
+                      Over the years, I have nurtured strong relationships with manufacturers and built a reliable network for sourcing and importing quality, affordable products for the Australian market. It is my utmost priority to ensure that you have access to a comprehensive range of products that meet the highest standards of quality and performance, all at competitive prices.
+                    </p>
+
+                    <p className="mb-4">
+                      More than anything, my aim is to provide you with an outstanding customer experience. Your satisfaction matters deeply to me, and I am committed to going above and beyond to exceed your expectations. From your first visit to our website to long after your purchase, I am here to assist you and address any questions or concerns you may have.
+                    </p>
+
+                    <p className="mb-6">
+                      Thank you for taking the time to explore our website. I invite you to browse through our selection of industrial fluid piping products, and I genuinely hope you find the solutions you are seeking. Should you need any assistance or guidance, please do not hesitate to reach out to me directly. I look forward to serving you and building a lasting relationship based on trust, reliability, and exceptional service.
+                    </p>
+
+                    <p className="text-muted-foreground italic mb-2">With sincere appreciation,</p>
+                    <p className="font-semibold">Kris McKeown</p>
+                    <p className="text-primary">Director, Dewater Products</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 

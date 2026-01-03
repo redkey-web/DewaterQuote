@@ -51,6 +51,7 @@ import {
 import { useQuote } from "@/context/QuoteContext"
 import { trackProductView, trackAddToQuote } from "@/components/GoogleAnalytics"
 import type { Product } from "@/types"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
 
 interface ProductDetailClientProps {
   product: Product
@@ -221,6 +222,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
   return (
     <div className="min-h-screen bg-background">
+      <BulkPricingTicker />
       <ProductJsonLd product={product} url={productUrl} />
       <BreadcrumbJsonLd items={breadcrumbs} />
       <div className="max-w-7xl mx-auto px-6 py-12">

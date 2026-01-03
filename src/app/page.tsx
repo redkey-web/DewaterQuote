@@ -364,6 +364,15 @@ export default function HomePage() {
                 className="h-[120px] w-auto object-contain"
               />
             </Link>
+            <Link href="/brands/defender-strainers" className="opacity-80 hover:opacity-100 transition-opacity">
+              <Image
+                src="/images/brands/defender-strainers-logo.png"
+                alt="Defender Strainers"
+                width={200}
+                height={60}
+                className="h-10 w-auto object-contain"
+              />
+            </Link>
           </div>
         </div>
       </section>
@@ -418,7 +427,7 @@ export default function HomePage() {
               <Clock className="w-8 h-8 text-primary flex-shrink-0" />
               <div>
                 <p className="font-semibold text-sm">Fast Delivery</p>
-                <p className="text-xs text-muted-foreground">Australia-wide</p>
+                <p className="text-xs text-muted-foreground">Metro Areas Only</p>
               </div>
             </div>
             <div className="flex items-center gap-3">

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, CheckCircle } from "lucide-react"
+import { ArrowRight, CheckCircle, Download } from "lucide-react"
 import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
@@ -316,6 +316,18 @@ export default async function PipeCouplingsPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+              <span>*Up to 5 Yrs Warranty</span>
+              <a
+                href="/downloads/orbit-couplings-5-year-warranty.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                <Download className="w-4 h-4" />
+                Download Warranty PDF
+              </a>
             </div>
           </div>
         </div>

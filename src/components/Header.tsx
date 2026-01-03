@@ -88,10 +88,10 @@ export default function Header() {
       title: "Brands",
       url: "/brands",
       items: [
-        { name: "Straub Couplings", url: "/brands/straub" },
-        { name: "Orbit Couplings", url: "/brands/orbit" },
+        { name: "Straub", url: "/brands/straub" },
+        { name: "Orbit", url: "/brands/orbit" },
         { name: "Teekay", url: "/brands/teekay" },
-        { name: "Bore-Flex Rubber", url: "/brands/bore-flex-rubber" },
+        { name: "Bore-Flex", url: "/brands/bore-flex-rubber" },
         { name: "Defender Valves", url: "/brands/defender-valves" },
         { name: "Defender Strainers", url: "/brands/defender-strainers" },
       ],
@@ -135,6 +135,7 @@ export default function Header() {
         { name: "Y Strainers", url: "/strainers/y-strainer" },
         { name: "Simplex Basket", url: "/strainers/simplex-basket-strainer" },
         { name: "Duplex Basket", url: "/strainers/duplex-basket-strainer" },
+        { name: "Flanged Suction", url: "/strainers/flanged-suction-strainer" },
       ],
     },
   ]
@@ -454,16 +455,16 @@ export default function Header() {
                 </Link>
                 <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
                   <Link href="/brands/straub" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Straub Couplings
+                    Straub
                   </Link>
                   <Link href="/brands/orbit" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Orbit Couplings
+                    Orbit
                   </Link>
                   <Link href="/brands/teekay" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
                     Teekay
                   </Link>
                   <Link href="/brands/bore-flex-rubber" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Bore-Flex Rubber
+                    Bore-Flex
                   </Link>
                   <Link href="/brands/defender-valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
                     Defender Valves

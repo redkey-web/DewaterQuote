@@ -19,11 +19,41 @@ interface DiscountCelebrationProps {
   onComplete: () => void
 }
 
+// Get colors based on discount percentage to match ticker
+function getDiscountColors(discount: number) {
+  if (discount >= 15) {
+    return {
+      gradient: "linear-gradient(135deg, #fb7185 0%, #e11d48 100%)",
+      border: "#be123c",
+      text: "#fff",
+      coinGradient: "linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #fb7185 100%)",
+      coinBorder: "#e11d48",
+    }
+  } else if (discount >= 10) {
+    return {
+      gradient: "linear-gradient(135deg, #fb923c 0%, #ea580c 100%)",
+      border: "#c2410c",
+      text: "#fff",
+      coinGradient: "linear-gradient(135deg, #fb923c 0%, #f97316 50%, #fb923c 100%)",
+      coinBorder: "#ea580c",
+    }
+  } else {
+    return {
+      gradient: "linear-gradient(135deg, #facc15 0%, #eab308 100%)",
+      border: "#ca8a04",
+      text: "#713f12",
+      coinGradient: "linear-gradient(135deg, #facc15 0%, #fbbf24 50%, #facc15 100%)",
+      coinBorder: "#eab308",
+    }
+  }
+}
+
 export function DiscountCelebration({
   discount,
   triggerPosition,
   onComplete,
 }: DiscountCelebrationProps) {
+  const colors = getDiscountColors(discount)
   const [coins, setCoins] = useState<Coin[]>([])
   const [showPercent, setShowPercent] = useState(false)
   const animationTimeoutRef = useRef<NodeJS.Timeout>()
@@ -137,11 +167,11 @@ export function DiscountCelebration({
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
               style={{
-                background: "linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%)",
+                background: colors.coinGradient,
                 boxShadow:
                   "inset 0 2px 6px rgba(255,255,255,0.6), inset 0 -2px 6px rgba(0,0,0,0.3), 0 3px 8px rgba(0,0,0,0.4)",
-                border: "3px solid #DAA520",
-                color: "#8B4513",
+                border: `3px solid ${colors.coinBorder}`,
+                color: colors.text,
                 animation: `coin-move-${c.id} 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards`,
               }}
             >
@@ -163,16 +193,16 @@ export function DiscountCelebration({
           <div
             className="px-4 py-2 rounded-lg font-black text-4xl whitespace-nowrap"
             style={{
-              background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-              color: "#8B4513",
+              background: colors.gradient,
+              color: colors.text,
               textShadow:
-                "0 2px 0 rgba(255,255,255,0.5), 0 4px 8px rgba(0,0,0,0.5)",
+                "0 2px 0 rgba(255,255,255,0.3), 0 4px 8px rgba(0,0,0,0.5)",
               boxShadow:
                 "0 4px 12px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.3)",
-              border: "3px solid #DAA520",
+              border: `3px solid ${colors.border}`,
             }}
           >
-            {discount}%
+            {discount}% OFF
           </div>
         </div>
       )}
