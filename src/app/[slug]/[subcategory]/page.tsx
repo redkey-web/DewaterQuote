@@ -413,7 +413,7 @@ export default async function SubcategoryPage({ params }: SubcategoryPageProps) 
                 <h3 className="text-lg font-semibold mb-3">Applications</h3>
                 <div className="flex flex-wrap gap-2">
                   {content.applications.map((app, index) => (
-                    <span key={index} className="text-sm bg-primary/10 text-primary px-3 py-1 rounded">
+                    <span key={index} className="text-sm bg-muted text-muted-foreground px-3 py-1.5 rounded-md border border-border">
                       {app}
                     </span>
                   ))}

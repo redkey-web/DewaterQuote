@@ -124,7 +124,7 @@ test.describe('Footer Navigation', () => {
   test.describe('Footer Contact', () => {
     test('phone link has correct href', async ({ page }) => {
       const footer = page.locator('footer');
-      const phoneLink = footer.locator('a[href="tel:0892712577"]');
+      const phoneLink = footer.locator('a[href="tel:1300271290"]');
       await expect(phoneLink).toBeVisible();
     });
 

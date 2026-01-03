@@ -124,10 +124,19 @@ export default async function OrbitPage() {
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/20 dark:to-orange-900/10 border-b">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="relative overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50 to-transparent dark:from-orange-950/30 dark:via-orange-900/10 dark:to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 py-16 relative">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
+              <Image
+                src="/images/brands/orbit-couplings.png"
+                alt="Orbit Couplings"
+                width={180}
+                height={60}
+                className="w-44 h-auto mb-6"
+                priority
+              />
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm font-medium mb-4">
                 <Package className="w-4 h-4" />
                 Perth Stocked - Fast Dispatch
@@ -155,15 +164,16 @@ export default async function OrbitPage() {
                 </Link>
               </div>
             </div>
-            <div className="flex-shrink-0">
-              <Image
-                src="/images/brands/orbit-couplings.png"
-                alt="Orbit Flexible Pipe Couplings and Repair Clamps Australia"
-                width={256}
-                height={128}
-                className="w-64 h-auto"
-                priority
-              />
+            <div className="flex-shrink-0 relative">
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                <Image
+                  src="/images/products/orbit/flex-grip-l.jpg"
+                  alt="Orbit Flex Grip Pipe Coupling"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -307,7 +317,7 @@ export default async function OrbitPage() {
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Coupling?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you specify the correct Orbit coupling for your application.
-            Call us on (08) 9271 2577 or request a quote.
+            Call us on 1300 271 290 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

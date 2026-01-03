@@ -43,6 +43,12 @@ const brandInfo: Record<string, { name: string; description: string; logo: strin
       "Bore-Flex Rubber manufactures high-quality rubber expansion joints and flexible pipe connectors for vibration isolation, thermal expansion compensation, and noise reduction in piping systems.",
     logo: "/images/brands/bore-flex-rubber-logo.png",
   },
+  "defender-strainers": {
+    name: "Defender Strainers",
+    description:
+      "Defender Strainers provides industrial pipeline strainers including Y strainers, simplex and duplex basket strainers, and suction strainers. Quality filtration solutions for protecting pumps, valves, and equipment across Australian industry.",
+    logo: "/images/brands/defender-strainers-logo.png",
+  },
 }
 
 const categoryNames: Record<string, string> = {

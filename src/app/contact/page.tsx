@@ -115,16 +115,13 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* Prominent Notice */}
-        <div className="bg-amber-50 dark:bg-amber-950/30 border-2 border-amber-400 dark:border-amber-600 rounded-lg p-6 mb-10">
-          <div className="flex items-start gap-4">
-            <AlertTriangle className="w-8 h-8 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h2 className="text-xl font-bold text-amber-800 dark:text-amber-300 mb-2">No Counter Sales. Visit by appointment only.</h2>
-              <p className="text-amber-700 dark:text-amber-400">
-                For the fastest response, please email us. All enquiries are typically answered within 1-2 business days.
-              </p>
-            </div>
+        {/* Notice */}
+        <div className="bg-muted/50 border border-border rounded-md p-4 mb-8">
+          <div className="flex items-center gap-3">
+            <AlertTriangle className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+            <p className="text-sm text-muted-foreground">
+              <span className="font-medium">No counter sales.</span> Visit by appointment only. For fastest response, please email us.
+            </p>
           </div>
         </div>
 
@@ -268,8 +265,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Phone</h3>
-                    <a href="tel:0892712577" className="text-sm text-muted-foreground hover:text-primary">
-                      (08) 9271 2577
+                    <a href="tel:1300271290" className="text-sm text-muted-foreground hover:text-primary">
+                      1300 271 290
                     </a>
                     <p className="text-xs text-muted-foreground mt-1">Mon-Fri 8am-5pm AWST</p>
                   </div>

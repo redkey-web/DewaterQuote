@@ -21,7 +21,7 @@ export function OrganizationJsonLd({ url = "https://dewaterproducts.com.au" }: O
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+61-8-9271-2577",
+      telephone: "+61-1300-271-290",
       contactType: "sales",
       email: "sales@dewaterproducts.com.au",
       areaServed: "AU",

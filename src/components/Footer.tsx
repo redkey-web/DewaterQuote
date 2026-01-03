@@ -14,8 +14,8 @@ export default function Footer() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <Phone className="w-4 h-4 text-primary" />
-                <a href="tel:0892712577" className="hover:text-primary transition-colors">
-                  (08) 9271 2577
+                <a href="tel:1300271290" className="hover:text-primary transition-colors">
+                  1300 271 290
                 </a>
               </div>
               <div className="flex items-center gap-2 text-sm">
@@ -38,8 +38,8 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Products</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/pipe-couplings" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-clamps">Clamps & Couplings</Link></li>
-              <li><Link href="/valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-valves">Valves</Link></li>
-              <li><Link href="/rubber-expansion-joints" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-expansion">Expansion Joints</Link></li>
+              <li><Link href="/defender-valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-valves">Defender Valves</Link></li>
+              <li><Link href="/bore-flex" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-expansion">Bore-Flex Expansion Joints</Link></li>
               <li><Link href="/strainers" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-strainers">Strainers & Filters</Link></li>
             </ul>
           </div>
@@ -52,6 +52,7 @@ export default function Footer() {
               <li><Link href="/brands/teekay" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-teekay">Teekay</Link></li>
               <li><Link href="/brands/bore-flex-rubber" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-bore-flex">Bore-Flex Rubber</Link></li>
               <li><Link href="/brands/defender-valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-defender">Defender Valves</Link></li>
+              <li><Link href="/brands/defender-strainers" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-defender-strainers">Defender Strainers</Link></li>
             </ul>
           </div>
 

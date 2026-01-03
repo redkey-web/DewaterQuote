@@ -1,9 +1,9 @@
 import Link from "next/link"
-import { CheckCircle } from "lucide-react"
+import Image from "next/image"
+import { CheckCircle, ArrowRight, Award } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
-import USPBar from "@/components/USPBar"
 import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
@@ -27,46 +27,93 @@ const applications = [
 ]
 
 export const metadata: Metadata = {
-  title: "Rubber Expansion Joints | Single, Twin, Arch & Reducing | Dewater Products",
+  title: "Bore-Flex Rubber Expansion Joints | Single, Twin, Arch & Reducing | Dewater Products",
   description:
-    "Rubber expansion joints for thermal expansion, vibration absorption, and pipe misalignment. Single sphere, twin sphere, arch and reducing types. EPDM rubber with zinc or 316SS flanges. PN16 rated. Australia-wide delivery.",
+    "Bore-Flex rubber expansion joints for thermal expansion, vibration absorption, and pipe misalignment. Single sphere, twin sphere, arch and reducing types. EPDM rubber with zinc or 316SS flanges. PN16 rated. Australia-wide delivery.",
   openGraph: {
-    title: "Rubber Expansion Joints - Dewater Products",
-    description: "Flexible rubber joints for pumps, HVAC, and industrial piping systems.",
+    title: "Bore-Flex Rubber Expansion Joints - Dewater Products",
+    description: "Bore-Flex flexible rubber joints for pumps, HVAC, and industrial piping systems.",
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/rubber-expansion-joints",
+    canonical: "https://dewaterproducts.com.au/bore-flex",
   },
 }
 
 export const revalidate = 60
 
-export default async function ExpansionJointsPage() {
+export default async function BoreFlexPage() {
   const [expansionProducts, expansionSubcategories] = await Promise.all([
     getProductsByCategory("rubber-expansion-joints"),
     getSubcategoriesByCategory("rubber-expansion-joints"),
   ])
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Rubber Expansion Joints", url: "https://dewater-products.vercel.app/rubber-expansion-joints" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Bore-Flex Expansion Joints", url: "https://dewaterproducts.com.au/bore-flex" },
   ]
 
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
-      <USPBar />
+
+      {/* Hero Section */}
+      <div className="relative overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-green-50 to-transparent dark:from-green-950/30 dark:via-green-900/10 dark:to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="flex-1">
+              <Image
+                src="/images/brands/bore-flex-rubber-logo.png"
+                alt="Bore-Flex Rubber"
+                width={200}
+                height={67}
+                className="w-48 h-auto mb-6"
+                priority
+              />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium mb-4">
+                <Award className="w-4 h-4" />
+                Premium Rubber Expansion Joints
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+                Bore-Flex Expansion Joints
+              </h1>
+              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+                Designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement.
+                Available in EPDM, Neoprene, NBR, Viton, and Hypalon with multiple flange options.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="#products"
+                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                >
+                  View Products
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+                <Link
+                  href="/request-quote"
+                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                >
+                  Request a Quote
+                </Link>
+              </div>
+            </div>
+            <div className="flex-shrink-0 relative">
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                <Image
+                  src="/images/products/expansion-joints/fsf-single-sphere.jpg"
+                  alt="Bore-Flex Single Sphere Expansion Joint"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Rubber Expansion Joints</h1>
-          <p className="text-muted-foreground max-w-3xl">
-            Designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement,
-            rubber expansion joints are a critical part of many industrial and infrastructure piping systems.
-          </p>
-        </div>
-
         {/* Key Features - Critical Info */}
         <div className="mb-10">
           <h2 className="text-2xl font-bold mb-6">Key Features</h2>
@@ -85,12 +132,12 @@ export default async function ExpansionJointsPage() {
           categorySlug="rubber-expansion-joints"
           subcategories={expansionSubcategories}
           title="Search by Type"
-          basePath="/rubber-expansion-joints"
+          basePath="/bore-flex"
         />
 
         {/* All Products */}
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4">All Expansion Joint Products</h2>
+          <h2 className="text-2xl font-semibold mb-4">All Bore-Flex Expansion Joints</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
           {expansionProducts.map((product) => (
@@ -116,7 +163,7 @@ export default async function ExpansionJointsPage() {
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Expansion Joint?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you specify the right expansion joint for your application, including custom flanges and movement requirements.
-            Call us on (08) 9271 2577 or request a quote.
+            Call us on 1300 271 290 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

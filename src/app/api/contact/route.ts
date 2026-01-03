@@ -137,14 +137,14 @@ ${data.message}
           <h2 style="color: #1a1a1a;">Thank you for your enquiry</h2>
           <p>Hi ${safeName},</p>
           <p>We've received your message and will get back to you within 1-2 business days.</p>
-          <p>If you have an urgent enquiry, please call us on <strong>(08) 9271 2577</strong>.</p>
+          <p>If you have an urgent enquiry, please call us on <strong>1300 271 290</strong>.</p>
           <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
           <h3 style="color: #666;">Your Message</h3>
           <div style="padding: 15px; background: #f5f5f5; border-radius: 5px; white-space: pre-wrap;">${safeMessage}</div>
           <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
           <p style="color: #666; font-size: 14px;">
             <strong>Dewater Products Pty Ltd</strong><br />
-            Phone: (08) 9271 2577<br />
+            Phone: 1300 271 290<br />
             Email: sales@dewaterproducts.com.au<br />
             Perth, Western Australia
           </p>

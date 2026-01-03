@@ -967,7 +967,7 @@ export default function RequestQuotePage() {
                 <div className="space-y-2">
                   <h4 className="font-semibold text-sm">Contact Us</h4>
                   <p className="text-sm text-muted-foreground">
-                    Phone: (08) 9271 2577
+                    Phone: 1300 271 290
                     <br />
                     Email: sales@dewaterproducts.com.au
                   </p>

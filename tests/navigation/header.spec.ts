@@ -214,7 +214,7 @@ test.describe('Header Navigation', () => {
 
   test.describe('Contact Elements', () => {
     test('phone link has correct href', async ({ page }) => {
-      const phoneLink = page.locator('header a[href="tel:0892712577"]');
+      const phoneLink = page.locator('header a[href="tel:1300271290"]');
       await expect(phoneLink).toBeVisible();
     });
 

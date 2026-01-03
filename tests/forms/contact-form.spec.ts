@@ -69,7 +69,7 @@ test.describe('Contact Form', () => {
 
     test('phone number is displayed', async ({ page }) => {
       // Phone appears in header (first match) - visible on desktop
-      await expect(page.getByText('(08) 9271 2577').first()).toBeVisible();
+      await expect(page.getByText('1300 271 290').first()).toBeVisible();
     });
 
     test('email address is displayed', async ({ page }) => {

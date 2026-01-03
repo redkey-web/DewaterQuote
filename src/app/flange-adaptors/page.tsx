@@ -121,9 +121,9 @@ export default async function FlangeAdaptorsPage() {
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
-            <Link href="/rubber-expansion-joints">
+            <Link href="/bore-flex">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
-                <span className="font-medium">Rubber Expansion Joints</span>
+                <span className="font-medium">Bore-Flex Expansion Joints</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
@@ -135,7 +135,7 @@ export default async function FlangeAdaptorsPage() {
           <h2 className="text-2xl font-semibold mb-3">Need a Custom Flange Adaptor?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             We can supply flange adaptors in custom sizes and flange standards.
-            Call us on (08) 9271 2577 or request a quote.
+            Call us on 1300 271 290 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

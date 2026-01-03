@@ -110,10 +110,19 @@ export default async function StraubPage() {
       <OrganizationJsonLd />
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary/5 to-primary/10 border-b">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="relative overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 py-16 relative">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
+              <Image
+                src="/images/brands/straub-logo.png"
+                alt="Straub"
+                width={160}
+                height={80}
+                className="w-40 h-auto mb-6"
+                priority
+              />
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
                 <Award className="w-4 h-4" />
                 Authorised Australian Distributor
@@ -141,15 +150,16 @@ export default async function StraubPage() {
                 </Link>
               </div>
             </div>
-            <div className="flex-shrink-0">
-              <Image
-                src="/images/brands/straub-logo.png"
-                alt="Straub Pipe Couplings - Swiss Engineered Industrial Pipe Connections"
-                width={256}
-                height={128}
-                className="w-64 h-auto"
-                priority
-              />
+            <div className="flex-shrink-0 relative">
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                <Image
+                  src="/images/products/straub/straub-combi-grip.png"
+                  alt="Straub Combi-Grip Pipe Coupling"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -275,7 +285,7 @@ export default async function StraubPage() {
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Straub Coupling?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you specify the correct Straub coupling for your application.
-            Call us on (08) 9271 2577 or request a quote.
+            Call us on 1300 271 290 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

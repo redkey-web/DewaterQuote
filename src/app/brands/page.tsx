@@ -5,8 +5,8 @@ import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Our Brands - Straub, Orbit, Teekay, Bore-Flex & Defender Valves | DeWater Products",
-  description: "Browse industrial pipe fittings by brand. We are authorised distributors for Straub, Orbit Couplings, Teekay, Bore-Flex Rubber, and Defender Valves.",
+  title: "Our Brands - Straub, Orbit, Teekay, Bore-Flex, Defender | DeWater Products",
+  description: "Browse industrial pipe fittings by brand. Authorised distributors for Straub, Orbit Couplings, Teekay, Bore-Flex Rubber, Defender Valves, and Defender Strainers.",
 }
 
 const brands = [
@@ -49,6 +49,14 @@ const brands = [
     logo: "/images/brands/bore-flex-rubber-logo.png",
     description: "High-quality rubber expansion joints and flexible pipe connectors for vibration isolation, thermal expansion compensation, and noise reduction in piping systems.",
     specialties: ["Expansion Joints", "Rubber Bellows", "Vibration Isolators"],
+  },
+  {
+    slug: "defender-strainers",
+    href: "/brands/defender-strainers",
+    name: "Defender Strainers",
+    logo: "/images/brands/defender-strainers-logo.png",
+    description: "Industrial pipeline strainers including Y strainers, simplex and duplex basket strainers, and suction strainers. Quality filtration solutions for protecting pumps and equipment.",
+    specialties: ["Y Strainers", "Basket Strainers", "Duplex Strainers", "Suction Strainers"],
   },
 ]
 

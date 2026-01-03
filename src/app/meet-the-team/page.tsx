@@ -152,9 +152,9 @@ export default function MeetTheTeamPage() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <a href="tel:0892712577">
+              <a href="tel:1300271290">
                 <Phone className="w-4 h-4 mr-2" />
-                (08) 9271 2577
+                1300 271 290
               </a>
             </Button>
           </div>

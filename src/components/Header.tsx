@@ -93,6 +93,7 @@ export default function Header() {
         { name: "Teekay", url: "/brands/teekay" },
         { name: "Bore-Flex Rubber", url: "/brands/bore-flex-rubber" },
         { name: "Defender Valves", url: "/brands/defender-valves" },
+        { name: "Defender Strainers", url: "/brands/defender-strainers" },
       ],
     },
     {
@@ -105,26 +106,26 @@ export default function Header() {
       ],
     },
     {
-      title: "Valves",
-      url: "/valves",
+      title: "Defender Valves",
+      url: "/defender-valves",
       items: [
-        { name: "Butterfly Valves", url: "/valves/butterfly-valve" },
-        { name: "Check Valves", url: "/valves/check-valves" },
-        { name: "Gate Valves", url: "/valves/gate-valve" },
-        { name: "Ball Valves", url: "/valves/ball-valve" },
-        { name: "Float Valves", url: "/valves/float-valve" },
-        { name: "Foot Valves", url: "/valves/foot-valve" },
+        { name: "Butterfly Valves", url: "/defender-valves/butterfly-valve" },
+        { name: "Check Valves", url: "/defender-valves/check-valves" },
+        { name: "Gate Valves", url: "/defender-valves/gate-valve" },
+        { name: "Ball Valves", url: "/defender-valves/ball-valve" },
+        { name: "Float Valves", url: "/defender-valves/float-valve" },
+        { name: "Foot Valves", url: "/defender-valves/foot-valve" },
       ],
     },
     {
-      title: "Expansion Joints",
-      url: "/rubber-expansion-joints",
+      title: "Bore-Flex",
+      url: "/bore-flex",
       items: [
-        { name: "Single Sphere", url: "/rubber-expansion-joints/single-sphere" },
-        { name: "Twin Sphere", url: "/rubber-expansion-joints/twin-sphere" },
-        { name: "Single Arch", url: "/rubber-expansion-joints/single-arch" },
-        { name: "Double Arch", url: "/rubber-expansion-joints/double-arch" },
-        { name: "Reducing", url: "/rubber-expansion-joints/reducing" },
+        { name: "Single Sphere", url: "/bore-flex/single-sphere" },
+        { name: "Twin Sphere", url: "/bore-flex/twin-sphere" },
+        { name: "Single Arch", url: "/bore-flex/single-arch" },
+        { name: "Double Arch", url: "/bore-flex/double-arch" },
+        { name: "Reducing", url: "/bore-flex/reducing" },
       ],
     },
     {
@@ -349,7 +350,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
             <div className="flex flex-col gap-1">
               <a
-                href="tel:0892712577"
+                href="tel:1300271290"
                 className="flex items-center gap-2 transition-colors text-xs"
               >
                 <Phone className="w-4 h-4 text-primary" />
@@ -357,7 +358,7 @@ export default function Header() {
                   color: 'white',
                   letterSpacing: '0.05em',
                   textShadow: '1px 1px 0 rgba(0,0,0,0.5), -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 rgba(0,0,0,0.5)'
-                }}>(08) 9271 2577</span>
+                }}>1300 271 290</span>
               </a>
               <a
                 href="mailto:sales@dewaterproducts.com.au"
@@ -467,6 +468,9 @@ export default function Header() {
                   <Link href="/brands/defender-valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
                     Defender Valves
                   </Link>
+                  <Link href="/brands/defender-strainers" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Defender Strainers
+                  </Link>
                 </div>
               </div>
 
@@ -476,14 +480,14 @@ export default function Header() {
                   Products
                 </Link>
                 <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
-                  <Link href="/valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Valves
+                  <Link href="/defender-valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Defender Valves
                   </Link>
                   <Link href="/pipe-couplings" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
                     Pipe Couplings
                   </Link>
-                  <Link href="/rubber-expansion-joints" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Expansion Joints
+                  <Link href="/bore-flex" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Bore-Flex Expansion Joints
                   </Link>
                   <Link href="/strainers" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
                     Strainers
@@ -525,11 +529,11 @@ export default function Header() {
               <div className="py-4 border-t border-border">
                 <div className="flex flex-col gap-3 px-3">
                   <a
-                    href="tel:0892712577"
+                    href="tel:1300271290"
                     className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-2"
                   >
                     <Phone className="w-5 h-5 text-primary" />
-                    <span className="font-semibold">(08) 9271 2577</span>
+                    <span className="font-semibold">1300 271 290</span>
                   </a>
                   <a
                     href="mailto:sales@dewaterproducts.com.au"

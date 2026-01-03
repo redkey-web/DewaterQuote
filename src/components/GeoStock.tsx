@@ -37,23 +37,10 @@ export function GeoStockSubtitle({ className }: GeoStockProps) {
 
 // Combined component for simpler usage
 export default function GeoStock() {
-  const [isLocalRegion, setIsLocalRegion] = useState(true)
-
-  useEffect(() => {
-    const region = getCookie("geo-region")
-    if (region && !PERTH_REGIONS.includes(region)) {
-      setIsLocalRegion(false)
-    }
-  }, [])
-
   return (
     <div>
-      <p className="font-semibold text-sm">
-        {isLocalRegion ? "Locally Stocked" : "Australian Stock"}
-      </p>
-      <p className="text-xs text-muted-foreground">
-        {isLocalRegion ? "Perth warehouse" : "Fast AU delivery"}
-      </p>
+      <p className="font-semibold text-sm">Australian Stock</p>
+      <p className="text-xs text-muted-foreground">Fast delivery</p>
     </div>
   )
 }

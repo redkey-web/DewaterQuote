@@ -28,7 +28,7 @@ export default function USPBar() {
             <Users className="w-6 h-6 text-primary flex-shrink-0" />
             <div>
               <p className="font-semibold text-sm">Expert Support</p>
-              <p className="text-xs text-muted-foreground">(08) 9271 2577</p>
+              <a href="tel:1300271290" className="text-xs text-muted-foreground hover:text-primary transition-colors">Free Call</a>
             </div>
           </div>
         </div>

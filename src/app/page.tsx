@@ -38,10 +38,10 @@ export default function HomePage() {
 
   const productCategories = [
     {
-      name: "Valves",
-      url: "/valves",
+      name: "Defender Valves",
+      url: "/defender-valves",
       image: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg",
-      alt: "Valves",
+      alt: "Defender Valves",
     },
     {
       name: "Pipe Couplings",
@@ -51,7 +51,7 @@ export default function HomePage() {
     },
     {
       name: "Expansion Joints",
-      url: "/rubber-expansion-joints",
+      url: "/bore-flex",
       image: "/images/products/expansion-joints/fsf-single-sphere.jpg",
       alt: "Expansion Joints",
     },
@@ -171,16 +171,6 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-6 text-white/80 text-sm">
-            <div className="flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4" />
-              <span>15+ years experience</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckCircle className="w-4 h-4" />
-              <span>Fast Perth dispatch</span>
-            </div>
-          </div>
           <div className="relative w-full">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
             <input
@@ -199,30 +189,30 @@ export default function HomePage() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-52">
-                {/* Valves with subcategories */}
+                {/* Defender Valves with subcategories */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/valves" className="flex-1">Valves</Link>
+                    <Link href="/defender-valves" className="flex-1">Defender Valves</Link>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent className="w-48">
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/butterfly-valve" className="w-full cursor-pointer">Butterfly Valves</Link>
+                        <Link href="/defender-valves/butterfly-valve" className="w-full cursor-pointer">Butterfly Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/check-valves" className="w-full cursor-pointer">Check Valves</Link>
+                        <Link href="/defender-valves/check-valves" className="w-full cursor-pointer">Check Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
+                        <Link href="/defender-valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/gate-valve" className="w-full cursor-pointer">Gate Valves</Link>
+                        <Link href="/defender-valves/gate-valve" className="w-full cursor-pointer">Gate Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
+                        <Link href="/defender-valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/float-valve" className="w-full cursor-pointer">Float Valves</Link>
+                        <Link href="/defender-valves/float-valve" className="w-full cursor-pointer">Float Valves</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
@@ -248,27 +238,27 @@ export default function HomePage() {
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
 
-                {/* Expansion Joints with subcategories */}
+                {/* Bore-Flex Expansion Joints with subcategories */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/rubber-expansion-joints" className="flex-1">Expansion Joints</Link>
+                    <Link href="/bore-flex" className="flex-1">Bore-Flex</Link>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent className="w-48">
                       <DropdownMenuItem asChild>
-                        <Link href="/rubber-expansion-joints/single-sphere" className="w-full cursor-pointer">Single Sphere</Link>
+                        <Link href="/bore-flex/single-sphere" className="w-full cursor-pointer">Single Sphere</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/rubber-expansion-joints/twin-sphere" className="w-full cursor-pointer">Twin Sphere</Link>
+                        <Link href="/bore-flex/twin-sphere" className="w-full cursor-pointer">Twin Sphere</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/rubber-expansion-joints/single-arch" className="w-full cursor-pointer">Single Arch</Link>
+                        <Link href="/bore-flex/single-arch" className="w-full cursor-pointer">Single Arch</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/rubber-expansion-joints/double-arch" className="w-full cursor-pointer">Double Arch</Link>
+                        <Link href="/bore-flex/double-arch" className="w-full cursor-pointer">Double Arch</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/rubber-expansion-joints/reducing" className="w-full cursor-pointer">Reducing</Link>
+                        <Link href="/bore-flex/reducing" className="w-full cursor-pointer">Reducing</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
@@ -435,7 +425,7 @@ export default function HomePage() {
               <Users className="w-8 h-8 text-primary flex-shrink-0" />
               <div>
                 <p className="font-semibold text-sm">Expert Support</p>
-                <p className="text-xs text-muted-foreground">(08) 9271 2577</p>
+                <a href="tel:1300271290" className="text-xs text-muted-foreground hover:text-primary transition-colors">Free Call</a>
               </div>
             </div>
           </div>

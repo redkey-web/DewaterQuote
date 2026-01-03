@@ -168,7 +168,7 @@ const industryData: Record<string, IndustryData> = {
       {
         question: "Do you offer emergency supply for burst mains?",
         answer:
-          "Yes, we understand water infrastructure emergencies. Call us directly on (08) 9271 2577 for urgent orders. We stock common repair clamp sizes for fast dispatch.",
+          "Yes, we understand water infrastructure emergencies. Call us directly on 1300 271 290 for urgent orders. We stock common repair clamp sizes for fast dispatch.",
       },
     ],
   },
@@ -1227,7 +1227,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
           </h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you specify the right products for your {industry.name.toLowerCase()} application.
-            Call us on (08) 9271 2577 or request a quote.
+            Call us on 1300 271 290 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

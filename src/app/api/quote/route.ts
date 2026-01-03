@@ -407,7 +407,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
 
           <p style="color: #666; font-size: 14px;">
             <strong>Dewater Products Pty Ltd</strong><br />
-            Phone: (08) 9271 2577<br />
+            Phone: 1300 271 290<br />
             Email: sales@dewaterproducts.com.au<br />
             Perth, Western Australia
           </p>

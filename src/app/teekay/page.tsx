@@ -110,10 +110,19 @@ export default async function TeekayPage() {
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 dark:from-cyan-950/20 dark:to-cyan-900/10 border-b">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="relative overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-100 via-cyan-50 to-transparent dark:from-cyan-950/30 dark:via-cyan-900/10 dark:to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 py-16 relative">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
+              <Image
+                src="/images/brands/teekay-logo.png"
+                alt="Teekay"
+                width={160}
+                height={80}
+                className="w-40 h-auto mb-6"
+                priority
+              />
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 text-sm font-medium mb-4">
                 <Waves className="w-4 h-4" />
                 Stormwater & Wastewater Specialists
@@ -142,15 +151,16 @@ export default async function TeekayPage() {
                 </Link>
               </div>
             </div>
-            <div className="flex-shrink-0">
-              <Image
-                src="/images/brands/teekay-logo.png"
-                alt="Teekay Duckbill Check Valves and Rubber Expansion Joints"
-                width={256}
-                height={128}
-                className="w-64 h-auto"
-                priority
-              />
+            <div className="flex-shrink-0 relative">
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                <Image
+                  src="/images/products/valves/duckbill-check-valve.png"
+                  alt="Teekay Duckbill Check Valve"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -292,15 +302,15 @@ export default async function TeekayPage() {
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6">Related Products</h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/valves">
+            <Link href="/defender-valves">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
-                <span className="font-medium">All Valves</span>
+                <span className="font-medium">Defender Valves</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
-            <Link href="/rubber-expansion-joints">
+            <Link href="/bore-flex">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
-                <span className="font-medium">Rubber Expansion Joints</span>
+                <span className="font-medium">Bore-Flex Expansion Joints</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
@@ -318,7 +328,7 @@ export default async function TeekayPage() {
           <h2 className="text-2xl font-semibold mb-3">Need Help with Your Stormwater Project?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you select the right duckbill valve size and rubber material
-            for your application. Call us on (08) 9271 2577 or request a quote.
+            for your application. Call us on 1300 271 290 or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

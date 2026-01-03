@@ -208,10 +208,10 @@ export default async function PipeRepairPage() {
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a
-              href="tel:0892712577"
+              href="tel:1300271290"
               className="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors"
             >
-              Call (08) 9271 2577
+              Call 1300 271 290
             </a>
             <Link
               href="/request-quote"
