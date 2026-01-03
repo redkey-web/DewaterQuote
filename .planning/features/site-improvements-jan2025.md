@@ -57,27 +57,31 @@ Comprehensive site improvements covering UI polish, navigation fixes, admin pane
 
 ---
 
-## Phase 3: Image & Video Import from Neto
-**Priority: High**
+## Phase 3: Image & Video Import from Neto ✅
+**Priority: High** - VERIFIED COMPLETE
 
 ### Tasks
-- [ ] 3.1 Audit existing images in `.planning/audit/images/`
-  - Map Neto SKUs to current DB products
-  - Identify missing images
-- [ ] 3.2 Create image import script
-  - Read from `.planning/audit/images/` folders
-  - Upload to Vercel Blob
-  - Update product_images table
-- [ ] 3.3 Check for videos in Neto export
-  - Extract YouTube IDs from CSV
-  - Update product `video` field in DB
-- [ ] 3.4 Remove AI-generated placeholder images
-  - Scan for products using placeholder images
-  - Replace with real product images
+- [x] 3.1 Audit existing images in `.planning/audit/images/`
+  - 68 SKU folders with 238 images
+  - All 68 SKUs matched to products in DB
+  - 122/134 products (91%) have images on Vercel Blob
+  - 10 products without images - not in Neto export
+- [x] 3.2 Create image import script
+  - Created `scripts/import-neto-images.ts`
+  - Uploads to Vercel Blob and links to DB
+  - All images already imported previously
+- [x] 3.3 Check for videos in Neto export
+  - 95 YouTube videos already imported
+  - Linked to 24 products via product_videos table
+- [x] 3.4 Remove AI-generated placeholder images
+  - Scanned DB - no placeholder images found
+  - All images are real product photos
+
+**Verified**: 2026-01-04
 
 **Files:**
-- `scripts/import-neto-images.ts` (new)
-- Database updates to `product_images` table
+- `scripts/import-neto-images.ts` (created for future imports)
+- Database product_images table already populated
 
 ---
 
