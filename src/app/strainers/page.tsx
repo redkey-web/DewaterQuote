@@ -133,7 +133,7 @@ export default async function StrainersPage() {
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Strainer?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you find the right strainer for your application, including custom mesh sizes.
-            Call us on 1300 271 290 or request a quote.
+            Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

@@ -172,22 +172,24 @@ Comprehensive site improvements covering UI polish, navigation fixes, admin pane
 
 ---
 
-## Phase 8: Click-to-Call Phone Numbers
-**Priority: Low**
+## Phase 8: Click-to-Call Phone Numbers ✅
+**Priority: Low** - COMPLETE
 
 ### Tasks
-- [ ] 8.1 Audit all phone number occurrences
-  - Header.tsx (already tel: link)
-  - Footer.tsx
-  - Contact page
-  - request-quote page
-  - Meet the Team page
-- [ ] 8.2 Standardize to "Free Call" with 1300 number
-  - Use consistent `<a href="tel:1300271290">Free Call 1300 271 290</a>`
+- [x] 8.1 Audited all phone number occurrences
+  - Header.tsx, Footer.tsx, USPBar.tsx - already had tel: links ✅
+  - Contact page, privacy, returns, delivery - already had tel: links ✅
+  - pipe-repair, about, meet-the-team - already had tel: links ✅
+- [x] 8.2 Updated CTA sections to use tel: links
+  - strainers, straub, orbit, valves, flange-adaptors, bore-flex
+  - teekay, pipe-couplings, pipe-repair-clamps
+  - expansion-joints (both pages)
+  - industries/[industry], [slug]/[subcategory]
+  - Format: `<a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a>`
 
-**Files:**
-- Multiple pages containing phone numbers
-- Create reusable PhoneLink component
+**Note:** FAQ answers left as plain text (can't use HTML in JSON data)
+
+**Completed**: 2025-01-04
 
 ---
 

@@ -1227,7 +1227,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
           </h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our technical team can help you specify the right products for your {industry.name.toLowerCase()} application.
-            Call us on 1300 271 290 or request a quote.
+            Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

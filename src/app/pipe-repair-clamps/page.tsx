@@ -92,7 +92,7 @@ export default async function PipeRepairClampsPage() {
           <h2 className="text-2xl font-semibold mb-3">Emergency Repair Required?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our pipe repair clamps provide fast, reliable repairs without pipe removal.
-            Call us on 1300 271 290 for urgent assistance or request a quote.
+            Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> for urgent assistance or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
