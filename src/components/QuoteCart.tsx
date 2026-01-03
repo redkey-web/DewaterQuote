@@ -68,7 +68,7 @@ export default function QuoteCart() {
         data-testid="overlay-quote-cart"
       />
       <div
-        className="fixed right-0 top-0 h-full w-full md:w-[480px] bg-background border-l border-border shadow-xl z-50 flex flex-col transition-transform duration-200 ease-out"
+        className="fixed right-0 top-0 h-full w-full md:w-[480px] glass border-l border-border shadow-xl z-50 flex flex-col transition-transform duration-200 ease-out"
         style={{ transform: isAnimating ? "translateX(0)" : "translateX(100%)" }}
         data-testid="panel-quote-cart"
       >
@@ -137,9 +137,9 @@ export default function QuoteCart() {
                                 </Badge>
                               )}
                             </div>
-                            {sizeLabel && (
-                              <p className="text-xs text-muted-foreground">Size: {sizeLabel}</p>
-                            )}
+                            <p className="text-xs text-muted-foreground">
+                              {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
+                            </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
                             {item.materialTestCert && (
                               <Badge variant="outline" className="text-xs mt-1 gap-1">
@@ -327,9 +327,9 @@ export default function QuoteCart() {
                           />
                           <div className="flex-1 min-w-0">
                             <h4 className="font-medium text-sm truncate">{item.name}</h4>
-                            {sizeLabel && (
-                              <p className="text-xs text-muted-foreground">Size: {sizeLabel}</p>
-                            )}
+                            <p className="text-xs text-muted-foreground">
+                              {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
+                            </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
                             {item.materialTestCert && (
                               <Badge variant="outline" className="text-xs mt-1 gap-1">

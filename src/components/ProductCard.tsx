@@ -3,15 +3,11 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Package, TrendingDown } from "lucide-react"
+import { ArrowRight, Package, TrendingDown } from "lucide-react"
 import type { Product } from "@/types"
-import { productToQuoteItem } from "@/lib/quote"
-import { useToast } from "@/hooks/use-toast"
-import { useQuote } from "@/context/QuoteContext"
 
 interface ProductCardProps {
   product: Product
@@ -19,9 +15,6 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [imageError, setImageError] = useState(false)
-  const router = useRouter()
-  const { toast } = useToast()
-  const { addItem } = useQuote()
   const mainImage = product.images?.[0]?.url
 
   // Check if product has pricing (not POA)
@@ -32,36 +25,6 @@ export default function ProductCard({ product }: ProductCardProps) {
   useEffect(() => {
     setImageError(false)
   }, [mainImage])
-
-  const handleAddToQuote = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    // For products with variable pricing, redirect to detail page to select size
-    if (product.priceVaries && product.sizeOptions && product.sizeOptions.length > 0) {
-      toast({
-        title: "Size Selection Required",
-        description: "Please select a size on the product page before adding to quote.",
-      })
-      router.push(`/${product.slug}`)
-      return
-    }
-
-    // For single-price products, add directly to quote
-    try {
-      const quoteItem = productToQuoteItem(product)
-      addItem(quoteItem, e.currentTarget)
-      toast({
-        title: "Added to Quote",
-        description: `${product.name} has been added to your quote request.`,
-      })
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to add product to quote",
-        variant: "destructive",
-      })
-    }
-  }
 
   return (
     <Card
@@ -125,12 +88,14 @@ export default function ProductCard({ product }: ProductCardProps) {
       </Link>
       <CardFooter className="p-6 pt-0">
         <Button
+          asChild
           className="w-full"
-          onClick={handleAddToQuote}
-          data-testid={`button-add-to-quote-${product.id}`}
+          data-testid={`button-view-product-${product.id}`}
         >
-          <Plus className="w-4 h-4 mr-2" />
-          {product.priceVaries ? "Select Size" : "Add to Quote"}
+          <Link href={`/${product.slug}`}>
+            View Product
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
         </Button>
       </CardFooter>
     </Card>

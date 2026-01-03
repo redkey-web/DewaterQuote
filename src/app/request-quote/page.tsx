@@ -112,6 +112,8 @@ export default function RequestQuotePage() {
   const totalSavings = pricedItems.reduce((sum, item) => sum + getQuoteItemSavings(item), 0)
   const certFeeTotal = calculateMaterialCertFee(quoteItems)
   const certCount = getMaterialCertCount(quoteItems)
+  const totalQuantity = quoteItems.reduce((sum, item) => sum + item.quantity, 0)
+  const uniqueItems = quoteItems.length
 
   const form = useForm<QuoteFormValues>({
     resolver: zodResolver(quoteFormSchema),
@@ -289,18 +291,29 @@ export default function RequestQuotePage() {
         <h1 className="text-4xl font-bold mb-2" data-testid="text-page-title">
           Request a Quote
         </h1>
-        <p className="text-lg text-muted-foreground mb-8">
+        <p className="text-lg text-muted-foreground mb-4">
           Fill out the form below and our team will provide you with a detailed quote.
         </p>
+        <div className="bg-muted/50 border border-border rounded-lg p-4 mb-8">
+          <p className="text-sm text-muted-foreground">
+            <strong>Note:</strong> This quote request is not a legally binding agreement until approved by a director at Dewater Products.
+            We will review your requirements and respond within 1-2 business days.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Invoice-Style Quote Items */}
           <div className="lg:col-span-2 space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Package className="w-5 h-5" />
-                  Quote Items
+                <CardTitle className="flex items-center justify-between">
+                  <span className="flex items-center gap-2">
+                    <Package className="w-5 h-5" />
+                    Your Items
+                  </span>
+                  <span className="text-sm font-normal text-muted-foreground">
+                    {totalQuantity} item{totalQuantity !== 1 ? 's' : ''} ({uniqueItems} unique)
+                  </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -338,9 +351,9 @@ export default function RequestQuotePage() {
                               <div className="font-medium" data-testid={`text-product-name-${item.id}`}>
                                 {item.name}
                               </div>
-                              {sizeLabel && (
-                                <div className="text-xs text-muted-foreground">Size: {sizeLabel}</div>
-                              )}
+                              <div className="text-xs text-muted-foreground">
+                                {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
+                              </div>
                               <div className="text-xs text-muted-foreground sm:hidden">
                                 {sku}
                               </div>
@@ -353,9 +366,9 @@ export default function RequestQuotePage() {
                                 </Badge>
                               )}
                               {item.materialTestCert && (
-                                <Badge variant="outline" className="text-xs mt-1 gap-1">
+                                <Badge variant="outline" className="text-xs mt-1 gap-1 text-primary border-primary/50">
                                   <FileCheck className="w-3 h-3" />
-                                  + Cert
+                                  + Material Cert ($350)
                                 </Badge>
                               )}
                             </td>
@@ -883,13 +896,21 @@ export default function RequestQuotePage() {
                     />
 
                     {/* Quote Conditions */}
-                    <div className="rounded-md bg-muted/50 p-4 text-sm text-muted-foreground space-y-2">
-                      <div className="flex items-center gap-2">
-                        <Truck className="w-4 h-4 shrink-0" />
-                        <span>Free metro delivery via road freight. Non-metro locations can be shipped to your nearest metro depot.</span>
+                    <div className="rounded-md bg-muted/50 p-4 text-sm text-muted-foreground space-y-3">
+                      <div className="flex items-start gap-2">
+                        <Truck className="w-4 h-4 shrink-0 mt-0.5" />
+                        <span>Free delivery for metro areas. If there are any shipping costs for regional locations, we will confirm on final quote.</span>
                       </div>
-                      <p>• Quote valid for 30 days from submission</p>
-                      <p>• All prices exclude GST</p>
+                      <div className="flex items-start gap-2">
+                        <FileCheck className="w-4 h-4 shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-medium text-foreground">Warranty:</span> Up to 5 years on Orbit/Straub couplings* | 12 months on all other products
+                        </div>
+                      </div>
+                      <div className="border-t border-border pt-2 mt-2 space-y-1">
+                        <p>• Quote valid for 30 days from submission</p>
+                        <p>• All prices exclude GST</p>
+                      </div>
                     </div>
 
                     <Button

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://dewaterproducts.com.au/defender-valves",
+    canonical: "https://dewaterproducts.com.au/valves",
   },
 }
 
@@ -50,7 +50,7 @@ export default async function DefenderValvesPage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
-    { name: "Defender Valves", url: "https://dewaterproducts.com.au/defender-valves" },
+    { name: "Valves", url: "https://dewaterproducts.com.au/valves" },
   ]
 
   return (
@@ -119,7 +119,7 @@ export default async function DefenderValvesPage() {
           <h2 className="text-2xl font-bold mb-6">Valve Types</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {valveTypes.map((type) => (
-              <Link key={type.name} href={`/defender-valves/${type.slug}`} className="p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-md transition-all">
+              <Link key={type.name} href={`/valves/${type.slug}`} className="p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-md transition-all">
                 <h3 className="font-semibold mb-2">{type.name}</h3>
                 <p className="text-sm text-muted-foreground">{type.description}</p>
               </Link>
@@ -132,7 +132,7 @@ export default async function DefenderValvesPage() {
           categorySlug="valves"
           subcategories={valveSubcategories}
           title="Search by Type"
-          basePath="/defender-valves"
+          basePath="/valves"
         />
 
         {/* All Products */}

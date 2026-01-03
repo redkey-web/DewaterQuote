@@ -82,14 +82,14 @@
   --font-serif: Georgia, serif;
   --font-mono: JetBrains Mono, monospace;
   --radius: .5rem; /* 8px */
-  --shadow-2xs: 0px 1px 2px 0px hsl(189 68% 42% / 0.12);
-  --shadow-xs: 0px 1px 3px 0px hsl(189 68% 42% / 0.16);
-  --shadow-sm: 0px 2px 4px 0px hsl(189 68% 42% / 0.12), 0px 1px 2px -1px hsl(189 68% 42% / 0.16);
-  --shadow: 0px 4px 6px 0px hsl(189 68% 42% / 0.12), 0px 2px 4px -1px hsl(189 68% 42% / 0.16);
-  --shadow-md: 0px 6px 12px 0px hsl(189 68% 42% / 0.14), 0px 4px 8px -2px hsl(189 68% 42% / 0.18);
-  --shadow-lg: 0px 10px 20px 0px hsl(189 68% 42% / 0.16), 0px 6px 12px -2px hsl(189 68% 42% / 0.20);
-  --shadow-xl: 0px 16px 32px 0px hsl(189 68% 42% / 0.18), 0px 8px 16px -4px hsl(189 68% 42% / 0.22);
-  --shadow-2xl: 0px 24px 48px 0px hsl(189 68% 42% / 0.24);
+  --shadow-2xs: 0px 1px 2px 0px rgba(0, 0, 0, 0.08);
+  --shadow-xs: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0px 2px 4px 0px rgba(0, 0, 0, 0.08), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0px 6px 12px 0px rgba(0, 0, 0, 0.12), 0px 4px 8px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0px 10px 20px 0px rgba(0, 0, 0, 0.15), 0px 6px 12px -2px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0px 16px 32px 0px rgba(0, 0, 0, 0.18), 0px 8px 16px -4px rgba(0, 0, 0, 0.15);
+  --shadow-2xl: 0px 24px 48px 0px rgba(0, 0, 0, 0.2);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
 
@@ -231,24 +231,24 @@
     animation: scroll 30s linear infinite;
   }
 
-  /* Subtle cyan glow on card hover */
+  /* Card hover effect - subtle elevation */
   .hover-elevate:hover {
-    box-shadow: 0 0 20px rgba(6, 108, 128, 0.30);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
   }
 
-  /* Primary button glow and hover effect */
+  /* Primary button hover effect - no glow */
   button.bg-primary,
   a.bg-primary,
   [class*="bg-primary"] {
-    box-shadow: 0 0 24px hsla(var(--primary-glow) / 0.5);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
   }
 
   button.bg-primary:hover,
   a.bg-primary:hover,
   [class*="bg-primary"]:hover {
     background-color: hsl(var(--primary-glow)) !important;
-    box-shadow: 0 0 32px hsla(var(--primary-glow) / 0.7);
+    transform: translateY(-1px);
   }
 
   /* Industrial Metallic Buttons */
@@ -273,8 +273,7 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.25),
       inset 0 -2px 5px rgba(0, 0, 0, 0.4),
       0 3px 10px rgba(0, 0, 0, 0.5),
-      0 0 0 1px hsl(189, 25%, 16%),
-      0 0 15px hsla(var(--primary-glow) / 0.25);
+      0 0 0 1px hsl(189, 25%, 16%);
     transition: all 0.25s ease;
     overflow: visible;
     padding-top: 0.75rem;
@@ -312,8 +311,8 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.35),
       inset 0 -2px 5px rgba(0, 0, 0, 0.25),
       0 5px 15px rgba(0, 0, 0, 0.6),
-      0 0 35px hsla(var(--primary-glow) / 0.7),
       0 0 0 2px hsl(189, 30%, 18%);
+    transform: translateY(-1px);
   }
 
   .btn-industrial-secondary {
@@ -369,8 +368,8 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.25),
       inset 0 -1px 3px rgba(0, 0, 0, 0.3),
       0 5px 15px rgba(0, 0, 0, 0.6),
-      0 0 20px hsla(var(--primary-glow) / 0.4),
       0 0 0 1px hsl(0, 0%, 12%);
+    transform: translateY(-1px);
   }
 }
 

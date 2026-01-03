@@ -106,26 +106,26 @@ export default function Header() {
       ],
     },
     {
-      title: "Defender Valves",
-      url: "/defender-valves",
+      title: "Valves",
+      url: "/valves",
       items: [
-        { name: "Butterfly Valves", url: "/defender-valves/butterfly-valve" },
-        { name: "Check Valves", url: "/defender-valves/check-valves" },
-        { name: "Gate Valves", url: "/defender-valves/gate-valve" },
-        { name: "Ball Valves", url: "/defender-valves/ball-valve" },
-        { name: "Float Valves", url: "/defender-valves/float-valve" },
-        { name: "Foot Valves", url: "/defender-valves/foot-valve" },
+        { name: "Butterfly Valves", url: "/valves/butterfly-valve" },
+        { name: "Check Valves", url: "/valves/check-valves" },
+        { name: "Gate Valves", url: "/valves/gate-valve" },
+        { name: "Ball Valves", url: "/valves/ball-valve" },
+        { name: "Float Valves", url: "/valves/float-valve" },
+        { name: "Foot Valves", url: "/valves/foot-valve" },
       ],
     },
     {
-      title: "Bore-Flex",
-      url: "/bore-flex",
+      title: "Expansion Joints",
+      url: "/expansion-joints",
       items: [
-        { name: "Single Sphere", url: "/bore-flex/single-sphere" },
-        { name: "Twin Sphere", url: "/bore-flex/twin-sphere" },
-        { name: "Single Arch", url: "/bore-flex/single-arch" },
-        { name: "Double Arch", url: "/bore-flex/double-arch" },
-        { name: "Reducing", url: "/bore-flex/reducing" },
+        { name: "Single Sphere", url: "/expansion-joints/single-sphere" },
+        { name: "Twin Sphere", url: "/expansion-joints/twin-sphere" },
+        { name: "Single Arch", url: "/expansion-joints/single-arch" },
+        { name: "Double Arch", url: "/expansion-joints/double-arch" },
+        { name: "Reducing", url: "/expansion-joints/reducing" },
       ],
     },
     {
@@ -154,7 +154,6 @@ export default function Header() {
   const moreMenu = [
     { name: "About Us", url: "/about" },
     { name: "Meet the Team", url: "/meet-the-team" },
-    { name: "Resources", url: "/resources" },
   ]
 
   return (
@@ -249,7 +248,7 @@ export default function Header() {
                   {/* Invisible bridge to maintain hover */}
                   <div className="absolute top-full left-0 w-full h-4" />
                   <div
-                    className="fixed top-[72px] left-1/2 -translate-x-1/2 bg-popover border border-popover-border rounded-md shadow-lg p-4 lg:p-6 grid grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4 w-[95vw] lg:w-[850px] max-w-[900px] z-50 max-h-[80vh] overflow-y-auto"
+                    className="fixed top-[72px] left-1/2 -translate-x-1/2 glass rounded-md shadow-lg p-4 lg:p-6 grid grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4 w-[95vw] lg:w-[850px] max-w-[900px] z-50 max-h-[80vh] overflow-y-auto"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -294,7 +293,7 @@ export default function Header() {
                 Industries <ChevronDown className="w-4 h-4" />
               </button>
               {activeMenu === "industries" && (
-                <div className="absolute top-full left-0 mt-0 bg-popover border border-popover-border rounded-md shadow-lg p-4 w-56">
+                <div className="absolute top-full left-0 mt-0 glass rounded-md shadow-lg p-4 w-56">
                   <ul className="space-y-2">
                     {industriesMenu.map((industry) => (
                       <li key={industry.name}>
@@ -324,7 +323,7 @@ export default function Header() {
                 More <ChevronDown className="w-4 h-4" />
               </button>
               {activeMenu === "more" && (
-                <div className="absolute top-full left-0 mt-0 bg-popover border border-popover-border rounded-md shadow-lg p-4 w-48">
+                <div className="absolute top-full left-0 mt-0 glass rounded-md shadow-lg p-4 w-48">
                   <ul className="space-y-2">
                     {moreMenu.map((item) => (
                       <li key={item.name}>
@@ -430,7 +429,7 @@ export default function Header() {
               </form>
               {/* Mobile Search Results */}
               {showResults && searchResults.length > 0 && (
-                <div className="mt-2 bg-card border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
+                <div className="mt-2 bg-popover border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
                   {searchResults.slice(0, 5).map((result) => (
                     <button
                       key={result.id}
@@ -481,14 +480,14 @@ export default function Header() {
                   Products
                 </Link>
                 <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
-                  <Link href="/defender-valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Defender Valves
+                  <Link href="/valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Valves
                   </Link>
                   <Link href="/pipe-couplings" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
                     Pipe Couplings
                   </Link>
-                  <Link href="/bore-flex" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Bore-Flex Expansion Joints
+                  <Link href="/expansion-joints" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
+                    Expansion Joints
                   </Link>
                   <Link href="/strainers" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
                     Strainers

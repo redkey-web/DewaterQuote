@@ -38,7 +38,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Products</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/pipe-couplings" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-clamps">Clamps & Couplings</Link></li>
-              <li><Link href="/defender-valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-valves">Defender Valves</Link></li>
+              <li><Link href="/valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-valves">Valves</Link></li>
               <li><Link href="/bore-flex" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-expansion">Bore-Flex Expansion Joints</Link></li>
               <li><Link href="/strainers" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-strainers">Strainers & Filters</Link></li>
             </ul>

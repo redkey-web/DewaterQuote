@@ -302,9 +302,9 @@ export default async function TeekayPage() {
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6">Related Products</h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/defender-valves">
+            <Link href="/valves">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
-                <span className="font-medium">Defender Valves</span>
+                <span className="font-medium">Valves</span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>

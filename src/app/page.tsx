@@ -38,10 +38,10 @@ export default function HomePage() {
 
   const productCategories = [
     {
-      name: "Defender Valves",
-      url: "/defender-valves",
+      name: "Valves",
+      url: "/valves",
       image: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg",
-      alt: "Defender Valves",
+      alt: "Industrial Valves",
     },
     {
       name: "Pipe Couplings",
@@ -189,30 +189,30 @@ export default function HomePage() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-52">
-                {/* Defender Valves with subcategories */}
+                {/* Valves with subcategories */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/defender-valves" className="flex-1">Defender Valves</Link>
+                    <Link href="/valves" className="flex-1">Valves</Link>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent className="w-48">
                       <DropdownMenuItem asChild>
-                        <Link href="/defender-valves/butterfly-valve" className="w-full cursor-pointer">Butterfly Valves</Link>
+                        <Link href="/valves/butterfly-valve" className="w-full cursor-pointer">Butterfly Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/defender-valves/check-valves" className="w-full cursor-pointer">Check Valves</Link>
+                        <Link href="/valves/check-valves" className="w-full cursor-pointer">Check Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/defender-valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
+                        <Link href="/valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/defender-valves/gate-valve" className="w-full cursor-pointer">Gate Valves</Link>
+                        <Link href="/valves/gate-valve" className="w-full cursor-pointer">Gate Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/defender-valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
+                        <Link href="/valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/defender-valves/float-valve" className="w-full cursor-pointer">Float Valves</Link>
+                        <Link href="/valves/float-valve" className="w-full cursor-pointer">Float Valves</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
