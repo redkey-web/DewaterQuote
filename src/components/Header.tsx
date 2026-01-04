@@ -6,7 +6,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ClipboardList, Menu, X, ChevronDown, Phone, Mail, Search, Loader2 } from "lucide-react"
+import { ClipboardList, Menu, X, ChevronDown, ChevronRight, Phone, Mail, Search, Loader2 } from "lucide-react"
 import { useQuote } from "@/context/QuoteContext"
 
 interface SearchResult {
@@ -25,6 +25,7 @@ export default function Header() {
   const { itemCount: cartItemCount, openCart } = useQuote()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const [isSearching, setIsSearching] = useState(false)
@@ -504,24 +505,44 @@ export default function Header() {
                   Products
                 </Link>
                 <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
-                  <Link href="/valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Valves
-                  </Link>
-                  <Link href="/pipe-couplings" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Pipe Couplings
-                  </Link>
-                  <Link href="/expansion-joints" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Expansion Joints
-                  </Link>
-                  <Link href="/strainers" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Strainers
-                  </Link>
-                  <Link href="/pipe-repair" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Repair Clamps
-                  </Link>
-                  <Link href="/flange-adaptors" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Flange Adaptors
-                  </Link>
+                  {productsMenu.map((category) => (
+                    <div key={category.title}>
+                      <button
+                        onClick={() => setExpandedMobileCategory(
+                          expandedMobileCategory === category.title ? null : category.title
+                        )}
+                        className="flex items-center justify-between w-full text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm"
+                      >
+                        <span>{category.title}</span>
+                        {expandedMobileCategory === category.title ? (
+                          <ChevronDown className="w-4 h-4" />
+                        ) : (
+                          <ChevronRight className="w-4 h-4" />
+                        )}
+                      </button>
+                      {expandedMobileCategory === category.title && (
+                        <div className="pl-4 space-y-1 border-l border-border/50 ml-3 mb-2">
+                          <Link
+                            href={category.url}
+                            className="block text-xs text-primary hover:text-primary/80 px-3 py-1.5 rounded-md"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            View All {category.title}
+                          </Link>
+                          {category.items.map((item) => (
+                            <Link
+                              key={item.name}
+                              href={item.url}
+                              className="block text-xs text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-md"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {item.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
 
