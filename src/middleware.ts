@@ -2,65 +2,17 @@ import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Static redirects for common URL changes (loaded at startup, no DB query)
-// These are checked before anything else for performance
+// No redirects needed - site uses flat URL architecture
+// All subcategory pages are at root level (e.g., /butterfly-valves, /y-strainers)
+// All brand pages are under /brands/ (e.g., /brands/straub, /brands/orbit)
 const STATIC_REDIRECTS: Record<string, string> = {
-  // Bore-Flex -> Expansion Joints consolidation
-  '/bore-flex': '/expansion-joints',
-  '/bore-flex/single-sphere': '/expansion-joints/single-sphere',
-  '/bore-flex/twin-sphere': '/expansion-joints/twin-sphere',
-  '/bore-flex/single-arch': '/expansion-joints/single-arch',
-  '/bore-flex/double-arch': '/expansion-joints/double-arch',
-  '/bore-flex/reducing': '/expansion-joints/reducing',
-
-  // Old e-commerce patterns
-  '/shop': '/',
-  '/catalogue': '/products',
-  '/catalog': '/products',
-  '/cart': '/request-quote',
-  '/checkout': '/request-quote',
-  '/basket': '/request-quote',
-  '/account': '/',
-  '/my-account': '/',
-  '/search': '/products',
-
-  // Category variations
-  '/pipe-fittings': '/pipe-couplings',
-  '/couplings': '/pipe-couplings',
-  '/repair-clamps': '/pipe-repair',
-  '/clamps': '/pipe-repair',
-  '/rubber-expansion-joints': '/expansion-joints',
-  '/flexible-joints': '/expansion-joints',
-  '/flanges': '/flange-adaptors',
-  '/flange-adapters': '/flange-adaptors',
-  '/boreflex': '/expansion-joints',
-
-  // Brand shortcuts
-  '/straub-couplings': '/brands/straub',
-  '/orbit-couplings': '/brands/orbit',
-  '/teekay-couplings': '/brands/teekay',
-  '/defender': '/brands/defender-valves',
-
-  // Valve variations
-  '/butterfly-valves': '/valves/butterfly-valve',
-  '/check-valves': '/valves/check-valves',
-  '/gate-valves': '/valves/gate-valve',
-  '/ball-valves': '/valves/ball-valve',
-  '/foot-valves': '/valves/foot-valve',
-  '/float-valves': '/valves/float-valve',
-
-  // Strainer variations
-  '/y-strainers': '/strainers/y-strainer',
-  '/basket-strainers': '/strainers/simplex-basket-strainer',
-
-  // Info pages
+  // Only keep essential info page redirects
   '/about-us': '/about',
   '/contact-us': '/contact',
   '/shipping': '/delivery',
   '/shipping-policy': '/delivery',
   '/return-policy': '/returns',
   '/privacy-policy': '/privacy',
-  '/terms': '/privacy',
 };
 
 // Geo middleware to set country/region cookies for pricing visibility

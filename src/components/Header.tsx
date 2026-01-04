@@ -96,35 +96,33 @@ export default function Header() {
     },
     {
       title: "Valves",
-      url: "/valves",
+      url: "/industrial-valves",
       items: [
-        { name: "Butterfly Valves", url: "/valves/butterfly-valve" },
-        { name: "Check Valves", url: "/valves/check-valves" },
-        { name: "Gate Valves", url: "/valves/gate-valve" },
-        { name: "Ball Valves", url: "/valves/ball-valve" },
-        { name: "Float Valves", url: "/valves/float-valve" },
-        { name: "Foot Valves", url: "/valves/foot-valve" },
+        { name: "Butterfly Valves", url: "/butterfly-valves" },
+        { name: "Check Valves", url: "/check-valves" },
+        { name: "Gate Valves", url: "/gate-valves" },
+        { name: "Ball Valves", url: "/ball-valves" },
+        { name: "Float Valves", url: "/float-valves" },
+        { name: "Foot Valves", url: "/foot-valves" },
       ],
     },
     {
       title: "Expansion Joints",
       url: "/expansion-joints",
       items: [
-        { name: "Single Sphere", url: "/expansion-joints/single-sphere" },
-        { name: "Twin Sphere", url: "/expansion-joints/twin-sphere" },
-        { name: "Single Arch", url: "/expansion-joints/single-arch" },
-        { name: "Double Arch", url: "/expansion-joints/double-arch" },
-        { name: "Reducing", url: "/expansion-joints/reducing" },
+        { name: "Single Sphere", url: "/single-sphere-expansion-joints" },
+        { name: "Twin Sphere", url: "/twin-sphere-expansion-joints" },
+        { name: "Single Arch", url: "/single-arch-expansion-joints" },
+        { name: "Double Arch", url: "/double-arch-expansion-joints" },
+        { name: "Reducing", url: "/reducing-expansion-joints" },
       ],
     },
     {
       title: "Strainers",
       url: "/strainers",
       items: [
-        { name: "Y Strainers", url: "/strainers/y-strainer" },
-        { name: "Simplex Basket", url: "/strainers/simplex-basket-strainer" },
-        { name: "Duplex Basket", url: "/strainers/duplex-basket-strainer" },
-        { name: "Flanged Suction", url: "/strainers/flanged-suction-strainer" },
+        { name: "Y Strainers", url: "/y-strainers" },
+        { name: "Basket Strainers", url: "/basket-strainers" },
       ],
     },
   ]
@@ -478,24 +476,16 @@ export default function Header() {
                   Brands
                 </Link>
                 <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
-                  <Link href="/brands/straub" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Straub
-                  </Link>
-                  <Link href="/brands/orbit" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Orbit
-                  </Link>
-                  <Link href="/brands/teekay" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Teekay
-                  </Link>
-                  <Link href="/brands/bore-flex-rubber" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Bore-Flex
-                  </Link>
-                  <Link href="/brands/defender-valves" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Defender Valves
-                  </Link>
-                  <Link href="/brands/defender-strainers" className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm" onClick={() => setMobileMenuOpen(false)}>
-                    Defender Strainers
-                  </Link>
+                  {brandsMenu.map((brand) => (
+                    <Link
+                      key={brand.name}
+                      href={brand.url}
+                      className="block text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {brand.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
 

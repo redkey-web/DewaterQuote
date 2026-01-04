@@ -8,11 +8,11 @@ import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 const jointTypes = [
-  { name: "Single Sphere", slug: "single-sphere", description: "Standard expansion joint for moderate axial movement and vibration absorption. Ideal for pump connections." },
-  { name: "Twin Sphere", slug: "twin-sphere", description: "Greater axial movement and flexibility than single sphere. Excellent for high-vibration applications." },
-  { name: "Single Arch", slug: "single-arch", description: "Higher pressure rating with controlled lateral and angular movement. Suited for industrial piping systems." },
-  { name: "Double Arch", slug: "double-arch", description: "Maximum movement capability for demanding applications requiring significant thermal expansion compensation." },
-  { name: "Reducing", slug: "reducing", description: "Connects different pipe sizes while absorbing vibration and movement. Available in various size combinations." },
+  { name: "Single Sphere", url: "/single-sphere-expansion-joints", description: "Standard expansion joint for moderate axial movement and vibration absorption. Ideal for pump connections." },
+  { name: "Twin Sphere", url: "/twin-sphere-expansion-joints", description: "Greater axial movement and flexibility than single sphere. Excellent for high-vibration applications." },
+  { name: "Single Arch", url: "/single-arch-expansion-joints", description: "Higher pressure rating with controlled lateral and angular movement. Suited for industrial piping systems." },
+  { name: "Double Arch", url: "/double-arch-expansion-joints", description: "Maximum movement capability for demanding applications requiring significant thermal expansion compensation." },
+  { name: "Reducing", url: "/reducing-expansion-joints", description: "Connects different pipe sizes while absorbing vibration and movement. Available in various size combinations." },
 ]
 
 const applications = [
@@ -78,7 +78,7 @@ export default async function ExpansionJointsPage() {
           <h2 className="text-2xl font-bold mb-6">Expansion Joint Types</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {jointTypes.map((type) => (
-              <Link key={type.name} href={`/expansion-joints/${type.slug}`} className="p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-md transition-all">
+              <Link key={type.name} href={type.url} className="p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-md transition-all">
                 <h3 className="font-semibold mb-2">{type.name}</h3>
                 <p className="text-sm text-muted-foreground">{type.description}</p>
               </Link>
