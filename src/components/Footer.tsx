@@ -49,7 +49,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Brands</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/straub-couplings-repair-clamps" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-straub">Straub</Link></li>
+              <li><Link href="/brand/straub-couplings" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-straub">Straub</Link></li>
               <li><Link href="/orbit-couplings" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-orbit">Orbit</Link></li>
               <li><Link href="/brands/teekay" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-teekay">Teekay</Link></li>
               <li><Link href="/brands/bore-flex-rubber" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-bore-flex">Bore-Flex Rubber</Link></li>

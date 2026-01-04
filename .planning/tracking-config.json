@@ -7,10 +7,8 @@
     ".planning/current/migration-plan.md",
     ".planning/features/pre-launch-checklist.md",
     ".planning/features/admin-seo-optimization.md",
-    ".planning/features/phone-number-standardization.md",
-    ".planning/features/url-restructure-flat-architecture.md",
-    ".planning/features/menu-hover-styling.md",
-    ".planning/features/brand-url-restructure.md",
+    ".planning/features/product-linkage-audit.md",
+    ".planning/features/category-hero-images.md",
     ".planning/post-launch-redirects.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
@@ -18,7 +16,7 @@
   "parent_track": "~/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
   "require_marker_file": false,
   "description": "Dewater Products full-scope website migration with CMS",
-  "last_refresh": "2026-01-04",
+  "last_refresh": "2026-01-05",
   "archived_files": [
     ".planning/completed/quote-form-redesign.md",
     ".planning/completed/product-price-audit.md",
@@ -31,7 +29,11 @@
     ".planning/completed/add-product-fix.md",
     ".planning/completed/admin-clean-copy-preview.md",
     ".planning/completed/image-seo-cleanup.md",
-    ".planning/completed/site-improvements-jan2025.md"
+    ".planning/completed/site-improvements-jan2025.md",
+    ".planning/completed/phone-number-standardization.md",
+    ".planning/completed/url-restructure-flat-architecture.md",
+    ".planning/completed/menu-hover-styling.md",
+    ".planning/completed/brand-url-restructure.md"
   ],
   "reference_files": [
     ".planning/features/playwright-test-findings.md"

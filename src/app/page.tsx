@@ -401,7 +401,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto">
           <p className="text-center text-sm text-muted-foreground mb-6">Authorised distributor for</p>
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            <Link href="/straub-couplings-repair-clamps" className="opacity-80 hover:opacity-100 transition-opacity">
+            <Link href="/brand/straub-couplings" className="opacity-80 hover:opacity-100 transition-opacity">
               <Image
                 src="/images/brands/straub-logo.png"
                 alt="Straub"

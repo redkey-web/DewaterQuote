@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://dewaterproducts.com.au/straub-couplings-repair-clamps",
+    canonical: "https://dewaterproducts.com.au/brand/straub-couplings",
   },
 }
 
@@ -108,7 +108,7 @@ export default async function StraubCouplingsRepairClampsPage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
-    { name: "Straub Couplings & Repair Clamps", url: "https://dewaterproducts.com.au/straub-couplings-repair-clamps" },
+    { name: "Straub Couplings & Repair Clamps", url: "https://dewaterproducts.com.au/brand/straub-couplings" },
   ]
 
   return (
@@ -211,7 +211,7 @@ export default async function StraubCouplingsRepairClampsPage() {
           </div>
 
           {straubProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {straubProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

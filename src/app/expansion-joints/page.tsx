@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { CheckCircle } from "lucide-react"
+import Image from "next/image"
+import { CheckCircle, ArrowRight, Maximize2 } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
@@ -34,12 +35,21 @@ const selectionFactors = [
 ]
 
 export const metadata: Metadata = {
-  title: "Rubber Expansion Joints | Single Sphere, Twin Sphere, Arch | Dewater Products",
+  title: "Expansion Joints | Rubber Expansion Bellows | Australia | Dewater Products",
   description:
-    "Rubber expansion joints for thermal expansion, vibration absorption, and pipe misalignment. Single sphere, twin sphere, arch and reducing types. EPDM rubber with zinc or 316SS flanges. PN16 rated. Australia-wide delivery.",
+    "Rubber expansion joints and expansion bellows for thermal expansion, vibration absorption, and pipe misalignment. Single sphere, twin sphere, arch and reducing rubber bellows. EPDM rubber with zinc or 316SS flanges. PN16 rated. Australia-wide delivery.",
+  keywords: [
+    "expansion joints",
+    "rubber expansion joints",
+    "expansion bellows",
+    "rubber bellows",
+    "flexible pipe connectors",
+    "vibration isolators",
+    "pipe expansion joints australia",
+  ],
   openGraph: {
-    title: "Rubber Expansion Joints - Dewater Products",
-    description: "Rubber expansion joints for pumps, HVAC, and industrial piping systems.",
+    title: "Expansion Joints & Rubber Bellows | Dewater Products Australia",
+    description: "Rubber expansion joints and expansion bellows for pumps, HVAC, and industrial piping systems. Australia-wide delivery.",
     type: "website",
   },
   alternates: {
@@ -63,16 +73,58 @@ export default async function ExpansionJointsPage() {
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
+
+      {/* Hero Section */}
+      <div className="relative overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50 to-transparent dark:from-orange-950/30 dark:via-orange-900/10 dark:to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm font-medium mb-4">
+                <Maximize2 className="w-4 h-4" />
+                Vibration & Movement Control
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+                Expansion Joints & Rubber Bellows
+              </h1>
+              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+                Rubber expansion joints and expansion bellows designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement.
+                EPDM rubber bellows with zinc or 316SS flanges, PN16 rated.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="#products"
+                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                >
+                  View Products
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+                <Link
+                  href="/request-quote"
+                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                >
+                  Request a Quote
+                </Link>
+              </div>
+            </div>
+            <div className="flex-shrink-0 relative">
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                <Image
+                  src="/images/products/expansion-joints/fsf-single-sphere.jpg"
+                  alt="FSF Single Sphere Rubber Expansion Joint"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <USPBar />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Rubber Expansion Joints</h1>
-          <p className="text-muted-foreground">
-            Designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement.
-          </p>
-        </div>
-
         {/* Joint Types - Critical Info */}
         <div className="mb-10">
           <h2 className="text-2xl font-bold mb-6">Expansion Joint Types</h2>
@@ -107,10 +159,10 @@ export default async function ExpansionJointsPage() {
         />
 
         {/* All Products */}
-        <div className="mb-6">
+        <div id="products" className="mb-6 scroll-mt-8">
           <h2 className="text-2xl font-semibold mb-4">All Expansion Joint Products</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
           {expansionProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

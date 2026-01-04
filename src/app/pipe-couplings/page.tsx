@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, CheckCircle, Download } from "lucide-react"
+import { ArrowRight, CheckCircle, Download, Link2 } from "lucide-react"
 import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
@@ -105,7 +105,7 @@ const selectionGuide = [
   {
     application: "Fire systems",
     orbit: { name: "Fire Protection Coupling", link: "/fire-protection-coupling" },
-    straub: { name: "Metal Grip Fire Fence", link: "/straub-couplings-repair-clamps" }
+    straub: { name: "Metal Grip Fire Fence", link: "/brand/straub-couplings" }
   },
   {
     application: "Misalignment or movement",
@@ -173,17 +173,58 @@ export default async function PipeCouplingsPage() {
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
+
+      {/* Hero Section */}
+      <div className="relative overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-transparent dark:from-slate-950/30 dark:via-slate-900/10 dark:to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900/30 text-slate-700 dark:text-slate-300 text-sm font-medium mb-4">
+                <Link2 className="w-4 h-4" />
+                Pipe Joining Solutions
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+                Pipe Couplings
+              </h1>
+              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+                316 stainless steel couplings for joining, repair, and transition applications.
+                Straub and Orbit brands with WRAS-approved EPDM seals.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="#products"
+                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                >
+                  View Products
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+                <Link
+                  href="/request-quote"
+                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                >
+                  Request a Quote
+                </Link>
+              </div>
+            </div>
+            <div className="flex-shrink-0 relative">
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                <Image
+                  src="/images/products/orbit/flex-grip-l-main.jpg"
+                  alt="Orbit Flex Grip L Pipe Coupling 316SS"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <USPBar />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Minimal Hero */}
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Pipe Couplings</h1>
-          <p className="text-muted-foreground">
-            316 stainless steel couplings for joining, repair, and transition applications.
-          </p>
-        </div>
-
         {/* Shop by Brand */}
         <div className="mb-10">
           <h2 className="text-xl font-semibold mb-4">Shop by Brand</h2>
@@ -252,12 +293,12 @@ export default async function PipeCouplingsPage() {
         </div>
 
         {/* All Products */}
-        <div className="mb-12">
+        <div id="products" className="mb-12 scroll-mt-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">All Pipe Couplings</h2>
             <span className="text-muted-foreground">{couplingProducts.length} products</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {couplingProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

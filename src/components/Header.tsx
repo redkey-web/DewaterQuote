@@ -139,7 +139,7 @@ export default function Header() {
   ]
 
   const brandsMenu = [
-    { name: "Straub", url: "/straub-couplings-repair-clamps" },
+    { name: "Straub", url: "/brand/straub-couplings" },
     { name: "Orbit", url: "/orbit-couplings" },
     { name: "Teekay", url: "/brands/teekay" },
     { name: "Bore-Flex", url: "/brands/bore-flex-rubber" },

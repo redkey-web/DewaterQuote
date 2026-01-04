@@ -11,7 +11,7 @@ const subcategoryToFlatUrl: Record<string, string> = {
   'butterfly-valve': '/butterfly-valves',
   'check-valve': '/check-valves',
   'swing-check-valve': '/check-valves',
-  'duckbill-check-valve': '/check-valves',
+  'duckbill-check-valve': '/duckbill-check-valves',
   'ball-check-valve': '/ball-valves',
   'gate-valve': '/gate-valves',
   'ball-valve': '/ball-valves',
@@ -35,7 +35,7 @@ const subcategoryToFlatUrl: Record<string, string> = {
 
 // Map brand slugs to their URLs (Straub/Orbit have dedicated pages, others use /brands/)
 const brandToUrl: Record<string, string> = {
-  'straub': '/straub-couplings-repair-clamps',
+  'straub': '/brand/straub-couplings',
   'orbit': '/orbit-couplings',
   'teekay': '/brands/teekay',
   'bore-flex-rubber': '/brands/bore-flex-rubber',
@@ -68,6 +68,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/strainers`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE_URL}/pipe-repair`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/bore-flex`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/duckbill-check-valves`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
+    { url: `${BASE_URL}/muff-couplings`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ]
 
   // Category pages (from database) - excluding 'valves' which is now 'industrial-valves'

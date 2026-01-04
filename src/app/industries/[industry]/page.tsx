@@ -1142,7 +1142,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
                 Orbit Range <ArrowRight className="w-3 h-3" />
               </Link>
               <Link
-                href="/straub-couplings-repair-clamps"
+                href="/brand/straub-couplings"
                 className="text-sm text-primary hover:underline flex items-center gap-1"
               >
                 Straub Range <ArrowRight className="w-3 h-3" />
@@ -1159,7 +1159,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
           </div>
 
           {recommendedProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {recommendedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

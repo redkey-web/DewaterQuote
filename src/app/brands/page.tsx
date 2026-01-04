@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const brands = [
   {
     slug: "straub",
-    href: "/straub-couplings-repair-clamps",
+    href: "/brand/straub-couplings",
     name: "Straub",
     logo: "/images/brands/straub-logo.png",
     description: "Global leader in pipe coupling technology, offering innovative solutions for secure and maintenance-free pipe connections across all industries.",
@@ -81,9 +81,9 @@ export default function BrandsPage() {
                     <Image
                       src={brand.logo}
                       alt={brand.name}
-                      width={brand.slug === "bore-flex-rubber" ? 1440 : brand.slug === "orbit" ? 270 : 160}
-                      height={brand.slug === "bore-flex-rubber" ? 540 : brand.slug === "orbit" ? 90 : 60}
-                      className={brand.slug === "bore-flex-rubber" ? "h-[144px] w-auto object-contain" : brand.slug === "orbit" ? "h-[84px] w-auto object-contain" : "h-14 w-auto object-contain"}
+                      width={brand.slug === "bore-flex-rubber" ? 1440 : brand.slug === "orbit" ? 270 : brand.slug === "defender-strainers" ? 192 : 160}
+                      height={brand.slug === "bore-flex-rubber" ? 540 : brand.slug === "orbit" ? 90 : brand.slug === "defender-strainers" ? 72 : 60}
+                      className={brand.slug === "bore-flex-rubber" ? "h-[144px] w-auto object-contain" : brand.slug === "orbit" ? "h-[84px] w-auto object-contain" : brand.slug === "defender-strainers" ? "h-[74px] w-auto object-contain" : brand.slug === "defender-valves" ? "h-[50px] w-auto object-contain" : "h-14 w-auto object-contain"}
                     />
                   </div>
                   <h2 className="text-xl font-semibold mb-3">{brand.name}</h2>

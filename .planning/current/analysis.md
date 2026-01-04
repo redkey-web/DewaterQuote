@@ -1,8 +1,8 @@
 # Codebase Analysis
 
-**Last Updated**: 2026-01-04
+**Last Updated**: 2026-01-05
 **Analyzed By**: webdev:refresh
-**Previous Update**: 2025-12-28
+**Previous Update**: 2026-01-04
 
 ## Structure Overview
 - **Framework**: Next.js 14 (App Router) ✅ MIGRATED
@@ -16,24 +16,36 @@
 ## File Counts
 | Type | Count | Location | Change |
 |------|-------|----------|--------|
-| Pages | 44 | src/app/ | +3 (admin quotes pages) |
-| Components | 80 | src/components/ (43 UI + 37 custom) | +2 (QuotesTable, QuoteDetail) |
-| API Routes | 21 | src/app/api/ | +2 (quotes admin endpoints) |
+| Pages | 65 | src/app/ | +21 (flat subcategory pages, brand pages, strainer pages) |
+| Components | 80 | src/components/ (42 UI + 38 custom) | - |
+| API Routes | 21 | src/app/api/ | - |
 | Utils/Lib | 9 | src/lib/ | - |
 
-## Recent Changes (since 2026-01-03)
+## Recent Changes (since 2026-01-04)
+- **Brand URL Restructure**:
+  - `/straub` → `/straub-couplings-repair-clamps`
+  - `/orbit` → `/orbit-couplings`
+  - Created `/duplex-basket-strainers` and `/flanged-suction-strainers` subcategory pages
+  - Sitemap now fully dynamic from database
+- **Flat URL Architecture**:
+  - All subcategories at root level (e.g., `/butterfly-valves`, `/y-strainers`)
+  - Removed ALL redirects from middleware (direct links only)
+  - 21 new flat subcategory pages created
+- **Menu Styling**:
+  - Teal background with white text on hover across all menus
+  - Updated select component, search dropdowns, mobile menu
+- **Legacy Brand Merge**:
+  - Merged 4 legacy Orbit brand slugs into main Orbit brand (9 products)
+
+## Previous Changes (2026-01-03 to 2026-01-04)
 - **Admin Quote Management**:
   - Quotes saved to database with unique quote numbers (QR-YYYYMMDD-XXX)
   - /admin/quotes list page with sortable/filterable table
   - /admin/quotes/[id] detail page with status management
   - Shipping cost addition before forwarding to client
-  - "Forward to client" emails formatted quote with totals
-  - /admin/quotes/[id]/print - print-friendly page for PDF generation
 - **Header Navigation**:
   - Restructured dropdown menus
   - Solid dropdown backgrounds
-- **Post-Launch Redirects**:
-  - /bore-flex/* → /expansion-joints/* redirects in middleware
 - **Geo-Pricing**:
   - Prices restricted to Australian visitors only
 
