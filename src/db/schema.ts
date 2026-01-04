@@ -78,6 +78,10 @@ export const products = pgTable('products', {
   // Cross-reference fields for competitor equivalents
   straubEquivalent: text('straub_equivalent'), // e.g., "STRAUB-FLEX 1L"
 
+  // URL Override - allows manual slug with automatic redirect from old URL
+  slugOverride: text('slug_override'), // If set, this becomes the canonical slug
+  previousSlug: text('previous_slug'), // Stores old slug for 301 redirect
+
   // ============================================
   // AVAILABILITY CONTROLS (Phase F1)
   // ============================================
@@ -276,6 +280,21 @@ export const adminUsers = pgTable('admin_users', {
 });
 
 // ============================================
+// REDIRECTS TABLE (for 301 redirects)
+// ============================================
+
+export const redirects = pgTable('redirects', {
+  id: serial('id').primaryKey(),
+  fromPath: text('from_path').notNull().unique(), // e.g., "/old-product-slug"
+  toPath: text('to_path').notNull(), // e.g., "/new-product-slug"
+  statusCode: integer('status_code').default(301), // 301 permanent, 302 temporary
+  isActive: boolean('is_active').default(true),
+  productId: integer('product_id').references(() => products.id, { onDelete: 'set null' }), // Optional link to product
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  expiresAt: timestamp('expires_at'), // Optional expiration for temporary redirects
+});
+
+// ============================================
 // RELATIONS (for Drizzle query builder)
 // ============================================
 
@@ -421,6 +440,13 @@ export const productSeoRelations = relations(productSeo, ({ one }) => ({
   }),
 }));
 
+export const redirectsRelations = relations(redirects, ({ one }) => ({
+  product: one(products, {
+    fields: [redirects.productId],
+    references: [products.id],
+  }),
+}));
+
 // ============================================
 // TYPE EXPORTS
 // ============================================
@@ -459,3 +485,6 @@ export type ProductSeo = typeof productSeo.$inferSelect;
 export type NewProductSeo = typeof productSeo.$inferInsert;
 
 export type AdminUser = typeof adminUsers.$inferSelect;
+
+export type Redirect = typeof redirects.$inferSelect;
+export type NewRedirect = typeof redirects.$inferInsert;

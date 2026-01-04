@@ -37,10 +37,12 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Products</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/pipe-couplings" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-clamps">Clamps & Couplings</Link></li>
+              <li><Link href="/pipe-couplings" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-couplings">Pipe Couplings</Link></li>
+              <li><Link href="/pipe-repair" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-repair">Pipe Repair Clamps</Link></li>
+              <li><Link href="/flange-adaptors" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-flanges">Flange Adaptors</Link></li>
               <li><Link href="/valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-valves">Valves</Link></li>
-              <li><Link href="/bore-flex" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-expansion">Bore-Flex Expansion Joints</Link></li>
-              <li><Link href="/strainers" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-strainers">Strainers & Filters</Link></li>
+              <li><Link href="/expansion-joints" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-expansion">Expansion Joints</Link></li>
+              <li><Link href="/strainers" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-strainers">Strainers</Link></li>
             </ul>
           </div>
 

@@ -1,19 +1,10 @@
 import { db } from '@/db';
-import { products, brands, categories } from '@/db/schema';
+import { products } from '@/db/schema';
 import { desc } from 'drizzle-orm';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Plus, Pencil } from 'lucide-react';
-import { DeleteProductButton } from './DeleteProductButton';
+import { Plus } from 'lucide-react';
+import { ProductsTable } from '@/components/admin/ProductsTable';
 
 async function getProducts() {
   try {
@@ -21,6 +12,13 @@ async function getProducts() {
       with: {
         brand: true,
         category: true,
+        images: {
+          columns: { url: true, alt: true, isPrimary: true },
+          orderBy: (images, { asc }) => [asc(images.displayOrder)],
+        },
+        variations: {
+          columns: { price: true },
+        },
       },
       orderBy: [desc(products.updatedAt)],
     });
@@ -48,62 +46,7 @@ export default async function ProductsListPage() {
         </Link>
       </div>
 
-      <div className="border rounded-lg bg-white">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>SKU</TableHead>
-              <TableHead>Brand</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {productList.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
-                  No products found. Add your first product to get started.
-                </TableCell>
-              </TableRow>
-            ) : (
-              productList.map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell>
-                    <div>
-                      <p className="font-medium">{product.name}</p>
-                      <p className="text-sm text-gray-500">{product.shortName}</p>
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-mono text-sm">{product.sku}</TableCell>
-                  <TableCell>{product.brand?.name}</TableCell>
-                  <TableCell>{product.category?.name}</TableCell>
-                  <TableCell>
-                    {product.isActive ? (
-                      <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-                        Active
-                      </Badge>
-                    ) : (
-                      <Badge variant="secondary">Inactive</Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
-                      <Link href={`/admin/products/${product.id}`}>
-                        <Button variant="ghost" size="sm">
-                          <Pencil className="h-4 w-4" />
-                        </Button>
-                      </Link>
-                      <DeleteProductButton productId={product.id} productName={product.name} />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
+      <ProductsTable products={productList} />
     </div>
   );
 }

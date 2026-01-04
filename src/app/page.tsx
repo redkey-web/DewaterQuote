@@ -51,7 +51,7 @@ export default function HomePage() {
     },
     {
       name: "Expansion Joints",
-      url: "/bore-flex",
+      url: "/expansion-joints",
       image: "/images/products/expansion-joints/fsf-single-sphere.jpg",
       alt: "Expansion Joints",
     },
@@ -238,27 +238,27 @@ export default function HomePage() {
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
 
-                {/* Bore-Flex Expansion Joints with subcategories */}
+                {/* Expansion Joints with subcategories */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/bore-flex" className="flex-1">Bore-Flex</Link>
+                    <Link href="/expansion-joints" className="flex-1">Expansion Joints</Link>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent className="w-48">
                       <DropdownMenuItem asChild>
-                        <Link href="/bore-flex/single-sphere" className="w-full cursor-pointer">Single Sphere</Link>
+                        <Link href="/expansion-joints/single-sphere" className="w-full cursor-pointer">Single Sphere</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/bore-flex/twin-sphere" className="w-full cursor-pointer">Twin Sphere</Link>
+                        <Link href="/expansion-joints/twin-sphere" className="w-full cursor-pointer">Twin Sphere</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/bore-flex/single-arch" className="w-full cursor-pointer">Single Arch</Link>
+                        <Link href="/expansion-joints/single-arch" className="w-full cursor-pointer">Single Arch</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/bore-flex/double-arch" className="w-full cursor-pointer">Double Arch</Link>
+                        <Link href="/expansion-joints/double-arch" className="w-full cursor-pointer">Double Arch</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/bore-flex/reducing" className="w-full cursor-pointer">Reducing</Link>
+                        <Link href="/expansion-joints/reducing" className="w-full cursor-pointer">Reducing</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>

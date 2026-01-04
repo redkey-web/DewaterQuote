@@ -2,6 +2,18 @@ import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+// Static redirects for common URL changes (loaded at startup, no DB query)
+// These are checked before anything else for performance
+const STATIC_REDIRECTS: Record<string, string> = {
+  // Bore-Flex -> Expansion Joints consolidation
+  '/bore-flex': '/expansion-joints',
+  '/bore-flex/single-sphere': '/expansion-joints/single-sphere',
+  '/bore-flex/twin-sphere': '/expansion-joints/twin-sphere',
+  '/bore-flex/single-arch': '/expansion-joints/single-arch',
+  '/bore-flex/double-arch': '/expansion-joints/double-arch',
+  '/bore-flex/reducing': '/expansion-joints/reducing',
+};
+
 // Geo middleware to set country/region cookies for pricing visibility
 function geoMiddleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -45,6 +57,12 @@ const authMiddleware = withAuth({
 
 export default function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // Check static redirects first (fastest, no DB)
+  const redirectTo = STATIC_REDIRECTS[pathname];
+  if (redirectTo) {
+    return NextResponse.redirect(new URL(redirectTo, request.url), 301);
+  }
 
   // Apply auth middleware only to admin routes (except login)
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
