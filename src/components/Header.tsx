@@ -85,18 +85,6 @@ export default function Header() {
 
   const productsMenu = [
     {
-      title: "Brands",
-      url: "/brands",
-      items: [
-        { name: "Straub", url: "/brands/straub" },
-        { name: "Orbit", url: "/brands/orbit" },
-        { name: "Teekay", url: "/brands/teekay" },
-        { name: "Bore-Flex", url: "/brands/bore-flex-rubber" },
-        { name: "Defender Valves", url: "/brands/defender-valves" },
-        { name: "Defender Strainers", url: "/brands/defender-strainers" },
-      ],
-    },
-    {
       title: "Couplings & Repair",
       url: "/pipe-couplings",
       items: [
@@ -151,7 +139,17 @@ export default function Header() {
     { name: "HVAC", url: "/industries/hvac" },
   ]
 
+  const brandsMenu = [
+    { name: "Straub", url: "/brands/straub" },
+    { name: "Orbit", url: "/brands/orbit" },
+    { name: "Teekay", url: "/brands/teekay" },
+    { name: "Bore-Flex", url: "/brands/bore-flex-rubber" },
+    { name: "Defender Valves", url: "/brands/defender-valves" },
+    { name: "Defender Strainers", url: "/brands/defender-strainers" },
+  ]
+
   const moreMenu = [
+    { name: "Contact", url: "/contact" },
     { name: "About Us", url: "/about" },
     { name: "Meet the Team", url: "/meet-the-team" },
   ]
@@ -248,7 +246,7 @@ export default function Header() {
                   {/* Invisible bridge to maintain hover */}
                   <div className="absolute top-full left-0 w-full h-4" />
                   <div
-                    className="fixed top-[72px] left-1/2 -translate-x-1/2 glass rounded-md shadow-lg p-4 lg:p-6 grid grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4 w-[95vw] lg:w-[850px] max-w-[900px] z-50 max-h-[80vh] overflow-y-auto"
+                    className="fixed top-[72px] left-1/2 -translate-x-1/2 glass rounded-md shadow-lg p-4 lg:p-6 grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 w-[95vw] lg:w-[700px] max-w-[750px] z-50 max-h-[80vh] overflow-y-auto"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -313,6 +311,36 @@ export default function Header() {
 
             <div
               className="relative"
+              onMouseEnter={() => setActiveMenu("brands")}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <button
+                className="flex items-center gap-1 text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
+                data-testid="button-brands-menu"
+              >
+                Brands <ChevronDown className="w-4 h-4" />
+              </button>
+              {activeMenu === "brands" && (
+                <div className="absolute top-full left-0 mt-0 glass rounded-md shadow-lg p-4 w-48">
+                  <ul className="space-y-2">
+                    {brandsMenu.map((brand) => (
+                      <li key={brand.name}>
+                        <Link
+                          href={brand.url}
+                          className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
+                          data-testid={`link-brand-${brand.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        >
+                          {brand.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <div
+              className="relative"
               onMouseEnter={() => setActiveMenu("more")}
               onMouseLeave={() => setActiveMenu(null)}
             >
@@ -340,10 +368,6 @@ export default function Header() {
                 </div>
               )}
             </div>
-
-            <Link href="/contact" className="text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm" data-testid="link-contact">
-              Contact
-            </Link>
           </nav>
 
           {/* Contact Info & Quote */}
