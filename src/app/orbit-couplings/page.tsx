@@ -173,8 +173,8 @@ export default async function OrbitCouplingsPage() {
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                 <Image
-                  src="/images/products/orbit/flex-grip-l.jpg"
-                  alt="Orbit Flex Grip Pipe Coupling"
+                  src="https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/OCFG2-L/FlexGrip2L-ioSOpYze60EFhcsHXbS2SiyFE1Luug.png"
+                  alt="Orbit Flex Grip 2L Pipe Coupling"
                   fill
                   className="object-contain"
                   priority
