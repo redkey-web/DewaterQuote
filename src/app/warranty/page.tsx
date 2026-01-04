@@ -15,9 +15,12 @@ export default function WarrantyPage() {
         <div className="prose prose-neutral dark:prose-invert max-w-none space-y-6">
           <div className="bg-primary/10 border border-primary/20 rounded-lg p-6 not-prose">
             <h2 className="text-xl font-semibold text-primary mb-2">12-Month Warranty</h2>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground mb-3">
               All products come with 12 months warranty from the date of purchase covering manufacturing defects only. Extended 24-month warranties are available upon request during quote.
             </p>
+            <Link href="/request-quote" className="inline-flex items-center text-primary hover:underline font-medium">
+              Request a Quote &rarr;
+            </Link>
           </div>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">What's Covered</h2>

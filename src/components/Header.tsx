@@ -90,9 +90,9 @@ export default function Header() {
       url: "/pipe-couplings",
       items: [
         { name: "Pipe Couplings", url: "/pipe-couplings" },
-        { name: "Muff Couplings", url: "/muff-couplings" },
         { name: "Pipe Repair Clamps", url: "/pipe-repair" },
         { name: "Flange Adaptors", url: "/flange-adaptors" },
+        { name: "Muff Couplings", url: "/muff-couplings" },
       ],
     },
     {

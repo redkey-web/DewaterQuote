@@ -424,8 +424,8 @@ export default async function QuotePrintPage({
             <li>All prices exclude GST unless stated otherwise</li>
             <li>Payment terms: 30 days from invoice date</li>
             <li>
-              Warranty: Up to 5 years on Orbit/Straub couplings, 12 months on
-              other products
+              Warranty: Up to 5 years on Orbit/Straub pipe couplings, 12 months on
+              other products (including repair clamps)
             </li>
             <li>
               Free metro delivery. Regional shipping costs confirmed prior to
