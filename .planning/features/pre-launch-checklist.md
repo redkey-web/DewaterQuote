@@ -80,12 +80,16 @@ Comprehensive list of features for the Dewater Products website. Many items have
 
 ## Phase 5: Policy & Information Pages ✅ COMPLETE
 
-### 5.1 FAQ Accordions
-- [ ] Add FAQ section to homepage (bottom)
-- [ ] Add FAQ section to category pages
-- [ ] Add FAQ section to subcategory pages
+### 5.1 FAQ Accordions ✅
+- [x] Homepage already has accordion FAQs
+- [x] Convert pipe-couplings FAQs to accordion
+- [x] Convert pipe-repair FAQs to accordion
+- [x] Convert orbit FAQs to accordion
+- [x] Convert straub FAQs to accordion
+- [x] Convert teekay FAQs to accordion
+- [x] Convert industries/[industry] FAQs to accordion
 
-**Note**: No standalone FAQ page - FAQs should be contextual on each page.
+**Note**: FAQs are contextual on each page, using the Accordion component.
 
 ### 5.2 Shipping & Delivery ✅
 - [x] `/delivery/page.tsx` exists with full content
@@ -128,7 +132,7 @@ Comprehensive list of features for the Dewater Products website. Many items have
 
 | Item | Priority | Effort |
 |------|----------|--------|
-| FAQ accordions on pages | Medium | 2-3 hrs |
+| ~~FAQ accordions on pages~~ | ~~Medium~~ | ✅ Done |
 | Industries landing page | Low | 1 hr |
 
 ---
