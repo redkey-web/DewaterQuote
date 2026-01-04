@@ -9,6 +9,8 @@ interface SubcategoryTilesProps {
   subcategories: Subcategory[]
   title?: string
   basePath?: string // e.g., "/valves" or "/rubber-expansion-joints"
+  urlMap?: Record<string, string> // Map subcategory slug to flat URL, e.g., { 'single-sphere': '/single-sphere-expansion-joints' }
+  hideEmpty?: boolean // Hide subcategories with 0 products
 }
 
 export default async function SubcategoryTiles({
@@ -16,6 +18,8 @@ export default async function SubcategoryTiles({
   subcategories,
   title = "Search by Type",
   basePath,
+  urlMap,
+  hideEmpty = false,
 }: SubcategoryTilesProps) {
   if (subcategories.length === 0) return null
 
@@ -33,16 +37,26 @@ export default async function SubcategoryTiles({
     })
   )
 
+  // Filter out empty subcategories if hideEmpty is true
+  const filteredSubcategories = hideEmpty
+    ? subcategoriesWithImages.filter(s => s.productCount > 0)
+    : subcategoriesWithImages
+
+  if (filteredSubcategories.length === 0) return null
+
   const path = basePath || `/${categorySlug}`
 
   return (
     <div className="mb-10">
       <h2 className="text-xl font-semibold mb-4">{title}</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {subcategoriesWithImages.map((subcat) => (
+        {filteredSubcategories.map((subcat) => {
+          // Use urlMap if provided, otherwise fall back to basePath/slug pattern
+          const href = urlMap?.[subcat.slug] ?? `${path}/${subcat.slug}`
+          return (
           <Link
             key={subcat.slug}
-            href={`${path}/${subcat.slug}`}
+            href={href}
             className="group"
           >
             <div className="relative aspect-square rounded-lg overflow-hidden bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all">
@@ -65,7 +79,7 @@ export default async function SubcategoryTiles({
               </div>
             </div>
           </Link>
-        ))}
+        )})}
       </div>
     </div>
   )

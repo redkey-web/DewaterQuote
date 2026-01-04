@@ -91,7 +91,19 @@ export default async function ExpansionJointsPage() {
           categorySlug="rubber-expansion-joints"
           subcategories={expansionSubcategories}
           title="Search by Type"
-          basePath="/expansion-joints"
+          hideEmpty={true}
+          urlMap={{
+            'single-sphere': '/single-sphere-expansion-joints',
+            'twin-sphere': '/twin-sphere-expansion-joints',
+            'single-arch': '/single-arch-expansion-joints',
+            'double-arch': '/double-arch-expansion-joints',
+            'triple-arch': '/triple-arch-expansion-joints',
+            'quadruple-arch': '/quadruple-arch-expansion-joints',
+            'reducing': '/reducing-expansion-joints',
+            'ptfe-lined': '/ptfe-lined-expansion-joints',
+            'fsf-single-sphere': '/fsf-single-sphere-expansion-joints',
+            'fsf-b-single-sphere': '/fsf-b-single-sphere-expansion-joints',
+          }}
         />
 
         {/* All Products */}
