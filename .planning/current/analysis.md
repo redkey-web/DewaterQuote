@@ -1,8 +1,8 @@
 # Codebase Analysis
 
-**Last Updated**: 2025-12-28
+**Last Updated**: 2026-01-04
 **Analyzed By**: webdev:refresh
-**Previous Update**: 2025-12-14
+**Previous Update**: 2025-12-28
 
 ## Structure Overview
 - **Framework**: Next.js 14 (App Router) ✅ MIGRATED
@@ -16,45 +16,49 @@
 ## File Counts
 | Type | Count | Location | Change |
 |------|-------|----------|--------|
-| Pages | 32 | src/app/ | +1 (Replit changes) |
-| Components | 68 | src/components/ (47 UI + 21 custom) | +3 (DiscountCelebration, OrderBumps, Testimonials) |
-| API Routes | 10 | src/app/api/ | No change |
-| Utils/Lib | 8 | src/lib/ | +1 |
+| Pages | 41 | src/app/ | +9 (new brand/legal/info pages) |
+| Components | 78 | src/components/ (49 UI + 29 custom) | +10 (admin inventory, geo stock, etc.) |
+| API Routes | 19 | src/app/api/ | +9 (inventory, pricing, video, search) |
+| Utils/Lib | 9 | src/lib/ | +1 (size-sort) |
 
-## Recent Changes (since 2025-12-14)
-- **Replit integration**:
-  - Added .replit, replit.nix config files
-  - Replit backup folder with original code
-- **New components**:
-  - DiscountCelebration, OrderBumps, Testimonials
-- **Route changes**:
-  - [category]/[subcategory] → [slug]/[subcategory]
-- **Branding update**:
-  - "deWater Products" → "Dewater Products"
-- **Admin database sync plans** (pending):
-  - ADMIN_DATA_SYNC_PLAN.md
-  - .planning/features/admin-database-sync.md
+## Recent Changes (since 2025-12-28)
+- **Image audit**:
+  - Added image audit scripts
+  - Replaced non-original product images
+- **UX improvements**:
+  - Click-to-call tel: links on all CTA sections
+  - Team photos and warranty PDF
+  - Geo-based stock messaging (GeoStock.tsx)
+- **Category pages**:
+  - Redesigned pipe couplings with Orbit/Straub comparison
+  - Standardized category page layouts
+  - Added expansion-joints routes with subcategories
+- **New pages**:
+  - /about, /bore-flex, /brands, /delivery
+  - /expansion-joints, /meet-the-team, /privacy, /returns
+- **Brand work**:
+  - Added Bore-Flex brand page
+  - Reorganized brands and homepage
+  - Enhanced Teekay, Straub content
+- **Admin inventory system**:
+  - /admin/inventory with bulk actions
+  - /admin/pricing with margin calculator
+  - /admin/logistics with shipping/supplier data
+  - Video management API routes
+- **Search**:
+  - Added /api/search endpoint
 
-## Previous Changes (2025-12-09 to 2025-12-14)
-- **Google Analytics (GA4)**:
-  - Added src/components/GoogleAnalytics.tsx
-  - Integrated into layout.tsx
-- **SEO enhancements**:
-  - Added root-level product URLs (/[slug])
-  - Updated image alt tags for SEO
-  - Added favicon and OG image
-- **Spam protection**:
-  - Added Turnstile CAPTCHA component
-  - Integrated into contact and quote forms
-- **Security fixes**:
-  - XSS sanitization, rate limiting
-  - Admin panel completion
+## Previous Changes (2025-12-14 to 2025-12-28)
+- **Google Analytics (GA4)**: Integrated
+- **SEO enhancements**: Root-level URLs, favicon, OG image
+- **Spam protection**: Turnstile CAPTCHA
+- **Admin panel**: Complete with full CRUD
 
-## Total LOC
-- Pages: ~6,000
-- Components: ~6,500
-- Admin: ~4,000
-- **Total**: ~16,500
+## Total LOC (Estimated)
+- Pages: ~8,000
+- Components: ~8,500
+- Admin: ~6,000
+- **Total**: ~22,500
 
 ## Security Status (Audited 2025-12-09)
 

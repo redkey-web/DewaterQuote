@@ -1,6 +1,6 @@
 # Key File Pointers
 
-**Last Updated**: 2025-12-28
+**Last Updated**: 2026-01-04
 **Status**: ✅ MIGRATED TO NEXT.JS
 
 ## Current Structure (Next.js 14)
@@ -60,17 +60,26 @@
 - Middleware: `src/middleware.ts`
 - Login Page: `src/app/admin/login/page.tsx`
 
-### API Routes (10 total)
+### API Routes (19 total)
 - `api/contact/route.ts` - Contact form (SendGrid)
 - `api/quote/route.ts` - Quote submission (SendGrid)
 - `api/upload/route.ts` - File uploads (Vercel Blob)
 - `api/auth/[...nextauth]/route.ts` - Authentication
+- `api/search/route.ts` - Product search
 - `api/admin/products/route.ts` - Create product
 - `api/admin/products/[id]/route.ts` - Update product
+- `api/admin/products/[id]/videos/route.ts` - Product videos
+- `api/admin/products/[id]/videos/[videoId]/route.ts` - Video CRUD
+- `api/admin/products/[id]/videos/[videoId]/primary/route.ts` - Set primary video
 - `api/admin/categories/route.ts` - Create category
 - `api/admin/categories/[id]/route.ts` - Update/delete category
 - `api/admin/brands/route.ts` - Create brand
 - `api/admin/brands/[id]/route.ts` - Update/delete brand
+- `api/admin/inventory/route.ts` - Inventory management
+- `api/admin/inventory/batch/route.ts` - Bulk inventory updates
+- `api/admin/inventory/variation/route.ts` - Variation updates
+- `api/admin/pricing/route.ts` - Pricing management
+- `api/admin/export/inventory/route.ts` - Export inventory data
 
 ## High-Impact Files
 
@@ -98,13 +107,32 @@ Security implementations:
 - **src/components/GoogleAnalytics.tsx** - GA4 tracking ✅
 - **src/app/layout.tsx** - Analytics integration
 
-## New Routes (since last update)
+## New Routes (since 2025-12-28)
 
-- **src/app/[slug]/page.tsx** - Root-level product URLs for SEO
-- **src/app/[slug]/[subcategory]/page.tsx** - Subcategory pages (renamed from [category])
+- **src/app/about/page.tsx** - About page
+- **src/app/bore-flex/page.tsx** - Bore-Flex brand page
+- **src/app/brands/page.tsx** - All brands listing
+- **src/app/delivery/page.tsx** - Delivery information
+- **src/app/expansion-joints/page.tsx** - Expansion joints category
+- **src/app/expansion-joints/[subcategory]/page.tsx** - Expansion joint subcategories
+- **src/app/meet-the-team/page.tsx** - Team page
+- **src/app/privacy/page.tsx** - Privacy policy
+- **src/app/returns/page.tsx** - Returns policy
+- **src/app/admin/pricing/page.tsx** - Pricing management (admin)
 
-## New Components (since Replit sync)
+## New Components (since 2025-12-28)
 
-- **src/components/DiscountCelebration.tsx** - Discount celebration UI
-- **src/components/OrderBumps.tsx** - Order bump suggestions
-- **src/components/Testimonials.tsx** - Customer testimonials
+- **src/components/BulkPricingTicker.tsx** - Bulk pricing display
+- **src/components/GeoStock.tsx** - Geo-based stock messaging
+- **src/components/ProductDetailClient.tsx** - Client-side product detail
+- **src/components/SubcategoryTiles.tsx** - Subcategory navigation tiles
+- **src/components/USPBar.tsx** - Unique selling points bar
+- **src/components/admin/InventoryManagementTable.tsx** - Inventory table with bulk actions
+- **src/components/admin/LogisticsTabs.tsx** - Shipping/supplier data tabs
+- **src/components/admin/StatsCard.tsx** - Dashboard stat cards
+- **src/components/admin/StockStatusBadge.tsx** - Stock status indicators
+- **src/components/admin/VideoPopup.tsx** - Video management popup
+
+## New Lib (since 2025-12-28)
+
+- **src/lib/utils/size-sort.ts** - Size sorting utilities

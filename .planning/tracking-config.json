@@ -12,11 +12,16 @@
     ".planning/features/inventory-management-system.md",
     ".planning/features/admin-seo-optimization.md",
     ".planning/features/image-audit-replacement.md",
+    ".planning/features/site-improvements-jan2025.md",
+    ".planning/features/admin-database-sync.md",
+    ".planning/features/category-page-standardization.md",
+    ".planning/features/phone-number-standardization.md",
     "docs/client-admin-guide.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
   ],
   "parent_track": "~/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
   "require_marker_file": false,
-  "description": "Dewater Products full-scope website migration with CMS"
+  "description": "Dewater Products full-scope website migration with CMS",
+  "last_refresh": "2026-01-04"
 }
