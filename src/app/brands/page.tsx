@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const brands = [
   {
     slug: "straub",
-    href: "/brands/straub",
+    href: "/straub-couplings-repair-clamps",
     name: "Straub",
     logo: "/images/brands/straub-logo.png",
     description: "Global leader in pipe coupling technology, offering innovative solutions for secure and maintenance-free pipe connections across all industries.",
@@ -20,7 +20,7 @@ const brands = [
   },
   {
     slug: "orbit",
-    href: "/brands/orbit",
+    href: "/orbit-couplings",
     name: "Orbit Couplings",
     logo: "/images/brands/orbit-couplings.png",
     description: "High-quality pipe couplings and fittings designed for demanding industrial applications. Known for reliability and precision engineering.",

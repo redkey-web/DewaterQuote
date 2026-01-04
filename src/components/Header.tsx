@@ -139,8 +139,8 @@ export default function Header() {
   ]
 
   const brandsMenu = [
-    { name: "Straub", url: "/brands/straub" },
-    { name: "Orbit", url: "/brands/orbit" },
+    { name: "Straub", url: "/straub-couplings-repair-clamps" },
+    { name: "Orbit", url: "/orbit-couplings" },
     { name: "Teekay", url: "/brands/teekay" },
     { name: "Bore-Flex", url: "/brands/bore-flex-rubber" },
     { name: "Defender Valves", url: "/brands/defender-valves" },

@@ -4,7 +4,8 @@ import type { NextRequest } from 'next/server';
 
 // No redirects - site uses flat URL architecture with direct links only
 // All subcategory pages are at root level (e.g., /butterfly-valves, /y-strainers)
-// All brand pages are under /brands/ (e.g., /brands/straub, /brands/orbit)
+// Brand pages: Straub and Orbit have dedicated pages (/straub-couplings-repair-clamps, /orbit-couplings)
+// Other brands use /brands/[brand] dynamic route (teekay, bore-flex-rubber, defender-valves, defender-strainers)
 const STATIC_REDIRECTS: Record<string, string> = {};
 
 // Geo middleware to set country/region cookies for pricing visibility

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/orbit",
+    canonical: "https://dewaterproducts.com.au/orbit-couplings",
   },
 }
 
@@ -116,13 +116,13 @@ const faqs = [
   },
 ]
 
-export default async function OrbitPage() {
+export default async function OrbitCouplingsPage() {
   // Get products by Orbit brand from database
   const orbitProductsList = await getProductsByBrand("orbit")
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Orbit Couplings", url: "https://dewater-products.vercel.app/orbit" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Orbit Couplings", url: "https://dewaterproducts.com.au/orbit-couplings" },
   ]
 
   return (
@@ -301,7 +301,7 @@ export default async function OrbitPage() {
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6">Related Products</h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/straub">
+            <Link href="/straub-couplings-repair-clamps">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
                 <span className="font-medium">Straub Couplings</span>
                 <ArrowRight className="w-4 h-4" />

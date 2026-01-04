@@ -1136,13 +1136,13 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
                 Browse all Pipe Couplings <ArrowRight className="w-3 h-3" />
               </Link>
               <Link
-                href="/orbit"
+                href="/orbit-couplings"
                 className="text-sm text-primary hover:underline flex items-center gap-1"
               >
                 Orbit Range <ArrowRight className="w-3 h-3" />
               </Link>
               <Link
-                href="/straub"
+                href="/straub-couplings-repair-clamps"
                 className="text-sm text-primary hover:underline flex items-center gap-1"
               >
                 Straub Range <ArrowRight className="w-3 h-3" />

@@ -13,7 +13,7 @@ import {
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Straub Couplings Australia | GRIP & FLEX Pipe Couplings | Dewater Products",
+  title: "Straub Couplings & Repair Clamps Australia | GRIP & FLEX Pipe Couplings | Dewater Products",
   description:
     "Official Straub coupling distributor in Australia. Swiss-engineered GRIP and FLEX pipe couplings for joining, repair, and transition applications. 316 stainless steel. PN16 rated. Fast delivery Australia-wide.",
   keywords: [
@@ -21,13 +21,14 @@ export const metadata: Metadata = {
     "Straub GRIP",
     "Straub FLEX",
     "Straub pipe couplings",
+    "Straub repair clamps",
     "Straub Australia",
     "Straub distributor",
     "Swiss pipe couplings",
     "pipe repair couplings",
   ],
   openGraph: {
-    title: "Straub Couplings - Official Australian Distributor | Dewater Products",
+    title: "Straub Couplings & Repair Clamps - Official Australian Distributor | Dewater Products",
     description:
       "Swiss-engineered Straub GRIP and FLEX pipe couplings. Authorised distributor with fast Australia-wide delivery.",
     type: "website",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/straub",
+    canonical: "https://dewaterproducts.com.au/straub-couplings-repair-clamps",
   },
 }
 
@@ -101,13 +102,13 @@ const faqs = [
   },
 ]
 
-export default async function StraubPage() {
+export default async function StraubCouplingsRepairClampsPage() {
   // Get products by Straub brand from database
   const straubProducts = await getProductsByBrand("straub")
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Straub Couplings", url: "https://dewater-products.vercel.app/straub" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Straub Couplings & Repair Clamps", url: "https://dewaterproducts.com.au/straub-couplings-repair-clamps" },
   ]
 
   return (
@@ -134,7 +135,7 @@ export default async function StraubPage() {
                 Authorised Australian Distributor
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-                Straub Couplings
+                Straub Couplings & Repair Clamps
               </h1>
               <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
                 Swiss-engineered pipe couplings trusted worldwide for joining, repair, and transition applications.
@@ -240,7 +241,7 @@ export default async function StraubPage() {
             Many products show their Straub equivalent on the product page.
           </p>
           <Link
-            href="/orbit"
+            href="/orbit-couplings"
             className="inline-flex items-center text-blue-700 dark:text-blue-300 font-medium hover:underline"
           >
             View Orbit Couplings
@@ -281,7 +282,7 @@ export default async function StraubPage() {
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
-            <Link href="/orbit">
+            <Link href="/orbit-couplings">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
                 <span className="font-medium">Orbit Couplings</span>
                 <ArrowRight className="w-4 h-4" />

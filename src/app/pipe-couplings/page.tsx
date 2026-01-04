@@ -94,7 +94,7 @@ const selectionGuide = [
   },
   {
     application: "Joining different OD pipes",
-    orbit: { name: "Stepped Coupling", link: "/brands/orbit" },
+    orbit: { name: "Stepped Coupling", link: "/orbit-couplings" },
     straub: { name: "Step Flex 2 / 3", link: "/straub-step-flex-2" }
   },
   {
@@ -105,7 +105,7 @@ const selectionGuide = [
   {
     application: "Fire systems",
     orbit: { name: "Fire Protection Coupling", link: "/fire-protection-coupling" },
-    straub: { name: "Metal Grip Fire Fence", link: "/brands/straub" }
+    straub: { name: "Metal Grip Fire Fence", link: "/straub-couplings-repair-clamps" }
   },
   {
     application: "Misalignment or movement",
