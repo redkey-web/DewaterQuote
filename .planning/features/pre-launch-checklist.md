@@ -1,252 +1,160 @@
 # Pre-Launch Feature Checklist
 
 **Created**: 2026-01-01
+**Updated**: 2026-01-04
 **Type**: feature-plan
-**Status**: Planning
+**Status**: Active
 **Priority**: High
 
 ## Summary
 
-Comprehensive list of missing features and fixes required before the Dewater Products website can go live. Organized into phases by priority and dependency.
+Comprehensive list of features for the Dewater Products website. Many items have been completed. Remaining work focused on FAQ accordions and optional enhancements.
 
 ---
 
-## Phase 1: Core Functionality (High Priority)
+## Phase 1: Core Functionality ✅ COMPLETE
 
-Critical features that affect user experience and site usability.
+### 1.1 Search Bar Functionality ✅
+- [x] Create search API endpoint (`/api/search`)
+- [x] Implement product search with fuzzy matching
+- [x] Connect header search input to search
+- [x] Connect hero search input to search
+- [x] Add search results page (`/products?search=`)
+- [x] Mobile search functionality
+- [~] Keyboard shortcuts (Cmd+K) - NOT NEEDED
 
-### 1.1 Search Bar Functionality
-- [ ] Create search API endpoint (`/api/search`)
-- [ ] Implement product search with fuzzy matching
-- [ ] Connect header search input to search
-- [ ] Connect hero search input to search
-- [ ] Add search results page (`/search?q=`)
-- [ ] Add keyboard shortcuts (Cmd+K)
-- [ ] Mobile search functionality
+### 1.2 Breadcrumb Navigation System ✅
+- [x] Create Breadcrumb component (`ui/breadcrumb.tsx`)
+- [x] Add to category pages
+- [x] Add to subcategory pages
+- [x] Add to product detail pages
+- [x] Add to brand pages
+- [x] JSON-LD structured data included
 
-**Files**: `src/components/Header.tsx`, `src/app/page.tsx`, `src/app/search/page.tsx`, `src/app/api/search/route.ts`
-
-### 1.2 Breadcrumb Navigation System
-- [ ] Create Breadcrumb component
-- [ ] Add to category pages
-- [ ] Add to subcategory pages
-- [ ] Add to product detail pages
-- [ ] Add to brand pages
-- [ ] Ensure JSON-LD structured data included
-
-**Files**: `src/components/Breadcrumb.tsx`, all category/product pages
-
-### 1.3 Datasheets Download System
-- [ ] Display downloads on product detail page
-- [ ] Add "Download Datasheet" button to specs section
-- [ ] Create download tracking (optional)
-- [ ] Ensure PDFs open in new tab
-
-**Files**: `src/components/ProductDetailClient.tsx`, `src/data/products.ts`
+### 1.3 Datasheets Download System ✅
+- [x] Display downloads on product detail page
+- [x] "Download Datasheet" button in product info section
+- [x] PDFs open in new tab
 
 ---
 
-## Phase 2: Content Pages (High Priority)
+## Phase 2: Content Pages ✅ MOSTLY COMPLETE
 
-Essential pages linked from navigation that currently 404.
+### 2.1 About Page ✅
+- [x] Created `/about/page.tsx`
+- [x] Company info and history
+- [x] Industries served section
+- [x] Contact links
 
-### 2.1 About Page (`/about`)
-- [ ] Create page with company info
-- [ ] Add team/history section
-- [ ] Include certifications and partnerships
-- [ ] Add brand logos (Straub, Orbit, Teekay)
+### 2.2 Meet the Team ✅
+- [x] Created `/meet-the-team/page.tsx`
 
-**File**: `src/app/about/page.tsx`
-
-### 2.2 Resources Page (`/resources`)
-- [ ] Create page structure
-- [ ] Add datasheet downloads section
-- [ ] Add technical guides section
-- [ ] Add installation videos section
-- [ ] Link to brand resources
-
-**File**: `src/app/resources/page.tsx`
-
-### 2.3 Datasheet Scraping from Old Site
-- [ ] Identify old site URL structure
-- [ ] Create scraping script
-- [ ] Download all PDF datasheets
-- [ ] Upload to Vercel Blob
-- [ ] Link to products in database
-
-**Files**: `scripts/scrape-datasheets.ts`
+### 2.3 Resources Page
+- [~] NOT NEEDED - datasheets available on product pages
 
 ---
 
-## Phase 3: Navigation & Admin Improvements
+## Phase 3: Navigation & Admin ✅ COMPLETE
 
-Improve site navigation and admin workflow.
+### 3.1 Category Sidebar
+- [~] NOT NEEDED for now - navigation works well via header menu
 
-### 3.1 Category Side Panel
-- [ ] Create CategorySidebar component
-- [ ] Add to category listing pages
-- [ ] Add to product detail pages
-- [ ] Show subcategories with counts
-- [ ] Mobile-responsive (collapsible)
-
-**Files**: `src/components/CategorySidebar.tsx`, category pages
-
-### 3.2 Manage Button in Inventory Admin
-- [ ] Add "Edit" button/link to inventory table
-- [ ] Link to `/admin/products/[id]`
-- [ ] Add quick actions dropdown
-
-**File**: `src/components/admin/InventoryManagementTable.tsx`
+### 3.2 Manage Button in Inventory Admin ✅
+- [x] Edit functionality exists in inventory table
+- [x] Links to `/admin/products/[id]`
 
 ---
 
-## Phase 4: Brand & Product Enhancements
+## Phase 4: Brand & Product ✅ COMPLETE
 
-### 4.1 Defender Strainers Brand
-- [ ] Add Defender Strainers to brands table
-- [ ] Create brand logo and upload
-- [ ] Create brand page (`/defender-strainers` or `/brands/defender-strainers`)
-- [ ] Add logo to relevant strainer product pages
-- [ ] Update navigation if needed
-
-**Files**: Database seed, `src/app/brands/[brand]/page.tsx`, product pages
+### 4.1 Defender Strainers Brand ✅
+- [x] Added to brands table
+- [x] Brand page exists (`/brands/defender-strainers`)
+- [x] In header navigation
+- [x] In footer links
 
 ### 4.2 Download Price List PDF
-- [ ] Create or obtain price list PDF
-- [ ] Upload to Vercel Blob
-- [ ] Wire up "Download Price List" button on contact page
-- [ ] Add to Resources page
-
-**File**: `src/app/contact/page.tsx`, `src/app/resources/page.tsx`
+- [~] NOT NEEDED - removed per client request
 
 ---
 
-## Phase 5: Policy & Information Pages
+## Phase 5: Policy & Information Pages ✅ COMPLETE
 
-Lower priority pages required for a complete professional site.
+### 5.1 FAQ Accordions
+- [ ] Add FAQ section to homepage (bottom)
+- [ ] Add FAQ section to category pages
+- [ ] Add FAQ section to subcategory pages
 
-### 5.1 FAQ Page (`/faq`)
-- [ ] Create page with accordion FAQ component
-- [ ] Add common questions about products
-- [ ] Add ordering/shipping questions
-- [ ] Add JSON-LD FAQPage schema
+**Note**: No standalone FAQ page - FAQs should be contextual on each page.
 
-**File**: `src/app/faq/page.tsx`
+### 5.2 Shipping & Delivery ✅
+- [x] `/delivery/page.tsx` exists with full content
 
-### 5.2 Shipping & Delivery (`/shipping-delivery`)
-- [ ] Create page with shipping info
-- [ ] Add delivery zones and timeframes
-- [ ] Add freight cost information
+### 5.3 Returns & Refunds ✅
+- [x] `/returns/page.tsx` exists with full content
 
-**File**: `src/app/shipping-delivery/page.tsx`
+### 5.4 Payment Methods
+- [~] NOT NEEDED per client request
 
-### 5.3 Returns & Refunds (`/returns-refunds`)
-- [ ] Create page with return policy
-- [ ] Add RMA process
-- [ ] Add refund conditions
+### 5.5 Warranty Information ✅
+- [x] Created `/warranty/page.tsx` with 12-month warranty terms
+- [x] Content sourced from old site buying guides
+- [x] Added to footer navigation
 
-**File**: `src/app/returns-refunds/page.tsx`
+### 5.6 Terms of Use ✅
+- [x] Created `/terms/page.tsx`
+- [x] Content sourced from old site
+- [x] Added to footer navigation
 
-### 5.4 Payment Methods (`/payment-methods`)
-- [ ] Create page with accepted payments
-- [ ] Add trade account info
-- [ ] Add invoice terms
-
-**File**: `src/app/payment-methods/page.tsx`
-
-### 5.5 Warranty Information (`/warranty`)
-- [ ] Create page with warranty terms
-- [ ] Add brand-specific warranties
-- [ ] Add claim process
-
-**File**: `src/app/warranty/page.tsx`
-
-### 5.6 Terms & Conditions (`/terms-conditions`)
-- [ ] Create page with T&Cs
-- [ ] Add ordering terms
-- [ ] Add liability disclaimers
-
-**File**: `src/app/terms-conditions/page.tsx`
-
-### 5.7 Privacy Policy (`/privacy-policy`)
-- [ ] Create page with privacy policy
-- [ ] Add data collection info
-- [ ] Add cookie policy
-- [ ] GDPR/Australian Privacy Act compliance
-
-**File**: `src/app/privacy-policy/page.tsx`
+### 5.7 Privacy Policy ✅
+- [x] `/privacy/page.tsx` exists
+- [x] Updated with security policy info (consolidated)
+- [x] Data security section expanded with encryption details
 
 ---
 
 ## Phase 6: Optional Enhancements
 
-Nice-to-have features that can be added post-launch.
-
-### 6.1 Industries Landing Page (`/industries`)
-- [ ] Create landing page listing all industries
+### 6.1 Industries Landing Page
+- [ ] Create landing page listing all industries (`/industries/page.tsx`)
 - [ ] Add industry cards with images
 - [ ] Link to individual industry pages
 
-**File**: `src/app/industries/page.tsx`
+**Priority**: Low - individual industry pages work fine from nav menu
 
 ---
 
-## Priority Matrix
+## Remaining Work Summary
 
-| Phase | Priority | Est. Effort | Impact |
-|-------|----------|-------------|--------|
-| Phase 1 | **Critical** | Medium | High - Core UX |
-| Phase 2 | **High** | Medium | High - Missing content |
-| Phase 3 | **Medium** | Low-Medium | Medium - Navigation |
-| Phase 4 | **Medium** | Low | Medium - Completeness |
-| Phase 5 | **Low-Medium** | Low | Low - Policy pages |
-| Phase 6 | **Low** | Low | Low - Optional |
+| Item | Priority | Effort |
+|------|----------|--------|
+| FAQ accordions on pages | Medium | 2-3 hrs |
+| Industries landing page | Low | 1 hr |
 
 ---
 
-## Dependencies
+## Completed in This Session (2026-01-04)
 
-```
-Phase 1 (Search, Breadcrumbs, Datasheets)
-    ↓
-Phase 2 (About, Resources, Scraping)
-    ↓
-Phase 3 (Sidebar, Admin) ←── Can run parallel with Phase 2
-    ↓
-Phase 4 (Defender Brand, Price List)
-    ↓
-Phase 5 (Policy Pages) ←── Can run parallel with Phase 4
-    ↓
-Phase 6 (Optional)
-```
+1. ✅ Fixed hero search bar functionality (was just a static input)
+2. ✅ Created `/warranty/page.tsx` with content from old site
+3. ✅ Created `/terms/page.tsx` with content from old site
+4. ✅ Updated `/privacy/page.tsx` with security policy info
+5. ✅ Updated Footer with Warranty and Terms links
+6. ✅ Verified 17 pages have breadcrumbs
+7. ✅ Verified search API and header search working
+8. ✅ Verified datasheets download button on product pages
 
 ---
 
-## Quick Wins (Can do immediately)
+## Old Site Pages Migrated
 
-These can be completed quickly with minimal effort:
-
-1. **Manage Button in Inventory** - Add link to existing table (~15 min)
-2. **Datasheet Display** - Wire up existing downloads data (~30 min)
-3. **Breadcrumb Component** - Create reusable component (~1 hr)
-
----
-
-## Blockers & Questions
-
-- [ ] **Old site URL**: Need URL to scrape datasheets from
-- [ ] **Defender Strainers logo**: Need logo file
-- [ ] **Policy content**: Need actual policy text (or generate drafts)
-- [ ] **Price list PDF**: Need current price list file
+From the old site footer "Information" section:
+- Terms of Use → `/terms` ✅
+- Privacy Policy → `/privacy` ✅ (already existed, enhanced)
+- Delivery Policy → `/delivery` ✅ (already existed)
+- Returns Policy → `/returns` ✅ (already existed)
+- Security Policy → Consolidated into `/privacy` ✅
 
 ---
 
-## Related Documents
-
-- [[site-audit.md]] - Full site audit with Playwright results
-- [[product-price-audit.md]] - Data integrity audit
-- [[migration-plan.md]] - Original migration plan
-
----
-
-Last Updated: 2026-01-01
+Last Updated: 2026-01-04

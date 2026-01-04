@@ -64,9 +64,11 @@ export default function Footer() {
               <li><Link href="/about" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-about">About Us</Link></li>
               <li><Link href="/meet-the-team" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-team">Meet the Team</Link></li>
               <li><Link href="/contact" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-contact">Contact</Link></li>
+              <li><Link href="/warranty" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-warranty">Warranty</Link></li>
               <li><Link href="/delivery" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-delivery">Delivery Policy</Link></li>
               <li><Link href="/returns" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-returns">Returns Policy</Link></li>
               <li><Link href="/privacy" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-privacy">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-terms">Terms of Use</Link></li>
             </ul>
           </div>
         </div>

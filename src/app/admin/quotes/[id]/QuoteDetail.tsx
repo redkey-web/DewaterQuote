@@ -32,7 +32,7 @@ import {
   Save,
   Download,
 } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 type Address = {
   street: string;

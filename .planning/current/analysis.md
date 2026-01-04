@@ -16,37 +16,33 @@
 ## File Counts
 | Type | Count | Location | Change |
 |------|-------|----------|--------|
-| Pages | 41 | src/app/ | +9 (new brand/legal/info pages) |
-| Components | 78 | src/components/ (49 UI + 29 custom) | +10 (admin inventory, geo stock, etc.) |
-| API Routes | 19 | src/app/api/ | +9 (inventory, pricing, video, search) |
-| Utils/Lib | 9 | src/lib/ | +1 (size-sort) |
+| Pages | 44 | src/app/ | +3 (admin quotes pages) |
+| Components | 80 | src/components/ (43 UI + 37 custom) | +2 (QuotesTable, QuoteDetail) |
+| API Routes | 21 | src/app/api/ | +2 (quotes admin endpoints) |
+| Utils/Lib | 9 | src/lib/ | - |
 
-## Recent Changes (since 2025-12-28)
-- **Image audit**:
-  - Added image audit scripts
-  - Replaced non-original product images
-- **UX improvements**:
-  - Click-to-call tel: links on all CTA sections
-  - Team photos and warranty PDF
-  - Geo-based stock messaging (GeoStock.tsx)
-- **Category pages**:
-  - Redesigned pipe couplings with Orbit/Straub comparison
-  - Standardized category page layouts
-  - Added expansion-joints routes with subcategories
-- **New pages**:
-  - /about, /bore-flex, /brands, /delivery
-  - /expansion-joints, /meet-the-team, /privacy, /returns
-- **Brand work**:
-  - Added Bore-Flex brand page
-  - Reorganized brands and homepage
-  - Enhanced Teekay, Straub content
-- **Admin inventory system**:
-  - /admin/inventory with bulk actions
-  - /admin/pricing with margin calculator
-  - /admin/logistics with shipping/supplier data
-  - Video management API routes
-- **Search**:
-  - Added /api/search endpoint
+## Recent Changes (since 2026-01-03)
+- **Admin Quote Management**:
+  - Quotes saved to database with unique quote numbers (QR-YYYYMMDD-XXX)
+  - /admin/quotes list page with sortable/filterable table
+  - /admin/quotes/[id] detail page with status management
+  - Shipping cost addition before forwarding to client
+  - "Forward to client" emails formatted quote with totals
+  - /admin/quotes/[id]/print - print-friendly page for PDF generation
+- **Header Navigation**:
+  - Restructured dropdown menus
+  - Solid dropdown backgrounds
+- **Post-Launch Redirects**:
+  - /bore-flex/* → /expansion-joints/* redirects in middleware
+- **Geo-Pricing**:
+  - Prices restricted to Australian visitors only
+
+## Previous Changes (2025-12-28 to 2026-01-03)
+- **Image audit**: Replaced non-original product images
+- **UX improvements**: Click-to-call tel: links, team photos, warranty PDF
+- **Category pages**: Redesigned pipe couplings, standardized layouts
+- **New pages**: /about, /bore-flex, /brands, /delivery, /expansion-joints, /meet-the-team, /privacy, /returns
+- **Admin inventory system**: /admin/inventory, /admin/pricing, /admin/logistics
 
 ## Previous Changes (2025-12-14 to 2025-12-28)
 - **Google Analytics (GA4)**: Integrated

@@ -1,5 +1,7 @@
 "use client"
 
+import { useState, useEffect, useRef } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -16,6 +18,7 @@ import {
   Mail,
   TrendingDown,
   ChevronDown,
+  Loader2,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -34,7 +37,74 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
+interface SearchResult {
+  id: number
+  name: string
+  fullName: string
+  slug: string
+  category: string
+  categoryName: string
+  brand: string
+  description: string
+}
+
 export default function HomePage() {
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState("")
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [showResults, setShowResults] = useState(false)
+  const heroSearchRef = useRef<HTMLDivElement>(null)
+
+  // Close search dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (heroSearchRef.current && !heroSearchRef.current.contains(event.target as Node)) {
+        setShowResults(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  // Debounced search
+  useEffect(() => {
+    if (searchQuery.length < 2) {
+      setSearchResults([])
+      setShowResults(false)
+      return
+    }
+
+    const timer = setTimeout(async () => {
+      setIsSearching(true)
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
+        const data = await res.json()
+        setSearchResults(data.results || [])
+        setShowResults(true)
+      } catch (error) {
+        console.error("Search error:", error)
+      } finally {
+        setIsSearching(false)
+      }
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      setShowResults(false)
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`)
+    }
+  }
+
+  const handleResultClick = (slug: string) => {
+    setShowResults(false)
+    setSearchQuery("")
+    router.push(`/${slug}`)
+  }
 
   const productCategories = [
     {
@@ -171,14 +241,51 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
-          <div className="relative w-full">
-            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Search pipe fittings, valves, couplings..."
-              className="w-full h-14 pl-14 pr-6 text-lg rounded-full border-2 border-white/20 bg-white shadow-2xl focus:outline-none focus:ring-4 focus:ring-primary/30 focus:border-primary transition-all"
-              data-testid="input-hero-search"
-            />
+          <div className="relative w-full max-w-2xl mx-auto" ref={heroSearchRef}>
+            <form onSubmit={handleSearchSubmit}>
+              {isSearching ? (
+                <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground animate-spin" />
+              ) : (
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
+              )}
+              <input
+                type="text"
+                placeholder="Search pipe fittings, valves, couplings..."
+                className="w-full h-14 pl-14 pr-6 text-lg rounded-full border-2 border-white/20 bg-white shadow-2xl focus:outline-none focus:ring-4 focus:ring-primary/30 focus:border-primary transition-all"
+                data-testid="input-hero-search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => searchResults.length > 0 && setShowResults(true)}
+              />
+            </form>
+            {/* Search Results Dropdown */}
+            {showResults && searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-xl shadow-2xl max-h-80 overflow-y-auto z-50 text-left">
+                {searchResults.map((result) => (
+                  <button
+                    key={result.id}
+                    onClick={() => handleResultClick(result.slug)}
+                    className="w-full text-left px-4 py-3 hover:bg-primary/10 hover:text-primary border-b border-border last:border-b-0 transition-colors"
+                  >
+                    <div className="font-medium text-foreground">{result.name}</div>
+                    <div className="text-sm text-muted-foreground">{result.brand} • {result.categoryName}</div>
+                  </button>
+                ))}
+                {searchQuery.trim() && (
+                  <button
+                    onClick={handleSearchSubmit as React.MouseEventHandler}
+                    className="w-full text-left px-4 py-3 text-primary hover:bg-primary/10 transition-colors font-medium border-t border-border"
+                  >
+                    View all results for "{searchQuery}"
+                  </button>
+                )}
+              </div>
+            )}
+            {showResults && searchResults.length === 0 && searchQuery.length >= 2 && !isSearching && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-xl shadow-2xl p-4 z-50 text-left">
+                <p className="text-muted-foreground">No products found for "{searchQuery}"</p>
+              </div>
+            )}
           </div>
           <div className="flex items-center justify-center gap-4 mt-6">
             <DropdownMenu>

@@ -6,22 +6,31 @@
   "tracking_files": [
     ".planning/current/migration-plan.md",
     ".planning/features/pre-launch-checklist.md",
-    ".planning/features/quote-form-redesign.md",
-    ".planning/features/product-price-audit.md",
-    ".planning/features/site-audit.md",
-    ".planning/features/inventory-management-system.md",
     ".planning/features/admin-seo-optimization.md",
-    ".planning/features/image-audit-replacement.md",
-    ".planning/features/site-improvements-jan2025.md",
-    ".planning/features/admin-database-sync.md",
-    ".planning/features/category-page-standardization.md",
     ".planning/features/phone-number-standardization.md",
-    "docs/client-admin-guide.md",
+    ".planning/post-launch-redirects.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
   ],
   "parent_track": "~/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
   "require_marker_file": false,
   "description": "Dewater Products full-scope website migration with CMS",
-  "last_refresh": "2026-01-04"
+  "last_refresh": "2026-01-04",
+  "archived_files": [
+    ".planning/completed/quote-form-redesign.md",
+    ".planning/completed/product-price-audit.md",
+    ".planning/completed/site-audit.md",
+    ".planning/completed/inventory-management-system.md",
+    ".planning/completed/image-audit-replacement.md",
+    ".planning/completed/admin-database-sync.md",
+    ".planning/completed/category-page-standardization.md",
+    ".planning/completed/content-cleanup.md",
+    ".planning/completed/add-product-fix.md",
+    ".planning/completed/admin-clean-copy-preview.md",
+    ".planning/completed/image-seo-cleanup.md",
+    ".planning/completed/site-improvements-jan2025.md"
+  ],
+  "reference_files": [
+    ".planning/features/playwright-test-findings.md"
+  ]
 }

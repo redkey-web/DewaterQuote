@@ -45,9 +45,16 @@ export default function PrivacyPage() {
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Data Security</h2>
           <p>
-            We implement appropriate security measures to protect your personal information from
-            unauthorized access, alteration, or disclosure. All payment transactions are processed
-            through secure, encrypted connections.
+            We implement multiple layers of protection to safeguard your information:
+          </p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li><strong>Encryption</strong>: 2048 Bit v3 SSL encryption protects all electronic data transmissions</li>
+            <li><strong>Access Controls</strong>: Firewalls, passwords, and anti-virus software safeguard our systems</li>
+            <li><strong>Email Security</strong>: Email filters are deployed to prevent unauthorized access</li>
+            <li><strong>Payment Security</strong>: We do not store credit card information on our systems - all payment data is securely submitted directly to our banking partners for processing</li>
+          </ul>
+          <p className="mt-4">
+            Information is maintained both electronically and in physical formats with appropriate security measures for each.
           </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Third Parties</h2>
@@ -74,7 +81,7 @@ export default function PrivacyPage() {
           </p>
 
           <p className="text-sm text-muted-foreground mt-8">
-            Last updated: January 2025
+            Last updated: January 2026
           </p>
         </div>
       </div>
