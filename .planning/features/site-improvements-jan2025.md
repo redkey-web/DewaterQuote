@@ -221,18 +221,27 @@ Comprehensive site improvements covering UI polish, navigation fixes, admin pane
 - [x] 9.4 Add Warranty Info ✅
   - [x] Added: "Up to 5 years on Orbit/Straub couplings* | 12 months on all other products"
 
-- [ ] 9.5 Admin Quote Handling (Deferred)
-  - [ ] Add "Forward to client" option with shipping cost field
-  - [ ] Email to Kris as editable/forwardable format
-  - [ ] Generate PDF version of quote
+- [x] 9.5 Admin Quote Handling ✅
+  - [x] Quotes saved to database with unique quote numbers (QR-YYYYMMDD-XXX)
+  - [x] Admin quotes list page with sortable/filterable table
+  - [x] Quote detail page with status management
+  - [x] Add shipping cost field before forwarding
+  - [x] "Forward to client" emails formatted quote with totals
+  - [x] Print-friendly page for PDF generation (browser print)
 
-**Completed (9.1-9.4)**: 2025-01-04
+**Completed**: 2026-01-04
 
 **Files:**
 - `src/app/request-quote/page.tsx`
-- `src/app/api/quote/route.ts`
-- `src/lib/pdf.ts` (new - PDF generation)
-- Email template updates
+- `src/app/api/quote/route.ts` (saves to DB, includes quote number in emails)
+- `src/db/schema.ts` (quotes, quote_items tables)
+- `src/app/admin/quotes/page.tsx` (quotes list)
+- `src/components/admin/QuotesTable.tsx` (sortable table)
+- `src/app/admin/quotes/[id]/page.tsx` (quote detail)
+- `src/app/admin/quotes/[id]/QuoteDetail.tsx` (detail UI with forward)
+- `src/app/admin/quotes/[id]/print/page.tsx` (print-friendly PDF)
+- `src/app/api/admin/quotes/[id]/route.ts` (update API)
+- `src/app/api/admin/quotes/[id]/forward/route.ts` (forward to client)
 
 ---
 

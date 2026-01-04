@@ -448,6 +448,110 @@ export const redirectsRelations = relations(redirects, ({ one }) => ({
 }));
 
 // ============================================
+// QUOTES TABLES (Phase 9.5)
+// ============================================
+
+export const quotes = pgTable('quotes', {
+  id: serial('id').primaryKey(),
+  quoteNumber: text('quote_number').notNull().unique(), // e.g., "QR-20250104-001"
+
+  // Customer info
+  companyName: text('company_name').notNull(),
+  contactName: text('contact_name').notNull(),
+  email: text('email').notNull(),
+  phone: text('phone').notNull(),
+
+  // Addresses (stored as JSON)
+  deliveryAddress: jsonb('delivery_address').$type<{
+    street: string;
+    suburb: string;
+    state: string;
+    postcode: string;
+  }>().notNull(),
+  billingAddress: jsonb('billing_address').$type<{
+    street: string;
+    suburb: string;
+    state: string;
+    postcode: string;
+  }>().notNull(),
+
+  // Notes
+  notes: text('notes'),
+  internalNotes: text('internal_notes'), // Admin-only notes
+
+  // Totals (snapshot at time of request)
+  itemCount: integer('item_count').notNull(),
+  pricedTotal: decimal('priced_total', { precision: 10, scale: 2 }),
+  savings: decimal('savings', { precision: 10, scale: 2 }),
+  certFee: decimal('cert_fee', { precision: 10, scale: 2 }),
+  certCount: integer('cert_count'),
+  hasUnpricedItems: boolean('has_unpriced_items').default(false),
+
+  // Shipping (added when forwarding to client)
+  shippingCost: decimal('shipping_cost', { precision: 10, scale: 2 }),
+  shippingNotes: text('shipping_notes'),
+
+  // Status tracking
+  status: text('status').default('pending'), // pending, reviewed, quoted, forwarded, accepted, rejected
+
+  // Timestamps
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  reviewedAt: timestamp('reviewed_at'),
+  forwardedAt: timestamp('forwarded_at'),
+  respondedAt: timestamp('responded_at'),
+
+  // IP for rate limiting reference
+  clientIp: text('client_ip'),
+});
+
+export const quoteItems = pgTable('quote_items', {
+  id: serial('id').primaryKey(),
+  quoteId: integer('quote_id').references(() => quotes.id, { onDelete: 'cascade' }).notNull(),
+
+  // Product reference (optional - for linking)
+  productId: integer('product_id').references(() => products.id, { onDelete: 'set null' }),
+
+  // Snapshot data (preserved even if product changes)
+  sku: text('sku').notNull(),
+  name: text('name').notNull(),
+  brand: text('brand').notNull(),
+  quantity: integer('quantity').notNull(),
+
+  // Variation info
+  size: text('size'),
+  sizeLabel: text('size_label'),
+  variationSku: text('variation_sku'),
+
+  // Pricing (at time of request)
+  unitPrice: decimal('unit_price', { precision: 10, scale: 2 }),
+  lineTotal: decimal('line_total', { precision: 10, scale: 2 }),
+
+  // Options
+  materialTestCert: boolean('material_test_cert').default(false),
+
+  // Admin can override pricing
+  quotedPrice: decimal('quoted_price', { precision: 10, scale: 2 }),
+  quotedNotes: text('quoted_notes'),
+
+  displayOrder: integer('display_order').default(0),
+});
+
+export const quotesRelations = relations(quotes, ({ many }) => ({
+  items: many(quoteItems),
+}));
+
+export const quoteItemsRelations = relations(quoteItems, ({ one }) => ({
+  quote: one(quotes, {
+    fields: [quoteItems.quoteId],
+    references: [quotes.id],
+  }),
+  product: one(products, {
+    fields: [quoteItems.productId],
+    references: [products.id],
+  }),
+}));
+
+// ============================================
 // TYPE EXPORTS
 // ============================================
 
@@ -488,3 +592,9 @@ export type AdminUser = typeof adminUsers.$inferSelect;
 
 export type Redirect = typeof redirects.$inferSelect;
 export type NewRedirect = typeof redirects.$inferInsert;
+
+// Quote types
+export type Quote = typeof quotes.$inferSelect;
+export type NewQuote = typeof quotes.$inferInsert;
+export type QuoteItemDB = typeof quoteItems.$inferSelect;
+export type NewQuoteItemDB = typeof quoteItems.$inferInsert;

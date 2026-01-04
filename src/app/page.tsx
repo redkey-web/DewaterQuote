@@ -189,6 +189,26 @@ export default function HomePage() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-52">
+                {/* Couplings & Repair */}
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="cursor-pointer">
+                    <span className="flex-1">Couplings & Repair</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent className="w-48">
+                      <DropdownMenuItem asChild>
+                        <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/pipe-repair" className="w-full cursor-pointer">Pipe Repair Clamps</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+
                 {/* Valves with subcategories */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="cursor-pointer">
@@ -203,36 +223,16 @@ export default function HomePage() {
                         <Link href="/valves/check-valves" className="w-full cursor-pointer">Check Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
                         <Link href="/valves/gate-valve" className="w-full cursor-pointer">Gate Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
+                        <Link href="/valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/valves/float-valve" className="w-full cursor-pointer">Float Valves</Link>
                       </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-
-                {/* Pipe Couplings with subcategories */}
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/pipe-couplings" className="flex-1">Pipe Couplings</Link>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent className="w-48">
                       <DropdownMenuItem asChild>
-                        <Link href="/pipe-couplings/orbit-couplings" className="w-full cursor-pointer">Orbit Couplings</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/pipe-couplings/straub-couplings" className="w-full cursor-pointer">Straub Couplings</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/pipe-couplings/straub-shaped-parts" className="w-full cursor-pointer">Straub Shaped Parts</Link>
+                        <Link href="/valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
@@ -275,36 +275,17 @@ export default function HomePage() {
                         <Link href="/strainers/y-strainer" className="w-full cursor-pointer">Y Strainers</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/strainers/simplex-basket-strainer" className="w-full cursor-pointer">Simplex Basket Strainers</Link>
+                        <Link href="/strainers/simplex-basket-strainer" className="w-full cursor-pointer">Simplex Basket</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/strainers/duplex-basket-strainer" className="w-full cursor-pointer">Duplex Basket Strainers</Link>
+                        <Link href="/strainers/duplex-basket-strainer" className="w-full cursor-pointer">Duplex Basket</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/strainers/flanged-suction-strainer" className="w-full cursor-pointer">Flanged Suction</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
-
-                {/* Repair Clamps with subcategories */}
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/pipe-repair" className="flex-1">Repair Clamps</Link>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent className="w-52">
-                      <DropdownMenuItem asChild>
-                        <Link href="/pipe-repair/orbit-pipe-repair-clamps" className="w-full cursor-pointer">Orbit Repair Clamps</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/pipe-repair/straub-pipe-repair-clamps" className="w-full cursor-pointer">Straub Repair Clamps</Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-
-                {/* Flange Adaptors */}
-                <DropdownMenuItem asChild>
-                  <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <Link href="/brands" className="text-white/70 hover:text-white text-sm underline underline-offset-2 transition-colors">
@@ -362,15 +343,6 @@ export default function HomePage() {
                 width={1080}
                 height={360}
                 className="h-[120px] w-auto object-contain"
-              />
-            </Link>
-            <Link href="/brands/defender-strainers" className="opacity-80 hover:opacity-100 transition-opacity">
-              <Image
-                src="/images/brands/defender-strainers-logo.png"
-                alt="Defender Strainers"
-                width={200}
-                height={60}
-                className="h-10 w-auto object-contain"
               />
             </Link>
           </div>

@@ -3,10 +3,20 @@ import sgMail from "@sendgrid/mail"
 import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 import { verifyTurnstileToken } from "@/lib/turnstile"
+import { db } from "@/db"
+import { quotes, quoteItems } from "@/db/schema"
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+}
+
+// Generate quote number: QR-YYYYMMDD-XXX
+function generateQuoteNumber(): string {
+  const now = new Date()
+  const date = now.toISOString().slice(0, 10).replace(/-/g, "")
+  const random = Math.floor(Math.random() * 1000).toString().padStart(3, "0")
+  return `QR-${date}-${random}`
 }
 
 interface QuoteItem {
@@ -117,6 +127,55 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Save quote to database
+    const quoteNumber = generateQuoteNumber()
+    let savedQuoteId: number | undefined
+
+    try {
+      const [savedQuote] = await db.insert(quotes).values({
+        quoteNumber,
+        companyName: data.companyName,
+        contactName: data.contactName,
+        email: data.email,
+        phone: data.phone,
+        deliveryAddress: data.deliveryAddress,
+        billingAddress: data.billingAddress,
+        notes: data.notes,
+        itemCount: data.totals.itemCount,
+        pricedTotal: data.totals.pricedTotal?.toString(),
+        savings: data.totals.savings?.toString(),
+        certFee: data.totals.certFee?.toString(),
+        certCount: data.totals.certCount,
+        hasUnpricedItems: data.totals.hasUnpricedItems,
+        clientIp: ip,
+      }).returning({ id: quotes.id })
+
+      savedQuoteId = savedQuote.id
+
+      // Save quote items
+      await db.insert(quoteItems).values(
+        data.items.map((item, index) => ({
+          quoteId: savedQuote.id,
+          sku: item.variation?.sku || item.sku,
+          name: item.name,
+          brand: item.brand,
+          quantity: item.quantity,
+          size: item.variation?.sizeLabel,
+          sizeLabel: item.variation?.sizeLabel,
+          variationSku: item.variation?.sku,
+          unitPrice: item.variation?.price?.toString(),
+          lineTotal: item.variation?.price
+            ? (item.variation.price * item.quantity).toString()
+            : undefined,
+          materialTestCert: item.materialTestCert,
+          displayOrder: index,
+        }))
+      )
+    } catch (dbError) {
+      console.error("Failed to save quote to database:", dbError)
+      // Continue with email even if DB save fails
+    }
+
     // Support multiple recipients (comma-separated)
     const toEmails = (process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au")
       .split(",")
@@ -198,9 +257,10 @@ export async function POST(request: NextRequest) {
       to: toEmails,
       from: fromEmail,
       replyTo: data.email,
-      subject: `Quote Request: ${data.companyName} - ${data.contactName} (${data.items.length} items)`,
+      subject: `[${quoteNumber}] Quote Request: ${data.companyName} - ${data.contactName} (${data.items.length} items)`,
       html: `
         <h2>New Quote Request</h2>
+        <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Quote Reference: <strong>${quoteNumber}</strong>${savedQuoteId ? ` | <a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/admin/quotes/${savedQuoteId}">View in Admin</a>` : ""}</p>
 
         <h3>Company Details</h3>
         <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
@@ -318,6 +378,7 @@ export async function POST(request: NextRequest) {
       `,
       text: `
 NEW QUOTE REQUEST
+Quote Reference: ${quoteNumber}
 
 Company Details
 ===============
@@ -421,7 +482,11 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       sgMail.send(customerEmail),
     ])
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({
+      success: true,
+      quoteNumber,
+      quoteId: savedQuoteId,
+    })
   } catch (error) {
     console.error("Quote form error:", error)
     return NextResponse.json(

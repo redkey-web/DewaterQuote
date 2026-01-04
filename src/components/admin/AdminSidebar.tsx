@@ -13,10 +13,12 @@ import {
   FileImage,
   Settings,
   ExternalLink,
+  FileText,
 } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+  { name: 'Quotes', href: '/admin/quotes', icon: FileText },
   { name: 'Inventory', href: '/admin/inventory', icon: PackageSearch },
   { name: 'Products', href: '/admin/products', icon: Package },
   { name: 'Logistics', href: '/admin/logistics', icon: Truck },
