@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { getProductsBySubcategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
-import USPBar from "@/components/USPBar"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
 import {
   Accordion,
   AccordionContent,
@@ -99,7 +99,7 @@ export default async function DuckbillCheckValvesPage() {
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
-      <USPBar />
+      <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Breadcrumb */}

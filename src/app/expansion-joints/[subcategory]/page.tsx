@@ -8,7 +8,7 @@ import {
 } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
-import USPBar from "@/components/USPBar"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
 
 // SEO content for expansion joint subcategories
 const subcategoryContent: Record<string, {
@@ -155,7 +155,7 @@ export default async function ExpansionJointSubcategoryPage({ params }: Subcateg
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
-      <USPBar />
+      <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Breadcrumbs */}

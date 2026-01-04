@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle, Download, Link2 } from "lucide-react"
 import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
-import USPBar from "@/components/USPBar"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
 import {
   Accordion,
   AccordionContent,
@@ -222,7 +222,7 @@ export default async function PipeCouplingsPage() {
         </div>
       </div>
 
-      <USPBar />
+      <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Shop by Brand */}

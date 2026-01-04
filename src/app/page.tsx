@@ -312,6 +312,9 @@ export default function HomePage() {
                       <DropdownMenuItem asChild>
                         <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
                       </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/muff-couplings" className="w-full cursor-pointer">Muff Couplings</Link>
+                      </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
@@ -328,6 +331,9 @@ export default function HomePage() {
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/check-valves" className="w-full cursor-pointer">Check Valves</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/duckbill-check-valves" className="w-full cursor-pointer">Duckbill Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/gate-valves" className="w-full cursor-pointer">Gate Valves</Link>
@@ -383,6 +389,9 @@ export default function HomePage() {
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/basket-strainers" className="w-full cursor-pointer">Basket Strainers</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/duplex-strainers" className="w-full cursor-pointer">Duplex Strainers</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>

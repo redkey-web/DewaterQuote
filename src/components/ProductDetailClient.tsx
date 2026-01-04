@@ -225,7 +225,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
   return (
     <div className="min-h-screen bg-background">
-      <BulkPricingTicker />
+      <BulkPricingTicker variant="teal" />
       <ProductJsonLd product={product} url={productUrl} />
       <BreadcrumbJsonLd items={breadcrumbs} />
       <div className="max-w-7xl mx-auto px-6 py-12">

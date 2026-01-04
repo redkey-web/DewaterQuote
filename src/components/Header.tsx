@@ -125,6 +125,7 @@ export default function Header() {
       items: [
         { name: "Y Strainers", url: "/y-strainers" },
         { name: "Basket Strainers", url: "/basket-strainers" },
+        { name: "Duplex Strainers", url: "/duplex-strainers" },
       ],
     },
   ]

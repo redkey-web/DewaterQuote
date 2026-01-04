@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { getProductsBySubcategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
-import USPBar from "@/components/USPBar"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
 import ApplicationLinks from "@/components/ApplicationLinks"
 
 const content = {
@@ -44,7 +44,7 @@ export default async function YStrainersPage() {
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
-      <USPBar />
+      <BulkPricingTicker variant="teal" />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>

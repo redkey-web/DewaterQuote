@@ -4,7 +4,7 @@ import { CheckCircle, Clock, Shield, Wrench, AlertTriangle, ArrowRight } from "l
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
-import USPBar from "@/components/USPBar"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
 import SubcategoryTiles from "@/components/SubcategoryTiles"
 import {
   Accordion,
@@ -171,7 +171,7 @@ export default async function PipeRepairPage() {
         </div>
       </div>
 
-      <USPBar />
+      <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Benefits - Critical Info */}

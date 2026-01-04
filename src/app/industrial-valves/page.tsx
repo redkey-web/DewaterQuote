@@ -4,6 +4,7 @@ import { CheckCircle, ArrowRight, Shield } from "lucide-react"
 import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
 import type { Metadata } from "next"
 
 const applications = [
@@ -51,6 +52,7 @@ export default async function IndustrialValvesPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <BulkPricingTicker variant="teal" />
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
