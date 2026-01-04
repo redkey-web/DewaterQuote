@@ -8,7 +8,7 @@
     ".planning/features/pre-launch-checklist.md",
     ".planning/features/admin-seo-optimization.md",
     ".planning/features/product-linkage-audit.md",
-    ".planning/features/category-hero-images.md",
+    ".planning/features/seo-redirects-preservation.md",
     ".planning/post-launch-redirects.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
@@ -33,7 +33,8 @@
     ".planning/completed/phone-number-standardization.md",
     ".planning/completed/url-restructure-flat-architecture.md",
     ".planning/completed/menu-hover-styling.md",
-    ".planning/completed/brand-url-restructure.md"
+    ".planning/completed/brand-url-restructure.md",
+    ".planning/completed/category-hero-images.md"
   ],
   "reference_files": [
     ".planning/features/playwright-test-findings.md"

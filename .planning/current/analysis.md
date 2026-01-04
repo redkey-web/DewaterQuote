@@ -2,7 +2,7 @@
 
 **Last Updated**: 2026-01-05
 **Analyzed By**: webdev:refresh
-**Previous Update**: 2026-01-04
+**Previous Update**: 2026-01-05 (earlier session)
 
 ## Structure Overview
 - **Framework**: Next.js 14 (App Router) ✅ MIGRATED
@@ -16,14 +16,26 @@
 ## File Counts
 | Type | Count | Location | Change |
 |------|-------|----------|--------|
-| Pages | 65 | src/app/ | +21 (flat subcategory pages, brand pages, strainer pages) |
+| Pages | 67 | src/app/ | +2 (duckbill-check-valves, muff-couplings) |
 | Components | 80 | src/components/ (42 UI + 38 custom) | - |
 | API Routes | 21 | src/app/api/ | - |
 | Utils/Lib | 9 | src/lib/ | - |
 
-## Recent Changes (since 2026-01-04)
+## Recent Changes (since 2026-01-05 earlier session)
+- **New Pages**:
+  - Created `/duckbill-check-valves` dedicated page with SEO optimization
+  - Created `/muff-couplings` info page (products to be added later)
+  - Moved Straub page to `/brand/straub-couplings` (was `/straub-couplings-repair-clamps`)
+- **SEO Improvements**:
+  - Optimized expansion-joints page for target keywords
+  - Added category hero sections to pipe-couplings, flange-adaptors, pipe-repair, strainers
+  - Fixed mobile product grid to show 2 columns
+- **Logo Update**:
+  - Updated Defender Strainers logo with correct image and sizing
+
+## Previous Changes (2026-01-04 to 2026-01-05)
 - **Brand URL Restructure**:
-  - `/straub` → `/straub-couplings-repair-clamps`
+  - `/straub` → `/straub-couplings-repair-clamps` (now `/brand/straub-couplings`)
   - `/orbit` → `/orbit-couplings`
   - Created `/duplex-basket-strainers` and `/flanged-suction-strainers` subcategory pages
   - Sitemap now fully dynamic from database
