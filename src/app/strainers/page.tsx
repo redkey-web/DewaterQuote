@@ -33,16 +33,22 @@ const selectionFactors = [
 ]
 
 export const metadata: Metadata = {
-  title: "Strainers | Y Strainers & Basket Strainers | Dewater Products",
+  title: "Industrial Strainers Australia | Pipeline Strainers 316SS",
   description:
-    "Industrial pipeline strainers in 316 stainless steel and cast iron. Y strainers, simplex basket strainers, and duplex strainers. Protect pumps and equipment. Australia-wide delivery.",
+    "Industrial pipeline strainers in 316 stainless steel. Filter strainers for pump protection, process water, chemical plants. Australia-wide delivery.",
+  keywords: [
+    "industrial strainers",
+    "pipeline strainers",
+    "316 stainless steel strainers",
+    "pump protection strainers",
+  ],
   openGraph: {
-    title: "Pipeline Strainers - Dewater Products",
-    description: "Y strainers and basket strainers for pipeline filtration and equipment protection.",
+    title: "Industrial Pipeline Strainers | Dewater Products Australia",
+    description: "Pipeline strainers for filtration and equipment protection. 316 stainless steel construction.",
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/strainers",
+    canonical: "https://dewaterproducts.com.au/strainers",
   },
 }
 

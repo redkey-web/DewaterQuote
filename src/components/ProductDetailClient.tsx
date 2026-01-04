@@ -53,6 +53,7 @@ import { useQuote } from "@/context/QuoteContext"
 import { trackProductView, trackAddToQuote } from "@/components/GoogleAnalytics"
 import type { Product } from "@/types"
 import BulkPricingTicker from "@/components/BulkPricingTicker"
+import ApplicationLinks from "@/components/ApplicationLinks"
 
 interface ProductDetailClientProps {
   product: Product
@@ -941,14 +942,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
           <Card className="mb-12 glass shadow-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold mb-4">Applications</h2>
-              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {product.applications.map((app, idx) => (
-                  <li key={idx} className="flex items-center gap-2">
-                    <span className="text-primary">•</span>
-                    <span className="text-muted-foreground">{app}</span>
-                  </li>
-                ))}
-              </ul>
+              <ApplicationLinks applications={product.applications} variant="list" />
             </CardContent>
           </Card>
         )}

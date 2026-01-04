@@ -4,19 +4,29 @@ import { getProductsBySubcategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import USPBar from "@/components/USPBar"
+import ApplicationLinks from "@/components/ApplicationLinks"
 
 const content = {
-  title: "Basket Strainers",
-  metaDescription: "Simplex and duplex basket strainers in 316 stainless steel. Higher flow rates than Y strainers. Easy basket removal.",
-  heroDescription: "Single and duplex basket strainers with larger filtration area than Y strainers. Easy basket removal for frequent cleaning.",
-  longDescription: "Basket strainers offer higher flow rates and easier maintenance than Y strainers, making them ideal for applications requiring frequent cleaning. Larger basket provides more filtration area with less pressure drop.",
-  features: ["Larger filtration area", "Easy top-access basket removal", "Lower pressure drop", "316 stainless steel", "Quick-open cover option", "Multiple mesh sizes"],
-  applications: ["High-flow applications", "Process water", "Food & beverage", "Pharmaceuticals"],
+  title: "Basket Strainer",
+  metaDescription: "Basket strainer in stainless steel strainer basket design. Simplex and duplex basket strainers with 316SS construction. Higher flow rates, easy basket removal. Australia-wide.",
+  heroDescription: "Single and duplex basket strainer with stainless steel strainer basket for larger filtration area than Y strainers. Easy basket removal for frequent cleaning.",
+  longDescription: "Basket strainers offer higher flow rates and easier maintenance than Y strainers, making them ideal for applications requiring frequent cleaning. Our stainless steel strainer basket design provides more filtration area with less pressure drop. 316SS basket strainer construction ensures corrosion resistance.",
+  features: ["Larger filtration area", "Stainless steel strainer basket", "Easy top-access basket removal", "Lower pressure drop than Y strainers", "316 stainless steel construction", "Quick-open cover option", "Multiple mesh sizes available"],
+  applications: ["High-flow applications", "Process water filtration", "Food & beverage", "Pharmaceuticals", "Chemical processing"],
 }
 
 export const metadata: Metadata = {
-  title: `${content.title} | Dewater Products`,
+  title: "Basket Strainer | Stainless Steel Strainer Basket | Australia",
   description: content.metaDescription,
+  keywords: [
+    "basket strainer",
+    "stainless steel strainer basket",
+    "316 stainless steel basket strainer",
+    "simplex basket strainer",
+    "duplex basket strainer",
+    "industrial basket strainer",
+    "pipeline basket strainer",
+  ],
   alternates: { canonical: "https://dewaterproducts.com.au/basket-strainers" },
 }
 
@@ -61,9 +71,7 @@ export default async function BasketStrainersPage() {
           <p className="text-muted-foreground mb-6">{content.longDescription}</p>
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3">Applications</h3>
-            <div className="flex flex-wrap gap-2">
-              {content.applications.map((app, i) => <span key={i} className="text-sm bg-muted px-3 py-1.5 rounded-md border">{app}</span>)}
-            </div>
+            <ApplicationLinks applications={content.applications} />
           </div>
           <div className="bg-card border rounded-lg p-6">
             <h3 className="text-lg font-semibold mb-4">Key Features</h3>

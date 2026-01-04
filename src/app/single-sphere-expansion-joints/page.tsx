@@ -4,6 +4,7 @@ import { getProductsBySubcategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import USPBar from "@/components/USPBar"
+import ApplicationLinks from "@/components/ApplicationLinks"
 
 const content = {
   title: "Single Sphere Expansion Joints",
@@ -61,9 +62,7 @@ export default async function SingleSphereExpansionJointsPage() {
           <p className="text-muted-foreground mb-6">{content.longDescription}</p>
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3">Applications</h3>
-            <div className="flex flex-wrap gap-2">
-              {content.applications.map((app, i) => <span key={i} className="text-sm bg-muted px-3 py-1.5 rounded-md border">{app}</span>)}
-            </div>
+            <ApplicationLinks applications={content.applications} />
           </div>
           <div className="bg-card border rounded-lg p-6">
             <h3 className="text-lg font-semibold mb-4">Key Features</h3>

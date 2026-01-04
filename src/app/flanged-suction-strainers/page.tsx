@@ -4,19 +4,28 @@ import { getProductsBySubcategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import USPBar from "@/components/USPBar"
+import ApplicationLinks from "@/components/ApplicationLinks"
 
 const content = {
   title: "Flanged Suction Strainers",
-  metaDescription: "Flanged suction strainers for pump protection. Inline installation with flanged connections. 316 stainless steel mesh.",
-  heroDescription: "Inline suction strainers with flanged connections for easy installation on pump suction lines.",
-  longDescription: "Flanged suction strainers are installed on pump suction lines to protect pumps from debris and particles. The flanged connections allow easy integration into existing pipework, and the strainer basket can be removed for cleaning without disconnecting the unit.",
-  features: ["Flanged connections", "Pump protection", "Easy inline installation", "316 stainless steel mesh", "Removable basket", "Low pressure drop design"],
-  applications: ["Pump suction lines", "Water supply systems", "Industrial processing", "Irrigation systems"],
+  metaDescription: "Flanged suction strainers and filter strainer for hydraulic pump suction strainer applications. Inline filter strainer installation with flanged connections. 316SS mesh.",
+  heroDescription: "Inline suction filter strainer with flanged connections for easy installation on pump suction lines. Ideal hydraulic pump suction strainer solution.",
+  longDescription: "Flanged suction strainers are installed on pump suction lines as a filter strainer to protect pumps from debris and particles. Our hydraulic pump suction strainer range features flanged connections for easy integration into existing pipework. The filter strainer basket can be removed for cleaning without disconnecting the unit.",
+  features: ["Flanged connections", "Hydraulic pump suction strainer protection", "Easy inline filter strainer installation", "316 stainless steel mesh", "Removable basket", "Low pressure drop design"],
+  applications: ["Hydraulic pump suction strainer", "Pump suction lines", "Water supply filter strainer", "Industrial processing", "Irrigation systems"],
 }
 
 export const metadata: Metadata = {
-  title: `${content.title} | Dewater Products`,
+  title: "Flanged Suction Strainers | Filter Strainer | Hydraulic Pump Suction",
   description: content.metaDescription,
+  keywords: [
+    "flanged suction strainer",
+    "filter strainer",
+    "hydraulic pump suction strainer",
+    "pump suction strainer",
+    "suction line strainer",
+    "inline filter strainer",
+  ],
   alternates: { canonical: "https://dewaterproducts.com.au/flanged-suction-strainers" },
 }
 
@@ -64,9 +73,7 @@ export default async function FlangedSuctionStrainersPage() {
           <p className="text-muted-foreground mb-6">{content.longDescription}</p>
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3">Applications</h3>
-            <div className="flex flex-wrap gap-2">
-              {content.applications.map((app, i) => <span key={i} className="text-sm bg-muted px-3 py-1.5 rounded-md border">{app}</span>)}
-            </div>
+            <ApplicationLinks applications={content.applications} />
           </div>
           <div className="bg-card border rounded-lg p-6">
             <h3 className="text-lg font-semibold mb-4">Key Features</h3>

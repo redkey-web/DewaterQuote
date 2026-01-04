@@ -90,6 +90,7 @@ export default function Header() {
       url: "/pipe-couplings",
       items: [
         { name: "Pipe Couplings", url: "/pipe-couplings" },
+        { name: "Muff Couplings", url: "/muff-couplings" },
         { name: "Pipe Repair Clamps", url: "/pipe-repair" },
         { name: "Flange Adaptors", url: "/flange-adaptors" },
       ],
@@ -100,6 +101,7 @@ export default function Header() {
       items: [
         { name: "Butterfly Valves", url: "/butterfly-valves" },
         { name: "Check Valves", url: "/check-valves" },
+        { name: "Duckbill Valves", url: "/duckbill-check-valves" },
         { name: "Gate Valves", url: "/gate-valves" },
         { name: "Ball Valves", url: "/ball-valves" },
         { name: "Float Valves", url: "/float-valves" },
@@ -158,13 +160,13 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 overflow-visible">
         <div className="flex items-center justify-between py-0 gap-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0 py-0 my-0" data-testid="link-home">
+          <Link href="/" className="flex items-center flex-shrink-0" data-testid="link-home">
             <Image
-              src="/images/logo.png"
-              alt="Dewater Products"
-              width={200}
-              height={138}
-              className="h-[117px] md:h-[138px] w-auto object-cover scale-110 block -my-6"
+              src="/images/logo-new.png"
+              alt="Dewater Products - Fluid Piping Components"
+              width={480}
+              height={160}
+              className="h-[143px] md:h-[172px] w-auto object-contain -mt-[25px] -mb-[35px] md:-mt-[32px] md:-mb-[42px]"
               priority
             />
           </Link>
@@ -432,7 +434,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border">
+          <div className="lg:hidden py-4 border-t border-border bg-white dark:bg-gray-950">
             <div className="mb-4" ref={mobileSearchRef}>
               <form onSubmit={handleSearchSubmit} className="relative">
                 {isSearching ? (
