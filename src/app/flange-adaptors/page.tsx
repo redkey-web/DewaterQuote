@@ -85,7 +85,10 @@ export default async function FlangeAdaptorsPage() {
           categorySlug="flange-adaptors"
           subcategories={flangeSubcategories}
           title="Search by Type"
-          basePath="/flange-adaptors"
+          hideEmpty={true}
+          urlMap={{
+            'flange-adaptor': '/flange-adaptors',
+          }}
         />
 
         {/* All Products */}

@@ -8,10 +8,10 @@ import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 const strainerTypes = [
-  { name: "Y Strainer", slug: "y-strainer", description: "Compact design suitable for horizontal or vertical installation with moderate pressure loss and manual maintenance access." },
-  { name: "Simplex Basket Strainer", slug: "simplex-basket-strainer", description: "Horizontal unit featuring top-opening basket access, medium-to-high debris capacity, and low pressure loss for general inline filtration." },
-  { name: "Duplex Basket Strainer", slug: "duplex-basket-strainer", description: "Dual-basket system allowing continuous flow during maintenance without downtime, ideal for systems requiring uninterrupted operation." },
-  { name: "Flanged Suction Strainer", slug: "flanged-suction-strainer", description: "Installed at pump suction end to prevent large debris entering the system. 316SS construction with large size range up to DN900." },
+  { name: "Y Strainer", url: "/y-strainers", description: "Compact design suitable for horizontal or vertical installation with moderate pressure loss and manual maintenance access." },
+  { name: "Simplex Basket Strainer", url: "/basket-strainers", description: "Horizontal unit featuring top-opening basket access, medium-to-high debris capacity, and low pressure loss for general inline filtration." },
+  { name: "Duplex Basket Strainer", url: "/basket-strainers", description: "Dual-basket system allowing continuous flow during maintenance without downtime, ideal for systems requiring uninterrupted operation." },
+  { name: "Flanged Suction Strainer", url: "/basket-strainers", description: "Installed at pump suction end to prevent large debris entering the system. 316SS construction with large size range up to DN900." },
 ]
 
 const applications = [
@@ -76,7 +76,7 @@ export default async function StrainersPage() {
           <h2 className="text-2xl font-bold mb-6">Strainer Types</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {strainerTypes.map((type) => (
-              <Link key={type.name} href={`/strainers/${type.slug}`} className="p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-md transition-all">
+              <Link key={type.name} href={type.url} className="p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-md transition-all">
                 <h3 className="font-semibold mb-2">{type.name}</h3>
                 <p className="text-sm text-muted-foreground">{type.description}</p>
               </Link>
@@ -89,7 +89,13 @@ export default async function StrainersPage() {
           categorySlug="strainers"
           subcategories={strainerSubcategories}
           title="Search by Type"
-          basePath="/strainers"
+          hideEmpty={true}
+          urlMap={{
+            'y-strainer': '/y-strainers',
+            'simplex-basket-strainer': '/basket-strainers',
+            'duplex-basket-strainer': '/basket-strainers',
+            'flanged-suction-strainer': '/basket-strainers',
+          }}
         />
 
         {/* All Products */}

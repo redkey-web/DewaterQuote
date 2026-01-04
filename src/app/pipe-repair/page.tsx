@@ -160,7 +160,11 @@ export default async function PipeRepairPage() {
           categorySlug="pipe-repair-clamps"
           subcategories={repairSubcategories}
           title="Search by Type"
-          basePath="/pipe-repair"
+          hideEmpty={true}
+          urlMap={{
+            'orbit-pipe-repair-clamps': '/pipe-repair-clamps',
+            'straub-pipe-repair-clamps': '/pipe-repair-clamps',
+          }}
         />
 
         {/* All Products */}
