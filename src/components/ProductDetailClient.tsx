@@ -43,6 +43,7 @@ import {
 } from "lucide-react"
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd"
 import { useToast } from "@/hooks/use-toast"
+import { useGeo } from "@/hooks/useGeo"
 import {
   productToQuoteItem,
   getDiscountPercentage,
@@ -61,6 +62,7 @@ interface ProductDetailClientProps {
 export function ProductDetailClient({ product, relatedProducts }: ProductDetailClientProps) {
   const { toast } = useToast()
   const { addItem } = useQuote()
+  const { isAustralia } = useGeo()
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [quantity, setQuantity] = useState<number>(1)
   const [materialTestCert, setMaterialTestCert] = useState<boolean>(false)
@@ -168,7 +170,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   // Get the selected size option details
   const selectedSizeOption = product.sizeOptions?.find((s) => s.value === selectedSize)
   const discountPercentage = getDiscountPercentage(quantity)
-  const hasDiscount = discountPercentage > 0 && selectedSizeOption?.price
+  const hasDiscount = isAustralia && discountPercentage > 0 && selectedSizeOption?.price
 
   // Check if product has size options
   const hasSizeOptions = product.sizeOptions && product.sizeOptions.length > 0
@@ -365,27 +367,29 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               <Truck className="w-5 h-5" />
             </div>
 
-            {/* Bulk Pricing Info */}
-            <div className="py-2 px-3 border border-border rounded-md mb-6">
-              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm">
-                <span className="font-semibold text-foreground whitespace-nowrap">
-                  <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-primary inline mr-1" />
-                  Bulk Pricing:
-                </span>
-                <span className="whitespace-nowrap">
-                  <span className="text-muted-foreground">2-4 qty</span>
-                  <span className="font-bold text-yellow-600 dark:text-yellow-500 ml-1">5% off</span>
-                </span>
-                <span className="whitespace-nowrap">
-                  <span className="text-muted-foreground">5-9 qty</span>
-                  <span className="font-bold text-orange-600 dark:text-orange-500 ml-1">10% off</span>
-                </span>
-                <span className="whitespace-nowrap">
-                  <span className="text-muted-foreground">10+ qty</span>
-                  <span className="font-bold text-rose-600 dark:text-rose-500 ml-1">15% off</span>
-                </span>
+            {/* Bulk Pricing Info - AU only */}
+            {isAustralia && (
+              <div className="py-2 px-3 border border-border rounded-md mb-6">
+                <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm">
+                  <span className="font-semibold text-foreground whitespace-nowrap">
+                    <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-primary inline mr-1" />
+                    Bulk Pricing:
+                  </span>
+                  <span className="whitespace-nowrap">
+                    <span className="text-muted-foreground">2-4 qty</span>
+                    <span className="font-bold text-yellow-600 dark:text-yellow-500 ml-1">5% off</span>
+                  </span>
+                  <span className="whitespace-nowrap">
+                    <span className="text-muted-foreground">5-9 qty</span>
+                    <span className="font-bold text-orange-600 dark:text-orange-500 ml-1">10% off</span>
+                  </span>
+                  <span className="whitespace-nowrap">
+                    <span className="text-muted-foreground">10+ qty</span>
+                    <span className="font-bold text-rose-600 dark:text-rose-500 ml-1">15% off</span>
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
 
             <Separator className="my-6" />
 
@@ -491,7 +495,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                                           {size.label && <span className="opacity-70 ml-1">- {size.label}</span>}
                                         </span>
                                         <span className={`text-right tabular-nums ${selected ? "text-primary" : ""}`}>
-                                          {size.price ? `$${size.price.toFixed(2)}` : "POA"}
+                                          {isAustralia ? (size.price ? `$${size.price.toFixed(2)}` : "POA") : ""}
                                         </span>
                                       </div>
                                     )}
@@ -536,9 +540,11 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                                   {size.value}
                                   {size.label && <span className="text-muted-foreground ml-1">- {size.label}</span>}
                                 </span>
-                                <span className="text-right text-muted-foreground tabular-nums font-medium min-w-[80px]">
-                                  {size.price ? `$${size.price.toFixed(2)}` : "POA"}
-                                </span>
+                                {isAustralia && (
+                                  <span className="text-right text-muted-foreground tabular-nums font-medium min-w-[80px]">
+                                    {size.price ? `$${size.price.toFixed(2)}` : "POA"}
+                                  </span>
+                                )}
                               </div>
                             </SelectItem>
                           ))}
@@ -582,8 +588,8 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                           </Badge>
                         )}
                       </div>
-                      {/* Show total when qty > 1 or discount applies */}
-                      {selectedSizeOption.price && (quantity > 1 || hasDiscount) && (
+                      {/* Show total when qty > 1 or discount applies - AU only */}
+                      {isAustralia && selectedSizeOption.price && (quantity > 1 || hasDiscount) && (
                         <div className="text-right">
                           <span className="text-lg font-bold text-primary">
                             ${(hasDiscount
@@ -663,7 +669,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                       className="text-sm font-medium cursor-pointer flex items-center gap-2"
                     >
                       <FileCheck className="w-4 h-4 text-primary" />
-                      Add Material Test Certificate (+$350)
+                      Add Material Test Certificate{isAustralia && " (+$350)"}
                     </label>
                     <p className="text-xs text-muted-foreground">
                       Applies once per product type. May extend lead time.

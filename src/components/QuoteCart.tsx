@@ -18,11 +18,13 @@ import {
   getMaterialCertCount,
 } from "@/lib/quote"
 import { useQuote } from "@/context/QuoteContext"
+import { useGeo } from "@/hooks/useGeo"
 import OrderBumps from "./OrderBumps"
 
 export default function QuoteCart() {
   const router = useRouter()
   const { items, isCartOpen, closeCart, removeItem, updateItemQuantity, addItem } = useQuote()
+  const { isAustralia } = useGeo()
   const [isVisible, setIsVisible] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
 
@@ -104,7 +106,7 @@ export default function QuoteCart() {
                       const itemDiscountedSubtotal = getQuoteItemDiscountedSubtotal(item)
                       const savings = getQuoteItemSavings(item)
                       const discountPercentage = getDiscountPercentage(item.quantity)
-                      const hasDiscount = discountPercentage > 0
+                      const hasDiscount = isAustralia && discountPercentage > 0
 
                       return (
                         <div
@@ -147,26 +149,28 @@ export default function QuoteCart() {
                                 + Cert
                               </Badge>
                             )}
-                            <div className="flex items-center gap-2 mt-1 flex-wrap">
-                              {hasDiscount ? (
-                                <>
-                                  <p
-                                    className="text-sm line-through text-destructive"
-                                    data-testid={`text-original-price-${item.id}`}
-                                  >
-                                    ${price?.toFixed(2)}
-                                  </p>
-                                  <p
-                                    className="text-sm font-bold text-primary"
-                                    data-testid={`text-discounted-price-${item.id}`}
-                                  >
-                                    ${(price! * (1 - discountPercentage / 100)).toFixed(2)}
-                                  </p>
-                                </>
-                              ) : (
-                                <p className="text-sm font-bold text-primary">${price?.toFixed(2)}</p>
-                              )}
-                            </div>
+                            {isAustralia && (
+                              <div className="flex items-center gap-2 mt-1 flex-wrap">
+                                {hasDiscount ? (
+                                  <>
+                                    <p
+                                      className="text-sm line-through text-destructive"
+                                      data-testid={`text-original-price-${item.id}`}
+                                    >
+                                      ${price?.toFixed(2)}
+                                    </p>
+                                    <p
+                                      className="text-sm font-bold text-primary"
+                                      data-testid={`text-discounted-price-${item.id}`}
+                                    >
+                                      ${(price! * (1 - discountPercentage / 100)).toFixed(2)}
+                                    </p>
+                                  </>
+                                ) : (
+                                  <p className="text-sm font-bold text-primary">${price?.toFixed(2)}</p>
+                                )}
+                              </div>
+                            )}
                             {/* Quantity Controls */}
                             <div className="flex items-center gap-2 mt-2">
                               <div className="flex items-center border border-border rounded-md">
@@ -195,7 +199,7 @@ export default function QuoteCart() {
                                   <Plus className="w-3 h-3" />
                                 </Button>
                               </div>
-                              {item.quantity > 1 && (
+                              {isAustralia && item.quantity > 1 && (
                                 <span className="text-sm text-muted-foreground">
                                   ={" "}
                                   {hasDiscount ? (
@@ -230,72 +234,82 @@ export default function QuoteCart() {
                       )
                     })}
                   </div>
-                  <div className="mt-4 pt-4 border-t border-border space-y-2">
-                    {totalSavings > 0 && (
-                      <>
+                  {isAustralia ? (
+                    <div className="mt-4 pt-4 border-t border-border space-y-2">
+                      {totalSavings > 0 && (
+                        <>
+                          <div className="flex justify-between items-center text-sm">
+                            <span className="text-muted-foreground line-through">Original Total:</span>
+                            <span
+                              className="text-muted-foreground line-through"
+                              data-testid="text-original-total"
+                            >
+                              ${subtotal.toFixed(2)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center text-sm">
+                            <span className="text-destructive font-medium flex items-center gap-1">
+                              <TrendingDown className="w-4 h-4" />
+                              Bulk Discount:
+                            </span>
+                            <span className="text-destructive font-medium" data-testid="text-total-savings">
+                              -${totalSavings.toFixed(2)}
+                            </span>
+                          </div>
+                        </>
+                      )}
+                      {totalSavings === 0 && (
                         <div className="flex justify-between items-center text-sm">
-                          <span className="text-muted-foreground line-through">Original Total:</span>
-                          <span
-                            className="text-muted-foreground line-through"
-                            data-testid="text-original-total"
-                          >
+                          <span className="text-muted-foreground">Subtotal:</span>
+                          <span data-testid="text-subtotal">
                             ${subtotal.toFixed(2)}
                           </span>
                         </div>
+                      )}
+                      {/* Material Certificate Fee */}
+                      {certFeeTotal > 0 && (
                         <div className="flex justify-between items-center text-sm">
-                          <span className="text-destructive font-medium flex items-center gap-1">
-                            <TrendingDown className="w-4 h-4" />
-                            Bulk Discount:
+                          <span className="text-muted-foreground flex items-center gap-1">
+                            <FileCheck className="w-4 h-4" />
+                            Certificates ({certCount}):
                           </span>
-                          <span className="text-destructive font-medium" data-testid="text-total-savings">
-                            -${totalSavings.toFixed(2)}
-                          </span>
+                          <span>${certFeeTotal.toFixed(2)}</span>
                         </div>
-                      </>
-                    )}
-                    {totalSavings === 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Subtotal:</span>
-                        <span data-testid="text-subtotal">
-                          ${subtotal.toFixed(2)}
+                      )}
+                      <div className="flex justify-between items-center pt-2 border-t border-border">
+                        <span className="font-medium text-sm">Total (ex GST):</span>
+                        <span
+                          className="font-medium"
+                          data-testid="text-discounted-total"
+                        >
+                          ${(discountedSubtotal + certFeeTotal).toFixed(2)}
                         </span>
                       </div>
-                    )}
-                    {/* Material Certificate Fee */}
-                    {certFeeTotal > 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground flex items-center gap-1">
-                          <FileCheck className="w-4 h-4" />
-                          Certificates ({certCount}):
-                        </span>
-                        <span>${certFeeTotal.toFixed(2)}</span>
+                      <div className="flex justify-between items-center text-sm text-muted-foreground">
+                        <span>GST (10%):</span>
+                        <span>${((discountedSubtotal + certFeeTotal) * 0.1).toFixed(2)}</span>
                       </div>
-                    )}
-                    <div className="flex justify-between items-center pt-2 border-t border-border">
-                      <span className="font-medium text-sm">Total (ex GST):</span>
-                      <span
-                        className="font-medium"
-                        data-testid="text-discounted-total"
-                      >
-                        ${(discountedSubtotal + certFeeTotal).toFixed(2)}
-                      </span>
+                      <div className="flex justify-between items-center pt-2 border-t border-border bg-primary/5 -mx-4 px-4 py-2 rounded-md">
+                        <span className="font-bold">Total (inc GST):</span>
+                        <span className="text-xl font-bold text-primary">
+                          ${((discountedSubtotal + certFeeTotal) * 1.1).toFixed(2)}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground pt-2">
+                        {totalSavings > 0
+                          ? `You're saving $${totalSavings.toFixed(2)} with bulk pricing!`
+                          : "Add 2+ of the same product for bulk discounts (5-15% off)"}
+                      </p>
                     </div>
-                    <div className="flex justify-between items-center text-sm text-muted-foreground">
-                      <span>GST (10%):</span>
-                      <span>${((discountedSubtotal + certFeeTotal) * 0.1).toFixed(2)}</span>
+                  ) : (
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <p className="text-sm text-muted-foreground text-center">
+                        Pricing available for Australian customers.
+                        <br />
+                        Submit your quote for a custom price.
+                      </p>
                     </div>
-                    <div className="flex justify-between items-center pt-2 border-t border-border bg-primary/5 -mx-4 px-4 py-2 rounded-md">
-                      <span className="font-bold">Total (inc GST):</span>
-                      <span className="text-xl font-bold text-primary">
-                        ${((discountedSubtotal + certFeeTotal) * 1.1).toFixed(2)}
-                      </span>
-                    </div>
-                    <p className="text-xs text-muted-foreground pt-2">
-                      {totalSavings > 0
-                        ? `You're saving $${totalSavings.toFixed(2)} with bulk pricing!`
-                        : "Add 2+ of the same product for bulk discounts (5-15% off)"}
-                    </p>
-                  </div>
+                  )}
                 </div>
               )}
 

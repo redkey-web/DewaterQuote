@@ -57,6 +57,7 @@ import {
 } from "@/lib/quote"
 import { useQuote } from "@/context/QuoteContext"
 import { useToast } from "@/hooks/use-toast"
+import { useGeo } from "@/hooks/useGeo"
 import { Turnstile } from "@/components/Turnstile"
 import { trackQuoteSubmission } from "@/components/GoogleAnalytics"
 
@@ -97,6 +98,7 @@ export default function RequestQuotePage() {
   const router = useRouter()
   const { toast } = useToast()
   const { items: quoteItems, removeItem, clearQuote, updateItemQuantity } = useQuote()
+  const { isAustralia } = useGeo()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
@@ -357,7 +359,7 @@ export default function RequestQuotePage() {
                               <div className="text-xs text-muted-foreground sm:hidden">
                                 {sku}
                               </div>
-                              {hasDiscount && (
+                              {isAustralia && hasDiscount && (
                                 <Badge
                                   variant="secondary"
                                   className="bg-destructive/10 text-destructive text-xs mt-1"
@@ -368,7 +370,7 @@ export default function RequestQuotePage() {
                               {item.materialTestCert && (
                                 <Badge variant="outline" className="text-xs mt-1 gap-1 text-primary border-primary/50">
                                   <FileCheck className="w-3 h-3" />
-                                  + Material Cert ($350)
+                                  + Material Cert{isAustralia && " ($350)"}
                                 </Badge>
                               )}
                             </td>
@@ -418,28 +420,36 @@ export default function RequestQuotePage() {
 
                             {/* Unit Price */}
                             <td className="py-3 px-2 text-right hidden md:table-cell">
-                              {price !== undefined ? (
-                                <span>${price.toFixed(2)}</span>
+                              {isAustralia ? (
+                                price !== undefined ? (
+                                  <span>${price.toFixed(2)}</span>
+                                ) : (
+                                  <span className="text-amber-600">POA</span>
+                                )
                               ) : (
-                                <span className="text-amber-600">POA</span>
+                                <span className="text-muted-foreground">-</span>
                               )}
                             </td>
 
                             {/* Line Total */}
                             <td className="py-3 px-2 text-right font-medium">
-                              {price !== undefined ? (
-                                hasDiscount ? (
-                                  <div>
-                                    <span className="line-through text-xs text-muted-foreground block">
-                                      ${subtotal?.toFixed(2)}
-                                    </span>
-                                    <span className="text-primary">${discountedSubtotal?.toFixed(2)}</span>
-                                  </div>
+                              {isAustralia ? (
+                                price !== undefined ? (
+                                  hasDiscount ? (
+                                    <div>
+                                      <span className="line-through text-xs text-muted-foreground block">
+                                        ${subtotal?.toFixed(2)}
+                                      </span>
+                                      <span className="text-primary">${discountedSubtotal?.toFixed(2)}</span>
+                                    </div>
+                                  ) : (
+                                    <span>${subtotal?.toFixed(2)}</span>
+                                  )
                                 ) : (
-                                  <span>${subtotal?.toFixed(2)}</span>
+                                  <span className="text-amber-600">POA</span>
                                 )
                               ) : (
-                                <span className="text-amber-600">POA</span>
+                                <span className="text-muted-foreground">-</span>
                               )}
                             </td>
 
@@ -465,8 +475,8 @@ export default function RequestQuotePage() {
 
                 {/* Quote Summary */}
                 <div className="mt-6 pt-4 border-t border-border space-y-3">
-                  {/* Subtotal */}
-                  {pricedItems.length > 0 && (
+                  {/* Subtotal - AU only */}
+                  {isAustralia && pricedItems.length > 0 && (
                     <>
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Subtotal ({pricedItems.length} items)</span>
@@ -528,6 +538,17 @@ export default function RequestQuotePage() {
                         <span className="font-semibold">${((discountedTotal + certFeeTotal) * 1.1).toFixed(2)}</span>
                       </div>
                     </>
+                  )}
+
+                  {/* Non-AU message */}
+                  {!isAustralia && (
+                    <div className="text-center py-4">
+                      <p className="text-sm text-muted-foreground">
+                        Pricing is available for Australian customers.
+                        <br />
+                        Submit your quote and we&apos;ll provide a custom price.
+                      </p>
+                    </div>
                   )}
 
                   {/* Unpriced Items Notice */}
@@ -949,7 +970,7 @@ export default function RequestQuotePage() {
                     {quoteItems.length}
                   </span>
                 </div>
-                {pricedItems.length > 0 && (
+                {isAustralia && pricedItems.length > 0 && (
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm text-muted-foreground">Est. Total</span>
                     <span className="text-xl font-bold text-primary" data-testid="text-estimated-total">
@@ -957,7 +978,7 @@ export default function RequestQuotePage() {
                     </span>
                   </div>
                 )}
-                {totalSavings > 0 && (
+                {isAustralia && totalSavings > 0 && (
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm text-destructive">You Save</span>
                     <span className="font-bold text-destructive">
@@ -965,7 +986,7 @@ export default function RequestQuotePage() {
                     </span>
                   </div>
                 )}
-                {certCount > 0 && (
+                {isAustralia && certCount > 0 && (
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm text-muted-foreground">Certificates</span>
                     <span className="font-medium">

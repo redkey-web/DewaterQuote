@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Package, TrendingDown } from "lucide-react"
+import { useGeo } from "@/hooks/useGeo"
 import type { Product } from "@/types"
 
 interface ProductCardProps {
@@ -16,11 +17,12 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const [imageError, setImageError] = useState(false)
   const mainImage = product.images?.[0]?.url
+  const { isAustralia } = useGeo()
 
-  // Check if product has pricing (not POA)
-  const hasPrice = product.priceVaries
+  // Check if product has pricing (not POA) - only relevant for AU visitors
+  const hasPrice = isAustralia && (product.priceVaries
     ? product.sizeOptions?.some((opt) => opt.price && opt.price > 0)
-    : product.price && product.price > 0
+    : product.price && product.price > 0)
 
   useEffect(() => {
     setImageError(false)

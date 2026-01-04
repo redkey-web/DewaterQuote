@@ -85,25 +85,27 @@ Comprehensive site improvements covering UI polish, navigation fixes, admin pane
 
 ---
 
-## Phase 4: Geo-Restrict Prices to Australia
-**Priority: High - Security/Business**
+## Phase 4: Geo-Restrict Prices to Australia ✅
+**Priority: High - Security/Business** - COMPLETE
 
 ### Tasks
-- [ ] 4.1 Create geo-detection middleware
-  - Use Vercel Edge functions with geolocation
-  - Detect country from request headers
-- [ ] 4.2 Update price display logic
-  - Hide prices for non-AU visitors
-  - Show "Contact for pricing" message
-- [ ] 4.3 Components to update:
-  - ProductCard.tsx - hide price/discount badges
-  - ProductDetailClient.tsx - hide pricing table
-  - QuoteCart.tsx - hide totals
-  - request-quote/page.tsx - hide pricing summary
+- [x] 4.1 Update geo-detection middleware
+  - Updated middleware to set `geo-country` cookie for all visitors
+  - In dev mode defaults to AU for testing
+- [x] 4.2 Create useGeo hook
+  - Created `src/hooks/useGeo.ts` to read geo cookies
+  - Returns `{ isAustralia, region, isLoading }`
+- [x] 4.3 Update components to hide prices for non-AU:
+  - ProductCard.tsx - hide "Discounts" badge
+  - ProductDetailClient.tsx - hide bulk pricing, size prices, discounts, cert fee
+  - QuoteCart.tsx - hide all pricing, show "Pricing available for Australian customers"
+  - request-quote/page.tsx - hide unit prices, line totals, summary
+
+**Completed**: 2025-01-04
 
 **Files:**
-- `middleware.ts` (new or update)
-- `src/lib/geo.ts` (new utility)
+- `src/middleware.ts` (updated)
+- `src/hooks/useGeo.ts` (new)
 - `src/components/ProductCard.tsx`
 - `src/components/ProductDetailClient.tsx`
 - `src/components/QuoteCart.tsx`

@@ -2,7 +2,7 @@ import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Geo middleware to set region cookie
+// Geo middleware to set country/region cookies for pricing visibility
 function geoMiddleware(request: NextRequest) {
   const response = NextResponse.next();
 
@@ -10,14 +10,26 @@ function geoMiddleware(request: NextRequest) {
   const country = request.headers.get('x-vercel-ip-country') || '';
   const region = request.headers.get('x-vercel-ip-region') || '';
 
-  // Only set cookie for Australian visitors
-  if (country === 'AU' && region) {
-    // Set cookie with region code (WA, SA, NT, NSW, VIC, QLD, TAS, ACT)
-    response.cookies.set('geo-region', region, {
+  // Set country cookie for all visitors (used for price visibility)
+  // In development (no Vercel headers), default to AU for testing
+  const effectiveCountry = country || (process.env.NODE_ENV === 'development' ? 'AU' : '');
+
+  if (effectiveCountry) {
+    response.cookies.set('geo-country', effectiveCountry, {
       httpOnly: false, // Allow client-side access
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 60 * 60 * 24, // 24 hours
+    });
+  }
+
+  // Set region cookie for Australian visitors (for state-specific messaging)
+  if (country === 'AU' && region) {
+    response.cookies.set('geo-region', region, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
     });
   }
 
