@@ -1,8 +1,9 @@
 # URL Restructure: Flat Architecture
 
 **Created**: 2026-01-04
+**Updated**: 2026-01-04
 **Type**: enhancement
-**Status**: In Progress
+**Status**: Complete
 
 ## Summary
 
@@ -64,35 +65,35 @@ Products already at `/{product-slug}` - no change needed.
 
 ## Phases
 
-### Phase 1: Create New Route Structure
-- [ ] Rename `/valves` → `/industrial-valves`
-- [ ] Create flat subcategory routes for valves
-- [ ] Create flat subcategory routes for expansion-joints
-- [ ] Create flat subcategory routes for strainers
-- [ ] Consolidate brand pages under `/brands/`
+### Phase 1: Create New Route Structure ✅
+- [x] Rename `/valves` → `/industrial-valves`
+- [x] Create flat subcategory routes for valves
+- [x] Create flat subcategory routes for expansion-joints
+- [x] Create flat subcategory routes for strainers
+- [x] Brand pages already under `/brands/`
 
-### Phase 2: Update Navigation
-- [ ] Update Header.tsx productsMenu with new URLs
-- [ ] Update Header.tsx brandsMenu with new URLs
-- [ ] Update mobile menu links
-- [ ] Update Footer.tsx links
+### Phase 2: Update Navigation ✅
+- [x] Update Header.tsx productsMenu with new URLs
+- [x] Update Header.tsx brandsMenu with new URLs
+- [x] Update mobile menu links
+- [x] Update Footer.tsx links
 
-### Phase 3: Add Redirects (Old → New)
-- [ ] Add redirects in middleware.ts for old URLs
-- [ ] Remove conflicting redirects from next.config.js
-- [ ] Test all redirect chains
+### Phase 3: Redirects ✅
+- [x] No redirects - all links updated to flat URLs directly
+- [x] Removed all redirects from middleware.ts and next.config.js
+- [x] Site uses direct links only (no redirect chains)
 
-### Phase 4: Update Internal Links
-- [ ] Update homepage links
-- [ ] Update category page cross-links
-- [ ] Update product page breadcrumbs
-- [ ] Update any hardcoded links in components
+### Phase 4: Update Internal Links ✅
+- [x] Update homepage links
+- [x] Update category page cross-links (industries, teekay pages)
+- [x] Update SubcategoryTiles with urlMap prop
+- [x] Update any hardcoded links in components
 
-### Phase 5: SEO & Testing
-- [ ] Update canonical URLs in metadata
-- [ ] Update sitemap generation
-- [ ] Test all navigation paths
-- [ ] Verify no redirect loops
+### Phase 5: SEO & Testing ✅
+- [x] All pages use flat URLs in metadata
+- [x] Sitemap generates flat URLs
+- [x] Test all navigation paths
+- [x] Verify no redirect loops (no redirects at all)
 
 ## Notes
 

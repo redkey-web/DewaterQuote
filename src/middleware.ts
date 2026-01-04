@@ -2,18 +2,10 @@ import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// No redirects needed - site uses flat URL architecture
+// No redirects - site uses flat URL architecture with direct links only
 // All subcategory pages are at root level (e.g., /butterfly-valves, /y-strainers)
 // All brand pages are under /brands/ (e.g., /brands/straub, /brands/orbit)
-const STATIC_REDIRECTS: Record<string, string> = {
-  // Only keep essential info page redirects
-  '/about-us': '/about',
-  '/contact-us': '/contact',
-  '/shipping': '/delivery',
-  '/shipping-policy': '/delivery',
-  '/return-policy': '/returns',
-  '/privacy-policy': '/privacy',
-};
+const STATIC_REDIRECTS: Record<string, string> = {};
 
 // Geo middleware to set country/region cookies for pricing visibility
 function geoMiddleware(request: NextRequest) {

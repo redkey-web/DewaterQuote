@@ -40,7 +40,7 @@ export default function Footer() {
               <li><Link href="/pipe-couplings" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-couplings">Pipe Couplings</Link></li>
               <li><Link href="/pipe-repair" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-repair">Pipe Repair Clamps</Link></li>
               <li><Link href="/flange-adaptors" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-flanges">Flange Adaptors</Link></li>
-              <li><Link href="/valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-valves">Valves</Link></li>
+              <li><Link href="/industrial-valves" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-valves">Valves</Link></li>
               <li><Link href="/expansion-joints" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-expansion">Expansion Joints</Link></li>
               <li><Link href="/strainers" className="text-muted-foreground hover:text-foreground" data-testid="link-footer-strainers">Strainers</Link></li>
             </ul>

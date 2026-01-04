@@ -217,7 +217,7 @@ export default function IndustriesPage() {
                 <li>Foot valves</li>
               </ul>
               <Link
-                href="/valves"
+                href="/industrial-valves"
                 className="inline-flex items-center text-primary text-sm mt-3 hover:underline"
               >
                 View Range <ArrowRight className="w-3 h-3 ml-1" />

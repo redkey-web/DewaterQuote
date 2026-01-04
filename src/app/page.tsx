@@ -319,27 +319,27 @@ export default function HomePage() {
                 {/* Valves with subcategories */}
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/valves" className="flex-1">Valves</Link>
+                    <Link href="/industrial-valves" className="flex-1">Valves</Link>
                   </DropdownMenuSubTrigger>
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent className="w-48">
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/butterfly-valve" className="w-full cursor-pointer">Butterfly Valves</Link>
+                        <Link href="/butterfly-valves" className="w-full cursor-pointer">Butterfly Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/check-valves" className="w-full cursor-pointer">Check Valves</Link>
+                        <Link href="/check-valves" className="w-full cursor-pointer">Check Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/gate-valve" className="w-full cursor-pointer">Gate Valves</Link>
+                        <Link href="/gate-valves" className="w-full cursor-pointer">Gate Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/ball-valve" className="w-full cursor-pointer">Ball Valves</Link>
+                        <Link href="/ball-valves" className="w-full cursor-pointer">Ball Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/float-valve" className="w-full cursor-pointer">Float Valves</Link>
+                        <Link href="/float-valves" className="w-full cursor-pointer">Float Valves</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/valves/foot-valve" className="w-full cursor-pointer">Foot Valves</Link>
+                        <Link href="/foot-valves" className="w-full cursor-pointer">Foot Valves</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
@@ -353,19 +353,19 @@ export default function HomePage() {
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent className="w-48">
                       <DropdownMenuItem asChild>
-                        <Link href="/expansion-joints/single-sphere" className="w-full cursor-pointer">Single Sphere</Link>
+                        <Link href="/single-sphere-expansion-joints" className="w-full cursor-pointer">Single Sphere</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/expansion-joints/twin-sphere" className="w-full cursor-pointer">Twin Sphere</Link>
+                        <Link href="/twin-sphere-expansion-joints" className="w-full cursor-pointer">Twin Sphere</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/expansion-joints/single-arch" className="w-full cursor-pointer">Single Arch</Link>
+                        <Link href="/single-arch-expansion-joints" className="w-full cursor-pointer">Single Arch</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/expansion-joints/double-arch" className="w-full cursor-pointer">Double Arch</Link>
+                        <Link href="/double-arch-expansion-joints" className="w-full cursor-pointer">Double Arch</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/expansion-joints/reducing" className="w-full cursor-pointer">Reducing</Link>
+                        <Link href="/reducing-expansion-joints" className="w-full cursor-pointer">Reducing</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
@@ -379,16 +379,10 @@ export default function HomePage() {
                   <DropdownMenuPortal>
                     <DropdownMenuSubContent className="w-52">
                       <DropdownMenuItem asChild>
-                        <Link href="/strainers/y-strainer" className="w-full cursor-pointer">Y Strainers</Link>
+                        <Link href="/y-strainers" className="w-full cursor-pointer">Y Strainers</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/strainers/simplex-basket-strainer" className="w-full cursor-pointer">Simplex Basket</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/strainers/duplex-basket-strainer" className="w-full cursor-pointer">Duplex Basket</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/strainers/flanged-suction-strainer" className="w-full cursor-pointer">Flanged Suction</Link>
+                        <Link href="/basket-strainers" className="w-full cursor-pointer">Basket Strainers</Link>
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
