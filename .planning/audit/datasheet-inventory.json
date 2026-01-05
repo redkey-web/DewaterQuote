@@ -1,0 +1,1127 @@
+{
+  "scannedAt": "2026-01-05T02:06:09.936Z",
+  "totalSkus": 149,
+  "found": 76,
+  "notFound": 73,
+  "results": [
+    {
+      "sku": "BCV316BSP",
+      "name": "Ball Check Valve - 316 Stainless Steel - BSP",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BCV316BSP.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "BCV316TE",
+      "name": "Ball Check Valve - Stainless Steel 316 - Flanged Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BCV316TE.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "BCVCIF",
+      "name": "Ball Check Valve - Cast Iron FBE coated - Flanged Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BCVCIF.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "BCVCIT",
+      "name": "Ball Check Valve - Cast Iron FBE coated - BSP",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BCVCIT.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "BRONZESBS",
+      "name": "Bronze Simplex Basket Strainer - ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BRONZESBS.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "BV3WAY316",
+      "name": "Ball Valve - 3 way T or L Port - 316 Stainless Steel - Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BV3WAY316.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "CF8MDAFV",
+      "name": "CF8M Flanged Float Valve AS4087 PN16",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/CF8MDAFV.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "D-SERIESENCAP",
+      "name": "D - Series Encapsulating Clamp",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/D-SERIESENCAP.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "DAFVE",
+      "name": "Float Valve - Direct Acting Lever Operated - Flanged Table D",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DAFVE.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "DB-1",
+      "name": "DB-1 Slip On Duckbill Check Valve - Neoprene",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DB-1.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "DB4DCV",
+      "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DB4DCV.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "DBCVFE",
+      "name": "DB-2 Flanged Duckbill Check Valve - AS2129 Table E - Neoprene",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DBCVFE.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "DPCVWCB15",
+      "name": "Dual Plate Check Valve - WCB/316/VITON ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DPCVWCB15.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "DPCVWCB150",
+      "name": "Dual Plate Check Valve - WCB/316/VITON ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DPCVWCB150.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "DPCVWCB300",
+      "name": "Dual Plate Check Valve - WCB/316/VITON ANSI 300LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DPCVWCB300.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "ECCREJ",
+      "name": "Eccentric Reducing Rubber Expansion Joint with Table E or ANSI 150LB Zinc flanges",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/ECCREJ.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "ENCAPRC-SS",
+      "name": "Encapsulating Pipe Repair Clamp",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/ENCAPRC-SS.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "ERREJ",
+      "name": "Eccentric Unfilled Arch Reducing Rubber Expansion Joint",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/ERREJ.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "FlexGrip2PLong",
+      "name": "Flex Grip 2P Long",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FlexGrip2PLong.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "FSF-BREJ",
+      "name": "FSF-B Single Sphere Rubber Expansion Joint fitted with Table E or ANSI 150LB Zinc flanges",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FSF-BREJ.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "FSFREJ",
+      "name": "FSF Single Sphere Rubber Expansion Joint fitted with Table E or ANSI 150LB Zinc flanges",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FSFREJ.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "FSFREJ_316SS",
+      "name": "316SS Flanged FSF Single Sphere Rubber Expansion Joint Table E or ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FSFREJ_316SS.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "FSS316",
+      "name": "Flanged Suction Strainer - 316 Stainless Steel - Flanged Table D",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FSS316.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "FVHLOCL150",
+      "name": "Float Valve - Hydraulically Lever Operated - Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FVHLOCL150.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "GVCF8M150",
+      "name": "Gate Valve - CF8M 316SS - ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/GVCF8M150.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "GVCF8MTE",
+      "name": "Gate Valve - CF8M 316SS - Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/GVCF8MTE.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "ILDBCV",
+      "name": "DB-3 Inline Duckbill Check Valve - EPDM - Flanged Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/ILDBCV.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "KGVPN16",
+      "name": "Knife Gate Valves - PN16 Rated",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/KGVPN16.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "LOKGV316MS",
+      "name": "Lever Operated Knife Gate Valve - 316SS Metal Seated",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/LOKGV316MS.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "LOKGV316RS",
+      "name": "Lever Operated Knife Gate Valve - 316SS Resilient Seated EPDM",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/LOKGV316RS.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCCL",
+      "name": "Combo Lock",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCCL.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCELBRC",
+      "name": "Elbow Repair Clamp",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCELBRC.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFG-L",
+      "name": "Flex Grip L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFG-L.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFG-S",
+      "name": "Flex Grip S",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFG-S.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFG2-L",
+      "name": "Flex Grip 2 L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFG2-L.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFG2-S",
+      "name": "Flex Grip 2 S",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFG2-S.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFGO-L",
+      "name": "Flex Grip Open L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFGO-L.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFGO-S",
+      "name": "Flex Grip Open S",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFGO-S.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFGSTEP",
+      "name": "Flex Grip Stepped",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFGSTEP.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFLAD",
+      "name": "Flange Adapter Flex Grip S",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFLAD.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCFPC",
+      "name": "Fire Protection Coupling",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCFPC.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCML-L",
+      "name": "Metal Lock L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-L.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCML-S",
+      "name": "Metal Lock S",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-S.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCOF200-L",
+      "name": "Open Flex 200-L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF200-L.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCOF300-L",
+      "name": "Open Flex 300-L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF300-L.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCOF400-L",
+      "name": "Open Flex 400-L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCPC",
+      "name": "Plast Coupling",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCPC.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCRC100wide",
+      "name": "Orbit Pipe Repair Clamp Series 1 and 100mm long",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCRC100wide.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCRC200",
+      "name": "Orbit Pipe Repair Clamp Series 1 and 200mm long",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCRC200.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCRC300",
+      "name": "Orbit Pipe Repair Clamp Series 2 and 300mm long",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCRC300.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "OCRC400",
+      "name": "Orbit Pipe Repair Clamp Series 1 and 400mm long",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCRC400.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "PTFEFSFREJ",
+      "name": "PTFE Lined Rubber Expansion Joint FSF with Table E or ANSI 150LB Zinc flanges",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/PTFEFSFREJ.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SCSCE",
+      "name": "Straub Clamp SCE x 200mm",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SCSCE.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SF1L",
+      "name": "Straub Flex 1L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SF1L.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SF2H",
+      "name": "Straub Flex 2H",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SF2H.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SF2LS",
+      "name": "Straub Flex 2LS",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SF2LS.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SFAREJ",
+      "name": "Single Filled Arch Rubber Expansion Joint",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SFAREJ.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SFF",
+      "name": "Straub Fire Fence",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SFF.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SGL",
+      "name": "Straub Grip L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SGL.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SMG",
+      "name": "Straub Metal Grip",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SMG.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "SOF",
+      "name": "Straub Open Flex 1L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SOF.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKAF",
+      "name": "Teekay Axiflex Type IV, PN16, 110mm wide",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKAF.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKAFCR",
+      "name": "Teekay Axiflex Central Register, Type I, PN6, 210mm wide",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKAFCR.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKAFI",
+      "name": "Teekay Axiflex Type I, PN16, 110mm wide",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKAFI.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKAFIV",
+      "name": "Teekay Axiflex Type IV, PN16, 110mm wide",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKAFIV.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKAL",
+      "name": "Teekay Axilock Type IV, PN42,",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKAL.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKAL-FP",
+      "name": "Teekay Axilock-FP, Type IV,",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKAL-FP.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKALS",
+      "name": "Teekay Axilock S Type I, PN16",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKALS.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKRC",
+      "name": "Teekay Repair Coupling Type I, PN16, 210mm wide",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKRC.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKSC110wide",
+      "name": "Teekay Stepped Coupling, 110mm wide, PN16",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKSC110wide.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKSC140wide",
+      "name": "Teekay Stepped Coupling, 140mm wide, PN16",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKSC140wide.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TKSC210wide",
+      "name": "Teekay Stepped Coupling, 210mm wide, PN16",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TKSC210wide.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "TSREJFTF",
+      "name": "Twin Sphere Rubber Expansion Joint FTF with Table E or ANSI 150LB Zinc flanges",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TSREJFTF.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "UDC",
+      "name": "Universal Dual Clamp",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/UDC.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "WCBSCV150LB",
+      "name": "Swing Check Valve - WCB - Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/WCBSCV150LB.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "WCBSCV300LB",
+      "name": "Swing Check Valve - WCB - Flanged ANSI 300LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/WCBSCV300LB.pdf",
+      "status": "found",
+      "statusCode": 200,
+      "contentType": "application/pdf"
+    },
+    {
+      "sku": "4844",
+      "name": "Demo Test",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/4844.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "BFLYLE316",
+      "name": "Lugged Butterfly Valve - CF8M 316 Stainless Steel - EPDM or PTFE - Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BFLYLE316.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "BFLYW316",
+      "name": "Butterfly Valve - 316 Stainless Steel CF8M body - PTFE seat - Wafer Universal",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BFLYW316.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "BVFA150",
+      "name": "Ball Valve - Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/BVFA150.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "CF8MDAFV_100",
+      "name": "CF8M Flanged Float Valve AS4087 PN16 [size: 100mm] [Size - please check product sizing before ordering: 100mm DN100 (4\") Nominal Bore sizing]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/CF8MDAFV_100.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "CF8MWEBFVL",
+      "name": "CF8M Wafer Butterfly Valve EPDM lever operated",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/CF8MWEBFVL.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "CIYSE",
+      "name": "Y strainer FBE coated - Flanged Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/CIYSE.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "CRREJ",
+      "name": "Concentric Reducing Rubber Expansion Joint with Table E or ANSI 150LB Zinc flanges",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/CRREJ.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "CRSREJA",
+      "name": "Control Rod - Rubber Expansion Joint Accessory",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/CRSREJA.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DAREJ",
+      "name": "Double Arch Rubber Expansion Joint - unfilled arch",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DAREJ.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DB4DCV50",
+      "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type [Size - please check product sizing before ordering: 50mm DN50 (2\") Nominal Bore sizing]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DB4DCV50.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DB4DCV65",
+      "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type [Size - please check product sizing before ordering: 65mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DB4DCV65.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DB4DCV80",
+      "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type [Size - please check product sizing before ordering: 80mm DN80 (3\") Nominal Bore sizing]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DB4DCV80.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DBS3W316",
+      "name": "Duplex Basket Strainer 316SS fitted with 3 way flanged ball valves ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DBS3W316.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DBS3W316_25",
+      "name": "Duplex Basket Strainer 316SS fitted with 3 way flanged ball valves ANSI 150LB [Size - please check product sizing before ordering: 25mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DBS3W316_25.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DBSTPB316",
+      "name": "Duplex Basket Strainer 316SS fitted with SS butterfly valves flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DBSTPB316.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DBSTPBCS",
+      "name": "Duplex Basket Strainer Carbon Steel fitted with DI Butterfly valves flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DBSTPBCS.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DFAREJ",
+      "name": "Double Filled Arch Rubber Expansion joint",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DFAREJ.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "DPCVWCB10",
+      "name": "Dual Plate Check Valve - WCB/316/VITON ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/DPCVWCB10.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "ERFREJ",
+      "name": "Eccentric Filled Arch Reducing Rubber Expansion Joint",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/ERFREJ.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "FCBSCS",
+      "name": "Fabricated Simplex Basket Strainer - Flanged ANSI 150LB, with davit arm and cable hoist",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FCBSCS.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "FVGALV",
+      "name": "Foot Valve - Galvanised - Flanged Table D",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FVGALV.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "FVHDPE",
+      "name": "Foot Valve - HDPE - Flanged Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FVHDPE.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "FVSSD",
+      "name": "Foot Valve - 316 Stainless Steel - Flanged Table D",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/FVSSD.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "ILDBCV50",
+      "name": "Inline Duck Bill Check Valve - EPDM",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/ILDBCV50.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "ILDBCV65",
+      "name": "Inline Duck Bill Check Valve - EPDM",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/ILDBCV65.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "MCATDE",
+      "name": "Muff Couplings Aluminium Table D/E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/MCATDE.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCML-L406.4",
+      "name": "Metal Lock L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-L406.4.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCML-L427.0",
+      "name": "Metal Lock L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-L427.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCML-L457.2",
+      "name": "Metal Lock L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-L457.2.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCML-L508.0",
+      "name": "Metal Lock L",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-L508.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCML-S427.0",
+      "name": "Metal Lock S",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-S427.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCML-S457.2",
+      "name": "Metal Lock S",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-S457.2.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCML-S508.0",
+      "name": "Metal Lock S",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCML-S508.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1000.0",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1000.0mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1000.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1016.0",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1016.0mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1016.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1025.0",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1025.0mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1025.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1035.0",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1035.0mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1035.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1117.6",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1117.6mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1117.6.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1229.0",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1229.0mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1229.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1282.0",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1282.0mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1282.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1320.8",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1320.8mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1320.8.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1404.0",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1404.0mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1404.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1422.4",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1422.4mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1422.4.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L1524.0",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1524.0mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L1524.0.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCOF400-L914.4",
+      "name": "Open Flex 400-L [Size - please check product sizing before ordering: 914.4mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCOF400-L914.4.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCRC100X48.3_",
+      "name": "Repair Clamp 100mm wide",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCRC100X48.3_.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCRC400_88.9",
+      "name": "Repair Clamp 400mm wide",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCRC400_88.9.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OCRC55",
+      "name": "Orbit Pipe Repair Clamp Series 1 and 55mm long",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OCRC55.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "OSSBS",
+      "name": "Oversized Simplex Basket Strainer",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/OSSBS.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "PTFELBFLYW",
+      "name": "PTFE Lined Butterfly Valve - Universal Wafer",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/PTFELBFLYW.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "PVTE",
+      "name": "Pinch Valve - Flanged Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/PVTE.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "QAREJ",
+      "name": "Quadruple Arch Rubber Expansion Joint",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/QAREJ.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "RSSCVTE",
+      "name": "Resilient Seated Swing Check Valve - Flanged Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/RSSCVTE.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SAREJ",
+      "name": "Single Arch Rubber Expansion Joint with unfilled arch",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SAREJ.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SAREJ32",
+      "name": "Single Arch Rubber Expansion Joint with unfilled arch",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SAREJ32.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SAREJ40",
+      "name": "Single Arch Rubber Expansion Joint with unfilled arch",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SAREJ40.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SBS316-ANSI150",
+      "name": "Simplex Basket Strainer 316 SS - Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SBS316-ANSI150.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SBS316-ASPN16",
+      "name": "Simplex Basket Strainer 316 SS - Flanged AS4087 PN16",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SBS316-ASPN16.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SBS316-TD_",
+      "name": "Simplex Basket Strainer 316 SS - Flanged Table D",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SBS316-TD_.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SBS316-TE",
+      "name": "Simplex Basket Strainer 316 SS - Flanged Table E",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SBS316-TE.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SBSCS",
+      "name": "Simplex Basket Strainer Cast Steel - Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SBSCS.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SSSCV150",
+      "name": "Stainless Steel Swing Check Valve - Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SSSCV150.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "SSYS",
+      "name": "Stainless steel Y Strainer CF8M Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/SSYS.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "TAREJ",
+      "name": "Triple Arch Rubber Expansion Joint",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/TAREJ.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "UFA_100",
+      "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 100mm DN100 (4\") Nominal Bore sizing]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/UFA_100.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "UFA_150",
+      "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 150mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/UFA_150.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "UFA_200",
+      "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 200mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/UFA_200.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "UFA_250",
+      "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 250mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/UFA_250.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "UFA_300",
+      "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 300mm]",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/UFA_300.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "UFA_80",
+      "name": "Universal Flange Adapter",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/UFA_80.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "WCBYS",
+      "name": "Y Strainer WCB Cast Steel - Flanged ANSI 150LB",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/WCBYS.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    },
+    {
+      "sku": "YSTRRFS",
+      "name": "Heavy Duty Y Strainer Filter Screen - SS316",
+      "pdfUrl": "https://www.dewaterproducts.com.au/assets/brochures/YSTRRFS.pdf",
+      "status": "not_found",
+      "statusCode": 404
+    }
+  ]
+}
