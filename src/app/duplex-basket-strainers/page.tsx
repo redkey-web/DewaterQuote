@@ -51,7 +51,6 @@ export default async function DuplexBasketStrainersPage() {
           </p>
         </div>
         <div className="mb-10">
-          <h2 className="text-2xl font-semibold mb-6">{products.length > 0 ? `${content.title} Products` : "Products Coming Soon"}</h2>
           {products.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {products.map((product) => <ProductCard key={product.id} product={product} />)}

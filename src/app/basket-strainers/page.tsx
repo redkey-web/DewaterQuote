@@ -7,7 +7,7 @@ import BulkPricingTicker from "@/components/BulkPricingTicker"
 import ApplicationLinks from "@/components/ApplicationLinks"
 
 const content = {
-  title: "Basket Strainer",
+  title: "Basket Strainers",
   metaDescription: "Basket strainer in stainless steel strainer basket design. Simplex and duplex basket strainers with 316SS construction. Higher flow rates, easy basket removal. Australia-wide.",
   heroDescription: "Single and duplex basket strainer with stainless steel strainer basket for larger filtration area than Y strainers. Easy basket removal for frequent cleaning.",
   longDescription: "Basket strainers offer higher flow rates and easier maintenance than Y strainers, making them ideal for applications requiring frequent cleaning. Our stainless steel strainer basket design provides more filtration area with less pressure drop. 316SS basket strainer construction ensures corrosion resistance.",
@@ -57,7 +57,6 @@ export default async function BasketStrainersPage() {
           <p className="text-muted-foreground">{content.heroDescription}</p>
         </div>
         <div className="mb-10">
-          <h2 className="text-2xl font-semibold mb-6">{products.length > 0 ? `${content.title} Products` : "Products Coming Soon"}</h2>
           {products.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {products.map((product) => <ProductCard key={product.id} product={product} />)}

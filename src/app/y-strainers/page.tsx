@@ -7,7 +7,7 @@ import BulkPricingTicker from "@/components/BulkPricingTicker"
 import ApplicationLinks from "@/components/ApplicationLinks"
 
 const content = {
-  title: "Y Strainer",
+  title: "Y Strainers",
   metaDescription: "Y strainer filter in 316 stainless steel and cast iron. Inline strainer for pump protection, line strainer applications. Y strainers Australia-wide delivery.",
   heroDescription: "Compact Y strainer filter for continuous inline pipeline filtration. Protects pumps, valves, and equipment from debris with efficient strainer filter design.",
   longDescription: "Y strainers provide economical inline strainer filtration where debris levels are low. The Y-shaped body allows horizontal or vertical installation as a line strainer. 316SS strainer filter for corrosive fluids, cast iron for general water service. Our y strainer range includes multiple sizes and pressure ratings.",
@@ -59,7 +59,6 @@ export default async function YStrainersPage() {
           <p className="text-muted-foreground">{content.heroDescription}</p>
         </div>
         <div className="mb-10">
-          <h2 className="text-2xl font-semibold mb-6">{products.length > 0 ? `${content.title} Products` : "Products Coming Soon"}</h2>
           {products.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {products.map((product) => <ProductCard key={product.id} product={product} />)}
