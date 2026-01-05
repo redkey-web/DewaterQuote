@@ -455,6 +455,15 @@ export default function HomePage() {
                 className="h-[120px] w-auto object-contain"
               />
             </Link>
+            <Link href="/brands/defender-strainers" className="opacity-80 hover:opacity-100 transition-opacity">
+              <Image
+                src="/images/brands/defender-strainers-logo.png"
+                alt="Defender Strainers"
+                width={414}
+                height={142}
+                className="h-12 w-auto object-contain"
+              />
+            </Link>
           </div>
         </div>
       </section>
