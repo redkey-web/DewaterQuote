@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const brands = [
   {
     slug: "straub",
-    href: "/brand/straub-couplings",
+    href: "/straub-couplings",
     name: "Straub",
     logo: "/images/brands/straub-logo.png",
     description: "Global leader in pipe coupling technology, offering innovative solutions for secure and maintenance-free pipe connections across all industries.",
@@ -28,15 +28,15 @@ const brands = [
   },
   {
     slug: "teekay",
-    href: "/brands/teekay",
+    href: "/teekay",
     name: "Teekay",
     logo: "/images/brands/teekay-logo.png",
-    description: "Specialists in rubber expansion joints, flexible connectors, strainers, and flange adapters, providing vibration absorption and thermal compensation solutions.",
-    specialties: ["Expansion Joints", "Duckbill Valves", "Strainers", "Flange Adapters"],
+    description: "Specialists in pipe couplings, flexible connectors, and flange adapters. High-quality stainless steel couplings for water, process, and marine applications.",
+    specialties: ["Pipe Couplings", "Flexible Couplings", "Repair Couplings", "Flange Adapters"],
   },
   {
     slug: "defender-valves",
-    href: "/brands/defender-valves",
+    href: "/defender-valves",
     name: "Defender Valves",
     logo: "/images/brands/defender-valves-logo.png",
     description: "High-performance industrial butterfly valves with PTFE lining, offering superior chemical resistance and reliable flow control.",
@@ -44,7 +44,7 @@ const brands = [
   },
   {
     slug: "bore-flex-rubber",
-    href: "/brands/bore-flex-rubber",
+    href: "/bore-flex",
     name: "Bore-Flex Rubber",
     logo: "/images/brands/bore-flex-rubber-logo.png",
     description: "High-quality rubber expansion joints and flexible pipe connectors for vibration isolation, thermal expansion compensation, and noise reduction in piping systems.",
@@ -52,7 +52,7 @@ const brands = [
   },
   {
     slug: "defender-strainers",
-    href: "/brands/defender-strainers",
+    href: "/defender-strainers",
     name: "Defender Strainers",
     logo: "/images/brands/defender-strainers-logo.png",
     description: "Industrial pipeline strainers including Y strainers, simplex and duplex basket strainers, and suction strainers. Quality filtration solutions for protecting pumps and equipment.",
