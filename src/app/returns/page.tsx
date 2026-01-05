@@ -37,14 +37,26 @@ export default function ReturnsPage() {
           </ul>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Return Address</h2>
-          <p>
-            Please return goods to:
-          </p>
+
+          <h3 className="text-lg font-medium mt-4 mb-2">Small Goods</h3>
+          <p className="mb-2">Please return small goods to:</p>
           <address className="not-italic bg-muted p-4 rounded-lg">
             Dewater Products Pty Ltd<br />
-            67 Howe Street<br />
-            Osborne Park WA 6017
+            PO Box 123<br />
+            Osborne Park WA 6917
           </address>
+
+          <h3 className="text-lg font-medium mt-6 mb-2">Large Goods</h3>
+          <p>
+            For large or heavy items, please{" "}
+            <a href="/contact" className="text-primary hover:underline">contact us</a>{" "}
+            first to make arrangements. Call{" "}
+            <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a>{" "}
+            or email{" "}
+            <a href="mailto:sales@dewaterproducts.com.au" className="text-primary hover:underline">
+              sales@dewaterproducts.com.au
+            </a>
+          </p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">Damaged Goods</h2>
           <p>
