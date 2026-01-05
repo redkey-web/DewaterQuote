@@ -10,6 +10,14 @@ import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import {
@@ -107,6 +115,31 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       'valves': 'Industrial Valves',
       'repair-clamps': 'Pipe Repair Clamps',
       'dismantling-joints': 'Dismantling Joints',
+      'strainers': 'Strainers',
+      'expansion-joints': 'Expansion Joints',
+      'check-valves': 'Check Valves',
+      'butterfly-valves': 'Butterfly Valves',
+      'foot-valves': 'Foot Valves',
+      'float-valves': 'Float Valves',
+      'pipe-repair-clamps': 'Pipe Repair Clamps',
+    }
+    return names[slug] || slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  }
+
+  // Helper to get human-readable subcategory name
+  const getSubcategoryDisplayName = (slug: string): string => {
+    const names: Record<string, string> = {
+      'flex-grip': 'Flex Grip Couplings',
+      'open-flex': 'Open Flex Couplings',
+      'plast-grip': 'Plast Grip Couplings',
+      'y-strainer': 'Y Strainers',
+      'basket-strainer': 'Basket Strainers',
+      'butterfly-valve': 'Butterfly Valves',
+      'check-valve': 'Check Valves',
+      'foot-valve': 'Foot Valves',
+      'float-valve': 'Float Valves',
+      'rubber-expansion-joint': 'Rubber Expansion Joints',
+      'duckbill-check-valve': 'Duckbill Check Valves',
     }
     return names[slug] || slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
   }
@@ -218,10 +251,22 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const baseUrl = "https://dewaterproducts.com.au"
   const productUrl = `${baseUrl}/${product.slug}`
 
-  const breadcrumbs = [
-    { name: "Home", url: baseUrl },
-    { name: product.name, url: productUrl },
+  // Build breadcrumb trail: Home > Category > Subcategory (if exists) > Product
+  const breadcrumbItems = [
+    { name: "Home", url: baseUrl, slug: "" },
+    { name: getCategoryDisplayName(product.category), url: `${baseUrl}/${product.category}`, slug: product.category },
   ]
+  if (product.subcategory) {
+    breadcrumbItems.push({
+      name: getSubcategoryDisplayName(product.subcategory),
+      url: `${baseUrl}/${product.subcategory}`,
+      slug: product.subcategory,
+    })
+  }
+  breadcrumbItems.push({ name: product.name, url: productUrl, slug: product.slug })
+
+  // For JSON-LD (simpler format)
+  const breadcrumbs = breadcrumbItems.map(item => ({ name: item.name, url: item.url }))
 
   return (
     <div className="min-h-screen bg-background">
@@ -229,6 +274,26 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       <ProductJsonLd product={product} url={productUrl} />
       <BreadcrumbJsonLd items={breadcrumbs} />
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            {breadcrumbItems.map((item, index) => (
+              <BreadcrumbItem key={item.slug || 'home'}>
+                {index < breadcrumbItems.length - 1 ? (
+                  <>
+                    <BreadcrumbLink asChild>
+                      <Link href={item.url.replace(baseUrl, '') || '/'}>{item.name}</Link>
+                    </BreadcrumbLink>
+                    <BreadcrumbSeparator />
+                  </>
+                ) : (
+                  <BreadcrumbPage>{item.name}</BreadcrumbPage>
+                )}
+              </BreadcrumbItem>
+            ))}
+          </BreadcrumbList>
+        </Breadcrumb>
+
         {/* Mobile-only: Product name above images */}
         <div className="lg:hidden mb-6">
           <div className="flex flex-wrap items-center gap-2 mb-2">
