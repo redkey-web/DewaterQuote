@@ -394,10 +394,25 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
             <Separator className="my-6" />
 
-            {/* Short Description - first sentence only */}
+            {/* Short Description - first 1-2 sentences only */}
             {product.description && (
               <p className="text-muted-foreground mb-6">
-                {product.description.split('. ')[0]}.
+                {(() => {
+                  // Split on sentence endings (period followed by space or newline)
+                  const sentences = product.description.split(/\.[\s\n]+/)
+                  // Take first 1-2 sentences, max ~200 chars
+                  let short = sentences[0]
+                  if (sentences.length > 1 && short.length < 100) {
+                    short += '. ' + sentences[1]
+                  }
+                  // Truncate if still too long
+                  if (short.length > 200) {
+                    short = short.substring(0, 200).replace(/\s+\S*$/, '') + '...'
+                  } else {
+                    short += '.'
+                  }
+                  return short
+                })()}
               </p>
             )}
 
