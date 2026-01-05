@@ -93,6 +93,7 @@ export default async function DuckbillCheckValvesPage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Valves", url: "https://dewaterproducts.com.au/industrial-valves" },
     { name: "Duckbill Check Valves", url: "https://dewaterproducts.com.au/duckbill-check-valves" },
   ]
 

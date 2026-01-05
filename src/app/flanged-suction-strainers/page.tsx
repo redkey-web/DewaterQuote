@@ -35,6 +35,7 @@ export default async function FlangedSuctionStrainersPage() {
   const products = await getProductsBySubcategory("strainers", "flanged-suction-strainer")
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Strainers", url: "https://dewaterproducts.com.au/strainers" },
     { name: content.title, url: "https://dewaterproducts.com.au/flanged-suction-strainers" },
   ]
 
@@ -45,6 +46,8 @@ export default async function FlangedSuctionStrainersPage() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span className="mx-1">/</span>
+          <Link href="/strainers" className="hover:text-foreground transition-colors">Strainers</Link>
           <span className="mx-1">/</span>
           <span className="text-foreground font-medium">{content.title}</span>
         </nav>

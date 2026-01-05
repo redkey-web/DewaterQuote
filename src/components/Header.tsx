@@ -167,7 +167,7 @@ export default function Header() {
               alt="Dewater Products - Fluid Piping Components"
               width={480}
               height={160}
-              className="h-[143px] md:h-[172px] w-auto object-contain -mt-[25px] -mb-[35px] md:-mt-[32px] md:-mb-[42px]"
+              className="h-[143px] md:h-[172px] w-auto object-contain -mt-[23px] -mb-[33px] md:-mt-[30px] md:-mb-[40px]"
               priority
             />
           </Link>

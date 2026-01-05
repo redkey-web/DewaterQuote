@@ -1,8 +1,10 @@
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import Image from "next/image"
+import { ArrowRight, Wrench } from "lucide-react"
 import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -28,21 +30,81 @@ export default async function PipeRepairClampsPage() {
   ])
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Pipe Repair Clamps", url: "https://dewater-products.vercel.app/pipe-repair-clamps" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Pipe Repair Clamps", url: "https://dewaterproducts.com.au/pipe-repair-clamps" },
   ]
 
   return (
     <div className="min-h-screen bg-background">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">Pipe Repair Clamps</h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
-            Emergency and permanent pipe repair solutions. Our stainless steel repair clamps provide quick, reliable repairs for leaking or damaged pipelines without requiring pipe replacement or system shutdown.
-          </p>
+      {/* Hero Section with 3 Product Images */}
+      <div className="relative overflow-hidden border-b">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-transparent dark:from-slate-950/30 dark:via-slate-900/10 dark:to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 py-12 relative">
+          <div className="flex flex-col lg:flex-row gap-8 items-center">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900/30 text-slate-700 dark:text-slate-300 text-sm font-medium mb-4">
+                <Wrench className="w-4 h-4" />
+                Emergency & Permanent Repairs
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-4">Pipe Repair Clamps</h1>
+              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+                Fast, reliable pipe repair solutions in 316 stainless steel. Seal leaks and cracks without pipe replacement or system shutdown.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="#products"
+                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                >
+                  View Products
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+                <Link
+                  href="/request-quote"
+                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                >
+                  Request a Quote
+                </Link>
+              </div>
+            </div>
+            {/* 3-Image Product Showcase */}
+            <div className="flex-shrink-0 grid grid-cols-3 gap-4">
+              <div className="relative w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44">
+                <Image
+                  src="/images/products/nobg/OCFG2-L_nobg.png"
+                  alt="Orbit Flex Grip 2L Pipe Coupling"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="relative w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44">
+                <Image
+                  src="/images/products/nobg/OCFG-L_nobg.png"
+                  alt="Orbit Flex Grip L Pipe Coupling"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="relative w-28 h-28 md:w-36 md:h-36 lg:w-44 lg:h-44">
+                <Image
+                  src="/images/products/nobg/STRAUB-PLAST_GRIP_nobg.png"
+                  alt="Straub Plast Grip Coupling"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <BulkPricingTicker variant="teal" />
+
+      <div className="max-w-7xl mx-auto px-6 py-12">
 
         {/* Subcategory Links */}
         {repairSubcategories.length > 0 && (

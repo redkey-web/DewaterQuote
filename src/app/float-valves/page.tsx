@@ -27,6 +27,7 @@ export default async function FloatValvesPage() {
   const products = await getProductsBySubcategory("valves", "float-valve")
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Valves", url: "https://dewaterproducts.com.au/industrial-valves" },
     { name: content.title, url: "https://dewaterproducts.com.au/float-valves" },
   ]
 
@@ -37,6 +38,8 @@ export default async function FloatValvesPage() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span className="mx-1">/</span>
+          <Link href="/industrial-valves" className="hover:text-foreground transition-colors">Valves</Link>
           <span className="mx-1">/</span>
           <span className="text-foreground font-medium">{content.title}</span>
         </nav>

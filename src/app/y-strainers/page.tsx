@@ -38,6 +38,7 @@ export default async function YStrainersPage() {
   const products = await getProductsBySubcategory("strainers", "y-strainer")
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Strainers", url: "https://dewaterproducts.com.au/strainers" },
     { name: content.title, url: "https://dewaterproducts.com.au/y-strainers" },
   ]
 
@@ -48,6 +49,8 @@ export default async function YStrainersPage() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span className="mx-1">/</span>
+          <Link href="/strainers" className="hover:text-foreground transition-colors">Strainers</Link>
           <span className="mx-1">/</span>
           <span className="text-foreground font-medium">{content.title}</span>
         </nav>

@@ -49,8 +49,9 @@ export default async function FlangeAdaptorsPage() {
   ])
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Flange Adaptors", url: "https://dewater-products.vercel.app/flange-adaptors" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Pipe Couplings", url: "https://dewaterproducts.com.au/pipe-couplings" },
+    { name: "Flange Adaptors", url: "https://dewaterproducts.com.au/flange-adaptors" },
   ]
 
   return (
@@ -108,6 +109,14 @@ export default async function FlangeAdaptorsPage() {
       <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+          <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span className="mx-1">/</span>
+          <Link href="/pipe-couplings" className="hover:text-foreground transition-colors">Pipe Couplings</Link>
+          <span className="mx-1">/</span>
+          <span className="text-foreground font-medium">Flange Adaptors</span>
+        </nav>
         {/* Key Features - Critical Info */}
         <div className="mb-10">
           <h2 className="text-2xl font-bold mb-6">Key Features</h2>

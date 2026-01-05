@@ -86,6 +86,7 @@ const faqs = [
 export default function MuffCouplingsPage() {
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Pipe Couplings", url: "https://dewaterproducts.com.au/pipe-couplings" },
     { name: "Muff Couplings", url: "https://dewaterproducts.com.au/muff-couplings" },
   ]
 

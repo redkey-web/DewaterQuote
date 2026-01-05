@@ -27,6 +27,7 @@ export default async function TripleArchExpansionJointsPage() {
   const products = await getProductsBySubcategory("rubber-expansion-joints", "triple-arch")
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Expansion Joints", url: "https://dewaterproducts.com.au/expansion-joints" },
     { name: content.title, url: "https://dewaterproducts.com.au/triple-arch-expansion-joints" },
   ]
 
@@ -37,6 +38,8 @@ export default async function TripleArchExpansionJointsPage() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span className="mx-1">/</span>
+          <Link href="/expansion-joints" className="hover:text-foreground transition-colors">Expansion Joints</Link>
           <span className="mx-1">/</span>
           <span className="text-foreground font-medium">{content.title}</span>
         </nav>
