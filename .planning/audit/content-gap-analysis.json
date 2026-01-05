@@ -1,0 +1,1519 @@
+{
+  "analyzedAt": "2026-01-05T02:30:29.353Z",
+  "stats": {
+    "netoTotal": 149,
+    "netoActive": 83,
+    "netoWithDescription": 111,
+    "netoWithBullets": 124,
+    "netoWithSeo": 54,
+    "dbTotal": 133,
+    "matched": 83,
+    "missingActive": 0,
+    "missingInactive": 66,
+    "contentGapsTotal": 75
+  },
+  "missingProducts": {
+    "active": [],
+    "inactive": [
+      {
+        "sku": "4844",
+        "name": "Demo Test",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "BCV316BSP",
+        "name": "Ball Check Valve - 316 Stainless Steel - BSP",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "BCVCIT",
+        "name": "Ball Check Valve - Cast Iron FBE coated - BSP",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "BRONZESBS",
+        "name": "Bronze Simplex Basket Strainer - ANSI 150LB",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 4
+      },
+      {
+        "sku": "CF8MDAFV_100",
+        "name": "CF8M Flanged Float Valve AS4087 PN16 [size: 100mm] [Size - please check product sizing before ordering: 100mm DN100 (4\") Nominal Bore sizing]",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "DAFVE",
+        "name": "Float Valve - Direct Acting Lever Operated - Flanged Table D",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "DB4DCV50",
+        "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type [Size - please check product sizing before ordering: 50mm DN50 (2\") Nominal Bore sizing]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "DB4DCV65",
+        "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type [Size - please check product sizing before ordering: 65mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "DB4DCV80",
+        "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type [Size - please check product sizing before ordering: 80mm DN80 (3\") Nominal Bore sizing]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "DBS3W316_25",
+        "name": "Duplex Basket Strainer 316SS fitted with 3 way flanged ball valves ANSI 150LB [Size - please check product sizing before ordering: 25mm]",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "DPCVWCB10",
+        "name": "Dual Plate Check Valve - WCB/316/VITON ANSI 150LB",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "DPCVWCB15",
+        "name": "Dual Plate Check Valve - WCB/316/VITON ANSI 150LB",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "DPCVWCB150",
+        "name": "Dual Plate Check Valve - WCB/316/VITON ANSI 150LB",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "DPCVWCB300",
+        "name": "Dual Plate Check Valve - WCB/316/VITON ANSI 300LB",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "ILDBCV50",
+        "name": "Inline Duck Bill Check Valve - EPDM",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "ILDBCV65",
+        "name": "Inline Duck Bill Check Valve - EPDM",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "KGVPN16",
+        "name": "Knife Gate Valves - PN16 Rated",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCFGSTEP",
+        "name": "Flex Grip Stepped",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCML-L406.4",
+        "name": "Metal Lock L",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCML-L427.0",
+        "name": "Metal Lock L",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCML-L457.2",
+        "name": "Metal Lock L",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCML-L508.0",
+        "name": "Metal Lock L",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCML-S427.0",
+        "name": "Metal Lock S",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCML-S457.2",
+        "name": "Metal Lock S",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCML-S508.0",
+        "name": "Metal Lock S",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1000.0",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1000.0mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1016.0",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1016.0mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1025.0",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1025.0mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1035.0",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1035.0mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1117.6",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1117.6mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1229.0",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1229.0mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1282.0",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1282.0mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1320.8",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1320.8mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1404.0",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1404.0mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1422.4",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1422.4mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L1524.0",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 1524.0mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCOF400-L914.4",
+        "name": "Open Flex 400-L [Size - please check product sizing before ordering: 914.4mm]",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCRC100X48.3_",
+        "name": "Repair Clamp 100mm wide",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "OCRC400_88.9",
+        "name": "Repair Clamp 400mm wide",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "PVTE",
+        "name": "Pinch Valve - Flanged Table E",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SAREJ32",
+        "name": "Single Arch Rubber Expansion Joint with unfilled arch",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SAREJ40",
+        "name": "Single Arch Rubber Expansion Joint with unfilled arch",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SCSCE",
+        "name": "Straub Clamp SCE x 200mm",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SF1L",
+        "name": "Straub Flex 1L",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SF2H",
+        "name": "Straub Flex 2H",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SF2LS",
+        "name": "Straub Flex 2LS",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SFF",
+        "name": "Straub Fire Fence",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SMG",
+        "name": "Straub Metal Grip",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "SOF",
+        "name": "Straub Open Flex 1L",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKAF",
+        "name": "Teekay Axiflex Type IV, PN16, 110mm wide",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKAFCR",
+        "name": "Teekay Axiflex Central Register, Type I, PN6, 210mm wide",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKAFI",
+        "name": "Teekay Axiflex Type I, PN16, 110mm wide",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKAFIV",
+        "name": "Teekay Axiflex Type IV, PN16, 110mm wide",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKAL",
+        "name": "Teekay Axilock Type IV, PN42,",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKAL-FP",
+        "name": "Teekay Axilock-FP, Type IV,",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKALS",
+        "name": "Teekay Axilock S Type I, PN16",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKRC",
+        "name": "Teekay Repair Coupling Type I, PN16, 210mm wide",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 3
+      },
+      {
+        "sku": "TKSC110wide",
+        "name": "Teekay Stepped Coupling, 110mm wide, PN16",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "TKSC140wide",
+        "name": "Teekay Stepped Coupling, 140mm wide, PN16",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "TKSC210wide",
+        "name": "Teekay Stepped Coupling, 210mm wide, PN16",
+        "active": false,
+        "hasContent": true,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "UFA_100",
+        "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 100mm DN100 (4\") Nominal Bore sizing]",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "UFA_150",
+        "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 150mm]",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "UFA_200",
+        "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 200mm]",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "UFA_250",
+        "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 250mm]",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "UFA_300",
+        "name": "Universal Flange Adapter with Table E flange [Size - please check product sizing before ordering: 300mm]",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      },
+      {
+        "sku": "UFA_80",
+        "name": "Universal Flange Adapter",
+        "active": false,
+        "hasContent": false,
+        "bulletPointCount": 0
+      }
+    ]
+  },
+  "contentGaps": {
+    "bulletPoints": [
+      {
+        "sku": "BCV316TE",
+        "name": "Ball Check Valve - Stainless Steel 316 - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: 316ss/CF8M; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "BCVCIF",
+        "name": "Ball Check Valve - Cast Iron FBE coated - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: 316ss/PTFE; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "BV3WAY316",
+        "name": "Ball Valve - 3 way T or L Port - 316 Stainless Steel - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: 316ss/PTFE; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "BVFA150",
+        "name": "Ball Valve - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: 316ss/PTFE; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "CIYSE",
+        "name": "Y strainer FBE coated - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: Cast/Ductile Iron, WCB Cast steel, Fabricated Carbon steel options /304SS/316SS options; Pressure Range: 0-14 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "CRREJ",
+        "name": "Concentric Reducing Rubber Expansion Joint with Table E or ANSI 150LB Zinc flanges",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm x 65mm; Body: Zinc/EPDM; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DB4DCV",
+        "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 100mm; Body: EPDM; Pressure Range: 0 - 1 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DBCVFE",
+        "name": "DB-2 Flanged Duckbill Check Valve - AS2129 Table E - Neoprene",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: Neoprene/316ss; Pressure Range: 0-1 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DBS3W316",
+        "name": "Duplex Basket Strainer 316SS fitted with 3 way flanged ball valves ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: 316 Stainless Steel; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DBSTPB316",
+        "name": "Duplex Basket Strainer 316SS fitted with SS butterfly valves flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: 316 Stainless Steel; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DBSTPBCS",
+        "name": "Duplex Basket Strainer Carbon Steel fitted with DI Butterfly valves flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: Carbon Steel/DI/EPDM; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "ECCREJ",
+        "name": "Eccentric Reducing Rubber Expansion Joint with Table E or ANSI 150LB Zinc flanges",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm x 65mm; Body: Zinc/EPDM; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "ERFREJ",
+        "name": "Eccentric Filled Arch Reducing Rubber Expansion Joint",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm x 65mm; Body: Zinc/EPDM; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "ERREJ",
+        "name": "Eccentric Unfilled Arch Reducing Rubber Expansion Joint",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm x 65mm; Body: Zinc/EPDM; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FCBSCS",
+        "name": "Fabricated Simplex Basket Strainer - Flanged ANSI 150LB, with davit arm and cable hoist",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 300mm; Body: Carbon Steel/316SS; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FSFREJ_316SS",
+        "name": "316SS Flanged FSF Single Sphere Rubber Expansion Joint Table E or ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 32mm; Element: EPDM/316 Stainless Steel flanges; Pressure Range: 0 TO 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FVHDPE",
+        "name": "Foot Valve - HDPE - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: HDPE/EPDM; Pressure Range: 0 - 10 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FVHLOCL150",
+        "name": "Float Valve - Hydraulically Lever Operated - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: CI/316SS; Pressure Range: 0 TO 14 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FVSSD",
+        "name": "Foot Valve - 316 Stainless Steel - Flanged Table D",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: 316SS/EPDM; Pressure Range: 0 TO 10 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "GVCF8M150",
+        "name": "Gate Valve - CF8M 316SS - ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "GVCF8MTE",
+        "name": "Gate Valve - CF8M 316SS - Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: CF8M/316SS Table E; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "ILDBCV",
+        "name": "DB-3 Inline Duckbill Check Valve - EPDM - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: EPDM; Pressure Range: 0 - 1 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "LOKGV316MS",
+        "name": "Lever Operated Knife Gate Valve - 316SS Metal Seated",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: 316/316; Pressure Range: 0 - 10 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "LOKGV316RS",
+        "name": "Lever Operated Knife Gate Valve - 316SS Resilient Seated EPDM",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: 316/EPDM; Pressure Range: 0 - 10 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "MCATDE",
+        "name": "Muff Couplings Aluminium Table D/E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm to 300mm; Body: Aluminium; Pressure Range: 0 - 10/16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCCL",
+        "name": "Combo Lock",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 114.3mm x 110.0mm; Body: 316ss/EPDM; Pressure Range: 0 TO 28 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCELBRC",
+        "name": "Elbow Repair Clamp",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 48.3mm; Body: 316ss/EPDM; Pressure Range: 0 TO 35 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFG2-L",
+        "name": "Flex Grip 2 L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 168.3mm; Body: 316ss/EPDM; Pressure Range: 0 TO 24 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFG2-S",
+        "name": "Flex Grip 2 S",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 168.3mm; Body: 316ss/EPDM; Pressure Range: 0 TO 27 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFGO-L",
+        "name": "Flex Grip Open L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 42.2mm; Body: 316ss/EPDM; Pressure Range: 0 TO 32 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFGO-S",
+        "name": "Flex Grip Open S",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 21.3mm; Body: 316ss/EPDM; Pressure Range: 0 - 32 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFLAD",
+        "name": "Flange Adapter Flex Grip S",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 114.3mm; Body: 316ss/EPDM; Pressure Range: 0 to 28 Bar",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCOF200-L",
+        "name": "Open Flex 200-L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 148.0mm; Body: 316ss/EPDM; Pressure Range: 0 to 25 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCOF300-L",
+        "name": "Open Flex 300-L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 200.0mm; Body: 316ss/EPDM; Pressure Range: 0 to 25 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCOF400-L",
+        "name": "Open Flex 400-L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 200.0mm; Body: 316ss/EPDM; Pressure Range: 0 TO 24 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCPC",
+        "name": "Plast Coupling",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 63.0mm; Body: 316ss/EPDM; Pressure Range: 0 TO 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCRC100wide",
+        "name": "Orbit Pipe Repair Clamp Series 1 and 100mm long",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 48.3mm; Body: 316ss/EPDM; Pressure Range: 0 TO 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCRC400",
+        "name": "Orbit Pipe Repair Clamp Series 1 and 400mm long",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 88.9mm; Body: 316ss/EPDM; Pressure Range: 0 TO 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OSSBS",
+        "name": "Oversized Simplex Basket Strainer",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "RSSCVTE",
+        "name": "Resilient Seated Swing Check Valve - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: Cast Iron/EPDM; Pressure Range: 0 - 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SAREJ",
+        "name": "Single Arch Rubber Expansion Joint with unfilled arch",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Unfilled Arch Body: EPDM/Zinc; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBS316-ANSI150",
+        "name": "Simplex Basket Strainer 316 SS - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBS316-ASPN16",
+        "name": "Simplex Basket Strainer 316 SS - Flanged AS4087 PN16",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBS316-TD_",
+        "name": "Simplex Basket Strainer 316 SS - Flanged Table D",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-7 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBS316-TE",
+        "name": "Simplex Basket Strainer 316 SS - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-14 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBSCS",
+        "name": "Simplex Basket Strainer Cast Steel - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: Cast Steel/304SS; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SFAREJ",
+        "name": "Single Filled Arch Rubber Expansion Joint",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Filled Arch Body: EPDM/Zinc; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SGL",
+        "name": "Straub Grip L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 33.7mm; Body: 316ss/EPDM; Pressure Range: 0 TO 38 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SSSCV150",
+        "name": "Stainless Steel Swing Check Valve - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: CF8M; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "TSREJFTF",
+        "name": "Twin Sphere Rubber Expansion Joint FTF with Table E or ANSI 150LB Zinc flanges",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 32mm; Body: Zinc/EPDM; Pressure Range: 0 TO 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "WCBSCV150LB",
+        "name": "Swing Check Valve - WCB - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: WCB/Stellite; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "WCBSCV300LB",
+        "name": "Swing Check Valve - WCB - Flanged ANSI 300LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: WCB/Stellite; Pressure Range: 0 - 50 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "WCBYS",
+        "name": "Y Strainer WCB Cast Steel - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: Cast Steel/316SS; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      }
+    ],
+    "description": [
+      {
+        "sku": "BFLYLE316",
+        "name": "Lugged Butterfly Valve - CF8M 316 Stainless Steel - EPDM or PTFE - Table E",
+        "field": "description",
+        "netoValue": "<p>Stainless steel bodied CF8M Butterfly Valve, lugged Table E, with an EPDM/PTFE seat. Rated to PN16 up to size 300mm. Lever operated.</p>\r\n\r\n<p>The lugged model is usually installed at the end of a ...",
+        "dbValue": "Stainless steel bodied CF8M Butterfly Valve, lugged Table E, with an EPDM/PTFE seat. Rated to PN16 up to size 300mm. Lever operated. The lugged design suits end-of-pipeline installations, typically at...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "BFLYW316",
+        "name": "Butterfly Valve - 316 Stainless Steel CF8M body - PTFE seat - Wafer Universal",
+        "field": "description",
+        "netoValue": "<p>Stainless Steel bodied CF8M Butterfly Valve with EPDM/PTFE seat.</p>\r\n\r\n<p><strong>Maximum Temperature: 120 Degrees Celcius</strong></p>\r\n\r\n<p><strong>Rated to PN16</strong>&nbsp;working pressure i...",
+        "dbValue": "Stainless Steel bodied CF8M Butterfly Valve with EPDM/PTFE seat. Universal wafer design to suit a range of flanges and lever operated.",
+        "recommendation": "review"
+      },
+      {
+        "sku": "DB-1",
+        "name": "DB-1 Slip On Duckbill Check Valve - Neoprene",
+        "field": "description",
+        "netoValue": "<p><span style=\"font-size:18px;\"><u><strong>DB-1 Slip On Duckbill Check Valve</strong></u></span></p>\r\n\r\n<p>The Slip On Duckbill Check Valve model DB-1&nbsp;is installed over the end of a plain ended ...",
+        "dbValue": "The Slip On Duckbill Check Valve model DB-1 is installed over the end of a plain ended pipe to prevent back flow. The DB-1 model is a Flat bottom model, with a flared top to enhance flow rates and red...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "DFAREJ",
+        "name": "Double Filled Arch Rubber Expansion joint",
+        "field": "description",
+        "netoValue": "<p>Double Arch Rubber Expansion Joint with filled arches creating a smooth bore internally.</p>\r\n\r\n<p><span style=\"font-size:18px;\"><strong>Size range: DN50(2\") to DN1000</strong></span></p>\r\n\r\n<p><sp...",
+        "dbValue": "Double Arch Rubber Expansion Joint with filled arches creating a smooth bore internally.\n\nSize range: DN50(2\") to DN1000\n\nFlange options: AS2129 Table D, Table E, AS4087 PN16, ANSI 150LB/ASME 150 and ...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "ENCAPRC-SS",
+        "name": "Encapsulating Pipe Repair Clamp",
+        "field": "description",
+        "netoValue": "<p>Encapsulating Pipe Repair Clamp&nbsp;to fit over spigot socket connections also known as bell joint connections, when leaks occur.</p>\r\n\r\n<p>The Spigot Socket Encapsulating Pipe Repair Clamps are a...",
+        "dbValue": "Encapsulating Pipe Repair Clamp to fit over spigot socket connections also known as bell joint connections, when leaks occur.\n\nThe Spigot Socket Encapsulating Pipe Repair Clamps are available in a ran...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "FSF-BREJ",
+        "name": "FSF-B Single Sphere Rubber Expansion Joint fitted with Table E or ANSI 150LB Zinc flanges",
+        "field": "description",
+        "netoValue": "<p>The FSF-B Rubber Expansion Joint has a shorter face to face dimension than the FSF model. Famous for having a 130mm overall length, they are&nbsp;ideally suited for tight spaces. Also known as a vi...",
+        "dbValue": "FSF-B single sphere rubber expansion joint with shorter face-to-face dimension (130mm overall length). Ideal for confined installations. Functions as a vibration eliminator or rubber bellows. EPDM rub...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "FSFREJ",
+        "name": "FSF Single Sphere Rubber Expansion Joint fitted with Table E or ANSI 150LB Zinc flanges",
+        "field": "description",
+        "netoValue": "<p>The FSF Single Sphere Rubber Expansion Joint is fitted with <span style=\"font-size:14px;\"><u><strong>Zinc plated flanges.</strong></u></span></p>\r\n\r\n<p>The FSF single sphere is a common model in Au...",
+        "dbValue": "Single sphere rubber expansion joint - a common model in Australia. Functions as a vibration eliminator or rubber bellow. Enables pipes to expand and contract, flex, remove vibration and noise, and pr...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "FSS316",
+        "name": "Flanged Suction Strainer - 316 Stainless Steel - Flanged Table D",
+        "field": "description",
+        "netoValue": "<p>The Flanged Suction Strainer is installed at the end of a hose or pipe to prevent large debris from being sucked into the pump system.</p>\r\n\r\n<p><strong><span style=\"font-size:16px;\">Short Option</...",
+        "dbValue": "Flanged suction strainer prevents large debris from being sucked into pump systems. Installed at the suction end of pipelines. Manufactured from 316 stainless steel with 13mm standard aperture size. F...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "FVGALV",
+        "name": "Foot Valve - Galvanised - Flanged Table D",
+        "field": "description",
+        "netoValue": "<p>The Galvanised Foot Valve is installed to prevent back flow and losing prime, and prevent large debris from being sucked into the pump system.</p>\r\n\r\n<h2>Size range: DN80(3\") to DN600(24\")</h2>\r\n\r\n...",
+        "dbValue": "Galvanised foot valve with integrated strainer, designed for the suction side of pumps. Prevents backflow and maintains prime in pumping systems.",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCCL",
+        "name": "Combo Lock",
+        "field": "description",
+        "netoValue": "<p>The Combo Lock pipe coupling allows the connection of two different pipe materials, such as 114.3mm Steel Pipe to 110mm Poly Pipe. Please ensure you accurately measure the Outside Diameter of the p...",
+        "dbValue": "Sleeve Material:EPDM;",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCFG-L",
+        "name": "Flex Grip L",
+        "field": "description",
+        "netoValue": "<p>The Flex Grip L model is the&nbsp;Long model pipe coupling.&nbsp;Allowing&nbsp;for axial movements, vibration, and minor pipe misalignments. This coupling does not prevent pull out, so pipes must b...",
+        "dbValue": "The Flex Grip L model is the Long model pipe coupling, allowing for axial movements, vibration, and minor pipe misalignments. This coupling does not prevent pull out, so pipes must be anchored. Measur...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCFG-S",
+        "name": "Flex Grip S",
+        "field": "description",
+        "netoValue": "<p>The Flex Grip S model is the&nbsp;Short model pipe coupling for allowing&nbsp;axial movements, vibration and minor pipe misalignments. This coupling does not prevent pull out&nbsp;so pipes must be ...",
+        "dbValue": "The Flex Grip S model is the Short model pipe coupling for allowing axial movements, vibration and minor pipe misalignments. This coupling does not prevent pull out so pipes must be anchored somehow.",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCFGO-L",
+        "name": "Flex Grip Open L",
+        "field": "description",
+        "netoValue": "<p>The Flex Grip Open L model is the opening&nbsp;Long model pipe coupling/ repair clamp for ease of installation and allowing for axial movement. Can also be used as a repair clamp/coupling. Please c...",
+        "dbValue": "The Flex Grip Open L model is the opening Long model pipe coupling/ repair clamp for ease of installation and allowing for axial movement. Can also be used as a repair clamp/coupling. Please check you...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCML-L",
+        "name": "Metal Lock L",
+        "field": "description",
+        "netoValue": "<p>The Metal Lock L model is the&nbsp;Long model pipe coupling providing axial restraint and pull out resistance.</p>\r\n\r\n<p>Please check your pipe Outside diameter before ordering.</p>\r\n\r\n<p>- Higher ...",
+        "dbValue": "The Metal Lock L model is the Long model pipe coupling providing axial restraint and pull out resistance. High-strength stainless steel construction ensures reliable performance in demanding applicati...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCML-S",
+        "name": "Metal Lock S",
+        "field": "description",
+        "netoValue": "<p>The Orbit Metal Lock S pipe coupling model is the short width version&nbsp;and provides pipe connections with&nbsp;pull out resistance and axial restraint.</p>\r\n\r\n<p>Please check your pipe Outside ...",
+        "dbValue": "The Orbit Metal Lock S pipe coupling model is the short width version and provides pipe connections with pull out resistance and axial restraint. Ideal for compact installations requiring secure joint...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCRC200",
+        "name": "Orbit Pipe Repair Clamp Series 1 and 200mm long",
+        "field": "description",
+        "netoValue": "<p><span style=\"font-size:20px;\">The Orbit Pipe Repair Clamp Series 1 and 200mm long&nbsp;with 3 bolts.</span></p>\r\n\r\n<p><span style=\"font-size:20px;\"><strong>Available in pipe OD sizes from 44.0mm to...",
+        "dbValue": "The Orbit Pipe Repair Clamp 200mm wide with reinforced mesh backing for larger leak areas. Manufactured from 316 stainless steel and WRAS-approved EPDM rubber. For pipe repair use only.",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCRC300",
+        "name": "Orbit Pipe Repair Clamp Series 2 and 300mm long",
+        "field": "description",
+        "netoValue": "<p>The Orbit Pipe Repair Clamp Series 2 and 300mm long&nbsp;with 4 bolts.</p>\r\n\r\n<p><span style=\"color: rgb(51, 51, 51); font-family: sans-serif, Arial, Verdana, &quot;Trebuchet MS&quot;; font-size: 1...",
+        "dbValue": "The Orbit Pipe Repair Clamp 300mm wide with reinforced mesh backing for extensive leak areas. Heavy-duty 316 stainless steel construction with WRAS-approved EPDM rubber for the most demanding repair s...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "OCRC55",
+        "name": "Orbit Pipe Repair Clamp Series 1 and 55mm long",
+        "field": "description",
+        "netoValue": "<p>The Orbit Pipe Repair Clamp Series 1 and 55mm long&nbsp;with 2 bolts. For small Outside diameter pipes only.</p>\r\n\r\n<p>Wrap around your small OD pipe to seal any leaking hole or crack.</p>\r\n\r\n<p>Ma...",
+        "dbValue": "The Orbit Pipe Repair Clamp Series 1 and 55mm long with 2 bolts. For small Outside diameter pipes only. Wrap around your small OD pipe to seal any leaking hole or crack. Manufactured from 316 stainles...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "PTFEFSFREJ",
+        "name": "PTFE Lined Rubber Expansion Joint FSF with Table E or ANSI 150LB Zinc flanges",
+        "field": "description",
+        "netoValue": "<p>The PTFE Lined Rubber Expansion Joint, has an internal PTFE lining fitted to the rubber expansion joint.</p>\r\n\r\n<p><strong><span style=\"font-size:16px;\">Available in size range DN32 to DN600 (24\")<...",
+        "dbValue": "PTFE lined rubber expansion joint with internal PTFE lining bonded to rubber. Designed specifically for vibration elimination only - does not accommodate large movements, axial expansion, compression,...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "PTFELBFLYW",
+        "name": "PTFE Lined Butterfly Valve - Universal Wafer",
+        "field": "description",
+        "netoValue": "<p>The PTFE Lined Butterfly Valve has the valve disc and seat&nbsp;fully encapsulated with PTFE.</p>\r\n\r\n<p><strong>Maximum Temperature: 120 Degrees Celcius</strong></p>\r\n\r\n<p><strong>Rated to PN10</st...",
+        "dbValue": "PTFE Lined Butterfly Valve with disc and seat fully encapsulated with PTFE. Universal wafer pattern to suit ANSI 150LB/Table D/E flanges. Lever operated for smaller sizes, gearbox operated for larger ...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "SSYS",
+        "name": "Stainless steel Y Strainer CF8M Flanged ANSI 150LB",
+        "field": "description",
+        "netoValue": "<p>The Stainless Steel Y Strainer CF8M Flanged ANSI 150LB in 316 stainless steel&nbsp;with a&nbsp;316 stainless steel filter screen internally. This high quality material provides&nbsp;a long life Y s...",
+        "dbValue": "Permanent pipeline strainer for filtering debris with 316 stainless steel body. Y-shaped design allows horizontal or vertical installation. Ideal for pre-pump filtration and applications requiring inf...",
+        "recommendation": "review"
+      },
+      {
+        "sku": "YSTRRFS",
+        "name": "Heavy Duty Y Strainer Filter Screen - SS316",
+        "field": "description",
+        "netoValue": "<p>The Heavy Duty&nbsp;Y Strainer filter screen&nbsp;is&nbsp;manufactured from 316 stainless steel, with added strengthening and cross bars.</p>\r\n\r\n<p>With the added cross bars, removing a dirty scree...",
+        "dbValue": "The Heavy Duty Y Strainer filter screen is manufactured from 316 stainless steel, with added strengthening and cross bars. With the added cross bars, removing a dirty screen is made much easier, as we...",
+        "recommendation": "review"
+      }
+    ],
+    "seoMetaDescription": [],
+    "seoMetaKeywords": []
+  },
+  "recommendations": {
+    "syncBulletPoints": [
+      {
+        "sku": "BCV316TE",
+        "name": "Ball Check Valve - Stainless Steel 316 - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: 316ss/CF8M; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "BCVCIF",
+        "name": "Ball Check Valve - Cast Iron FBE coated - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: 316ss/PTFE; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "BV3WAY316",
+        "name": "Ball Valve - 3 way T or L Port - 316 Stainless Steel - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: 316ss/PTFE; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "BVFA150",
+        "name": "Ball Valve - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: 316ss/PTFE; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "CIYSE",
+        "name": "Y strainer FBE coated - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: Cast/Ductile Iron, WCB Cast steel, Fabricated Carbon steel options /304SS/316SS options; Pressure Range: 0-14 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "CRREJ",
+        "name": "Concentric Reducing Rubber Expansion Joint with Table E or ANSI 150LB Zinc flanges",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm x 65mm; Body: Zinc/EPDM; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DB4DCV",
+        "name": "DB-4 Inline Duckbill Check Valve - EPDM - Clamp type",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 100mm; Body: EPDM; Pressure Range: 0 - 1 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DBCVFE",
+        "name": "DB-2 Flanged Duckbill Check Valve - AS2129 Table E - Neoprene",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: Neoprene/316ss; Pressure Range: 0-1 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DBS3W316",
+        "name": "Duplex Basket Strainer 316SS fitted with 3 way flanged ball valves ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: 316 Stainless Steel; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DBSTPB316",
+        "name": "Duplex Basket Strainer 316SS fitted with SS butterfly valves flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: 316 Stainless Steel; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "DBSTPBCS",
+        "name": "Duplex Basket Strainer Carbon Steel fitted with DI Butterfly valves flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: Carbon Steel/DI/EPDM; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "ECCREJ",
+        "name": "Eccentric Reducing Rubber Expansion Joint with Table E or ANSI 150LB Zinc flanges",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm x 65mm; Body: Zinc/EPDM; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "ERFREJ",
+        "name": "Eccentric Filled Arch Reducing Rubber Expansion Joint",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm x 65mm; Body: Zinc/EPDM; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "ERREJ",
+        "name": "Eccentric Unfilled Arch Reducing Rubber Expansion Joint",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm x 65mm; Body: Zinc/EPDM; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FCBSCS",
+        "name": "Fabricated Simplex Basket Strainer - Flanged ANSI 150LB, with davit arm and cable hoist",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 300mm; Body: Carbon Steel/316SS; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FSFREJ_316SS",
+        "name": "316SS Flanged FSF Single Sphere Rubber Expansion Joint Table E or ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 32mm; Element: EPDM/316 Stainless Steel flanges; Pressure Range: 0 TO 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FVHDPE",
+        "name": "Foot Valve - HDPE - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: HDPE/EPDM; Pressure Range: 0 - 10 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FVHLOCL150",
+        "name": "Float Valve - Hydraulically Lever Operated - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: CI/316SS; Pressure Range: 0 TO 14 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "FVSSD",
+        "name": "Foot Valve - 316 Stainless Steel - Flanged Table D",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: 316SS/EPDM; Pressure Range: 0 TO 10 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "GVCF8M150",
+        "name": "Gate Valve - CF8M 316SS - ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "GVCF8MTE",
+        "name": "Gate Valve - CF8M 316SS - Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: CF8M/316SS Table E; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "ILDBCV",
+        "name": "DB-3 Inline Duckbill Check Valve - EPDM - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: EPDM; Pressure Range: 0 - 1 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "LOKGV316MS",
+        "name": "Lever Operated Knife Gate Valve - 316SS Metal Seated",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: 316/316; Pressure Range: 0 - 10 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "LOKGV316RS",
+        "name": "Lever Operated Knife Gate Valve - 316SS Resilient Seated EPDM",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 80mm; Body: 316/EPDM; Pressure Range: 0 - 10 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "MCATDE",
+        "name": "Muff Couplings Aluminium Table D/E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm to 300mm; Body: Aluminium; Pressure Range: 0 - 10/16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCCL",
+        "name": "Combo Lock",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 114.3mm x 110.0mm; Body: 316ss/EPDM; Pressure Range: 0 TO 28 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCELBRC",
+        "name": "Elbow Repair Clamp",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 48.3mm; Body: 316ss/EPDM; Pressure Range: 0 TO 35 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFG2-L",
+        "name": "Flex Grip 2 L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 168.3mm; Body: 316ss/EPDM; Pressure Range: 0 TO 24 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFG2-S",
+        "name": "Flex Grip 2 S",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 168.3mm; Body: 316ss/EPDM; Pressure Range: 0 TO 27 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFGO-L",
+        "name": "Flex Grip Open L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 42.2mm; Body: 316ss/EPDM; Pressure Range: 0 TO 32 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFGO-S",
+        "name": "Flex Grip Open S",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 21.3mm; Body: 316ss/EPDM; Pressure Range: 0 - 32 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCFLAD",
+        "name": "Flange Adapter Flex Grip S",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 114.3mm; Body: 316ss/EPDM; Pressure Range: 0 to 28 Bar",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCOF200-L",
+        "name": "Open Flex 200-L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 148.0mm; Body: 316ss/EPDM; Pressure Range: 0 to 25 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCOF300-L",
+        "name": "Open Flex 300-L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 200.0mm; Body: 316ss/EPDM; Pressure Range: 0 to 25 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCOF400-L",
+        "name": "Open Flex 400-L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 200.0mm; Body: 316ss/EPDM; Pressure Range: 0 TO 24 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCPC",
+        "name": "Plast Coupling",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 63.0mm; Body: 316ss/EPDM; Pressure Range: 0 TO 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCRC100wide",
+        "name": "Orbit Pipe Repair Clamp Series 1 and 100mm long",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 48.3mm; Body: 316ss/EPDM; Pressure Range: 0 TO 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OCRC400",
+        "name": "Orbit Pipe Repair Clamp Series 1 and 400mm long",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 88.9mm; Body: 316ss/EPDM; Pressure Range: 0 TO 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "OSSBS",
+        "name": "Oversized Simplex Basket Strainer",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "RSSCVTE",
+        "name": "Resilient Seated Swing Check Valve - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: Cast Iron/EPDM; Pressure Range: 0 - 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SAREJ",
+        "name": "Single Arch Rubber Expansion Joint with unfilled arch",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Unfilled Arch Body: EPDM/Zinc; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBS316-ANSI150",
+        "name": "Simplex Basket Strainer 316 SS - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBS316-ASPN16",
+        "name": "Simplex Basket Strainer 316 SS - Flanged AS4087 PN16",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBS316-TD_",
+        "name": "Simplex Basket Strainer 316 SS - Flanged Table D",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-7 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBS316-TE",
+        "name": "Simplex Basket Strainer 316 SS - Flanged Table E",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: CF8M/316SS; Pressure Range: 0-14 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SBSCS",
+        "name": "Simplex Basket Strainer Cast Steel - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: Cast Steel/304SS; Pressure Range: 0-20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SFAREJ",
+        "name": "Single Filled Arch Rubber Expansion Joint",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Filled Arch Body: EPDM/Zinc; Pressure Range: 0 to 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SGL",
+        "name": "Straub Grip L",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 33.7mm; Body: 316ss/EPDM; Pressure Range: 0 TO 38 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "SSSCV150",
+        "name": "Stainless Steel Swing Check Valve - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: CF8M; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "TSREJFTF",
+        "name": "Twin Sphere Rubber Expansion Joint FTF with Table E or ANSI 150LB Zinc flanges",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 32mm; Body: Zinc/EPDM; Pressure Range: 0 TO 16 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "WCBSCV150LB",
+        "name": "Swing Check Valve - WCB - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: WCB/Stellite; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "WCBSCV300LB",
+        "name": "Swing Check Valve - WCB - Flanged ANSI 300LB",
+        "field": "bulletPoints",
+        "netoValue": "3 bullets: Size From: 50mm; Body: WCB/Stellite; Pressure Range: 0 - 50 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      },
+      {
+        "sku": "WCBYS",
+        "name": "Y Strainer WCB Cast Steel - Flanged ANSI 150LB",
+        "field": "bulletPoints",
+        "netoValue": "4 bullets: Size From: 50mm; Body: Cast Steel/316SS; Pressure Range: 0 - 20 BAR",
+        "dbValue": "0 features",
+        "recommendation": "sync"
+      }
+    ],
+    "syncSeo": []
+  }
+}
