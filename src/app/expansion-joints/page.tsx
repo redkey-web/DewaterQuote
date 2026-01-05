@@ -1,11 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
 import { CheckCircle, ArrowRight, Maximize2 } from "lucide-react"
-import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
+import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import BulkPricingTicker from "@/components/BulkPricingTicker"
-import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 const jointTypes = [
@@ -60,10 +59,7 @@ export const metadata: Metadata = {
 export const revalidate = 60
 
 export default async function ExpansionJointsPage() {
-  const [expansionProducts, expansionSubcategories] = await Promise.all([
-    getProductsByCategory("rubber-expansion-joints"),
-    getSubcategoriesByCategory("rubber-expansion-joints"),
-  ])
+  const expansionProducts = await getProductsByCategory("rubber-expansion-joints")
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
@@ -110,8 +106,8 @@ export default async function ExpansionJointsPage() {
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                 <Image
-                  src="/images/products/expansion-joints/fsf-single-sphere.jpg"
-                  alt="FSF Single Sphere Rubber Expansion Joint"
+                  src="https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/TAREJ/TAREJ_1.png"
+                  alt="Triple Arch Rubber Expansion Joint"
                   fill
                   className="object-contain"
                   priority
@@ -138,29 +134,9 @@ export default async function ExpansionJointsPage() {
           </div>
         </div>
 
-        {/* Search by Type - Subcategory Tiles */}
-        <SubcategoryTiles
-          categorySlug="rubber-expansion-joints"
-          subcategories={expansionSubcategories}
-          title="Search by Type"
-          hideEmpty={true}
-          urlMap={{
-            'single-sphere': '/single-sphere-expansion-joints',
-            'twin-sphere': '/twin-sphere-expansion-joints',
-            'single-arch': '/single-arch-expansion-joints',
-            'double-arch': '/double-arch-expansion-joints',
-            'triple-arch': '/triple-arch-expansion-joints',
-            'quadruple-arch': '/quadruple-arch-expansion-joints',
-            'reducing': '/reducing-expansion-joints',
-            'ptfe-lined': '/ptfe-lined-expansion-joints',
-            'fsf-single-sphere': '/fsf-single-sphere-expansion-joints',
-            'fsf-b-single-sphere': '/fsf-b-single-sphere-expansion-joints',
-          }}
-        />
-
         {/* All Products */}
         <div id="products" className="mb-6 scroll-mt-8">
-          <h2 className="text-2xl font-semibold mb-4">All Expansion Joint Products</h2>
+          <h2 className="text-2xl font-semibold mb-4">All Expansion Joints</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
           {expansionProducts.map((product) => (

@@ -109,7 +109,7 @@ export default function HomePage() {
   const productCategories = [
     {
       name: "Valves",
-      url: "/valves",
+      url: "/industrial-valves",
       image: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg",
       alt: "Industrial Valves",
     },
@@ -405,65 +405,125 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Brand Logos */}
-      <section className="py-12 px-6 lg:px-8 bg-muted/50 border-y border-border">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-center text-sm text-muted-foreground mb-6">Authorised distributor for</p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            <Link href="/brand/straub-couplings" className="opacity-80 hover:opacity-100 transition-opacity">
-              <Image
-                src="/images/brands/straub-logo.png"
-                alt="Straub"
-                width={120}
-                height={40}
-                className="h-10 w-auto object-contain"
-              />
-            </Link>
-            <Link href="/orbit-couplings" className="opacity-80 hover:opacity-100 transition-opacity">
-              <Image
-                src="/images/brands/orbit-couplings.png"
-                alt="Orbit Couplings"
-                width={270}
-                height={90}
-                className="h-[84px] w-auto object-contain"
-              />
-            </Link>
-            <Link href="/brands/teekay" className="opacity-80 hover:opacity-100 transition-opacity">
-              <Image
-                src="/images/brands/teekay-logo.png"
-                alt="Teekay"
-                width={120}
-                height={40}
-                className="h-10 w-auto object-contain"
-              />
-            </Link>
-            <Link href="/brands/defender-valves" className="opacity-80 hover:opacity-100 transition-opacity">
-              <Image
-                src="/images/brands/defender-valves-logo.png"
-                alt="Defender Valves"
-                width={200}
-                height={60}
-                className="h-10 w-auto object-contain"
-              />
-            </Link>
-            <Link href="/brands/bore-flex-rubber" className="opacity-80 hover:opacity-100 transition-opacity">
-              <Image
-                src="/images/brands/bore-flex-rubber-logo.png"
-                alt="Bore-Flex Rubber"
-                width={1080}
-                height={360}
-                className="h-[120px] w-auto object-contain"
-              />
-            </Link>
-            <Link href="/brands/defender-strainers" className="opacity-80 hover:opacity-100 transition-opacity">
-              <Image
-                src="/images/brands/defender-strainers-logo.png"
-                alt="Defender Strainers"
-                width={414}
-                height={142}
-                className="h-12 w-auto object-contain"
-              />
-            </Link>
+      {/* Brand Logos - Infinite Scroll Carousel */}
+      <section className="py-8 bg-muted/50 border-y border-border overflow-hidden">
+        <p className="text-center text-sm text-muted-foreground mb-6">Authorised distributor for</p>
+        <div className="brand-carousel-wrapper">
+          <div className="brand-carousel-track">
+            {/* First set of logos */}
+            <div className="brand-carousel-content">
+              <Link href="/brand/straub-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+                <Image
+                  src="/images/brands/straub-logo.png"
+                  alt="Straub"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/orbit-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+                <Image
+                  src="/images/brands/orbit-couplings.png"
+                  alt="Orbit Couplings"
+                  width={270}
+                  height={90}
+                  className="h-16 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/brands/teekay" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+                <Image
+                  src="/images/brands/teekay-logo.png"
+                  alt="Teekay"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/brands/defender-valves" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+                <Image
+                  src="/images/brands/defender-valves-logo.png"
+                  alt="Defender Valves"
+                  width={200}
+                  height={60}
+                  className="h-10 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/brands/bore-flex-rubber" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+                <Image
+                  src="/images/brands/bore-flex-rubber-logo.png"
+                  alt="Bore-Flex Rubber"
+                  width={1080}
+                  height={360}
+                  className="h-16 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/brands/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+                <Image
+                  src="/images/brands/defender-strainers-logo.png"
+                  alt="Defender Strainers"
+                  width={414}
+                  height={142}
+                  className="h-12 w-auto object-contain"
+                />
+              </Link>
+            </div>
+            {/* Duplicate set for seamless loop */}
+            <div className="brand-carousel-content" aria-hidden="true">
+              <Link href="/brand/straub-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+                <Image
+                  src="/images/brands/straub-logo.png"
+                  alt="Straub"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/orbit-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+                <Image
+                  src="/images/brands/orbit-couplings.png"
+                  alt="Orbit Couplings"
+                  width={270}
+                  height={90}
+                  className="h-16 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/brands/teekay" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+                <Image
+                  src="/images/brands/teekay-logo.png"
+                  alt="Teekay"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/brands/defender-valves" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+                <Image
+                  src="/images/brands/defender-valves-logo.png"
+                  alt="Defender Valves"
+                  width={200}
+                  height={60}
+                  className="h-10 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/brands/bore-flex-rubber" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+                <Image
+                  src="/images/brands/bore-flex-rubber-logo.png"
+                  alt="Bore-Flex Rubber"
+                  width={1080}
+                  height={360}
+                  className="h-16 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/brands/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+                <Image
+                  src="/images/brands/defender-strainers-logo.png"
+                  alt="Defender Strainers"
+                  width={414}
+                  height={142}
+                  className="h-12 w-auto object-contain"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

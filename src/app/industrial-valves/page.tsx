@@ -91,8 +91,8 @@ export default async function IndustrialValvesPage() {
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                 <Image
-                  src="/images/products/valves/butterfly-valve-cf8m-316ss.jpg"
-                  alt="Industrial Butterfly Valve 316SS"
+                  src="https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/cf8mdafv/main-wSg1UuLIMcZJ4tm2PUFULSyNFgxTVt.png"
+                  alt="CF8M Flanged Float Valve AS4087 PN16"
                   fill
                   className="object-contain"
                   priority

@@ -433,46 +433,47 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Full Screen Overlay */}
         {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border bg-white dark:bg-gray-950">
-            <div className="mb-4" ref={mobileSearchRef}>
-              <form onSubmit={handleSearchSubmit} className="relative">
-                {isSearching ? (
-                  <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
-                ) : (
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <div className="lg:hidden fixed inset-0 top-[87px] z-50 bg-white dark:bg-gray-950 overflow-y-auto">
+            <div className="px-6 py-4">
+              <div className="mb-4" ref={mobileSearchRef}>
+                <form onSubmit={handleSearchSubmit} className="relative">
+                  {isSearching ? (
+                    <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
+                  ) : (
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  )}
+                  <Input
+                    type="search"
+                    placeholder="Search products..."
+                    className="pl-9 w-full"
+                    data-testid="input-search-mobile"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => searchResults.length > 0 && setShowResults(true)}
+                  />
+                </form>
+                {/* Mobile Search Results */}
+                {showResults && searchResults.length > 0 && (
+                  <div className="mt-2 bg-popover border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
+                    {searchResults.slice(0, 5).map((result) => (
+                      <button
+                        key={result.id}
+                        onClick={() => {
+                          handleResultClick(result.slug)
+                          setMobileMenuOpen(false)
+                        }}
+                        className="w-full text-left px-3 py-2 hover:bg-primary hover:text-white border-b border-border last:border-b-0 transition-colors"
+                      >
+                        <div className="font-medium text-sm truncate">{result.name}</div>
+                        <div className="text-xs text-muted-foreground">{result.brand}</div>
+                      </button>
+                    ))}
+                  </div>
                 )}
-                <Input
-                  type="search"
-                  placeholder="Search products..."
-                  className="pl-9 w-full"
-                  data-testid="input-search-mobile"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onFocus={() => searchResults.length > 0 && setShowResults(true)}
-                />
-              </form>
-              {/* Mobile Search Results */}
-              {showResults && searchResults.length > 0 && (
-                <div className="mt-2 bg-popover border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
-                  {searchResults.slice(0, 5).map((result) => (
-                    <button
-                      key={result.id}
-                      onClick={() => {
-                        handleResultClick(result.slug)
-                        setMobileMenuOpen(false)
-                      }}
-                      className="w-full text-left px-3 py-2 hover:bg-primary hover:text-white border-b border-border last:border-b-0 transition-colors"
-                    >
-                      <div className="font-medium text-sm truncate">{result.name}</div>
-                      <div className="text-xs text-muted-foreground">{result.brand}</div>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-            <nav className="space-y-1 max-h-[70vh] overflow-y-auto">
+              </div>
+              <nav className="space-y-1">
               {/* Brands */}
               <div className="py-2">
                 <Link href="/brands" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
@@ -584,7 +585,8 @@ export default function Header() {
               </div>
             </nav>
           </div>
-        )}
+        </div>
+      )}
       </div>
     </header>
   )

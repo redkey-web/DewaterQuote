@@ -159,8 +159,8 @@ export default async function PipeRepairPage() {
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                 <Image
-                  src="/images/products/orbit/pipe-repair-clamp-200mm.jpg"
-                  alt="Orbit Pipe Repair Clamp 200mm"
+                  src="https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/OCFG-L/FlexGripL-zzJYJLnKNuq2HTttSKJXZBXzkFBvoz.png"
+                  alt="Flex Grip L Pipe Coupling"
                   fill
                   className="object-contain"
                   priority

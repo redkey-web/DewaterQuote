@@ -394,6 +394,37 @@
   white-space: nowrap;
 }
 
+/* Brand Carousel - Infinite Scroll */
+@keyframes brand-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.brand-carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.brand-carousel-track {
+  display: flex;
+  width: max-content;
+  animation: brand-scroll 25s linear infinite;
+}
+
+.brand-carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.brand-carousel-content {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
 /* Simple teal hover for dropdown menu items */
 .nav-dropdown-item {
   transition: background-color 0.2s ease, color 0.2s ease;

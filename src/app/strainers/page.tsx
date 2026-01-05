@@ -105,8 +105,8 @@ export default async function StrainersPage() {
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                 <Image
-                  src="/images/products/strainers/y-strainer-316ss.jpg"
-                  alt="316 Stainless Steel Y Strainer"
+                  src="https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/OSSBS/OSSBS_1.png"
+                  alt="Oversized Simplex Basket Strainer"
                   fill
                   className="object-contain"
                   priority

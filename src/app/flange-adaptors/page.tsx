@@ -1,11 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, CheckCircle, Circle } from "lucide-react"
-import { getProductsByCategory, getSubcategoriesByCategory } from "@/data/products"
+import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import BulkPricingTicker from "@/components/BulkPricingTicker"
-import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -43,10 +42,7 @@ const applications = [
 ]
 
 export default async function FlangeAdaptorsPage() {
-  const [flangeProducts, flangeSubcategories] = await Promise.all([
-    getProductsByCategory("flange-adaptors"),
-    getSubcategoriesByCategory("flange-adaptors"),
-  ])
+  const flangeProducts = await getProductsByCategory("flange-adaptors")
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
@@ -129,17 +125,6 @@ export default async function FlangeAdaptorsPage() {
             ))}
           </div>
         </div>
-
-        {/* Search by Type - Subcategory Tiles */}
-        <SubcategoryTiles
-          categorySlug="flange-adaptors"
-          subcategories={flangeSubcategories}
-          title="Search by Type"
-          hideEmpty={true}
-          urlMap={{
-            'flange-adaptor': '/flange-adaptors',
-          }}
-        />
 
         {/* All Products */}
         <div id="products" className="mb-6 scroll-mt-8">
