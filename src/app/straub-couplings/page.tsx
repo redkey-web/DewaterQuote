@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://dewaterproducts.com.au/brand/straub-couplings",
+    canonical: "https://dewaterproducts.com.au/straub-couplings",
   },
 }
 
@@ -108,7 +108,7 @@ export default async function StraubCouplingsRepairClampsPage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
-    { name: "Straub Couplings & Repair Clamps", url: "https://dewaterproducts.com.au/brand/straub-couplings" },
+    { name: "Straub Couplings & Repair Clamps", url: "https://dewaterproducts.com.au/straub-couplings" },
   ]
 
   return (

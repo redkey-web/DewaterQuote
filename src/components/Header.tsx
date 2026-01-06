@@ -142,7 +142,7 @@ export default function Header() {
   ]
 
   const brandsMenu = [
-    { name: "Straub", url: "/brand/straub-couplings" },
+    { name: "Straub", url: "/straub-couplings" },
     { name: "Orbit", url: "/orbit-couplings" },
     { name: "Teekay", url: "/brands/teekay" },
     { name: "Bore-Flex", url: "/brands/bore-flex-rubber" },
@@ -435,7 +435,7 @@ export default function Header() {
 
         {/* Mobile Menu - Full Screen Overlay */}
         {mobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[87px] z-50 bg-white dark:bg-gray-950 overflow-y-auto">
+          <div className="lg:hidden fixed inset-0 top-[110px] z-50 bg-white dark:bg-gray-950 overflow-y-auto">
             <div className="px-6 py-4">
               <div className="mb-4" ref={mobileSearchRef}>
                 <form onSubmit={handleSearchSubmit} className="relative">
