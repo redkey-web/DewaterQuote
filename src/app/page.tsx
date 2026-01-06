@@ -454,7 +454,7 @@ export default function HomePage() {
                   alt="Bore-Flex Rubber"
                   width={1080}
                   height={360}
-                  className="h-16 w-auto object-contain"
+                  className="h-[92px] w-auto object-contain"
                 />
               </Link>
               <Link href="/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
@@ -463,7 +463,7 @@ export default function HomePage() {
                   alt="Defender Strainers"
                   width={414}
                   height={142}
-                  className="h-12 w-auto object-contain"
+                  className="h-[58px] w-auto object-contain"
                 />
               </Link>
             </div>
@@ -511,7 +511,7 @@ export default function HomePage() {
                   alt="Bore-Flex Rubber"
                   width={1080}
                   height={360}
-                  className="h-16 w-auto object-contain"
+                  className="h-[92px] w-auto object-contain"
                 />
               </Link>
               <Link href="/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
@@ -520,7 +520,7 @@ export default function HomePage() {
                   alt="Defender Strainers"
                   width={414}
                   height={142}
-                  className="h-12 w-auto object-contain"
+                  className="h-[58px] w-auto object-contain"
                 />
               </Link>
             </div>
