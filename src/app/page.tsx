@@ -17,18 +17,14 @@ import {
   ClipboardList,
   Mail,
   TrendingDown,
-  ChevronDown,
   Loader2,
+  ChevronDown,
 } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
-  DropdownMenuPortal,
 } from "@/components/ui/dropdown-menu"
 import {
   Accordion,
@@ -241,22 +237,28 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
+          <p className="text-lg md:text-xl text-white/80 font-medium mb-4 tracking-wide">
+            Australia's Industrial Piping Specialists
+          </p>
           <div className="relative w-full max-w-2xl mx-auto" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
-              {isSearching ? (
-                <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground animate-spin" />
-              ) : (
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-muted-foreground" />
-              )}
-              <input
-                type="text"
-                placeholder="Search pipe fittings, valves, couplings..."
-                className="w-full h-14 pl-14 pr-6 text-lg rounded-full border-2 border-white/20 bg-white shadow-2xl focus:outline-none focus:ring-4 focus:ring-primary/30 focus:border-primary transition-all"
-                data-testid="input-hero-search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => searchResults.length > 0 && setShowResults(true)}
-              />
+              {/* 3D Search Bar */}
+              <div className="relative">
+                {isSearching ? (
+                  <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-zinc-400 animate-spin z-10" />
+                ) : (
+                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-zinc-400 z-10" />
+                )}
+                <input
+                  type="text"
+                  placeholder="Search pipe fittings, valves, couplings..."
+                  className="w-full h-14 md:h-16 pl-14 pr-6 text-lg rounded-2xl bg-white border-b-4 border-zinc-300 shadow-[0_8px_30px_rgba(0,0,0,0.3),inset_0_-2px_0_rgba(0,0,0,0.05)] focus:outline-none focus:shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_-2px_0_rgba(0,0,0,0.05)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
+                  data-testid="input-hero-search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => searchResults.length > 0 && setShowResults(true)}
+                />
+              </div>
             </form>
             {/* Search Results Dropdown */}
             {showResults && searchResults.length > 0 && (
@@ -287,120 +289,109 @@ export default function HomePage() {
               </div>
             )}
           </div>
-          <div className="flex items-center justify-center gap-4 mt-6">
+          {/* Category Dropdowns */}
+          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-6">
+            {/* Couplings */}
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="secondary" className="bg-white/90 hover:bg-white text-foreground px-6 py-2 text-sm font-medium focus:ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none">
-                  Browse by Category
-                  <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
+              <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full border border-white/20 transition-all focus:outline-none">
+                Couplings <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-52">
-                {/* Couplings & Repair */}
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="cursor-pointer">
-                    <span className="flex-1">Couplings & Repair</span>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent className="w-48">
-                      <DropdownMenuItem asChild>
-                        <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/pipe-repair" className="w-full cursor-pointer">Pipe Repair Clamps</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/muff-couplings" className="w-full cursor-pointer">Muff Couplings</Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-
-                {/* Valves with subcategories */}
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/industrial-valves" className="flex-1">Valves</Link>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent className="w-48">
-                      <DropdownMenuItem asChild>
-                        <Link href="/butterfly-valves" className="w-full cursor-pointer">Butterfly Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/check-valves" className="w-full cursor-pointer">Check Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/duckbill-check-valves" className="w-full cursor-pointer">Duckbill Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/gate-valves" className="w-full cursor-pointer">Gate Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/ball-valves" className="w-full cursor-pointer">Ball Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/float-valves" className="w-full cursor-pointer">Float Valves</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/foot-valves" className="w-full cursor-pointer">Foot Valves</Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-
-                {/* Expansion Joints with subcategories */}
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/expansion-joints" className="flex-1">Expansion Joints</Link>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent className="w-48">
-                      <DropdownMenuItem asChild>
-                        <Link href="/single-sphere-expansion-joints" className="w-full cursor-pointer">Single Sphere</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/twin-sphere-expansion-joints" className="w-full cursor-pointer">Twin Sphere</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/single-arch-expansion-joints" className="w-full cursor-pointer">Single Arch</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/double-arch-expansion-joints" className="w-full cursor-pointer">Double Arch</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/reducing-expansion-joints" className="w-full cursor-pointer">Reducing</Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-
-                {/* Strainers with subcategories */}
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="cursor-pointer">
-                    <Link href="/strainers" className="flex-1">Strainers</Link>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent className="w-52">
-                      <DropdownMenuItem asChild>
-                        <Link href="/y-strainers" className="w-full cursor-pointer">Y Strainers</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/basket-strainers" className="w-full cursor-pointer">Basket Strainers</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/duplex-strainers" className="w-full cursor-pointer">Duplex Strainers</Link>
-                      </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
+              <DropdownMenuContent className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/pipe-repair" className="w-full cursor-pointer">Pipe Repair Clamps</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/muff-couplings" className="w-full cursor-pointer">Muff Couplings</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link href="/brands" className="text-white/70 hover:text-white text-sm underline underline-offset-2 transition-colors">
-              or browse by brand
-            </Link>
+
+            {/* Valves */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full border border-white/20 transition-all focus:outline-none">
+                Valves <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/industrial-valves" className="w-full cursor-pointer">All Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/butterfly-valves" className="w-full cursor-pointer">Butterfly Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/check-valves" className="w-full cursor-pointer">Check Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/duckbill-check-valves" className="w-full cursor-pointer">Duckbill Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/gate-valves" className="w-full cursor-pointer">Gate Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/ball-valves" className="w-full cursor-pointer">Ball Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/float-valves" className="w-full cursor-pointer">Float Valves</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/foot-valves" className="w-full cursor-pointer">Foot Valves</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Expansion Joints */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full border border-white/20 transition-all focus:outline-none">
+                Expansion Joints <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/expansion-joints" className="w-full cursor-pointer">All Expansion Joints</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/single-sphere-expansion-joints" className="w-full cursor-pointer">Single Sphere</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/twin-sphere-expansion-joints" className="w-full cursor-pointer">Twin Sphere</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/single-arch-expansion-joints" className="w-full cursor-pointer">Single Arch</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/double-arch-expansion-joints" className="w-full cursor-pointer">Double Arch</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/reducing-expansion-joints" className="w-full cursor-pointer">Reducing</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Strainers */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full border border-white/20 transition-all focus:outline-none">
+                Strainers <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/strainers" className="w-full cursor-pointer">All Strainers</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/y-strainers" className="w-full cursor-pointer">Y Strainers</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/basket-strainers" className="w-full cursor-pointer">Basket Strainers</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/duplex-strainers" className="w-full cursor-pointer">Duplex Strainers</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </section>
@@ -412,7 +403,7 @@ export default function HomePage() {
           <div className="brand-carousel-track">
             {/* First set of logos */}
             <div className="brand-carousel-content">
-              <Link href="/straub-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/straub-couplings" className="flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/straub-logo.png"
                   alt="Straub"
@@ -421,7 +412,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/orbit-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/orbit-couplings" className="flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/orbit-couplings.png"
                   alt="Orbit Couplings"
@@ -430,7 +421,7 @@ export default function HomePage() {
                   className="h-16 w-auto object-contain"
                 />
               </Link>
-              <Link href="/teekay" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/teekay" className="flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/teekay-logo.png"
                   alt="Teekay"
@@ -439,7 +430,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/defender-valves" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/defender-valves" className="flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/defender-valves-logo.png"
                   alt="Defender Valves"
@@ -448,7 +439,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/bore-flex" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/bore-flex" className="flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/bore-flex-rubber-logo.png"
                   alt="Bore-Flex Rubber"
@@ -457,7 +448,7 @@ export default function HomePage() {
                   className="h-[92px] w-auto object-contain"
                 />
               </Link>
-              <Link href="/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/defender-strainers" className="flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/defender-strainers-logo.png"
                   alt="Defender Strainers"
@@ -469,7 +460,7 @@ export default function HomePage() {
             </div>
             {/* Duplicate set for seamless loop */}
             <div className="brand-carousel-content" aria-hidden="true">
-              <Link href="/straub-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/straub-couplings" className="flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/straub-logo.png"
                   alt="Straub"
@@ -478,7 +469,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/orbit-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/orbit-couplings" className="flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/orbit-couplings.png"
                   alt="Orbit Couplings"
@@ -487,7 +478,7 @@ export default function HomePage() {
                   className="h-16 w-auto object-contain"
                 />
               </Link>
-              <Link href="/teekay" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/teekay" className="flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/teekay-logo.png"
                   alt="Teekay"
@@ -496,7 +487,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/defender-valves" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/defender-valves" className="flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/defender-valves-logo.png"
                   alt="Defender Valves"
@@ -505,7 +496,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/bore-flex" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/bore-flex" className="flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/bore-flex-rubber-logo.png"
                   alt="Bore-Flex Rubber"
@@ -514,7 +505,7 @@ export default function HomePage() {
                   className="h-[92px] w-auto object-contain"
                 />
               </Link>
-              <Link href="/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/defender-strainers" className="flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/defender-strainers-logo.png"
                   alt="Defender Strainers"

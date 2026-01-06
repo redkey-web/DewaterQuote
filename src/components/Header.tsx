@@ -5,7 +5,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { ClipboardList, Menu, X, ChevronDown, ChevronRight, Phone, Mail, Search, Loader2 } from "lucide-react"
 import { useQuote } from "@/context/QuoteContext"
 
@@ -180,10 +179,10 @@ export default function Header() {
               ) : (
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               )}
-              <Input
+              <input
                 type="search"
                 placeholder="Search products..."
-                className="pl-9 w-48 xl:w-64 h-9"
+                className="pl-9 w-48 xl:w-64 h-10 text-sm rounded-xl bg-white border-b-[3px] border-zinc-300 shadow-[0_4px_12px_rgba(0,0,0,0.15),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:outline-none focus:shadow-[0_4px_16px_rgba(0,0,0,0.2),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
                 data-testid="input-search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -444,10 +443,10 @@ export default function Header() {
                   ) : (
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   )}
-                  <Input
+                  <input
                     type="search"
                     placeholder="Search products..."
-                    className="pl-9 w-full"
+                    className="pl-9 w-full h-11 text-sm rounded-xl bg-white border-b-[3px] border-zinc-300 shadow-[0_4px_12px_rgba(0,0,0,0.15),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:outline-none focus:shadow-[0_4px_16px_rgba(0,0,0,0.2),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
                     data-testid="input-search-mobile"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -474,27 +473,8 @@ export default function Header() {
                 )}
               </div>
               <nav className="space-y-1">
-              {/* Brands */}
-              <div className="py-2">
-                <Link href="/brands" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
-                  Brands
-                </Link>
-                <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
-                  {brandsMenu.map((brand) => (
-                    <Link
-                      key={brand.name}
-                      href={brand.url}
-                      className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {brand.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
               {/* Products */}
-              <div className="py-2 border-t border-border">
+              <div className="py-2">
                 <Link href="/products" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
                   Products
                 </Link>
@@ -536,6 +516,25 @@ export default function Header() {
                         </div>
                       )}
                     </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Brands */}
+              <div className="py-2 border-t border-border">
+                <Link href="/brands" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                  Brands
+                </Link>
+                <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
+                  {brandsMenu.map((brand) => (
+                    <Link
+                      key={brand.name}
+                      href={brand.url}
+                      className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {brand.name}
+                    </Link>
                   ))}
                 </div>
               </div>
