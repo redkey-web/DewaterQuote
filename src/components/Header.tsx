@@ -435,7 +435,7 @@ export default function Header() {
 
         {/* Mobile Menu - Full Screen Overlay */}
         {mobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[110px] z-50 bg-white dark:bg-gray-950 overflow-y-auto">
+          <div className="lg:hidden fixed left-0 right-0 top-[110px] h-[calc(100vh-110px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto">
             <div className="px-6 py-4">
               <div className="mb-4" ref={mobileSearchRef}>
                 <form onSubmit={handleSearchSubmit} className="relative">

@@ -14,20 +14,23 @@ import {
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Pipe Couplings | Straub & Orbit Couplings Australia | Dewater Products",
+  title: "Pipe Couplings | Straub, Orbit & Teekay Couplings Australia | Dewater Products",
   description:
-    "Industrial pipe couplings for joining plain-ended pipes. Straub GRIP & FLEX, Orbit Flex Grip & Metal Lock. 316 stainless steel with EPDM seals. WRAS approved. Australia-wide delivery.",
+    "Industrial pipe couplings for joining plain-ended pipes. Straub GRIP & FLEX, Orbit Flex Grip & Metal Lock, Teekay Axilock & Axiflex. 316 stainless steel with EPDM seals. WRAS approved. Australia-wide delivery.",
   keywords: [
     "pipe couplings",
     "pipe couplings Australia",
     "Straub couplings",
     "Orbit couplings",
+    "Teekay couplings",
+    "Axilock coupling",
+    "Axiflex coupling",
     "flexible pipe couplings",
     "restrained pipe couplings",
     "316 stainless steel couplings",
   ],
   openGraph: {
-    title: "Pipe Couplings - Straub & Orbit | Dewater Products",
+    title: "Pipe Couplings - Straub, Orbit & Teekay | Dewater Products",
     description: "Flexible and restrained pipe couplings for pressure, drainage, and suction pipelines.",
     type: "website",
   },
@@ -50,6 +53,12 @@ const brands = [
     slug: "orbit",
     description: "Australian industrial couplings. Straub-compatible dimensions at competitive prices.",
     logo: "/images/brands/orbit-couplings.png",
+  },
+  {
+    name: "Teekay",
+    slug: "teekay",
+    description: "Axilock, Axiflex and PRIMA range for steel, PE and PVC pipes. No welding required.",
+    logo: "/images/brands/teekay-logo.png",
   },
 ]
 
@@ -80,42 +89,61 @@ const orbitCouplings = [
   { model: "Open Flex 200 L / 300 L / 400-L", sizeRange: "148.0 – 1524.0mm", pressure: "25 – 2 Bar", notes: "Non-restrained coupling" },
 ]
 
+// Teekay coupling models
+const teekayCouplings = [
+  { model: "Axilock", sizeRange: "21.0 – 2200.0mm", pressure: "PN16", notes: "Rigid axially restrained coupling" },
+  { model: "Axilock-FP", sizeRange: "26.9 – 168.3mm", pressure: "PN16", notes: "Fire protection certified" },
+  { model: "Axiflex", sizeRange: "21.0 – 2200.0mm", pressure: "PN16", notes: "Flexible with ±4° deflection" },
+  { model: "Plastlock", sizeRange: "32.0 – 630.0mm", pressure: "PN16", notes: "Designed for PE/PVC plastic pipes" },
+  { model: "PRIMA-LOCK", sizeRange: "26.9 – 610.0mm", pressure: "PN16", notes: "Premium rigid coupling" },
+  { model: "PRIMA-FLEX", sizeRange: "26.9 – 610.0mm", pressure: "PN16", notes: "Premium flexible coupling" },
+  { model: "PRIMA-PLAST", sizeRange: "32.0 – 315.0mm", pressure: "PN16", notes: "Premium plastic pipe coupling" },
+  { model: "PRIMA-STEP", sizeRange: "26.9 – 219.1mm", pressure: "PN16", notes: "Stepped reducer coupling" },
+]
+
 // Selection guide with product links
 const selectionGuide = [
   {
     application: "Joining same-sized pipes",
     orbit: { name: "Flex Grip / Metal Lock", link: "/flex-grip-s-pipe-coupling" },
-    straub: { name: "Metal Grip / Grip L", link: "/straub-metal-grip" }
+    straub: { name: "Metal Grip / Grip L", link: "/straub-metal-grip" },
+    teekay: { name: "Axilock / PRIMA-LOCK", link: "/teekay" }
   },
   {
     application: "Repair clamp for leaking section",
     orbit: { name: "Open Flex Series", link: "/flex-grip-open-l" },
-    straub: { name: "Open Flex / Rep-Flex", link: "/straub-open-flex-1" }
+    straub: { name: "Open Flex / Rep-Flex", link: "/straub-open-flex-1" },
+    teekay: { name: "Axilock", link: "/teekay" }
   },
   {
     application: "Joining different OD pipes",
     orbit: { name: "Stepped Coupling", link: "/orbit-couplings" },
-    straub: { name: "Step Flex 2 / 3", link: "/straub-step-flex-2" }
+    straub: { name: "Step Flex 2 / 3", link: "/straub-step-flex-2" },
+    teekay: { name: "PRIMA-STEP", link: "/teekay" }
   },
   {
     application: "Plastic-to-metal pipe join",
     orbit: { name: "Combo Lock", link: "/combo-lock" },
-    straub: { name: "Combi Grip", link: "/straub-combi-grip" }
+    straub: { name: "Combi Grip", link: "/straub-combi-grip" },
+    teekay: { name: "Plastlock", link: "/teekay" }
   },
   {
     application: "Fire systems",
     orbit: { name: "Fire Protection Coupling", link: "/fire-protection-coupling" },
-    straub: { name: "Metal Grip Fire Fence", link: "/brand/straub-couplings" }
+    straub: { name: "Metal Grip Fire Fence", link: "/brand/straub-couplings" },
+    teekay: { name: "Axilock-FP", link: "/teekay" }
   },
   {
     application: "Misalignment or movement",
     orbit: { name: "Flex Grip / Open Flex", link: "/flex-grip-l-pipe-coupling" },
-    straub: { name: "Flex / Open Flex", link: "/straub-flex-1" }
+    straub: { name: "Flex / Open Flex", link: "/straub-flex-1" },
+    teekay: { name: "Axiflex / PRIMA-FLEX", link: "/teekay" }
   },
   {
     application: "Plastic pipes (PE/PVC)",
     orbit: { name: "Plast Coupling", link: "/plast-coupling" },
-    straub: { name: "Plast Grip / Plast Pro", link: "/straub-plast-grip" }
+    straub: { name: "Plast Grip / Plast Pro", link: "/straub-plast-grip" },
+    teekay: { name: "Plastlock / PRIMA-PLAST", link: "/teekay" }
   },
 ]
 
@@ -176,32 +204,56 @@ export default async function PipeCouplingsPage() {
 
       {/* Hero Section */}
       <div className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-transparent dark:from-slate-950/30 dark:via-slate-900/10 dark:to-transparent" />
-        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+        {/* Animated blob background */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Dark base for white text, lighter at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-400" />
+          {/* Blob 1 - Cyan brand color (large, top-left) */}
+          <div
+            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob"
+            style={{ backgroundColor: '#39C5DA' }}
+          />
+          {/* Blob 2 - Teal accent (right side) */}
+          <div
+            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#2DD4BF' }}
+          />
+          {/* Blob 3 - Dark navy (bottom, adds depth) */}
+          <div
+            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-60 blur-3xl animate-blob animation-delay-4000"
+            style={{ backgroundColor: '#0f172a' }}
+          />
+          {/* Blob 4 - Dark slate (center-left, behind text) */}
+          <div
+            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#1e293b' }}
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900/30 text-slate-700 dark:text-slate-300 text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#39C5DA] text-white text-sm font-medium mb-4">
                 <Link2 className="w-4 h-4" />
                 Pipe Joining Solutions
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Pipe Couplings
               </h1>
-              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 mb-6 max-w-2xl">
                 316 stainless steel couplings for joining, repair, and transition applications.
-                Straub and Orbit brands with WRAS-approved EPDM seals.
+                Straub, Orbit and Teekay brands with WRAS-approved EPDM seals.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
                 >
                   View Products
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link
                   href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
                 >
                   Request a Quote
                 </Link>
@@ -228,11 +280,11 @@ export default async function PipeCouplingsPage() {
         {/* Shop by Brand */}
         <div className="mb-10">
           <h2 className="text-xl font-semibold mb-4">Shop by Brand</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {brands.map((brand) => (
-              <Link key={brand.slug} href={`/brands/${brand.slug}`}>
+              <Link key={brand.slug} href={brand.slug === 'teekay' ? '/teekay' : `/brands/${brand.slug}`}>
                 <div className="p-4 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer h-full flex items-center gap-4">
-                  <div className={`relative flex-shrink-0 ${brand.slug === 'orbit' ? 'h-[52px] w-[146px]' : 'h-10 w-28'}`}>
+                  <div className={`relative flex-shrink-0 ${brand.slug === 'orbit' ? 'h-[62px] w-[175px]' : brand.slug === 'teekay' ? 'h-12 w-32' : 'h-10 w-28'}`}>
                     <Image
                       src={brand.logo}
                       alt={`${brand.name} logo`}
@@ -254,7 +306,7 @@ export default async function PipeCouplingsPage() {
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Selecting the Right Pipe Coupling</h2>
           <p className="text-muted-foreground mb-4">
-            Choose the right coupling for your application. Both brands offer equivalent solutions – select based on availability or preference.
+            Choose the right coupling for your application. All three brands offer equivalent solutions – select based on availability or preference.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-border rounded-lg overflow-hidden">
@@ -262,12 +314,13 @@ export default async function PipeCouplingsPage() {
                 <tr>
                   <th className="text-left p-3 font-medium">Application</th>
                   <th className="text-left p-3 font-medium">
-                    <span className="block">Recommended</span>
-                    <span className="text-xs text-muted-foreground font-normal">(Orbit)</span>
+                    <span className="block">Orbit</span>
                   </th>
                   <th className="text-left p-3 font-medium">
-                    <span className="block">Recommended</span>
-                    <span className="text-xs text-muted-foreground font-normal">(Straub)</span>
+                    <span className="block">Straub</span>
+                  </th>
+                  <th className="text-left p-3 font-medium">
+                    <span className="block">Teekay</span>
                   </th>
                 </tr>
               </thead>
@@ -283,6 +336,11 @@ export default async function PipeCouplingsPage() {
                     <td className="p-3 font-medium">
                       <Link href={item.straub.link} className="text-primary hover:underline">
                         {item.straub.name}
+                      </Link>
+                    </td>
+                    <td className="p-3 font-medium">
+                      <Link href={item.teekay.link} className="text-primary hover:underline">
+                        {item.teekay.name}
                       </Link>
                     </td>
                   </tr>
@@ -309,7 +367,7 @@ export default async function PipeCouplingsPage() {
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-2">Compare Pipe Coupling Options</h2>
           <p className="text-muted-foreground mb-8">
-            Use the tables below to compare Straub and Orbit pipe coupling models by application type, size range, and pressure rating.
+            Use the tables below to compare Straub, Orbit and Teekay pipe coupling models by application type, size range, and pressure rating.
           </p>
 
           {/* Straub Table */}
@@ -375,6 +433,38 @@ export default async function PipeCouplingsPage() {
                 <Download className="w-4 h-4" />
                 Download Warranty PDF
               </a>
+            </div>
+          </div>
+
+          {/* Teekay Table */}
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold mb-4">Teekay Couplings – Axilock, Axiflex & PRIMA Range</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border border-border rounded-lg overflow-hidden">
+                <thead className="bg-muted">
+                  <tr>
+                    <th className="text-left p-3 font-medium">Model</th>
+                    <th className="text-left p-3 font-medium">Size Range</th>
+                    <th className="text-left p-3 font-medium">Pressure Rating</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teekayCouplings.map((coupling, index) => (
+                    <tr key={coupling.model} className={index % 2 === 0 ? "bg-card" : "bg-muted/30"}>
+                      <td className="p-3 font-medium">{coupling.model}</td>
+                      <td className="p-3">{coupling.sizeRange}</td>
+                      <td className="p-3">{coupling.pressure}</td>
+                      <td className="p-3 text-muted-foreground">{coupling.notes}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-3 text-sm text-muted-foreground">
+              <Link href="/teekay" className="text-primary hover:underline">
+                View all Teekay products →
+              </Link>
             </div>
           </div>
         </div>
@@ -451,7 +541,7 @@ export default async function PipeCouplingsPage() {
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Coupling?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Our technical team can help you choose between Straub and Orbit couplings
+            Our technical team can help you choose between Straub, Orbit and Teekay couplings
             for your application. Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">

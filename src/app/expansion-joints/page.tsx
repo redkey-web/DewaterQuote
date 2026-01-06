@@ -5,6 +5,7 @@ import { getProductsByCategory } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import BulkPricingTicker from "@/components/BulkPricingTicker"
+import JointTypeChips from "@/components/JointTypeChips"
 import type { Metadata } from "next"
 
 const jointTypes = [
@@ -72,32 +73,56 @@ export default async function ExpansionJointsPage() {
 
       {/* Hero Section */}
       <div className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50 to-transparent dark:from-orange-950/30 dark:via-orange-900/10 dark:to-transparent" />
-        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+        {/* Animated blob background */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Dark base for white text, lighter at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-400" />
+          {/* Blob 1 - Cyan brand color (large, top-left) */}
+          <div
+            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob"
+            style={{ backgroundColor: '#39C5DA' }}
+          />
+          {/* Blob 2 - Teal accent (right side) */}
+          <div
+            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#2DD4BF' }}
+          />
+          {/* Blob 3 - Dark navy (bottom, adds depth) */}
+          <div
+            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-60 blur-3xl animate-blob animation-delay-4000"
+            style={{ backgroundColor: '#0f172a' }}
+          />
+          {/* Blob 4 - Dark slate (center-left, behind text) */}
+          <div
+            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#1e293b' }}
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#39C5DA] text-white text-sm font-medium mb-4">
                 <Maximize2 className="w-4 h-4" />
                 Vibration & Movement Control
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Expansion Joints & Rubber Bellows
               </h1>
-              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 mb-6 max-w-2xl">
                 Rubber expansion joints and expansion bellows designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement.
                 EPDM rubber bellows with zinc or 316SS flanges, PN16 rated.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
                 >
                   View Products
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link
                   href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
                 >
                   Request a Quote
                 </Link>
@@ -121,17 +146,10 @@ export default async function ExpansionJointsPage() {
       <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Joint Types - Critical Info */}
+        {/* Joint Types - Compact Chips */}
         <div className="mb-10">
-          <h2 className="text-2xl font-bold mb-6">Expansion Joint Types</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {jointTypes.map((type) => (
-              <Link key={type.name} href={type.url} className="p-4 rounded-lg bg-card border border-border hover:border-primary hover:shadow-md transition-all">
-                <h3 className="font-semibold mb-2">{type.name}</h3>
-                <p className="text-sm text-muted-foreground">{type.description}</p>
-              </Link>
-            ))}
-          </div>
+          <h2 className="text-2xl font-bold mb-4">Expansion Joint Types</h2>
+          <JointTypeChips jointTypes={jointTypes} />
         </div>
 
         {/* All Products */}

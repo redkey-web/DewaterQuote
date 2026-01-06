@@ -125,32 +125,56 @@ export default async function PipeRepairPage() {
 
       {/* Hero Section */}
       <div className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-100 via-red-50 to-transparent dark:from-red-950/30 dark:via-red-900/10 dark:to-transparent" />
-        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+        {/* Animated blob background */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Dark base for white text, lighter at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-400" />
+          {/* Blob 1 - Cyan brand color (large, top-left) */}
+          <div
+            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob"
+            style={{ backgroundColor: '#39C5DA' }}
+          />
+          {/* Blob 2 - Teal accent (right side) */}
+          <div
+            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#2DD4BF' }}
+          />
+          {/* Blob 3 - Dark navy (bottom, adds depth) */}
+          <div
+            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-60 blur-3xl animate-blob animation-delay-4000"
+            style={{ backgroundColor: '#0f172a' }}
+          />
+          {/* Blob 4 - Dark slate (center-left, behind text) */}
+          <div
+            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#1e293b' }}
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#39C5DA] text-white text-sm font-medium mb-4">
                 <AlertTriangle className="w-4 h-4" />
                 Emergency & Permanent Solutions
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Pipe Repair Solutions
               </h1>
-              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 mb-6 max-w-2xl">
                 Seal leaks, repair cracks, and fix damaged pipes without cutting or welding.
                 Our repair clamps and couplings provide fast, permanent repairs that last the lifetime of the pipe.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
                 >
                   View Products
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <a
                   href="tel:1300271290"
-                  className="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors"
+                  className="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors border border-red-600"
                 >
                   Emergency: 1300 271 290
                 </a>

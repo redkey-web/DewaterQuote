@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, CheckCircle, Droplets, Shield, Waves, Zap } from "lucide-react"
+import { ArrowRight, CheckCircle, Wrench, Shield, Settings, Zap } from "lucide-react"
 import { getProductsByBrand } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
@@ -13,30 +13,31 @@ import {
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Teekay Products Australia | Duckbill Check Valves & Expansion Joints | Dewater Products",
+  title: "Teekay Pipe Couplings Australia | Axilock, Axiflex & PRIMA Range | Dewater Products",
   description:
-    "Teekay duckbill check valves and rubber expansion joints for stormwater, wastewater, and industrial applications. EPDM, Neoprene, Viton options. Australia-wide delivery.",
+    "Teekay pipe couplings for joining, repairing and connecting pipes. Axilock, Axiflex, Plastlock and PRIMA range. Stainless steel and plastic options. Australia-wide delivery.",
   keywords: [
     "Teekay",
-    "duckbill check valve",
-    "Teekay duckbill",
-    "rubber check valve",
-    "stormwater check valve",
-    "outfall valve",
+    "Teekay couplings",
+    "Axilock coupling",
+    "Axiflex coupling",
+    "Plastlock",
+    "pipe coupling",
+    "pipe repair coupling",
     "Teekay Australia",
-    "rubber expansion joints",
+    "PRIMA-LOCK",
   ],
   openGraph: {
-    title: "Teekay Duckbill Check Valves & Expansion Joints | Dewater Products",
+    title: "Teekay Pipe Couplings | Axilock, Axiflex & PRIMA Range | Dewater Products",
     description:
-      "Teekay rubber duckbill check valves for stormwater and wastewater outfalls. Authorised Australian distributor.",
+      "Teekay pipe couplings for joining, repairing and connecting pipes. Authorised Australian distributor.",
     type: "website",
     images: [
       {
         url: "/images/brands/teekay-og.jpg",
         width: 1200,
         height: 630,
-        alt: "Teekay Duckbill Check Valves",
+        alt: "Teekay Pipe Couplings",
       },
     ],
   },
@@ -49,56 +50,56 @@ export const revalidate = 60
 
 const teekayFeatures = [
   {
-    icon: Droplets,
-    title: "Backflow Prevention",
-    description: "Duckbill design opens with minimal head pressure and seals automatically against backflow.",
+    icon: Wrench,
+    title: "No Welding Required",
+    description: "Mechanical grip couplings eliminate the need for hot work - faster, safer pipe connections.",
   },
   {
     icon: Shield,
-    title: "Multiple Rubber Options",
-    description: "Available in EPDM, Neoprene, NBR, and Viton for various chemical and temperature requirements.",
+    title: "Axial Restraint",
+    description: "Axilock and PRIMA-LOCK couplings provide full axial restraint without thrust blocks.",
   },
   {
-    icon: Waves,
-    title: "Stormwater Specialist",
-    description: "Ideal for outfalls, tide gates, and stormwater systems where debris and marine growth occur.",
+    icon: Settings,
+    title: "Flexible Connections",
+    description: "Axiflex and PRIMA-FLEX allow angular deflection to accommodate pipe movement and misalignment.",
   },
   {
     icon: Zap,
-    title: "Zero Maintenance",
-    description: "No moving parts or hinges - the flexible rubber design requires no maintenance.",
+    title: "Quick Installation",
+    description: "Simple bolt-up installation reduces labour time and gets systems operational faster.",
   },
 ]
 
 const teekayApplications = [
-  "Stormwater outfalls - Prevent tidal or flood backflow",
-  "Wastewater discharge - Reliable non-return function",
-  "Marine outfalls - Resist marine growth and debris",
-  "Pump stations - Prevent siphoning when pumps stop",
-  "Industrial discharge - Chemical-resistant options available",
-  "Irrigation systems - Prevent contamination from backflow",
+  "Water mains - Join PE, PVC, steel and ductile iron pipes",
+  "Fire protection - Axilock-FP couplings for sprinkler systems",
+  "Mining & resources - Rugged couplings for harsh environments",
+  "Industrial piping - Quick repairs without shutdowns",
+  "Pumping systems - Flexible connections absorb vibration",
+  "Plastic pipe systems - Plastlock for PE and PVC connections",
 ]
 
 const faqs = [
   {
-    question: "How does a duckbill check valve work?",
+    question: "What's the difference between Axilock and Axiflex?",
     answer:
-      "A duckbill check valve has a flexible rubber body that opens when forward flow pressure is applied (as little as 25mm water head). When flow stops or reverses, the rubber naturally closes and seals, preventing backflow. There are no mechanical parts to fail.",
+      "Axilock provides a rigid, axially restrained connection that prevents pipe pull-out. Axiflex allows angular deflection (typically ±4°) to accommodate pipe movement, thermal expansion, and minor misalignment while still providing a secure seal.",
   },
   {
-    question: "What rubber material should I choose?",
+    question: "Can Teekay couplings join different pipe materials?",
     answer:
-      "EPDM is best for potable water and general applications. Neoprene offers good chemical and ozone resistance. NBR is suitable for oils and hydrocarbons. Viton provides the best chemical resistance for aggressive fluids.",
+      "Yes, Teekay couplings are designed to join dissimilar pipe materials. You can connect steel to PE, ductile iron to PVC, or any combination. The internal sealing gasket accommodates different OD tolerances.",
   },
   {
-    question: "Can duckbill valves handle solids?",
+    question: "What's the pressure rating of Teekay couplings?",
     answer:
-      "Yes, the flexible rubber design can pass solids and debris that would jam mechanical check valves. The curved bill design is self-cleaning and handles fibrous materials well.",
+      "Standard Teekay couplings are rated to PN16 (16 bar / 232 psi). Higher pressure ratings are available for specific applications. The PRIMA range offers premium performance for demanding installations.",
   },
   {
-    question: "How do I size a duckbill check valve?",
+    question: "How do I size a Teekay coupling?",
     answer:
-      "Duckbill valves are sized by pipe OD (outside diameter), not nominal bore. Measure your pipe OD accurately and select the matching size. The valve slips over the pipe end and is secured with a stainless steel clamp.",
+      "Teekay couplings are sized by pipe outside diameter (OD), not nominal bore. Measure the actual OD of both pipe ends accurately. For stepped couplings or reducers, you'll need both the larger and smaller OD measurements.",
   },
 ]
 
@@ -119,63 +120,67 @@ export default async function TeekayPage() {
       <div className="relative overflow-hidden border-b">
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-100 via-cyan-50 to-transparent dark:from-cyan-950/30 dark:via-cyan-900/10 dark:to-transparent" />
         <div className="max-w-7xl mx-auto px-6 py-16 relative">
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="flex-1">
-              <Image
-                src="/images/brands/teekay-logo.png"
-                alt="Teekay"
-                width={160}
-                height={80}
-                className="w-40 h-auto mb-6"
-                priority
-              />
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 text-sm font-medium mb-4">
-                <Waves className="w-4 h-4" />
-                Stormwater & Wastewater Specialists
-              </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-                Teekay Products
-              </h1>
-              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
-                Duckbill check valves and rubber expansion joints for reliable backflow prevention
-                in stormwater, wastewater, and industrial applications. Zero-maintenance design
-                with multiple rubber options.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
-                >
-                  Request a Quote
-                </Link>
-              </div>
-            </div>
-            <div className="flex-shrink-0 relative">
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
-                <Image
-                  src="/images/products/valves/duckbill-check-valve.png"
-                  alt="Teekay Duckbill Check Valve"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </div>
+          <Image
+            src="/images/brands/teekay-logo.png"
+            alt="Teekay"
+            width={160}
+            height={80}
+            className="w-40 h-auto mb-6"
+            priority
+          />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 text-sm font-medium mb-4">
+            <Settings className="w-4 h-4" />
+            Pipe Coupling Specialists
           </div>
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            Teekay Couplings
+          </h1>
+          <p className="text-xl text-muted-foreground mb-6 max-w-3xl">
+            Mechanical pipe couplings for joining, repairing and connecting pipes without welding.
+            The Axilock, Axiflex, Plastlock and PRIMA ranges cover steel, ductile iron, PE and PVC pipes
+            across water, fire protection and industrial applications.
+          </p>
+          <Link
+            href="/request-quote"
+            className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+          >
+            Request a Quote
+          </Link>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Products Section */}
+        <div className="mb-16">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">All Teekay Products</h2>
+            <span className="text-muted-foreground">{teekayProductsList.length} products</span>
+          </div>
+
+          {teekayProductsList.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {teekayProductsList.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-card rounded-lg border">
+              <p className="text-muted-foreground mb-4">
+                Contact us for Teekay product pricing and availability.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90"
+              >
+                Contact Us
+              </Link>
+            </div>
+          )}
+        </div>
+
         {/* Features Grid */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-8">Why Choose Teekay Duckbill Valves?</h2>
+          <h2 className="text-2xl font-bold mb-8">Why Choose Teekay Couplings?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {teekayFeatures.map((feature) => (
               <div
@@ -203,92 +208,64 @@ export default async function TeekayPage() {
           </div>
         </div>
 
-        {/* Duckbill Types */}
+        {/* Coupling Ranges */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">Duckbill Check Valve Models</h2>
+          <h2 className="text-2xl font-bold mb-6">Teekay Coupling Ranges</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 bg-card border border-border rounded-lg">
-              <h3 className="font-semibold text-lg mb-2">DB-1 Slip-On</h3>
+              <h3 className="font-semibold text-lg mb-2">Standard Range</h3>
               <p className="text-muted-foreground mb-4">
-                Standard slip-on duckbill valve with flat bottom. Slides over plain pipe end
-                and is secured with a 316SS clamp. Curved bill design for better sealing.
+                <strong>Axilock</strong> - Rigid axially restrained couplings. <strong>Axiflex</strong> - Flexible couplings with angular deflection.
+                <strong> Plastlock</strong> - Designed specifically for PE and PVC plastic pipes.
               </p>
               <div className="text-sm text-muted-foreground">
-                Size range: 88.9mm to 1700mm OD
+                Size range: 21mm to 2200mm OD
               </div>
             </div>
             <div className="p-6 bg-card border border-border rounded-lg">
-              <h3 className="font-semibold text-lg mb-2">Flanged Models</h3>
+              <h3 className="font-semibold text-lg mb-2">PRIMA Range (Premium)</h3>
               <p className="text-muted-foreground mb-4">
-                Flanged duckbill valves for bolted connections. Available in standard flange
-                drillings to suit AS, ANSI, and other standards.
+                <strong>PRIMA-LOCK</strong> - Premium rigid coupling. <strong>PRIMA-FLEX</strong> - Premium flexible coupling.
+                <strong> PRIMA-PLAST</strong> - Premium plastic pipe coupling. <strong>PRIMA-STEP</strong> - Stepped reducer coupling.
               </p>
               <div className="text-sm text-muted-foreground">
-                Contact us for flanged options
+                Premium finish and performance
               </div>
             </div>
           </div>
         </div>
 
-        {/* Rubber Material Guide */}
+        {/* Pipe Material Compatibility */}
         <div className="mb-16 p-6 bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-200 dark:border-cyan-900 rounded-lg">
           <h3 className="font-semibold text-cyan-900 dark:text-cyan-100 mb-4">
-            Rubber Material Selection Guide
+            Pipe Material Compatibility
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
             <div className="p-4 bg-white/50 dark:bg-black/20 rounded">
-              <div className="font-medium text-cyan-800 dark:text-cyan-200 mb-1">EPDM</div>
+              <div className="font-medium text-cyan-800 dark:text-cyan-200 mb-1">Steel Pipes</div>
               <div className="text-cyan-700 dark:text-cyan-300">
-                Potable water, general purpose, ozone resistant
+                Carbon steel, stainless steel, galvanised
               </div>
             </div>
             <div className="p-4 bg-white/50 dark:bg-black/20 rounded">
-              <div className="font-medium text-cyan-800 dark:text-cyan-200 mb-1">Neoprene</div>
+              <div className="font-medium text-cyan-800 dark:text-cyan-200 mb-1">Ductile Iron</div>
               <div className="text-cyan-700 dark:text-cyan-300">
-                Chemical resistance, weathering, moderate oils
+                DI pipes, cast iron, cement lined
               </div>
             </div>
             <div className="p-4 bg-white/50 dark:bg-black/20 rounded">
-              <div className="font-medium text-cyan-800 dark:text-cyan-200 mb-1">NBR (Nitrile)</div>
+              <div className="font-medium text-cyan-800 dark:text-cyan-200 mb-1">PE / HDPE</div>
               <div className="text-cyan-700 dark:text-cyan-300">
-                Oils, fuels, hydrocarbons
+                Use Plastlock or PRIMA-PLAST range
               </div>
             </div>
             <div className="p-4 bg-white/50 dark:bg-black/20 rounded">
-              <div className="font-medium text-cyan-800 dark:text-cyan-200 mb-1">Viton</div>
+              <div className="font-medium text-cyan-800 dark:text-cyan-200 mb-1">PVC / uPVC</div>
               <div className="text-cyan-700 dark:text-cyan-300">
-                Aggressive chemicals, high temperature
+                Use Plastlock or PRIMA-PLAST range
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Products Section */}
-        <div id="products" className="mb-16">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">All Teekay Products</h2>
-            <span className="text-muted-foreground">{teekayProductsList.length} products</span>
-          </div>
-
-          {teekayProductsList.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {teekayProductsList.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-card rounded-lg border">
-              <p className="text-muted-foreground mb-4">
-                Contact us for Teekay product pricing and availability.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90"
-              >
-                Contact Us
-              </Link>
-            </div>
-          )}
         </div>
 
         {/* FAQ Section */}
@@ -335,10 +312,10 @@ export default async function TeekayPage() {
 
         {/* CTA */}
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-semibold mb-3">Need Help with Your Stormwater Project?</h2>
+          <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Coupling?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Our technical team can help you select the right duckbill valve size and rubber material
-            for your application. Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> or request a quote.
+            Our technical team can help you select the right Teekay coupling for your pipe materials and application.
+            Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link

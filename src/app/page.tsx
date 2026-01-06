@@ -110,7 +110,7 @@ export default function HomePage() {
     {
       name: "Valves",
       url: "/industrial-valves",
-      image: "/images/products/valves/butterfly-valve-cf8m-316ss.jpg",
+      image: "https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/BCV316TE/BCV316TE_1.png",
       alt: "Industrial Valves",
     },
     {
@@ -122,13 +122,13 @@ export default function HomePage() {
     {
       name: "Expansion Joints",
       url: "/expansion-joints",
-      image: "/images/products/expansion-joints/fsf-single-sphere.jpg",
+      image: "https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/DAREJ/DAREJ_1.png",
       alt: "Expansion Joints",
     },
     {
       name: "Strainers & Filters",
       url: "/strainers",
-      image: "/images/products/strainers/simplex-basket-strainer-316ss.jpg",
+      image: "https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/OSSBS/OSSBS_1.png",
       alt: "Strainers and Filters",
     },
   ]
