@@ -237,7 +237,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
-          <p className="text-lg md:text-xl text-white/80 font-medium mb-4 tracking-wide">
+          <p className="text-xl md:text-2xl text-white/90 font-medium mb-4 tracking-wide drop-shadow-md">
             Australia's Industrial Piping Specialists
           </p>
           <div className="relative w-full max-w-2xl mx-auto" ref={heroSearchRef}>
@@ -398,7 +398,7 @@ export default function HomePage() {
 
       {/* Brand Logos - Infinite Scroll Carousel */}
       <section className="py-8 bg-muted/50 border-y border-border overflow-hidden">
-        <p className="text-center text-sm text-muted-foreground mb-6">Authorised distributor for</p>
+        <p className="text-center text-sm text-muted-foreground mb-6">Pipeline products from trusted brands</p>
         <div className="brand-carousel-wrapper">
           <div className="brand-carousel-track">
             {/* First set of logos */}
@@ -670,13 +670,13 @@ export default function HomePage() {
               </p>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">ABOUT US</h2>
               <h3 className="text-xl font-semibold text-muted-foreground mb-4">
-                The leader in industrial pipe fittings and valves
+                Quality pipe fittings and valves for Australian industry
               </h3>
               <p className="text-base text-foreground/80 mb-6 leading-relaxed">
-                Recognised as industry leaders in industrial pipe fittings engineering, we are an Australian owned and operated business. Dewater Products specialises in premium pipe couplings, valves, expansion joints, and strainers from trusted brands like Straub, Orbit, Teekay, and Defender Valves.
+                Dewater Products is an Australian owned and operated business based in Perth. We specialise in pipe couplings, valves, expansion joints, and strainers from trusted brands including Straub, Orbit, Teekay, and Defender Valves.
               </p>
               <p className="text-base text-foreground/80 mb-8 leading-relaxed">
-                Supplying the Australian market since 2015, our commitment to quality ensures we provide the most reliable solutions for water treatment, mining, irrigation, and industrial applications.
+                Since 2015, we've been supplying the Australian market with quality products backed by technical expertise. Our team provides product advice and support for water treatment, mining, irrigation, and industrial applications.
               </p>
               <Link href="/about">
                 <Button size="lg" data-testid="button-learn-more">
@@ -686,9 +686,9 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 gap-6">
               <Card className="p-8">
-                <h4 className="font-semibold text-xl mb-3">Authorised Distributor</h4>
+                <h4 className="font-semibold text-xl mb-3">Trusted Brands</h4>
                 <p className="text-muted-foreground mb-4">
-                  Exclusive partnerships with Straub, Orbit, Teekay, and Defender Valves ensure genuine products and factory support
+                  We work directly with manufacturers like Straub, Orbit, and Teekay to supply genuine products with factory support
                 </p>
               </Card>
               <Card className="p-8">
