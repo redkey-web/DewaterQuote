@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ClipboardList, Menu, X, ChevronDown, ChevronRight, Phone, Mail, Search, Loader2 } from "lucide-react"
 import { useQuote } from "@/context/QuoteContext"
@@ -21,6 +21,7 @@ interface SearchResult {
 
 export default function Header() {
   const router = useRouter()
+  const pathname = usePathname()
   const { itemCount: cartItemCount, openCart } = useQuote()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
@@ -31,6 +32,14 @@ export default function Header() {
   const [showResults, setShowResults] = useState(false)
   const searchRef = useRef<HTMLDivElement>(null)
   const mobileSearchRef = useRef<HTMLDivElement>(null)
+  const headerSearchInputRef = useRef<HTMLInputElement>(null)
+
+  // Auto-focus header search on non-homepage
+  useEffect(() => {
+    if (pathname !== "/") {
+      headerSearchInputRef.current?.focus()
+    }
+  }, [pathname])
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -180,6 +189,7 @@ export default function Header() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               )}
               <input
+                ref={headerSearchInputRef}
                 type="search"
                 placeholder="Search products..."
                 className="pl-9 w-48 xl:w-64 h-10 text-sm rounded-xl bg-white border-b-[3px] border-zinc-300 shadow-[0_4px_12px_rgba(0,0,0,0.15),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:outline-none focus:shadow-[0_4px_16px_rgba(0,0,0,0.2),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"

@@ -51,6 +51,12 @@ export default function HomePage() {
   const [isSearching, setIsSearching] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const heroSearchRef = useRef<HTMLDivElement>(null)
+  const heroInputRef = useRef<HTMLInputElement>(null)
+
+  // Auto-focus hero search on mount
+  useEffect(() => {
+    heroInputRef.current?.focus()
+  }, [])
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -250,6 +256,7 @@ export default function HomePage() {
                   <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-zinc-400 z-10" />
                 )}
                 <input
+                  ref={heroInputRef}
                   type="text"
                   placeholder="Search pipe fittings, valves, couplings..."
                   className="w-full h-14 md:h-16 pl-14 pr-6 text-lg rounded-2xl bg-white border-b-4 border-zinc-300 shadow-[0_8px_30px_rgba(0,0,0,0.3),inset_0_-2px_0_rgba(0,0,0,0.05)] focus:outline-none focus:shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_-2px_0_rgba(0,0,0,0.05)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
@@ -293,10 +300,10 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-6">
             {/* Couplings */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full border border-white/20 transition-all focus:outline-none">
+              <DropdownMenuTrigger className="pill-swipe flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 rounded-full border border-white/20 hover:border-white/40 transition-all focus:outline-none">
                 Couplings <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-48">
+              <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
                   <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
                 </DropdownMenuItem>
@@ -314,10 +321,10 @@ export default function HomePage() {
 
             {/* Valves */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full border border-white/20 transition-all focus:outline-none">
+              <DropdownMenuTrigger className="pill-swipe flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 rounded-full border border-white/20 hover:border-white/40 transition-all focus:outline-none">
                 Valves <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-48">
+              <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
                   <Link href="/industrial-valves" className="w-full cursor-pointer">All Valves</Link>
                 </DropdownMenuItem>
@@ -347,10 +354,10 @@ export default function HomePage() {
 
             {/* Expansion Joints */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full border border-white/20 transition-all focus:outline-none">
+              <DropdownMenuTrigger className="pill-swipe flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 rounded-full border border-white/20 hover:border-white/40 transition-all focus:outline-none">
                 Expansion Joints <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-48">
+              <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
                   <Link href="/expansion-joints" className="w-full cursor-pointer">All Expansion Joints</Link>
                 </DropdownMenuItem>
@@ -374,10 +381,10 @@ export default function HomePage() {
 
             {/* Strainers */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full border border-white/20 transition-all focus:outline-none">
+              <DropdownMenuTrigger className="pill-swipe flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 rounded-full border border-white/20 hover:border-white/40 transition-all focus:outline-none">
                 Strainers <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-48">
+              <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
                   <Link href="/strainers" className="w-full cursor-pointer">All Strainers</Link>
                 </DropdownMenuItem>
@@ -398,7 +405,7 @@ export default function HomePage() {
 
       {/* Brand Logos - Infinite Scroll Carousel */}
       <section className="py-8 bg-muted/50 border-y border-border overflow-hidden">
-        <p className="text-center text-sm text-muted-foreground mb-6">Pipeline products from trusted brands</p>
+        <h2 className="text-center text-lg md:text-xl font-medium text-foreground/70 mb-6">Pipeline products from trusted brands</h2>
         <div className="brand-carousel-wrapper">
           <div className="brand-carousel-track">
             {/* First set of logos */}
@@ -445,7 +452,7 @@ export default function HomePage() {
                   alt="Bore-Flex Rubber"
                   width={1080}
                   height={360}
-                  className="h-[92px] w-auto object-contain"
+                  className="h-[110px] w-auto object-contain"
                 />
               </Link>
               <Link href="/defender-strainers" className="flex-shrink-0 px-8">
@@ -502,7 +509,7 @@ export default function HomePage() {
                   alt="Bore-Flex Rubber"
                   width={1080}
                   height={360}
-                  className="h-[92px] w-auto object-contain"
+                  className="h-[110px] w-auto object-contain"
                 />
               </Link>
               <Link href="/defender-strainers" className="flex-shrink-0 px-8" tabIndex={-1}>
@@ -551,32 +558,32 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us - Condensed */}
-      <section className="py-8 px-6 lg:px-8 bg-muted/50 border-y border-border">
+      <section className="py-8 px-6 lg:px-8 bg-[#3A9CA5] text-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="flex items-center gap-3">
-              <CheckCircle className="w-8 h-8 text-primary flex-shrink-0" />
+              <CheckCircle className="w-8 h-8 text-white flex-shrink-0" />
               <GeoStock />
             </div>
             <div className="flex items-center gap-3">
-              <Award className="w-8 h-8 text-primary flex-shrink-0" />
+              <Award className="w-8 h-8 text-white flex-shrink-0" />
               <div>
                 <p className="font-semibold text-sm">Certified Quality</p>
-                <p className="text-xs text-muted-foreground">AS/NZS, WRAS, ISO</p>
+                <p className="text-xs text-white/70">AS/NZS, WRAS, ISO</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Clock className="w-8 h-8 text-primary flex-shrink-0" />
+              <Clock className="w-8 h-8 text-white flex-shrink-0" />
               <div>
                 <p className="font-semibold text-sm">Fast Delivery</p>
-                <p className="text-xs text-muted-foreground">Metro Areas Only</p>
+                <p className="text-xs text-white/70">Metro Areas Only</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Users className="w-8 h-8 text-primary flex-shrink-0" />
+              <Users className="w-8 h-8 text-white flex-shrink-0" />
               <div>
                 <p className="font-semibold text-sm">Expert Support</p>
-                <a href="tel:1300271290" className="text-xs text-muted-foreground hover:text-primary transition-colors">Free Call</a>
+                <p className="text-xs text-white/70"><a href="tel:1300271290" className="hover:text-white transition-colors">Free Call</a></p>
               </div>
             </div>
           </div>
@@ -584,7 +591,7 @@ export default function HomePage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-6 lg:px-8 bg-muted/30">
+      <section className="py-20 px-6 lg:px-8 bg-card">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
@@ -596,33 +603,33 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="p-8 text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
                 <Search className="w-8 h-8 text-primary" />
               </div>
               <h4 className="font-semibold text-xl mb-3">1. Browse & Select</h4>
               <p className="text-muted-foreground">
                 Browse our product range and add items to your quote request form
               </p>
-            </Card>
-            <Card className="p-8 text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            </div>
+            <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
                 <ClipboardList className="w-8 h-8 text-primary" />
               </div>
               <h4 className="font-semibold text-xl mb-3">2. Submit Request</h4>
               <p className="text-muted-foreground">
                 Fill out the quote form with your contact details and project requirements
               </p>
-            </Card>
-            <Card className="p-8 text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            </div>
+            <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
                 <Mail className="w-8 h-8 text-primary" />
               </div>
               <h4 className="font-semibold text-xl mb-3">3. Receive Quote</h4>
               <p className="text-muted-foreground">
                 Get your final quote with trade discounts and accurate lead times via email
               </p>
-            </Card>
+            </div>
           </div>
         </div>
       </section>

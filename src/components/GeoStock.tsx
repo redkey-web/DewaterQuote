@@ -40,7 +40,7 @@ export default function GeoStock() {
   return (
     <div>
       <p className="font-semibold text-sm">Australian Stock</p>
-      <p className="text-xs text-muted-foreground">Fast delivery</p>
+      <p className="text-xs text-white/70">Fast delivery</p>
     </div>
   )
 }
