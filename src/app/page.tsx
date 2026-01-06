@@ -412,7 +412,7 @@ export default function HomePage() {
           <div className="brand-carousel-track">
             {/* First set of logos */}
             <div className="brand-carousel-content">
-              <Link href="/brand/straub-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/straub-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/straub-logo.png"
                   alt="Straub"
@@ -430,7 +430,7 @@ export default function HomePage() {
                   className="h-16 w-auto object-contain"
                 />
               </Link>
-              <Link href="/brands/teekay" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/teekay" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/teekay-logo.png"
                   alt="Teekay"
@@ -439,7 +439,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/brands/defender-valves" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/defender-valves" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/defender-valves-logo.png"
                   alt="Defender Valves"
@@ -448,7 +448,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/brands/bore-flex-rubber" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/bore-flex" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/bore-flex-rubber-logo.png"
                   alt="Bore-Flex Rubber"
@@ -457,7 +457,7 @@ export default function HomePage() {
                   className="h-16 w-auto object-contain"
                 />
               </Link>
-              <Link href="/brands/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
+              <Link href="/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8">
                 <Image
                   src="/images/brands/defender-strainers-logo.png"
                   alt="Defender Strainers"
@@ -469,7 +469,7 @@ export default function HomePage() {
             </div>
             {/* Duplicate set for seamless loop */}
             <div className="brand-carousel-content" aria-hidden="true">
-              <Link href="/brand/straub-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/straub-couplings" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/straub-logo.png"
                   alt="Straub"
@@ -487,7 +487,7 @@ export default function HomePage() {
                   className="h-16 w-auto object-contain"
                 />
               </Link>
-              <Link href="/brands/teekay" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/teekay" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/teekay-logo.png"
                   alt="Teekay"
@@ -496,7 +496,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/brands/defender-valves" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/defender-valves" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/defender-valves-logo.png"
                   alt="Defender Valves"
@@ -505,7 +505,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/brands/bore-flex-rubber" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/bore-flex" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/bore-flex-rubber-logo.png"
                   alt="Bore-Flex Rubber"
@@ -514,7 +514,7 @@ export default function HomePage() {
                   className="h-16 w-auto object-contain"
                 />
               </Link>
-              <Link href="/brands/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/defender-strainers" className="opacity-70 hover:opacity-100 transition-opacity flex-shrink-0 px-8" tabIndex={-1}>
                 <Image
                   src="/images/brands/defender-strainers-logo.png"
                   alt="Defender Strainers"
