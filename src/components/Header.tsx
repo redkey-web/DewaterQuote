@@ -192,7 +192,7 @@ export default function Header() {
                 ref={headerSearchInputRef}
                 type="search"
                 placeholder="Search products..."
-                className="pl-9 w-48 xl:w-64 h-10 text-sm rounded-xl bg-white border-b-[3px] border-zinc-300 shadow-[0_4px_12px_rgba(0,0,0,0.15),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:outline-none focus:shadow-[0_4px_16px_rgba(0,0,0,0.2),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
+                className="pl-9 w-48 xl:w-64 h-10 text-sm rounded-xl bg-zinc-100 border border-zinc-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08)] focus:outline-none focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
                 data-testid="input-search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -456,7 +456,7 @@ export default function Header() {
                   <input
                     type="search"
                     placeholder="Search products..."
-                    className="pl-9 w-full h-11 text-sm rounded-xl bg-white border-b-[3px] border-zinc-300 shadow-[0_4px_12px_rgba(0,0,0,0.15),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:outline-none focus:shadow-[0_4px_16px_rgba(0,0,0,0.2),inset_0_-1px_0_rgba(0,0,0,0.05)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
+                    className="pl-9 w-full h-11 text-sm rounded-xl bg-zinc-100 border border-zinc-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08)] focus:outline-none focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
                     data-testid="input-search-mobile"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}

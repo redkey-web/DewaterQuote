@@ -259,7 +259,7 @@ export default function HomePage() {
                   ref={heroInputRef}
                   type="text"
                   placeholder="Search pipe fittings, valves, couplings..."
-                  className="w-full h-14 md:h-16 pl-14 pr-6 text-lg rounded-2xl bg-white border-b-4 border-zinc-300 shadow-[0_8px_30px_rgba(0,0,0,0.3),inset_0_-2px_0_rgba(0,0,0,0.05)] focus:outline-none focus:shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_-2px_0_rgba(0,0,0,0.05)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
+                  className="w-full h-14 md:h-16 pl-14 pr-6 text-lg rounded-2xl bg-zinc-100 border border-zinc-300 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_2px_rgba(0,0,0,0.1)] focus:outline-none focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_2px_rgba(0,0,0,0.1),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -405,7 +405,7 @@ export default function HomePage() {
 
       {/* Brand Logos - Infinite Scroll Carousel */}
       <section className="py-8 bg-muted/50 border-y border-border overflow-hidden">
-        <h2 className="text-center text-lg md:text-xl font-medium text-foreground/70 mb-6">Pipeline products from trusted brands</h2>
+        <h2 className="text-center text-base md:text-lg font-medium text-foreground/70 mb-6">Pipeline products from trusted brands</h2>
         <div className="brand-carousel-wrapper">
           <div className="brand-carousel-track">
             {/* First set of logos */}
@@ -558,8 +558,20 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us - Condensed */}
-      <section className="py-8 px-6 lg:px-8 bg-[#3A9CA5] text-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-8 px-6 lg:px-8 bg-[#3A9CA5] text-white relative overflow-hidden">
+        {/* Background overlay - fixed position */}
+        <div
+          className="absolute inset-0 pointer-events-none grayscale"
+          style={{
+            backgroundImage: 'url(/images/why-choose-bg.png)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundAttachment: 'fixed',
+            opacity: 0.12
+          }}
+        />
+        <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <div className="flex items-center gap-3">
               <CheckCircle className="w-8 h-8 text-white flex-shrink-0" />

@@ -3,8 +3,20 @@ import { Mail, Phone, MapPin } from "lucide-react"
 
 export default function Footer() {
   return (
-    <footer className="bg-[#4BA3AA] text-white">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+    <footer className="bg-[#4BA3AA] text-white relative overflow-hidden">
+      {/* Background overlay - greyscale, fixed position */}
+      <div
+        className="absolute inset-0 pointer-events-none grayscale"
+        style={{
+          backgroundImage: 'url(/images/footer-bg.png)',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundAttachment: 'fixed',
+          opacity: 0.15
+        }}
+      />
+      <div className="relative max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <h3 className="font-bold text-lg mb-4">DEWATER PRODUCTS Pty Ltd</h3>

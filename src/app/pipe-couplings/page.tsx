@@ -185,13 +185,62 @@ const faqs = [
   },
 ]
 
+// Application-based product ordering (matching selection guide)
+const applicationOrder: Record<string, number> = {
+  // 1. Joining same-sized pipes - Standard couplings
+  'flex-grip-s-pipe-coupling': 1,
+  'flex-grip-l-pipe-coupling': 2,
+  'flex-grip-2-l-pipe-coupling': 3,
+  'metal-lock-s-pipe-coupling': 4,
+  'metal-lock-l-pipe-coupling': 5,
+  'straub-metal-grip': 6,
+  'straub-grip-l': 7,
+  'teekay-axilock': 8,
+  'teekay-prima-lock': 9,
+  // 2. Repair clamps for leaking section
+  'flex-grip-open-l': 10,
+  'flex-grip-2-s-repair-clamp': 11,
+  'straub-open-flex-1': 12,
+  'straub-open-flex-2': 13,
+  // 3. Joining different OD pipes - Stepped
+  'orbit-stepped-coupling': 15,
+  'straub-step-flex-2': 16,
+  'straub-step-flex-3': 17,
+  'teekay-prima-step': 18,
+  // 4. Plastic-to-metal pipe join
+  'combo-lock': 19,
+  'straub-combi-grip': 20,
+  'teekay-plastlock': 21,
+  // 5. Fire systems
+  'fire-protection-coupling': 22,
+  'straub-metal-grip-fire-fence': 23,
+  'teekay-axilock-fp': 24,
+  // 6. Misalignment or movement - Flexible couplings
+  'straub-flex-1': 25,
+  'straub-flex-2': 26,
+  'teekay-axiflex': 27,
+  'teekay-prima-flex': 28,
+  // 7. Plastic pipes (PE/PVC)
+  'plast-coupling': 29,
+  'straub-plast-grip': 30,
+  'teekay-prima-plast': 31,
+}
+
+function sortByApplication(products: Awaited<ReturnType<typeof getProductsByCategory>>) {
+  return [...products].sort((a, b) => {
+    const orderA = applicationOrder[a.slug] ?? 100
+    const orderB = applicationOrder[b.slug] ?? 100
+    return orderA - orderB
+  })
+}
+
 export default async function PipeCouplingsPage() {
   // Get all coupling products from database
   const [pipeCouplingsProducts, repairClampsProducts] = await Promise.all([
     getProductsByCategory('pipe-couplings'),
     getProductsByCategory('pipe-repair-clamps'),
   ])
-  const couplingProducts = [...pipeCouplingsProducts, ...repairClampsProducts]
+  const couplingProducts = sortByApplication([...pipeCouplingsProducts, ...repairClampsProducts])
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewater-products.vercel.app" },
