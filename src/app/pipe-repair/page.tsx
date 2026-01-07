@@ -17,7 +17,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Pipe Repair Clamps & Couplings | Emergency Repairs | Dewater Products",
   description:
-    "Pipe repair clamps and couplings for emergency and permanent leak repairs. Straub and Orbit repair solutions. No pipe cutting required. 316 stainless steel. Fast Australia-wide delivery.",
+    "Repair clamps designed to safely and reliably seal damaged pipes – steel, cast iron, ductile iron, and plastic. No welding, no prep. Fast permanent repairs. Australia-wide delivery.",
   keywords: [
     "pipe repair clamps",
     "pipe repair couplings",
@@ -44,12 +44,12 @@ const repairBenefits = [
   {
     icon: Clock,
     title: "Fast Installation",
-    description: "Repair leaks in minutes. No pipe cutting, no welding, no special tools required.",
+    description: "No welding, no prep, no special tools. Only a torque wrench required to install.",
   },
   {
     icon: AlertTriangle,
     title: "Emergency Ready",
-    description: "Keep stock on hand for emergency repairs. Seal leaks under pressure in many cases.",
+    description: "Safely and reliably seal damaged pipes. Stock on hand for emergency repairs.",
   },
   {
     icon: Shield,
@@ -58,8 +58,8 @@ const repairBenefits = [
   },
   {
     icon: Wrench,
-    title: "Multi-Purpose",
-    description: "Same couplings used for joining can repair leaks, cracks, and damaged sections.",
+    title: "All Pipe Materials",
+    description: "Works on steel, cast iron, ductile iron, fibre cement, and plastic pipes.",
   },
 ]
 
@@ -161,8 +161,7 @@ export default async function PipeRepairPage() {
                 Pipe Repair Solutions
               </h1>
               <p className="text-xl text-white/80 mb-6 max-w-2xl">
-                Seal leaks, repair cracks, and fix damaged pipes without cutting or welding.
-                Our repair clamps and couplings provide fast, permanent repairs that last the lifetime of the pipe.
+                Repair clamps designed to safely and reliably seal damaged pipes made from steel, cast iron, ductile iron, and plastic. No welding, no prep – just fast, permanent repairs.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link

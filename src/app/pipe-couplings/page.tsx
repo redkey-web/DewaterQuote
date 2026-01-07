@@ -16,7 +16,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Pipe Couplings | Straub, Orbit & Teekay Couplings Australia | Dewater Products",
   description:
-    "Industrial pipe couplings for joining plain-ended pipes. Straub GRIP & FLEX, Orbit Flex Grip & Metal Lock, Teekay Axilock & Axiflex. 316 stainless steel with EPDM seals. WRAS approved. Australia-wide delivery.",
+    "High-performance pipe couplings for all pipe materials. No welding, no prep – only a torque wrench required. Straub, Orbit & Teekay plain-end couplings. Save time and money. Australia-wide delivery.",
   keywords: [
     "pipe couplings",
     "pipe couplings Australia",
@@ -157,9 +157,10 @@ const applications = [
 ]
 
 const installationNotes = [
-  "All couplings require minimal pipe prep – no welding, threading, or beveling.",
-  "Torque values are indicated on each coupling.",
-  "Open-style couplings (Straub Open Flex, Orbit Open Flex) are ideal for retrofit work.",
+  "No pipe end preparation required – no welding, threading, or beveling.",
+  "Only a torque wrench needed to install. Torque values indicated on each coupling.",
+  "Open-style couplings (Straub Open Flex, Orbit Open Flex) are ideal for retrofit and repair work.",
+  "Save time, space, and money compared to traditional flanged or welded connections.",
 ]
 
 const faqs = [
@@ -289,8 +290,8 @@ export default async function PipeCouplingsPage() {
                 Pipe Couplings
               </h1>
               <p className="text-xl text-white/80 mb-6 max-w-2xl">
-                316 stainless steel couplings for joining, repair, and transition applications.
-                Straub, Orbit and Teekay brands with WRAS-approved EPDM seals.
+                High-performance pipe couplings for all pipe materials. No welding, no prep –
+                only a torque wrench required. Save time and money with reliable plain-end couplings.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
@@ -355,7 +356,7 @@ export default async function PipeCouplingsPage() {
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Selecting the Right Pipe Coupling</h2>
           <p className="text-muted-foreground mb-4">
-            Choose the right coupling for your application. All three brands offer equivalent solutions – select based on availability or preference.
+            Pipe couplings eliminate the need for pipe end preparation – no welding, threading, or beveling. Choose the right coupling for your application below. All three brands offer equivalent solutions for steel, cast iron, ductile iron, and plastic pipes.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-border rounded-lg overflow-hidden">
