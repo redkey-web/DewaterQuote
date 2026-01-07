@@ -2,6 +2,8 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import BulkPricingTicker from "@/components/BulkPricingTicker"
+import ProductCard from "@/components/ProductCard"
+import { getProductBySlug } from "@/data/products"
 import { ArrowRight, Phone } from "lucide-react"
 import {
   Accordion,
@@ -83,7 +85,12 @@ const faqs = [
   },
 ]
 
-export default function MuffCouplingsPage() {
+export const revalidate = 60
+
+export default async function MuffCouplingsPage() {
+  // Fetch the muff coupling product
+  const muffCoupling = await getProductBySlug('muff-couplings-aluminium-table-de')
+
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
     { name: "Pipe Couplings", url: "https://dewaterproducts.com.au/pipe-couplings" },
@@ -114,26 +121,35 @@ export default function MuffCouplingsPage() {
           </p>
         </div>
 
-        {/* Contact CTA - Products Coming Soon */}
-        <div className="mb-12 bg-primary/5 border border-primary/20 rounded-lg p-8">
+        {/* Product */}
+        {muffCoupling && (
+          <div className="mb-12">
+            <h2 className="text-xl font-semibold mb-4">Our Muff Coupling</h2>
+            <div className="max-w-sm">
+              <ProductCard product={muffCoupling} />
+            </div>
+          </div>
+        )}
+
+        {/* Contact CTA */}
+        <div className="mb-12 bg-primary/5 border border-primary/20 rounded-lg p-6">
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="flex-1">
-              <h2 className="text-2xl font-semibold mb-2">Muff Couplings Available on Request</h2>
+              <h2 className="text-xl font-semibold mb-2">Need a Different Size?</h2>
               <p className="text-muted-foreground mb-4">
-                We supply muff couplings in various sizes and materials. Contact our team
-                with your pipe specifications and we&apos;ll provide pricing and availability.
+                Muff couplings are available in various sizes. Contact us with your pipe OD and we&apos;ll provide pricing.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center px-5 py-2.5 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
                 >
                   Contact Us
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <a
                   href="tel:1300271290"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                  className="inline-flex items-center px-5 py-2.5 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
                 >
                   <Phone className="w-4 h-4 mr-2" />
                   1300 271 290
