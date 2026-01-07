@@ -158,10 +158,10 @@ export default async function StraubCouplingsRepairClampsPage() {
               </div>
             </div>
             <div className="flex-shrink-0 relative">
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+              <div className="relative w-80 h-80 lg:w-[450px] lg:h-[380px]">
                 <Image
-                  src="/images/products/straub/straub-combi-grip.png"
-                  alt="Straub Combi-Grip Pipe Coupling"
+                  src="/images/brands/straub-hero.png"
+                  alt="Straub Pipe Couplings Range - GRIP, FLEX and CLAMP"
                   fill
                   className="object-contain"
                   priority
