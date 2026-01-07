@@ -118,31 +118,54 @@ export default async function TeekayPage() {
 
       {/* Hero Section */}
       <div className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-100 via-cyan-50 to-transparent dark:from-cyan-950/30 dark:via-cyan-900/10 dark:to-transparent" />
-        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+        {/* Animated blob background - Purple/Indigo theme */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-indigo-900 via-purple-800 to-violet-600" />
+          {/* Blob 1 - Indigo (large, top-left) */}
+          <div
+            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob"
+            style={{ backgroundColor: '#6366f1' }}
+          />
+          {/* Blob 2 - Violet accent (right side) */}
+          <div
+            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#8b5cf6' }}
+          />
+          {/* Blob 3 - Dark purple (bottom, adds depth) */}
+          <div
+            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-60 blur-3xl animate-blob animation-delay-4000"
+            style={{ backgroundColor: '#312e81' }}
+          />
+          {/* Blob 4 - Purple (center-left) */}
+          <div
+            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#7c3aed' }}
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <Image
             src="/images/brands/teekay-logo.png"
             alt="Teekay"
             width={160}
             height={80}
-            className="w-40 h-auto mb-6"
+            className="w-40 h-auto mb-6 brightness-0 invert"
             priority
           />
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500 text-white text-sm font-medium mb-4">
             <Settings className="w-4 h-4" />
             Pipe Coupling Specialists
           </div>
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
             Teekay Couplings
           </h1>
-          <p className="text-xl text-muted-foreground mb-6 max-w-3xl">
+          <p className="text-xl text-white/80 mb-6 max-w-3xl">
             Mechanical pipe couplings for joining, repairing and connecting pipes without welding.
             The Axilock, Axiflex, Plastlock and PRIMA ranges cover steel, ductile iron, PE and PVC pipes
             across water, fire protection and industrial applications.
           </p>
           <Link
             href="/request-quote"
-            className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+            className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
           >
             Request a Quote
           </Link>

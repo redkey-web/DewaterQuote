@@ -541,6 +541,43 @@
   }
 }
 
+/* Search bar shimmer effect */
+@keyframes search-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.search-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.search-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(20, 184, 166, 0.5) 50%,
+    transparent 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: search-shimmer 2.5s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
 @keyframes press-bounce {
   0% {
     transform: translateY(0) scale(1);

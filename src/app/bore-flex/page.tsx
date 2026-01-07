@@ -59,8 +59,31 @@ export default async function BoreFlexPage() {
 
       {/* Hero Section */}
       <div className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-green-50 to-transparent dark:from-green-950/30 dark:via-green-900/10 dark:to-transparent" />
-        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+        {/* Animated blob background - Light green theme matching Bore-Flex logo */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-green-50 via-emerald-100 to-teal-200" />
+          {/* Blob 1 - Light emerald (large, top-left) */}
+          <div
+            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-40 blur-3xl animate-blob"
+            style={{ backgroundColor: '#6ee7b7' }}
+          />
+          {/* Blob 2 - Teal accent (right side) */}
+          <div
+            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-30 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#5eead4' }}
+          />
+          {/* Blob 3 - Green (bottom, adds depth) */}
+          <div
+            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-4000"
+            style={{ backgroundColor: '#86efac' }}
+          />
+          {/* Blob 4 - Emerald (center-left) */}
+          <div
+            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-30 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#34d399' }}
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
               <Image
@@ -71,28 +94,28 @@ export default async function BoreFlexPage() {
                 className="w-48 h-auto mb-6"
                 priority
               />
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-700 text-white text-sm font-medium mb-4">
                 <Award className="w-4 h-4" />
                 Premium Rubber Expansion Joints
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-green-900">
                 Bore-Flex Expansion Joints
               </h1>
-              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+              <p className="text-xl text-green-800/80 mb-6 max-w-2xl">
                 Designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement.
                 Available in EPDM, Neoprene, NBR, Viton, and Hypalon with multiple flange options.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center px-6 py-3 bg-green-700 text-white rounded-md font-medium hover:bg-green-800 transition-colors shadow-lg"
                 >
                   View Products
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link
                   href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                  className="inline-flex items-center px-6 py-3 bg-white border border-green-700 text-green-700 rounded-md font-medium hover:bg-green-50 transition-colors shadow-sm"
                 >
                   Request a Quote
                 </Link>
@@ -101,8 +124,8 @@ export default async function BoreFlexPage() {
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                 <Image
-                  src="/images/products/expansion-joints/fsf-single-sphere.jpg"
-                  alt="Bore-Flex Single Sphere Expansion Joint"
+                  src="https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/TAREJ/TAREJ_1.png"
+                  alt="Bore-Flex Triple Arch Expansion Joint"
                   fill
                   className="object-contain"
                   priority

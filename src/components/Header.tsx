@@ -213,7 +213,7 @@ export default function Header() {
               alt="Dewater Products - Fluid Piping Components"
               width={500}
               height={167}
-              className="h-[130px] w-auto object-contain -mt-8 -mb-10"
+              className="h-[145px] w-auto object-contain -mt-10 -mb-12"
               priority
             />
           </Link>
@@ -224,15 +224,15 @@ export default function Header() {
             <div className="relative flex-1 max-w-sm" ref={searchRef}>
               <form onSubmit={handleSearchSubmit}>
                 {isSearching ? (
-                  <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 animate-spin" />
+                  <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 animate-spin z-10" />
                 ) : (
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 z-10" />
                 )}
                 <input
                   ref={headerSearchInputRef}
                   type="search"
                   placeholder="Search products..."
-                  className="w-full pl-10 pr-3 py-2 text-sm border-2 border-primary rounded-xl bg-gray-100 dark:bg-gray-800 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_3px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+                  className="w-full pl-10 pr-3 py-2 text-sm border-2 border-primary rounded-xl bg-gray-100 dark:bg-gray-800 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_3px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all search-shimmer"
                   data-testid="input-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -277,10 +277,10 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-150 border border-cyan-700 animate-press-bounce ${
+                className={`flex items-center gap-1 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-150 border border-cyan-600 animate-press-bounce ${
                   activeMenu === "products"
                     ? "bg-[radial-gradient(ellipse_at_center,_rgba(14,116,144,0.9)_0%,_rgba(8,100,130,0.95)_60%,_rgba(6,80,100,1)_100%)] text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] shadow-[inset_0_2px_6px_rgba(0,0,0,0.3),inset_0_0_8px_rgba(0,0,0,0.15)]"
-                    : "bg-[radial-gradient(ellipse_at_center,_rgba(34,211,238,0.8)_0%,_rgba(20,184,198,0.85)_60%,_rgba(8,145,178,0.9)_100%)] text-gray-800 shadow-[inset_0_0_4px_rgba(0,0,0,0.15),inset_0_0_2px_1px_rgba(255,255,255,0.15),inset_0_1px_0_rgba(255,255,255,0.4)] hover:bg-[radial-gradient(ellipse_at_center,_rgba(103,232,249,0.9)_0%,_rgba(34,211,238,0.9)_50%,_rgba(20,184,198,0.95)_100%)] hover:border-cyan-400 hover:shadow-[inset_0_0_15px_rgba(255,255,255,0.5),inset_0_0_25px_rgba(255,255,255,0.3),inset_0_1px_0_rgba(255,255,255,0.8)] hover:[text-shadow:0_0_8px_rgba(255,255,255,0.6),0_1px_2px_rgba(0,0,0,0.3)] active:shadow-[inset_0_3px_8px_rgba(0,0,0,0.4)]"
+                    : "bg-[radial-gradient(ellipse_at_center,_rgba(90,235,250,0.8)_0%,_rgba(56,220,235,0.85)_60%,_rgba(34,200,220,0.9)_100%)] text-gray-800 shadow-[inset_0_0_4px_rgba(0,0,0,0.15),inset_0_0_2px_1px_rgba(255,255,255,0.15),inset_0_1px_0_rgba(255,255,255,0.4)] hover:bg-[radial-gradient(ellipse_at_center,_rgba(103,232,249,0.9)_0%,_rgba(34,211,238,0.9)_50%,_rgba(20,184,198,0.95)_100%)] hover:border-cyan-400 hover:shadow-[inset_0_0_15px_rgba(255,255,255,0.5),inset_0_0_25px_rgba(255,255,255,0.3),inset_0_1px_0_rgba(255,255,255,0.8)] hover:[text-shadow:0_0_8px_rgba(255,255,255,0.6),0_1px_2px_rgba(0,0,0,0.3)] active:shadow-[inset_0_3px_8px_rgba(0,0,0,0.4)]"
                 }`}
                 data-testid="button-products-menu"
               >
@@ -292,12 +292,12 @@ export default function Header() {
                 <>
                   {/* Invisible bridge from button to dropdown */}
                   <div
-                    className="fixed left-0 right-0 h-[20px] z-[99]"
-                    style={{ top: '68px' }}
+                    className="fixed left-0 right-0 h-[30px] z-[99]"
+                    style={{ top: '60px' }}
                     onMouseEnter={() => setActiveMenu("products")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -388,12 +388,12 @@ export default function Header() {
                 <>
                   {/* Invisible bridge from button to dropdown */}
                   <div
-                    className="fixed left-0 right-0 h-[20px] z-[99]"
-                    style={{ top: '68px' }}
+                    className="fixed left-0 right-0 h-[30px] z-[99]"
+                    style={{ top: '60px' }}
                     onMouseEnter={() => setActiveMenu("industries")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("industries")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -453,12 +453,12 @@ export default function Header() {
                 <>
                   {/* Invisible bridge from button to dropdown */}
                   <div
-                    className="fixed left-0 right-0 h-[20px] z-[99]"
-                    style={{ top: '68px' }}
+                    className="fixed left-0 right-0 h-[30px] z-[99]"
+                    style={{ top: '60px' }}
                     onMouseEnter={() => setActiveMenu("brands")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("brands")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -518,11 +518,11 @@ export default function Header() {
                 <>
                   {/* Invisible bridge from button to dropdown */}
                   <div
-                    className="absolute top-full left-0 w-full h-4 z-[99]"
+                    className="absolute top-full left-0 w-full h-6 z-[99]"
                     onMouseEnter={() => setActiveMenu("resources")}
                   />
                   <div
-                    className="absolute top-[calc(100%+8px)] right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-white/30 dark:border-gray-700/50 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] w-56 animate-dropdown-slide overflow-hidden"
+                    className="absolute top-[calc(100%+8px)] right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border border-white/30 dark:border-gray-700/50 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] w-56 animate-dropdown-slide overflow-hidden"
                     onMouseEnter={() => setActiveMenu("resources")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -543,11 +543,9 @@ export default function Header() {
             </div>
 
             {/* Quote Button */}
-            <Button
-              variant="outline"
-              size="icon"
+            <button
               onClick={openCart}
-              className="relative border-2 border-teal-600 text-teal-500 hover:bg-teal-600/10 hover:border-teal-500 hover:text-cyan-300 hover:[filter:drop-shadow(0_0_4px_rgba(34,211,238,0.6))] transition-all"
+              className="relative w-10 h-10 flex items-center justify-center rounded-xl border border-cyan-700 text-cyan-700 bg-transparent shadow-[inset_0_0_2px_rgba(0,0,0,0.1)] hover:bg-[radial-gradient(ellipse_at_center,_rgba(103,232,249,0.15)_0%,_rgba(34,211,238,0.1)_50%,_transparent_100%)] hover:border-cyan-500 hover:text-cyan-600 transition-all duration-150"
               data-testid="button-quote"
             >
               <ClipboardList className="w-5 h-5" />
@@ -556,7 +554,7 @@ export default function Header() {
                   {cartItemCount}
                 </span>
               )}
-            </Button>
+            </button>
           </nav>
         </div>
 

@@ -131,8 +131,31 @@ export default async function OrbitCouplingsPage() {
 
       {/* Hero Section */}
       <div className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-100 via-orange-50 to-transparent dark:from-orange-950/30 dark:via-orange-900/10 dark:to-transparent" />
-        <div className="max-w-7xl mx-auto px-6 py-16 relative">
+        {/* Animated blob background - Orange theme */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-orange-900 via-orange-800 to-amber-600" />
+          {/* Blob 1 - Orange (large, top-left) */}
+          <div
+            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob"
+            style={{ backgroundColor: '#f97316' }}
+          />
+          {/* Blob 2 - Amber accent (right side) */}
+          <div
+            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#f59e0b' }}
+          />
+          {/* Blob 3 - Dark orange (bottom, adds depth) */}
+          <div
+            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-60 blur-3xl animate-blob animation-delay-4000"
+            style={{ backgroundColor: '#7c2d12' }}
+          />
+          {/* Blob 4 - Burnt orange (center-left) */}
+          <div
+            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#c2410c' }}
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
               <Image
@@ -140,31 +163,31 @@ export default async function OrbitCouplingsPage() {
                 alt="Orbit Couplings"
                 width={180}
                 height={60}
-                className="w-44 h-auto mb-6"
+                className="w-44 h-auto mb-6 brightness-0 invert"
                 priority
               />
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500 text-white text-sm font-medium mb-4">
                 <Package className="w-4 h-4" />
                 Perth Stocked - Fast Dispatch
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Orbit Couplings
               </h1>
-              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 mb-6 max-w-2xl">
                 Australian industrial pipe couplings and repair clamps. Quality 316 stainless steel construction
                 at competitive prices. Straub-compatible dimensions for easy specification.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
                 >
                   View Products
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link
                   href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
                 >
                   Request a Quote
                 </Link>

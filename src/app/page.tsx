@@ -606,9 +606,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
-              simple process
+              Quick & Easy
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">HOW IT WORKS</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">HOW TO USE OUR QUOTE SYSTEM</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Request a quote in three easy steps and receive competitive pricing with detailed lead times
             </p>
