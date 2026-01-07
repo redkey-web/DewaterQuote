@@ -44,8 +44,11 @@ export default function Header() {
   // Close search dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node) &&
-          mobileSearchRef.current && !mobileSearchRef.current.contains(event.target as Node)) {
+      const target = event.target as Node
+      const isOutsideDesktop = !searchRef.current?.contains(target)
+      const isOutsideMobile = !mobileSearchRef.current?.contains(target)
+      // Close if click is outside whichever search is visible
+      if (isOutsideDesktop && isOutsideMobile) {
         setShowResults(false)
       }
     }
@@ -158,16 +161,22 @@ export default function Header() {
     { name: "Defender Strainers", url: "/brands/defender-strainers" },
   ]
 
-  const moreMenu = [
-    { name: "Contact", url: "/contact" },
+  const companyMenu = [
     { name: "About Us", url: "/about" },
     { name: "Meet the Team", url: "/meet-the-team" },
+  ]
+
+  const policiesMenu = [
+    { name: "Warranty", url: "/warranty" },
+    { name: "Returns Policy", url: "/returns" },
+    { name: "Terms & Conditions", url: "/terms" },
+    { name: "Privacy Policy", url: "/privacy" },
   ]
 
   return (
     <header className="sticky top-0 z-50 bg-white/10 dark:bg-gray-950/10 backdrop-blur-sm overflow-visible">
       <div className="max-w-7xl mx-auto px-6 overflow-visible">
-        <div className="flex items-center justify-between py-0 gap-6">
+        <div className="flex items-center justify-between py-0 gap-4 lg:gap-3 xl:gap-6">
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0" data-testid="link-home">
             <Image
@@ -175,7 +184,7 @@ export default function Header() {
               alt="Dewater Products - Fluid Piping Components"
               width={480}
               height={160}
-              className="h-[143px] md:h-[172px] w-auto object-contain -mt-[23px] -mb-[33px] md:-mt-[30px] md:-mb-[40px]"
+              className="h-[143px] lg:h-[130px] xl:h-[172px] w-auto object-contain -mt-[23px] -mb-[33px] lg:-mt-[20px] lg:-mb-[30px] xl:-mt-[30px] xl:-mb-[40px]"
               priority
             />
           </Link>
@@ -230,7 +239,7 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6 flex-1">
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-6 flex-1">
             <div
               className="relative"
               onMouseEnter={() => setActiveMenu("products")}
@@ -257,96 +266,74 @@ export default function Header() {
                   {/* Invisible bridge to maintain hover */}
                   <div className="absolute top-full left-0 w-full h-4" />
                   <div
-                    className="fixed top-[72px] left-1/2 -translate-x-1/2 glass rounded-md shadow-lg p-4 lg:p-6 grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 w-[95vw] lg:w-[700px] max-w-[750px] z-50 max-h-[80vh] overflow-y-auto"
+                    className="fixed top-[72px] left-1/2 -translate-x-1/2 glass rounded-md shadow-lg p-4 lg:p-6 w-[95vw] lg:w-[850px] max-w-[900px] z-50 max-h-[80vh] overflow-y-auto"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
-                  {productsMenu.map((category) => (
-                    <div key={category.title}>
-                      <Link
-                        href={category.url}
-                        className="font-semibold text-sm mb-3 block hover:text-primary"
-                        data-testid={`link-category-${category.title.toLowerCase().replace(/\s+/g, "-")}`}
-                      >
-                        {category.title}
-                      </Link>
-                      <ul className="space-y-2">
-                        {category.items.map((item) => (
-                          <li key={item.name}>
-                            <Link
-                              href={item.url}
-                              className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
-                              data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                            >
-                              {item.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                    {/* Product Categories */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-4 pb-4 border-b border-border/50">
+                      {productsMenu.map((category) => (
+                        <div key={category.title}>
+                          <Link
+                            href={category.url}
+                            className="font-semibold text-sm mb-3 block hover:text-primary"
+                            data-testid={`link-category-${category.title.toLowerCase().replace(/\s+/g, "-")}`}
+                          >
+                            {category.title}
+                          </Link>
+                          <ul className="space-y-2">
+                            {category.items.map((item) => (
+                              <li key={item.name}>
+                                <Link
+                                  href={item.url}
+                                  className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
+                                  data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
+                                >
+                                  {item.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                    {/* Industries & Brands */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Link href="/industries" className="font-semibold text-sm mb-2 block hover:text-primary">
+                          Industries
+                        </Link>
+                        <div className="flex flex-wrap gap-1.5">
+                          {industriesMenu.map((industry) => (
+                            <Link
+                              key={industry.name}
+                              href={industry.url}
+                              className="text-xs text-muted-foreground px-2 py-1 rounded bg-muted/50 hover:bg-primary hover:text-white transition-colors"
+                            >
+                              {industry.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <Link href="/brands" className="font-semibold text-sm mb-2 block hover:text-primary">
+                          Brands
+                        </Link>
+                        <div className="flex flex-wrap gap-1.5">
+                          {brandsMenu.map((brand) => (
+                            <Link
+                              key={brand.name}
+                              href={brand.url}
+                              className="text-xs text-muted-foreground px-2 py-1 rounded bg-muted/50 hover:bg-primary hover:text-white transition-colors"
+                            >
+                              {brand.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </>
-              )}
-            </div>
-
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMenu("industries")}
-              onMouseLeave={() => setActiveMenu(null)}
-            >
-              <button
-                className="flex items-center gap-1 text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
-                data-testid="button-industries-menu"
-              >
-                Industries <ChevronDown className="w-4 h-4" />
-              </button>
-              {activeMenu === "industries" && (
-                <div className="absolute top-full left-0 mt-0 glass rounded-md shadow-lg p-4 w-56">
-                  <ul className="space-y-2">
-                    {industriesMenu.map((industry) => (
-                      <li key={industry.name}>
-                        <Link
-                          href={industry.url}
-                          className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
-                          data-testid={`link-industry-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {industry.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMenu("brands")}
-              onMouseLeave={() => setActiveMenu(null)}
-            >
-              <button
-                className="flex items-center gap-1 text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
-                data-testid="button-brands-menu"
-              >
-                Brands <ChevronDown className="w-4 h-4" />
-              </button>
-              {activeMenu === "brands" && (
-                <div className="absolute top-full left-0 mt-0 glass rounded-md shadow-lg p-4 w-48">
-                  <ul className="space-y-2">
-                    {brandsMenu.map((brand) => (
-                      <li key={brand.name}>
-                        <Link
-                          href={brand.url}
-                          className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
-                          data-testid={`link-brand-${brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {brand.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               )}
             </div>
 
@@ -362,23 +349,52 @@ export default function Header() {
                 More <ChevronDown className="w-4 h-4" />
               </button>
               {activeMenu === "more" && (
-                <div className="absolute top-full left-0 mt-0 glass rounded-md shadow-lg p-4 w-48">
-                  <ul className="space-y-2">
-                    {moreMenu.map((item) => (
-                      <li key={item.name}>
-                        <Link
-                          href={item.url}
-                          className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
-                          data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="absolute top-full right-0 mt-0 glass rounded-md shadow-lg p-4 w-64">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <span className="font-semibold text-sm mb-2 block text-foreground">Company</span>
+                      <ul className="space-y-1">
+                        {companyMenu.map((item) => (
+                          <li key={item.name}>
+                            <Link
+                              href={item.url}
+                              className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
+                              data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-sm mb-2 block text-foreground">Policies</span>
+                      <ul className="space-y-1">
+                        {policiesMenu.map((item) => (
+                          <li key={item.name}>
+                            <Link
+                              href={item.url}
+                              className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
+                              data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
+
+            <Link
+              href="/contact"
+              className="text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
+              data-testid="link-contact"
+            >
+              Contact
+            </Link>
           </nav>
 
           {/* Contact Info & Quote */}
@@ -563,14 +579,45 @@ export default function Header() {
                 </div>
               </div>
 
-              {/* Other Links */}
-              <div className="py-2 border-t border-border space-y-1">
-                <Link href="/about" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
-                  About Us
-                </Link>
+              {/* Contact */}
+              <div className="py-2 border-t border-border">
                 <Link href="/contact" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
                   Contact
                 </Link>
+              </div>
+
+              {/* Company */}
+              <div className="py-2 border-t border-border">
+                <span className="block text-foreground px-3 py-2 rounded-md font-semibold">Company</span>
+                <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
+                  {companyMenu.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.url}
+                      className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Policies */}
+              <div className="py-2 border-t border-border">
+                <span className="block text-foreground px-3 py-2 rounded-md font-semibold">Policies</span>
+                <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
+                  {policiesMenu.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.url}
+                      className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               {/* Contact Info */}

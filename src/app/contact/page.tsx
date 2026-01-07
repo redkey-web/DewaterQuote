@@ -125,7 +125,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           <div className="lg:col-span-2">
             <Card>
               <CardHeader>
@@ -291,6 +291,33 @@ export default function ContactPage() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Map Section */}
+        <div className="mt-12">
+          <Card>
+            <CardContent className="p-0 overflow-hidden rounded-lg">
+              <div className="bg-amber-50 dark:bg-amber-950/30 border-b border-amber-200 dark:border-amber-800 px-4 py-3">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                  <p className="text-sm text-amber-800 dark:text-amber-200">
+                    <span className="font-semibold">No counter sales.</span> Our warehouse is not open to the public. All visits are by appointment only.
+                  </p>
+                </div>
+              </div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3386.8!2d115.8115!3d-31.9077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a32bad4d395b041%3A0xa5af1c2b4880fd7c!2sDewater%20Products!5e0!3m2!1sen!2sau!4v1700000000000!5m2!1sen!2sau"
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Dewater Products Location - 67 Howe St, Osborne Park WA 6017"
+                className="grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

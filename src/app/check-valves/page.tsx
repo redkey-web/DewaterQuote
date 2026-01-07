@@ -8,11 +8,11 @@ import ApplicationLinks from "@/components/ApplicationLinks"
 
 const content = {
   title: "Check Valves",
-  metaDescription: "Check valves and non-return valves for backflow prevention. Duckbill, swing, ball, and silent check valves. Australia-wide delivery.",
-  heroDescription: "Non-return valves that prevent reverse flow. Includes duckbill, swing, ball, and silent check types.",
-  longDescription: "Check valves prevent backflow in piping systems. Our range includes duckbill check valves for stormwater outfalls, swing check valves for general water service, and silent check valves for pump discharge.",
-  features: ["Multiple check valve types", "Duckbill - zero maintenance", "Swing check - reliable design", "Silent check - prevents water hammer", "WRAS approved options", "Various materials"],
-  applications: ["Stormwater outfalls", "Pump stations", "Backflow prevention", "Water distribution"],
+  metaDescription: "Swing check valves and ball check valves for backflow prevention. Stainless steel, ductile iron, and cast iron options. Australia-wide delivery.",
+  heroDescription: "Non-return valves that prevent reverse flow. Swing check and ball check valves in various materials and flange standards.",
+  longDescription: "Check valves prevent backflow in piping systems by allowing flow in one direction only. We stock swing check valves (with a hinged disc) and ball check valves (using a floating ball) in stainless steel, ductile iron, and cast iron.",
+  features: ["Swing check valves - hinged disc design", "Ball check valves - floating ball seals on backflow", "Stainless steel 316 options", "Cast iron with FBE coating", "Table E and ANSI flange options", "WRAS approved seals available"],
+  applications: ["Pump discharge lines", "Water distribution", "Process pipelines", "Backflow prevention"],
 }
 
 export const metadata: Metadata = {
@@ -73,6 +73,51 @@ export default async function CheckValvesPage() {
             </ul>
           </div>
         </div>
+        {/* Swing vs Ball Check */}
+        <div className="mb-10 bg-card border rounded-lg p-6">
+          <h2 className="text-2xl font-semibold mb-4">Swing Check vs Ball Check Valves</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold mb-2 text-primary">Swing Check Valves</h3>
+              <p className="text-muted-foreground text-sm mb-3">
+                Use a hinged disc that swings open with forward flow and closes under reverse flow or gravity.
+                Best for horizontal lines or where low pressure drop is important.
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-1">
+                <li>• Lower pressure drop than ball check</li>
+                <li>• Suitable for larger pipe sizes</li>
+                <li>• Resilient seated for bubble-tight seal</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2 text-primary">Ball Check Valves</h3>
+              <p className="text-muted-foreground text-sm mb-3">
+                Use a ball that lifts off the seat under forward flow and drops back to seal on reverse flow.
+                Simple design with no moving parts to wear.
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-1">
+                <li>• Simple, reliable operation</li>
+                <li>• Works in any orientation</li>
+                <li>• Good for slurry and wastewater</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Related - Duckbill */}
+        <div className="mb-10">
+          <h3 className="text-lg font-semibold mb-3">Looking for Duckbill Check Valves?</h3>
+          <p className="text-muted-foreground mb-4">
+            For stormwater outfalls and drainage applications, see our zero-maintenance rubber duckbill valves.
+          </p>
+          <Link
+            href="/duckbill-check-valves"
+            className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90"
+          >
+            View Duckbill Check Valves →
+          </Link>
+        </div>
+
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-semibold mb-3">Need Help?</h2>
           <p className="text-muted-foreground mb-6">Call <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> or request a quote.</p>
