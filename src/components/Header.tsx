@@ -213,7 +213,7 @@ export default function Header() {
               alt="Dewater Products - Fluid Piping Components"
               width={500}
               height={167}
-              className="h-[130px] w-auto object-contain -my-6"
+              className="h-[130px] w-auto object-contain -mt-8 -mb-10"
               priority
             />
           </Link>
@@ -277,7 +277,7 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-150 border border-cyan-700 animate-press-bounce ${
+                className={`flex items-center gap-1 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-150 border border-cyan-700 animate-press-bounce ${
                   activeMenu === "products"
                     ? "bg-[radial-gradient(ellipse_at_center,_rgba(14,116,144,0.9)_0%,_rgba(8,100,130,0.95)_60%,_rgba(6,80,100,1)_100%)] text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] shadow-[inset_0_2px_6px_rgba(0,0,0,0.3),inset_0_0_8px_rgba(0,0,0,0.15)]"
                     : "bg-[radial-gradient(ellipse_at_center,_rgba(34,211,238,0.8)_0%,_rgba(20,184,198,0.85)_60%,_rgba(8,145,178,0.9)_100%)] text-gray-800 shadow-[inset_0_0_4px_rgba(0,0,0,0.15),inset_0_0_2px_1px_rgba(255,255,255,0.15),inset_0_1px_0_rgba(255,255,255,0.4)] hover:bg-[radial-gradient(ellipse_at_center,_rgba(103,232,249,0.9)_0%,_rgba(34,211,238,0.9)_50%,_rgba(20,184,198,0.95)_100%)] hover:border-cyan-400 hover:shadow-[inset_0_0_15px_rgba(255,255,255,0.5),inset_0_0_25px_rgba(255,255,255,0.3),inset_0_1px_0_rgba(255,255,255,0.8)] hover:[text-shadow:0_0_8px_rgba(255,255,255,0.6),0_1px_2px_rgba(0,0,0,0.3)] active:shadow-[inset_0_3px_8px_rgba(0,0,0,0.4)]"
@@ -297,7 +297,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("products")}
                   />
                   <div
-                    className="fixed top-[88px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -393,7 +393,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("industries")}
                   />
                   <div
-                    className="fixed top-[88px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("industries")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -458,7 +458,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("brands")}
                   />
                   <div
-                    className="fixed top-[88px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("brands")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
