@@ -33,14 +33,14 @@ const subcategoryToFlatUrl: Record<string, string> = {
   'flanged-suction-strainer': '/flanged-suction-strainers',
 }
 
-// Map brand slugs to their URLs (Straub/Orbit have dedicated pages, others use /brands/)
+// Map brand slugs to their dedicated URLs
 const brandToUrl: Record<string, string> = {
-  'straub': '/brand/straub-couplings',
+  'straub': '/straub-couplings',
   'orbit': '/orbit-couplings',
-  'teekay': '/brands/teekay',
-  'bore-flex-rubber': '/brands/bore-flex-rubber',
-  'defender-valves': '/brands/defender-valves',
-  'defender-strainers': '/brands/defender-strainers',
+  'teekay': '/teekay',
+  'bore-flex-rubber': '/bore-flex',
+  'defender-valves': '/defender-valves',
+  'defender-strainers': '/defender-strainers',
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

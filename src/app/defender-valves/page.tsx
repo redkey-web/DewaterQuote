@@ -44,8 +44,8 @@ const features = [
   },
   {
     icon: Gauge,
-    title: "PN16 Rated",
-    description: "Rated for 16 bar working pressure, suitable for most industrial applications.",
+    title: "Various Pressure Ratings",
+    description: "Rated for most industrial applications.",
   },
   {
     icon: Droplets,
@@ -155,33 +155,6 @@ export default async function DefenderValvesPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Features Grid */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-8">Why Choose Defender Valves?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature) => (
-              <div key={feature.title} className="p-6 rounded-lg bg-card border border-border">
-                <feature.icon className="w-10 h-10 text-blue-600 dark:text-blue-400 mb-4" />
-                <h3 className="font-semibold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Applications */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">Common Applications</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {applications.map((app) => (
-              <div key={app} className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-                <span>{app}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Products Section */}
         <div id="products" className="mb-16">
           <div className="flex items-center justify-between mb-6">
@@ -226,6 +199,33 @@ export default async function DefenderValvesPage() {
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
+          </div>
+        </div>
+
+        {/* Applications */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-6">Common Applications</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {applications.map((app) => (
+              <div key={app} className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+                <span>{app}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Features Grid */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-8">Why Choose Defender Valves?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature) => (
+              <div key={feature.title} className="p-6 rounded-lg bg-card border border-border">
+                <feature.icon className="w-10 h-10 text-blue-600 dark:text-blue-400 mb-4" />
+                <h3 className="font-semibold mb-2">{feature.title}</h3>
+                <p className="text-sm text-muted-foreground">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
 

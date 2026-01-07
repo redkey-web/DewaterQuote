@@ -317,7 +317,7 @@ export default async function MuffCouplingsPage() {
               Orbit Couplings
             </Link>
             <Link
-              href="/brand/straub-couplings"
+              href="/straub-couplings"
               className="px-4 py-2 bg-card border rounded-md hover:bg-accent transition-colors"
             >
               Straub Couplings

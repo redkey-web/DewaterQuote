@@ -45,7 +45,6 @@ import {
   X,
   Expand,
   Ruler,
-  Gauge,
   Thermometer,
   CircleDot,
 } from "lucide-react"
@@ -499,11 +498,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                   {product.materials.body}
                   {product.materials.seat && `/${product.materials.seat}`}
                 </span>
-              </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 border border-border text-sm">
-                <Gauge className="w-3.5 h-3.5 text-primary" />
-                <span className="text-muted-foreground">Pressure:</span>
-                <span className="font-medium">{product.pressureRange}</span>
               </div>
               {product.temperature && (
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 border border-border text-sm">
@@ -1061,7 +1055,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     <div className="text-sm text-muted-foreground space-y-1">
                       <div>Size From: {relatedProduct.sizeFrom}</div>
                       <div>Body: {relatedProduct.materials.body}</div>
-                      <div>Pressure: {relatedProduct.pressureRange}</div>
                     </div>
                     <Link href={`/${relatedProduct.slug}`}>
                       <Button variant="outline" size="sm" className="w-full mt-4 glass-button">
