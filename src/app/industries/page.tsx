@@ -143,14 +143,14 @@ export default function IndustriesPage() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/request-quote"
-                className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
               >
                 Request a Quote
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
               >
                 Contact Us
               </Link>
@@ -270,13 +270,13 @@ export default function IndustriesPage() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
             >
               Contact Us
             </Link>
             <Link
               href="/request-quote"
-              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
             >
               Request a Quote
             </Link>

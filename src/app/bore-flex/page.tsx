@@ -54,7 +54,7 @@ export default async function BoreFlexPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
@@ -137,6 +137,19 @@ export default async function BoreFlexPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* All Products */}
+        <div id="products" className="mb-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-semibold">All Bore-Flex Expansion Joints</h2>
+            <span className="text-muted-foreground">{expansionProducts.length} products</span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {expansionProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+
         {/* Key Features - Critical Info */}
         <div className="mb-10">
           <h2 className="text-2xl font-bold mb-6">Key Features</h2>
@@ -170,16 +183,6 @@ export default async function BoreFlexPage() {
           }}
         />
 
-        {/* All Products */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4">All Bore-Flex Expansion Joints</h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
-          {expansionProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
         {/* Applications */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Applications</h2>
@@ -203,13 +206,13 @@ export default async function BoreFlexPage() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
             >
               Contact Us
             </Link>
             <Link
               href="/request-quote"
-              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
             >
               Request a Quote
             </Link>

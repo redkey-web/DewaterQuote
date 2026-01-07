@@ -72,35 +72,11 @@ export default async function DefenderValvesPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
-        {/* Animated blob background - Blue theme */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-900 via-blue-800 to-sky-600" />
-          {/* Blob 1 - Blue (large, top-left) */}
-          <div
-            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob"
-            style={{ backgroundColor: '#3b82f6' }}
-          />
-          {/* Blob 2 - Sky blue accent (right side) */}
-          <div
-            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-2000"
-            style={{ backgroundColor: '#0ea5e9' }}
-          />
-          {/* Blob 3 - Dark blue (bottom, adds depth) */}
-          <div
-            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-60 blur-3xl animate-blob animation-delay-4000"
-            style={{ backgroundColor: '#1e3a8a' }}
-          />
-          {/* Blob 4 - Navy (center-left) */}
-          <div
-            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob animation-delay-2000"
-            style={{ backgroundColor: '#1e40af' }}
-          />
-        </div>
+      <div className="relative overflow-hidden border-b bg-white">
         <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
@@ -109,31 +85,31 @@ export default async function DefenderValvesPage() {
                 alt="Defender Valves"
                 width={180}
                 height={60}
-                className="h-12 w-auto mb-6 brightness-0 invert"
+                className="h-12 w-auto mb-6"
                 priority
               />
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500 text-white text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600 text-white text-sm font-medium mb-4">
                 <Shield className="w-4 h-4" />
                 Industrial Flow Control
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-blue-900">
                 Defender Valves
               </h1>
-              <p className="text-xl text-white/80 mb-6 max-w-2xl">
+              <p className="text-xl text-blue-800/80 mb-6 max-w-2xl">
                 High-performance industrial butterfly valves with PTFE lining and 316 stainless steel construction.
                 Reliable flow control for water, chemical, and process applications.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
-                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
+                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors shadow-lg"
                 >
                   View Products
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link
                   href="/request-quote"
-                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
+                  className="inline-flex items-center px-6 py-3 bg-white border border-blue-600 text-blue-600 rounded-md font-medium hover:bg-blue-50 transition-colors shadow-sm"
                 >
                   Request a Quote
                 </Link>
@@ -142,8 +118,8 @@ export default async function DefenderValvesPage() {
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/products/valves/butterfly-valve-cf8m-316ss.jpg"
-                  alt="Defender Butterfly Valve"
+                  src="https://9sedkgbytyvyjils.public.blob.vercel-storage.com/products/BCV316TE/BCV316TE_1.png"
+                  alt="Ball Check Valve - Stainless Steel 316 - Flanged Table E"
                   fill
                   className="object-contain rounded-2xl"
                   priority
@@ -239,13 +215,13 @@ export default async function DefenderValvesPage() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
             >
               Contact Us
             </Link>
             <Link
               href="/request-quote"
-              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
             >
               Request a Quote
             </Link>

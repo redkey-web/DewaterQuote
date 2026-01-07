@@ -120,7 +120,7 @@ export default async function PipeRepairPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
@@ -288,7 +288,7 @@ export default async function PipeRepairPage() {
             </a>
             <Link
               href="/request-quote"
-              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
             >
               Request a Quote
             </Link>

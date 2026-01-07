@@ -32,7 +32,7 @@ export default async function TwinSphereExpansionJointsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
       <BulkPricingTicker variant="teal" />
       <div className="max-w-7xl mx-auto px-6 py-12">

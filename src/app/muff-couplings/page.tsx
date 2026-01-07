@@ -98,7 +98,7 @@ export default async function MuffCouplingsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
       <BulkPricingTicker variant="teal" />
 
@@ -142,14 +142,14 @@ export default async function MuffCouplingsPage() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center px-5 py-2.5 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center px-5 py-2.5 bg-primary text-primary-foreground rounded-md font-medium"
                 >
                   Contact Us
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <a
                   href="tel:1300271290"
-                  className="inline-flex items-center px-5 py-2.5 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+                  className="inline-flex items-center px-5 py-2.5 bg-card border border-border rounded-md font-medium"
                 >
                   <Phone className="w-4 h-4 mr-2" />
                   1300 271 290

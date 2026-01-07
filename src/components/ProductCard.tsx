@@ -3,15 +3,19 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Package, TrendingDown } from "lucide-react"
+import { Package, TrendingDown } from "lucide-react"
 import { useGeo } from "@/hooks/useGeo"
 import type { Product } from "@/types"
 
 interface ProductCardProps {
   product: Product
+}
+
+// Brand color configurations
+const brandColors: Record<string, { bg: string; text: string; border: string }> = {
+  Straub: { bg: "bg-red-600", text: "text-black", border: "border-red-600" },
+  Teekay: { bg: "bg-red-600", text: "text-white", border: "border-red-600" },
+  Orbit: { bg: "bg-orange-500", text: "text-black", border: "border-orange-500" },
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -28,14 +32,28 @@ export default function ProductCard({ product }: ProductCardProps) {
     setImageError(false)
   }, [mainImage])
 
+  const colors = brandColors[product.brand] || { bg: "bg-gray-600", text: "text-white", border: "border-gray-600" }
+
   return (
-    <Card
-      className="overflow-hidden hover-elevate active-elevate-2 transition-all border-border"
-      data-testid={`card-product-${product.id}`}
-    >
-      <Link href={`/${product.slug}`}>
-        <div className="cursor-pointer" data-testid={`link-product-${product.id}`}>
-          <div className="aspect-square bg-muted overflow-hidden flex items-center justify-center">
+    <Link href={`/${product.slug}`} className="block group" data-testid={`card-product-${product.id}`}>
+      <div className="relative">
+        {/* Main card with folder shape - 3D paper effect */}
+        <div
+          className="relative overflow-hidden transition-all duration-300 group-hover:-translate-y-2 folder-card-3d rounded-2xl"
+          style={{
+            clipPath: 'polygon(0 0, 42% 0, 50% 8%, 100% 8%, 100% 100%, 0 100%)'
+          }}
+        >
+          {/* Discount badge */}
+          {hasPrice && (
+            <div className="absolute top-3 left-3 z-10 bg-primary/90 text-white text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
+              <TrendingDown className="w-3 h-3" />
+              Discounts
+            </div>
+          )}
+
+          {/* Image container */}
+          <div className="aspect-square p-6 flex items-center justify-center relative">
             {mainImage && !imageError ? (
               <Image
                 src={mainImage}
@@ -43,63 +61,45 @@ export default function ProductCard({ product }: ProductCardProps) {
                 width={400}
                 height={400}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                 onError={() => setImageError(true)}
                 data-testid={`img-product-${product.id}`}
               />
             ) : (
               <Package
-                className="w-20 h-20 text-muted-foreground/30"
+                className="w-20 h-20 text-zinc-400"
                 data-testid={`icon-placeholder-${product.id}`}
               />
             )}
-          </div>
-          <CardContent className="p-6">
-            <div className="space-y-3">
-              <div className="flex items-start justify-between gap-2">
-                <h3
-                  className="font-semibold text-base line-clamp-2 break-words min-w-0 flex-1"
-                  data-testid={`text-product-name-${product.id}`}
-                >
-                  {product.shortName || product.name}
-                </h3>
-                {hasPrice && (
-                  <Badge
-                    variant="secondary"
-                    className="bg-primary/10 text-primary shrink-0 text-xs flex items-center gap-1"
-                  >
-                    <TrendingDown className="w-3 h-3" />
-                    Discounts
-                  </Badge>
-                )}
-              </div>
-              <div className="flex items-center justify-between">
-                <p
-                  className="text-xs text-muted-foreground font-mono"
-                  data-testid={`text-sku-${product.id}`}
-                >
-                  {product.sku}
-                </p>
-                <Badge variant="secondary" className="text-xs" data-testid={`badge-brand-${product.id}`}>
-                  {product.brand}
-                </Badge>
-              </div>
+
+            {/* Hover text overlay */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+              <span className="relative font-bold text-2xl tracking-widest uppercase view-product-shimmer">
+                View Product
+              </span>
             </div>
-          </CardContent>
+          </div>
+
+          {/* Brand tab - in folder tab area (top left) */}
+          <div className="absolute top-0 left-[4%]">
+            <div
+              className={`${colors.bg} ${colors.text} px-5 py-2 rounded-b-xl font-semibold text-sm`}
+            >
+              {product.brand}
+            </div>
+          </div>
+
+          {/* Product name - bottom */}
+          <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
+            <h3
+              className="text-black dark:text-white font-semibold text-sm line-clamp-2"
+              data-testid={`text-product-name-${product.id}`}
+            >
+              {(product.shortName || product.name).replace(new RegExp(`^${product.brand}\\s*`, 'i'), '')}
+            </h3>
+          </div>
         </div>
-      </Link>
-      <CardFooter className="p-6 pt-0">
-        <Button
-          asChild
-          className="w-full"
-          data-testid={`button-view-product-${product.id}`}
-        >
-          <Link href={`/${product.slug}`}>
-            View Product
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
-        </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </Link>
   )
 }

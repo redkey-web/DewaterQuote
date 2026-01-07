@@ -98,7 +98,7 @@ export default async function DuckbillCheckValvesPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
       <BulkPricingTicker variant="teal" />
 

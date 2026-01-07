@@ -79,7 +79,7 @@ export default async function DefenderStrainersPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
@@ -162,6 +162,34 @@ export default async function DefenderStrainersPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Products Section */}
+        <div id="products" className="mb-16">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">All Defender Strainer Products</h2>
+            <span className="text-muted-foreground">{products.length} products</span>
+          </div>
+
+          {products.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-card rounded-lg border">
+              <p className="text-muted-foreground mb-4">
+                Contact us for Defender Strainer pricing and availability.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium"
+              >
+                Contact Us
+              </Link>
+            </div>
+          )}
+        </div>
+
         {/* Features Grid */}
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-8">Why Choose Defender Strainers?</h2>
@@ -204,34 +232,6 @@ export default async function DefenderStrainersPage() {
           </div>
         </div>
 
-        {/* Products Section */}
-        <div id="products" className="mb-16">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">All Defender Strainer Products</h2>
-            <span className="text-muted-foreground">{products.length} products</span>
-          </div>
-
-          {products.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-card rounded-lg border">
-              <p className="text-muted-foreground mb-4">
-                Contact us for Defender Strainer pricing and availability.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90"
-              >
-                Contact Us
-              </Link>
-            </div>
-          )}
-        </div>
-
         {/* Related Pages */}
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6">Related Products</h2>
@@ -261,13 +261,13 @@ export default async function DefenderStrainersPage() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
             >
               Contact Us
             </Link>
             <Link
               href="/request-quote"
-              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
             >
               Request a Quote
             </Link>

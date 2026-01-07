@@ -67,13 +67,13 @@ export default function AboutPage() {
           <div className="not-prose flex gap-4 mt-4">
             <Link
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
             >
               Contact Us
             </Link>
             <a
               href="tel:1300271290"
-              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
             >
               Call 1300 271 290
             </a>

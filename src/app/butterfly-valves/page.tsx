@@ -32,7 +32,7 @@ export default async function ButterflyValvesPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BulkPricingTicker variant="teal" />
       <BreadcrumbJsonLd items={breadcrumbs} />
       <div className="max-w-7xl mx-auto px-6 py-12">

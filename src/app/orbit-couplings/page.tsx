@@ -126,35 +126,11 @@ export default async function OrbitCouplingsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
-        {/* Animated blob background - Orange theme */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-orange-900 via-orange-800 to-amber-600" />
-          {/* Blob 1 - Orange (large, top-left) */}
-          <div
-            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob"
-            style={{ backgroundColor: '#f97316' }}
-          />
-          {/* Blob 2 - Amber accent (right side) */}
-          <div
-            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-2000"
-            style={{ backgroundColor: '#f59e0b' }}
-          />
-          {/* Blob 3 - Dark orange (bottom, adds depth) */}
-          <div
-            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-60 blur-3xl animate-blob animation-delay-4000"
-            style={{ backgroundColor: '#7c2d12' }}
-          />
-          {/* Blob 4 - Burnt orange (center-left) */}
-          <div
-            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob animation-delay-2000"
-            style={{ backgroundColor: '#c2410c' }}
-          />
-        </div>
+      <div className="relative overflow-hidden border-b bg-white">
         <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
@@ -163,31 +139,31 @@ export default async function OrbitCouplingsPage() {
                 alt="Orbit Couplings"
                 width={180}
                 height={60}
-                className="w-44 h-auto mb-6 brightness-0 invert"
+                className="w-44 h-auto mb-6"
                 priority
               />
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500 text-white text-sm font-medium mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-600 text-white text-sm font-medium mb-4">
                 <Package className="w-4 h-4" />
                 Perth Stocked - Fast Dispatch
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-orange-900">
                 Orbit Couplings
               </h1>
-              <p className="text-xl text-white/80 mb-6 max-w-2xl">
+              <p className="text-xl text-orange-800/80 mb-6 max-w-2xl">
                 Australian industrial pipe couplings and repair clamps. Quality 316 stainless steel construction
                 at competitive prices. Straub-compatible dimensions for easy specification.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
-                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
+                  className="inline-flex items-center px-6 py-3 bg-orange-600 text-white rounded-md font-medium hover:bg-orange-700 transition-colors shadow-lg"
                 >
                   View Products
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link
                   href="/request-quote"
-                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
+                  className="inline-flex items-center px-6 py-3 bg-white border border-orange-600 text-orange-600 rounded-md font-medium hover:bg-orange-50 transition-colors shadow-sm"
                 >
                   Request a Quote
                 </Link>
@@ -209,6 +185,34 @@ export default async function OrbitCouplingsPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Products Section */}
+        <div id="products" className="mb-16">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">All Orbit Products</h2>
+            <span className="text-muted-foreground">{orbitProductsList.length} products</span>
+          </div>
+
+          {orbitProductsList.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {orbitProductsList.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12 bg-card rounded-lg border">
+              <p className="text-muted-foreground mb-4">
+                Contact us for Orbit product pricing and availability.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium"
+              >
+                Contact Us
+              </Link>
+            </div>
+          )}
+        </div>
+
         {/* Features Grid */}
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-8">Why Choose Orbit Couplings?</h2>
@@ -275,34 +279,6 @@ export default async function OrbitCouplingsPage() {
           </div>
         </div>
 
-        {/* Products Section */}
-        <div id="products" className="mb-16">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">All Orbit Products</h2>
-            <span className="text-muted-foreground">{orbitProductsList.length} products</span>
-          </div>
-
-          {orbitProductsList.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {orbitProductsList.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 bg-card rounded-lg border">
-              <p className="text-muted-foreground mb-4">
-                Contact us for Orbit product pricing and availability.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90"
-              >
-                Contact Us
-              </Link>
-            </div>
-          )}
-        </div>
-
         {/* FAQ Section */}
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
@@ -355,13 +331,13 @@ export default async function OrbitCouplingsPage() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
               href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
             >
               Contact Us
             </Link>
             <Link
               href="/request-quote"
-              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium hover:bg-accent transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
             >
               Request a Quote
             </Link>
