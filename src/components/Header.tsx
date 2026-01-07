@@ -30,16 +30,38 @@ export default function Header() {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const [isSearching, setIsSearching] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
   const searchRef = useRef<HTMLDivElement>(null)
   const mobileSearchRef = useRef<HTMLDivElement>(null)
   const headerSearchInputRef = useRef<HTMLInputElement>(null)
+  const productsButtonRef = useRef<HTMLButtonElement>(null)
+  const [buttonTilt, setButtonTilt] = useState({ rotateX: 0, rotateY: 0 })
 
-  // Auto-focus header search on non-homepage
+  // Ripple effect for Products button
+  const handleRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const button = e.currentTarget
+    const rect = button.getBoundingClientRect()
+    const size = Math.max(rect.width, rect.height)
+    const x = e.clientX - rect.left - size / 2
+    const y = e.clientY - rect.top - size / 2
+
+    const ripple = document.createElement('span')
+    ripple.className = 'ripple'
+    ripple.style.width = ripple.style.height = `${size}px`
+    ripple.style.left = `${x}px`
+    ripple.style.top = `${y}px`
+
+    button.appendChild(ripple)
+
+    setTimeout(() => ripple.remove(), 600)
+  }
+
+  // Focus search input when search opens
   useEffect(() => {
-    if (pathname !== "/") {
+    if (showSearch) {
       headerSearchInputRef.current?.focus()
     }
-  }, [pathname])
+  }, [showSearch])
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -47,9 +69,9 @@ export default function Header() {
       const target = event.target as Node
       const isOutsideDesktop = !searchRef.current?.contains(target)
       const isOutsideMobile = !mobileSearchRef.current?.contains(target)
-      // Close if click is outside whichever search is visible
       if (isOutsideDesktop && isOutsideMobile) {
         setShowResults(false)
+        setShowSearch(false)
       }
     }
     document.addEventListener("mousedown", handleClickOutside)
@@ -85,12 +107,14 @@ export default function Header() {
     e.preventDefault()
     if (searchQuery.trim()) {
       setShowResults(false)
+      setShowSearch(false)
       router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`)
     }
   }
 
   const handleResultClick = (slug: string) => {
     setShowResults(false)
+    setShowSearch(false)
     setSearchQuery("")
     router.push(`/${slug}`)
   }
@@ -136,7 +160,7 @@ export default function Header() {
       items: [
         { name: "Y Strainers", url: "/y-strainers" },
         { name: "Basket Strainers", url: "/basket-strainers" },
-        { name: "Duplex Strainers", url: "/duplex-strainers" },
+        { name: "Duplex Strainers", url: "/duplex-basket-strainers" },
       ],
     },
   ]
@@ -155,10 +179,10 @@ export default function Header() {
   const brandsMenu = [
     { name: "Straub", url: "/straub-couplings" },
     { name: "Orbit", url: "/orbit-couplings" },
-    { name: "Teekay", url: "/brands/teekay" },
-    { name: "Bore-Flex", url: "/brands/bore-flex-rubber" },
-    { name: "Defender Valves", url: "/brands/defender-valves" },
-    { name: "Defender Strainers", url: "/brands/defender-strainers" },
+    { name: "Teekay", url: "/teekay" },
+    { name: "Bore-Flex", url: "/bore-flex" },
+    { name: "Defender Valves", url: "/defender-valves" },
+    { name: "Defender Strainers", url: "/defender-strainers" },
   ]
 
   const companyMenu = [
@@ -174,161 +198,234 @@ export default function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-white/10 dark:bg-gray-950/10 backdrop-blur-sm overflow-visible">
-      <div className="max-w-7xl mx-auto px-6 overflow-visible">
-        <div className="flex items-center justify-between py-0 gap-4 lg:gap-3 xl:gap-6">
-          {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0" data-testid="link-home">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-white/90 via-primary/5 to-white/90 dark:from-gray-950/90 dark:via-primary/10 dark:to-gray-950/90 backdrop-blur-md shadow-sm">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Three-column, two-row grid */}
+        <div className="hidden lg:grid lg:grid-cols-[auto_1fr_auto] lg:grid-rows-[auto_auto] items-center gap-x-6">
+          {/* Logo - spans both rows */}
+          <Link
+            href="/"
+            className="row-span-2 flex items-center"
+            data-testid="link-home"
+          >
             <Image
               src="/images/logo-new.png"
               alt="Dewater Products - Fluid Piping Components"
-              width={480}
-              height={160}
-              className="h-[143px] lg:h-[130px] xl:h-[172px] w-auto object-contain -mt-[23px] -mb-[33px] lg:-mt-[20px] lg:-mb-[30px] xl:-mt-[30px] xl:-mb-[40px]"
+              width={500}
+              height={167}
+              className="h-[130px] w-auto object-contain -my-6"
               priority
             />
           </Link>
 
-          {/* Search Bar */}
-          <div className="hidden lg:block relative" ref={searchRef}>
-            <form onSubmit={handleSearchSubmit}>
-              {isSearching ? (
-                <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
-              ) : (
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              )}
-              <input
-                ref={headerSearchInputRef}
-                type="search"
-                placeholder="Search products..."
-                className="pl-9 w-48 xl:w-64 h-10 text-sm rounded-xl bg-zinc-100 border border-zinc-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08)] focus:outline-none focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
-                data-testid="input-search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => searchResults.length > 0 && setShowResults(true)}
-              />
-            </form>
-            {/* Search Results Dropdown */}
-            {showResults && searchResults.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-popover border border-border rounded-md shadow-lg max-h-80 overflow-y-auto z-50">
-                {searchResults.map((result) => (
-                  <button
-                    key={result.id}
-                    onClick={() => handleResultClick(result.slug)}
-                    className="w-full text-left px-3 py-2 hover:bg-primary hover:text-white border-b border-border last:border-b-0 transition-colors"
-                  >
-                    <div className="font-medium text-sm truncate">{result.name}</div>
-                    <div className="text-xs text-muted-foreground group-hover:text-white/80">{result.brand}</div>
-                  </button>
-                ))}
-                {searchQuery.trim() && (
-                  <button
-                    onClick={handleSearchSubmit as any}
-                    className="w-full text-left px-3 py-2 text-sm text-primary hover:bg-primary hover:text-white transition-colors font-medium"
-                  >
-                    View all results for "{searchQuery}"
-                  </button>
+          {/* Search + Products - spans both rows, centered */}
+          <div className="row-span-2 flex items-center gap-4">
+            {/* Search Bar */}
+            <div className="relative flex-1 max-w-sm" ref={searchRef}>
+              <form onSubmit={handleSearchSubmit}>
+                {isSearching ? (
+                  <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 animate-spin" />
+                ) : (
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 )}
-              </div>
-            )}
-            {showResults && searchResults.length === 0 && searchQuery.length >= 2 && !isSearching && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-popover border border-border rounded-md shadow-lg p-4 z-50">
-                <p className="text-sm text-muted-foreground">No products found for "{searchQuery}"</p>
-              </div>
-            )}
-          </div>
+                <input
+                  ref={headerSearchInputRef}
+                  type="search"
+                  placeholder="Search products..."
+                  className="w-full pl-10 pr-3 py-2 text-sm border-2 border-primary rounded-xl bg-gray-100 dark:bg-gray-800 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_3px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+                  data-testid="input-search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => searchResults.length > 0 && setShowResults(true)}
+                />
+              </form>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-3 xl:gap-6 flex-1">
+              {showResults && searchResults.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+                  {searchResults.map((result) => (
+                    <button
+                      key={result.id}
+                      onClick={() => handleResultClick(result.slug)}
+                      className="w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 border-b border-gray-100 dark:border-gray-800 last:border-b-0 transition-colors"
+                    >
+                      <div className="font-medium text-sm text-gray-900 dark:text-white truncate">{result.name}</div>
+                      <div className="text-xs text-gray-500">{result.brand}</div>
+                    </button>
+                  ))}
+                  {searchQuery.trim() && (
+                    <button
+                      onClick={handleSearchSubmit as any}
+                      className="w-full text-left px-4 py-3 text-sm text-primary hover:bg-gray-50 dark:hover:bg-gray-800 font-medium"
+                    >
+                      View all results for "{searchQuery}"
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {showResults && searchResults.length === 0 && searchQuery.length >= 2 && !isSearching && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg z-50 p-4">
+                  <p className="text-sm text-gray-500">No products found for "{searchQuery}"</p>
+                </div>
+              )}
+            </div>
+
+            {/* Products Menu - Secondary Focus */}
             <div
               className="relative"
               onMouseEnter={() => setActiveMenu("products")}
               onMouseLeave={() => setActiveMenu(null)}
             >
-              <div className="flex items-center">
-                <Link
-                  href="/products"
-                  className="text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
-                  data-testid="link-products"
-                >
-                  Products
-                </Link>
-                <button
-                  className="flex items-center justify-center text-foreground hover:bg-muted/50 p-1 rounded-md border-l border-border/50"
-                  data-testid="button-products-menu"
-                  aria-label="Open products menu"
-                >
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-              </div>
+              <button
+                className={`flex items-center gap-1.5 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all duration-150 border border-cyan-700 animate-press-bounce ${
+                  activeMenu === "products"
+                    ? "bg-[radial-gradient(ellipse_at_center,_rgba(14,116,144,0.9)_0%,_rgba(8,100,130,0.95)_60%,_rgba(6,80,100,1)_100%)] text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] shadow-[inset_0_2px_6px_rgba(0,0,0,0.3),inset_0_0_8px_rgba(0,0,0,0.15)]"
+                    : "bg-[radial-gradient(ellipse_at_center,_rgba(34,211,238,0.8)_0%,_rgba(20,184,198,0.85)_60%,_rgba(8,145,178,0.9)_100%)] text-gray-800 shadow-[inset_0_0_4px_rgba(0,0,0,0.15),inset_0_0_2px_1px_rgba(255,255,255,0.15),inset_0_1px_0_rgba(255,255,255,0.4)] hover:bg-[radial-gradient(ellipse_at_center,_rgba(103,232,249,0.9)_0%,_rgba(34,211,238,0.9)_50%,_rgba(20,184,198,0.95)_100%)] hover:border-cyan-400 hover:shadow-[inset_0_0_15px_rgba(255,255,255,0.5),inset_0_0_25px_rgba(255,255,255,0.3),inset_0_1px_0_rgba(255,255,255,0.8)] hover:[text-shadow:0_0_8px_rgba(255,255,255,0.6),0_1px_2px_rgba(0,0,0,0.3)] active:shadow-[inset_0_3px_8px_rgba(0,0,0,0.4)]"
+                }`}
+                data-testid="button-products-menu"
+              >
+                Products
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "products" ? "rotate-180" : ""}`} />
+              </button>
+
               {activeMenu === "products" && (
                 <>
-                  {/* Invisible bridge to maintain hover */}
-                  <div className="absolute top-full left-0 w-full h-4" />
+                  {/* Invisible bridge from button to dropdown */}
                   <div
-                    className="fixed top-[72px] left-1/2 -translate-x-1/2 glass rounded-md shadow-lg p-4 lg:p-6 w-[95vw] lg:w-[850px] max-w-[900px] z-50 max-h-[80vh] overflow-y-auto"
+                    className="fixed left-0 right-0 h-[20px] z-[99]"
+                    style={{ top: '68px' }}
+                    onMouseEnter={() => setActiveMenu("products")}
+                  />
+                  <div
+                    className="fixed top-[88px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
-                    {/* Product Categories */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mb-4 pb-4 border-b border-border/50">
-                      {productsMenu.map((category) => (
-                        <div key={category.title}>
+                    <div className="max-w-7xl mx-auto px-6 py-8">
+                      <div className="grid grid-cols-12 gap-12">
+                        {/* Left: Title & Description */}
+                        <div className="col-span-4">
+                          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            Products
+                          </h2>
+                          <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            Industrial pipe fittings, couplings, valves, and accessories for mining, construction, water treatment, and process applications.
+                          </p>
                           <Link
-                            href={category.url}
-                            className="font-semibold text-sm mb-3 block hover:text-primary"
-                            data-testid={`link-category-${category.title.toLowerCase().replace(/\s+/g, "-")}`}
+                            href="/products"
+                            className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
                           >
-                            {category.title}
+                            View all products
+                            <ChevronRight className="w-4 h-4" />
                           </Link>
-                          <ul className="space-y-2">
-                            {category.items.map((item) => (
-                              <li key={item.name}>
-                                <Link
-                                  href={item.url}
-                                  className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
-                                  data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                                >
-                                  {item.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
                         </div>
-                      ))}
-                    </div>
-                    {/* Industries & Brands */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Link href="/industries" className="font-semibold text-sm mb-2 block hover:text-primary">
-                          Industries
-                        </Link>
-                        <div className="flex flex-wrap gap-1.5">
-                          {industriesMenu.map((industry) => (
-                            <Link
-                              key={industry.name}
-                              href={industry.url}
-                              className="text-xs text-muted-foreground px-2 py-1 rounded bg-muted/50 hover:bg-primary hover:text-white transition-colors"
-                            >
-                              {industry.name}
-                            </Link>
-                          ))}
+
+                        {/* Right: Category Links */}
+                        <div className="col-span-8">
+                          <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+                            {productsMenu.map((category) => (
+                              <div key={category.title}>
+                                <Link
+                                  href={category.url}
+                                  className="text-gray-900 dark:text-white font-semibold hover:text-primary hover-underline-scale inline-block transition-colors"
+                                >
+                                  {category.title}
+                                </Link>
+                                <ul className="mt-3 space-y-2">
+                                  {category.items.map((item) => (
+                                    <li key={item.name}>
+                                      <Link
+                                        href={item.url}
+                                        className="text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale inline-block transition-colors"
+                                      >
+                                        {item.name}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                      <div>
-                        <Link href="/brands" className="font-semibold text-sm mb-2 block hover:text-primary">
-                          Brands
-                        </Link>
-                        <div className="flex flex-wrap gap-1.5">
-                          {brandsMenu.map((brand) => (
-                            <Link
-                              key={brand.name}
-                              href={brand.url}
-                              className="text-xs text-muted-foreground px-2 py-1 rounded bg-muted/50 hover:bg-primary hover:text-white transition-colors"
-                            >
-                              {brand.name}
-                            </Link>
-                          ))}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Top Row Right - Contact Info */}
+          <div className="flex items-center justify-end gap-6 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-b border-primary/10">
+            <a href="mailto:sales@dewaterproducts.com.au" className="hover:text-primary transition-colors flex items-center gap-1.5">
+              <Mail className="w-4 h-4 text-primary" />
+              sales@dewaterproducts.com.au
+            </a>
+            <a href="tel:1300271290" className="hover:text-primary transition-colors flex items-center gap-1.5">
+              <Phone className="w-4 h-4 text-primary" />
+              1300 271 290
+            </a>
+          </div>
+
+          {/* Bottom Row Right - Nav Items */}
+          <nav className="flex items-center justify-end gap-5 py-2">
+            {/* Industries Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => setActiveMenu("industries")}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <button
+                className={`flex items-center gap-1.5 text-[15px] font-medium transition-colors py-2 ${
+                  activeMenu === "industries" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
+                }`}
+              >
+                Industries
+                <ChevronDown className={`w-4 h-4 transition-transform ${activeMenu === "industries" ? "rotate-180" : ""}`} />
+              </button>
+
+              {activeMenu === "industries" && (
+                <>
+                  {/* Invisible bridge from button to dropdown */}
+                  <div
+                    className="fixed left-0 right-0 h-[20px] z-[99]"
+                    style={{ top: '68px' }}
+                    onMouseEnter={() => setActiveMenu("industries")}
+                  />
+                  <div
+                    className="fixed top-[88px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    onMouseEnter={() => setActiveMenu("industries")}
+                    onMouseLeave={() => setActiveMenu(null)}
+                  >
+                    <div className="max-w-7xl mx-auto px-6 py-8">
+                      <div className="grid grid-cols-12 gap-12">
+                        <div className="col-span-4">
+                          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            Industries
+                          </h2>
+                          <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            We supply quality pipe fittings and fluid control products to a wide range of industries across Australia.
+                          </p>
+                          <Link
+                            href="/industries"
+                            className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
+                          >
+                            View all industries
+                            <ChevronRight className="w-4 h-4" />
+                          </Link>
+                        </div>
+                        <div className="col-span-8">
+                          <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+                            {industriesMenu.map((industry) => (
+                              <Link
+                                key={industry.name}
+                                href={industry.url}
+                                className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors py-1"
+                              >
+                                {industry.name}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -337,107 +434,145 @@ export default function Header() {
               )}
             </div>
 
+            {/* Brands Menu */}
             <div
               className="relative"
-              onMouseEnter={() => setActiveMenu("more")}
+              onMouseEnter={() => setActiveMenu("brands")}
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className="flex items-center gap-1 text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
-                data-testid="button-more-menu"
+                className={`flex items-center gap-1.5 text-[15px] font-medium transition-colors py-2 ${
+                  activeMenu === "brands" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
+                }`}
               >
-                More <ChevronDown className="w-4 h-4" />
+                Brands
+                <ChevronDown className={`w-4 h-4 transition-transform ${activeMenu === "brands" ? "rotate-180" : ""}`} />
               </button>
-              {activeMenu === "more" && (
-                <div className="absolute top-full right-0 mt-0 glass rounded-md shadow-lg p-4 w-64">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <span className="font-semibold text-sm mb-2 block text-foreground">Company</span>
-                      <ul className="space-y-1">
-                        {companyMenu.map((item) => (
-                          <li key={item.name}>
-                            <Link
-                              href={item.url}
-                              className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
-                              data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                            >
-                              {item.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-sm mb-2 block text-foreground">Policies</span>
-                      <ul className="space-y-1">
-                        {policiesMenu.map((item) => (
-                          <li key={item.name}>
-                            <Link
-                              href={item.url}
-                              className="block text-sm text-muted-foreground px-2 py-1 rounded nav-dropdown-item"
-                              data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-                            >
-                              {item.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+
+              {activeMenu === "brands" && (
+                <>
+                  {/* Invisible bridge from button to dropdown */}
+                  <div
+                    className="fixed left-0 right-0 h-[20px] z-[99]"
+                    style={{ top: '68px' }}
+                    onMouseEnter={() => setActiveMenu("brands")}
+                  />
+                  <div
+                    className="fixed top-[88px] left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    onMouseEnter={() => setActiveMenu("brands")}
+                    onMouseLeave={() => setActiveMenu(null)}
+                  >
+                    <div className="max-w-7xl mx-auto px-6 py-8">
+                      <div className="grid grid-cols-12 gap-12">
+                        <div className="col-span-4">
+                          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            Brands
+                          </h2>
+                          <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            We partner with leading manufacturers to bring you quality products backed by industry expertise.
+                          </p>
+                          <Link
+                            href="/brands"
+                            className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
+                          >
+                            View all brands
+                            <ChevronRight className="w-4 h-4" />
+                          </Link>
+                        </div>
+                        <div className="col-span-8">
+                          <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+                            {brandsMenu.map((brand) => (
+                              <Link
+                                key={brand.name}
+                                href={brand.url}
+                                className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors py-1"
+                              >
+                                {brand.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </>
               )}
             </div>
 
-            <Link
-              href="/contact"
-              className="text-foreground nav-link-hover-transparent px-3 py-2 rounded-md text-sm"
-              data-testid="link-contact"
+            {/* Resources Menu */}
+            <div
+              className="relative"
+              onMouseEnter={() => setActiveMenu("resources")}
+              onMouseLeave={() => setActiveMenu(null)}
             >
-              Contact
-            </Link>
-          </nav>
+              <button
+                className={`flex items-center gap-1.5 text-[15px] font-medium transition-colors py-2 ${
+                  activeMenu === "resources" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
+                }`}
+              >
+                Resources
+                <ChevronDown className={`w-4 h-4 transition-transform ${activeMenu === "resources" ? "rotate-180" : ""}`} />
+              </button>
 
-          {/* Contact Info & Quote */}
-          <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
-            <div className="flex flex-col gap-1">
-              <a
-                href="tel:1300271290"
-                className="flex items-center gap-2 transition-colors text-xs"
-              >
-                <Phone className="w-4 h-4 text-primary" />
-                <span className="font-semibold" style={{
-                  color: 'white',
-                  letterSpacing: '0.05em',
-                  textShadow: '1px 1px 0 rgba(0,0,0,0.5), -1px -1px 0 rgba(0,0,0,0.5), 1px -1px 0 rgba(0,0,0,0.5), -1px 1px 0 rgba(0,0,0,0.5)'
-                }}>1300 271 290</span>
-              </a>
-              <a
-                href="mailto:sales@dewaterproducts.com.au"
-                className="flex items-center gap-2 text-foreground hover:text-primary transition-colors text-sm font-medium"
-              >
-                <Mail className="w-4 h-4 text-primary" />
-                <span className="hidden xl:inline">sales@dewaterproducts.com.au</span>
-                <span className="xl:hidden">Email Us</span>
-              </a>
+              {activeMenu === "resources" && (
+                <>
+                  {/* Invisible bridge from button to dropdown */}
+                  <div
+                    className="absolute top-full left-0 w-full h-4 z-[99]"
+                    onMouseEnter={() => setActiveMenu("resources")}
+                  />
+                  <div
+                    className="absolute top-[calc(100%+8px)] right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-white/30 dark:border-gray-700/50 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] w-56 animate-dropdown-slide overflow-hidden"
+                    onMouseEnter={() => setActiveMenu("resources")}
+                    onMouseLeave={() => setActiveMenu(null)}
+                  >
+                    <div className="p-4 space-y-1">
+                      {[...companyMenu, ...policiesMenu].map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.url}
+                          className="block px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
+
+            {/* Quote Button */}
             <Button
               variant="outline"
               size="icon"
               onClick={openCart}
-              className="relative"
+              className="relative border-2 border-teal-600 text-teal-500 hover:bg-teal-600/10 hover:border-teal-500 hover:text-cyan-300 hover:[filter:drop-shadow(0_0_4px_rgba(34,211,238,0.6))] transition-all"
               data-testid="button-quote"
             >
               <ClipboardList className="w-5 h-5" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
                 </span>
               )}
             </Button>
-          </div>
+          </nav>
+        </div>
 
-          {/* Mobile Menu Button & Quote */}
-          <div className="flex lg:hidden items-center gap-2">
+        {/* Mobile Header */}
+        <div className="flex lg:hidden items-center justify-between h-16">
+          <Link href="/" className="flex items-center" data-testid="link-home-mobile">
+            <Image
+              src="/images/logo-new.png"
+              alt="Dewater Products"
+              width={200}
+              height={67}
+              className="h-12 w-auto object-contain"
+              priority
+            />
+          </Link>
+          <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="icon"
@@ -457,10 +592,11 @@ export default function Header() {
             </Button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Menu - Full Screen Overlay */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden fixed left-0 right-0 top-[110px] h-[calc(100vh-110px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto">
+      {/* Mobile Menu - Full Screen Overlay */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed left-0 right-0 top-16 h-[calc(100vh-64px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto border-t border-gray-100 dark:border-gray-800">
             <div className="px-6 py-4">
               <div className="mb-4" ref={mobileSearchRef}>
                 <form onSubmit={handleSearchSubmit} className="relative">
@@ -643,7 +779,6 @@ export default function Header() {
           </div>
         </div>
       )}
-      </div>
     </header>
   )
 }

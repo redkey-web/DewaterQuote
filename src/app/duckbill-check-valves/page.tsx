@@ -262,7 +262,7 @@ export default async function DuckbillCheckValvesPage() {
               All Valves
             </Link>
             <Link
-              href="/brands/teekay"
+              href="/teekay"
               className="px-4 py-2 bg-card border rounded-md hover:bg-accent transition-colors"
             >
               Teekay Products

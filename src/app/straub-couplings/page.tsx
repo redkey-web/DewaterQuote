@@ -117,8 +117,7 @@ export default async function StraubCouplingsRepairClampsPage() {
       <OrganizationJsonLd />
 
       {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
+      <div className="relative overflow-hidden border-b bg-white">
         <div className="max-w-7xl mx-auto px-6 py-16 relative">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">

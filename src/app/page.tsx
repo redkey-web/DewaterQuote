@@ -395,7 +395,7 @@ export default function HomePage() {
                   <Link href="/basket-strainers" className="w-full cursor-pointer">Basket Strainers</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/duplex-strainers" className="w-full cursor-pointer">Duplex Strainers</Link>
+                  <Link href="/duplex-basket-strainers" className="w-full cursor-pointer">Duplex Strainers</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -404,8 +404,7 @@ export default function HomePage() {
       </section>
 
       {/* Brand Logos - Infinite Scroll Carousel */}
-      <section className="py-8 bg-muted/50 border-y border-border overflow-hidden">
-        <h2 className="text-center text-base md:text-lg font-medium text-foreground/70 mb-6">Pipeline products from trusted brands</h2>
+      <section className="py-4 bg-muted/50 border-y border-border overflow-hidden">
         <div className="brand-carousel-wrapper">
           <div className="brand-carousel-track">
             {/* First set of logos */}
