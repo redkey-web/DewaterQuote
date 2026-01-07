@@ -297,7 +297,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("products")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -393,7 +393,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("industries")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("industries")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -458,7 +458,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("brands")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-b border-white/30 dark:border-gray-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("brands")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -522,7 +522,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("resources")}
                   />
                   <div
-                    className="absolute top-[calc(100%+8px)] right-0 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border border-white/30 dark:border-gray-700/50 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.4),inset_0_-1px_0_rgba(0,0,0,0.05)] z-[100] w-56 animate-dropdown-slide overflow-hidden"
+                    className="absolute top-[calc(100%+8px)] right-0 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl z-[100] w-56 animate-dropdown-slide overflow-hidden"
                     onMouseEnter={() => setActiveMenu("resources")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >

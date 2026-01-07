@@ -244,7 +244,7 @@ export default function HomePage() {
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
           <p className="text-xl md:text-2xl text-white/90 font-medium mb-4 tracking-wide drop-shadow-md">
-            Australia's Industrial Piping Specialists
+            Australia's Industrial Pipe Fittings Specialists
           </p>
           <div className="relative w-full max-w-2xl mx-auto" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
