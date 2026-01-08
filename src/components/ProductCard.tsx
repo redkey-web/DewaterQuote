@@ -83,14 +83,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Brand tab - in folder tab area (top left) */}
           <div className="absolute top-0 left-[4%]">
             <div
-              className={`${colors.bg} ${colors.text} px-5 py-2 rounded-b-xl font-semibold text-sm`}
+              className={`${colors.bg} ${colors.text} px-12 py-2 rounded-b-xl font-semibold text-sm`}
             >
               {product.brand}
             </div>
           </div>
 
-          {/* Product name - bottom */}
-          <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
+          {/* Product name - bottom with gradient background for readability */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/95 to-transparent dark:from-zinc-800 dark:via-zinc-800/95 pt-8 px-4 pb-3">
             <h3
               className="text-black dark:text-white font-semibold text-sm line-clamp-2"
               data-testid={`text-product-name-${product.id}`}

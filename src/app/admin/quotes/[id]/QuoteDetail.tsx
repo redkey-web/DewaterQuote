@@ -31,8 +31,10 @@ import {
   FileText,
   Save,
   Download,
+  Eye,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { SendQuoteDialog } from '@/components/admin/SendQuoteDialog';
 
 type Address = {
   street: string;
