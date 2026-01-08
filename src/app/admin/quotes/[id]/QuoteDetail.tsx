@@ -97,7 +97,7 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
   const [shippingNotes, setShippingNotes] = useState(quote.shippingNotes || '');
   const [internalNotes, setInternalNotes] = useState(quote.internalNotes || '');
   const [isSaving, setIsSaving] = useState(false);
-  const [isForwarding, setIsForwarding] = useState(false);
+  const [sendDialogOpen, setSendDialogOpen] = useState(false);
 
   const formatAddress = (addr: Address) =>
     `${addr.street}, ${addr.suburb} ${addr.state} ${addr.postcode}`;
@@ -138,34 +138,20 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
     }
   };
 
-  const handleForward = async () => {
-    if (!shippingCost && !confirm('Forward quote without shipping cost?')) {
-      return;
-    }
-
-    setIsForwarding(true);
-    try {
-      const response = await fetch(`/api/admin/quotes/${quote.id}/forward`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          shippingCost: shippingCost || null,
-          shippingNotes: shippingNotes || null,
-        }),
-      });
-
-      if (!response.ok) throw new Error('Failed to forward');
-
-      setStatus('forwarded');
-      toast({ title: 'Quote forwarded to customer' });
-    } catch {
-      toast({ title: 'Failed to forward quote', variant: 'destructive' });
-    } finally {
-      setIsForwarding(false);
-    }
+  const handleSendSuccess = () => {
+    setStatus('forwarded');
+    toast({ title: 'Quote sent to customer successfully' });
   };
 
   const handleDownloadPdf = () => {
+    const params = new URLSearchParams();
+    if (shippingCost) params.set('shipping', shippingCost);
+    if (shippingNotes) params.set('shippingNotes', shippingNotes);
+    const url = `/api/admin/quotes/${quote.id}/pdf${params.toString() ? `?${params.toString()}` : ''}`;
+    window.open(url, '_blank');
+  };
+
+  const handlePrintView = () => {
     window.open(`/admin/quotes/${quote.id}/print`, '_blank');
   };
 
@@ -189,6 +175,10 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
           <Badge className={statusColors[status]}>{status}</Badge>
         </div>
         <div className="flex gap-2">
+          <Button variant="outline" onClick={handlePrintView}>
+            <Eye className="h-4 w-4 mr-1" />
+            Print
+          </Button>
           <Button variant="outline" onClick={handleDownloadPdf}>
             <Download className="h-4 w-4 mr-1" />
             PDF
@@ -197,9 +187,9 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
             <Save className="h-4 w-4 mr-1" />
             {isSaving ? 'Saving...' : 'Save'}
           </Button>
-          <Button onClick={handleForward} disabled={isForwarding}>
+          <Button onClick={() => setSendDialogOpen(true)}>
             <Send className="h-4 w-4 mr-1" />
-            {isForwarding ? 'Sending...' : 'Forward to Client'}
+            Send to Client
           </Button>
         </div>
       </div>
@@ -438,6 +428,19 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
           </div>
         </div>
       </div>
+
+      {/* Send Quote Dialog */}
+      <SendQuoteDialog
+        open={sendDialogOpen}
+        onOpenChange={setSendDialogOpen}
+        quoteId={quote.id}
+        quoteNumber={quote.quoteNumber}
+        customerEmail={quote.email}
+        customerName={quote.contactName}
+        shippingCost={shippingCost}
+        shippingNotes={shippingNotes}
+        onSuccess={handleSendSuccess}
+      />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import {
@@ -57,10 +58,26 @@ const statusColors: Record<string, string> = {
 };
 
 export function QuotesTable({ quotes }: { quotes: Quote[] }) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const initialStatus = searchParams.get('status') || 'all';
+
   const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
   const [sortKey, setSortKey] = useState<SortKey>('date');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+
+  // Update URL when status filter changes
+  const handleStatusChange = (value: string) => {
+    setStatusFilter(value);
+    const params = new URLSearchParams(searchParams.toString());
+    if (value === 'all') {
+      params.delete('status');
+    } else {
+      params.set('status', value);
+    }
+    router.replace(`/admin/quotes${params.toString() ? `?${params.toString()}` : ''}`);
+  };
 
   const filteredAndSortedQuotes = useMemo(() => {
     let result = [...quotes];
@@ -169,7 +186,7 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
           />
         </div>
 
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
+        <Select value={statusFilter} onValueChange={handleStatusChange}>
           <SelectTrigger className="w-[150px]">
             <SelectValue placeholder="All Statuses" />
           </SelectTrigger>

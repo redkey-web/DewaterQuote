@@ -6,6 +6,15 @@ import { verifyTurnstileToken } from "@/lib/turnstile"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
 
+// ============================================
+// DEV MODE BYPASS
+// ============================================
+// IMPORTANT: These checks are ONLY for local development.
+// In production (NODE_ENV !== 'development'), all security
+// features (Turnstile, email) are REQUIRED.
+// ============================================
+const IS_DEV = process.env.NODE_ENV === "development"
+
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
@@ -101,7 +110,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify Turnstile token (if configured)
-    if (process.env.TURNSTILE_SECRET_KEY) {
+    // DEV BYPASS: Skip Turnstile in development mode
+    if (process.env.TURNSTILE_SECRET_KEY && !IS_DEV) {
       if (!data.turnstileToken) {
         return NextResponse.json(
           { error: "Please complete the verification challenge" },
@@ -116,15 +126,21 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         )
       }
+    } else if (IS_DEV) {
+      console.log("⚠️ DEV MODE: Skipping Turnstile verification")
     }
 
     // Check for SendGrid API key
-    if (!process.env.SENDGRID_API_KEY) {
+    // DEV BYPASS: Allow quote submission without email in development
+    const skipEmail = IS_DEV && !process.env.SENDGRID_API_KEY
+    if (!process.env.SENDGRID_API_KEY && !IS_DEV) {
       console.error("SENDGRID_API_KEY is not configured")
       return NextResponse.json(
         { error: "Email service not configured" },
         { status: 500 }
       )
+    } else if (skipEmail) {
+      console.log("⚠️ DEV MODE: Email sending will be skipped (no SENDGRID_API_KEY)")
     }
 
     // Save quote to database
@@ -477,15 +493,25 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     }
 
     // Send both emails
-    await Promise.all([
-      sgMail.send(businessEmail),
-      sgMail.send(customerEmail),
-    ])
+    // DEV BYPASS: Skip email sending if no SendGrid key in development
+    if (skipEmail) {
+      console.log("⚠️ DEV MODE: Emails NOT sent. Quote saved to database.")
+      console.log(`   Quote Number: ${quoteNumber}`)
+      console.log(`   Quote ID: ${savedQuoteId}`)
+      console.log(`   View at: /admin/quotes/${savedQuoteId}`)
+    } else {
+      await Promise.all([
+        sgMail.send(businessEmail),
+        sgMail.send(customerEmail),
+      ])
+    }
 
     return NextResponse.json({
       success: true,
       quoteNumber,
       quoteId: savedQuoteId,
+      // DEV: Include extra info in dev mode
+      ...(IS_DEV && { devMode: true, emailSkipped: skipEmail }),
     })
   } catch (error) {
     console.error("Quote form error:", error)
