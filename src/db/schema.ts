@@ -502,6 +502,10 @@ export const quotes = pgTable('quotes', {
 
   // IP for rate limiting reference
   clientIp: text('client_ip'),
+
+  // Quick approval token (for email approval without login)
+  approvalToken: text('approval_token').unique(),
+  approvalTokenExpiresAt: timestamp('approval_token_expires_at'),
 });
 
 export const quoteItems = pgTable('quote_items', {

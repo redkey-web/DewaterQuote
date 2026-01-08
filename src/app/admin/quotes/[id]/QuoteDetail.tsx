@@ -187,9 +187,12 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
             <Save className="h-4 w-4 mr-1" />
             {isSaving ? 'Saving...' : 'Save'}
           </Button>
-          <Button onClick={() => setSendDialogOpen(true)}>
+          <Button
+            onClick={() => setSendDialogOpen(true)}
+            className="bg-sky-500 hover:bg-sky-600 text-white"
+          >
             <Send className="h-4 w-4 mr-1" />
-            Send to Client
+            Send Approved Quote
           </Button>
         </div>
       </div>

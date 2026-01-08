@@ -3,6 +3,7 @@ import sgMail from "@sendgrid/mail"
 import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 import { verifyTurnstileToken } from "@/lib/turnstile"
+import { generateApprovalToken, getTokenExpiration } from "@/lib/tokens"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
 
@@ -145,6 +146,8 @@ export async function POST(request: NextRequest) {
 
     // Save quote to database
     const quoteNumber = generateQuoteNumber()
+    const approvalToken = generateApprovalToken()
+    const approvalTokenExpiresAt = getTokenExpiration(7) // 7 days
     let savedQuoteId: number | undefined
 
     try {
@@ -164,6 +167,8 @@ export async function POST(request: NextRequest) {
         certCount: data.totals.certCount,
         hasUnpricedItems: data.totals.hasUnpricedItems,
         clientIp: ip,
+        approvalToken,
+        approvalTokenExpiresAt,
       }).returning({ id: quotes.id })
 
       savedQuoteId = savedQuote.id
@@ -276,7 +281,23 @@ export async function POST(request: NextRequest) {
       subject: `[${quoteNumber}] Quote Request: ${data.companyName} - ${data.contactName} (${data.items.length} items)`,
       html: `
         <h2>New Quote Request</h2>
-        <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Quote Reference: <strong>${quoteNumber}</strong>${savedQuoteId ? ` | <a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/admin/quotes/${savedQuoteId}">View in Admin</a>` : ""}</p>
+        <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
+          Quote Reference: <strong>${quoteNumber}</strong>
+          ${savedQuoteId ? ` | <a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/admin/quotes/${savedQuoteId}">View in Admin</a>` : ""}
+        </p>
+
+        <div style="background: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
+          <p style="margin: 0 0 12px 0; font-weight: 600; color: #0369a1;">Quick Actions:</p>
+          <a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/approve-quote/${approvalToken}"
+             style="display: inline-block; background: #0ea5e9; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; margin-right: 12px;">
+            📧 Quick Approve & Send
+          </a>
+          ${savedQuoteId ? `<a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/admin/quotes/${savedQuoteId}"
+             style="display: inline-block; background: #64748b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600;">
+            ⚙️ Full Admin Panel
+          </a>` : ""}
+          <p style="margin: 12px 0 0 0; font-size: 12px; color: #64748b;">Quick Approve link expires in 7 days</p>
+        </div>
 
         <h3>Company Details</h3>
         <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
