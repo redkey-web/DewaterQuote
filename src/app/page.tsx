@@ -181,7 +181,7 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden">
         {/* Bulk Pricing Ticker */}
         <div
           className="absolute top-0 left-0 right-0 z-20 py-2 overflow-hidden"
@@ -240,7 +240,7 @@ export default function HomePage() {
             backgroundPosition: "center center",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/50" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
           <p className="text-xl md:text-2xl text-white/90 font-medium mb-4 tracking-wide drop-shadow-md">
@@ -259,7 +259,7 @@ export default function HomePage() {
                   ref={heroInputRef}
                   type="text"
                   placeholder="Search pipe fittings, valves, couplings..."
-                  className="w-full h-14 md:h-16 pl-14 pr-6 text-lg rounded-2xl bg-zinc-100 border border-zinc-300 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_2px_rgba(0,0,0,0.1)] focus:outline-none focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_2px_rgba(0,0,0,0.1),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
+                  className="w-full h-14 md:h-16 pl-14 pr-6 text-lg rounded-2xl bg-zinc-200 border border-zinc-400 shadow-[inset_0_2px_6px_rgba(0,0,0,0.2),inset_0_1px_2px_rgba(0,0,0,0.15)] focus:outline-none focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.2),inset_0_1px_2px_rgba(0,0,0,0.15),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary/50 transition-all placeholder:text-zinc-500 text-zinc-900"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -601,6 +601,48 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Introduction Section */}
+      <section className="py-20 px-6 lg:px-8 bg-background">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
+                Perth-Based Specialists
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">QUALITY PIPE FITTINGS FOR AUSTRALIAN INDUSTRY</h2>
+              <h3 className="text-xl font-semibold text-muted-foreground mb-4">
+                Trusted brands, technical expertise, and genuine factory support
+              </h3>
+              <p className="text-base text-foreground/80 mb-6 leading-relaxed">
+                We specialise in pipe couplings, valves, expansion joints, and strainers from world-leading manufacturers including Straub, Orbit, Teekay, Defender Valves, and Bore-Flex. Every product is genuine, backed by full factory support and detailed technical specifications.
+              </p>
+              <p className="text-base text-foreground/80 mb-8 leading-relaxed">
+                Since 2015, we've been supplying water treatment, mining, irrigation, and industrial projects across Australia. Our Perth warehouse stocks a comprehensive range with fast delivery to all metro areas and expert technical support for every application.
+              </p>
+              <Link href="/about">
+                <Button size="lg" data-testid="button-learn-more">
+                  Learn More About Us <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 gap-6">
+              <Card className="p-8">
+                <h4 className="font-semibold text-xl mb-3">Trusted Brands</h4>
+                <p className="text-muted-foreground mb-4">
+                  Direct partnerships with manufacturers like Straub, Orbit, and Teekay ensuring genuine products with factory support
+                </p>
+              </Card>
+              <Card className="p-8">
+                <h4 className="font-semibold text-xl mb-3">Technical Transparency</h4>
+                <p className="text-muted-foreground mb-4">
+                  Detailed specs, drawings, and pressure ratings available for every product to support your approval process
+                </p>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section className="py-20 px-6 lg:px-8 bg-card">
         <div className="max-w-7xl mx-auto">
@@ -646,11 +688,23 @@ export default function HomePage() {
       </section>
 
       {/* Industry Solutions */}
-      <section className="py-20 px-6 lg:px-8 bg-muted/30">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-6 lg:px-8 bg-slate-900 relative overflow-hidden">
+        {/* Glowing pipes pattern underlay */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-20"
+          style={{
+            backgroundImage: 'url(/images/hero-pipeline.webp)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            filter: 'brightness(0.4) contrast(1.2)',
+            mixBlendMode: 'screen'
+          }}
+        />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">INDUSTRY SOLUTIONS</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">INDUSTRY SOLUTIONS</h2>
+            <p className="text-lg text-gray-300">
               No matter what field you're in, we have the perfect solution for you.
             </p>
           </div>
@@ -677,49 +731,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* About Section */}
-      <section className="py-20 px-6 lg:px-8 bg-muted/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
-                who we are
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">ABOUT US</h2>
-              <h3 className="text-xl font-semibold text-muted-foreground mb-4">
-                Quality pipe fittings and valves for Australian industry
-              </h3>
-              <p className="text-base text-foreground/80 mb-6 leading-relaxed">
-                Dewater Products is an Australian owned and operated business based in Perth. We specialise in pipe couplings, valves, expansion joints, and strainers from trusted brands including Straub, Orbit, Teekay, and Defender Valves.
-              </p>
-              <p className="text-base text-foreground/80 mb-8 leading-relaxed">
-                Since 2015, we've been supplying the Australian market with quality products backed by technical expertise. Our team provides product advice and support for water treatment, mining, irrigation, and industrial applications.
-              </p>
-              <Link href="/about">
-                <Button size="lg" data-testid="button-learn-more">
-                  Learn More <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 gap-6">
-              <Card className="p-8">
-                <h4 className="font-semibold text-xl mb-3">Trusted Brands</h4>
-                <p className="text-muted-foreground mb-4">
-                  We work directly with manufacturers like Straub, Orbit, and Teekay to supply genuine products with factory support
-                </p>
-              </Card>
-              <Card className="p-8">
-                <h4 className="font-semibold text-xl mb-3">Technical Transparency</h4>
-                <p className="text-muted-foreground mb-4">
-                  Detailed specs, drawings, and pressure ratings available for every product to support your approval process
-                </p>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
 
       {/* FAQ Section */}
       <section className="py-20 px-6 lg:px-8 bg-muted/30">

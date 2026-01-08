@@ -27,3 +27,4 @@ _deprecated
 test-results/
 .env.vercel
 playwright-report/
+output/

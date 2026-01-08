@@ -1,77 +1,82 @@
 #!/usr/bin/env python3
 """
-Remove backgrounds from product images using rembg.
-Creates transparent PNG versions alongside originals.
+Background Removal Script using rembg (FREE, no API key needed)
+
+Setup:
+    pip install rembg pillow requests
+
+Usage:
+    # Process specific image URLs
+    python scripts/remove-backgrounds.py --urls "https://example.com/image.png" --process
 """
 
 import os
 import sys
+import argparse
+import requests
+from io import BytesIO
 from pathlib import Path
 
-# Add user's Python bin to path for rembg
-sys.path.insert(0, '/Users/redkey/Library/Python/3.9/lib/python/site-packages')
+try:
+    from rembg import remove
+    from PIL import Image
+except ImportError:
+    print("❌ Required packages not installed")
+    print("\nInstall with: pip install rembg pillow requests")
+    sys.exit(1)
 
-from rembg import remove
-from PIL import Image
+def download_image(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    return Image.open(BytesIO(response.content))
 
-INPUT_DIR = Path('./public/images/products/optimized')
-OUTPUT_DIR = Path('./public/images/products/nobg')
+def remove_background(image):
+    img_byte_arr = BytesIO()
+    image.save(img_byte_arr, format='PNG')
+    img_byte_arr = img_byte_arr.getvalue()
+    output = remove(img_byte_arr)
+    return Image.open(BytesIO(output))
 
-def process_image(input_path: Path, output_path: Path) -> bool:
-    """Remove background from a single image."""
-    try:
-        with Image.open(input_path) as img:
-            # Convert to RGBA if needed
-            if img.mode != 'RGBA':
-                img = img.convert('RGBA')
-
-            # Remove background
-            output = remove(img)
-
-            # Save as PNG with transparency
-            output.save(output_path, 'PNG')
-            return True
-    except Exception as e:
-        print(f"  Error: {e}")
-        return False
+def save_image(image, filename, output_dir="output"):
+    os.makedirs(output_dir, exist_ok=True)
+    base_name = Path(filename).stem
+    new_filename = f"{base_name}-no-bg.png"
+    output_path = os.path.join(output_dir, new_filename)
+    image.save(output_path, "PNG")
+    return output_path
 
 def main():
-    # Create output directory
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--process", action="store_true")
+    parser.add_argument("--urls", type=str, required=True)
+    parser.add_argument("--output", type=str, default="output")
+    args = parser.parse_args()
 
-    # Get all main product images (not alt images)
-    image_files = sorted([
-        f for f in INPUT_DIR.glob('*.jpg')
-        if '_alt' not in f.stem  # Only main images
-    ])
+    urls = [url.strip() for url in args.urls.split(",")]
+    print(f"🔍 Processing {len(urls)} image(s)...\n")
 
-    print(f"\nRemoving backgrounds from {len(image_files)} main product images...")
-    print(f"Output directory: {OUTPUT_DIR}\n")
-
-    success = 0
-    failed = 0
-
-    for img_path in image_files:
-        output_name = f"{img_path.stem}_nobg.png"
-        output_path = OUTPUT_DIR / output_name
-
-        if output_path.exists():
-            print(f"  Skip {img_path.name} (already exists)")
-            success += 1
+    for idx, url in enumerate(urls, 1):
+        print(f"{idx}/{len(urls)}: {url}")
+        
+        if not args.process:
+            print("  [DRY RUN]")
             continue
 
-        print(f"  Processing {img_path.name}...", end=' ', flush=True)
+        try:
+            print("  ⬇️  Downloading...")
+            img = download_image(url)
+            print("  🎨 Removing background...")
+            processed = remove_background(img)
+            filename = url.split('/')[-1]
+            output_path = save_image(processed, filename, args.output)
+            print(f"  ✅ {output_path}")
+        except Exception as e:
+            print(f"  ❌ {e}")
 
-        if process_image(img_path, output_path):
-            size_kb = output_path.stat().st_size / 1024
-            print(f"OK ({size_kb:.0f}KB)")
-            success += 1
-        else:
-            failed += 1
+    if not args.process:
+        print(f"\n💡 Run with --process to actually remove backgrounds")
+    else:
+        print(f"\n✨ Done! Check {args.output}/ directory")
 
-    print(f"\n{'='*50}")
-    print(f"Complete! Processed: {success}, Failed: {failed}")
-    print(f"Output: {OUTPUT_DIR}")
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
