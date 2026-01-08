@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { User, LogOut, Menu } from 'lucide-react';
+import { User, LogOut, Menu, HelpCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Link from 'next/link';
@@ -23,6 +23,7 @@ import {
   Building2,
   FileImage,
   Settings,
+  HelpCircle as HelpIcon,
 } from 'lucide-react';
 
 interface AdminHeaderProps {
@@ -39,6 +40,7 @@ const navigation = [
   { name: 'Brands', href: '/admin/brands', icon: Building2 },
   { name: 'Files', href: '/admin/files', icon: FileImage },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
+  { name: 'Help', href: '/admin/help', icon: HelpIcon },
 ];
 
 export function AdminHeader({ user }: AdminHeaderProps) {
@@ -90,6 +92,14 @@ export function AdminHeader({ user }: AdminHeaderProps) {
 
       <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
         <div className="flex flex-1" />
+
+        {/* Help button */}
+        <Link href="/admin/help" title="User Manual">
+          <Button variant="ghost" size="icon" className="text-gray-600 hover:text-blue-600">
+            <HelpCircle className="h-5 w-5" />
+            <span className="sr-only">Help</span>
+          </Button>
+        </Link>
 
         {/* User dropdown */}
         <div className="flex items-center gap-x-4 lg:gap-x-6">

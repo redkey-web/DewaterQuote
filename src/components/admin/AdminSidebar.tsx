@@ -14,6 +14,7 @@ import {
   Settings,
   ExternalLink,
   FileText,
+  HelpCircle,
 } from 'lucide-react';
 
 const navigation = [
@@ -26,6 +27,7 @@ const navigation = [
   { name: 'Brands', href: '/admin/brands', icon: Building2 },
   { name: 'Files', href: '/admin/files', icon: FileImage },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
+  { name: 'Help', href: '/admin/help', icon: HelpCircle },
 ];
 
 export function AdminSidebar() {
