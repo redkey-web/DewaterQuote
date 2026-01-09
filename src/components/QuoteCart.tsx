@@ -23,7 +23,7 @@ import OrderBumps from "./OrderBumps"
 
 export default function QuoteCart() {
   const router = useRouter()
-  const { items, isCartOpen, closeCart, removeItem, updateItemQuantity, addItem } = useQuote()
+  const { items, isCartOpen, closeCart, removeItem, updateItemQuantity, toggleMaterialCert, addItem } = useQuote()
   const { isAustralia } = useGeo()
   const [isVisible, setIsVisible] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -145,12 +145,19 @@ export default function QuoteCart() {
                               {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
                             </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
-                            {item.materialTestCert && (
-                              <Badge variant="outline" className="text-xs mt-1 gap-1">
-                                <FileCheck className="w-3 h-3" />
-                                + Cert
-                              </Badge>
-                            )}
+                            {/* Material Certificate Toggle */}
+                            <button
+                              onClick={() => toggleMaterialCert(item.id)}
+                              className={`flex items-center gap-1 text-xs mt-1 px-2 py-0.5 rounded-md border transition-colors ${
+                                item.materialTestCert
+                                  ? "bg-primary/10 border-primary text-primary"
+                                  : "bg-muted/50 border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                              }`}
+                              title={item.materialTestCert ? "Remove material certificate" : "Add material certificate (+$350)"}
+                            >
+                              <FileCheck className="w-3 h-3" />
+                              {item.materialTestCert ? "Cert Added" : "+ Add Cert"}
+                            </button>
                             {isAustralia && (
                               <div className="flex items-center gap-2 mt-1 flex-wrap">
                                 {hasDiscount ? (
@@ -347,12 +354,19 @@ export default function QuoteCart() {
                               {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
                             </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
-                            {item.materialTestCert && (
-                              <Badge variant="outline" className="text-xs mt-1 gap-1">
-                                <FileCheck className="w-3 h-3" />
-                                + Cert
-                              </Badge>
-                            )}
+                            {/* Material Certificate Toggle */}
+                            <button
+                              onClick={() => toggleMaterialCert(item.id)}
+                              className={`flex items-center gap-1 text-xs mt-1 px-2 py-0.5 rounded-md border transition-colors ${
+                                item.materialTestCert
+                                  ? "bg-primary/10 border-primary text-primary"
+                                  : "bg-muted/50 border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                              }`}
+                              title={item.materialTestCert ? "Remove material certificate" : "Add material certificate (+$350)"}
+                            >
+                              <FileCheck className="w-3 h-3" />
+                              {item.materialTestCert ? "Cert Added" : "+ Add Cert"}
+                            </button>
                             <p className="text-sm text-chart-3 font-medium mt-1">Price on request</p>
                             {/* Quantity Controls for Unpriced Items */}
                             <div className="flex items-center gap-2 mt-2">

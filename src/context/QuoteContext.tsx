@@ -29,6 +29,7 @@ interface QuoteContextValue {
   addItem: (item: QuoteItem, triggerElement?: HTMLElement | null) => void
   removeItem: (itemId: string) => void
   updateItemQuantity: (itemId: string, quantity: number, triggerElement?: HTMLElement | null) => void
+  toggleMaterialCert: (itemId: string) => void
   clearQuote: () => void
 }
 
@@ -44,6 +45,7 @@ const defaultContextValue: QuoteContextValue = {
   addItem: () => {},
   removeItem: () => {},
   updateItemQuantity: () => {},
+  toggleMaterialCert: () => {},
   clearQuote: () => {},
 }
 
@@ -205,6 +207,16 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
     [removeItem, checkDiscountTierChange]
   )
 
+  const toggleMaterialCert = useCallback((itemId: string) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === itemId
+          ? { ...item, materialTestCert: !item.materialTestCert }
+          : item
+      )
+    )
+  }, [])
+
   const clearQuote = useCallback(() => {
     setItems([])
     previousTierRef.current = 0
@@ -223,6 +235,7 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
     addItem,
     removeItem,
     updateItemQuantity,
+    toggleMaterialCert,
     clearQuote,
   }
 
