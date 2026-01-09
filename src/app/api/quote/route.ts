@@ -6,6 +6,7 @@ import { verifyTurnstileToken } from "@/lib/turnstile"
 import { generateApprovalToken, getTokenExpiration } from "@/lib/tokens"
 import { generateQuotePDF } from "@/lib/generate-quote-pdf"
 import { classifyDelivery } from "@/lib/postcode"
+import { getDiscountPercentage } from "@/lib/quote"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
 
@@ -300,6 +301,27 @@ export async function POST(request: NextRequest) {
           </a>` : ""}
           <p style="margin: 12px 0 0 0; font-size: 12px; color: #64748b;">Quick Approve link expires in 7 days</p>
         </div>
+
+        ${(() => {
+          const discountPct = getDiscountPercentage(data.totals.itemCount)
+          if (discountPct > 0) {
+            const discountColor = discountPct >= 15 ? '#dc2626' : discountPct >= 10 ? '#ea580c' : '#ca8a04'
+            const discountBg = discountPct >= 15 ? '#fef2f2' : discountPct >= 10 ? '#fff7ed' : '#fefce8'
+            const discountBorder = discountPct >= 15 ? '#fecaca' : discountPct >= 10 ? '#fed7aa' : '#fef08a'
+            return `
+        <div style="background: ${discountBg}; border: 2px solid ${discountBorder}; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
+          <p style="margin: 0; font-weight: 600; color: ${discountColor}; font-size: 16px;">
+            📊 Customer qualifies for <strong>${discountPct}% bulk discount</strong> (${data.totals.itemCount} items total)
+          </p>
+          ${data.totals.hasUnpricedItems ? `
+          <p style="margin: 8px 0 0 0; color: #666; font-size: 14px;">
+            ⚠️ <strong>Action required:</strong> Apply ${discountPct}% discount to manually priced items (POA) to match.
+          </p>
+          ` : ''}
+        </div>`
+          }
+          return ''
+        })()}
 
         <h3>Company Details</h3>
         <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
