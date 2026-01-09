@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { X, Trash2, Send, TrendingDown, Plus, Minus, Truck, FileCheck } from "lucide-react"
+import { X, Trash2, Send, TrendingDown, Plus, Minus, Truck, FileCheck, Square, CheckSquare } from "lucide-react"
 import {
   getQuoteItemPrice,
   getQuoteItemSKU,
@@ -148,15 +148,20 @@ export default function QuoteCart() {
                             {/* Material Certificate Toggle */}
                             <button
                               onClick={() => toggleMaterialCert(item.id)}
-                              className={`flex items-center gap-1 text-xs mt-1 px-2 py-0.5 rounded-md border transition-colors ${
+                              className={`flex items-center gap-1.5 text-xs mt-1 px-2 py-1 rounded-md border transition-colors ${
                                 item.materialTestCert
                                   ? "bg-primary/10 border-primary text-primary"
                                   : "bg-muted/50 border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                               }`}
                               title={item.materialTestCert ? "Remove material certificate" : "Add material certificate (+$350)"}
                             >
+                              {item.materialTestCert ? (
+                                <CheckSquare className="w-3.5 h-3.5" />
+                              ) : (
+                                <Square className="w-3.5 h-3.5" />
+                              )}
                               <FileCheck className="w-3 h-3" />
-                              {item.materialTestCert ? "Cert Added" : "+ Add Cert"}
+                              {item.materialTestCert ? "Cert Added" : "Add Cert (+$350)"}
                             </button>
                             {isAustralia && (
                               <div className="flex items-center gap-2 mt-1 flex-wrap">
@@ -357,15 +362,20 @@ export default function QuoteCart() {
                             {/* Material Certificate Toggle */}
                             <button
                               onClick={() => toggleMaterialCert(item.id)}
-                              className={`flex items-center gap-1 text-xs mt-1 px-2 py-0.5 rounded-md border transition-colors ${
+                              className={`flex items-center gap-1.5 text-xs mt-1 px-2 py-1 rounded-md border transition-colors ${
                                 item.materialTestCert
                                   ? "bg-primary/10 border-primary text-primary"
                                   : "bg-muted/50 border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                               }`}
                               title={item.materialTestCert ? "Remove material certificate" : "Add material certificate (+$350)"}
                             >
+                              {item.materialTestCert ? (
+                                <CheckSquare className="w-3.5 h-3.5" />
+                              ) : (
+                                <Square className="w-3.5 h-3.5" />
+                              )}
                               <FileCheck className="w-3 h-3" />
-                              {item.materialTestCert ? "Cert Added" : "+ Add Cert"}
+                              {item.materialTestCert ? "Cert Added" : "Add Cert (+$350)"}
                             </button>
                             <p className="text-sm text-chart-3 font-medium mt-1">Price on request</p>
                             {/* Quantity Controls for Unpriced Items */}
