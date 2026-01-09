@@ -1260,3 +1260,60 @@
     transform: scale(1) !important;
   }
 }
+
+/* ========================================
+   HEADER GRADIENT BLUR EFFECT
+   Gradient opacity (opaque top → transparent bottom)
+   with opposite blur (strong top → weak bottom)
+   ======================================== */
+
+.header-gradient-blur {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.3) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .header-gradient-blur {
+  background: linear-gradient(to bottom, rgba(3,7,18,0.95) 0%, rgba(3,7,18,0.7) 50%, rgba(3,7,18,0.3) 100%);
+}
+
+/* ========================================
+   MOBILE-ONLY POLISH
+   All changes below only affect mobile (<768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Bulk pricing ticker - smaller text on mobile */
+  .ticker-content {
+    font-size: 0.75rem;
+  }
+
+  /* Category pills - tighter on mobile */
+  .pill-swipe {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8rem;
+  }
+
+  /* Ensure adequate touch targets (44px min) */
+  button, a, [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Product card improvements */
+  .product-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Small mobile - even tighter spacing */
+  .pill-swipe {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  /* Ticker even smaller on tiny screens */
+  .ticker-content {
+    font-size: 0.7rem;
+  }
+}

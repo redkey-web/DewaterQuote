@@ -273,23 +273,27 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       <ProductJsonLd product={product} url={productUrl} />
       <BreadcrumbJsonLd items={breadcrumbs} />
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Breadcrumb Navigation */}
+        {/* Breadcrumb Navigation - Middle items hidden on mobile */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
-            {breadcrumbItems.map((item, index) => (
-              <BreadcrumbItem key={item.slug || 'home'}>
-                {index < breadcrumbItems.length - 1 ? (
-                  <>
-                    <BreadcrumbLink asChild>
-                      <Link href={item.url.replace(baseUrl, '') || '/'}>{item.name}</Link>
-                    </BreadcrumbLink>
-                    <BreadcrumbSeparator />
-                  </>
-                ) : (
-                  <BreadcrumbPage>{item.name}</BreadcrumbPage>
-                )}
-              </BreadcrumbItem>
-            ))}
+            {breadcrumbItems.map((item, index) => {
+              // Hide middle items (category/subcategory) on mobile, show only Home > Product
+              const isMiddle = index > 0 && index < breadcrumbItems.length - 1
+              return (
+                <BreadcrumbItem key={item.slug || 'home'} className={isMiddle ? 'hidden md:inline-flex' : ''}>
+                  {index < breadcrumbItems.length - 1 ? (
+                    <>
+                      <BreadcrumbLink asChild>
+                        <Link href={item.url.replace(baseUrl, '') || '/'}>{item.name}</Link>
+                      </BreadcrumbLink>
+                      <BreadcrumbSeparator className={isMiddle ? 'hidden md:block' : ''} />
+                    </>
+                  ) : (
+                    <BreadcrumbPage>{item.name}</BreadcrumbPage>
+                  )}
+                </BreadcrumbItem>
+              )
+            })}
           </BreadcrumbList>
         </Breadcrumb>
 

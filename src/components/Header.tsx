@@ -198,7 +198,7 @@ export default function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-white/90 via-primary/5 to-white/90 dark:from-gray-950/90 dark:via-primary/10 dark:to-gray-950/90 backdrop-blur-md shadow-sm">
+    <header className="sticky top-0 z-50 header-gradient-blur shadow-sm">
       <div className="max-w-7xl mx-auto px-6">
         {/* Three-column, two-row grid */}
         <div className="hidden lg:grid lg:grid-cols-[auto_1fr_auto] lg:grid-rows-[auto_auto] items-center gap-x-6">
