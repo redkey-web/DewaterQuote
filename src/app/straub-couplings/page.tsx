@@ -136,16 +136,10 @@ export default async function StraubCouplingsRepairClampsPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-black">
                 Straub Couplings & Repair Clamps
               </h1>
-              <p className="text-xl text-black/80 mb-6 max-w-2xl">
+              <p className="text-xl text-black/80 max-w-2xl">
                 Swiss-engineered pipe couplings trusted worldwide for joining, repair, and transition applications.
                 Over 50 years of innovation in maintenance-free pipe connection technology.
               </p>
-              <Link
-                  href="/request-quote"
-                  className="bg-red-600 text-white hover:bg-red-700 inline-flex items-center px-6 py-3 border border-red-600 rounded-md font-medium transition-colors shadow-lg"
-                >
-                  Request a Quote
-                </Link>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-[450px] lg:h-[380px]">

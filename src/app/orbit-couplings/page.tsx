@@ -149,25 +149,10 @@ export default async function OrbitCouplingsPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-orange-900">
                 Orbit Couplings
               </h1>
-              <p className="text-xl text-black mb-6 max-w-2xl">
+              <p className="text-xl text-black max-w-2xl">
                 Australian industrial pipe couplings and repair clamps. Quality 316 stainless steel construction
                 at competitive prices. Straub-compatible dimensions for easy specification.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-orange-600 text-white rounded-md font-medium hover:bg-orange-700 transition-colors shadow-lg"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-white border border-orange-600 text-orange-600 rounded-md font-medium hover:bg-orange-50 transition-colors shadow-sm"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">

@@ -95,25 +95,10 @@ export default async function DefenderValvesPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-blue-900">
                 Defender Valves
               </h1>
-              <p className="text-xl text-blue-800/80 mb-6 max-w-2xl">
+              <p className="text-xl text-blue-800/80 max-w-2xl">
                 High-performance industrial butterfly valves with PTFE lining and 316 stainless steel construction.
                 Reliable flow control for water, chemical, and process applications.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors shadow-lg"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-white border border-blue-600 text-blue-600 rounded-md font-medium hover:bg-blue-50 transition-colors shadow-sm"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden">

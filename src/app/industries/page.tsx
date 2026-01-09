@@ -135,26 +135,11 @@ export default function IndustriesPage() {
         <div className="max-w-7xl mx-auto px-6 py-16 relative">
           <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-5xl font-bold mb-6">Industries We Serve</h1>
-            <p className="text-xl text-muted-foreground mb-6">
+            <p className="text-xl text-muted-foreground">
               Industrial pipe fittings, valves, expansion joints, and couplings for every sector.
               From water treatment to mining, construction to food processing - we supply quality
               products with Australia-wide delivery.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/request-quote"
-                className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
-              >
-                Request a Quote
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
-              >
-                Contact Us
-              </Link>
-            </div>
           </div>
         </div>
       </div>

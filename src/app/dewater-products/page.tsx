@@ -108,25 +108,10 @@ export default async function DewaterProductsPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Dewater Products
               </h1>
-              <p className="text-xl text-white/80 mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 max-w-2xl">
                 Quality industrial pipe fittings, valves, and accessories at competitive prices.
                 Australia-wide delivery from our Perth warehouse.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
-                >
-                  Browse All Products
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center px-6 py-3 bg-white/10 text-white border border-white/20 rounded-md font-medium hover:bg-white/20 transition-colors"
-                >
-                  Contact Us
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 flex items-center justify-center">

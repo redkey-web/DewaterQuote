@@ -158,17 +158,11 @@ export default async function TeekayPage() {
           <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
             Teekay Couplings
           </h1>
-          <p className="text-xl text-white/80 mb-6 max-w-3xl">
+          <p className="text-xl text-white/80 max-w-3xl">
             Mechanical pipe couplings for joining, repairing and connecting pipes without welding.
             The Axilock, Axiflex, Plastlock and PRIMA ranges cover steel, ductile iron, PE and PVC pipes
             across water, fire protection and industrial applications.
           </p>
-          <Link
-            href="/request-quote"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center px-6 py-3 border border-primary rounded-md font-medium shadow-lg transition-colors"
-          >
-            Request a Quote
-          </Link>
         </div>
       </div>
 

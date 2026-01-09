@@ -1003,22 +1003,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-white">{industry.name}</h1>
               <p className="text-xl text-white/90 mb-2">{industry.tagline}</p>
-              <p className="text-white/70 mb-6 max-w-2xl">{industry.description}</p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-md font-medium hover:bg-white/20 transition-colors"
-                >
-                  Request a Quote
-                </Link>
-              </div>
+              <p className="text-white/70 max-w-2xl">{industry.description}</p>
             </div>
             <div className="flex-shrink-0 hidden lg:block">
               <div className="w-32 h-32 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center">

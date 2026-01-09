@@ -119,25 +119,10 @@ export default async function BoreFlexPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Bore-Flex Expansion Joints
               </h1>
-              <p className="text-xl text-gray-100 mb-6 max-w-2xl">
+              <p className="text-xl text-gray-100 max-w-2xl">
                 Designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement.
                 Available in EPDM, Neoprene, NBR, Viton, and Hypalon with multiple flange options.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors shadow-lg"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-white border-2 border-white text-gray-900 rounded-md font-medium hover:bg-gray-100 transition-colors shadow-sm"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">
