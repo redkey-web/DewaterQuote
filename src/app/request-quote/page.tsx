@@ -43,6 +43,8 @@ import {
   Minus,
   Trash2,
   FileCheck,
+  Square,
+  CheckSquare,
 } from "lucide-react"
 import {
   getQuoteItemSKU,
@@ -109,7 +111,7 @@ type QuoteFormValues = z.infer<typeof quoteFormSchema>
 export default function RequestQuotePage() {
   const router = useRouter()
   const { toast } = useToast()
-  const { items: quoteItems, removeItem, clearQuote, updateItemQuantity } = useQuote()
+  const { items: quoteItems, removeItem, clearQuote, updateItemQuantity, toggleMaterialCert } = useQuote()
   const { isAustralia } = useGeo()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -409,12 +411,25 @@ export default function RequestQuotePage() {
                                   {discountPercent}% OFF
                                 </Badge>
                               )}
-                              {item.materialTestCert && (
-                                <Badge variant="outline" className="text-xs mt-1 gap-1 text-primary border-primary/50">
-                                  <FileCheck className="w-3 h-3" />
-                                  + Material Cert{isAustralia && " ($350)"}
-                                </Badge>
-                              )}
+                              {/* Material Certificate Toggle */}
+                              <button
+                                type="button"
+                                onClick={() => toggleMaterialCert(item.id)}
+                                className={`flex items-center gap-1.5 text-xs mt-1 px-2 py-1 rounded-md border transition-colors ${
+                                  item.materialTestCert
+                                    ? "bg-primary/10 border-primary text-primary"
+                                    : "bg-muted/50 border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                                }`}
+                                title={item.materialTestCert ? "Remove material certificate" : "Add material certificate (+$350)"}
+                              >
+                                {item.materialTestCert ? (
+                                  <CheckSquare className="w-3.5 h-3.5" />
+                                ) : (
+                                  <Square className="w-3.5 h-3.5" />
+                                )}
+                                <FileCheck className="w-3 h-3" />
+                                {item.materialTestCert ? "Cert Added" : "Add Cert (+$350)"}
+                              </button>
                             </td>
 
                             {/* SKU */}
