@@ -42,6 +42,28 @@ export function productToQuoteItem(
     // Single price product or POA
     basePrice = product.price
     baseSku = product.sku
+
+    // For single-size products, still capture the size info if available
+    if (product.sizeOptions && product.sizeOptions.length === 1) {
+      const singleSize = product.sizeOptions[0]
+      variation = {
+        size: singleSize.value,
+        sizeLabel: singleSize.label,
+        sku: singleSize.sku || product.sku,
+        unitPrice: singleSize.price || basePrice || 0,
+      }
+    } else if (product.sizeOptions && product.sizeOptions.length > 1 && selectedSize) {
+      // Multiple sizes but priceVaries is false - use selected size for label
+      const sizeOption = product.sizeOptions.find((opt) => opt.value === selectedSize)
+      if (sizeOption) {
+        variation = {
+          size: sizeOption.value,
+          sizeLabel: sizeOption.label,
+          sku: sizeOption.sku || product.sku,
+          unitPrice: sizeOption.price || basePrice || 0,
+        }
+      }
+    }
   }
 
   return {

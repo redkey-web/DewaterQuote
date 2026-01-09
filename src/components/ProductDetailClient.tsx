@@ -205,13 +205,15 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const discountPercentage = getDiscountPercentage(quantity)
   const hasDiscount = isAustralia && discountPercentage > 0 && selectedSizeOption?.price
 
-  // Check if product has size options
+  // Check if product has size options (more than one = needs selector)
   const hasSizeOptions = product.sizeOptions && product.sizeOptions.length > 0
+  const needsSizeSelector = product.sizeOptions && product.sizeOptions.length > 1
+  const hasSingleSize = product.sizeOptions && product.sizeOptions.length === 1
 
   const handleAddToQuote = () => {
     try {
-      // Only require size selection if product has size options
-      if (hasSizeOptions && !selectedSize) {
+      // Only require size selection if product has multiple size options
+      if (needsSizeSelector && !selectedSize) {
         toast({
           title: "No Size Selected",
           description: "Please select a size to add to your quote.",
@@ -221,7 +223,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       }
 
       const quoteItem = productToQuoteItem(product, {
-        selectedSize: hasSizeOptions ? selectedSize : "POA - Contact for sizing",
+        selectedSize: needsSizeSelector ? selectedSize : (hasSingleSize ? product.sizeOptions![0].value : undefined),
         quantity: quantity,
         materialTestCert: materialTestCert,
       })

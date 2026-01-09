@@ -411,24 +411,24 @@ export default function RequestQuotePage() {
                                   {discountPercent}% OFF
                                 </Badge>
                               )}
-                              {/* Material Certificate Toggle */}
+                              {/* Material Certificate Toggle - Prominent red box */}
                               <button
                                 type="button"
                                 onClick={() => toggleMaterialCert(item.id)}
-                                className={`flex items-center gap-1.5 text-xs mt-1 px-2 py-1 rounded-md border transition-colors ${
+                                className={`flex items-center gap-2 text-xs mt-2 px-3 py-2 rounded-md border-2 transition-all ${
                                   item.materialTestCert
-                                    ? "bg-primary/10 border-primary text-primary"
-                                    : "bg-muted/50 border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                                    ? "bg-red-50 dark:bg-red-950 border-red-500 text-red-700 dark:text-red-300 shadow-sm"
+                                    : "bg-red-50/50 dark:bg-red-950/30 border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 hover:border-red-500 hover:bg-red-50"
                                 }`}
                                 title={item.materialTestCert ? "Remove material certificate" : "Add material certificate (+$350)"}
                               >
                                 {item.materialTestCert ? (
-                                  <CheckSquare className="w-3.5 h-3.5" />
+                                  <CheckSquare className="w-4 h-4 flex-shrink-0" />
                                 ) : (
-                                  <Square className="w-3.5 h-3.5" />
+                                  <Square className="w-4 h-4 flex-shrink-0" />
                                 )}
-                                <FileCheck className="w-3 h-3" />
-                                {item.materialTestCert ? "Cert Added" : "Add Cert (+$350)"}
+                                <FileCheck className="w-4 h-4 flex-shrink-0" />
+                                <span className="font-medium">{item.materialTestCert ? "Material Cert Added" : "Add Material Cert (+$350)"}</span>
                               </button>
                             </td>
 
