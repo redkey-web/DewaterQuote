@@ -293,13 +293,13 @@ export async function POST(request: NextRequest) {
           <p style="margin: 0 0 12px 0; font-weight: 600; color: #0369a1;">Quick Actions:</p>
           <a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/approve-quote/${approvalToken}"
              style="display: inline-block; background: #0ea5e9; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; margin-right: 12px;">
-            📧 Quick Approve & Send
+            📧 Re-send Quote
           </a>
           ${savedQuoteId ? `<a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/admin/quotes/${savedQuoteId}"
              style="display: inline-block; background: #64748b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600;">
             ⚙️ Full Admin Panel
           </a>` : ""}
-          <p style="margin: 12px 0 0 0; font-size: 12px; color: #64748b;">Quick Approve link expires in 7 days</p>
+          <p style="margin: 12px 0 0 0; font-size: 12px; color: #64748b;">Customer already received quote automatically. Use Re-send if needed. Link expires in 7 days.</p>
         </div>
 
         ${(() => {
