@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/pipe-repair-clamps",
+    canonical: "https://dewaterproducts.com.au/pipe-repair-clamps",
   },
 }
 
@@ -49,24 +49,9 @@ export default async function PipeRepairClampsPage() {
                 Emergency & Permanent Repairs
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-4">Pipe Repair Clamps</h1>
-              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+              <p className="text-xl text-muted-foreground max-w-2xl">
                 Fast, reliable pipe repair solutions in 316 stainless steel. Seal leaks and cracks without pipe replacement or system shutdown.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             {/* 3-Image Product Showcase */}
             <div className="flex-shrink-0 grid grid-cols-3 gap-4">

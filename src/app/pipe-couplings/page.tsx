@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/pipe-couplings",
+    canonical: "https://dewaterproducts.com.au/pipe-couplings",
   },
 }
 
@@ -244,8 +244,8 @@ export default async function PipeCouplingsPage() {
   const couplingProducts = sortByApplication([...pipeCouplingsProducts, ...repairClampsProducts])
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Pipe Couplings", url: "https://dewater-products.vercel.app/pipe-couplings" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Pipe Couplings", url: "https://dewaterproducts.com.au/pipe-couplings" },
   ]
 
   return (
@@ -289,25 +289,10 @@ export default async function PipeCouplingsPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Pipe Couplings
               </h1>
-              <p className="text-xl text-white/80 mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 max-w-2xl">
                 High-performance pipe couplings for all pipe materials. No welding, no prep –
                 only a torque wrench required. Save time and money with reliable plain-end couplings.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/flange-adaptors",
+    canonical: "https://dewaterproducts.com.au/flange-adaptors",
   },
 }
 
@@ -67,25 +67,10 @@ export default async function FlangeAdaptorsPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6">
                 Flange Adaptors
               </h1>
-              <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
+              <p className="text-xl text-muted-foreground max-w-2xl">
                 316 stainless steel adaptors for connecting plain-ended pipes to flanged equipment.
                 Quick installation without welding or threading, with reliable EPDM sealing.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">

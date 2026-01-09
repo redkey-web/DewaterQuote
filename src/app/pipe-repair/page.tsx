@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/pipe-repair",
+    canonical: "https://dewaterproducts.com.au/pipe-repair",
   },
 }
 
@@ -115,8 +115,8 @@ export default async function PipeRepairPage() {
   const repairProducts = [...pipeCouplingsProducts, ...repairClampsProducts]
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Pipe Repair", url: "https://dewater-products.vercel.app/pipe-repair" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Pipe Repair", url: "https://dewaterproducts.com.au/pipe-repair" },
   ]
 
   return (
@@ -163,21 +163,12 @@ export default async function PipeRepairPage() {
               <p className="text-xl text-white/80 mb-6 max-w-2xl">
                 Repair clamps designed to safely and reliably seal damaged pipes made from steel, cast iron, ductile iron, and plastic. No welding, no prep – just fast, permanent repairs.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <a
-                  href="tel:1300271290"
-                  className="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors border border-red-600"
-                >
-                  Emergency: 1300 271 290
-                </a>
-              </div>
+              <a
+                href="tel:1300271290"
+                className="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors border border-red-600"
+              >
+                Emergency: 1300 271 290
+              </a>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">

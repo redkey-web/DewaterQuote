@@ -275,7 +275,7 @@ export default function Header() {
           <div className="flex items-center justify-end gap-6 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-b border-primary/10">
             <a href="mailto:sales@dewaterproducts.com.au" className="hover:text-primary transition-colors flex items-center gap-1.5">
               <Mail className="w-4 h-4 text-primary" />
-              sales@dewaterproducts.com.au
+              <span className="chrome-text">sales@dewaterproducts.com.au</span>
             </a>
             <a href="tel:1300271290" className="hover:text-primary transition-colors flex items-center gap-1.5">
               <Phone className="w-4 h-4 text-primary" />
@@ -292,12 +292,13 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center justify-center px-4 py-2 rounded text-[15px] transition-all btn-metallic-silver ${
-                  activeMenu === "products" ? "opacity-90" : ""
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors py-2 ${
+                  activeMenu === "products" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
                 }`}
                 data-testid="button-products-menu"
               >
                 Products
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "products" ? "rotate-180" : ""}`} />
               </button>
 
               {activeMenu === "products" && (
@@ -334,16 +335,16 @@ export default function Header() {
 
                         {/* Right: Category Links */}
                         <div className="col-span-8">
-                          <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+                          <div className="columns-2 gap-12">
                             {productsMenu.map((category) => (
-                              <div key={category.title}>
+                              <div key={category.title} className="break-inside-avoid mb-3">
                                 <Link
                                   href={category.url}
                                   className="text-gray-900 dark:text-white font-semibold hover:text-primary hover-underline-scale inline-block transition-colors"
                                 >
                                   {category.title}
                                 </Link>
-                                <ul className="mt-3 space-y-2">
+                                <ul className="mt-2 space-y-1">
                                   {category.items.map((item) => (
                                     <li key={item.name}>
                                       <Link
@@ -373,12 +374,12 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[15px] font-medium transition-colors py-2 ${
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors py-2 ${
                   activeMenu === "industries" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
                 }`}
               >
-                Industries
-                <ChevronDown className={`w-4 h-4 transition-transform ${activeMenu === "industries" ? "rotate-180" : ""}`} />
+                Industry
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "industries" ? "rotate-180" : ""}`} />
               </button>
 
               {activeMenu === "industries" && (
@@ -412,12 +413,12 @@ export default function Header() {
                           </Link>
                         </div>
                         <div className="col-span-8">
-                          <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+                          <div className="columns-2 gap-12">
                             {industriesMenu.map((industry) => (
                               <Link
                                 key={industry.name}
                                 href={industry.url}
-                                className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors py-1"
+                                className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-colors py-1"
                               >
                                 {industry.name}
                               </Link>
@@ -438,12 +439,12 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[15px] font-medium transition-colors py-2 ${
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors py-2 ${
                   activeMenu === "brands" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
                 }`}
               >
                 Brands
-                <ChevronDown className={`w-4 h-4 transition-transform ${activeMenu === "brands" ? "rotate-180" : ""}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "brands" ? "rotate-180" : ""}`} />
               </button>
 
               {activeMenu === "brands" && (
@@ -477,12 +478,12 @@ export default function Header() {
                           </Link>
                         </div>
                         <div className="col-span-8">
-                          <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+                          <div className="columns-2 gap-12">
                             {brandsMenu.map((brand) => (
                               <Link
                                 key={brand.name}
                                 href={brand.url}
-                                className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors py-1"
+                                className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-colors py-1"
                               >
                                 {brand.name}
                               </Link>
@@ -503,12 +504,12 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[15px] font-medium transition-colors py-2 ${
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors py-2 ${
                   activeMenu === "resources" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
                 }`}
               >
                 Resources
-                <ChevronDown className={`w-4 h-4 transition-transform ${activeMenu === "resources" ? "rotate-180" : ""}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "resources" ? "rotate-180" : ""}`} />
               </button>
 
               {activeMenu === "resources" && (
@@ -528,7 +529,7 @@ export default function Header() {
                         <Link
                           key={item.name}
                           href={item.url}
-                          className="block px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
+                          className="block px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-colors"
                         >
                           {item.name}
                         </Link>
@@ -766,7 +767,7 @@ export default function Header() {
                     className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-2"
                   >
                     <Mail className="w-5 h-5 text-primary" />
-                    <span className="text-sm">sales@dewaterproducts.com.au</span>
+                    <span className="text-sm chrome-text">sales@dewaterproducts.com.au</span>
                   </a>
                 </div>
               </div>

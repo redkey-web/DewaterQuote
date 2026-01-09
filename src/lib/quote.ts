@@ -57,6 +57,7 @@ export function productToQuoteItem(
     variation,
     quantity,
     materialTestCert,
+    leadTime: product.leadTime,
   }
 }
 
@@ -147,21 +148,34 @@ export function calculateDiscountedPrice(unitPrice: number, quantity: number): n
 }
 
 /**
- * Calculates the discounted subtotal for a quote item
+ * Calculates the discounted subtotal for a quote item.
+ * @param item - The quote item
+ * @param totalCartQuantity - Total quantity across ALL items in cart (for bulk discount)
+ *                            If not provided, uses item.quantity (legacy per-item behavior)
  */
-export function getQuoteItemDiscountedSubtotal(item: QuoteItem): number | undefined {
+export function getQuoteItemDiscountedSubtotal(
+  item: QuoteItem,
+  totalCartQuantity?: number
+): number | undefined {
   const price = getQuoteItemPrice(item)
   if (price === undefined) return undefined
-  const discountedPrice = calculateDiscountedPrice(price, item.quantity)
+  // Use total cart quantity for discount tier, but multiply by item's own quantity
+  const quantityForDiscount = totalCartQuantity ?? item.quantity
+  const discountedPrice = calculateDiscountedPrice(price, quantityForDiscount)
   return discountedPrice * item.quantity
 }
 
 /**
- * Gets the total savings for a quote item due to bulk pricing discount
+ * Gets the total savings for a quote item due to bulk pricing discount.
+ * @param item - The quote item
+ * @param totalCartQuantity - Total quantity across ALL items in cart (for bulk discount)
  */
-export function getQuoteItemSavings(item: QuoteItem): number {
+export function getQuoteItemSavings(
+  item: QuoteItem,
+  totalCartQuantity?: number
+): number {
   const originalSubtotal = getQuoteItemSubtotal(item)
-  const discountedSubtotal = getQuoteItemDiscountedSubtotal(item)
+  const discountedSubtotal = getQuoteItemDiscountedSubtotal(item, totalCartQuantity)
   if (originalSubtotal === undefined || discountedSubtotal === undefined) return 0
   return originalSubtotal - discountedSubtotal
 }

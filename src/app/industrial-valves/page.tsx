@@ -92,25 +92,10 @@ export default async function IndustrialValvesPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Industrial Valves
               </h1>
-              <p className="text-xl text-white/80 mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 max-w-2xl">
                 Industrial-grade valves for fluid control, isolation, and backflow prevention.
                 Butterfly, gate, ball, check, and specialty valves in 316SS and ductile iron.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">

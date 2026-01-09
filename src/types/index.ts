@@ -101,4 +101,5 @@ export interface QuoteItem {
   variation?: QuoteItemVariation
   quantity: number
   materialTestCert?: boolean
+  leadTime?: string // e.g., "2-3 weeks", "In Stock", "7 weeks FRO"
 }

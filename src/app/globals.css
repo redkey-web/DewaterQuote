@@ -400,13 +400,13 @@
   white-space: nowrap;
 }
 
-/* Brand Carousel - Infinite Scroll */
+/* Brand Carousel - Infinite Scroll (seamless left-to-right marquee) */
 @keyframes brand-scroll {
   0% {
-    transform: translateX(-50%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(0);
+    transform: translateX(-50%);
   }
 }
 
@@ -429,6 +429,50 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
+}
+
+/* Brand logo hover effect - makes logos obviously clickable */
+.brand-logo-link {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand-logo-link:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 4px 16px rgba(57, 197, 218, 0.5));
+}
+
+.brand-logo-link:active {
+  transform: scale(1.08);
+}
+
+/* Sequential blinking dots for typewriter effect */
+@keyframes blink-dot-1 {
+  0%, 33%, 100% { opacity: 0.3; }
+  8%, 25% { opacity: 1; }
+}
+
+@keyframes blink-dot-2 {
+  0%, 33%, 100% { opacity: 0.3; }
+  8%, 25% { opacity: 1; }
+}
+
+@keyframes blink-dot-3 {
+  0%, 33%, 100% { opacity: 0.3; }
+  8%, 25% { opacity: 1; }
+}
+
+.typewriter-dot:nth-child(1) {
+  animation: blink-dot-1 1.4s ease-in-out infinite;
+}
+
+.typewriter-dot:nth-child(2) {
+  animation: blink-dot-2 1.4s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
+.typewriter-dot:nth-child(3) {
+  animation: blink-dot-3 1.4s ease-in-out infinite;
+  animation-delay: 0.4s;
 }
 
 /* Simple teal hover for dropdown menu items */
@@ -521,77 +565,109 @@
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Light silver button with indented cool white text */
+/* Capacitive touch button - silver/secondary */
 .btn-metallic-silver {
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(90deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      transparent 2%,
-      transparent 98%,
-      rgba(0, 0, 0, 0.1) 100%
-    ),
-    linear-gradient(180deg,
-      #d8d8d8 0%,
-      #c5c5c5 15%,
-      #bababa 30%,
-      #b0b0b0 50%,
-      #bababa 70%,
-      #c5c5c5 85%,
-      #d0d0d0 100%
-    );
-  background-size: 100% 100%, 100% 100%;
-  border: 1px solid #a0a0a0;
-  border-top-color: #b8b8b8;
-  border-left-color: #b0b0b0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(245, 245, 245, 0.9) 50%,
+    rgba(235, 235, 235, 0.85) 100%
+  );
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(200, 200, 200, 0.6);
+  border-radius: 6px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    inset 1px 0 0 rgba(255, 255, 255, 0.3),
-    inset -1px 0 0 rgba(0, 0, 0, 0.15),
-    0 2px 3px rgba(0, 0, 0, 0.2);
-  color: #3a3a3a;
-  font-weight: 700;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  transition: all 0.2s ease;
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  color: #4a4a4a;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.15s ease;
 }
 
 .btn-metallic-silver:hover {
-  background:
-    linear-gradient(90deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      transparent 2%,
-      transparent 98%,
-      rgba(0, 0, 0, 0.12) 100%
-    ),
-    linear-gradient(180deg,
-      #e0e0e0 0%,
-      #cdcdcd 15%,
-      #c2c2c2 30%,
-      #b8b8b8 50%,
-      #c2c2c2 70%,
-      #cdcdcd 85%,
-      #d8d8d8 100%
-    );
-  background-size: 100% 100%, 100% 100%;
-  border-color: #a8a8a8;
-  border-top-color: #c0c0c0;
-  border-left-color: #b8b8b8;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(250, 250, 250, 0.95) 50%,
+    rgba(245, 245, 245, 0.9) 100%
+  );
+  border-color: rgba(180, 180, 180, 0.7);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
-    inset 1px 0 0 rgba(255, 255, 255, 0.4),
-    inset -1px 0 0 rgba(0, 0, 0, 0.18),
-    0 3px 5px rgba(0, 0, 0, 0.25);
+    0 2px 8px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
   color: #2a2a2a;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .btn-metallic-silver:active {
+  background: linear-gradient(
+    180deg,
+    rgba(235, 235, 235, 0.95) 0%,
+    rgba(245, 245, 245, 0.9) 50%,
+    rgba(250, 250, 250, 0.95) 100%
+  );
   box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.4),
-    inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    inset 0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(0, 0, 0, 0.08);
+  transform: scale(0.98);
+}
+
+/* Capacitive touch button - primary/teal */
+.btn-metallic-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(79, 209, 197, 0.95) 0%,
+    rgba(56, 178, 172, 0.9) 50%,
+    rgba(49, 151, 149, 0.85) 100%
+  );
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(40, 94, 97, 0.5);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 0 12px rgba(56, 178, 172, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+}
+
+.btn-metallic-primary:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(95, 227, 214, 0.95) 0%,
+    rgba(79, 209, 197, 0.9) 50%,
+    rgba(56, 178, 172, 0.85) 100%
+  );
+  border-color: rgba(44, 122, 123, 0.6);
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.18),
+    0 0 20px rgba(56, 178, 172, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn-metallic-primary:active {
+  background: linear-gradient(
+    180deg,
+    rgba(49, 151, 149, 0.95) 0%,
+    rgba(56, 178, 172, 0.9) 50%,
+    rgba(79, 209, 197, 0.95) 100%
+  );
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.2),
+    0 0 15px rgba(56, 178, 172, 0.25);
+  transform: scale(0.98);
 }
 
 /* Chrome sunglasses text effect */
@@ -971,14 +1047,22 @@
 
 /* View Product shimmer text */
 .view-product-shimmer {
-  color: rgba(128, 128, 128, 0.7);
-  mix-blend-mode: difference;
-  animation: shimmer-text 2s ease-in-out infinite;
+  color: white;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: shimmer-glow 2s ease-in-out infinite;
 }
 
-@keyframes shimmer-text {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
+@keyframes shimmer-glow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(57, 197, 218, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
 }
 
 /* 3D folder card */
@@ -1025,4 +1109,58 @@
 .btn-swipe-red-to-black:hover {
   color: white;
   border-color: black;
+}
+
+/* ========================================
+   Hero Reveal Effect (Lando Norris Style)
+   ======================================== */
+
+/* Industrial illustration filter - creates stylized blueprint look */
+.hero-illustration {
+  position: relative;
+}
+
+.hero-illustration .hero-illustration-inner {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+/* Teal tint overlay for industrial blueprint look */
+.hero-illustration::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 120, 140, 0.6);
+  mix-blend-mode: hard-light;
+  pointer-events: none;
+}
+
+/* Photo layer with clip-path reveal */
+.hero-photo-layer {
+  clip-path: ellipse(150% 150% at 50% 50%);
+  transition: clip-path 0.75s cubic-bezier(0.65, 0.05, 0, 1);
+  will-change: clip-path;
+}
+
+/* Reveal on hover - shrinks ellipse to reveal illustration underneath */
+.hero-container:hover .hero-photo-layer {
+  clip-path: ellipse(0% 0% at 50% 50%);
+}
+
+/* Scale effect on illustration when revealed */
+.hero-illustration-inner {
+  transition: transform 0.75s cubic-bezier(0.65, 0.05, 0, 1);
+}
+
+.hero-container:hover .hero-illustration-inner {
+  transform: scale(1.05);
+}
+
+/* Disable hover effect on touch devices */
+@media (hover: none) {
+  .hero-photo-layer {
+    clip-path: ellipse(150% 150% at 50% 50%) !important;
+  }
+  .hero-illustration-inner {
+    transform: scale(1) !important;
+  }
 }

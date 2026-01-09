@@ -16,6 +16,9 @@ const brandColors: Record<string, { bg: string; text: string; border: string }> 
   Straub: { bg: "bg-red-600", text: "text-black", border: "border-red-600" },
   Teekay: { bg: "bg-red-600", text: "text-white", border: "border-red-600" },
   Orbit: { bg: "bg-orange-500", text: "text-black", border: "border-orange-500" },
+  "Defender Strainers": { bg: "bg-[#E18D30]", text: "text-black", border: "border-[#E18D30]" },
+  "Defender Valves": { bg: "bg-[#5E7794]", text: "text-white", border: "border-[#5E7794]" },
+  "Dewater Products": { bg: "bg-[#39C5DA]", text: "text-white", border: "border-[#39C5DA]" },
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -74,7 +77,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
             {/* Hover text overlay */}
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-              <span className="relative font-bold text-2xl tracking-widest uppercase view-product-shimmer">
+              <span className="relative font-semibold text-sm tracking-wide uppercase view-product-shimmer">
                 View Product
               </span>
             </div>

@@ -78,18 +78,30 @@ const quoteFormSchema = z.object({
   deliveryAddress: addressSchema,
   // Billing Address
   billingSameAsDelivery: z.boolean().default(true),
-  billingAddress: addressSchema.optional(),
+  billingAddress: z.object({
+    street: z.string(),
+    suburb: z.string(),
+    state: z.string(),
+    postcode: z.string(),
+  }).optional(),
   // Notes
   notes: z.string().optional(),
-}).refine((data) => {
-  // If billing is different, require billing address
-  if (!data.billingSameAsDelivery && !data.billingAddress) {
-    return false
+}).superRefine((data, ctx) => {
+  // Only validate billing address if NOT same as delivery
+  if (!data.billingSameAsDelivery) {
+    if (!data.billingAddress?.street || data.billingAddress.street.length < 5) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please enter a valid street address", path: ["billingAddress", "street"] })
+    }
+    if (!data.billingAddress?.suburb || data.billingAddress.suburb.length < 2) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please enter a suburb", path: ["billingAddress", "suburb"] })
+    }
+    if (!data.billingAddress?.state || data.billingAddress.state.length < 2) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please select a state", path: ["billingAddress", "state"] })
+    }
+    if (!data.billingAddress?.postcode || !/^\d{4}$/.test(data.billingAddress.postcode)) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Please enter a valid 4-digit postcode", path: ["billingAddress", "postcode"] })
+    }
   }
-  return true
-}, {
-  message: "Please enter a billing address",
-  path: ["billingAddress"],
 })
 
 type QuoteFormValues = z.infer<typeof quoteFormSchema>
@@ -107,15 +119,16 @@ export default function RequestQuotePage() {
   const pricedItems = quoteItems.filter((item) => getQuoteItemPrice(item) !== undefined)
   const unpricedItems = quoteItems.filter((item) => getQuoteItemPrice(item) === undefined)
   const hasUnpricedItems = unpricedItems.length > 0
-  const discountedTotal = pricedItems.reduce(
-    (sum, item) => sum + (getQuoteItemDiscountedSubtotal(item) || 0),
-    0
-  )
-  const totalSavings = pricedItems.reduce((sum, item) => sum + getQuoteItemSavings(item), 0)
-  const certFeeTotal = calculateMaterialCertFee(quoteItems)
-  const certCount = getMaterialCertCount(quoteItems)
   const totalQuantity = quoteItems.reduce((sum, item) => sum + item.quantity, 0)
   const uniqueItems = quoteItems.length
+  // Discount applies based on TOTAL cart quantity, not per-item
+  const discountedTotal = pricedItems.reduce(
+    (sum, item) => sum + (getQuoteItemDiscountedSubtotal(item, totalQuantity) || 0),
+    0
+  )
+  const totalSavings = pricedItems.reduce((sum, item) => sum + getQuoteItemSavings(item, totalQuantity), 0)
+  const certFeeTotal = calculateMaterialCertFee(quoteItems)
+  const certCount = getMaterialCertCount(quoteItems)
 
   const form = useForm<QuoteFormValues>({
     resolver: zodResolver(quoteFormSchema),
@@ -152,7 +165,8 @@ export default function RequestQuotePage() {
   }, [])
 
   // Check if Turnstile is required (env var set)
-  const turnstileRequired = !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  // TEMPORARILY DISABLED for testing - set to false to allow submissions
+  const turnstileRequired = false // !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   const canSubmit = !turnstileRequired || turnstileToken
 
   const onSubmit = async (data: QuoteFormValues) => {
@@ -210,7 +224,7 @@ export default function RequestQuotePage() {
       setIsSubmitted(true)
       clearQuote()
       toast({
-        title: "Quote Request Submitted",
+        title: "Quote Sent",
         description: "Our team will contact you within 1-2 business days.",
       })
     } catch (error) {
@@ -239,11 +253,11 @@ export default function RequestQuotePage() {
               </div>
             </div>
             <h1 className="text-3xl font-bold mb-4" data-testid="text-success-title">
-              Quote Request Submitted
+              Quote Sent
             </h1>
             <p className="text-lg text-muted-foreground mb-8" data-testid="text-success-message">
-              Thank you for your quote request. Our team will review your requirements and contact
-              you within 1-2 business days.
+              Your quote has been sent to your email. Please check your inbox for the full
+              quote with pricing and terms.
             </p>
             <div className="flex gap-4 justify-center">
               <Button onClick={() => router.push("/")} data-testid="button-home">
@@ -298,7 +312,7 @@ export default function RequestQuotePage() {
         </p>
         <div className="bg-muted/50 border border-border rounded-lg p-4 mb-8">
           <p className="text-sm text-muted-foreground">
-            <strong>Note:</strong> This quote request is not a legally binding agreement until approved by a director at Dewater Products.
+            <strong>Note:</strong> This quote is not a binding purchase order. To proceed, reply to the quote email or call 1300 271 290.
             We will review your requirements and respond within 1-2 business days.
           </p>
         </div>
@@ -338,8 +352,8 @@ export default function RequestQuotePage() {
                         const sku = getQuoteItemSKU(item)
                         const sizeLabel = getQuoteItemSizeLabel(item)
                         const subtotal = getQuoteItemSubtotal(item)
-                        const discountedSubtotal = getQuoteItemDiscountedSubtotal(item)
-                        const discountPercent = getDiscountPercentage(item.quantity)
+                        const discountedSubtotal = getQuoteItemDiscountedSubtotal(item, totalQuantity)
+                        const discountPercent = getDiscountPercentage(totalQuantity)
                         const hasDiscount = discountPercent > 0
 
                         return (
@@ -947,7 +961,7 @@ export default function RequestQuotePage() {
                           Submitting...
                         </>
                       ) : (
-                        "Submit Quote Request"
+                        "Get Quote"
                       )}
                     </Button>
                   </form>

@@ -108,25 +108,10 @@ export default async function ExpansionJointsPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Expansion Joints & Rubber Bellows
               </h1>
-              <p className="text-xl text-white/80 mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 max-w-2xl">
                 Rubber expansion joints and expansion bellows designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement.
                 EPDM rubber bellows with zinc or 316SS flanges, PN16 rated.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">

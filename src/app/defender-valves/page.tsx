@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/defender-valves",
+    canonical: "https://dewaterproducts.com.au/defender-valves",
   },
 }
 
@@ -67,8 +67,8 @@ export default async function DefenderValvesPage() {
   const products = await getProductsByBrand("defender-valves")
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Defender Valves", url: "https://dewater-products.vercel.app/defender-valves" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Defender Valves", url: "https://dewaterproducts.com.au/defender-valves" },
   ]
 
   return (

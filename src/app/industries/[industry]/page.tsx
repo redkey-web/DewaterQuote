@@ -952,7 +952,7 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
       type: "website",
     },
     alternates: {
-      canonical: `https://dewater-products.vercel.app/industries/${industrySlug}`,
+      canonical: `https://dewaterproducts.com.au/industries/${industrySlug}`,
     },
   }
 }
@@ -974,9 +974,9 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
   ).slice(0, 8)
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Industries", url: "https://dewater-products.vercel.app/industries" },
-    { name: industry.name, url: `https://dewater-products.vercel.app/industries/${industrySlug}` },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Industries", url: "https://dewaterproducts.com.au/industries" },
+    { name: industry.name, url: `https://dewaterproducts.com.au/industries/${industrySlug}` },
   ]
 
   const IconComponent = industry.icon

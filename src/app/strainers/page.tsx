@@ -61,8 +61,8 @@ export default async function StrainersPage() {
   ])
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Strainers", url: "https://dewater-products.vercel.app/strainers" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Strainers", url: "https://dewaterproducts.com.au/strainers" },
   ]
 
   return (
@@ -106,25 +106,10 @@ export default async function StrainersPage() {
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
                 Pipeline Strainers
               </h1>
-              <p className="text-xl text-white/80 mb-6 max-w-2xl">
+              <p className="text-xl text-white/80 max-w-2xl">
                 Industrial strainers to protect pumps, valves, and equipment from debris.
                 Y strainers and basket strainers in 316 stainless steel and cast iron.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="#products"
-                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
-                >
-                  View Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-                <Link
-                  href="/request-quote"
-                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
-                >
-                  Request a Quote
-                </Link>
-              </div>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">

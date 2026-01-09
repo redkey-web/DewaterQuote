@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/industries",
+    canonical: "https://dewaterproducts.com.au/industries",
   },
 }
 
@@ -121,8 +121,8 @@ const industries = [
 
 export default function IndustriesPage() {
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Industries", url: "https://dewater-products.vercel.app/industries" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Industries", url: "https://dewaterproducts.com.au/industries" },
   ]
 
   return (

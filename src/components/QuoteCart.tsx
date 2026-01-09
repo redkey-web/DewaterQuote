@@ -45,12 +45,14 @@ export default function QuoteCart() {
 
   const pricedItems = items.filter((item) => getQuoteItemPrice(item) !== undefined)
   const unpricedItems = items.filter((item) => getQuoteItemPrice(item) === undefined)
+  const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0)
   const subtotal = pricedItems.reduce((sum, item) => sum + (getQuoteItemSubtotal(item) || 0), 0)
+  // Discount applies based on TOTAL cart quantity, not per-item
   const discountedSubtotal = pricedItems.reduce(
-    (sum, item) => sum + (getQuoteItemDiscountedSubtotal(item) || 0),
+    (sum, item) => sum + (getQuoteItemDiscountedSubtotal(item, totalQuantity) || 0),
     0
   )
-  const totalSavings = pricedItems.reduce((sum, item) => sum + getQuoteItemSavings(item), 0)
+  const totalSavings = pricedItems.reduce((sum, item) => sum + getQuoteItemSavings(item, totalQuantity), 0)
   const certFeeTotal = calculateMaterialCertFee(items)
   const certCount = getMaterialCertCount(items)
 
@@ -76,7 +78,7 @@ export default function QuoteCart() {
       >
         <div className="p-6 border-b border-border flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold">Quote Request</h2>
+            <h2 className="text-2xl font-bold">Your Quote</h2>
             <p className="text-sm text-muted-foreground">
               {items.length} item{items.length !== 1 ? "s" : ""} added
             </p>
@@ -103,9 +105,9 @@ export default function QuoteCart() {
                       const sku = getQuoteItemSKU(item)
                       const sizeLabel = getQuoteItemSizeLabel(item)
                       const itemSubtotal = getQuoteItemSubtotal(item)
-                      const itemDiscountedSubtotal = getQuoteItemDiscountedSubtotal(item)
-                      const savings = getQuoteItemSavings(item)
-                      const discountPercentage = getDiscountPercentage(item.quantity)
+                      const itemDiscountedSubtotal = getQuoteItemDiscountedSubtotal(item, totalQuantity)
+                      const savings = getQuoteItemSavings(item, totalQuantity)
+                      const discountPercentage = getDiscountPercentage(totalQuantity)
                       const hasDiscount = isAustralia && discountPercentage > 0
 
                       return (
@@ -418,7 +420,7 @@ export default function QuoteCart() {
                 data-testid="button-submit-quote"
               >
                 <Send className="w-4 h-4 mr-2" />
-                Submit Quote Request
+                Get Quote
               </Button>
               <Button
                 variant="outline"

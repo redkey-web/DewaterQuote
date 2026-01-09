@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/defender-strainers",
+    canonical: "https://dewaterproducts.com.au/defender-strainers",
   },
 }
 
@@ -74,8 +74,8 @@ export default async function DefenderStrainersPage() {
   const products = await getProductsByBrand("defender-strainers")
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Defender Strainers", url: "https://dewater-products.vercel.app/defender-strainers" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Defender Strainers", url: "https://dewaterproducts.com.au/defender-strainers" },
   ]
 
   return (

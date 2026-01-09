@@ -32,6 +32,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import BulkPricingTicker from "@/components/BulkPricingTicker"
+import FluidHero from "@/components/FluidHero"
+import TypewriterPlaceholder from "@/components/TypewriterPlaceholder"
 
 interface SearchResult {
   id: number
@@ -50,12 +53,25 @@ export default function HomePage() {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const [isSearching, setIsSearching] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [isSearchFocused, setIsSearchFocused] = useState(false)
   const heroSearchRef = useRef<HTMLDivElement>(null)
   const heroInputRef = useRef<HTMLInputElement>(null)
 
-  // Auto-focus hero search on mount
+  // Search placeholder phrases for typewriter effect
+  const searchPhrases = [
+    "Search pipe fittings, valves, couplings",
+    "Butterfly valves, check valves",
+    "Straub couplings, Orbit flex-grip",
+    "Y strainers, basket strainers",
+    "Expansion joints, pipe repair",
+  ]
+
+  // Auto-focus hero search on mount (after a small delay to show typewriter)
   useEffect(() => {
-    heroInputRef.current?.focus()
+    const timer = setTimeout(() => {
+      heroInputRef.current?.focus()
+    }, 100)
+    return () => clearTimeout(timer)
   }, [])
 
   // Close search dropdown when clicking outside
@@ -180,18 +196,18 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover"
-          style={{
-            backgroundImage: "url(/images/hero-pipeline.webp)",
-            backgroundPosition: "center center",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/50" />
+      <BulkPricingTicker variant="teal" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
+      {/* Hero Section - Fluid Cursor Reveal Effect */}
+      <FluidHero
+        photoSrc="/images/hero-pipeline.webp"
+        illustrationSrc="/images/hero-illustration-industrial.webp"
+        radius={320}
+        effect="radial"
+        underlayBrightness={0.6}
+        className="min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center justify-center"
+      >
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
           <p className="text-xl md:text-2xl text-white/90 font-medium mb-4 tracking-wide drop-shadow-md">
             Australia's Industrial Pipe Fittings Specialists
           </p>
@@ -207,13 +223,27 @@ export default function HomePage() {
                 <input
                   ref={heroInputRef}
                   type="text"
-                  placeholder="Search pipe fittings, valves, couplings..."
-                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-bold rounded-2xl bg-white border-2 border-primary/30 focus:outline-none focus:border-primary/50 transition-all placeholder:text-zinc-400"
+                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-bold rounded-2xl bg-white border-2 border-primary/50 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_12px_rgba(57,197,218,0.15)] focus:outline-none focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  onFocus={() => searchResults.length > 0 && setShowResults(true)}
+                  onFocus={() => {
+                    setIsSearchFocused(true)
+                    if (searchResults.length > 0) setShowResults(true)
+                  }}
+                  onBlur={() => setIsSearchFocused(false)}
                 />
+                {/* Typewriter placeholder - shows when empty and not focused */}
+                {!searchQuery && !isSearchFocused && (
+                  <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-bold text-zinc-400 pointer-events-none">
+                    <TypewriterPlaceholder
+                      phrases={searchPhrases}
+                      typingSpeed={60}
+                      deletingSpeed={30}
+                      pauseDuration={2500}
+                    />
+                  </div>
+                )}
               </div>
             </form>
             {/* Search Results Dropdown */}
@@ -249,7 +279,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-1.5 mt-4">
             {/* Couplings */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:border-white/20 transition-all focus:outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
                 Couplings <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
@@ -270,7 +300,7 @@ export default function HomePage() {
 
             {/* Valves */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:border-white/20 transition-all focus:outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
                 Valves <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
@@ -303,7 +333,7 @@ export default function HomePage() {
 
             {/* Expansion Joints */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:border-white/20 transition-all focus:outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
                 Expansion Joints <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
@@ -330,7 +360,7 @@ export default function HomePage() {
 
             {/* Strainers */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:border-white/20 transition-all focus:outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
                 Strainers <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
@@ -350,7 +380,7 @@ export default function HomePage() {
             </DropdownMenu>
           </div>
         </div>
-      </section>
+      </FluidHero>
 
       {/* Brand Logos - Infinite Scroll Carousel */}
       <section className="py-4 bg-muted/50 border-y border-border overflow-hidden">
@@ -358,7 +388,7 @@ export default function HomePage() {
           <div className="brand-carousel-track">
             {/* First set of logos */}
             <div className="brand-carousel-content">
-              <Link href="/straub-couplings" className="flex-shrink-0 px-8">
+              <Link href="/straub-couplings" className="flex-shrink-0 px-8 brand-logo-link">
                 <Image
                   src="/images/brands/straub-logo.png"
                   alt="Straub"
@@ -367,7 +397,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/orbit-couplings" className="flex-shrink-0 px-8">
+              <Link href="/orbit-couplings" className="flex-shrink-0 px-8 brand-logo-link">
                 <Image
                   src="/images/brands/orbit-couplings.png"
                   alt="Orbit Couplings"
@@ -376,7 +406,7 @@ export default function HomePage() {
                   className="h-16 w-auto object-contain"
                 />
               </Link>
-              <Link href="/teekay" className="flex-shrink-0 px-8">
+              <Link href="/teekay" className="flex-shrink-0 px-8 brand-logo-link">
                 <Image
                   src="/images/brands/teekay-logo.png"
                   alt="Teekay"
@@ -385,7 +415,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/defender-valves" className="flex-shrink-0 px-8">
+              <Link href="/defender-valves" className="flex-shrink-0 px-8 brand-logo-link">
                 <Image
                   src="/images/brands/defender-valves-logo.png"
                   alt="Defender Valves"
@@ -394,7 +424,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/bore-flex" className="flex-shrink-0 px-8">
+              <Link href="/bore-flex" className="flex-shrink-0 px-8 brand-logo-link">
                 <Image
                   src="/images/brands/bore-flex-rubber-logo.png"
                   alt="Bore-Flex Rubber"
@@ -403,7 +433,7 @@ export default function HomePage() {
                   className="h-[110px] w-auto object-contain"
                 />
               </Link>
-              <Link href="/defender-strainers" className="flex-shrink-0 px-8">
+              <Link href="/defender-strainers" className="flex-shrink-0 px-8 brand-logo-link">
                 <Image
                   src="/images/brands/defender-strainers-logo.png"
                   alt="Defender Strainers"
@@ -415,7 +445,7 @@ export default function HomePage() {
             </div>
             {/* Duplicate set for seamless loop */}
             <div className="brand-carousel-content" aria-hidden="true">
-              <Link href="/straub-couplings" className="flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/straub-couplings" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
                 <Image
                   src="/images/brands/straub-logo.png"
                   alt="Straub"
@@ -424,7 +454,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/orbit-couplings" className="flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/orbit-couplings" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
                 <Image
                   src="/images/brands/orbit-couplings.png"
                   alt="Orbit Couplings"
@@ -433,7 +463,7 @@ export default function HomePage() {
                   className="h-16 w-auto object-contain"
                 />
               </Link>
-              <Link href="/teekay" className="flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/teekay" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
                 <Image
                   src="/images/brands/teekay-logo.png"
                   alt="Teekay"
@@ -442,7 +472,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/defender-valves" className="flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/defender-valves" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
                 <Image
                   src="/images/brands/defender-valves-logo.png"
                   alt="Defender Valves"
@@ -451,7 +481,7 @@ export default function HomePage() {
                   className="h-10 w-auto object-contain"
                 />
               </Link>
-              <Link href="/bore-flex" className="flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/bore-flex" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
                 <Image
                   src="/images/brands/bore-flex-rubber-logo.png"
                   alt="Bore-Flex Rubber"
@@ -460,7 +490,7 @@ export default function HomePage() {
                   className="h-[110px] w-auto object-contain"
                 />
               </Link>
-              <Link href="/defender-strainers" className="flex-shrink-0 px-8" tabIndex={-1}>
+              <Link href="/defender-strainers" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
                 <Image
                   src="/images/brands/defender-strainers-logo.png"
                   alt="Defender Strainers"

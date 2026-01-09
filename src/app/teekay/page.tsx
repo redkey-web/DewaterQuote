@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://dewater-products.vercel.app/teekay",
+    canonical: "https://dewaterproducts.com.au/teekay",
   },
 }
 
@@ -108,8 +108,8 @@ export default async function TeekayPage() {
   const teekayProductsList = await getProductsByBrand("teekay")
 
   const breadcrumbs = [
-    { name: "Home", url: "https://dewater-products.vercel.app" },
-    { name: "Teekay Products", url: "https://dewater-products.vercel.app/teekay" },
+    { name: "Home", url: "https://dewaterproducts.com.au" },
+    { name: "Teekay Products", url: "https://dewaterproducts.com.au/teekay" },
   ]
 
   return (

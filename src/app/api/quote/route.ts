@@ -4,6 +4,8 @@ import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 import { verifyTurnstileToken } from "@/lib/turnstile"
 import { generateApprovalToken, getTokenExpiration } from "@/lib/tokens"
+import { generateQuotePDF } from "@/lib/generate-quote-pdf"
+import { classifyDelivery } from "@/lib/postcode"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
 
@@ -454,22 +456,27 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     }
 
     // Confirmation email to customer
-    const customerItemsList = data.items.map((item) => `
+    const customerItemsList = data.items.map((item) => {
+      const sizeInfo = item.variation?.sizeLabel ? `<br /><span style="color: #666; font-size: 12px;">Size: ${escapeHtml(item.variation.sizeLabel)}</span>` : ""
+      return `
       <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">${escapeHtml(item.name)}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #eee;">
+          ${escapeHtml(item.name)}${sizeInfo}
+        </td>
         <td style="padding: 8px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
       </tr>
-    `).join("")
+    `}).join("")
 
     const customerEmail = {
       to: data.email,
       from: fromEmail,
-      subject: "Your Quote Request - Dewater Products",
+      subject: `Your Quote ${quoteNumber} - Dewater Products`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #1a1a1a;">Thank you for your quote request</h2>
+          <h2 style="color: #1a1a1a;">Your Quote ${quoteNumber}</h2>
           <p>Hi ${safeContactName},</p>
-          <p>We've received your quote request for ${data.items.length} item${data.items.length !== 1 ? "s" : ""}. Our team will review your requirements and send you a detailed quote within <strong>1-2 business days</strong>.</p>
+          <p>Thank you for your enquiry. Please find your quote attached as a PDF.</p>
+          <p>This quote includes ${data.items.length} item${data.items.length !== 1 ? "s" : ""} and is valid for 30 days.</p>
 
           <h3 style="color: #666; margin-top: 30px;">Delivery Address</h3>
           <p style="padding: 10px; background: #f5f5f5; border-radius: 5px;">
@@ -511,6 +518,43 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
           </p>
         </div>
       `,
+    }
+
+    // Classify delivery zone (metro = free, non-metro = TBC)
+    const fullAddress = `${data.deliveryAddress.street} ${data.deliveryAddress.suburb}`
+    const deliveryClassification = classifyDelivery(data.deliveryAddress.postcode, fullAddress)
+
+    // Generate PDF attachment for customer email
+    let pdfBuffer: Buffer | null = null
+    try {
+      pdfBuffer = await generateQuotePDF({
+        quoteNumber,
+        companyName: data.companyName,
+        contactName: data.contactName,
+        email: data.email,
+        phone: data.phone,
+        deliveryAddress: data.deliveryAddress,
+        billingAddress: data.billingAddress,
+        items: data.items,
+        totals: data.totals,
+        notes: data.notes,
+        deliveryNote: deliveryClassification.deliveryNote,
+      })
+    } catch (pdfError) {
+      console.error("Failed to generate PDF:", pdfError)
+      // Continue without PDF attachment
+    }
+
+    // Add PDF attachment to customer email if generated
+    if (pdfBuffer) {
+      (customerEmail as Record<string, unknown>).attachments = [
+        {
+          content: pdfBuffer.toString("base64"),
+          filename: `${quoteNumber}-Quote.pdf`,
+          type: "application/pdf",
+          disposition: "attachment",
+        },
+      ]
     }
 
     // Send both emails
