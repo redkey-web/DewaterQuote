@@ -11,6 +11,14 @@ export type RevealEffect =
   | "blur"        // Blur-based reveal (no mask, uses filter)
   | "smoke"       // Smoky/cloudy noise-based reveal
 
+// Hotspot configuration for click-to-enable easter egg
+interface Hotspot {
+  x: number // percentage from left (0-100)
+  y: number // percentage from top (0-100)
+  width: number // percentage width
+  height: number // percentage height
+}
+
 interface FluidHeroProps {
   photoSrc: string
   illustrationSrc: string
@@ -19,6 +27,8 @@ interface FluidHeroProps {
   underlayBrightness?: number // 0-1, default 0.7
   className?: string
   children?: React.ReactNode
+  // Easter egg: click hotspot to enable/disable effect
+  enableHotspot?: Hotspot // If provided, effect starts disabled until hotspot clicked
 }
 
 export default function FluidHero({
@@ -29,6 +39,7 @@ export default function FluidHero({
   underlayBrightness = 0.7,
   className = "",
   children,
+  enableHotspot,
 }: FluidHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 })
@@ -36,6 +47,7 @@ export default function FluidHero({
   const [isHovering, setIsHovering] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [opacity, setOpacity] = useState(0) // For smooth fade in/out
+  const [effectEnabled, setEffectEnabled] = useState(!enableHotspot) // Disabled by default if hotspot provided
   const animationRef = useRef<number>(0)
 
   // Check for mobile/touch device
@@ -58,9 +70,9 @@ export default function FluidHero({
         y: prev.y + (mousePos.y - prev.y) * 0.12,
       }))
 
-      // Smooth opacity transition
+      // Smooth opacity transition - only if effect is enabled
       setOpacity(prev => {
-        const target = isHovering ? 1 : 0
+        const target = (isHovering && effectEnabled) ? 1 : 0
         return prev + (target - prev) * 0.08 // Slower fade for smoothness
       })
 
@@ -69,7 +81,29 @@ export default function FluidHero({
 
     animate()
     return () => cancelAnimationFrame(animationRef.current)
-  }, [mousePos, isHovering, isMobile])
+  }, [mousePos, isHovering, isMobile, effectEnabled])
+
+  // Check if click is within hotspot bounds
+  const isClickInHotspot = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!enableHotspot || !containerRef.current) return false
+
+    const rect = containerRef.current.getBoundingClientRect()
+    const clickX = ((e.clientX - rect.left) / rect.width) * 100
+    const clickY = ((e.clientY - rect.top) / rect.height) * 100
+
+    return (
+      clickX >= enableHotspot.x &&
+      clickX <= enableHotspot.x + enableHotspot.width &&
+      clickY >= enableHotspot.y &&
+      clickY <= enableHotspot.y + enableHotspot.height
+    )
+  }, [enableHotspot])
+
+  const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (isClickInHotspot(e)) {
+      setEffectEnabled(prev => !prev)
+    }
+  }, [isClickInHotspot])
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (isMobile) return
@@ -176,6 +210,7 @@ export default function FluidHero({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       {/* SVG Filter for smoke effect */}
       <svg className="absolute w-0 h-0" aria-hidden="true">

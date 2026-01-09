@@ -198,7 +198,7 @@ export default function HomePage() {
     <div>
       <BulkPricingTicker variant="teal" />
 
-      {/* Hero Section - Fluid Cursor Reveal Effect */}
+      {/* Hero Section - Fluid Cursor Reveal Effect (Easter egg: click red butterfly valve to toggle) */}
       <FluidHero
         photoSrc="/images/hero-pipeline.webp"
         illustrationSrc="/images/hero-illustration-industrial.webp"
@@ -206,6 +206,7 @@ export default function HomePage() {
         effect="radial"
         underlayBrightness={0.6}
         className="min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center justify-center"
+        enableHotspot={{ x: 62, y: 35, width: 15, height: 20 }} // Red butterfly valve position
       >
         <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
           <p className="text-xl md:text-2xl text-white/90 font-medium mb-4 tracking-wide drop-shadow-md">
