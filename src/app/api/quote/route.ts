@@ -477,74 +477,133 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       `.trim(),
     }
 
-    // Confirmation email to customer
-    const customerItemsList = data.items.map((item) => {
-      const sizeInfo = item.variation?.sizeLabel ? `<br /><span style="color: #666; font-size: 12px;">Size: ${escapeHtml(item.variation.sizeLabel)}</span>` : ""
-      return `
-      <tr>
-        <td style="padding: 8px; border-bottom: 1px solid #eee;">
-          ${escapeHtml(item.name)}${sizeInfo}
-        </td>
-        <td style="padding: 8px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-      </tr>
-    `}).join("")
+    // Classify delivery zone (metro = free, non-metro = TBC)
+    const fullAddress = `${data.deliveryAddress.street} ${data.deliveryAddress.suburb}`
+    const deliveryClassification = classifyDelivery(data.deliveryAddress.postcode, fullAddress)
 
+    // Calculate totals for customer email
+    const subtotal = data.totals.pricedTotal
+    const savings = data.totals.savings
+    const certFee = data.totals.certFee || 0
+    const certCount = data.totals.certCount || 0
+    const subtotalAfterDiscount = subtotal - savings + certFee
+    const gst = subtotalAfterDiscount * 0.1
+    const grandTotal = subtotalAfterDiscount + gst
+
+    // Confirmation email to customer - FULL DETAILED VERSION
     const customerEmail = {
       to: testCustomerEmails, // TESTING: Both addresses - REVERT to data.email after testing
       from: fromEmail,
       subject: `Your Quote ${quoteNumber} - Dewater Products`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #1a1a1a;">Your Quote ${quoteNumber}</h2>
-          <p>Hi ${safeContactName},</p>
-          <p>Thank you for your enquiry. Please find your quote attached as a PDF.</p>
-          <p>This quote includes ${data.items.length} item${data.items.length !== 1 ? "s" : ""} and is valid for 30 days.</p>
-
-          <h3 style="color: #666; margin-top: 30px;">Delivery Address</h3>
-          <p style="padding: 10px; background: #f5f5f5; border-radius: 5px;">
-            ${safeDeliveryAddress.street}<br />
-            ${safeDeliveryAddress.suburb} ${safeDeliveryAddress.state} ${safeDeliveryAddress.postcode}
-          </p>
-
-          <h3 style="color: #666; margin-top: 30px;">Items Requested</h3>
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr style="background: #f5f5f5;">
-                <th style="padding: 10px; text-align: left;">Product</th>
-                <th style="padding: 10px; text-align: center;">Qty</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${customerItemsList}
-            </tbody>
-          </table>
-
-          <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 5px; border-left: 4px solid #0ea5e9;">
-            <p style="margin: 0; font-size: 14px;"><strong>Quote Terms:</strong></p>
-            <ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 14px; color: #666;">
-              <li>Quote valid for 30 days</li>
-              <li>Free metro delivery via road freight</li>
-              <li>All prices exclude GST</li>
-            </ul>
+        <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto;">
+          <div style="background: #0ea5e9; color: white; padding: 20px; text-align: center;">
+            <h1 style="margin: 0;">Dewater Products</h1>
+            <p style="margin: 5px 0 0;">Industrial Pipe Fittings & Accessories</p>
           </div>
 
-          <p style="margin-top: 20px;">If you have any questions or need to make changes to your request, please don't hesitate to contact us.</p>
+          <div style="padding: 30px; background: #ffffff;">
+            <h2 style="color: #1a1a1a; margin-top: 0;">Quote ${quoteNumber}</h2>
 
-          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
+            <p>Dear ${safeContactName},</p>
+            <p>Thank you for your quote request. Please find your detailed quote below.</p>
 
-          <p style="color: #666; font-size: 14px;">
-            <strong>Dewater Products Pty Ltd</strong><br />
-            Phone: 1300 271 290<br />
-            Email: sales@dewaterproducts.com.au<br />
-            Perth, Western Australia
-          </p>
+            <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
+              <strong>Delivery Address:</strong><br />
+              ${safeDeliveryAddress.street}<br />
+              ${safeDeliveryAddress.suburb} ${safeDeliveryAddress.state} ${safeDeliveryAddress.postcode}
+            </div>
+
+            <h3 style="color: #333;">Items</h3>
+            <table style="border-collapse: collapse; width: 100%;">
+              <thead>
+                <tr style="background: #f5f5f5;">
+                  <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">SKU</th>
+                  <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Product</th>
+                  <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Qty</th>
+                  <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Unit Price</th>
+                  <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Line Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${itemsTableRows}
+              </tbody>
+            </table>
+
+            <div style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 5px;">
+              <table style="width: 100%;">
+                ${subtotal > 0 ? `
+                <tr>
+                  <td><strong>Subtotal:</strong></td>
+                  <td style="text-align: right;">$${subtotal.toFixed(2)}</td>
+                </tr>
+                ${savings > 0 ? `
+                <tr>
+                  <td><strong>Bulk Discount:</strong></td>
+                  <td style="text-align: right; color: #16a34a;">-$${savings.toFixed(2)}</td>
+                </tr>
+                ` : ""}
+                ${certFee > 0 ? `
+                <tr>
+                  <td><strong>Material Certificates (${certCount}):</strong></td>
+                  <td style="text-align: right;">$${certFee.toFixed(2)}</td>
+                </tr>
+                ` : ""}
+                <tr>
+                  <td><strong>Delivery:</strong></td>
+                  <td style="text-align: right;">${deliveryClassification.deliveryNote || "Free metro delivery"}</td>
+                </tr>
+                <tr style="border-top: 1px solid #ddd;">
+                  <td style="padding-top: 10px;"><strong>Subtotal (ex GST):</strong></td>
+                  <td style="text-align: right; padding-top: 10px;">$${subtotalAfterDiscount.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td><strong>GST (10%):</strong></td>
+                  <td style="text-align: right;">$${gst.toFixed(2)}</td>
+                </tr>
+                <tr style="background: #e0f2fe;">
+                  <td style="padding: 10px;"><strong style="font-size: 1.2em;">Total (inc GST):</strong></td>
+                  <td style="text-align: right; padding: 10px;"><strong style="font-size: 1.2em;">$${grandTotal.toFixed(2)}</strong></td>
+                </tr>
+                ` : ""}
+                ${data.totals.hasUnpricedItems ? `
+                <tr>
+                  <td colspan="2" style="color: #d97706; padding-top: 10px;">
+                    Note: Some items require confirmation - we will be in touch shortly.
+                  </td>
+                </tr>
+                ` : ""}
+              </table>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: #f0f9ff; border-radius: 5px; border-left: 4px solid #0ea5e9;">
+              <h3 style="margin-top: 0; color: #0369a1;">Quote Terms</h3>
+              <ul style="margin: 0; padding-left: 20px; color: #666;">
+                <li>Quote valid for 30 days</li>
+                <li>All prices exclude GST unless stated</li>
+                <li>Payment terms: 30 days from invoice</li>
+                <li>Warranty: Up to 5 years on Orbit/Straub couplings, 12 months on other products</li>
+              </ul>
+            </div>
+
+            <p style="margin-top: 30px;">To proceed with this order or if you have any questions, please reply to this email or contact us directly.</p>
+
+            <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
+
+            <p style="color: #666; font-size: 14px;">
+              <strong>Dewater Products Pty Ltd</strong><br />
+              Phone: <a href="tel:1300271290" style="color: #0ea5e9;">1300 271 290</a><br />
+              Email: <a href="mailto:sales@dewaterproducts.com.au" style="color: #0ea5e9;">sales@dewaterproducts.com.au</a><br />
+              Perth, Western Australia
+            </p>
+          </div>
+
+          <div style="background: #1a1a1a; color: #999; padding: 15px; text-align: center; font-size: 12px;">
+            ABN: 98 622 681 663 | © ${new Date().getFullYear()} Dewater Products Pty Ltd
+          </div>
         </div>
       `,
     }
-
-    // Classify delivery zone (metro = free, non-metro = TBC)
-    const fullAddress = `${data.deliveryAddress.street} ${data.deliveryAddress.suburb}`
-    const deliveryClassification = classifyDelivery(data.deliveryAddress.postcode, fullAddress)
 
     // Generate PDF attachment for customer email
     let pdfBuffer: Buffer | null = null
