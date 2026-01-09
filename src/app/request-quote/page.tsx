@@ -309,7 +309,7 @@ export default function RequestQuotePage() {
 
   if (quoteItems.length === 0) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-slate-100 dark:bg-zinc-900">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="text-center py-24">
             <Package
@@ -332,7 +332,7 @@ export default function RequestQuotePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-slate-100 dark:bg-zinc-900">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <h1 className="text-4xl font-bold mb-2" data-testid="text-page-title">
           Request a Quote
