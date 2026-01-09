@@ -537,6 +537,12 @@ export const quoteItems = pgTable('quote_items', {
   quotedPrice: decimal('quoted_price', { precision: 10, scale: 2 }),
   quotedNotes: text('quoted_notes'),
 
+  // Custom specs for Straub/Teekay products
+  customPipeOd: text('custom_pipe_od'),
+  customRubberMaterial: text('custom_rubber_material'),
+  customPressure: text('custom_pressure'),
+  customNotes: text('custom_notes'),
+
   displayOrder: integer('display_order').default(0),
 });
 

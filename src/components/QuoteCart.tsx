@@ -145,6 +145,19 @@ export default function QuoteCart() {
                               {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
                             </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
+                            {/* Custom Specs Display (Straub/Teekay products) */}
+                            {item.customSpecs && (
+                              <div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">
+                                <p className="text-foreground">
+                                  <span className="text-muted-foreground">Pipe OD:</span> {item.customSpecs.pipeOd} |
+                                  <span className="text-muted-foreground"> Material:</span> {item.customSpecs.rubberMaterial} |
+                                  <span className="text-muted-foreground"> Pressure:</span> {item.customSpecs.pressure}
+                                </p>
+                                {item.customSpecs.notes && (
+                                  <p className="text-muted-foreground italic">{item.customSpecs.notes}</p>
+                                )}
+                              </div>
+                            )}
                             {/* Material Certificate Toggle - Prominent red box */}
                             <button
                               onClick={() => toggleMaterialCert(item.id)}
@@ -359,6 +372,19 @@ export default function QuoteCart() {
                               {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
                             </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
+                            {/* Custom Specs Display (Straub/Teekay products) */}
+                            {item.customSpecs && (
+                              <div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">
+                                <p className="text-foreground">
+                                  <span className="text-muted-foreground">Pipe OD:</span> {item.customSpecs.pipeOd} |
+                                  <span className="text-muted-foreground"> Material:</span> {item.customSpecs.rubberMaterial} |
+                                  <span className="text-muted-foreground"> Pressure:</span> {item.customSpecs.pressure}
+                                </p>
+                                {item.customSpecs.notes && (
+                                  <p className="text-muted-foreground italic">{item.customSpecs.notes}</p>
+                                )}
+                              </div>
+                            )}
                             {/* Material Certificate Toggle - Prominent red box */}
                             <button
                               onClick={() => toggleMaterialCert(item.id)}

@@ -32,6 +32,13 @@ function generateQuoteNumber(): string {
   return `QR-${date}-${random}`
 }
 
+interface CustomSpecs {
+  pipeOd: string
+  rubberMaterial: 'EPDM' | 'NBR' | 'Viton'
+  pressure: string
+  notes?: string
+}
+
 interface QuoteItem {
   id: string
   name: string
@@ -44,6 +51,7 @@ interface QuoteItem {
     sizeLabel: string
     price?: number
   }
+  customSpecs?: CustomSpecs
 }
 
 interface Address {
@@ -193,6 +201,11 @@ export async function POST(request: NextRequest) {
             ? (item.variation.price * item.quantity).toString()
             : undefined,
           materialTestCert: item.materialTestCert,
+          // Custom specs for Straub/Teekay products
+          customPipeOd: item.customSpecs?.pipeOd,
+          customRubberMaterial: item.customSpecs?.rubberMaterial,
+          customPressure: item.customSpecs?.pressure,
+          customNotes: item.customSpecs?.notes,
           displayOrder: index,
         }))
       )
@@ -251,6 +264,16 @@ export async function POST(request: NextRequest) {
         ? `<br /><span style="display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-top: 4px;">+ Material Cert</span>`
         : ""
 
+      // Custom specs for Straub/Teekay products
+      const customSpecsHtml = item.customSpecs
+        ? `<br /><div style="background: #f5f5f5; padding: 6px; border-radius: 4px; margin-top: 4px; font-size: 11px; color: #333;">
+            <strong>Pipe OD:</strong> ${escapeHtml(item.customSpecs.pipeOd)} |
+            <strong>Material:</strong> ${escapeHtml(item.customSpecs.rubberMaterial)} |
+            <strong>Pressure:</strong> ${escapeHtml(item.customSpecs.pressure)}
+            ${item.customSpecs.notes ? `<br /><em style="color: #666;">${escapeHtml(item.customSpecs.notes)}</em>` : ""}
+          </div>`
+        : ""
+
       return `
         <tr>
           <td style="padding: 10px; border: 1px solid #ddd;">${safeItemSku}</td>
@@ -258,6 +281,7 @@ export async function POST(request: NextRequest) {
             <strong>${safeItemName}</strong><br />
             <span style="color: #666; font-size: 12px;">${safeItemBrand}</span>
             ${safeVariationLabel ? `<br /><span style="color: #666; font-size: 12px;">Size: ${safeVariationLabel}</span>` : ""}
+            ${customSpecsHtml}
             ${certBadge}
           </td>
           <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">${item.quantity}</td>
@@ -271,7 +295,10 @@ export async function POST(request: NextRequest) {
     const itemsText = data.items.map((item) => {
       const price = getItemPrice(item)
       const certNote = item.materialTestCert ? " [+ Material Cert]" : ""
-      return `- ${getItemSKU(item)} | ${item.name} | Qty: ${item.quantity} | ${price ? `$${price.toFixed(2)} ea` : "POA"}${certNote}`
+      const customSpecsText = item.customSpecs
+        ? ` | Specs: OD=${item.customSpecs.pipeOd}, Mat=${item.customSpecs.rubberMaterial}, Press=${item.customSpecs.pressure}`
+        : ""
+      return `- ${getItemSKU(item)} | ${item.name} | Qty: ${item.quantity} | ${price ? `$${price.toFixed(2)} ea` : "POA"}${customSpecsText}${certNote}`
     }).join("\n")
 
     // Check if billing address is different from delivery

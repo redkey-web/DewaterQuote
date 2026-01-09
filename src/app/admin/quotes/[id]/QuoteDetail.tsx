@@ -55,6 +55,11 @@ type QuoteItem = {
   materialTestCert: boolean | null;
   quotedPrice: string | null;
   quotedNotes: string | null;
+  // Custom specs for Straub/Teekay products
+  customPipeOd: string | null;
+  customRubberMaterial: string | null;
+  customPressure: string | null;
+  customNotes: string | null;
 };
 
 type Quote = {
@@ -286,6 +291,19 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
                       {item.sizeLabel && (
                         <div className="text-sm text-gray-500">
                           Size: {item.sizeLabel}
+                        </div>
+                      )}
+                      {/* Custom Specs for Straub/Teekay products */}
+                      {item.customPipeOd && (
+                        <div className="mt-1 p-2 bg-gray-50 rounded text-xs space-y-1">
+                          <div className="text-gray-700">
+                            <span className="text-gray-500">Pipe OD:</span> {item.customPipeOd} |
+                            <span className="text-gray-500"> Material:</span> {item.customRubberMaterial} |
+                            <span className="text-gray-500"> Pressure:</span> {item.customPressure}
+                          </div>
+                          {item.customNotes && (
+                            <div className="text-gray-500 italic">{item.customNotes}</div>
+                          )}
                         </div>
                       )}
                       {item.materialTestCert && (

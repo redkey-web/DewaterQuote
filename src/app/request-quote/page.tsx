@@ -200,6 +200,7 @@ export default function RequestQuotePage() {
               sizeLabel: item.variation.sizeLabel,
               price: item.variation.unitPrice,
             } : undefined,
+            customSpecs: item.customSpecs,
           })),
           totals: {
             itemCount: quoteItems.length,
@@ -403,6 +404,19 @@ export default function RequestQuotePage() {
                               <div className="text-xs text-muted-foreground sm:hidden">
                                 {sku}
                               </div>
+                              {/* Custom Specs Display (Straub/Teekay products) */}
+                              {item.customSpecs && (
+                                <div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">
+                                  <p className="text-foreground">
+                                    <span className="text-muted-foreground">Pipe OD:</span> {item.customSpecs.pipeOd} |
+                                    <span className="text-muted-foreground"> Material:</span> {item.customSpecs.rubberMaterial} |
+                                    <span className="text-muted-foreground"> Pressure:</span> {item.customSpecs.pressure}
+                                  </p>
+                                  {item.customSpecs.notes && (
+                                    <p className="text-muted-foreground italic">{item.customSpecs.notes}</p>
+                                  )}
+                                </div>
+                              )}
                               {isAustralia && hasDiscount && (
                                 <Badge
                                   variant="secondary"

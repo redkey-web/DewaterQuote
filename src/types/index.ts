@@ -88,6 +88,14 @@ export interface QuoteItemVariation {
   unitPrice: number
 }
 
+// Custom specs for Straub/Teekay products
+export interface CustomSpecs {
+  pipeOd: string
+  rubberMaterial: 'EPDM' | 'NBR' | 'Viton'
+  pressure: string
+  notes?: string
+}
+
 export interface QuoteItem {
   id: string
   productId: string
@@ -102,4 +110,5 @@ export interface QuoteItem {
   quantity: number
   materialTestCert?: boolean
   leadTime?: string // e.g., "2-3 weeks", "In Stock", "7 weeks FRO"
+  customSpecs?: CustomSpecs // For Straub/Teekay products
 }

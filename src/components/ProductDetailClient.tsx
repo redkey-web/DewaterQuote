@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
@@ -55,7 +57,9 @@ import {
   productToQuoteItem,
   getDiscountPercentage,
   calculateDiscountedPrice,
+  isCustomSpecsBrand,
 } from "@/lib/quote"
+import type { CustomSpecs } from "@/types"
 import { useQuote } from "@/context/QuoteContext"
 import { trackProductView, trackAddToQuote } from "@/components/GoogleAnalytics"
 import type { Product } from "@/types"
@@ -75,6 +79,13 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const [quantity, setQuantity] = useState<number>(1)
   const [materialTestCert, setMaterialTestCert] = useState<boolean>(false)
   const [isPickerOpen, setIsPickerOpen] = useState(false)
+
+  // Custom specs for Straub/Teekay products
+  const [customPipeOd, setCustomPipeOd] = useState<string>("")
+  const [customRubberMaterial, setCustomRubberMaterial] = useState<CustomSpecs['rubberMaterial']>("EPDM")
+  const [customPressure, setCustomPressure] = useState<string>("")
+  const [customNotes, setCustomNotes] = useState<string>("")
+  const isCustomSpecsProduct = isCustomSpecsBrand(product.brand)
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [certOpen, setCertOpen] = useState(false)
@@ -193,6 +204,11 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
     setQuantity(1)
     setMaterialTestCert(false)
     setIsPickerOpen(false)
+    // Reset custom specs
+    setCustomPipeOd("")
+    setCustomRubberMaterial("EPDM")
+    setCustomPressure("")
+    setCustomNotes("")
   }, [product.id])
 
   // Track product view in GA4
@@ -212,30 +228,69 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
   const handleAddToQuote = () => {
     try {
-      // Only require size selection if product has multiple size options
-      if (needsSizeSelector && !selectedSize) {
-        toast({
-          title: "No Size Selected",
-          description: "Please select a size to add to your quote.",
-          variant: "destructive",
-        })
-        return
+      // Validate custom specs for Straub/Teekay products
+      if (isCustomSpecsProduct) {
+        if (!customPipeOd.trim()) {
+          toast({
+            title: "Pipe OD Size Required",
+            description: "Please enter your pipe outside diameter size.",
+            variant: "destructive",
+          })
+          return
+        }
+        if (!customPressure.trim()) {
+          toast({
+            title: "System Pressure Required",
+            description: "Please enter your system operating pressure.",
+            variant: "destructive",
+          })
+          return
+        }
+        if (customPressure.length > 25) {
+          toast({
+            title: "Pressure Too Long",
+            description: "System pressure must be 25 characters or less.",
+            variant: "destructive",
+          })
+          return
+        }
+      } else {
+        // Only require size selection if product has multiple size options
+        if (needsSizeSelector && !selectedSize) {
+          toast({
+            title: "No Size Selected",
+            description: "Please select a size to add to your quote.",
+            variant: "destructive",
+          })
+          return
+        }
       }
 
       const quoteItem = productToQuoteItem(product, {
         selectedSize: needsSizeSelector ? selectedSize : (hasSingleSize ? product.sizeOptions![0].value : undefined),
         quantity: quantity,
         materialTestCert: materialTestCert,
+        customSpecs: isCustomSpecsProduct ? {
+          pipeOd: customPipeOd.trim(),
+          rubberMaterial: customRubberMaterial,
+          pressure: customPressure.trim(),
+          notes: customNotes.trim() || undefined,
+        } : undefined,
       })
       addItem(quoteItem, addToQuoteButtonRef.current)
 
       // Track add to quote in GA4
-      trackAddToQuote(product.name, selectedSize || "POA", quantity)
+      trackAddToQuote(product.name, isCustomSpecsProduct ? customPipeOd : (selectedSize || "POA"), quantity)
 
       // Reset after adding
       setSelectedSize("")
       setQuantity(1)
       setMaterialTestCert(false)
+      // Reset custom specs
+      setCustomPipeOd("")
+      setCustomRubberMaterial("EPDM")
+      setCustomPressure("")
+      setCustomNotes("")
     } catch (error) {
       toast({
         title: "Error",
@@ -514,8 +569,135 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               )}
             </div>
 
-            {/* Size & Quantity Selector */}
-            {hasSizeOptions ? (
+            {/* Custom Specs Form for Straub/Teekay OR Size & Quantity Selector */}
+            {isCustomSpecsProduct ? (
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-lg font-semibold">Your Pipe Specifications</h3>
+                  <div className="flex items-center gap-2">
+                    <Badge className="bg-amber-500 hover:bg-amber-500 text-white font-semibold px-3 py-1">
+                      POA
+                    </Badge>
+                    {product.leadTime && (
+                      <Badge className="bg-orange-500 hover:bg-orange-500 text-white font-semibold px-3 py-1 text-xs">
+                        {product.leadTime}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Enter your pipe specifications below. All fields except comments are required.
+                </p>
+
+                {/* Custom Specs Fields */}
+                <div className="space-y-4">
+                  {/* Pipe OD Size */}
+                  <div>
+                    <label htmlFor="pipe-od" className="text-sm font-medium mb-2 block">
+                      Pipe OD Size (Outside Diameter) <span className="text-red-500">*</span>
+                    </label>
+                    <Input
+                      id="pipe-od"
+                      type="text"
+                      value={customPipeOd}
+                      onChange={(e) => setCustomPipeOd(e.target.value)}
+                      placeholder="e.g., 48.3mm, 2 inch, DN50"
+                      className={`h-12 ${!customPipeOd.trim() ? "ring-2 ring-primary border-primary" : ""}`}
+                    />
+                  </div>
+
+                  {/* Rubber Material Dropdown */}
+                  <div>
+                    <label htmlFor="rubber-material" className="text-sm font-medium mb-2 block">
+                      Rubber Material <span className="text-red-500">*</span>
+                    </label>
+                    <Select value={customRubberMaterial} onValueChange={(v) => setCustomRubberMaterial(v as CustomSpecs['rubberMaterial'])}>
+                      <SelectTrigger className="w-full h-12" id="rubber-material">
+                        <SelectValue placeholder="Select rubber material" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="EPDM">
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">EPDM</span>
+                            <span className="text-xs text-muted-foreground">Water, steam, general purpose (-40°C to +120°C)</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="NBR">
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">NBR</span>
+                            <span className="text-xs text-muted-foreground">Oil, fuel, hydraulic fluids (-30°C to +100°C)</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="Viton">
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">Viton (FKM)</span>
+                            <span className="text-xs text-muted-foreground">High temp, chemical resistant (-20°C to +200°C)</span>
+                          </div>
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* System Operating Pressure */}
+                  <div>
+                    <label htmlFor="pressure" className="text-sm font-medium mb-2 block">
+                      System Operating Pressure <span className="text-red-500">*</span>
+                    </label>
+                    <Input
+                      id="pressure"
+                      type="text"
+                      value={customPressure}
+                      onChange={(e) => setCustomPressure(e.target.value.slice(0, 25))}
+                      placeholder="e.g., 16 bar, 250 psi"
+                      maxLength={25}
+                      className={`h-12 ${!customPressure.trim() ? "ring-2 ring-primary border-primary" : ""}`}
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">{customPressure.length}/25 characters</p>
+                  </div>
+
+                  {/* Additional Comments */}
+                  <div>
+                    <label htmlFor="notes" className="text-sm font-medium mb-2 block">
+                      Additional Comments <span className="text-muted-foreground">(optional)</span>
+                    </label>
+                    <Textarea
+                      id="notes"
+                      value={customNotes}
+                      onChange={(e) => setCustomNotes(e.target.value)}
+                      placeholder="Any additional specifications or requirements..."
+                      rows={3}
+                    />
+                  </div>
+
+                  {/* Quantity Controls */}
+                  <div className="flex items-center gap-4 py-2">
+                    <label className="text-sm font-medium">Qty</label>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => handleQuantityChange(-1)}
+                        disabled={quantity <= 1}
+                        className="h-9 w-9"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </Button>
+                      <span className="text-lg font-bold min-w-[2.5rem] text-center">
+                        {quantity}
+                      </span>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => handleQuantityChange(1)}
+                        className="h-9 w-9"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : hasSizeOptions ? (
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-lg font-semibold">Select Size & Quantity</h3>
@@ -767,7 +949,10 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                   ref={addToQuoteButtonRef}
                   size="lg"
                   onClick={handleAddToQuote}
-                  disabled={hasSizeOptions && !selectedSize}
+                  disabled={isCustomSpecsProduct
+                    ? (!customPipeOd.trim() || !customPressure.trim())
+                    : (hasSizeOptions && !selectedSize)
+                  }
                   className="flex-1"
                   data-testid="button-add-to-quote"
                 >

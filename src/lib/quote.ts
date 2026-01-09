@@ -1,27 +1,45 @@
 import { nanoid } from "nanoid"
-import type { Product, QuoteItem, QuoteItemVariation } from "@/types"
+import type { Product, QuoteItem, QuoteItemVariation, CustomSpecs } from "@/types"
+
+/**
+ * Brands that require custom specifications instead of predefined sizes
+ */
+export const CUSTOM_SPECS_BRANDS = ['Straub', 'Teekay']
+
+/**
+ * Check if a brand requires custom specifications
+ */
+export function isCustomSpecsBrand(brand: string): boolean {
+  return CUSTOM_SPECS_BRANDS.includes(brand)
+}
 
 export interface ProductToQuoteItemOptions {
   selectedSize?: string
   quantity?: number
   materialTestCert?: boolean
+  customSpecs?: CustomSpecs
 }
 
 /**
  * Converts a Product to a QuoteItem for adding to the quote cart.
- * Handles products with variations, single prices, and POA.
+ * Handles products with variations, single prices, POA, and custom specs (Straub/Teekay).
  */
 export function productToQuoteItem(
   product: Product,
   options: ProductToQuoteItemOptions = {}
 ): QuoteItem {
-  const { selectedSize, quantity = 1, materialTestCert = false } = options
+  const { selectedSize, quantity = 1, materialTestCert = false, customSpecs } = options
 
   let variation: QuoteItemVariation | undefined
   let basePrice: number | undefined
   let baseSku: string | undefined
 
-  if (product.priceVaries && product.sizeOptions) {
+  // Straub/Teekay products use custom specs instead of predefined sizes
+  if (isCustomSpecsBrand(product.brand)) {
+    // These are always POA products - no price lookup needed
+    baseSku = product.sku
+    basePrice = undefined // Always POA
+  } else if (product.priceVaries && product.sizeOptions) {
     // Product has size variations - selectedSize is required
     if (!selectedSize) {
       throw new Error("Size selection is required for products with variable pricing")
@@ -80,6 +98,7 @@ export function productToQuoteItem(
     quantity,
     materialTestCert,
     leadTime: product.leadTime,
+    customSpecs,
   }
 }
 
