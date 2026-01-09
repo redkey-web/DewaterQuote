@@ -515,6 +515,63 @@
   border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Chrome sunglasses text effect */
+.chrome-text {
+  background: linear-gradient(135deg,
+    #14b8a6 0%,   /* Teal */
+    #06b6d4 25%,  /* Cyan */
+    #8b5cf6 50%,  /* Purple */
+    #a855f7 75%,  /* Bright purple */
+    #14b8a6 100%  /* Back to teal */
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chrome-shine 3s ease-in-out infinite;
+}
+
+.chrome-text::placeholder {
+  -webkit-text-fill-color: #9ca3af;
+  background: none;
+}
+
+@keyframes chrome-shine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Laser scanning border effect */
+.laser-scan-border {
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 80%,
+    rgba(59, 156, 165, 0.8) 85%,
+    rgba(139, 92, 246, 1) 90%,
+    rgba(59, 156, 165, 0.8) 95%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  animation: laser-scan 2.5s linear infinite;
+  filter: blur(1px);
+}
+
+@keyframes laser-scan {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* Sparkle animation for discount text */
 @keyframes sparkle {
   0%, 100% {

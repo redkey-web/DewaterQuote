@@ -250,16 +250,20 @@ export default function HomePage() {
             <form onSubmit={handleSearchSubmit}>
               {/* 3D Search Bar */}
               <div className="relative">
+                {/* Laser scanning effect border */}
+                <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+                  <div className="laser-scan-border" />
+                </div>
                 {isSearching ? (
-                  <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-zinc-400 animate-spin z-10" />
+                  <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-primary/70 animate-spin z-10" />
                 ) : (
-                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-zinc-400 z-10" />
+                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-primary/70 z-10" />
                 )}
                 <input
                   ref={heroInputRef}
                   type="text"
                   placeholder="Search pipe fittings, valves, couplings..."
-                  className="w-full h-14 md:h-16 pl-14 pr-6 text-lg rounded-2xl bg-zinc-200 border border-zinc-400 shadow-[inset_0_2px_6px_rgba(0,0,0,0.2),inset_0_1px_2px_rgba(0,0,0,0.15)] focus:outline-none focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.2),inset_0_1px_2px_rgba(0,0,0,0.15),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary/50 transition-all placeholder:text-zinc-500 text-zinc-900"
+                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-bold rounded-2xl bg-white border-2 border-primary/30 focus:outline-none focus:border-primary/50 transition-all placeholder:text-zinc-400 chrome-text"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
