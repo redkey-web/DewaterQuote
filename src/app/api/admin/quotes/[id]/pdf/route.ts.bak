@@ -78,6 +78,21 @@ export async function GET(
       materialTestCert: item.materialTestCert || false,
     }))
 
+    // Build address objects from separate columns
+    const deliveryAddress = {
+      street: quote.deliveryStreet || '',
+      suburb: quote.deliverySuburb || '',
+      state: quote.deliveryState || '',
+      postcode: quote.deliveryPostcode || '',
+    }
+
+    const billingAddress = {
+      street: quote.billingStreet || quote.deliveryStreet || '',
+      suburb: quote.billingSuburb || quote.deliverySuburb || '',
+      state: quote.billingState || quote.deliveryState || '',
+      postcode: quote.billingPostcode || quote.deliveryPostcode || '',
+    }
+
     // Build PDF data
     const pdfData: QuotePDFData = {
       quoteNumber: quote.quoteNumber,
@@ -87,8 +102,8 @@ export async function GET(
       contactName: quote.contactName,
       email: quote.email,
       phone: quote.phone,
-      deliveryAddress: quote.deliveryAddress as QuotePDFData["deliveryAddress"],
-      billingAddress: quote.billingAddress as QuotePDFData["billingAddress"],
+      deliveryAddress,
+      billingAddress,
       items: pdfItems,
       subtotal,
       savings,
@@ -105,7 +120,11 @@ export async function GET(
     }
 
     // Generate PDF
-    const pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
+    console.log('PDF Data:', JSON.stringify(pdfData, null, 2))
+    const pdfElement = QuotePDF({ data: pdfData })
+    console.log('PDF Element created')
+    const pdfBuffer = await renderToBuffer(pdfElement as any)
+    console.log('PDF Buffer generated, size:', pdfBuffer.length)
 
     // Return PDF
     return new NextResponse(pdfBuffer, {

@@ -44,6 +44,7 @@ interface QuoteItem {
   name: string
   sku: string
   brand: string
+  category: string
   quantity: number
   materialTestCert?: boolean
   variation?: {
@@ -169,8 +170,14 @@ export async function POST(request: NextRequest) {
         contactName: data.contactName,
         email: data.email,
         phone: data.phone,
-        deliveryAddress: data.deliveryAddress,
-        billingAddress: data.billingAddress,
+        deliveryStreet: data.deliveryAddress.street,
+        deliverySuburb: data.deliveryAddress.suburb,
+        deliveryState: data.deliveryAddress.state,
+        deliveryPostcode: data.deliveryAddress.postcode,
+        billingStreet: data.billingAddress.street,
+        billingSuburb: data.billingAddress.suburb,
+        billingState: data.billingAddress.state,
+        billingPostcode: data.billingAddress.postcode,
         notes: data.notes,
         itemCount: data.totals.itemCount,
         pricedTotal: data.totals.pricedTotal?.toString(),
@@ -192,6 +199,7 @@ export async function POST(request: NextRequest) {
           sku: item.variation?.sku || item.sku,
           name: item.name,
           brand: item.brand,
+          category: item.category || 'Unknown', // Required field
           quantity: item.quantity,
           size: item.variation?.sizeLabel,
           sizeLabel: item.variation?.sizeLabel,

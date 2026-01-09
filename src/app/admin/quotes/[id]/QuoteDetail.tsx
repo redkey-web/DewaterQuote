@@ -69,8 +69,16 @@ type Quote = {
   contactName: string;
   email: string;
   phone: string;
-  deliveryAddress: Address;
-  billingAddress: Address;
+  // Delivery Address (separate columns)
+  deliveryStreet: string | null;
+  deliverySuburb: string | null;
+  deliveryState: string | null;
+  deliveryPostcode: string | null;
+  // Billing Address (separate columns)
+  billingStreet: string | null;
+  billingSuburb: string | null;
+  billingState: string | null;
+  billingPostcode: string | null;
   notes: string | null;
   internalNotes: string | null;
   itemCount: number;
@@ -104,11 +112,26 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
   const [isSaving, setIsSaving] = useState(false);
   const [sendDialogOpen, setSendDialogOpen] = useState(false);
 
+  // Helper to construct address objects from separate columns
+  const deliveryAddress: Address = {
+    street: quote.deliveryStreet || '',
+    suburb: quote.deliverySuburb || '',
+    state: quote.deliveryState || '',
+    postcode: quote.deliveryPostcode || '',
+  };
+
+  const billingAddress: Address = {
+    street: quote.billingStreet || '',
+    suburb: quote.billingSuburb || '',
+    state: quote.billingState || '',
+    postcode: quote.billingPostcode || '',
+  };
+
   const formatAddress = (addr: Address) =>
     `${addr.street}, ${addr.suburb} ${addr.state} ${addr.postcode}`;
 
   const billingIsDifferent =
-    formatAddress(quote.deliveryAddress) !== formatAddress(quote.billingAddress);
+    formatAddress(deliveryAddress) !== formatAddress(billingAddress);
 
   // Calculate totals
   const subtotal = parseFloat(quote.pricedTotal || '0');
@@ -242,7 +265,7 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
                 <MapPin className="h-4 w-4 text-gray-400 mt-0.5" />
                 <div>
                   <p className="text-sm text-gray-500">Delivery Address</p>
-                  <p>{formatAddress(quote.deliveryAddress)}</p>
+                  <p>{formatAddress(deliveryAddress)}</p>
                 </div>
               </div>
               {billingIsDifferent && (
@@ -250,7 +273,7 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
                   <FileText className="h-4 w-4 text-gray-400 mt-0.5" />
                   <div>
                     <p className="text-sm text-gray-500">Billing Address</p>
-                    <p>{formatAddress(quote.billingAddress)}</p>
+                    <p>{formatAddress(billingAddress)}</p>
                   </div>
                 </div>
               )}

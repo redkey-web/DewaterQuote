@@ -507,7 +507,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
         <View style={styles.footer}>
           <View>
             <Text style={styles.footerCompany}>Dewater Products Pty Ltd</Text>
-            <Text style={styles.footerText}>ABN: 12 345 678 901</Text>
+            <Text style={styles.footerText}>ABN: 98 622 681 663</Text>
             <Text style={styles.footerText}>Perth, Western Australia</Text>
           </View>
           <View style={{ textAlign: "right" }}>

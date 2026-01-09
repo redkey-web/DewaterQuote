@@ -461,19 +461,17 @@ export const quotes = pgTable('quotes', {
   email: text('email').notNull(),
   phone: text('phone').notNull(),
 
-  // Addresses (stored as JSON)
-  deliveryAddress: jsonb('delivery_address').$type<{
-    street: string;
-    suburb: string;
-    state: string;
-    postcode: string;
-  }>().notNull(),
-  billingAddress: jsonb('billing_address').$type<{
-    street: string;
-    suburb: string;
-    state: string;
-    postcode: string;
-  }>().notNull(),
+  // Delivery Address
+  deliveryStreet: text('delivery_street'),
+  deliverySuburb: text('delivery_suburb'),
+  deliveryState: text('delivery_state'),
+  deliveryPostcode: text('delivery_postcode'),
+
+  // Billing Address
+  billingStreet: text('billing_street'),
+  billingSuburb: text('billing_suburb'),
+  billingState: text('billing_state'),
+  billingPostcode: text('billing_postcode'),
 
   // Notes
   notes: text('notes'),
@@ -516,6 +514,7 @@ export const quoteItems = pgTable('quote_items', {
   productId: integer('product_id').references(() => products.id, { onDelete: 'set null' }),
 
   // Snapshot data (preserved even if product changes)
+  category: text('category').notNull(),
   sku: text('sku').notNull(),
   name: text('name').notNull(),
   brand: text('brand').notNull(),

@@ -385,7 +385,7 @@ function EmailPreview({
         {/* Footer */}
         <div className="bg-gray-800 px-6 py-6 text-center">
           <p className="text-white font-semibold">Dewater Products Pty Ltd</p>
-          <p className="text-gray-400 text-sm">ABN: 12 345 678 901</p>
+          <p className="text-gray-400 text-sm">ABN: 98 622 681 663</p>
           <p className="text-gray-400 text-sm">Perth, Western Australia</p>
           <p className="mt-3">
             <span className="text-sky-400 text-sm">1300 271 290</span>

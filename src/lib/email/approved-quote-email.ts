@@ -331,7 +331,7 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
           <tr>
             <td style="background-color: #1f2937; padding: 30px; text-align: center;">
               <p style="margin: 0 0 10px 0; color: #ffffff; font-weight: 600; font-size: 16px;">Dewater Products Pty Ltd</p>
-              <p style="margin: 0 0 5px 0; color: #9ca3af; font-size: 13px;">ABN: 12 345 678 901</p>
+              <p style="margin: 0 0 5px 0; color: #9ca3af; font-size: 13px;">ABN: 98 622 681 663</p>
               <p style="margin: 0 0 5px 0; color: #9ca3af; font-size: 13px;">Perth, Western Australia</p>
               <p style="margin: 15px 0 0 0;">
                 <a href="tel:1300271290" style="color: #0ea5e9; text-decoration: none; font-size: 13px;">1300 271 290</a>
@@ -428,7 +428,7 @@ Ready to proceed? Reply to this email or call us on 1300 271 290 to confirm your
 ---
 
 Dewater Products Pty Ltd
-ABN: 12 345 678 901
+ABN: 98 622 681 663
 Perth, Western Australia
 Phone: 1300 271 290
 Email: sales@dewaterproducts.com.au

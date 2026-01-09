@@ -193,6 +193,7 @@ export default function RequestQuotePage() {
             name: item.name,
             sku: getQuoteItemSKU(item),
             brand: item.brand,
+            category: item.category,
             quantity: item.quantity,
             materialTestCert: item.materialTestCert,
             variation: item.variation ? {
@@ -650,7 +651,7 @@ export default function RequestQuotePage() {
               </CardHeader>
               <CardContent>
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                  <form onSubmit={form.handleSubmit(onSubmit, (errors) => console.log('Form validation errors:', errors))} className="space-y-8">
                     {/* Company Details Fields */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField

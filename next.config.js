@@ -3,6 +3,10 @@ const nextConfig = {
   // Enable standalone output for Replit/Docker deployments
   output: process.env.REPLIT ? 'standalone' : undefined,
 
+  // Externalize react-pdf for server-side rendering compatibility
+  // Fixes: "Minified React error #31" when using renderToBuffer
+  serverExternalPackages: ['@react-pdf/renderer'],
+
   // Security headers
   async headers() {
     return [
