@@ -993,7 +993,7 @@ export default function RequestQuotePage() {
 
                     <Button
                       type="submit"
-                      className="w-full btn-bounce"
+                      className="w-full"
                       size="lg"
                       disabled={isSubmitting || !canSubmit}
                       data-testid="button-submit"

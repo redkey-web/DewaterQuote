@@ -438,7 +438,7 @@ export default function QuoteCart() {
                 Free metro delivery via road freight. Non-metro? We&apos;ll ship to your nearest metro depot.
               </p>
               <Button
-                className="w-full btn-bounce"
+                className="w-full"
                 size="lg"
                 onClick={handleSubmitQuote}
                 data-testid="button-submit-quote"
