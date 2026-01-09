@@ -6,6 +6,9 @@ import { quotes } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import sgMail from '@sendgrid/mail';
 import { escapeHtml } from '@/lib/sanitize';
+import { renderToBuffer } from '@react-pdf/renderer';
+import { QuotePDF, type QuotePDFData, type QuoteItemPDF } from '@/lib/pdf/quote-pdf';
+import { format, addDays } from 'date-fns';
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -22,12 +25,16 @@ type Address = {
 type QuoteItem = {
   id: number;
   sku: string;
+  variationSku: string | null;
   name: string;
   brand: string;
+  size: string | null;
   quantity: number;
   sizeLabel: string | null;
   unitPrice: string | null;
   lineTotal: string | null;
+  quotedPrice: string | null;
+  quotedNotes: string | null;
   materialTestCert: boolean | null;
 };
 
@@ -87,6 +94,56 @@ export async function POST(
 
     const formatAddress = (addr: Address) =>
       `${addr.street}, ${addr.suburb} ${addr.state} ${addr.postcode}`;
+
+    // Generate PDF
+    const quoteDate = format(quote.createdAt, 'd MMMM yyyy');
+    const validUntil = format(addDays(quote.createdAt, 30), 'd MMMM yyyy');
+
+    const pdfItems: QuoteItemPDF[] = quote.items.map((item: QuoteItem) => ({
+      sku: item.variationSku || item.sku,
+      name: item.name,
+      brand: item.brand,
+      size: item.size || undefined,
+      sizeLabel: item.sizeLabel || undefined,
+      quantity: item.quantity,
+      unitPrice: item.unitPrice ? parseFloat(item.unitPrice) : null,
+      lineTotal: item.lineTotal ? parseFloat(item.lineTotal) : null,
+      quotedPrice: item.quotedPrice ? parseFloat(item.quotedPrice) : null,
+      quotedNotes: item.quotedNotes || undefined,
+      materialTestCert: item.materialTestCert || false,
+    }));
+
+    const pdfData: QuotePDFData = {
+      quoteNumber: quote.quoteNumber,
+      quoteDate,
+      validUntil,
+      companyName: quote.companyName,
+      contactName: quote.contactName,
+      email: quote.email,
+      phone: quote.phone,
+      deliveryAddress: quote.deliveryAddress as QuotePDFData['deliveryAddress'],
+      billingAddress: quote.billingAddress as QuotePDFData['billingAddress'],
+      items: pdfItems,
+      subtotal,
+      savings,
+      certFee,
+      certCount: quote.certCount || 0,
+      shippingCost: shipping,
+      shippingNotes: shippingNotes,
+      gst,
+      total,
+      hasUnpricedItems: quote.hasUnpricedItems || false,
+      notes: quote.notes || undefined,
+    };
+
+    const pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }));
+
+    // Convert to base64 - handle both Buffer and Uint8Array
+    const pdfBase64 = Buffer.isBuffer(pdfBuffer)
+      ? pdfBuffer.toString('base64')
+      : Buffer.from(pdfBuffer).toString('base64');
+
+    console.log(`[Quote ${quote.quoteNumber}] PDF generated: ${pdfBase64.length} bytes base64`);
 
     // Build items table for email
     const itemsTableRows = quote.items
@@ -255,9 +312,21 @@ export async function POST(
           </div>
         </div>
       `,
+      attachments: [
+        {
+          content: pdfBase64,
+          filename: `${quote.quoteNumber}.pdf`,
+          type: 'application/pdf',
+          disposition: 'attachment',
+        },
+      ],
     };
 
+    console.log(`[Quote ${quote.quoteNumber}] Sending email to: ${quote.email}`);
+    console.log(`[Quote ${quote.quoteNumber}] Attachment size: ${pdfBase64.length} chars`);
+
     await sgMail.send(customerEmail);
+    console.log(`[Quote ${quote.quoteNumber}] Email sent successfully`);
 
     return NextResponse.json({ success: true });
   } catch (error) {

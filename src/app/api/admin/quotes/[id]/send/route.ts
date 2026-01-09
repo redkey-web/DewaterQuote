@@ -129,6 +129,13 @@ export async function POST(
     // Generate PDF
     const pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
 
+    // Convert to base64 - handle both Buffer and Uint8Array
+    const pdfBase64 = Buffer.isBuffer(pdfBuffer)
+      ? pdfBuffer.toString("base64")
+      : Buffer.from(pdfBuffer).toString("base64")
+
+    console.log(`[Quote ${quote.quoteNumber}] PDF generated: ${pdfBase64.length} bytes base64`)
+
     // Check SendGrid configuration
     if (!process.env.SENDGRID_API_KEY) {
       return NextResponse.json(
@@ -144,7 +151,7 @@ export async function POST(
     // Send email with PDF attachment
     const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
 
-    await sgMail.send({
+    const emailPayload = {
       to: quote.email,
       from: fromEmail,
       replyTo: process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au",
@@ -153,13 +160,20 @@ export async function POST(
       text: textContent,
       attachments: [
         {
-          content: pdfBuffer.toString("base64"),
+          content: pdfBase64,
           filename: `${quote.quoteNumber}.pdf`,
           type: "application/pdf",
           disposition: "attachment",
         },
       ],
-    })
+    }
+
+    console.log(`[Quote ${quote.quoteNumber}] Sending email to: ${quote.email}`)
+    console.log(`[Quote ${quote.quoteNumber}] Attachment size: ${pdfBase64.length} chars`)
+    console.log(`[Quote ${quote.quoteNumber}] SendGrid API key configured: ${!!process.env.SENDGRID_API_KEY}`)
+
+    await sgMail.send(emailPayload)
+    console.log(`[Quote ${quote.quoteNumber}] Email sent successfully`)
 
     // Update quote status
     await db

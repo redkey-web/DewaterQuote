@@ -549,6 +549,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     // Generate PDF attachment for customer email
     let pdfBuffer: Buffer | null = null
     try {
+      console.log(`[Quote ${quoteNumber}] Starting PDF generation...`)
       pdfBuffer = await generateQuotePDF({
         quoteNumber,
         companyName: data.companyName,
@@ -562,21 +563,26 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
         notes: data.notes,
         deliveryNote: deliveryClassification.deliveryNote,
       })
+      console.log(`[Quote ${quoteNumber}] PDF buffer size: ${pdfBuffer?.length || 0} bytes`)
     } catch (pdfError) {
-      console.error("Failed to generate PDF:", pdfError)
+      console.error(`[Quote ${quoteNumber}] Failed to generate PDF:`, pdfError)
       // Continue without PDF attachment
     }
 
     // Add PDF attachment to customer email if generated
     if (pdfBuffer) {
-      (customerEmail as Record<string, unknown>).attachments = [
+      const pdfBase64 = pdfBuffer.toString("base64")
+      console.log(`[Quote ${quoteNumber}] PDF generated: ${pdfBase64.length} chars base64`)
+      ;(customerEmail as Record<string, unknown>).attachments = [
         {
-          content: pdfBuffer.toString("base64"),
+          content: pdfBase64,
           filename: `${quoteNumber}-Quote.pdf`,
           type: "application/pdf",
           disposition: "attachment",
         },
       ]
+    } else {
+      console.log(`[Quote ${quoteNumber}] WARNING: No PDF generated`)
     }
 
     // Send both emails
