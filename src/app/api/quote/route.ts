@@ -201,11 +201,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Support multiple recipients (comma-separated)
-    // TESTING: Swapped recipients for testing - REVERT AFTER TESTING
-    const toEmails = ["sales@dewaterproducts.com.au"] // Business copy goes here
+    // TESTING: Both copies to both addresses - REVERT AFTER TESTING
+    const toEmails = ["sales@dewaterproducts.com.au", "ga.gmb.gsc@gmail.com"]
     const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
-    // Override customer email for testing - sends PDF to this address
-    const testCustomerEmail = "ga.gmb.gsc@gmail.com"
+    // Customer copy also to both addresses for testing
+    const testCustomerEmails = ["sales@dewaterproducts.com.au", "ga.gmb.gsc@gmail.com"]
 
     // Sanitize user inputs for HTML context
     const safeCompanyName = escapeHtml(data.companyName)
@@ -490,7 +490,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     `}).join("")
 
     const customerEmail = {
-      to: testCustomerEmail, // TESTING: Using test email - REVERT to data.email after testing
+      to: testCustomerEmails, // TESTING: Both addresses - REVERT to data.email after testing
       from: fromEmail,
       subject: `Your Quote ${quoteNumber} - Dewater Products`,
       html: `
