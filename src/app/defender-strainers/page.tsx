@@ -133,14 +133,14 @@ export default async function DefenderStrainersPage() {
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="#products"
-                  className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center px-6 py-3 border border-primary rounded-md font-medium shadow-lg transition-colors"
                 >
                   View Products
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
                 <Link
                   href="/request-quote"
-                  className="btn-swipe btn-swipe-to-teal inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-sm"
+                  className="bg-background text-foreground hover:bg-accent inline-flex items-center px-6 py-3 border border-input rounded-md font-medium shadow-sm transition-colors"
                 >
                   Request a Quote
                 </Link>

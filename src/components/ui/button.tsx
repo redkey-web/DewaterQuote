@@ -11,12 +11,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "btn-swipe btn-swipe-to-white border shadow-lg",
+          "bg-primary text-primary-foreground border border-primary hover:bg-primary/90 shadow-lg",
         destructive:
-          "bg-destructive text-destructive-foreground border border-destructive-border",
+          "bg-destructive text-destructive-foreground border border-destructive-border hover:bg-destructive/90",
         outline:
-          "btn-swipe btn-swipe-to-teal border shadow-xs active:shadow-none",
-        secondary: "btn-swipe btn-swipe-to-teal border shadow-sm",
+          "bg-background border border-input hover:bg-accent hover:text-accent-foreground shadow-xs active:shadow-none",
+        secondary: "bg-secondary text-secondary-foreground border border-input hover:bg-secondary/80 shadow-sm",
         // Add a transparent border so that when someone toggles a border on later, it doesn't shift layout/size.
         ghost: "border border-transparent",
         cyanGlow:

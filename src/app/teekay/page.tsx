@@ -165,7 +165,7 @@ export default async function TeekayPage() {
           </p>
           <Link
             href="/request-quote"
-            className="btn-swipe btn-swipe-to-white inline-flex items-center px-6 py-3 border rounded-md font-medium shadow-lg"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center px-6 py-3 border border-primary rounded-md font-medium shadow-lg transition-colors"
           >
             Request a Quote
           </Link>

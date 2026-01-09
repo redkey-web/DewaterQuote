@@ -166,7 +166,7 @@ export default async function StraubCouplingsRepairClampsPage() {
               </p>
               <Link
                   href="/request-quote"
-                  className="btn-swipe btn-swipe-red-to-black inline-flex items-center px-6 py-3 border rounded-md font-medium transition-colors shadow-lg"
+                  className="bg-red-600 text-white hover:bg-red-700 inline-flex items-center px-6 py-3 border border-red-600 rounded-md font-medium transition-colors shadow-lg"
                 >
                   Request a Quote
                 </Link>
