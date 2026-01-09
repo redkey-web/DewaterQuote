@@ -112,12 +112,37 @@ export default async function StraubCouplingsRepairClampsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900 relative overflow-hidden">
       <BreadcrumbJsonLd items={breadcrumbs} />
       <OrganizationJsonLd />
 
+      {/* Animated blob background extending through entire page */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-stone-100 via-stone-50 to-stone-100 dark:from-stone-800 dark:via-stone-700 dark:to-stone-800" />
+        {/* Blob 1 - Deep red (large, top-left) */}
+        <div
+          className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl animate-blob"
+          style={{ backgroundColor: '#dc2626' }}
+        />
+        {/* Blob 2 - Bright red accent (right side) */}
+        <div
+          className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-15 blur-3xl animate-blob animation-delay-2000"
+          style={{ backgroundColor: '#ef4444' }}
+        />
+        {/* Blob 3 - Light red (middle, adds depth) */}
+        <div
+          className="absolute top-[600px] left-1/4 w-[600px] h-[400px] rounded-full opacity-12 blur-3xl animate-blob animation-delay-4000"
+          style={{ backgroundColor: '#f87171' }}
+        />
+        {/* Blob 4 - White glow (center-left) */}
+        <div
+          className="absolute top-[400px] left-0 w-[700px] h-[500px] rounded-full opacity-10 blur-3xl animate-blob animation-delay-2000"
+          style={{ backgroundColor: '#ffffff' }}
+        />
+      </div>
+
       {/* Hero Section */}
-      <div className="relative overflow-hidden border-b bg-stone-50 dark:bg-stone-800">
+      <div className="relative border-b">
         <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
@@ -222,17 +247,17 @@ export default async function StraubCouplingsRepairClampsPage() {
         </div>
 
         {/* Equivalent Products Note */}
-        <div className="mb-16 p-6 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-lg">
-          <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+        <div className="mb-16 p-6 bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900 rounded-lg">
+          <h3 className="font-semibold text-orange-900 dark:text-orange-100 mb-2">
             Looking for Straub Equivalents?
           </h3>
-          <p className="text-blue-800 dark:text-blue-200 mb-4">
+          <p className="text-orange-800 dark:text-orange-200 mb-4">
             We also stock Orbit couplings which are compatible alternatives to Straub at competitive prices.
             Many products show their Straub equivalent on the product page.
           </p>
           <Link
             href="/orbit-couplings"
-            className="inline-flex items-center text-blue-700 dark:text-blue-300 font-medium hover:underline"
+            className="inline-flex items-center text-orange-700 dark:text-orange-300 font-medium hover:underline"
           >
             View Orbit Couplings
             <ArrowRight className="w-4 h-4 ml-1" />

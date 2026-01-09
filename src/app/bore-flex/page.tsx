@@ -72,35 +72,36 @@ export default async function BoreFlexPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
+    <div className="min-h-screen bg-stone-200 dark:bg-stone-900 relative overflow-hidden">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
+      {/* Animated blob background extending through entire page - Red, white, and lighter theme */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-700" />
+        {/* Blob 1 - Deep red (large, top-left) */}
+        <div
+          className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-35 blur-3xl animate-blob"
+          style={{ backgroundColor: '#dc2626' }}
+        />
+        {/* Blob 2 - Bright red accent (right side) */}
+        <div
+          className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-30 blur-3xl animate-blob animation-delay-2000"
+          style={{ backgroundColor: '#ef4444' }}
+        />
+        {/* Blob 3 - Light red (middle, adds depth) */}
+        <div
+          className="absolute top-[600px] left-1/4 w-[600px] h-[400px] rounded-full opacity-25 blur-3xl animate-blob animation-delay-4000"
+          style={{ backgroundColor: '#f87171' }}
+        />
+        {/* Blob 4 - White glow (center-left) */}
+        <div
+          className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-25 blur-3xl animate-blob animation-delay-2000"
+          style={{ backgroundColor: '#ffffff' }}
+        />
+      </div>
+
       {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
-        {/* Animated blob background - Red, white, and lighter theme */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-700" />
-          {/* Blob 1 - Deep red (large, top-left) */}
-          <div
-            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-35 blur-3xl animate-blob"
-            style={{ backgroundColor: '#dc2626' }}
-          />
-          {/* Blob 2 - Bright red accent (right side) */}
-          <div
-            className="absolute top-20 -right-32 w-[450px] h-[450px] rounded-full opacity-30 blur-3xl animate-blob animation-delay-2000"
-            style={{ backgroundColor: '#ef4444' }}
-          />
-          {/* Blob 3 - Light red (bottom, adds depth) */}
-          <div
-            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-25 blur-3xl animate-blob animation-delay-4000"
-            style={{ backgroundColor: '#f87171' }}
-          />
-          {/* Blob 4 - White glow (center-left) */}
-          <div
-            className="absolute top-0 left-0 w-[700px] h-[500px] rounded-full opacity-25 blur-3xl animate-blob animation-delay-2000"
-            style={{ backgroundColor: '#ffffff' }}
-          />
-        </div>
+      <div className="relative border-b">
         <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">

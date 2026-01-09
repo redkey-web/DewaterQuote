@@ -113,6 +113,17 @@ export default async function FlangeAdaptorsPage() {
           <span className="mx-1">/</span>
           <span className="text-foreground font-medium">Flange Adaptors</span>
         </nav>
+
+        {/* All Products */}
+        <div id="products" className="mb-6 scroll-mt-8">
+          <h2 className="text-2xl font-semibold mb-4">All Flange Adaptor Products</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
+          {flangeProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+
         {/* Key Features - Critical Info */}
         <div className="mb-10">
           <h2 className="text-2xl font-bold mb-6">Key Features</h2>
@@ -124,16 +135,6 @@ export default async function FlangeAdaptorsPage() {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* All Products */}
-        <div id="products" className="mb-6 scroll-mt-8">
-          <h2 className="text-2xl font-semibold mb-4">All Flange Adaptor Products</h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
-          {flangeProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
         </div>
 
         {/* Applications */}

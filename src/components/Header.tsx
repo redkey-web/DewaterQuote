@@ -218,10 +218,10 @@ export default function Header() {
             />
           </Link>
 
-          {/* Search + Products - spans both rows, centered */}
-          <div className="row-span-2 flex items-center gap-4">
+          {/* Search - spans both rows, centered */}
+          <div className="row-span-2 flex items-center justify-center">
             {/* Search Bar */}
-            <div className="relative flex-1 max-w-sm" ref={searchRef}>
+            <div className="relative w-full max-w-sm" ref={searchRef}>
               <form onSubmit={handleSearchSubmit}>
                 {isSearching ? (
                   <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 animate-spin z-10" />
@@ -269,18 +269,31 @@ export default function Header() {
                 </div>
               )}
             </div>
+          </div>
 
-            {/* Products Menu - Secondary Focus */}
+          {/* Top Row Right - Contact Info */}
+          <div className="flex items-center justify-end gap-6 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-b border-primary/10">
+            <a href="mailto:sales@dewaterproducts.com.au" className="hover:text-primary transition-colors flex items-center gap-1.5">
+              <Mail className="w-4 h-4 text-primary" />
+              sales@dewaterproducts.com.au
+            </a>
+            <a href="tel:1300271290" className="hover:text-primary transition-colors flex items-center gap-1.5">
+              <Phone className="w-4 h-4 text-primary" />
+              1300 271 290
+            </a>
+          </div>
+
+          {/* Bottom Row Right - Nav Items */}
+          <nav className="flex items-center justify-end gap-5 py-2">
+            {/* Products Menu */}
             <div
               className="relative"
               onMouseEnter={() => setActiveMenu("products")}
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-150 border border-cyan-600 animate-press-bounce ${
-                  activeMenu === "products"
-                    ? "bg-[radial-gradient(ellipse_at_center,_rgba(14,116,144,0.9)_0%,_rgba(8,100,130,0.95)_60%,_rgba(6,80,100,1)_100%)] text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] shadow-[inset_0_2px_6px_rgba(0,0,0,0.3),inset_0_0_8px_rgba(0,0,0,0.15)]"
-                    : "bg-[radial-gradient(ellipse_at_center,_rgba(90,235,250,0.8)_0%,_rgba(56,220,235,0.85)_60%,_rgba(34,200,220,0.9)_100%)] text-gray-800 shadow-[inset_0_0_4px_rgba(0,0,0,0.15),inset_0_0_2px_1px_rgba(255,255,255,0.15),inset_0_1px_0_rgba(255,255,255,0.4)] hover:bg-[radial-gradient(ellipse_at_center,_rgba(103,232,249,0.9)_0%,_rgba(34,211,238,0.9)_50%,_rgba(20,184,198,0.95)_100%)] hover:border-cyan-400 hover:shadow-[inset_0_0_15px_rgba(255,255,255,0.5),inset_0_0_25px_rgba(255,255,255,0.3),inset_0_1px_0_rgba(255,255,255,0.8)] hover:[text-shadow:0_0_8px_rgba(255,255,255,0.6),0_1px_2px_rgba(0,0,0,0.3)] active:shadow-[inset_0_3px_8px_rgba(0,0,0,0.4)]"
+                className={`flex items-center gap-1 px-3 py-1.5 rounded text-xs transition-all btn-metallic-silver ${
+                  activeMenu === "products" ? "opacity-90" : ""
                 }`}
                 data-testid="button-products-menu"
               >
@@ -353,22 +366,7 @@ export default function Header() {
                 </>
               )}
             </div>
-          </div>
 
-          {/* Top Row Right - Contact Info */}
-          <div className="flex items-center justify-end gap-6 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-b border-primary/10">
-            <a href="mailto:sales@dewaterproducts.com.au" className="hover:text-primary transition-colors flex items-center gap-1.5">
-              <Mail className="w-4 h-4 text-primary" />
-              sales@dewaterproducts.com.au
-            </a>
-            <a href="tel:1300271290" className="hover:text-primary transition-colors flex items-center gap-1.5">
-              <Phone className="w-4 h-4 text-primary" />
-              1300 271 290
-            </a>
-          </div>
-
-          {/* Bottom Row Right - Nav Items */}
-          <nav className="flex items-center justify-end gap-5 py-2">
             {/* Industries Menu */}
             <div
               className="relative"

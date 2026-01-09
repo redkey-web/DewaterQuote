@@ -182,57 +182,6 @@ export default function HomePage() {
     <div>
       {/* Hero Section */}
       <section className="relative min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden">
-        {/* Bulk Pricing Ticker */}
-        <div
-          className="absolute top-0 left-0 right-0 z-20 py-2 overflow-hidden"
-          data-testid="section-bulk-pricing"
-        >
-          <div className="ticker-wrapper">
-            <div className="ticker-content">
-              <div className="flex items-center gap-8 px-8 text-sm">
-                <div className="flex items-center gap-2">
-                  <TrendingDown className="w-4 h-4 text-white" />
-                  <span className="font-semibold text-white">Bulk Pricing:</span>
-                  <span className="text-white/80">Buy 2-4</span>
-                  <span className="font-bold text-yellow-400">5% OFF</span>
-                </div>
-                <span className="text-white/50">•</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-white/80">Buy 5-9</span>
-                  <span className="font-bold text-orange-400">10% OFF</span>
-                </div>
-                <span className="text-white/50">•</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-white/80">Buy 10+</span>
-                  <span className="font-bold text-rose-400">15% OFF</span>
-                </div>
-                <span className="text-white/50">•</span>
-              </div>
-            </div>
-            <div className="ticker-content" aria-hidden="true">
-              <div className="flex items-center gap-8 px-8 text-sm">
-                <div className="flex items-center gap-2">
-                  <TrendingDown className="w-4 h-4 text-white" />
-                  <span className="font-semibold text-white">Bulk Pricing:</span>
-                  <span className="text-white/80">Buy 2-4</span>
-                  <span className="font-bold text-yellow-400">5% OFF</span>
-                </div>
-                <span className="text-white/50">•</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-white/80">Buy 5-9</span>
-                  <span className="font-bold text-orange-400">10% OFF</span>
-                </div>
-                <span className="text-white/50">•</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-white/80">Buy 10+</span>
-                  <span className="font-bold text-rose-400">15% OFF</span>
-                </div>
-                <span className="text-white/50">•</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div
           className="absolute inset-0 bg-cover"
           style={{
@@ -248,12 +197,8 @@ export default function HomePage() {
           </p>
           <div className="relative w-full max-w-2xl mx-auto" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
-              {/* 3D Search Bar */}
+              {/* Search Bar */}
               <div className="relative">
-                {/* Laser scanning effect border */}
-                <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
-                  <div className="laser-scan-border" />
-                </div>
                 {isSearching ? (
                   <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-primary/70 animate-spin z-10" />
                 ) : (
@@ -263,7 +208,7 @@ export default function HomePage() {
                   ref={heroInputRef}
                   type="text"
                   placeholder="Search pipe fittings, valves, couplings..."
-                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-bold rounded-2xl bg-white border-2 border-primary/30 focus:outline-none focus:border-primary/50 transition-all placeholder:text-zinc-400 chrome-text"
+                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-bold rounded-2xl bg-white border-2 border-primary/30 focus:outline-none focus:border-primary/50 transition-all placeholder:text-zinc-400"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -301,11 +246,11 @@ export default function HomePage() {
             )}
           </div>
           {/* Category Dropdowns */}
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mt-6">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 mt-4">
             {/* Couplings */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="pill-swipe flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 rounded-full border border-white/20 hover:border-white/40 transition-all focus:outline-none">
-                Couplings <ChevronDown className="w-4 h-4" />
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:border-white/20 transition-all focus:outline-none">
+                Couplings <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
@@ -325,8 +270,8 @@ export default function HomePage() {
 
             {/* Valves */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="pill-swipe flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 rounded-full border border-white/20 hover:border-white/40 transition-all focus:outline-none">
-                Valves <ChevronDown className="w-4 h-4" />
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:border-white/20 transition-all focus:outline-none">
+                Valves <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
@@ -358,8 +303,8 @@ export default function HomePage() {
 
             {/* Expansion Joints */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="pill-swipe flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 rounded-full border border-white/20 hover:border-white/40 transition-all focus:outline-none">
-                Expansion Joints <ChevronDown className="w-4 h-4" />
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:border-white/20 transition-all focus:outline-none">
+                Expansion Joints <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
@@ -385,8 +330,8 @@ export default function HomePage() {
 
             {/* Strainers */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="pill-swipe flex items-center gap-1 px-4 py-2 text-white text-sm md:text-base font-medium bg-white/10 rounded-full border border-white/20 hover:border-white/40 transition-all focus:outline-none">
-                Strainers <ChevronDown className="w-4 h-4" />
+              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:border-white/20 transition-all focus:outline-none">
+                Strainers <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
