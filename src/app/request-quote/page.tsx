@@ -241,32 +241,60 @@ export default function RequestQuotePage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center px-6">
-        <Card className="max-w-2xl w-full">
+      <div className="min-h-screen underwater-bg flex items-center justify-center px-6">
+        {/* Animated underwater elements */}
+        <div className="wave-top" />
+        <div className="caustics" />
+
+        {/* Floating bubbles */}
+        <div className="bubble bubble-1" />
+        <div className="bubble bubble-2" />
+        <div className="bubble bubble-3" />
+        <div className="bubble bubble-4" />
+        <div className="bubble bubble-5" />
+        <div className="bubble bubble-6" />
+        <div className="bubble bubble-7" />
+        <div className="bubble bubble-8" />
+
+        {/* Floating sediment particles */}
+        <div className="sediment sediment-1" />
+        <div className="sediment sediment-2" />
+        <div className="sediment sediment-3" />
+        <div className="sediment sediment-4" />
+        <div className="sediment sediment-5" />
+        <div className="sediment sediment-6" />
+        <div className="sediment sediment-7" />
+
+        <Card className="max-w-2xl w-full relative z-10 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-sm border-white/20 shadow-2xl">
           <CardContent className="pt-12 pb-12 text-center">
             <div className="flex justify-center mb-6">
-              <div className="rounded-full bg-green-100 dark:bg-green-900/30 p-4">
+              <div className="rounded-full bg-gradient-to-br from-cyan-400 to-teal-500 p-4 shadow-lg shadow-cyan-500/30 animate-pulse">
                 <CheckCircle2
-                  className="w-16 h-16 text-green-600 dark:text-green-400"
+                  className="w-16 h-16 text-white"
                   data-testid="icon-success"
                 />
               </div>
             </div>
-            <h1 className="text-3xl font-bold mb-4" data-testid="text-success-title">
-              Quote Sent
+            <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-600 to-teal-600 bg-clip-text text-transparent" data-testid="text-success-title">
+              Quote Sent!
             </h1>
             <p className="text-lg text-muted-foreground mb-8" data-testid="text-success-message">
               Your quote has been sent to your email. Please check your inbox for the full
               quote with pricing and terms.
             </p>
-            <div className="flex gap-4 justify-center">
-              <Button onClick={() => router.push("/")} data-testid="button-home">
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button
+                onClick={() => router.push("/")}
+                data-testid="button-home"
+                className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 shadow-lg shadow-cyan-500/25"
+              >
                 Return to Home
               </Button>
               <Button
                 variant="outline"
                 onClick={() => router.push("/products")}
                 data-testid="button-browse"
+                className="border-cyan-300 text-cyan-700 hover:bg-cyan-50 dark:border-cyan-700 dark:text-cyan-300 dark:hover:bg-cyan-950"
               >
                 Browse Products
               </Button>
