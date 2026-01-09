@@ -292,13 +292,12 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1 px-3 py-1.5 rounded text-xs transition-all btn-metallic-silver ${
+                className={`flex items-center justify-center px-4 py-2 rounded text-[15px] transition-all btn-metallic-silver ${
                   activeMenu === "products" ? "opacity-90" : ""
                 }`}
                 data-testid="button-products-menu"
               >
                 Products
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "products" ? "rotate-180" : ""}`} />
               </button>
 
               {activeMenu === "products" && (
