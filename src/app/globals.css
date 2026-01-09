@@ -1214,6 +1214,21 @@
   color: inherit;
 }
 
+/* Bounce effect for quote/cart buttons */
+.btn-bounce {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-bounce:hover {
+  transform: scale(1.02) translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-bounce:active {
+  transform: scale(0.98) translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* View Product shimmer text */
 .view-product-shimmer {
   color: white;
