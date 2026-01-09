@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import { Mail, Phone, MapPin, Send, Loader2, CheckCircle2, AlertTriangle } from "lucide-react"
 import { Turnstile } from "@/components/Turnstile"
-import { trackContactSubmission, trackDownload } from "@/components/GoogleAnalytics"
+import { trackContactSubmission } from "@/components/GoogleAnalytics"
 
 export default function ContactPage() {
   const { toast } = useToast()
@@ -274,22 +274,6 @@ export default function ContactPage() {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-3">Download Price List</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Get instant access to our complete product catalog and pricing
-                </p>
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  data-testid="button-download-price-list"
-                  onClick={() => trackDownload('Price List', 'pdf')}
-                >
-                  Download PDF
-                </Button>
-              </CardContent>
-            </Card>
           </div>
         </div>
 
