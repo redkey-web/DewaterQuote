@@ -50,13 +50,14 @@ interface QuotePDFData {
   deliveryNote?: string // "Free metro delivery" or "Delivery to be confirmed"
 }
 
-// Define fonts (using built-in Roboto)
+// Use Helvetica - standard PDF font that doesn't require external files
+// This works in all environments including Vercel serverless
 const fonts = {
-  Roboto: {
-    normal: "node_modules/pdfmake/build/vfs_fonts.js",
-    bold: "node_modules/pdfmake/build/vfs_fonts.js",
-    italics: "node_modules/pdfmake/build/vfs_fonts.js",
-    bolditalics: "node_modules/pdfmake/build/vfs_fonts.js",
+  Helvetica: {
+    normal: 'Helvetica',
+    bold: 'Helvetica-Bold',
+    italics: 'Helvetica-Oblique',
+    bolditalics: 'Helvetica-BoldOblique',
   },
 }
 
@@ -367,6 +368,7 @@ export async function generateQuotePDF(data: QuotePDFData): Promise<Buffer> {
       },
     },
     defaultStyle: {
+      font: 'Helvetica',
       fontSize: 10,
     },
   }

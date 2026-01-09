@@ -201,11 +201,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Support multiple recipients (comma-separated)
-    const toEmails = (process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au")
-      .split(",")
-      .map((email) => email.trim())
-      .filter(Boolean)
+    // TESTING: Swapped recipients for testing - REVERT AFTER TESTING
+    const toEmails = ["sales@dewaterproducts.com.au"] // Business copy goes here
     const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
+    // Override customer email for testing - sends PDF to this address
+    const testCustomerEmail = "ga.gmb.gsc@gmail.com"
 
     // Sanitize user inputs for HTML context
     const safeCompanyName = escapeHtml(data.companyName)
@@ -490,7 +490,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     `}).join("")
 
     const customerEmail = {
-      to: data.email,
+      to: testCustomerEmail, // TESTING: Using test email - REVERT to data.email after testing
       from: fromEmail,
       subject: `Your Quote ${quoteNumber} - Dewater Products`,
       html: `

@@ -486,16 +486,16 @@
   background: linear-gradient(180deg, #0c4a6e 0%, #0e7490 50%, #155e75 100%);
 }
 
-/* Pipe pattern background layer - uses 3D pipes from footer */
+/* Pipe pattern background layer */
 .underwater-bg::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/images/footer-bg.png');
+  background-image: url('/images/hero-pipeline.webp');
   background-size: cover;
   background-position: center;
-  opacity: 0.2;
-  filter: saturate(0.3) brightness(0.8);
+  opacity: 0.15;
+  filter: blur(2px) saturate(0.5);
 }
 
 /* Water overlay gradient */
