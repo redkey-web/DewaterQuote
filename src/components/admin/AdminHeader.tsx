@@ -65,7 +65,7 @@ export function AdminHeader({ user }: AdminHeaderProps) {
             <ul className="space-y-1">
               {navigation.map((item) => {
                 const isActive = pathname === item.href ||
-                  (item.href !== '/admin' && pathname.startsWith(item.href));
+                  (item.href !== '/admin' && pathname?.startsWith(item.href));
 
                 return (
                   <li key={item.name}>

@@ -50,7 +50,7 @@ export function AdminSidebar() {
               <ul role="list" className="-mx-2 space-y-1">
                 {navigation.map((item) => {
                   const isActive = pathname === item.href ||
-                    (item.href !== '/admin' && pathname.startsWith(item.href));
+                    (item.href !== '/admin' && pathname?.startsWith(item.href));
 
                   return (
                     <li key={item.name}>

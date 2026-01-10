@@ -49,6 +49,21 @@ export default async function QuotePrintPage({
   const formatAddress = (addr: Address) =>
     `${addr.street}, ${addr.suburb} ${addr.state} ${addr.postcode}`;
 
+  // Build address objects from separate columns
+  const deliveryAddress: Address = {
+    street: quote.deliveryStreet || '',
+    suburb: quote.deliverySuburb || '',
+    state: quote.deliveryState || '',
+    postcode: quote.deliveryPostcode || '',
+  };
+
+  const billingAddress: Address = {
+    street: quote.billingStreet || quote.deliveryStreet || '',
+    suburb: quote.billingSuburb || quote.deliverySuburb || '',
+    state: quote.billingState || quote.deliveryState || '',
+    postcode: quote.billingPostcode || quote.deliveryPostcode || '',
+  };
+
   // Calculate totals
   const subtotal = parseFloat(quote.pricedTotal || '0');
   const savings = parseFloat(quote.savings || '0');
@@ -309,11 +324,11 @@ export default async function QuotePrintPage({
         <div className="addresses">
           <div className="address-block">
             <h3>Delivery Address</h3>
-            <p>{formatAddress(quote.deliveryAddress as Address)}</p>
+            <p>{formatAddress(deliveryAddress)}</p>
           </div>
           <div className="address-block">
             <h3>Billing Address</h3>
-            <p>{formatAddress(quote.billingAddress as Address)}</p>
+            <p>{formatAddress(billingAddress)}</p>
           </div>
         </div>
 

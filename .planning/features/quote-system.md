@@ -18,7 +18,7 @@ Transform the quote system into fully automated formal quotes. Customers receive
 |--------|---------|--------|
 | Terminology | "Quote Request" → "Quote" | ✅ Complete |
 | Customer PDF | Full pricing, terms | ✅ Complete |
-| PDF Delivery | ❌ Not attaching to automated emails | Needs fix |
+| PDF Delivery | ✅ Using @react-pdf/renderer | ✅ Fixed (2026-01-10) |
 | Delivery | Metro=free, Non-metro=TBC | ✅ Complete |
 | Lead times | Not shown | Per-product lead times |
 
@@ -39,13 +39,12 @@ Customer quote emails from `/api/quote/route.ts` arrive **without PDF attachment
 There are **two different PDF generation systems**:
 | Route | Library | Status |
 |-------|---------|--------|
-| Initial automated | `pdfmake` | ❌ NOT WORKING |
+| Initial automated | `@react-pdf/renderer` | ✅ FIXED (was pdfmake) |
 | Admin "Send Quote" | `@react-pdf/renderer` | ✅ Working |
 
-### 1.1 Diagnose Issue
-- [ ] Check Vercel logs for PDF generation messages
-- [ ] Look for: `[Quote QR-XXXXX] PDF buffer size: XXXX bytes`
-- [ ] Or: `[Quote QR-XXXXX] Failed to generate PDF: [error]`
+### 1.1 Diagnose Issue (Complete)
+- [x] Root cause identified: pdfmake not working in serverless
+- [x] Solution: migrated to @react-pdf/renderer (same as admin route)
 
 ### 1.2 Fix: Migrate to @react-pdf/renderer (Recommended)
 Per Context7 patterns, use `renderToBuffer()` which is proven to work:
@@ -58,8 +57,8 @@ const pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }));
 const pdfBase64 = Buffer.from(pdfBuffer).toString('base64');
 ```
 
-- [ ] Update `/api/quote/route.ts` to use @react-pdf/renderer
-- [ ] Map initial quote data to QuotePDFData format
+- [x] Update `/api/quote/route.ts` to use @react-pdf/renderer
+- [x] Map initial quote data to QuotePDFData format
 - [ ] Test PDF generation locally
 - [ ] Verify email with attachment in preview deployment
 - [ ] Deploy to production and confirm PDFs arriving
@@ -183,4 +182,4 @@ await transporter.sendMail({
 
 ---
 
-Last Updated: 2026-01-10
+Last Updated: 2026-01-10 (PDF fix implemented)

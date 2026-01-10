@@ -60,7 +60,7 @@ const statusColors: Record<string, string> = {
 export function QuotesTable({ quotes }: { quotes: Quote[] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const initialStatus = searchParams.get('status') || 'all';
+  const initialStatus = searchParams?.get('status') || 'all';
 
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
@@ -70,7 +70,7 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
   // Update URL when status filter changes
   const handleStatusChange = (value: string) => {
     setStatusFilter(value);
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString() || '');
     if (value === 'all') {
       params.delete('status');
     } else {

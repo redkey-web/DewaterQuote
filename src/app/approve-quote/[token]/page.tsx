@@ -75,6 +75,20 @@ export default async function ApproveQuotePage({ params }: PageProps) {
     .where(eq(quoteItems.quoteId, quote.id))
     .orderBy(quoteItems.displayOrder)
 
+  // Build address objects from separate columns
+  const deliveryAddress = {
+    street: quote.deliveryStreet || '',
+    suburb: quote.deliverySuburb || '',
+    state: quote.deliveryState || '',
+    postcode: quote.deliveryPostcode || '',
+  }
+  const billingAddress = {
+    street: quote.billingStreet || quote.deliveryStreet || '',
+    suburb: quote.billingSuburb || quote.deliverySuburb || '',
+    state: quote.billingState || quote.deliveryState || '',
+    postcode: quote.billingPostcode || quote.deliveryPostcode || '',
+  }
+
   return (
     <ApproveQuoteClient
       quote={{
@@ -84,8 +98,8 @@ export default async function ApproveQuotePage({ params }: PageProps) {
         contactName: quote.contactName,
         email: quote.email,
         phone: quote.phone,
-        deliveryAddress: quote.deliveryAddress,
-        billingAddress: quote.billingAddress,
+        deliveryAddress,
+        billingAddress,
         notes: quote.notes,
         itemCount: quote.itemCount,
         pricedTotal: quote.pricedTotal,

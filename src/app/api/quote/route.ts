@@ -4,7 +4,9 @@ import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 import { verifyTurnstileToken } from "@/lib/turnstile"
 import { generateApprovalToken, getTokenExpiration } from "@/lib/tokens"
-import { generateQuotePDF } from "@/lib/generate-quote-pdf"
+import { renderToBuffer } from "@react-pdf/renderer"
+import { QuotePDF, type QuotePDFData, type QuoteItemPDF } from "@/lib/pdf/quote-pdf"
+import { format, addDays } from "date-fns"
 import { classifyDelivery } from "@/lib/postcode"
 import { getDiscountPercentage } from "@/lib/quote"
 import { db } from "@/db"
@@ -641,27 +643,55 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       `,
     }
 
-    // Generate PDF attachment for customer email
+    // Generate PDF attachment for customer email using @react-pdf/renderer
     let pdfBuffer: Buffer | null = null
     try {
-      console.log(`[Quote ${quoteNumber}] Starting PDF generation...`)
-      pdfBuffer = await generateQuotePDF({
+      console.log(`[Quote ${quoteNumber}] Starting PDF generation with @react-pdf/renderer...`)
+
+      // Map submission items to PDF format
+      const pdfItems: QuoteItemPDF[] = data.items.map((item) => ({
+        sku: item.variation?.sku || item.sku,
+        name: item.name,
+        brand: item.brand,
+        sizeLabel: item.variation?.sizeLabel,
+        quantity: item.quantity,
+        unitPrice: item.variation?.price ?? null,
+        lineTotal: item.variation?.price ? item.variation.price * item.quantity : null,
+        materialTestCert: item.materialTestCert || false,
+      }))
+
+      // Build PDF data matching QuotePDFData interface
+      const pdfData: QuotePDFData = {
         quoteNumber,
+        quoteDate: format(new Date(), "d MMMM yyyy"),
+        validUntil: format(addDays(new Date(), 30), "d MMMM yyyy"),
         companyName: data.companyName,
         contactName: data.contactName,
         email: data.email,
         phone: data.phone,
         deliveryAddress: data.deliveryAddress,
         billingAddress: data.billingAddress,
-        items: data.items,
-        totals: data.totals,
+        items: pdfItems,
+        subtotal,
+        savings,
+        certFee,
+        certCount,
+        shippingCost: 0,
+        shippingNotes: deliveryClassification.deliveryNote || "Free metro delivery",
+        gst,
+        total: grandTotal,
+        hasUnpricedItems: data.totals.hasUnpricedItems,
         notes: data.notes,
-        deliveryNote: deliveryClassification.deliveryNote,
-      })
-      console.log(`[Quote ${quoteNumber}] PDF buffer size: ${pdfBuffer?.length || 0} bytes`)
+      }
+
+      // Use renderToBuffer (proven working in admin PDF route)
+      const pdfArrayBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
+      pdfBuffer = Buffer.from(pdfArrayBuffer)
+
+      console.log(`[Quote ${quoteNumber}] PDF buffer size: ${pdfBuffer.length} bytes`)
     } catch (pdfError) {
       console.error(`[Quote ${quoteNumber}] Failed to generate PDF:`, pdfError)
-      // Continue without PDF attachment
+      // Continue without PDF attachment - email will still go out
     }
 
     // Add PDF attachment to customer email if generated

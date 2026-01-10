@@ -45,6 +45,20 @@ export async function GET(
       return NextResponse.json({ error: "Quote not found" }, { status: 404 })
     }
 
+    // Build address objects from separate columns
+    const deliveryAddress = {
+      street: quote.deliveryStreet || '',
+      suburb: quote.deliverySuburb || '',
+      state: quote.deliveryState || '',
+      postcode: quote.deliveryPostcode || '',
+    }
+    const billingAddress = {
+      street: quote.billingStreet || quote.deliveryStreet || '',
+      suburb: quote.billingSuburb || quote.deliverySuburb || '',
+      state: quote.billingState || quote.deliveryState || '',
+      postcode: quote.billingPostcode || quote.deliveryPostcode || '',
+    }
+
     const items = await db
       .select()
       .from(quoteItems)
@@ -88,8 +102,8 @@ export async function GET(
       contactName: quote.contactName,
       email: quote.email,
       phone: quote.phone,
-      deliveryAddress: quote.deliveryAddress as ApprovedQuoteEmailData["deliveryAddress"],
-      billingAddress: quote.billingAddress as ApprovedQuoteEmailData["billingAddress"],
+      deliveryAddress,
+      billingAddress,
       items: emailItems,
       subtotal,
       savings,

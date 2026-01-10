@@ -72,6 +72,20 @@ export async function POST(
       return NextResponse.json({ error: 'Quote not found' }, { status: 404 });
     }
 
+    // Build address objects from separate columns
+    const deliveryAddress = {
+      street: quote.deliveryStreet || '',
+      suburb: quote.deliverySuburb || '',
+      state: quote.deliveryState || '',
+      postcode: quote.deliveryPostcode || '',
+    };
+    const billingAddress = {
+      street: quote.billingStreet || quote.deliveryStreet || '',
+      suburb: quote.billingSuburb || quote.deliverySuburb || '',
+      state: quote.billingState || quote.deliveryState || '',
+      postcode: quote.billingPostcode || quote.deliveryPostcode || '',
+    };
+
     // Update quote with shipping and mark as forwarded
     await db
       .update(quotes)
@@ -121,8 +135,8 @@ export async function POST(
       contactName: quote.contactName,
       email: quote.email,
       phone: quote.phone,
-      deliveryAddress: quote.deliveryAddress as QuotePDFData['deliveryAddress'],
-      billingAddress: quote.billingAddress as QuotePDFData['billingAddress'],
+      deliveryAddress,
+      billingAddress,
       items: pdfItems,
       subtotal,
       savings,
@@ -198,7 +212,7 @@ export async function POST(
 
             <div style="background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;">
               <strong>Delivery Address:</strong><br />
-              ${escapeHtml(formatAddress(quote.deliveryAddress as Address))}
+              ${escapeHtml(formatAddress(deliveryAddress))}
             </div>
 
             <h3 style="color: #333;">Items</h3>
