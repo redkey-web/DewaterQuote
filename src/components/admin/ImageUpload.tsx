@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Upload, X, Loader2, Image as ImageIcon, GripVertical, Star } from 'lucide-react';
+import { Upload, X, Loader2, Image as ImageIcon, GripVertical, Star, Download } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ProductImage {
@@ -109,6 +109,28 @@ export function ImageUpload({ images, onChange, folder = 'products' }: ImageUplo
     onChange(newImages);
   };
 
+  const handleDownload = async (image: ProductImage) => {
+    try {
+      const response = await fetch(image.url);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      // Extract filename from URL or use alt text
+      const urlParts = image.url.split('/');
+      const filename = urlParts[urlParts.length - 1] || `${image.alt || 'image'}.jpg`;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download error:', error);
+      // Fallback: open in new tab
+      window.open(image.url, '_blank');
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* Drop Zone */}
@@ -178,14 +200,25 @@ export function ImageUpload({ images, onChange, folder = 'products' }: ImageUplo
                     variant="secondary"
                     onClick={() => handleSetPrimary(index)}
                     disabled={image.isPrimary}
+                    title="Set as primary"
                   >
                     <Star className={cn('h-4 w-4', image.isPrimary && 'fill-yellow-500 text-yellow-500')} />
                   </Button>
                   <Button
                     type="button"
                     size="sm"
+                    variant="secondary"
+                    onClick={() => handleDownload(image)}
+                    title="Download image"
+                  >
+                    <Download className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
                     variant="destructive"
                     onClick={() => handleRemove(index)}
+                    title="Remove image"
                   >
                     <X className="h-4 w-4" />
                   </Button>

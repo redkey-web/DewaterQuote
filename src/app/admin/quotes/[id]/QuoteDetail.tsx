@@ -391,8 +391,9 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
             <Table>
               <TableHeader>
                 <TableRow className="bg-gray-50">
-                  <TableHead>SKU</TableHead>
+                  <TableHead className="max-w-[120px]">SKU</TableHead>
                   <TableHead>Product</TableHead>
+                  <TableHead>Size</TableHead>
                   <TableHead className="text-center">Qty</TableHead>
                   <TableHead className="text-right">Unit Price</TableHead>
                   <TableHead className="text-right">Line Total</TableHead>
@@ -401,15 +402,10 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
               <TableBody>
                 {quote.items.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell className="font-mono text-sm">{item.sku}</TableCell>
+                    <TableCell className="font-mono text-sm max-w-[120px] break-all">{item.sku}</TableCell>
                     <TableCell>
                       <div className="font-medium">{item.name}</div>
                       <div className="text-sm text-gray-500">{item.brand}</div>
-                      {item.sizeLabel && (
-                        <div className="text-sm text-gray-500">
-                          Size: {item.sizeLabel}
-                        </div>
-                      )}
                       {/* Custom Specs for Straub/Teekay products */}
                       {item.customPipeOd && (
                         <div className="mt-1 p-2 bg-gray-50 rounded text-xs space-y-1">
@@ -428,6 +424,9 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
                           + Material Cert
                         </Badge>
                       )}
+                    </TableCell>
+                    <TableCell className="text-sm text-gray-600">
+                      {item.sizeLabel || '-'}
                     </TableCell>
                     <TableCell className="text-center">{item.quantity}</TableCell>
                     <TableCell className="text-right">

@@ -10,6 +10,16 @@ const nextConfig = {
   // Security headers
   async headers() {
     return [
+      // Prevent admin pages from being indexed by search engines
+      {
+        source: '/admin/:path*',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
       {
         source: '/(.*)',
         headers: [

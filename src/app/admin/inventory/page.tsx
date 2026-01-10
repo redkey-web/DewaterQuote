@@ -3,8 +3,9 @@ import { products, productStock, productVideos } from '@/db/schema';
 import { desc, inArray, eq, sql } from 'drizzle-orm';
 import { InventoryManagementTable } from '@/components/admin/InventoryManagementTable';
 import { StatsCard } from '@/components/admin/StatsCard';
-import { Download } from 'lucide-react';
+import { Download, ChevronRight, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface VariationStock {
   qtyInStock: number | null;
@@ -258,6 +259,14 @@ export default async function InventoryPage() {
           variant="default"
         />
       </div>
+
+      {/* Usage Hint */}
+      <Alert className="bg-blue-50 border-blue-200">
+        <Info className="h-4 w-4 text-blue-600" />
+        <AlertDescription className="text-blue-800">
+          <strong>Tip:</strong> Click the arrow <ChevronRight className="inline h-4 w-4" /> next to a product to expand and see all size variations with their individual stock levels and pricing.
+        </AlertDescription>
+      </Alert>
 
       {/* Inventory Management Table */}
       <InventoryManagementTable products={inventory} />

@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { authOptions } from '@/lib/auth/config';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminHeader } from '@/components/admin/AdminHeader';
+import { AdminLayoutWrapper } from '@/components/admin/AdminLayoutWrapper';
 
 export const metadata = {
   title: 'Admin - Dewater Products',
@@ -24,10 +25,10 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-gray-50">
       <AdminSidebar />
-      <div className="lg:pl-64">
+      <AdminLayoutWrapper>
         <AdminHeader user={session.user} />
         <main className="p-6">{children}</main>
-      </div>
+      </AdminLayoutWrapper>
     </div>
   );
 }

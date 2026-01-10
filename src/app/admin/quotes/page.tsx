@@ -18,8 +18,26 @@ async function getQuotes() {
   }
 }
 
+async function getDeletedQuotes() {
+  try {
+    return await db.query.quotes.findMany({
+      where: eq(quotes.isDeleted, true),
+      with: {
+        items: true,
+      },
+      orderBy: [desc(quotes.deletedAt)],
+    });
+  } catch (error) {
+    console.error('Failed to get deleted quotes:', error);
+    return [];
+  }
+}
+
 export default async function QuotesListPage() {
-  const quoteList = await getQuotes();
+  const [quoteList, deletedList] = await Promise.all([
+    getQuotes(),
+    getDeletedQuotes(),
+  ]);
 
   return (
     <div className="space-y-6">
@@ -30,7 +48,7 @@ export default async function QuotesListPage() {
         </div>
       </div>
 
-      <QuotesTable quotes={quoteList} />
+      <QuotesTable quotes={quoteList} deletedQuotes={deletedList} />
     </div>
   );
 }

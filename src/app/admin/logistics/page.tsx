@@ -106,6 +106,30 @@ export default async function LogisticsPage() {
 
   return (
     <div className="space-y-6">
+      {/* Feature Upgrade Banner */}
+      <div className="relative overflow-hidden rounded-lg bg-gradient-to-r from-gray-700 to-gray-900 px-6 py-4 shadow-lg">
+        <div className="absolute inset-0 bg-[url('/images/pattern-dots.svg')] opacity-10"></div>
+        <div className="relative flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+              <span className="text-xl"></span>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Feature Upgrade Available</h3>
+              <p className="text-sm text-gray-300">
+                Enhanced logistics with automated freight calculations & supplier integration
+              </p>
+            </div>
+          </div>
+          <a
+            href="mailto:info@red-key.com.au?subject=DeWater%20Logistics%20Upgrade%20Inquiry"
+            className="shrink-0 rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-900 shadow-sm hover:bg-gray-100 transition-colors"
+          >
+            Contact Red-Key
+          </a>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Logistics & Shipping</h1>

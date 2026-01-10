@@ -1,8 +1,17 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import {
   LayoutDashboard,
   Package,
@@ -15,13 +24,15 @@ import {
   ExternalLink,
   FileText,
   HelpCircle,
+  PanelLeftClose,
+  PanelLeft,
 } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Quotes', href: '/admin/quotes', icon: FileText },
   { name: 'Inventory', href: '/admin/inventory', icon: PackageSearch },
-  { name: 'Products', href: '/admin/products', icon: Package },
+  { name: 'Product Pages', href: '/admin/products', icon: Package },
   { name: 'Logistics', href: '/admin/logistics', icon: Truck },
   { name: 'Categories', href: '/admin/categories', icon: Tags },
   { name: 'Brands', href: '/admin/brands', icon: Building2 },
@@ -30,37 +41,95 @@ const navigation = [
   { name: 'Help', href: '/admin/help', icon: HelpCircle },
 ];
 
+const SIDEBAR_COLLAPSED_KEY = 'admin-sidebar-collapsed';
+
 export function AdminSidebar() {
   const pathname = usePathname();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Load preference from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem(SIDEBAR_COLLAPSED_KEY);
+    if (stored !== null) {
+      setIsCollapsed(stored === 'true');
+    }
+    setIsHydrated(true);
+  }, []);
+
+  // Save preference to localStorage and notify other components
+  const toggleCollapsed = () => {
+    const newValue = !isCollapsed;
+    setIsCollapsed(newValue);
+    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, String(newValue));
+    // Dispatch custom event for same-tab communication
+    window.dispatchEvent(new CustomEvent('sidebar-collapsed-change', { detail: { isCollapsed: newValue } }));
+  };
+
+  // Prevent hydration mismatch by not rendering until hydrated
+  if (!isHydrated) {
+    return (
+      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4" />
+      </div>
+    );
+  }
 
   return (
-    <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
-      <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
-        {/* Logo */}
-        <div className="flex h-16 shrink-0 items-center">
-          <Link href="/admin" className="text-xl font-bold text-blue-600">
-            Dewater Admin
-          </Link>
-        </div>
+    <TooltipProvider delayDuration={0}>
+      <div
+        className={cn(
+          'hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col transition-all duration-300 ease-in-out',
+          isCollapsed ? 'lg:w-16' : 'lg:w-64'
+        )}
+      >
+        <div
+          className={cn(
+            'flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white pb-4 transition-all duration-300',
+            isCollapsed ? 'px-2' : 'px-6'
+          )}
+        >
+          {/* Logo */}
+          <div className="flex flex-col h-20 shrink-0 justify-center">
+            <Link href="/admin" className={cn('flex flex-col gap-1', isCollapsed ? 'items-center' : 'items-start')}>
+              {isCollapsed ? (
+                <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">D</span>
+                </div>
+              ) : (
+                <>
+                  <Image
+                    src="/images/logo-new.png"
+                    alt="DeWater Products"
+                    width={160}
+                    height={40}
+                    className="h-10 w-auto"
+                    priority
+                  />
+                  <span className="text-xs text-gray-500 font-medium">Admin Panel</span>
+                </>
+              )}
+            </Link>
+          </div>
 
-        {/* Navigation */}
-        <nav className="flex flex-1 flex-col">
-          <ul role="list" className="flex flex-1 flex-col gap-y-7">
-            <li>
-              <ul role="list" className="-mx-2 space-y-1">
-                {navigation.map((item) => {
-                  const isActive = pathname === item.href ||
-                    (item.href !== '/admin' && pathname?.startsWith(item.href));
+          {/* Navigation */}
+          <nav className="flex flex-1 flex-col">
+            <ul role="list" className="flex flex-1 flex-col gap-y-7">
+              <li>
+                <ul role="list" className={cn('-mx-2 space-y-1', isCollapsed && 'mx-0')}>
+                  {navigation.map((item) => {
+                    const isActive = pathname === item.href ||
+                      (item.href !== '/admin' && pathname?.startsWith(item.href));
 
-                  return (
-                    <li key={item.name}>
+                    const linkContent = (
                       <Link
                         href={item.href}
                         className={cn(
                           'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                           isActive
                             ? 'bg-blue-50 text-blue-600'
-                            : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600',
+                          isCollapsed && 'justify-center px-2'
                         )}
                       >
                         <item.icon
@@ -70,32 +139,89 @@ export function AdminSidebar() {
                           )}
                           aria-hidden="true"
                         />
-                        {item.name}
+                        {!isCollapsed && item.name}
                       </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </li>
+                    );
 
-            {/* View Site Link */}
-            <li className="mt-auto">
-              <a
-                href="/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-blue-600"
-              >
-                <ExternalLink
-                  className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-blue-600"
-                  aria-hidden="true"
-                />
-                View Site
-              </a>
-            </li>
-          </ul>
-        </nav>
+                    return (
+                      <li key={item.name}>
+                        {isCollapsed ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>{linkContent}</TooltipTrigger>
+                            <TooltipContent side="right" sideOffset={10}>
+                              {item.name}
+                            </TooltipContent>
+                          </Tooltip>
+                        ) : (
+                          linkContent
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+
+              {/* View Site Link */}
+              <li className="mt-auto space-y-2">
+                {isCollapsed ? (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a
+                        href="/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex justify-center rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                      >
+                        <ExternalLink
+                          className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-blue-600"
+                          aria-hidden="true"
+                        />
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" sideOffset={10}>
+                      View Site
+                    </TooltipContent>
+                  </Tooltip>
+                ) : (
+                  <a
+                    href="/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-blue-600 -mx-2"
+                  >
+                    <ExternalLink
+                      className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-blue-600"
+                      aria-hidden="true"
+                    />
+                    View Site
+                  </a>
+                )}
+
+                {/* Collapse Toggle */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleCollapsed}
+                  className={cn(
+                    'w-full text-gray-500 hover:text-gray-900',
+                    isCollapsed ? 'justify-center px-2' : '-mx-2 justify-start gap-x-3'
+                  )}
+                  title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                >
+                  {isCollapsed ? (
+                    <PanelLeft className="h-5 w-5" />
+                  ) : (
+                    <>
+                      <PanelLeftClose className="h-5 w-5" />
+                      <span className="text-sm">Collapse</span>
+                    </>
+                  )}
+                </Button>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }

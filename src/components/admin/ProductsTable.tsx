@@ -29,6 +29,7 @@ import {
   ArrowUpDown,
   Package,
   ExternalLink,
+  FileText,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DeleteProductButton } from '@/app/admin/products/DeleteProductButton';
@@ -46,6 +47,7 @@ interface ProductWithRelations {
   category: { name: string } | null;
   images: { url: string; alt: string; isPrimary: boolean | null }[];
   variations: { price: string | null }[];
+  downloads?: { url: string; label: string; fileType: string | null }[];
 }
 
 interface ProductsTableProps {
@@ -233,6 +235,15 @@ export function ProductsTable({ products }: ProductsTableProps) {
     return product.images[0]?.url || null;
   };
 
+  // Get datasheet PDF URL if available
+  const getDatasheetUrl = (product: ProductWithRelations): string | null => {
+    if (!product.downloads) return null;
+    const datasheet = product.downloads.find(
+      (d) => d.label.toLowerCase().includes('datasheet') || d.fileType === 'pdf'
+    );
+    return datasheet?.url || null;
+  };
+
   return (
     <div className="space-y-4">
       {/* Filters */}
@@ -320,13 +331,14 @@ export function ProductsTable({ products }: ProductsTableProps) {
               <TableHead className="w-[80px]">
                 <SortableHeader sortKey="status">Status</SortableHeader>
               </TableHead>
+              <TableHead className="w-[80px] text-center">Datasheet</TableHead>
               <TableHead className="text-right w-[100px]">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredProducts.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={8} className="text-center py-8 text-gray-500">
+                <TableCell colSpan={9} className="text-center py-8 text-gray-500">
                   No products found matching your filters.
                 </TableCell>
               </TableRow>
@@ -375,6 +387,24 @@ export function ProductsTable({ products }: ProductsTableProps) {
                       ) : (
                         <Badge variant="secondary">Inactive</Badge>
                       )}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {(() => {
+                        const datasheetUrl = getDatasheetUrl(product);
+                        return datasheetUrl ? (
+                          <a
+                            href={datasheetUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center text-blue-600 hover:text-blue-800"
+                            title="View Datasheet"
+                          >
+                            <FileText className="h-4 w-4" />
+                          </a>
+                        ) : (
+                          <span className="text-gray-300">-</span>
+                        );
+                      })()}
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">

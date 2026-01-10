@@ -1,6 +1,6 @@
 import { db } from '@/db';
 import { products, categories, brands, quotes } from '@/db/schema';
-import { count, eq } from 'drizzle-orm';
+import { count, eq, and } from 'drizzle-orm';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Package, Tags, Building2, Eye, FileText, Clock, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
@@ -11,9 +11,9 @@ async function getStats() {
     const [activeProductCount] = await db.select({ count: count() }).from(products).where(eq(products.isActive, true));
     const [categoryCount] = await db.select({ count: count() }).from(categories);
     const [brandCount] = await db.select({ count: count() }).from(brands);
-    const [quoteCount] = await db.select({ count: count() }).from(quotes);
-    const [pendingQuoteCount] = await db.select({ count: count() }).from(quotes).where(eq(quotes.status, 'pending'));
-    const [forwardedQuoteCount] = await db.select({ count: count() }).from(quotes).where(eq(quotes.status, 'forwarded'));
+    const [quoteCount] = await db.select({ count: count() }).from(quotes).where(eq(quotes.isDeleted, false));
+    const [pendingQuoteCount] = await db.select({ count: count() }).from(quotes).where(and(eq(quotes.status, 'pending'), eq(quotes.isDeleted, false)));
+    const [forwardedQuoteCount] = await db.select({ count: count() }).from(quotes).where(and(eq(quotes.status, 'forwarded'), eq(quotes.isDeleted, false)));
 
     return {
       products: productCount?.count ?? 0,

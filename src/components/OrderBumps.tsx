@@ -1,15 +1,15 @@
 "use client"
 
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Sparkles } from "lucide-react"
+import { ExternalLink, Sparkles } from "lucide-react"
 import { products } from "@/data/catalog"
 import type { QuoteItem } from "@/types"
 
 interface OrderBumpsProps {
   cartItems: QuoteItem[]
-  onAddToQuote: (item: QuoteItem) => void
+  onAddToQuote?: (item: QuoteItem) => void // Made optional since we no longer use it
 }
 
 const complementaryCategories: Record<string, string[]> = {
@@ -53,39 +53,14 @@ export default function OrderBumps({ cartItems, onAddToQuote }: OrderBumpsProps)
 
   if (suggestions.length === 0) return null
 
-  const handleQuickAdd = (product: (typeof products)[0]) => {
-    const firstSize = product.sizeOptions?.[0]
-    const quoteItem: QuoteItem = {
-      id: `bump-${product.id}-${Date.now()}`,
-      productId: product.id,
-      name: product.name,
-      brand: product.brand || "",
-      category: product.category,
-      image: product.images?.[0]?.url || "",
-      priceVaries: !!product.priceVaries,
-      basePrice: firstSize?.price || product.price,
-      baseSku: firstSize?.sku || product.sku,
-      variation: firstSize
-        ? {
-            size: firstSize.value,
-            sizeLabel: firstSize.label,
-            sku: firstSize.sku || product.sku || "",
-            unitPrice: firstSize.price || 0,
-          }
-        : undefined,
-      quantity: 1,
-    }
-    onAddToQuote(quoteItem)
-  }
-
   return (
     <div className="border-t border-border pt-4">
       <div className="flex items-center gap-2 mb-3">
         <Sparkles className="w-4 h-4 text-amber-500" />
-        <h4 className="text-sm font-semibold">Complete Your Order</h4>
+        <h4 className="text-sm font-semibold">You May Also Need</h4>
       </div>
       <p className="text-xs text-muted-foreground mb-3">
-        Customers often add these complementary products:
+        Complementary products often used together:
       </p>
       <div className="space-y-2">
         {suggestions.map((product) => {
@@ -124,15 +99,13 @@ export default function OrderBumps({ cartItems, onAddToQuote }: OrderBumpsProps)
                   )}
                 </div>
               </div>
-              <Button
-                size="sm"
-                variant="secondary"
-                className="h-7 px-2 flex-shrink-0"
-                onClick={() => handleQuickAdd(product)}
+              <Link
+                href={`/${product.slug}`}
+                className="inline-flex items-center gap-1 text-xs text-primary hover:underline flex-shrink-0"
               >
-                <Plus className="w-3 h-3 mr-1" />
-                Add
-              </Button>
+                View
+                <ExternalLink className="w-3 h-3" />
+              </Link>
             </div>
           )
         })}

@@ -1011,8 +1011,8 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
       )}
 
       {/* Table */}
-      <div className="border rounded-lg bg-white">
-        <Table containerClassName="overflow-visible">
+      <div className="border rounded-lg bg-white overflow-x-auto">
+        <Table containerClassName="min-w-[1200px]">
           <TableHeader>
             <TableRow className="border-b-2 border-gray-300">
               <TableHead className="w-[40px] sticky top-[116px] bg-gray-100 z-20">

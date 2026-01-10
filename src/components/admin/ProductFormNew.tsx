@@ -82,7 +82,7 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
   const [features, setFeatures] = useState<string[]>([]);
   const [specifications, setSpecifications] = useState<{ label: string; value: string }[]>([]);
   const [applications, setApplications] = useState<string[]>([]);
-  const [variations, setVariations] = useState<{ size: string; label: string; price: string; sku: string }[]>([]);
+  const [variations, setVariations] = useState<{ size: string; label: string; price: string }[]>([]);
   const [images, setImages] = useState<ProductImage[]>([]);
   const [downloads, setDownloads] = useState<ProductDownload[]>([]);
 
@@ -327,25 +327,9 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                     ))}
                   </select>
                 </div>
-                <div className="space-y-2">
-                  <Label>Subcategory</Label>
-                  <select
-                    value={formData.subcategoryId}
-                    onChange={(e) => setFormData({ ...formData, subcategoryId: e.target.value })}
-                    disabled={selectedCategoryIds.length === 0}
-                    className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <option value="">None</option>
-                    {filteredSubcategories.map((s) => (
-                      <option key={s.id} value={String(s.id)}>
-                        {s.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
               </div>
 
-              {/* Multi-category selection */}
+              {/* Multi-category selection - MUST come before Subcategory */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <Label>Categories *</Label>
@@ -354,35 +338,59 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                   </span>
                 </div>
                 <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-                  {categories.map((c) => (
-                    <div
-                      key={c.id}
-                      className={`flex items-center space-x-2 p-2 rounded border ${
-                        selectedCategoryIds.includes(c.id)
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200'
-                      }`}
-                    >
-                      <Checkbox
-                        id={`category-${c.id}`}
-                        checked={selectedCategoryIds.includes(c.id)}
-                        onCheckedChange={() => toggleCategory(c.id)}
-                      />
-                      <label
-                        htmlFor={`category-${c.id}`}
-                        className="text-sm cursor-pointer flex-1"
+                  {categories.map((c) => {
+                    const isSelected = selectedCategoryIds.includes(c.id);
+                    const isPrimary = selectedCategoryIds[0] === c.id;
+                    return (
+                      <div
+                        key={c.id}
+                        className={isSelected
+                          ? 'flex items-center space-x-2 p-2 rounded border border-blue-500 bg-blue-50'
+                          : 'flex items-center space-x-2 p-2 rounded border border-gray-200'
+                        }
                       >
-                        {c.name}
-                        {selectedCategoryIds[0] === c.id && (
-                          <span className="ml-1 text-xs text-blue-600">(primary)</span>
-                        )}
-                      </label>
-                    </div>
-                  ))}
+                        <Checkbox
+                          id={`category-${c.id}`}
+                          checked={isSelected}
+                          onCheckedChange={() => toggleCategory(c.id)}
+                        />
+                        <label
+                          htmlFor={`category-${c.id}`}
+                          className="text-sm cursor-pointer flex-1"
+                        >
+                          {c.name}
+                          {isPrimary && (
+                            <span className="ml-1 text-xs text-blue-600">(primary)</span>
+                          )}
+                        </label>
+                      </div>
+                    );
+                  })}
                 </div>
                 <p className="text-xs text-gray-500">
                   The primary category determines the product URL. Select multiple categories to show this product in multiple sections.
                 </p>
+              </div>
+
+              {/* Subcategory - after Categories since it depends on primary category */}
+              <div className="space-y-2">
+                <Label>Subcategory</Label>
+                <select
+                  value={formData.subcategoryId}
+                  onChange={(e) => setFormData({ ...formData, subcategoryId: e.target.value })}
+                  disabled={selectedCategoryIds.length === 0}
+                  className="flex h-9 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <option value="">None</option>
+                  {filteredSubcategories.map((s) => (
+                    <option key={s.id} value={String(s.id)}>
+                      {s.name}
+                    </option>
+                  ))}
+                </select>
+                {selectedCategoryIds.length === 0 && (
+                  <p className="text-xs text-gray-400">Select a category first to enable subcategory selection</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -611,7 +619,7 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => setVariations([...variations, { size: '', label: '', price: '', sku: '' }])}
+                    onClick={() => setVariations([...variations, { size: '', label: '', price: '' }])}
                   >
                     <Plus className="h-4 w-4 mr-1" />
                     Add Size
@@ -662,16 +670,6 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                             setVariations(newVars);
                           }}
                           className="w-24"
-                        />
-                        <Input
-                          placeholder="SKU"
-                          value={v.sku}
-                          onChange={(e) => {
-                            const newVars = [...variations];
-                            newVars[i].sku = e.target.value;
-                            setVariations(newVars);
-                          }}
-                          className="w-32"
                         />
                         <Button
                           type="button"
@@ -940,8 +938,7 @@ export function ProductFormNew({ brands, categories, subcategories }: ProductFor
                             <div key={i} className="flex items-center justify-between py-2 border-b last:border-b-0">
                               <div>
                                 <span className="font-medium">{v.label || v.size}</span>
-                                {v.sku && <span className="text-xs text-muted-foreground ml-2">SKU: {v.sku}</span>}
-                              </div>
+                                                              </div>
                               <span className="text-sm font-semibold text-primary">
                                 {v.price ? `$${v.price} ex GST` : 'POA'}
                               </span>

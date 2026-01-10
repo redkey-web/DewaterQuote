@@ -5,6 +5,7 @@ import { db } from '@/db';
 import { quotes } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { del } from '@vercel/blob';
+import { revalidatePath } from 'next/cache';
 
 export async function PATCH(
   request: NextRequest,
@@ -149,6 +150,10 @@ export async function DELETE(
       })
       .where(eq(quotes.id, quoteId))
       .returning();
+
+    // Revalidate dashboard and quotes pages to update counts
+    revalidatePath('/admin');
+    revalidatePath('/admin/quotes');
 
     return NextResponse.json({ success: true, quote: deleted });
   } catch (error) {

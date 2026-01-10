@@ -33,7 +33,9 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Eye, ArrowUp, ArrowDown, ArrowUpDown, Search, Trash2, Loader2 } from 'lucide-react';
+import { Eye, ArrowUp, ArrowDown, ArrowUpDown, Search, Trash2, Loader2, CheckCircle, RotateCcw } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -56,7 +58,11 @@ type Quote = {
   status: string | null;
   createdAt: Date;
   items: QuoteItem[];
+  isDeleted?: boolean | null;
+  deletedAt?: Date | null;
 };
+
+type DateRange = 'all' | 'today' | 'week' | 'month' | 'quarter';
 
 type SortKey = 'quoteNumber' | 'company' | 'contact' | 'items' | 'total' | 'status' | 'date';
 type SortDirection = 'asc' | 'desc';
@@ -71,7 +77,12 @@ const statusColors: Record<string, string> = {
   completed: 'bg-gray-100 text-gray-800',
 };
 
-export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
+interface QuotesTableProps {
+  quotes: Quote[];
+  deletedQuotes?: Quote[];
+}
+
+export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: QuotesTableProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -80,11 +91,15 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
   const [quotes, setQuotes] = useState(initialQuotes);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
+  const [dateRange, setDateRange] = useState<DateRange>('all');
+  const [showDeleted, setShowDeleted] = useState(false);
   const [sortKey, setSortKey] = useState<SortKey>('date');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [deletingQuote, setDeletingQuote] = useState<Quote | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [togglingIds, setTogglingIds] = useState<Set<number>>(new Set());
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [isBulkProcessing, setIsBulkProcessing] = useState(false);
 
   // Update URL when status filter changes
   const handleStatusChange = (value: string) => {
@@ -98,8 +113,39 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
     router.replace(`/admin/quotes${params.toString() ? `?${params.toString()}` : ''}`);
   };
 
+  // Helper to check if date is within range
+  const isWithinDateRange = (date: Date, range: DateRange): boolean => {
+    if (range === 'all') return true;
+    const now = new Date();
+    const quoteDate = new Date(date);
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    switch (range) {
+      case 'today':
+        return quoteDate >= startOfToday;
+      case 'week': {
+        const weekAgo = new Date(startOfToday);
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        return quoteDate >= weekAgo;
+      }
+      case 'month': {
+        const monthAgo = new Date(startOfToday);
+        monthAgo.setMonth(monthAgo.getMonth() - 1);
+        return quoteDate >= monthAgo;
+      }
+      case 'quarter': {
+        const quarterAgo = new Date(startOfToday);
+        quarterAgo.setMonth(quarterAgo.getMonth() - 3);
+        return quoteDate >= quarterAgo;
+      }
+      default:
+        return true;
+    }
+  };
+
   const filteredAndSortedQuotes = useMemo(() => {
-    let result = [...quotes];
+    // Choose source: active or deleted quotes
+    let result = showDeleted ? [...deletedQuotes] : [...quotes];
 
     // Filter by search
     if (search) {
@@ -116,6 +162,11 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
     // Filter by status
     if (statusFilter !== 'all') {
       result = result.filter((q) => q.status === statusFilter);
+    }
+
+    // Filter by date range
+    if (dateRange !== 'all') {
+      result = result.filter((q) => isWithinDateRange(q.createdAt, dateRange));
     }
 
     // Sort
@@ -152,7 +203,7 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
     });
 
     return result;
-  }, [quotes, search, statusFilter, sortKey, sortDirection]);
+  }, [quotes, deletedQuotes, showDeleted, search, statusFilter, dateRange, sortKey, sortDirection]);
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -241,6 +292,65 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
     }
   };
 
+  // Bulk selection handlers
+  const handleSelectAll = () => {
+    if (selectedIds.size === filteredAndSortedQuotes.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filteredAndSortedQuotes.map((q) => q.id)));
+    }
+  };
+
+  const handleSelectOne = (id: number) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
+  const handleBulkMarkComplete = async () => {
+    if (selectedIds.size === 0) return;
+
+    setIsBulkProcessing(true);
+    const idsToProcess = Array.from(selectedIds);
+    let successCount = 0;
+
+    // Process each selected quote
+    for (const id of idsToProcess) {
+      try {
+        const response = await fetch(`/api/admin/quotes/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "completed" }),
+        });
+
+        if (response.ok) {
+          successCount++;
+          setQuotes((prev) =>
+            prev.map((q) => (q.id === id ? { ...q, status: "completed" } : q))
+          );
+        }
+      } catch {
+        // Continue with other quotes
+      }
+    }
+
+    setIsBulkProcessing(false);
+    setSelectedIds(new Set());
+
+    toast({
+      title: `Marked ${successCount} quote${successCount !== 1 ? 's' : ''} complete`,
+      description: successCount === idsToProcess.length
+        ? "All selected quotes updated."
+        : `${idsToProcess.length - successCount} failed to update.`,
+    });
+  };
+
   const SortableHeader = ({
     column,
     label,
@@ -277,8 +387,8 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
 
   return (
     <div className="space-y-4">
-      {/* Filters */}
-      <div className="flex flex-wrap gap-4">
+      {/* Filters Row 1 */}
+      <div className="flex flex-wrap gap-4 items-center">
         <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
@@ -304,13 +414,77 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
             <SelectItem value="completed">Completed</SelectItem>
           </SelectContent>
         </Select>
+
+        <Select value={dateRange} onValueChange={(v) => setDateRange(v as DateRange)}>
+          <SelectTrigger className="w-[140px]">
+            <SelectValue placeholder="Date Range" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Time</SelectItem>
+            <SelectItem value="today">Today</SelectItem>
+            <SelectItem value="week">This Week</SelectItem>
+            <SelectItem value="month">This Month</SelectItem>
+            <SelectItem value="quarter">This Quarter</SelectItem>
+          </SelectContent>
+        </Select>
+
+        {/* Show Deleted Toggle */}
+        {deletedQuotes.length > 0 && (
+          <div className="flex items-center gap-2">
+            <Switch
+              id="show-deleted"
+              checked={showDeleted}
+              onCheckedChange={setShowDeleted}
+            />
+            <Label htmlFor="show-deleted" className="text-sm text-gray-600">
+              Show Deleted ({deletedQuotes.length})
+            </Label>
+          </div>
+        )}
       </div>
+
+      {/* Bulk Actions Bar */}
+      {selectedIds.size > 0 && !showDeleted && (
+        <div className="flex items-center gap-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <span className="text-sm font-medium text-blue-700">
+            {selectedIds.size} quote{selectedIds.size !== 1 ? 's' : ''} selected
+          </span>
+          <Button
+            size="sm"
+            onClick={handleBulkMarkComplete}
+            disabled={isBulkProcessing}
+          >
+            {isBulkProcessing ? (
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            ) : (
+              <CheckCircle className="h-4 w-4 mr-2" />
+            )}
+            Mark Complete
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setSelectedIds(new Set())}
+          >
+            Clear Selection
+          </Button>
+        </div>
+      )}
 
       {/* Table */}
       <div className="rounded-lg border bg-white overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-50">
+              {!showDeleted && (
+                <TableHead className="w-10 sticky top-16 bg-gray-50 z-10">
+                  <Checkbox
+                    checked={selectedIds.size > 0 && selectedIds.size === filteredAndSortedQuotes.length}
+                    onCheckedChange={handleSelectAll}
+                    aria-label="Select all"
+                  />
+                </TableHead>
+              )}
               <TableHead className="w-10 sticky top-16 bg-gray-50 z-10">
                 <span className="sr-only">Complete</span>
               </TableHead>
@@ -327,8 +501,10 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
           <TableBody>
             {filteredAndSortedQuotes.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={9} className="text-center py-8 text-gray-500">
-                  {quotes.length === 0
+                <TableCell colSpan={showDeleted ? 9 : 10} className="text-center py-8 text-gray-500">
+                  {showDeleted
+                    ? 'No deleted quotes'
+                    : quotes.length === 0
                     ? 'No quote requests yet'
                     : 'No quotes match your filters'}
                 </TableCell>
@@ -339,13 +515,24 @@ export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
                   key={quote.id}
                   className={cn(
                     "hover:bg-gray-50",
-                    quote.status === "completed" && "bg-gray-50/50 text-gray-500"
+                    quote.status === "completed" && "bg-gray-50/50 text-gray-500",
+                    showDeleted && "bg-red-50/30",
+                    selectedIds.has(quote.id) && "bg-blue-50"
                   )}
                 >
+                  {!showDeleted && (
+                    <TableCell>
+                      <Checkbox
+                        checked={selectedIds.has(quote.id)}
+                        onCheckedChange={() => handleSelectOne(quote.id)}
+                        aria-label={`Select ${quote.quoteNumber}`}
+                      />
+                    </TableCell>
+                  )}
                   <TableCell>
                     <Checkbox
                       checked={quote.status === "completed"}
-                      disabled={togglingIds.has(quote.id)}
+                      disabled={togglingIds.has(quote.id) || showDeleted}
                       onCheckedChange={() => handleToggleComplete(quote)}
                       aria-label={"Mark " + quote.quoteNumber + " as complete"}
                     />
