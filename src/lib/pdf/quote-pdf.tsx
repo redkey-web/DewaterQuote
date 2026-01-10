@@ -112,9 +112,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
     minHeight: 36,
   },
-  colSku: { width: "12%", fontSize: 9 },
-  colProduct: { width: "38%", fontSize: 9 },
-  colQty: { width: "10%", textAlign: "center", fontSize: 9 },
+  colSku: { width: "10%", fontSize: 9 },
+  colProduct: { width: "30%", fontSize: 9 },
+  colQty: { width: "8%", textAlign: "center", fontSize: 9 },
+  colLeadTime: { width: "12%", textAlign: "center", fontSize: 8 },
   colUnit: { width: "15%", textAlign: "right", fontSize: 9 },
   colTotal: { width: "15%", textAlign: "right", fontSize: 9 },
   colCert: { width: "10%", textAlign: "center", fontSize: 8 },
@@ -266,6 +267,7 @@ export interface QuoteItemPDF {
   quotedPrice?: number | null
   quotedNotes?: string | null
   materialTestCert?: boolean
+  leadTime?: string | null // e.g., "2-3 weeks", "In Stock"
 }
 
 export interface QuotePDFData {
@@ -292,6 +294,7 @@ export interface QuotePDFData {
   internalNotes?: string
   preparedBy?: string
   isDraft?: boolean
+  overallLeadTime?: string // Longest lead time across all items
 }
 
 function formatCurrency(amount: number | null | undefined): string {
@@ -375,9 +378,10 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
               <Text style={styles.colSku}>SKU</Text>
               <Text style={styles.colProduct}>Product</Text>
               <Text style={styles.colQty}>Qty</Text>
+              <Text style={styles.colLeadTime}>Lead Time</Text>
               <Text style={styles.colCert}>Cert</Text>
-              <Text style={styles.colUnit}>Unit Price</Text>
-              <Text style={styles.colTotal}>Line Total</Text>
+              <Text style={styles.colUnit}>Unit (ex GST)</Text>
+              <Text style={styles.colTotal}>Total (ex GST)</Text>
             </View>
 
             {/* Table Rows */}
@@ -405,6 +409,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
                     )}
                   </View>
                   <Text style={styles.colQty}>{item.quantity}</Text>
+                  <Text style={styles.colLeadTime}>{item.leadTime || "-"}</Text>
                   <Text style={styles.colCert}>
                     {item.materialTestCert ? "Yes" : "-"}
                   </Text>
@@ -477,6 +482,24 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
           <View style={styles.adminNotes}>
             <Text style={styles.adminNotesTitle}>Customer Notes</Text>
             <Text style={styles.adminNotesText}>{data.notes}</Text>
+          </View>
+        )}
+
+        {/* Overall Lead Time */}
+        {data.overallLeadTime && (
+          <View style={{
+            marginTop: 15,
+            padding: 12,
+            backgroundColor: "#fef3c7",
+            borderRadius: 4,
+            borderLeft: "4 solid #f59e0b",
+          }}>
+            <Text style={{ fontSize: 10, fontWeight: "bold", color: "#92400e" }}>
+              Estimated Lead Time: {data.overallLeadTime}
+            </Text>
+            <Text style={{ fontSize: 8, color: "#78350f", marginTop: 4 }}>
+              Lead times are estimates and may vary based on stock availability.
+            </Text>
           </View>
         )}
 

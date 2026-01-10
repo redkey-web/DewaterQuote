@@ -75,7 +75,17 @@ const quoteFormSchema = z.object({
   companyName: z.string().min(2, "Company name is required"),
   contactName: z.string().min(2, "Contact name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(8, "Please enter a valid phone number"),
+  phone: z.string()
+    .min(8, "Please enter a valid phone number")
+    .refine((val) => {
+      // Strip non-digits and check we have at least 8 digits
+      const digits = val.replace(/\D/g, '')
+      return digits.length >= 8 && digits.length <= 15
+    }, "Please enter a valid phone number (8-15 digits)")
+    .refine((val) => {
+      // Basic format check - must look like a phone number
+      return /^[\d\s\-+()]+$/.test(val)
+    }, "Phone number contains invalid characters"),
   // Delivery Address
   deliveryAddress: addressSchema,
   // Billing Address
@@ -373,8 +383,8 @@ export default function RequestQuotePage() {
                         <th className="text-left py-3 px-2 font-medium text-muted-foreground">Product</th>
                         <th className="text-left py-3 px-2 font-medium text-muted-foreground hidden sm:table-cell">SKU</th>
                         <th className="text-center py-3 px-2 font-medium text-muted-foreground">Qty</th>
-                        <th className="text-right py-3 px-2 font-medium text-muted-foreground hidden md:table-cell">Unit Price</th>
-                        <th className="text-right py-3 px-2 font-medium text-muted-foreground">Line Total</th>
+                        <th className="text-right py-3 px-2 font-medium text-muted-foreground hidden md:table-cell">Unit (ex GST)</th>
+                        <th className="text-right py-3 px-2 font-medium text-muted-foreground">Total (ex GST)</th>
                         <th className="w-10"></th>
                       </tr>
                     </thead>

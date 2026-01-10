@@ -6,11 +6,53 @@ import { verifyTurnstileToken } from "@/lib/turnstile"
 import { generateApprovalToken, getTokenExpiration } from "@/lib/tokens"
 import { renderToBuffer } from "@react-pdf/renderer"
 import { QuotePDF, type QuotePDFData, type QuoteItemPDF } from "@/lib/pdf/quote-pdf"
-import { format, addDays } from "date-fns"
+import { format } from "date-fns"
 import { classifyDelivery } from "@/lib/postcode"
-import { getDiscountPercentage } from "@/lib/quote"
+import { getDiscountPercentage, getQuoteExpiry } from "@/lib/quote"
+import { detectExceptions, generateFlagsHtml, generateFlagsText } from "@/lib/quote-flags"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
+
+// Lead time priority order (higher index = longer time)
+const LEAD_TIME_ORDER = [
+  "In Stock",
+  "1 week",
+  "1-2 weeks",
+  "2-3 weeks",
+  "2-4 weeks",
+  "3-4 weeks",
+  "4-6 weeks",
+  "6-8 weeks",
+  "8+ weeks",
+]
+
+/**
+ * Calculate the overall lead time for a quote (longest item wins)
+ * Returns the longest lead time across all items
+ */
+function calculateOverallLeadTime(items: QuoteItem[]): string | undefined {
+  let longestIndex = -1
+  let longestLeadTime: string | undefined
+
+  for (const item of items) {
+    if (!item.leadTime) continue
+
+    // Find the index in our priority order
+    const idx = LEAD_TIME_ORDER.findIndex((lt) =>
+      item.leadTime?.toLowerCase().includes(lt.toLowerCase())
+    )
+
+    if (idx > longestIndex) {
+      longestIndex = idx
+      longestLeadTime = item.leadTime
+    } else if (idx === -1 && !longestLeadTime) {
+      // If lead time doesn't match known patterns, still use it if nothing else
+      longestLeadTime = item.leadTime
+    }
+  }
+
+  return longestLeadTime
+}
 
 // ============================================
 // DEV MODE BYPASS
@@ -55,6 +97,7 @@ interface QuoteItem {
     price?: number
   }
   customSpecs?: CustomSpecs
+  leadTime?: string // e.g., "2-3 weeks", "In Stock"
 }
 
 interface Address {
@@ -314,6 +357,14 @@ export async function POST(request: NextRequest) {
     // Check if billing address is different from delivery
     const billingIsDifferent = formatAddress(safeDeliveryAddress) !== formatAddress(safeBillingAddress)
 
+    // Classify delivery zone early so we can detect exceptions
+    const fullAddress = `${data.deliveryAddress.street} ${data.deliveryAddress.suburb}`
+    const deliveryClassification = classifyDelivery(data.deliveryAddress.postcode, fullAddress)
+
+    // Detect exception conditions for business email flags
+    const exceptionFlags = detectExceptions(data.items, deliveryClassification)
+    const flagsHtml = generateFlagsHtml(exceptionFlags)
+
     // Email to business (supports multiple recipients)
     const businessEmail = {
       to: toEmails,
@@ -327,6 +378,7 @@ export async function POST(request: NextRequest) {
           ${savedQuoteId ? ` | <a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/admin/quotes/${savedQuoteId}">View in Admin</a>` : ""}
         </p>
 
+        ${flagsHtml}
         <div style="background: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
           <p style="margin: 0 0 12px 0; font-weight: 600; color: #0369a1;">Quick Actions:</p>
           <a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/approve-quote/${approvalToken}"
@@ -402,8 +454,8 @@ export async function POST(request: NextRequest) {
               <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">SKU</th>
               <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Product</th>
               <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Qty</th>
-              <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Unit Price</th>
-              <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Line Total</th>
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Unit (ex GST)</th>
+              <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Total (ex GST)</th>
             </tr>
           </thead>
           <tbody>
@@ -479,6 +531,8 @@ export async function POST(request: NextRequest) {
 NEW QUOTE REQUEST
 Quote Reference: ${quoteNumber}
 
+
+${generateFlagsText(exceptionFlags)}
 Company Details
 ===============
 Company: ${data.companyName}
@@ -515,9 +569,6 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       `.trim(),
     }
 
-    // Classify delivery zone (metro = free, non-metro = TBC)
-    const fullAddress = `${data.deliveryAddress.street} ${data.deliveryAddress.suburb}`
-    const deliveryClassification = classifyDelivery(data.deliveryAddress.postcode, fullAddress)
 
     // Calculate totals for customer email
     const subtotal = data.totals.pricedTotal
@@ -559,8 +610,8 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
                   <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">SKU</th>
                   <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Product</th>
                   <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Qty</th>
-                  <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Unit Price</th>
-                  <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Line Total</th>
+                  <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Unit (ex GST)</th>
+                  <th style="padding: 10px; border: 1px solid #ddd; text-align: right;">Total (ex GST)</th>
                 </tr>
               </thead>
               <tbody>
@@ -614,6 +665,20 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
               </table>
             </div>
 
+
+            ${(() => {
+              const overallLeadTime = calculateOverallLeadTime(data.items)
+              if (overallLeadTime) {
+                return `
+            <div style="margin-top: 20px; padding: 15px; background: #fef3c7; border-radius: 5px; border-left: 4px solid #f59e0b;">
+              <strong style="color: #92400e;">Estimated Lead Time: ${overallLeadTime}</strong>
+              <p style="margin: 8px 0 0; font-size: 13px; color: #78350f;">
+                Lead times are estimates and may vary based on stock availability.${data.totals.certCount && data.totals.certCount > 0 ? " Material test certificates may add 2-3 business days." : ""}
+              </p>
+            </div>`
+              }
+              return ""
+            })()}
             <div style="margin-top: 30px; padding: 20px; background: #f0f9ff; border-radius: 5px; border-left: 4px solid #0ea5e9;">
               <h3 style="margin-top: 0; color: #0369a1;">Quote Terms</h3>
               <ul style="margin: 0; padding-left: 20px; color: #666;">
@@ -658,13 +723,17 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
         unitPrice: item.variation?.price ?? null,
         lineTotal: item.variation?.price ? item.variation.price * item.quantity : null,
         materialTestCert: item.materialTestCert || false,
+        leadTime: item.leadTime || null,
       }))
+
+      // Calculate overall lead time (longest lead time across all items)
+      const overallLeadTime = calculateOverallLeadTime(data.items)
 
       // Build PDF data matching QuotePDFData interface
       const pdfData: QuotePDFData = {
         quoteNumber,
         quoteDate: format(new Date(), "d MMMM yyyy"),
-        validUntil: format(addDays(new Date(), 30), "d MMMM yyyy"),
+        validUntil: format(getQuoteExpiry(), "d MMMM yyyy"),
         companyName: data.companyName,
         contactName: data.contactName,
         email: data.email,
@@ -682,6 +751,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
         total: grandTotal,
         hasUnpricedItems: data.totals.hasUnpricedItems,
         notes: data.notes,
+        overallLeadTime,
       }
 
       // Use renderToBuffer (proven working in admin PDF route)
