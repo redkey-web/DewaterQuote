@@ -37,12 +37,47 @@ The quote form submit button is disabled because Turnstile (spam protection) is 
 - [ ] Verify sender email domain (optional but recommended)
 
 ### 1.2 Turnstile (Spam Protection)
-Choose ONE:
-- [ ] **Option A:** Add Cloudflare Turnstile secret key
-  - Get from: Cloudflare Dashboard → Turnstile → Site → Secret Key
-  - Add `TURNSTILE_SECRET_KEY` to Vercel
-- [ ] **Option B:** Disable Turnstile temporarily
-  - Remove `NEXT_PUBLIC_TURNSTILE_SITE_KEY` from Vercel
+
+**Current Issue**: "Invalid domain" error on Vercel preview deployments because Turnstile is only configured for production domain. Forms still submit because server-side verification bypasses when no secret key is set.
+
+#### Option A: Full Turnstile Setup (Recommended for Production)
+
+**Step 1: Configure Turnstile Widget in Cloudflare**
+- [ ] Go to [Cloudflare Dashboard → Turnstile](https://dash.cloudflare.com/?to=/:account/turnstile)
+- [ ] Click "Add site" (or edit existing)
+- [ ] **Widget name**: Dewater Products
+- [ ] **Domains**: Add ALL domains that will use the widget:
+  - `dewaterproducts.com.au` (production)
+  - `www.dewaterproducts.com.au` (www redirect)
+  - `*.vercel.app` (for preview deployments)
+  - `localhost` (for local development)
+- [ ] **Widget Mode**: Managed (recommended) or Non-interactive
+- [ ] Save and copy keys
+
+**Step 2: Add Environment Variables to Vercel**
+- [ ] Go to Vercel Dashboard → dewater-products → Settings → Environment Variables
+- [ ] Add `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (Site Key from Cloudflare)
+- [ ] Add `TURNSTILE_SECRET_KEY` (Secret Key from Cloudflare)
+- [ ] Apply to: Production + Preview environments
+
+**Step 3: Re-enable Turnstile in Code**
+- [ ] Update `src/app/request-quote/page.tsx:171`:
+  ```typescript
+  // Change from:
+  const turnstileRequired = false
+  // To:
+  const turnstileRequired = !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  ```
+
+**Step 4: Test**
+- [ ] Test on preview deployment (no "invalid domain" error)
+- [ ] Test on localhost
+- [ ] Verify form submission works with valid token
+
+#### Option B: Disable Turnstile Temporarily
+- [ ] Remove `NEXT_PUBLIC_TURNSTILE_SITE_KEY` from Vercel env vars
+- [ ] Keep `turnstileRequired = false` in code
+- [ ] Add to post-launch TODO: Configure Turnstile properly
 
 ### 1.3 Environment Variables in Vercel
 ```
@@ -175,3 +210,10 @@ const STATIC_REDIRECTS: Record<string, string> = {
 ---
 
 Last Updated: 2026-01-10
+
+### Technical Notes
+
+**Why forms submit despite "invalid domain" error:**
+- `src/lib/turnstile.ts:47-49` - Server skips verification if `TURNSTILE_SECRET_KEY` not set
+- `src/app/request-quote/page.tsx:171` - `turnstileRequired` explicitly set to `false`
+- This is intentional for testing but must be fixed before go-live
