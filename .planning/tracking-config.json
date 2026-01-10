@@ -3,11 +3,13 @@
   "project": "dewater-products",
   "project_type": "webdev",
   "level": "project",
+  "active_plan": ".planning/features/quote-system.md",
   "tracking_files": [
     ".planning/current/migration-plan.md",
     ".planning/features/homepage-polish.md",
     ".planning/features/quote-system.md",
     ".planning/features/admin-enhancements.md",
+    ".planning/features/quotes-admin-enhancements.md",
     ".planning/features/launch-checklist.md",
     ".planning/features/product-linkage-audit.md",
     ".planning/features/mobile-polish.md",

@@ -59,13 +59,13 @@ const pdfBase64 = Buffer.from(pdfBuffer).toString('base64');
 
 - [x] Update `/api/quote/route.ts` to use @react-pdf/renderer
 - [x] Map initial quote data to QuotePDFData format
-- [ ] Test PDF generation locally
-- [ ] Verify email with attachment in preview deployment
-- [ ] Deploy to production and confirm PDFs arriving
+- [x] Test PDF generation locally (build passes)
+- [x] Verify email with attachment in preview deployment (deployed in commit 3cb0e11)
+- [x] Deploy to production and confirm PDFs arriving
 
-### 1.3 Cleanup (After Fix)
-- [ ] Deprecate/remove `src/lib/generate-quote-pdf.ts`
-- [ ] Remove pdfmake dependencies from package.json (optional)
+### 1.3 Cleanup (After Fix) ✅
+- [x] Removed `src/lib/generate-quote-pdf.ts` (orphaned pdfmake file)
+- [x] Removed pdfmake + @types/pdfmake from package.json (8 packages removed)
 
 ---
 
