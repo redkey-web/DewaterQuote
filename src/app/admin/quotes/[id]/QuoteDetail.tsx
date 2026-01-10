@@ -23,6 +23,16 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import {
   ArrowLeft,
   Mail,
   Phone,
@@ -32,8 +42,13 @@ import {
   Save,
   Download,
   Eye,
+  RefreshCw,
+  ExternalLink,
+  Trash2,
+  Loader2,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 import { SendQuoteDialog } from '@/components/admin/SendQuoteDialog';
 
 type Address = {
@@ -92,6 +107,10 @@ type Quote = {
   status: string | null;
   createdAt: Date;
   items: QuoteItem[];
+  // PDF Storage fields
+  pdfUrl: string | null;
+  pdfGeneratedAt: Date | null;
+  pdfVersion: number | null;
 };
 
 const statusColors: Record<string, string> = {
@@ -105,12 +124,18 @@ const statusColors: Record<string, string> = {
 
 export function QuoteDetail({ quote }: { quote: Quote }) {
   const { toast } = useToast();
+  const router = useRouter();
   const [status, setStatus] = useState(quote.status || 'pending');
   const [shippingCost, setShippingCost] = useState(quote.shippingCost || '');
   const [shippingNotes, setShippingNotes] = useState(quote.shippingNotes || '');
   const [internalNotes, setInternalNotes] = useState(quote.internalNotes || '');
   const [isSaving, setIsSaving] = useState(false);
+  const [isRegenerating, setIsRegenerating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [sendDialogOpen, setSendDialogOpen] = useState(false);
+  const [currentPdfUrl, setCurrentPdfUrl] = useState(quote.pdfUrl);
+  const [currentPdfVersion, setCurrentPdfVersion] = useState(quote.pdfVersion);
 
   // Helper to construct address objects from separate columns
   const deliveryAddress: Address = {
@@ -180,7 +205,60 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
   };
 
   const handlePrintView = () => {
-    window.open(`/admin/quotes/${quote.id}/print`, '_blank');
+    window.open("/admin/quotes/" + quote.id + "/print", "_blank");
+  };
+
+  const handleRegeneratePdf = async () => {
+    setIsRegenerating(true);
+    try {
+      const response = await fetch("/api/admin/quotes/" + quote.id + "/store-pdf", {
+        method: "POST",
+      });
+
+      if (!response.ok) throw new Error("Failed to regenerate PDF");
+
+      const data = await response.json();
+      setCurrentPdfUrl(data.pdfUrl);
+      setCurrentPdfVersion(data.pdfVersion);
+      toast({
+        title: "PDF regenerated successfully",
+        description: "Version " + data.pdfVersion + " stored",
+      });
+    } catch {
+      toast({ title: "Failed to regenerate PDF", variant: "destructive" });
+    } finally {
+      setIsRegenerating(false);
+    }
+  };
+
+  const handleDeleteQuote = async () => {
+    setIsDeleting(true);
+    try {
+      const response = await fetch("/api/admin/quotes/" + quote.id, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete quote");
+      }
+
+      toast({
+        title: "Quote deleted",
+        description: "Quote " + quote.quoteNumber + " has been deleted.",
+      });
+
+      // Navigate back to quotes list
+      router.push("/admin/quotes");
+    } catch (error) {
+      toast({
+        title: "Failed to delete quote",
+        description: error instanceof Error ? error.message : "An error occurred",
+        variant: "destructive",
+      });
+      setIsDeleting(false);
+      setDeleteDialogOpen(false);
+    }
   };
 
   return (
@@ -211,9 +289,25 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
             <Download className="h-4 w-4 mr-1" />
             PDF
           </Button>
+          <Button
+            variant="outline"
+            onClick={handleRegeneratePdf}
+            disabled={isRegenerating}
+          >
+            <RefreshCw className={"h-4 w-4 mr-1" + (isRegenerating ? " animate-spin" : "")} />
+            {isRegenerating ? "Regenerating..." : "Regenerate PDF"}
+          </Button>
           <Button variant="outline" onClick={handleSave} disabled={isSaving}>
             <Save className="h-4 w-4 mr-1" />
-            {isSaving ? 'Saving...' : 'Save'}
+            {isSaving ? "Saving..." : "Save"}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => setDeleteDialogOpen(true)}
+            className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+          >
+            <Trash2 className="h-4 w-4 mr-1" />
+            Delete
           </Button>
           <Button
             onClick={() => setSendDialogOpen(true)}
@@ -373,6 +467,28 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
             </Select>
           </div>
 
+          {/* Stored PDF Info */}
+          {currentPdfUrl && (
+            <div className="bg-white rounded-lg border p-6 space-y-3">
+              <h2 className="font-semibold">Stored PDF</h2>
+              <div className="text-sm space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-500">Version:</span>
+                  <Badge variant="outline">{currentPdfVersion || 1}</Badge>
+                </div>
+                <a
+                  href={currentPdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-blue-600 hover:underline text-xs break-all"
+                >
+                  <ExternalLink className="h-3 w-3 flex-shrink-0" />
+                  View stored PDF
+                </a>
+              </div>
+            </div>
+          )}
+
           {/* Shipping */}
           <div className="bg-white rounded-lg border p-6 space-y-4">
             <h2 className="font-semibold">Shipping</h2>
@@ -485,6 +601,40 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
         shippingNotes={shippingNotes}
         onSuccess={handleSendSuccess}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Quote</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete quote{" "}
+              <strong>{quote.quoteNumber}</strong> from{" "}
+              <strong>{quote.companyName}</strong>?
+              <br />
+              <br />
+              This action cannot be undone. The quote and any associated PDF will be permanently removed.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteQuote}
+              disabled={isDeleting}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                "Delete"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

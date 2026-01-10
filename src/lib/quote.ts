@@ -1,5 +1,20 @@
 import { nanoid } from "nanoid"
+import { endOfMonth, addMonths } from "date-fns"
 import type { Product, QuoteItem, QuoteItemVariation, CustomSpecs } from "@/types"
+
+/**
+ * Gets the quote expiry date - end of the following month
+ * Example: Quote created on Jan 15 expires Jan 31 of following year (actually Feb 28/29)
+ * Correction: Quote created Jan 15 → expires Feb 28/29 (end of following month)
+ *
+ * @param createdAt - The date the quote was created (defaults to now)
+ * @returns The expiry date (last day of the following month)
+ */
+export function getQuoteExpiry(createdAt: Date = new Date()): Date {
+  // Add one month, then get end of that month
+  const nextMonth = addMonths(createdAt, 1)
+  return endOfMonth(nextMonth)
+}
 
 /**
  * Brands that require custom specifications instead of predefined sizes

@@ -5,7 +5,8 @@ import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
 import { eq } from "drizzle-orm"
 import { QuotePDF, type QuotePDFData, type QuoteItemPDF } from "@/lib/pdf/quote-pdf"
-import { format, addDays } from "date-fns"
+import { format } from "date-fns"
+import { getQuoteExpiry } from "@/lib/quote"
 import { authOptions } from "@/lib/auth/config"
 
 export default async function handler(
@@ -65,7 +66,7 @@ export default async function handler(
 
     // Format dates
     const quoteDate = format(quote.createdAt, "d MMMM yyyy")
-    const validUntil = format(addDays(quote.createdAt, 30), "d MMMM yyyy")
+    const validUntil = format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy")
 
     // Prepare items for PDF
     const pdfItems: QuoteItemPDF[] = items.map((item) => ({

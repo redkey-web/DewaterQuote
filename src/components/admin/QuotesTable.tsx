@@ -22,7 +22,20 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Eye, ChevronUp, ChevronDown, Search } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Eye, ArrowUp, ArrowDown, ArrowUpDown, Search, Trash2, Loader2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 type QuoteItem = {
   id: number;
@@ -55,17 +68,23 @@ const statusColors: Record<string, string> = {
   forwarded: 'bg-green-100 text-green-800',
   accepted: 'bg-emerald-100 text-emerald-800',
   rejected: 'bg-red-100 text-red-800',
+  completed: 'bg-gray-100 text-gray-800',
 };
 
-export function QuotesTable({ quotes }: { quotes: Quote[] }) {
+export function QuotesTable({ quotes: initialQuotes }: { quotes: Quote[] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { toast } = useToast();
   const initialStatus = searchParams?.get('status') || 'all';
 
+  const [quotes, setQuotes] = useState(initialQuotes);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>(initialStatus);
   const [sortKey, setSortKey] = useState<SortKey>('date');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+  const [deletingQuote, setDeletingQuote] = useState<Quote | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [togglingIds, setTogglingIds] = useState<Set<number>>(new Set());
 
   // Update URL when status filter changes
   const handleStatusChange = (value: string) => {
@@ -144,6 +163,84 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
     }
   };
 
+  const handleDeleteQuote = async () => {
+    if (!deletingQuote) return;
+
+    setIsDeleting(true);
+    try {
+      const response = await fetch("/api/admin/quotes/" + deletingQuote.id, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete quote");
+      }
+
+      // Remove quote from local state
+      setQuotes((prev) => prev.filter((q) => q.id !== deletingQuote.id));
+      toast({
+        title: "Quote deleted",
+        description: "Quote " + deletingQuote.quoteNumber + " has been deleted.",
+      });
+    } catch (error) {
+      toast({
+        title: "Failed to delete quote",
+        description: error instanceof Error ? error.message : "An error occurred",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeleting(false);
+      setDeletingQuote(null);
+    }
+  };
+
+  const handleToggleComplete = async (quote: Quote) => {
+    const quoteId = quote.id;
+    const currentStatus = quote.status || "pending";
+    const newStatus = currentStatus === "completed" ? "forwarded" : "completed";
+
+    // Add to toggling set
+    setTogglingIds((prev) => new Set(prev).add(quoteId));
+
+    // Optimistic update
+    setQuotes((prev) =>
+      prev.map((q) => (q.id === quoteId ? { ...q, status: newStatus } : q))
+    );
+
+    try {
+      const response = await fetch("/api/admin/quotes/" + quoteId, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update status");
+      }
+
+      toast({
+        title: newStatus === "completed" ? "Quote marked complete" : "Quote reopened",
+        description: "Quote " + quote.quoteNumber + " status updated.",
+      });
+    } catch {
+      // Revert on error
+      setQuotes((prev) =>
+        prev.map((q) => (q.id === quoteId ? { ...q, status: currentStatus } : q))
+      );
+      toast({
+        title: "Failed to update status",
+        variant: "destructive",
+      });
+    } finally {
+      setTogglingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(quoteId);
+        return next;
+      });
+    }
+  };
+
   const SortableHeader = ({
     column,
     label,
@@ -152,25 +249,31 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
     column: SortKey;
     label: string;
     className?: string;
-  }) => (
-    <TableHead className={className}>
-      <button
-        onClick={() => handleSort(column)}
-        className="flex items-center gap-1 hover:text-gray-900"
-      >
-        {label}
-        {sortKey === column ? (
-          sortDirection === 'asc' ? (
-            <ChevronUp className="h-4 w-4" />
+  }) => {
+    const isActive = sortKey === column;
+    return (
+      <TableHead className={cn("sticky top-16 bg-gray-50 z-10", className)}>
+        <button
+          onClick={() => handleSort(column)}
+          className={cn(
+            "flex items-center gap-1 transition-colors",
+            isActive ? "text-gray-900 font-medium" : "text-gray-600 hover:text-gray-900"
+          )}
+        >
+          {label}
+          {isActive ? (
+            sortDirection === "asc" ? (
+              <ArrowUp className="h-4 w-4" />
+            ) : (
+              <ArrowDown className="h-4 w-4" />
+            )
           ) : (
-            <ChevronDown className="h-4 w-4" />
-          )
-        ) : (
-          <span className="w-4" />
-        )}
-      </button>
-    </TableHead>
-  );
+            <ArrowUpDown className="h-4 w-4 opacity-50" />
+          )}
+        </button>
+      </TableHead>
+    );
+  };
 
   return (
     <div className="space-y-4">
@@ -198,6 +301,7 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
             <SelectItem value="forwarded">Forwarded</SelectItem>
             <SelectItem value="accepted">Accepted</SelectItem>
             <SelectItem value="rejected">Rejected</SelectItem>
+            <SelectItem value="completed">Completed</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -207,6 +311,9 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-50">
+              <TableHead className="w-10 sticky top-16 bg-gray-50 z-10">
+                <span className="sr-only">Complete</span>
+              </TableHead>
               <SortableHeader column="quoteNumber" label="Quote #" />
               <SortableHeader column="company" label="Company" />
               <SortableHeader column="contact" label="Contact" />
@@ -214,13 +321,13 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
               <SortableHeader column="total" label="Total" className="text-right" />
               <SortableHeader column="status" label="Status" />
               <SortableHeader column="date" label="Date" />
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="text-right sticky top-16 bg-gray-50 z-10">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {filteredAndSortedQuotes.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={8} className="text-center py-8 text-gray-500">
+                <TableCell colSpan={9} className="text-center py-8 text-gray-500">
                   {quotes.length === 0
                     ? 'No quote requests yet'
                     : 'No quotes match your filters'}
@@ -228,7 +335,21 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
               </TableRow>
             ) : (
               filteredAndSortedQuotes.map((quote) => (
-                <TableRow key={quote.id} className="hover:bg-gray-50">
+                <TableRow
+                  key={quote.id}
+                  className={cn(
+                    "hover:bg-gray-50",
+                    quote.status === "completed" && "bg-gray-50/50 text-gray-500"
+                  )}
+                >
+                  <TableCell>
+                    <Checkbox
+                      checked={quote.status === "completed"}
+                      disabled={togglingIds.has(quote.id)}
+                      onCheckedChange={() => handleToggleComplete(quote)}
+                      aria-label={"Mark " + quote.quoteNumber + " as complete"}
+                    />
+                  </TableCell>
                   <TableCell className="font-mono text-sm">{quote.quoteNumber}</TableCell>
                   <TableCell className="font-medium">{quote.companyName}</TableCell>
                   <TableCell>
@@ -255,12 +376,22 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
                     {formatDistanceToNow(new Date(quote.createdAt), { addSuffix: true })}
                   </TableCell>
                   <TableCell className="text-right">
-                    <Link href={`/admin/quotes/${quote.id}`}>
-                      <Button variant="ghost" size="sm">
-                        <Eye className="h-4 w-4 mr-1" />
-                        View
+                    <div className="flex items-center justify-end gap-1">
+                      <Link href={"/admin/quotes/" + quote.id}>
+                        <Button variant="ghost" size="sm">
+                          <Eye className="h-4 w-4 mr-1" />
+                          View
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setDeletingQuote(quote)}
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4" />
                       </Button>
-                    </Link>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))
@@ -273,6 +404,40 @@ export function QuotesTable({ quotes }: { quotes: Quote[] }) {
       <div className="text-sm text-gray-500">
         Showing {filteredAndSortedQuotes.length} of {quotes.length} quotes
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={!!deletingQuote} onOpenChange={() => setDeletingQuote(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Quote</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete quote{" "}
+              <strong>{deletingQuote?.quoteNumber}</strong> from{" "}
+              <strong>{deletingQuote?.companyName}</strong>?
+              <br />
+              <br />
+              This action cannot be undone. The quote and any associated PDF will be permanently removed.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteQuote}
+              disabled={isDeleting}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                "Delete"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

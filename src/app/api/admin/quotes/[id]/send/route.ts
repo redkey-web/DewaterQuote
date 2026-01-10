@@ -5,6 +5,7 @@ import { renderToBuffer } from "@react-pdf/renderer"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
 import { eq } from "drizzle-orm"
+import { put, del } from "@vercel/blob"
 import { QuotePDF, type QuotePDFData, type QuoteItemPDF } from "@/lib/pdf/quote-pdf"
 import {
   generateApprovedQuoteEmailHtml,
@@ -12,7 +13,8 @@ import {
   type ApprovedQuoteEmailData,
   type QuoteItemEmail,
 } from "@/lib/email/approved-quote-email"
-import { format, addDays } from "date-fns"
+import { format } from "date-fns"
+import { getQuoteExpiry } from "@/lib/quote"
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -60,16 +62,16 @@ export async function POST(
 
     // Build address objects from separate columns
     const deliveryAddress = {
-      street: quote.deliveryStreet || '',
-      suburb: quote.deliverySuburb || '',
-      state: quote.deliveryState || '',
-      postcode: quote.deliveryPostcode || '',
+      street: quote.deliveryStreet || "",
+      suburb: quote.deliverySuburb || "",
+      state: quote.deliveryState || "",
+      postcode: quote.deliveryPostcode || "",
     }
     const billingAddress = {
-      street: quote.billingStreet || quote.deliveryStreet || '',
-      suburb: quote.billingSuburb || quote.deliverySuburb || '',
-      state: quote.billingState || quote.deliveryState || '',
-      postcode: quote.billingPostcode || quote.deliveryPostcode || '',
+      street: quote.billingStreet || quote.deliveryStreet || "",
+      suburb: quote.billingSuburb || quote.deliverySuburb || "",
+      state: quote.billingState || quote.deliveryState || "",
+      postcode: quote.billingPostcode || quote.deliveryPostcode || "",
     }
 
     const items = await db
@@ -91,7 +93,7 @@ export async function POST(
 
     // Format dates
     const quoteDate = format(quote.createdAt, "d MMMM yyyy")
-    const validUntil = format(addDays(quote.createdAt, 30), "d MMMM yyyy")
+    const validUntil = format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy")
 
     // Prepare items for PDF/email
     const pdfItems: QuoteItemPDF[] = items.map((item) => ({
@@ -148,7 +150,44 @@ export async function POST(
       ? pdfBuffer.toString("base64")
       : Buffer.from(pdfBuffer).toString("base64")
 
-    console.log(`[Quote ${quote.quoteNumber}] PDF generated: ${pdfBase64.length} bytes base64`)
+    console.log("[Quote " + quote.quoteNumber + "] PDF generated: " + pdfBase64.length + " bytes base64")
+
+    // Store/update PDF in Vercel Blob
+    let newPdfUrl = quote.pdfUrl
+    let newPdfVersion = quote.pdfVersion || 1
+    try {
+      // Delete old PDF if exists
+      if (quote.pdfUrl) {
+        try {
+          await del(quote.pdfUrl)
+          console.log("[Quote " + quote.quoteNumber + "] Deleted old PDF from blob")
+        } catch (deleteError) {
+          console.error("[Quote " + quote.quoteNumber + "] Failed to delete old PDF:", deleteError)
+          // Continue anyway - old blob will be orphaned
+        }
+      }
+
+      // Increment version
+      newPdfVersion = (quote.pdfVersion || 0) + 1
+
+      // Upload new PDF to Vercel Blob
+      const blobPath = "quotes/" + quote.quoteNumber + "/quote-v" + newPdfVersion + ".pdf"
+      const pdfBufferForBlob = Buffer.isBuffer(pdfBuffer)
+        ? pdfBuffer
+        : Buffer.from(pdfBuffer)
+
+      const blob = await put(blobPath, pdfBufferForBlob, {
+        contentType: "application/pdf",
+        access: "public",
+        cacheControlMaxAge: 31536000, // 1 year cache
+      })
+
+      newPdfUrl = blob.url
+      console.log("[Quote " + quote.quoteNumber + "] PDF stored in blob: " + blob.url)
+    } catch (blobError) {
+      console.error("[Quote " + quote.quoteNumber + "] Failed to store PDF in blob:", blobError)
+      // Continue with email sending - blob storage is non-critical
+    }
 
     // Check SendGrid configuration
     if (!process.env.SENDGRID_API_KEY) {
@@ -169,27 +208,27 @@ export async function POST(
       to: quote.email,
       from: fromEmail,
       replyTo: process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au",
-      subject: `Your Quote ${quote.quoteNumber} from Dewater Products`,
+      subject: "Your Quote " + quote.quoteNumber + " from Dewater Products",
       html: htmlContent,
       text: textContent,
       attachments: [
         {
           content: pdfBase64,
-          filename: `${quote.quoteNumber}.pdf`,
+          filename: quote.quoteNumber + ".pdf",
           type: "application/pdf",
           disposition: "attachment",
         },
       ],
     }
 
-    console.log(`[Quote ${quote.quoteNumber}] Sending email to: ${quote.email}`)
-    console.log(`[Quote ${quote.quoteNumber}] Attachment size: ${pdfBase64.length} chars`)
-    console.log(`[Quote ${quote.quoteNumber}] SendGrid API key configured: ${!!process.env.SENDGRID_API_KEY}`)
+    console.log("[Quote " + quote.quoteNumber + "] Sending email to: " + quote.email)
+    console.log("[Quote " + quote.quoteNumber + "] Attachment size: " + pdfBase64.length + " chars")
+    console.log("[Quote " + quote.quoteNumber + "] SendGrid API key configured: " + !!process.env.SENDGRID_API_KEY)
 
     await sgMail.send(emailPayload)
-    console.log(`[Quote ${quote.quoteNumber}] Email sent successfully`)
+    console.log("[Quote " + quote.quoteNumber + "] Email sent successfully")
 
-    // Update quote status
+    // Update quote status and PDF info
     await db
       .update(quotes)
       .set({
@@ -198,12 +237,15 @@ export async function POST(
         shippingCost: body.shippingCost?.toString(),
         shippingNotes: body.shippingNotes,
         internalNotes: body.internalNotes || quote.internalNotes,
+        pdfUrl: newPdfUrl,
+        pdfGeneratedAt: new Date(),
+        pdfVersion: newPdfVersion,
       })
       .where(eq(quotes.id, quoteId))
 
     return NextResponse.json({
       success: true,
-      message: `Quote sent to ${quote.email}`,
+      message: "Quote sent to " + quote.email,
       quoteNumber: quote.quoteNumber,
     })
   } catch (error) {

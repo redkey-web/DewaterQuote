@@ -23,7 +23,7 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    if (!action || !['quote-only', 'suspend', 'activate', 'unsuspend'].includes(action)) {
+    if (!action || !['quote-only', 'suspend', 'activate', 'unsuspend', 'set-lead-time'].includes(action)) {
       return NextResponse.json(
         { error: 'Invalid action' },
         { status: 400 }
@@ -36,6 +36,7 @@ export async function PATCH(request: NextRequest) {
       isSuspended: boolean;
       isActive: boolean;
       suspendedReason: string | null;
+      leadTime: string | null;
     }>;
 
     switch (action) {
@@ -50,6 +51,13 @@ export async function PATCH(request: NextRequest) {
         break;
       case 'unsuspend':
         updateData = { isSuspended: false, suspendedReason: null };
+        break;
+      case 'set-lead-time':
+        const { leadTime } = body;
+        if (leadTime === undefined) {
+          return NextResponse.json({ error: 'Lead time value required' }, { status: 400 });
+        }
+        updateData = { leadTime: leadTime || null };
         break;
       default:
         return NextResponse.json({ error: 'Invalid action' }, { status: 400 });

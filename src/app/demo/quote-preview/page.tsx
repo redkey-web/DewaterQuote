@@ -1,13 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { format, addDays } from "date-fns"
+import { format } from "date-fns"
+import { getQuoteExpiry } from "@/lib/quote"
 
 // Sample data for demonstration
 const sampleQuoteData = {
   quoteNumber: "QR-20250108-001",
   quoteDate: format(new Date(), "d MMMM yyyy"),
-  validUntil: format(addDays(new Date(), 30), "d MMMM yyyy"),
+  validUntil: format(getQuoteExpiry(), "d MMMM yyyy"),
   companyName: "ABC Mining Supplies",
   contactName: "John Smith",
   email: "john.smith@abcmining.com.au",

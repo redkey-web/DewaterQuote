@@ -8,7 +8,8 @@ import sgMail from '@sendgrid/mail';
 import { escapeHtml } from '@/lib/sanitize';
 import { renderToBuffer } from '@react-pdf/renderer';
 import { QuotePDF, type QuotePDFData, type QuoteItemPDF } from '@/lib/pdf/quote-pdf';
-import { format, addDays } from 'date-fns';
+import { format } from 'date-fns';
+import { getQuoteExpiry } from '@/lib/quote';
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -111,7 +112,7 @@ export async function POST(
 
     // Generate PDF
     const quoteDate = format(quote.createdAt, 'd MMMM yyyy');
-    const validUntil = format(addDays(quote.createdAt, 30), 'd MMMM yyyy');
+    const validUntil = format(getQuoteExpiry(quote.createdAt), 'd MMMM yyyy');
 
     const pdfItems: QuoteItemPDF[] = quote.items.map((item: QuoteItem) => ({
       sku: item.variationSku || item.sku,

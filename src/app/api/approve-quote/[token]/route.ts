@@ -12,7 +12,8 @@ import {
   type QuoteItemEmail,
 } from "@/lib/email/approved-quote-email"
 import { isTokenExpired } from "@/lib/tokens"
-import { format, addDays } from "date-fns"
+import { format } from "date-fns"
+import { getQuoteExpiry } from "@/lib/quote"
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -91,7 +92,7 @@ export async function POST(
 
     // Format dates
     const quoteDate = format(quote.createdAt, "d MMMM yyyy")
-    const validUntil = format(addDays(quote.createdAt, 30), "d MMMM yyyy")
+    const validUntil = format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy")
 
     // Prepare items for PDF/email
     const pdfItems: QuoteItemPDF[] = items.map((item) => ({

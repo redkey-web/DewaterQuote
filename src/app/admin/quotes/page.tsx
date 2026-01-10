@@ -1,11 +1,12 @@
 import { db } from '@/db';
 import { quotes } from '@/db/schema';
-import { desc } from 'drizzle-orm';
+import { desc, eq, or, isNull } from 'drizzle-orm';
 import { QuotesTable } from '@/components/admin/QuotesTable';
 
 async function getQuotes() {
   try {
     return await db.query.quotes.findMany({
+      where: or(eq(quotes.isDeleted, false), isNull(quotes.isDeleted)),
       with: {
         items: true,
       },

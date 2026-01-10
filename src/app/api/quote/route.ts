@@ -12,6 +12,8 @@ import { getDiscountPercentage, getQuoteExpiry } from "@/lib/quote"
 import { detectExceptions, generateFlagsHtml, generateFlagsText } from "@/lib/quote-flags"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
+import { put } from "@vercel/blob"
+import { eq } from "drizzle-orm"
 
 // Lead time priority order (higher index = longer time)
 const LEAD_TIME_ORDER = [
@@ -759,6 +761,32 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       pdfBuffer = Buffer.from(pdfArrayBuffer)
 
       console.log(`[Quote ${quoteNumber}] PDF buffer size: ${pdfBuffer.length} bytes`)
+
+      // Store PDF in Vercel Blob if quote was saved to database
+      if (savedQuoteId && pdfBuffer) {
+        try {
+          const blobPath = `quotes/${quoteNumber}/quote-v1.pdf`
+          const blob = await put(blobPath, pdfBuffer, {
+            contentType: 'application/pdf',
+            access: 'public',
+            cacheControlMaxAge: 31536000, // 1 year cache
+          })
+          console.log(`[Quote ${quoteNumber}] PDF stored in blob: ${blob.url}`)
+
+          // Update quote record with PDF info
+          await db
+            .update(quotes)
+            .set({
+              pdfUrl: blob.url,
+              pdfGeneratedAt: new Date(),
+              pdfVersion: 1,
+            })
+            .where(eq(quotes.id, savedQuoteId))
+        } catch (blobError) {
+          console.error(`[Quote ${quoteNumber}] Failed to store PDF in blob:`, blobError)
+          // Continue anyway - PDF will still be emailed, just not stored
+        }
+      }
     } catch (pdfError) {
       console.error(`[Quote ${quoteNumber}] Failed to generate PDF:`, pdfError)
       // Continue without PDF attachment - email will still go out

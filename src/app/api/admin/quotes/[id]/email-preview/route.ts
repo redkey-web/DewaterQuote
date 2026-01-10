@@ -8,7 +8,8 @@ import {
   type ApprovedQuoteEmailData,
   type QuoteItemEmail,
 } from "@/lib/email/approved-quote-email"
-import { format, addDays } from "date-fns"
+import { format } from "date-fns"
+import { getQuoteExpiry } from "@/lib/quote"
 
 export async function GET(
   request: NextRequest,
@@ -77,7 +78,7 @@ export async function GET(
 
     // Format dates
     const quoteDate = format(quote.createdAt, "d MMMM yyyy")
-    const validUntil = format(addDays(quote.createdAt, 30), "d MMMM yyyy")
+    const validUntil = format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy")
 
     // Prepare items for email
     const emailItems: QuoteItemEmail[] = items.map((item) => ({

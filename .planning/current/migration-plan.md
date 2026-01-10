@@ -48,7 +48,7 @@ target_framework: Next.js 14 (App Router) + Vercel
 - [x] Sitemap.xml generation ✅
 - [x] robots.txt ✅
 - [x] SEO metadata per page ✅
-- [ ] Shipping cost estimation (Australia Post/Sendle API) - PENDING
+- [x] ~~Shipping cost estimation~~ - NOT IMPLEMENTING (manual freight quotes instead)
 - [x] Quote cart system (existing - port) ✅
 - [x] Contact/Quote forms with email ✅ (mailto fallback)
 
@@ -271,19 +271,9 @@ Status: ✅ COMPLETE
 
 ## Phase 8: Shipping Integration
 
-Status: PENDING
+Status: ❌ REMOVED (Not implementing)
 
-### 8.1 Carrier API Research
-- [ ] Evaluate Australia Post API
-- [ ] Evaluate Sendle API
-- [ ] Choose provider based on requirements
-
-### 8.2 Implementation
-- [ ] Create shipping estimate API route
-- [ ] Add product dimensions/weight fields
-- [ ] Implement zone lookup
-- [ ] Add to quote cart UI
-- [ ] Handle errors gracefully
+> **Decision**: Client confirmed shipping integration is not required. Quotes will continue without automated shipping estimates. Manual freight quotes can be provided when needed.
 
 ## Phase 9: SEO & Content
 

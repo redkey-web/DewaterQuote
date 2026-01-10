@@ -748,6 +748,36 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
     }
   };
 
+  // Bulk lead time update
+  const handleBulkLeadTime = async (leadTime: string) => {
+    if (selectedIds.size === 0) return;
+
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/admin/inventory', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productIds: Array.from(selectedIds),
+          action: 'set-lead-time',
+          leadTime: leadTime === 'clear' ? null : leadTime,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update lead times');
+      }
+
+      setSelectedIds(new Set());
+      router.refresh();
+    } catch (error) {
+      console.error('Bulk lead time update failed:', error);
+      alert('Failed to update lead times. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Export to CSV
   const handleExport = () => {
     const headers = ['SKU', 'Name', 'Brand', 'Category', 'Status', 'Stock', 'Incoming', 'Lead Time', 'Price', 'Sizes'];
@@ -918,7 +948,24 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
           <span className="text-sm font-medium text-blue-800">
             {selectedIds.size} selected
           </span>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
+            <Select onValueChange={handleBulkLeadTime} disabled={isLoading}>
+              <SelectTrigger className="w-[160px] h-8 bg-white">
+                <SelectValue placeholder="Set Lead Time" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="In Stock">In Stock</SelectItem>
+                <SelectItem value="1 week">1 week</SelectItem>
+                <SelectItem value="1-2 weeks">1-2 weeks</SelectItem>
+                <SelectItem value="2-3 weeks">2-3 weeks</SelectItem>
+                <SelectItem value="3-4 weeks">3-4 weeks</SelectItem>
+                <SelectItem value="4-6 weeks">4-6 weeks</SelectItem>
+                <SelectItem value="6-8 weeks">6-8 weeks</SelectItem>
+                <SelectItem value="8+ weeks">8+ weeks</SelectItem>
+                <SelectItem value="clear">Clear Lead Time</SelectItem>
+              </SelectContent>
+            </Select>
+            <div className="h-6 w-px bg-blue-300" />
             <Button
               variant="outline"
               size="sm"

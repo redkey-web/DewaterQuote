@@ -504,6 +504,16 @@ export const quotes = pgTable('quotes', {
   // Quick approval token (for email approval without login)
   approvalToken: text('approval_token').unique(),
   approvalTokenExpiresAt: timestamp('approval_token_expires_at'),
+
+  // PDF Storage (Phase: quotes-admin-enhancements)
+  pdfUrl: text('pdf_url'), // Vercel Blob URL for stored PDF
+  pdfGeneratedAt: timestamp('pdf_generated_at'), // When PDF was last generated
+  pdfVersion: integer('pdf_version').default(1), // Version for regeneration tracking
+
+  // Soft Delete (Phase: quotes-admin-enhancements)
+  isDeleted: boolean('is_deleted').default(false),
+  deletedAt: timestamp('deleted_at'),
+  deletedBy: text('deleted_by'), // Admin email who deleted
 });
 
 export const quoteItems = pgTable('quote_items', {
