@@ -289,19 +289,88 @@ export async function generateQuotePDF(data: QuotePDFData): Promise<Buffer> {
         margin: [0, 25, 0, 0],
         stack: [
           { text: "TERMS & CONDITIONS", style: "sectionHeader", margin: [0, 0, 0, 8] },
+
+          // Payment
+          { text: "Payment", fontSize: 9, bold: true, margin: [0, 5, 0, 3] },
           {
-            ul: [
-              `This quote is valid until ${validUntilStr}.`,
-              "Payment terms: 14 days from invoice date.",
-              "All prices are in Australian Dollars (AUD).",
-              "Prices shown exclude GST unless otherwise stated.",
-              "Free road freight to metro areas. Regional/remote delivery quoted separately.",
-              "Lead times shown per item above (subject to stock availability).",
-              "To accept this quote, reply to this email or call 1300 271 290.",
+            ol: [
+              "If a deposit is required as stated on the quotation, then the deposit amount needs to be paid in full before Dewater Products Pty Ltd, will either dispatch the goods if Ex Stock, or before manufacturing can occur. The percentage of the deposit will be specified eg, 50%.",
+              "If you do not have a trading account with Dewater Products Pty Ltd, then payment in full will need to be made, before Dewater Products Pty Ltd will either dispatch the goods, or proceed with manufacturing. Made to order goods will generally need to be paid in advance.",
             ],
-            fontSize: 8,
+            fontSize: 7,
             color: "#666",
+            margin: [0, 0, 0, 8],
           },
+
+          // Lead time
+          { text: "Lead time", fontSize: 9, bold: true, margin: [0, 5, 0, 3] },
+          {
+            ol: [
+              "The quotation should detail the lead time to supply the goods, Ex Works in Perth, Western Australia. If the quotation does not detail the product as \"Ex Stock\", then a lead time will apply. This lead time should be quoted with the goods.",
+              "Currently COVID-19 is causing unpredictable lead time extensions and when ordering you agree to a possible lead time extension, which is outside of the control of Dewater Products Pty Ltd.",
+            ],
+            fontSize: 7,
+            color: "#666",
+            margin: [0, 0, 0, 8],
+            start: 3,
+          },
+
+          // Delivery
+          { text: "Delivery", fontSize: 9, bold: true, margin: [0, 5, 0, 3] },
+          {
+            ol: [
+              "The quotation should detail how the good(s) quoted will be delivered.",
+              "Dewater Products Pty Ltd will always try to offer free delivery via road freight to customers although this is not possible if the delivery address is in a remote location resulting in our freight company charging us extra fees such as a remote delivery fee. This would be discussed with the customer if it occurs. An extra charge may be quoted and will depend on the weight and size of the goods, and the remote location.",
+              "You should allow extra days for delivery to occur on top of the lead time stated.",
+              "Delivery via road freight is outside of the control of Dewater Products Pty Ltd, and any freight matters should be dealt with the freight company, once Dewater Products Pty Ltd advises the Freight company and the consignment number or tracking number.",
+              "Dewater Products Pty Ltd will try and obtain a delivery date from the freight company but does not have any input or management power over the road freight once it has left our warehouse.",
+              "You as the customer and receiver should ensure that you provide Dewater Products Pty Ltd with the correct delivery address at the time of ordering, to ensure there are no delays.",
+              "Other freight types such as Air freight can be quoted when requested.",
+            ],
+            fontSize: 7,
+            color: "#666",
+            margin: [0, 0, 0, 8],
+            start: 5,
+          },
+
+          // Order Cancellations and Returns
+          { text: "Order Cancellations and Returns", fontSize: 9, bold: true, margin: [0, 5, 0, 3] },
+          {
+            ol: [
+              "You can only cancel an Order if the goods you ordered were quoted as Ex Stock and were Ex Stock at the time they were ordered or paid for. This must also occur within 7 days.",
+              "You cannot return goods to us, once 7 days has passed from receiving the goods, which were Ex Stock, at the time they were quoted, ordered and paid for. No refund will be approved.",
+              "You cannot cancel an Order, or return goods if a lead time applies, and manufacturing has begun. Most products we sell, are bespoke products and made to order. Charges will apply.",
+            ],
+            fontSize: 7,
+            color: "#666",
+            margin: [0, 0, 0, 8],
+            start: 12,
+          },
+
+          // No Returns
+          { text: "No Returns - Purchase Order cannot be cancelled", fontSize: 9, bold: true, margin: [0, 5, 0, 3] },
+          {
+            ol: [
+              "If you choose to cancel the Purchase Order, once manufacturing has started, you will need to pay for all of the costs up to the date of cancelling. Such as materials, labour and freight costs.",
+              "The costs to be paid to us could be a very high percentage of the order value such as 90%. This should be considered by you the customer before cancelling a Purchase Order.",
+              "All costs will be minimised where possible, but would be difficult with bespoke made to order products.",
+              "If you choose to amend the Purchase Order, once manufacturing has started such as reducing the quantity, you will need to pay us all costs associated with the unwanted goods which could potentially be up to 90% of the sale price. Such as materials, labour and freight costs. All costs will be minimised where possible, but would be difficult with bespoke made to order products.",
+              "Manufacturing will generally start the following day after payment has been received, or if you have a trading account, the following day is generally when manufacturing begins.",
+              "Therefore it is important that your Purchase Order is correct, that you have ordered the correct quantity, size, model, brand and any other product specific details.",
+              "We want our customers to order the correct parts, so that orders are not cancelled or amended. You must also consider the lead time quoted and not use it as an excuse to cancel.",
+              "Price - Pricing Quoted - The quoted price for a specific product and size is specific to the Quantity quoted. We reserve the right to reject a Purchase Order, when the quantity ordered, does not match the quantity quoted.",
+            ],
+            fontSize: 7,
+            color: "#666",
+            margin: [0, 0, 0, 8],
+            start: 15,
+          },
+
+          // Credit card notice
+          { text: "Credit Card Payments incur 1.9% Surcharge", fontSize: 8, bold: true, color: "#d97706", margin: [0, 10, 0, 5] },
+
+          // Contact
+          { text: `Quote valid until ${validUntilStr}. To accept this quote, reply to this email or call 1300 271 290.`, fontSize: 8, color: "#0ea5e9", margin: [0, 5, 0, 0] },
         ],
       },
 

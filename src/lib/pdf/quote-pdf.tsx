@@ -483,23 +483,170 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
         {/* Terms & Conditions */}
         <View style={styles.terms}>
           <Text style={styles.termsTitle}>Terms & Conditions</Text>
-          <Text style={styles.termItem}>
-            - This quote is valid for 30 days from the date of issue
+
+          {/* Payment */}
+          <Text style={{ fontSize: 9, fontWeight: "bold", marginTop: 8, marginBottom: 4 }}>
+            Payment
           </Text>
           <Text style={styles.termItem}>
-            - All prices are in AUD and exclude GST unless stated otherwise
+            1. If a deposit is required as stated on the quotation, then the deposit
+            amount needs to be paid in full before Dewater Products Pty Ltd, will
+            either dispatch the goods if Ex Stock, or before manufacturing can occur.
+            The percentage of the deposit will be specified eg, 50%.
           </Text>
           <Text style={styles.termItem}>
-            - Payment terms: 30 days from invoice date for approved accounts
+            2. If you do not have a trading account with Dewater Products Pty Ltd,
+            then payment in full will need to be made, before Dewater Products Pty Ltd
+            will either dispatch the goods, or proceed with manufacturing. Made to
+            order goods will generally need to be paid in advance.
+          </Text>
+
+          {/* Lead time */}
+          <Text style={{ fontSize: 9, fontWeight: "bold", marginTop: 8, marginBottom: 4 }}>
+            Lead time
           </Text>
           <Text style={styles.termItem}>
-            - Free metro delivery included for orders over $500 (ex GST)
+            3. The quotation should detail the lead time to supply the goods, Ex Works
+            in Perth, Western Australia. If the quotation does not detail the product
+            as "Ex Stock", then a lead time will apply. This lead time should be quoted
+            with the goods.
           </Text>
           <Text style={styles.termItem}>
-            - Lead times may vary depending on stock availability
+            4. Currently COVID-19 is causing unpredictable lead time extensions and
+            when ordering you agree to a possible lead time extension, which is outside
+            of the control of Dewater Products Pty Ltd.
+          </Text>
+
+          {/* Delivery */}
+          <Text style={{ fontSize: 9, fontWeight: "bold", marginTop: 8, marginBottom: 4 }}>
+            Delivery
           </Text>
           <Text style={styles.termItem}>
-            - Material test certificates add 2-3 business days to lead time
+            5. The quotation should detail how the good(s) quoted will be delivered.
+          </Text>
+          <Text style={styles.termItem}>
+            6. Dewater Products Pty Ltd will always try to offer free delivery via road
+            freight to customers although this is not possible if the delivery address
+            is in a remote location resulting in our freight company charging us extra
+            fees such as a remote delivery fee. This would be discussed with the
+            customer if it occurs. An extra charge may be quoted and will depend on the
+            weight and size of the goods, and the remote location.
+          </Text>
+          <Text style={styles.termItem}>
+            7. You should allow extra days for delivery to occur on top of the lead
+            time stated.
+          </Text>
+          <Text style={styles.termItem}>
+            8. Delivery via road freight is outside of the control of Dewater Products
+            Pty Ltd, and any freight matters should be dealt with the freight company,
+            once Dewater Products Pty Ltd advises the Freight company and the
+            consignment number or tracking number.
+          </Text>
+          <Text style={styles.termItem}>
+            9. Dewater Products Pty Ltd will try and obtain a delivery date from the
+            freight company but does not have any input or management power over the
+            road freight once it has left our warehouse.
+          </Text>
+          <Text style={styles.termItem}>
+            10. You as the customer and receiver should ensure that you provide Dewater
+            Products Pty Ltd with the correct delivery address at the time of ordering,
+            to ensure there are no delays.
+          </Text>
+          <Text style={styles.termItem}>
+            11. Other freight types such as Air freight can be quoted when requested.
+          </Text>
+
+          {/* Order Cancellations and Returns */}
+          <Text style={{ fontSize: 9, fontWeight: "bold", marginTop: 8, marginBottom: 4 }}>
+            Order Cancellations and Returns
+          </Text>
+          <Text style={styles.termItem}>
+            12. You can only cancel an Order if the goods you ordered were quoted as Ex
+            Stock and were Ex Stock at the time they were ordered or paid for. This
+            must also occur within 7 days.
+          </Text>
+          <Text style={styles.termItem}>
+            13. You cannot return goods to us, once 7 days has passed from receiving
+            the goods, which were Ex Stock, at the time they were quoted, ordered and
+            paid for. No refund will be approved.
+          </Text>
+          <Text style={styles.termItem}>
+            14. You cannot cancel an Order, or return goods if a lead time applies, and
+            manufacturing has begun. Most products we sell, are bespoke products and
+            made to order. Charges will apply.
+          </Text>
+
+          {/* No Returns */}
+          <Text style={{ fontSize: 9, fontWeight: "bold", marginTop: 8, marginBottom: 4 }}>
+            No Returns - Purchase Order cannot be cancelled
+          </Text>
+          <Text style={styles.termItem}>
+            15. If you choose to cancel the Purchase Order, once manufacturing has
+            started, you will need to pay for all of the costs up to the date of
+            cancelling. Such as materials, labour and freight costs.
+          </Text>
+          <Text style={styles.termItem}>
+            16. The costs to be paid to us could be a very high percentage of the order
+            value such as 90%. This should be considered by you the customer before
+            cancelling a Purchase Order.
+          </Text>
+          <Text style={styles.termItem}>
+            17. All costs will be minimised where possible, but would be difficult with
+            bespoke made to order products.
+          </Text>
+          <Text style={styles.termItem}>
+            18. If you choose to amend the Purchase Order, once manufacturing has
+            started such as reducing the quantity, you will need to pay us all costs
+            associated with the unwanted goods which could potentially be up to 90% of
+            the sale price. Such as materials, labour and freight costs. All costs will
+            be minimised where possible, but would be difficult with bespoke made to
+            order products.
+          </Text>
+          <Text style={styles.termItem}>
+            19. Manufacturing will generally start the following day after payment has
+            been received, or if you have a trading account, the following day is
+            generally when manufacturing begins.
+          </Text>
+          <Text style={styles.termItem}>
+            20. Therefore it is important that your Purchase Order is correct, that you
+            have ordered the correct quantity, size, model, brand and any other product
+            specific details.
+          </Text>
+          <Text style={styles.termItem}>
+            21. We want our customers to order the correct parts, so that orders are
+            not cancelled or amended. You must also consider the lead time quoted and
+            not use it as an excuse to cancel.
+          </Text>
+          <Text style={styles.termItem}>
+            22. Price - Pricing Quoted - The quoted price for a specific product and
+            size is specific to the Quantity quoted. We reserve the right to reject a
+            Purchase Order, when the quantity ordered, does not match the quantity
+            quoted.
+          </Text>
+
+          {/* Credit card surcharge */}
+          <Text
+            style={{
+              fontSize: 9,
+              fontWeight: "bold",
+              color: "#d97706",
+              marginTop: 10,
+            }}
+          >
+            Credit Card Payments incur 1.9% Surcharge
+          </Text>
+
+          {/* Acceptance */}
+          <Text
+            style={{
+              fontSize: 8,
+              color: "#0ea5e9",
+              marginTop: 8,
+              fontStyle: "italic",
+            }}
+          >
+            This quote is valid until {data.validUntil}. To accept this quote, reply
+            to this email or call 1300 271 290.
           </Text>
         </View>
 

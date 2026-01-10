@@ -205,10 +205,10 @@ export default function HomePage() {
         radius={320}
         effect="radial"
         underlayBrightness={0.6}
-        className="min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center justify-center"
+        className="-mt-[90px] min-h-[calc(60vh+90px)] md:min-h-[calc(65vh+90px)] lg:min-h-[calc(70vh+90px)] flex items-center justify-center"
         enableHotspot={{ x: 62, y: 35, width: 15, height: 20 }} // Red butterfly valve position
       >
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[106px] md:pt-[110px]">
           <p className="text-xl md:text-2xl text-white/90 font-medium mb-4 tracking-wide drop-shadow-md">
             Australia's Industrial Pipe Fittings Specialists
           </p>
@@ -384,9 +384,12 @@ export default function HomePage() {
       </FluidHero>
 
       {/* Brand Logos - Infinite Scroll Carousel */}
-      <section className="py-4 bg-muted/50 border-y border-border overflow-hidden">
-        <div className="brand-carousel-wrapper">
-          <div className="brand-carousel-track">
+      <section className="relative py-4 bg-gradient-to-b from-transparent via-muted/30 to-muted/70 border-y border-border overflow-hidden">
+        <div className="brand-carousel-wrapper relative">
+          {/* Transparent gradient overlay on container */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-muted/50 pointer-events-none z-10" />
+
+          <div className="brand-carousel-track relative z-0">
             {/* First set of logos */}
             <div className="brand-carousel-content">
               <Link href="/straub-couplings" className="flex-shrink-0 px-8 brand-logo-link">
