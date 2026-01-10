@@ -1,11 +1,11 @@
 # Codebase Analysis
 
-**Last Updated**: 2026-01-05
+**Last Updated**: 2026-01-10
 **Analyzed By**: webdev:refresh
-**Previous Update**: 2026-01-05 (earlier session)
+**Previous Update**: 2026-01-10 (early)
 
 ## Structure Overview
-- **Framework**: Next.js 14 (App Router) ✅ MIGRATED
+- **Framework**: Next.js 15 (App Router) ✅ MIGRATED
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS + shadcn/ui
 - **Routing**: File-based (App Router)
@@ -16,22 +16,32 @@
 ## File Counts
 | Type | Count | Location | Change |
 |------|-------|----------|--------|
-| Pages | 67 | src/app/ | +2 (duckbill-check-valves, muff-couplings) |
-| Components | 80 | src/components/ (42 UI + 38 custom) | - |
-| API Routes | 21 | src/app/api/ | - |
-| Utils/Lib | 9 | src/lib/ | - |
+| Pages | 72 | src/app/ | +5 (quote demos, approve-quote) |
+| Components | 71 | src/components/ (28 UI + 43 custom) | -9 (cleanup) |
+| API Routes | 24 | src/app/api/ | +3 (quote system) |
+| Utils/Lib | 13 | src/lib/ | +4 (postcode, pdf, quote, tokens) |
 
-## Recent Changes (since 2026-01-05 earlier session)
-- **New Pages**:
-  - Created `/duckbill-check-valves` dedicated page with SEO optimization
-  - Created `/muff-couplings` info page (products to be added later)
-  - Moved Straub page to `/brand/straub-couplings` (was `/straub-couplings-repair-clamps`)
-- **SEO Improvements**:
-  - Optimized expansion-joints page for target keywords
-  - Added category hero sections to pipe-couplings, flange-adaptors, pipe-repair, strainers
-  - Fixed mobile product grid to show 2 columns
-- **Logo Update**:
-  - Updated Defender Strainers logo with correct image and sizing
+## Recent Changes (since 2026-01-09)
+- **Quote System Overhaul**:
+  - Full pricing in customer PDF (subtotal, GST, grand total, discount, material certs)
+  - Delivery classification by postcode (metro=free, non-metro=TBC)
+  - Terminology changed: "Quote Request" → "Quote" throughout
+  - Professional invoice-style PDF layout with ABN and terms
+  - Fix for quote items saving and PDF generation
+- **Straub/Teekay Custom Fields**:
+  - Custom specs form for Straub/Teekay products (pipe OD, rubber material, pressure)
+  - Database schema extended with 4 new columns on quote_items
+  - Custom specs displayed in cart, review page, admin, and emails
+- **FluidHero Component**:
+  - CSS mask-image reveal effect on homepage hero
+  - Mouse tracking with smooth lerp animation
+  - Multiple reveal effects (radial, horizontal, vertical, diamond, blur, smoke)
+  - Easter egg hotspot for enabling/disabling effect
+- **UI Polish**:
+  - Hero buttons removed from category pages
+  - Brand page blob background fixes
+  - Mobile polish (header gradient blur, ticker sizing, breadcrumb truncation)
+  - Header chrome shimmer effect removed
 
 ## Previous Changes (2026-01-04 to 2026-01-05)
 - **Brand URL Restructure**:
