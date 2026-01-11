@@ -205,7 +205,7 @@ export default function HomePage() {
         radius={320}
         effect="radial"
         underlayBrightness={0.6}
-        className="-mt-[90px] min-h-[calc(60vh+90px)] md:min-h-[calc(65vh+90px)] lg:min-h-[calc(70vh+90px)] flex items-center justify-center"
+        className="-mt-[90px] pb-16 min-h-[calc(60vh+90px+110px)] md:min-h-[calc(65vh+90px+110px)] lg:min-h-[calc(70vh+90px+130px)] flex items-center justify-center"
         enableHotspot={{ x: 62, y: 35, width: 15, height: 20 }} // Red butterfly valve position
       >
         <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[106px] md:pt-[110px]">
@@ -384,12 +384,9 @@ export default function HomePage() {
       </FluidHero>
 
       {/* Brand Logos - Infinite Scroll Carousel */}
-      <section className="relative py-4 bg-gradient-to-b from-transparent via-muted/30 to-muted/70 border-y border-border overflow-hidden">
-        <div className="brand-carousel-wrapper relative">
-          {/* Transparent gradient overlay on container */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-muted/50 pointer-events-none z-10" />
-
-          <div className="brand-carousel-track relative z-0">
+      <section className="pb-0 pt-2 border-t border-border overflow-hidden relative -mt-[76px] z-10 header-gradient-blur">
+        <div className="brand-carousel-wrapper">
+          <div className="brand-carousel-track">
             {/* First set of logos */}
             <div className="brand-carousel-content">
               <Link href="/straub-couplings" className="flex-shrink-0 px-8 brand-logo-link">
@@ -399,6 +396,7 @@ export default function HomePage() {
                   width={120}
                   height={40}
                   className="h-10 w-auto object-contain"
+                  priority
                 />
               </Link>
               <Link href="/orbit-couplings" className="flex-shrink-0 px-8 brand-logo-link">
@@ -408,6 +406,7 @@ export default function HomePage() {
                   width={270}
                   height={90}
                   className="h-16 w-auto object-contain"
+                  priority
                 />
               </Link>
               <Link href="/teekay" className="flex-shrink-0 px-8 brand-logo-link">
@@ -417,6 +416,7 @@ export default function HomePage() {
                   width={120}
                   height={40}
                   className="h-10 w-auto object-contain"
+                  priority
                 />
               </Link>
               <Link href="/defender-valves" className="flex-shrink-0 px-8 brand-logo-link">
@@ -426,6 +426,7 @@ export default function HomePage() {
                   width={200}
                   height={60}
                   className="h-10 w-auto object-contain"
+                  priority
                 />
               </Link>
               <Link href="/bore-flex" className="flex-shrink-0 px-8 brand-logo-link">
@@ -435,6 +436,7 @@ export default function HomePage() {
                   width={1080}
                   height={360}
                   className="h-[110px] w-auto object-contain"
+                  priority
                 />
               </Link>
               <Link href="/defender-strainers" className="flex-shrink-0 px-8 brand-logo-link">
@@ -444,6 +446,7 @@ export default function HomePage() {
                   width={414}
                   height={142}
                   className="h-[58px] w-auto object-contain"
+                  priority
                 />
               </Link>
             </div>

@@ -13,43 +13,43 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
         <div className="ticker-content">
           <div className="flex items-center gap-8 px-8 text-sm">
             <div className="flex items-center gap-2">
-              <TrendingDown className="w-4 h-4 text-white" />
-              <span className="font-semibold text-white">Bulk Pricing:</span>
-              <span className="text-white/90">Buy 2-4</span>
+              <TrendingDown className="w-4 h-4 text-gray-300" />
+              <span className="font-semibold text-gray-300">Bulk Pricing:</span>
+              <span className="text-gray-300">Buy 2-4</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">5% OFF</span>
             </div>
-            <span className="text-white/50">•</span>
+            <span className="text-gray-400">•</span>
             <div className="flex items-center gap-2">
-              <span className="text-white/90">Buy 5-9</span>
+              <span className="text-gray-300">Buy 5-9</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">10% OFF</span>
             </div>
-            <span className="text-white/50">•</span>
+            <span className="text-gray-400">•</span>
             <div className="flex items-center gap-2">
-              <span className="text-white/90">Buy 10+</span>
+              <span className="text-gray-300">Buy 10+</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">15% OFF</span>
             </div>
-            <span className="text-white/50">•</span>
+            <span className="text-gray-400">•</span>
           </div>
         </div>
         <div className="ticker-content" aria-hidden="true">
           <div className="flex items-center gap-8 px-8 text-sm">
             <div className="flex items-center gap-2">
-              <TrendingDown className="w-4 h-4 text-white" />
-              <span className="font-semibold text-white">Bulk Pricing:</span>
-              <span className="text-white/90">Buy 2-4</span>
+              <TrendingDown className="w-4 h-4 text-gray-300" />
+              <span className="font-semibold text-gray-300">Bulk Pricing:</span>
+              <span className="text-gray-300">Buy 2-4</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">5% OFF</span>
             </div>
-            <span className="text-white/50">•</span>
+            <span className="text-gray-400">•</span>
             <div className="flex items-center gap-2">
-              <span className="text-white/90">Buy 5-9</span>
+              <span className="text-gray-300">Buy 5-9</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">10% OFF</span>
             </div>
-            <span className="text-white/50">•</span>
+            <span className="text-gray-400">•</span>
             <div className="flex items-center gap-2">
-              <span className="text-white/90">Buy 10+</span>
+              <span className="text-gray-300">Buy 10+</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">15% OFF</span>
             </div>
-            <span className="text-white/50">•</span>
+            <span className="text-gray-400">•</span>
           </div>
         </div>
       </div>
