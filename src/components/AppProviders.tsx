@@ -1,6 +1,7 @@
 "use client"
 
 import { type ReactNode, useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { QuoteProvider } from "@/context/QuoteContext"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Toaster } from "@/components/ui/toaster"
@@ -16,6 +17,10 @@ interface AppProvidersProps {
 export default function AppProviders({ children }: AppProvidersProps) {
   // Track if we're mounted on the client
   const [mounted, setMounted] = useState(false)
+  const pathname = usePathname()
+
+  // Check if we're on an admin page
+  const isAdminPage = pathname?.startsWith('/admin')
 
   useEffect(() => {
     setMounted(true)
@@ -27,6 +32,18 @@ export default function AppProviders({ children }: AppProvidersProps) {
       <div className="min-h-screen flex flex-col">
         <main className="flex-1">{children}</main>
       </div>
+    )
+  }
+
+  // Admin pages get a simplified layout without public header/footer
+  if (isAdminPage) {
+    return (
+      <QuoteProvider>
+        <TooltipProvider>
+          {children}
+          <Toaster />
+        </TooltipProvider>
+      </QuoteProvider>
     )
   }
 
