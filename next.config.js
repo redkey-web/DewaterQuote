@@ -7,6 +7,10 @@ const nextConfig = {
   // The Next.js overlay can intercept pointer events
   devIndicators: false,
 
+  // Performance optimizations
+  compress: true, // Enable gzip compression
+  swcMinify: true, // Use SWC minifier (faster than Terser)
+
   // Externalize react-pdf for server-side rendering compatibility
   // Fixes: "Minified React error #31" when using renderToBuffer
   serverExternalPackages: ['@react-pdf/renderer'],

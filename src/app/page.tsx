@@ -384,7 +384,7 @@ export default function HomePage() {
       </FluidHero>
 
       {/* Brand Logos - Infinite Scroll Carousel */}
-      <section className="pb-0 pt-2 border-t border-border overflow-hidden relative -mt-[76px] z-10 header-gradient-blur">
+      <section className="pb-0 pt-2 border-t border-border overflow-hidden relative -mt-[76px] z-10 header-gradient-blur brand-scroll-3d">
         <div className="brand-carousel-wrapper">
           <div className="brand-carousel-track">
             {/* First set of logos */}
@@ -416,7 +416,7 @@ export default function HomePage() {
                   width={120}
                   height={40}
                   className="h-10 w-auto object-contain"
-                  priority
+                  loading="lazy"
                 />
               </Link>
               <Link href="/defender-valves" className="flex-shrink-0 px-8 brand-logo-link">
@@ -426,7 +426,7 @@ export default function HomePage() {
                   width={200}
                   height={60}
                   className="h-10 w-auto object-contain"
-                  priority
+                  loading="lazy"
                 />
               </Link>
               <Link href="/bore-flex" className="flex-shrink-0 px-8 brand-logo-link">
@@ -436,7 +436,7 @@ export default function HomePage() {
                   width={1080}
                   height={360}
                   className="h-[110px] w-auto object-contain"
-                  priority
+                  loading="lazy"
                 />
               </Link>
               <Link href="/defender-strainers" className="flex-shrink-0 px-8 brand-logo-link">
@@ -446,7 +446,7 @@ export default function HomePage() {
                   width={414}
                   height={142}
                   className="h-[58px] w-auto object-contain"
-                  priority
+                  loading="lazy"
                 />
               </Link>
             </div>

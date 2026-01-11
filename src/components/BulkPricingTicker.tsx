@@ -1,4 +1,7 @@
+'use client'
+
 import { TrendingDown } from "lucide-react"
+import { useEffect, useState } from "react"
 
 interface BulkPricingTickerProps {
   variant?: "default" | "teal"
@@ -6,50 +9,72 @@ interface BulkPricingTickerProps {
 
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
   const bgClass = variant === "teal" ? "bg-primary/10" : "bg-gray-100"
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    let ticking = false
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Header height is approximately 88px (top-[88px] in sticky positioning)
+          setIsScrolled(window.scrollY > 88)
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Check initial state
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const textColor = isScrolled ? "text-gray-500" : "text-white"
 
   return (
     <div className={`sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden`}>
       <div className="ticker-wrapper">
         <div className="ticker-content">
-          <div className="flex items-center gap-8 px-8 text-sm">
+          <div className={`flex items-center gap-8 px-8 text-sm ${textColor} transition-colors duration-300`}>
             <div className="flex items-center gap-2">
-              <TrendingDown className="w-4 h-4 text-gray-300" />
-              <span className="font-semibold text-gray-300">Bulk Pricing:</span>
-              <span className="text-gray-300">Buy 2-4</span>
+              <TrendingDown className="w-4 h-4" />
+              <span className="font-semibold">Bulk Pricing:</span>
+              <span>Buy 2-4</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">5% OFF</span>
             </div>
-            <span className="text-gray-400">•</span>
+            <span>•</span>
             <div className="flex items-center gap-2">
-              <span className="text-gray-300">Buy 5-9</span>
+              <span>Buy 5-9</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">10% OFF</span>
             </div>
-            <span className="text-gray-400">•</span>
+            <span>•</span>
             <div className="flex items-center gap-2">
-              <span className="text-gray-300">Buy 10+</span>
+              <span>Buy 10+</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">15% OFF</span>
             </div>
-            <span className="text-gray-400">•</span>
+            <span>•</span>
           </div>
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <div className="flex items-center gap-8 px-8 text-sm">
+          <div className={`flex items-center gap-8 px-8 text-sm ${textColor} transition-colors duration-300`}>
             <div className="flex items-center gap-2">
-              <TrendingDown className="w-4 h-4 text-gray-300" />
-              <span className="font-semibold text-gray-300">Bulk Pricing:</span>
-              <span className="text-gray-300">Buy 2-4</span>
+              <TrendingDown className="w-4 h-4" />
+              <span className="font-semibold">Bulk Pricing:</span>
+              <span>Buy 2-4</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">5% OFF</span>
             </div>
-            <span className="text-gray-400">•</span>
+            <span>•</span>
             <div className="flex items-center gap-2">
-              <span className="text-gray-300">Buy 5-9</span>
+              <span>Buy 5-9</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">10% OFF</span>
             </div>
-            <span className="text-gray-400">•</span>
+            <span>•</span>
             <div className="flex items-center gap-2">
-              <span className="text-gray-300">Buy 10+</span>
+              <span>Buy 10+</span>
               <span className="font-bold bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-400 bg-clip-text text-transparent">15% OFF</span>
             </div>
-            <span className="text-gray-400">•</span>
+            <span>•</span>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, useCallback } from "react"
+import { useEffect, useRef, useState, useCallback, useMemo } from "react"
 
 // Available reveal effect types
 export type RevealEffect =
@@ -60,11 +60,19 @@ export default function FluidHero({
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  // Smooth animation loop for position AND opacity
+  // Smooth animation loop for position AND opacity (throttled to ~30fps)
   useEffect(() => {
     if (isMobile) return
 
-    const animate = () => {
+    let lastFrame = 0
+    const animate = (timestamp: number) => {
+      // Throttle to ~30fps (33ms between frames)
+      if (timestamp - lastFrame < 33) {
+        animationRef.current = requestAnimationFrame(animate)
+        return
+      }
+      lastFrame = timestamp
+
       setSmoothPos(prev => ({
         x: prev.x + (mousePos.x - prev.x) * 0.12,
         y: prev.y + (mousePos.y - prev.y) * 0.12,
@@ -79,7 +87,7 @@ export default function FluidHero({
       animationRef.current = requestAnimationFrame(animate)
     }
 
-    animate()
+    animationRef.current = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animationRef.current)
   }, [mousePos, isHovering, isMobile, effectEnabled])
 
@@ -126,8 +134,8 @@ export default function FluidHero({
     // Don't reset position immediately - let it fade out smoothly
   }, [])
 
-  // Generate mask/effect style based on effect type
-  const getEffectStyle = () => {
+  // Generate mask/effect style based on effect type (memoized for performance)
+  const effectStyle = useMemo(() => {
     if (opacity < 0.01) return { opacity: 0 }
 
     const x = smoothPos.x
@@ -169,8 +177,8 @@ export default function FluidHero({
         const size = radius * 1.5
         return {
           opacity,
-          maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")`,
-          WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")`,
+          maskImage: 'url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")',
+          WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")',
           maskSize: `${size}px ${size}px`,
           WebkitMaskSize: `${size}px ${size}px`,
           maskPosition: `${x - size/2}px ${y - size/2}px`,
@@ -198,7 +206,7 @@ export default function FluidHero({
       default:
         return { opacity }
     }
-  }
+  }, [opacity, smoothPos.x, smoothPos.y, effect, radius, underlayBrightness])
 
   // Generate unique filter ID
   const filterId = "smoke-filter"
@@ -236,8 +244,11 @@ export default function FluidHero({
 
       {/* Base layer: Photo */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${photoSrc})` }}
+        className="absolute inset-0 bg-cover"
+        style={{
+          backgroundImage: `url(${photoSrc})`,
+          backgroundPosition: 'center 45%',
+        }}
       />
 
       {/* Gradient overlay on photo */}
@@ -245,11 +256,12 @@ export default function FluidHero({
 
       {/* Reveal layer: Industrial illustration with effect */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover"
         style={{
           backgroundImage: `url(${illustrationSrc})`,
+          backgroundPosition: 'center 45%',
           filter: `brightness(${underlayBrightness})`,
-          ...getEffectStyle(),
+          ...effectStyle,
         }}
       />
 
