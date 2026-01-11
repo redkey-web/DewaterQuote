@@ -60,6 +60,7 @@ type Quote = {
   items: QuoteItem[];
   isDeleted?: boolean | null;
   deletedAt?: Date | null;
+  deletedBy?: string | null;
 };
 
 type DateRange = 'all' | 'today' | 'week' | 'month' | 'quarter';
@@ -100,6 +101,8 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
   const [togglingIds, setTogglingIds] = useState<Set<number>>(new Set());
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [isBulkProcessing, setIsBulkProcessing] = useState(false);
+  const [restoringIds, setRestoringIds] = useState<Set<number>>(new Set());
+  const [deletedQuotesList, setDeletedQuotesList] = useState(deletedQuotes);
 
   // Update URL when status filter changes
   const handleStatusChange = (value: string) => {
@@ -145,7 +148,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
 
   const filteredAndSortedQuotes = useMemo(() => {
     // Choose source: active or deleted quotes
-    let result = showDeleted ? [...deletedQuotes] : [...quotes];
+    let result = showDeleted ? [...deletedQuotesList] : [...quotes];
 
     // Filter by search
     if (search) {
@@ -203,7 +206,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
     });
 
     return result;
-  }, [quotes, deletedQuotes, showDeleted, search, statusFilter, dateRange, sortKey, sortDirection]);
+  }, [quotes, deletedQuotesList, showDeleted, search, statusFilter, dateRange, sortKey, sortDirection]);
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -344,11 +347,50 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
     setSelectedIds(new Set());
 
     toast({
-      title: `Marked ${successCount} quote${successCount !== 1 ? 's' : ''} complete`,
+      title: `Marked ${successCount} quote${successCount !== 1 ? "s" : ""} complete`,
       description: successCount === idsToProcess.length
         ? "All selected quotes updated."
         : `${idsToProcess.length - successCount} failed to update.`,
     });
+  };
+
+  const handleRestoreQuote = async (quote: Quote) => {
+    const quoteId = quote.id;
+
+    // Add to restoring set
+    setRestoringIds((prev) => new Set(prev).add(quoteId));
+
+    try {
+      const response = await fetch(`/api/admin/quotes/${quoteId}/restore`, {
+        method: "POST",
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to restore quote");
+      }
+
+      // Remove from deleted list and add to active list
+      setDeletedQuotesList((prev) => prev.filter((q) => q.id !== quoteId));
+      setQuotes((prev) => [...prev, { ...quote, isDeleted: false }]);
+
+      toast({
+        title: "Quote restored",
+        description: `Quote ${quote.quoteNumber} has been restored.`,
+      });
+    } catch (error) {
+      toast({
+        title: "Failed to restore quote",
+        description: error instanceof Error ? error.message : "An error occurred",
+        variant: "destructive",
+      });
+    } finally {
+      setRestoringIds((prev) => {
+        const next = new Set(prev);
+        next.delete(quoteId);
+        return next;
+      });
+    }
   };
 
   const SortableHeader = ({
@@ -560,24 +602,54 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
                     </Badge>
                   </TableCell>
                   <TableCell className="text-gray-500 text-sm">
-                    {formatDistanceToNow(new Date(quote.createdAt), { addSuffix: true })}
+                    <div>
+                      {formatDistanceToNow(new Date(quote.createdAt), { addSuffix: true })}
+                    </div>
+                    {/* Show deletion info for deleted quotes */}
+                    {showDeleted && quote.deletedAt && (
+                      <div className="text-xs text-red-600 mt-1">
+                        Deleted {formatDistanceToNow(new Date(quote.deletedAt), { addSuffix: true })}
+                        {quote.deletedBy && ` by ${quote.deletedBy.split("@")[0]}`}
+                      </div>
+                    )}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <Link href={"/admin/quotes/" + quote.id}>
-                        <Button variant="ghost" size="sm">
-                          <Eye className="h-4 w-4 mr-1" />
-                          View
+                      {showDeleted ? (
+                        /* Restore button for deleted quotes */
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRestoreQuote(quote)}
+                          disabled={restoringIds.has(quote.id)}
+                          className="text-green-600 hover:text-green-700 hover:bg-green-50"
+                        >
+                          {restoringIds.has(quote.id) ? (
+                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                          ) : (
+                            <RotateCcw className="h-4 w-4 mr-1" />
+                          )}
+                          Restore
                         </Button>
-                      </Link>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setDeletingQuote(quote)}
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      ) : (
+                        /* Normal actions for active quotes */
+                        <>
+                          <Link href={"/admin/quotes/" + quote.id}>
+                            <Button variant="ghost" size="sm">
+                              <Eye className="h-4 w-4 mr-1" />
+                              View
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setDeletingQuote(quote)}
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>

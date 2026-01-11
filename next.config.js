@@ -3,6 +3,10 @@ const nextConfig = {
   // Enable standalone output for Replit/Docker deployments
   output: process.env.REPLIT ? 'standalone' : undefined,
 
+  // Disable dev indicators that interfere with Playwright tests
+  // The Next.js overlay can intercept pointer events
+  devIndicators: false,
+
   // Externalize react-pdf for server-side rendering compatibility
   // Fixes: "Minified React error #31" when using renderToBuffer
   serverExternalPackages: ['@react-pdf/renderer'],
