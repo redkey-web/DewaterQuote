@@ -9,7 +9,7 @@ const nextConfig = {
 
   // Performance optimizations
   compress: true, // Enable gzip compression
-  swcMinify: true, // Use SWC minifier (faster than Terser)
+  // Note: swcMinify is default in Next.js 15+ (no longer needs explicit config)
 
   // Externalize react-pdf for server-side rendering compatibility
   // Fixes: "Minified React error #31" when using renderToBuffer

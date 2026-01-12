@@ -33,7 +33,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Eye, ArrowUp, ArrowDown, ArrowUpDown, Search, Trash2, Loader2, CheckCircle, RotateCcw } from 'lucide-react';
+import { Eye, ArrowUp, ArrowDown, ArrowUpDown, Search, Trash2, Loader2, CheckCircle, RotateCcw, Archive } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
@@ -102,6 +102,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [isBulkProcessing, setIsBulkProcessing] = useState(false);
   const [restoringIds, setRestoringIds] = useState<Set<number>>(new Set());
+  const [archivingIds, setArchivingIds] = useState<Set<number>>(new Set());
   const [deletedQuotesList, setDeletedQuotesList] = useState(deletedQuotes);
 
   // Update URL when status filter changes
@@ -361,7 +362,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
     setRestoringIds((prev) => new Set(prev).add(quoteId));
 
     try {
-      const response = await fetch(`/api/admin/quotes/${quoteId}/restore`, {
+      const response = await fetch('/api/admin/quotes/${quoteId}/restore', {
         method: "POST",
       });
 
@@ -376,7 +377,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
 
       toast({
         title: "Quote restored",
-        description: `Quote ${quote.quoteNumber} has been restored.`,
+        description: 'Quote ${quote.quoteNumber} has been restored.',
       });
     } catch (error) {
       toast({
@@ -386,6 +387,45 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
       });
     } finally {
       setRestoringIds((prev) => {
+        const next = new Set(prev);
+        next.delete(quoteId);
+        return next;
+      });
+    }
+  };
+
+  const handleArchiveQuote = async (quote: Quote) => {
+    const quoteId = quote.id;
+
+    // Add to archiving set
+    setArchivingIds((prev) => new Set(prev).add(quoteId));
+
+    try {
+      const response = await fetch('/api/admin/quotes/${quoteId}', {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to archive quote");
+      }
+
+      // Remove from active quotes and add to deleted list
+      setQuotes((prev) => prev.filter((q) => q.id !== quoteId));
+      setDeletedQuotesList((prev) => [...prev, { ...quote, isDeleted: true }]);
+
+      toast({
+        title: "Quote archived",
+        description: 'Quote ${quote.quoteNumber} has been archived. View in "Show Deleted" to restore.',
+      });
+    } catch (error) {
+      toast({
+        title: "Failed to archive quote",
+        description: error instanceof Error ? error.message : "An error occurred",
+        variant: "destructive",
+      });
+    } finally {
+      setArchivingIds((prev) => {
         const next = new Set(prev);
         next.delete(quoteId);
         return next;
@@ -643,8 +683,23 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleArchiveQuote(quote)}
+                            disabled={archivingIds.has(quote.id)}
+                            className="text-gray-600 hover:text-gray-700 hover:bg-gray-100"
+                            title="Archive this quote"
+                          >
+                            {archivingIds.has(quote.id) ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Archive className="h-4 w-4" />
+                            )}
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
                             onClick={() => setDeletingQuote(quote)}
                             className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            title="Permanently delete this quote"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>

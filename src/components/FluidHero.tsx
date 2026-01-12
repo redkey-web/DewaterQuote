@@ -177,8 +177,8 @@ export default function FluidHero({
         const size = radius * 1.5
         return {
           opacity,
-          maskImage: 'url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")',
-          WebkitMaskImage: 'url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")',
+          maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")`,
+          WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")`,
           maskSize: `${size}px ${size}px`,
           WebkitMaskSize: `${size}px ${size}px`,
           maskPosition: `${x - size/2}px ${y - size/2}px`,
