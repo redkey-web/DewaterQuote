@@ -86,7 +86,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Brand tab - in folder tab area (top left) */}
           <div className="absolute -top-[20px] left-[calc(4%-41px)]">
             <div
-              className={`${colors.bg} ${colors.text} px-8 py-3 rounded-b-xl font-semibold text-sm whitespace-nowrap flex items-center justify-center`}
+              className={'${colors.bg} ${colors.text} px-8 py-3 rounded-b-xl font-semibold ${product.brand.startsWith('Defender') ? 'text-xs' : 'text-sm'} whitespace-nowrap flex items-center justify-center'}
             >
               <span className="translate-x-[6px] translate-y-[10px]">{product.brand}</span>
             </div>
