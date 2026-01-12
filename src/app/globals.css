@@ -395,6 +395,10 @@
   will-change: transform;
 }
 
+.ticker-wrapper:hover {
+  animation-play-state: running;
+}
+
 .ticker-content {
   flex-shrink: 0;
   display: flex;
