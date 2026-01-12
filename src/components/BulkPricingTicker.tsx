@@ -8,7 +8,7 @@ interface BulkPricingTickerProps {
 }
 
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
-  const bgClass = variant === "teal" ? "bg-primary/10" : "bg-gray-100"
+  const bgClass = variant === "teal" ? "bg-gray-500" : "bg-gray-100"
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
