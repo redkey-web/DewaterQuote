@@ -444,7 +444,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
   }) => {
     const isActive = sortKey === column;
     return (
-      <TableHead className={cn("sticky top-16 bg-gray-50 z-10", className)}>
+      <TableHead className={cn("sticky top-0 bg-gray-50 z-10", className)}>
         <button
           onClick={() => handleSort(column)}
           className={cn(
@@ -559,7 +559,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
           <TableHeader>
             <TableRow className="bg-gray-50">
               {!showDeleted && (
-                <TableHead className="w-10 sticky top-16 bg-gray-50 z-10">
+                <TableHead className="w-10 sticky top-0 bg-gray-50 z-10">
                   <Checkbox
                     checked={selectedIds.size > 0 && selectedIds.size === filteredAndSortedQuotes.length}
                     onCheckedChange={handleSelectAll}
@@ -567,7 +567,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
                   />
                 </TableHead>
               )}
-              <TableHead className="w-10 sticky top-16 bg-gray-50 z-10">
+              <TableHead className="w-10 sticky top-0 bg-gray-50 z-10">
                 <span className="sr-only">Complete</span>
               </TableHead>
               <SortableHeader column="quoteNumber" label="Quote #" />
@@ -577,7 +577,7 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
               <SortableHeader column="total" label="Total" className="text-right" />
               <SortableHeader column="status" label="Status" />
               <SortableHeader column="date" label="Date" />
-              <TableHead className="text-right sticky top-16 bg-gray-50 z-10">Actions</TableHead>
+              <TableHead className="text-right sticky top-0 bg-gray-50 z-10">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

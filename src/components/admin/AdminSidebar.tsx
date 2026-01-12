@@ -13,6 +13,15 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { signOut } from 'next-auth/react';
+import {
   LayoutDashboard,
   Package,
   PackageSearch,
@@ -26,6 +35,8 @@ import {
   HelpCircle,
   PanelLeftClose,
   PanelLeft,
+  User,
+  LogOut,
 } from 'lucide-react';
 
 const navigation = [
@@ -43,7 +54,14 @@ const navigation = [
 
 const SIDEBAR_COLLAPSED_KEY = 'admin-sidebar-collapsed';
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  user?: {
+    name?: string | null;
+    email: string;
+  };
+}
+
+export function AdminSidebar({ user }: AdminSidebarProps = { user: undefined }) {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -90,7 +108,7 @@ export function AdminSidebar() {
           )}
         >
           {/* Logo */}
-          <div className="flex flex-col h-20 shrink-0 justify-center">
+          <div className="flex flex-col h-32 shrink-0 justify-center">
             <Link href="/admin" className={cn('flex flex-col gap-1', isCollapsed ? 'items-center' : 'items-start')}>
               {isCollapsed ? (
                 <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
@@ -101,9 +119,9 @@ export function AdminSidebar() {
                   <Image
                     src="/images/logo-new.png"
                     alt="DeWater Products"
-                    width={160}
-                    height={40}
-                    className="h-10 w-auto"
+                    width={400}
+                    height={100}
+                    className="h-25 w-auto"
                     priority
                   />
                   <span className="text-xs text-gray-500 font-medium">Admin Panel</span>
@@ -161,8 +179,83 @@ export function AdminSidebar() {
                 </ul>
               </li>
 
-              {/* View Site Link */}
+              {/* Bottom Section */}
               <li className="mt-auto space-y-2">
+                {/* User Dropdown */}
+                {user && (
+                  <div className={cn(isCollapsed && 'flex justify-center')}>
+                    {isCollapsed ? (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-10 w-10">
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
+                                  <User className="h-5 w-5 text-blue-600" />
+                                </div>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" side="right" className="w-56">
+                              <DropdownMenuLabel>
+                                <div className="flex flex-col space-y-1">
+                                  <p className="text-sm font-medium">{user.name || 'Admin'}</p>
+                                  <p className="text-xs text-gray-500">{user.email}</p>
+                                </div>
+                              </DropdownMenuLabel>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem
+                                onClick={() => signOut({ callbackUrl: '/admin/login' })}
+                                className="text-red-600 cursor-pointer"
+                              >
+                                <LogOut className="mr-2 h-4 w-4" />
+                                Sign out
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" sideOffset={10}>
+                          {user.name || user.email}
+                        </TooltipContent>
+                      </Tooltip>
+                    ) : (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="w-full -mx-2 justify-start gap-x-3">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 shrink-0">
+                              <User className="h-5 w-5 text-blue-600" />
+                            </div>
+                            <div className="flex flex-col items-start overflow-hidden">
+                              <span className="text-sm font-medium truncate max-w-full">
+                                {user.name || 'Admin'}
+                              </span>
+                              <span className="text-xs text-gray-500 truncate max-w-full">
+                                {user.email}
+                              </span>
+                            </div>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" side="right" className="w-56">
+                          <DropdownMenuLabel>
+                            <div className="flex flex-col space-y-1">
+                              <p className="text-sm font-medium">{user.name || 'Admin'}</p>
+                              <p className="text-xs text-gray-500">{user.email}</p>
+                            </div>
+                          </DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => signOut({ callbackUrl: '/admin/login' })}
+                            className="text-red-600 cursor-pointer"
+                          >
+                            <LogOut className="mr-2 h-4 w-4" />
+                            Sign out
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
+                  </div>
+                )}
+
+                {/* View Site Link */}
                 {isCollapsed ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
