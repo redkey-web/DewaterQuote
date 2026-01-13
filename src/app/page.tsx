@@ -214,39 +214,37 @@ export default function HomePage() {
           </p>
           <div className="relative w-full max-w-2xl mx-auto" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
-              {/* Search Bar with Rotating Gradient Border */}
-              <div className="rotating-border-wrapper">
-                <div className="relative">
-                  {isSearching ? (
-                    <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-white animate-spin z-10" />
-                  ) : (
-                    <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-white z-10" />
-                  )}
-                  <input
-                    ref={heroInputRef}
-                    type="text"
-                    className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25)] focus:outline-none focus:bg-white focus:text-gray-900 focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
-                    data-testid="input-hero-search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onFocus={() => {
-                      setIsSearchFocused(true)
-                      if (searchResults.length > 0) setShowResults(true)
-                    }}
-                    onBlur={() => setIsSearchFocused(false)}
-                  />
-                  {/* Typewriter placeholder - shows when empty and not focused */}
-                  {!searchQuery && !isSearchFocused && (
-                    <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-normal text-gray-700 pointer-events-none">
-                      <TypewriterPlaceholder
-                        phrases={searchPhrases}
-                        typingSpeed={60}
-                        deletingSpeed={30}
-                        pauseDuration={2500}
-                      />
-                    </div>
-                  )}
-                </div>
+              {/* Search Bar */}
+              <div className="relative">
+                {isSearching ? (
+                  <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-white animate-spin z-10" />
+                ) : (
+                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-white z-10" />
+                )}
+                <input
+                  ref={heroInputRef}
+                  type="text"
+                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
+                  data-testid="input-hero-search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => {
+                    setIsSearchFocused(true)
+                    if (searchResults.length > 0) setShowResults(true)
+                  }}
+                  onBlur={() => setIsSearchFocused(false)}
+                />
+                {/* Typewriter placeholder - shows when empty and not focused */}
+                {!searchQuery && !isSearchFocused && (
+                  <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-normal text-gray-700 pointer-events-none">
+                    <TypewriterPlaceholder
+                      phrases={searchPhrases}
+                      typingSpeed={60}
+                      deletingSpeed={30}
+                      pauseDuration={2500}
+                    />
+                  </div>
+                )}
               </div>
             </form>
             {/* Search Results Dropdown */}
