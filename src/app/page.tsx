@@ -384,7 +384,7 @@ export default function HomePage() {
       </FluidHero>
 
       {/* Brand Logos - Infinite Scroll Carousel */}
-      <section className="pb-0 pt-2 border-t border-border overflow-hidden relative -mt-[60px] z-10 header-gradient-blur brand-scroll-3d">
+      <section className="pb-0 pt-2 border-t border-border overflow-hidden relative -mt-[60px] z-10 brand-carousel-gradient-blur brand-scroll-3d">
         <div className="brand-carousel-wrapper">
           <div className="brand-carousel-track">
             {/* First set of logos */}
