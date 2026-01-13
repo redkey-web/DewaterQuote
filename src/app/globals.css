@@ -1416,11 +1416,13 @@
 .miami-gradient-text {
   background: linear-gradient(
     90deg,
+    #e63946,
+    #ff4d6d,
     #ff006e,
-    #fb5607,
-    #8338ec,
-    #06ffa5,
-    #ff006e
+    #40b5ff,
+    #06b6d4,
+    #14b8a6,
+    #e63946
   );
   background-size: 300% 100%;
   -webkit-background-clip: text;
