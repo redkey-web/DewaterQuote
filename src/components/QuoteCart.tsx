@@ -142,9 +142,14 @@ export default function QuoteCart() {
                               )}
                             </div>
                             <p className="text-xs text-muted-foreground">
-                              {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
+                              {item.brand}{sizeLabel ? ' • ${sizeLabel}' : ""}
                             </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
+                            {item.leadTime && (
+                              <p className="text-xs text-muted-foreground">
+                                Lead time: {item.leadTime}
+                              </p>
+                            )}
                             {/* Custom Specs Display (Straub/Teekay products) */}
                             {item.customSpecs && (
                               <div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">

@@ -415,6 +415,11 @@ export default function RequestQuotePage() {
                               <div className="text-xs text-muted-foreground sm:hidden">
                                 {sku}
                               </div>
+                              {item.leadTime && (
+                                <div className="text-xs text-muted-foreground">
+                                  Lead time: {item.leadTime}
+                                </div>
+                              )}
                               {/* Custom Specs Display (Straub/Teekay products) */}
                               {item.customSpecs && (
                                 <div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">
