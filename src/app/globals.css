@@ -434,13 +434,13 @@
   }
 }
 
-/* Seamless brand scroll - scrolls 25% (1 of 4 copies) */
+/* Seamless brand scroll - scrolls right (opposite direction) */
 @keyframes brand-scroll-seamless {
   0% {
-    transform: translateX(0);
+    transform: translateX(-25%);
   }
   100% {
-    transform: translateX(-25%);
+    transform: translateX(0);
   }
 }
 
