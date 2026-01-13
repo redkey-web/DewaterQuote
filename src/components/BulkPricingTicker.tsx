@@ -33,7 +33,7 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
   const bgClass = isBelowHero ? "bg-gray-700/95" : "bg-gray-600/90"
 
   return (
-    <div className={'sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden transition-colors duration-300'}>
+    <div className={`sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden transition-colors duration-300`}>
       <div className="ticker-wrapper">
         <div className="ticker-content">
           <div className="flex items-center gap-8 px-8 text-sm text-white">
