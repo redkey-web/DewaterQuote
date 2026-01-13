@@ -41,17 +41,17 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
               <TrendingDown className="w-4 h-4" />
               <span className="font-semibold">Bulk Pricing:</span>
               <span>Buy 2-4</span>
-              <span className="font-bold bg-gradient-to-r from-blue-600 via-blue-500 via-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">5% OFF</span>
+              <span className="font-bold bg-gradient-to-r from-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">5% OFF</span>
             </div>
             <span>•</span>
             <div className="flex items-center gap-2">
               <span>Buy 5-9</span>
-              <span className="font-bold bg-gradient-to-r from-blue-600 via-blue-500 via-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">10% OFF</span>
+              <span className="font-bold bg-gradient-to-r from-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">10% OFF</span>
             </div>
             <span>•</span>
             <div className="flex items-center gap-2">
               <span>Buy 10+</span>
-              <span className="font-bold bg-gradient-to-r from-blue-600 via-blue-500 via-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">15% OFF</span>
+              <span className="font-bold bg-gradient-to-r from-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">15% OFF</span>
             </div>
             <span>•</span>
           </div>
@@ -62,17 +62,17 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
               <TrendingDown className="w-4 h-4" />
               <span className="font-semibold">Bulk Pricing:</span>
               <span>Buy 2-4</span>
-              <span className="font-bold bg-gradient-to-r from-blue-600 via-blue-500 via-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">5% OFF</span>
+              <span className="font-bold bg-gradient-to-r from-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">5% OFF</span>
             </div>
             <span>•</span>
             <div className="flex items-center gap-2">
               <span>Buy 5-9</span>
-              <span className="font-bold bg-gradient-to-r from-blue-600 via-blue-500 via-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">10% OFF</span>
+              <span className="font-bold bg-gradient-to-r from-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">10% OFF</span>
             </div>
             <span>•</span>
             <div className="flex items-center gap-2">
               <span>Buy 10+</span>
-              <span className="font-bold bg-gradient-to-r from-blue-600 via-blue-500 via-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">15% OFF</span>
+              <span className="font-bold bg-gradient-to-r from-cyan-600 via-cyan-500 via-teal-600 to-teal-500 bg-clip-text text-transparent">15% OFF</span>
             </div>
             <span>•</span>
           </div>
