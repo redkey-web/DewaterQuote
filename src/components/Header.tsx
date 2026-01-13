@@ -310,7 +310,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("products")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden shadow-[inset_0_-15px_25px_-15px_rgba(0,0,0,0.2)]"
+                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -340,7 +340,7 @@ export default function Header() {
                               <div key={category.title} className="break-inside-avoid mb-3">
                                 <Link
                                   href={category.url}
-                                  className="text-gray-900 dark:text-white font-semibold hover:text-primary hover-underline-scale inline-block transition-colors"
+                                  className="text-gray-900 dark:text-white font-semibold hover:text-primary hover-underline-scale inline-block transition-all hover:shadow-[inset_0_-3px_6px_-2px_rgba(0,0,0,0.15)]"
                                 >
                                   {category.title}
                                 </Link>
@@ -349,7 +349,7 @@ export default function Header() {
                                     <li key={item.name}>
                                       <Link
                                         href={item.url}
-                                        className="text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale inline-block transition-colors"
+                                        className="text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale inline-block transition-all hover:shadow-[inset_0_-3px_6px_-2px_rgba(0,0,0,0.15)]"
                                       >
                                         {item.name}
                                       </Link>
@@ -391,7 +391,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("industries")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden shadow-[inset_0_-15px_25px_-15px_rgba(0,0,0,0.2)]"
+                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("industries")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -418,7 +418,7 @@ export default function Header() {
                               <Link
                                 key={industry.name}
                                 href={industry.url}
-                                className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-colors py-1"
+                                className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-all py-1 hover:shadow-[inset_0_-3px_6px_-2px_rgba(0,0,0,0.15)]"
                               >
                                 {industry.name}
                               </Link>
@@ -456,7 +456,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("brands")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden shadow-[inset_0_-15px_25px_-15px_rgba(0,0,0,0.2)]"
+                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("brands")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -483,7 +483,7 @@ export default function Header() {
                               <Link
                                 key={brand.name}
                                 href={brand.url}
-                                className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-colors py-1"
+                                className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-all py-1 hover:shadow-[inset_0_-3px_6px_-2px_rgba(0,0,0,0.15)]"
                               >
                                 {brand.name}
                               </Link>
