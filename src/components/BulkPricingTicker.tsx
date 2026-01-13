@@ -1,42 +1,18 @@
 'use client'
 
 import { TrendingDown } from "lucide-react"
-import { useEffect, useState } from "react"
 
 interface BulkPricingTickerProps {
   variant?: "default" | "teal"
 }
 
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
-  const [isBelowHero, setIsBelowHero] = useState(false)
-
-  useEffect(() => {
-    let ticking = false
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          // Hero section is approximately 600-700px tall
-          // Trigger when scrolled past about 500px
-          setIsBelowHero(window.scrollY > 500)
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // Check initial state
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const bgClass = isBelowHero ? "bg-[#8db4bb]/80" : "bg-[#a5c4c9]/40"
 
   return (
-    <div className={`sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden transition-colors duration-300`}>
+    <div className="sticky top-[88px] z-40 py-2 overflow-hidden">
       <div className="ticker-wrapper">
         <div className="ticker-content">
-          <div className="flex items-center gap-8 px-8 text-sm text-white">
+          <div className="flex items-center gap-8 px-8 text-sm text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)' }}>
             <div className="flex items-center gap-2">
               <TrendingDown className="w-4 h-4" />
               <span className="font-semibold">Bulk Pricing:</span>
@@ -57,7 +33,7 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
           </div>
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <div className="flex items-center gap-8 px-8 text-sm text-white">
+          <div className="flex items-center gap-8 px-8 text-sm text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)' }}>
             <div className="flex items-center gap-2">
               <TrendingDown className="w-4 h-4" />
               <span className="font-semibold">Bulk Pricing:</span>
