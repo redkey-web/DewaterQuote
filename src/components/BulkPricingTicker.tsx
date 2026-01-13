@@ -9,34 +9,12 @@ interface BulkPricingTickerProps {
 
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
   const bgClass = variant === "teal" ? "bg-gray-500/50" : "bg-gray-100/50"
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  useEffect(() => {
-    let ticking = false
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          // Header height is approximately 88px (top-[88px] in sticky positioning)
-          setIsScrolled(window.scrollY > 88)
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // Check initial state
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const textColor = isScrolled ? "text-gray-500" : "text-white"
 
   return (
-    <div className={`sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden`}>
+    <div className={'sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden'}>
       <div className="ticker-wrapper">
         <div className="ticker-content">
-          <div className={`flex items-center gap-8 px-8 text-sm ${textColor} transition-colors duration-300`}>
+          <div className="flex items-center gap-8 px-8 text-sm text-white">
             <div className="flex items-center gap-2">
               <TrendingDown className="w-4 h-4" />
               <span className="font-semibold">Bulk Pricing:</span>
@@ -57,7 +35,7 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
           </div>
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <div className={`flex items-center gap-8 px-8 text-sm ${textColor} transition-colors duration-300`}>
+          <div className="flex items-center gap-8 px-8 text-sm text-white">
             <div className="flex items-center gap-2">
               <TrendingDown className="w-4 h-4" />
               <span className="font-semibold">Bulk Pricing:</span>
