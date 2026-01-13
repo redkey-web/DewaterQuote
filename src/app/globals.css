@@ -1390,3 +1390,43 @@
     font-size: 0.7rem;
   }
 }
+
+/* ========================================
+   MIAMI GRADIENT ANIMATION
+   ======================================== */
+
+@keyframes miami-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.miami-gradient-text {
+  background: linear-gradient(
+    90deg,
+    #ff006e,
+    #fb5607,
+    #ffbe0b,
+    #8338ec,
+    #3a86ff,
+    #06ffa5,
+    #ff006e
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: miami-gradient 6s ease infinite;
+}
