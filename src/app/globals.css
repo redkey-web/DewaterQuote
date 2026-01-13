@@ -1175,9 +1175,9 @@
   animation: ticker-flash 2s steps(1) infinite;
 }
 
-/* Ticker text - dimmed blue with sharp drop shadow */
+/* Ticker text - teal blue with sharp drop shadow */
 .ticker-chrome-blink {
-  color: #5bb8d4; /* muted sky blue */
+  color: #4DB7C1;
   text-shadow: 1px 1px 0 #374151;
 }
 
