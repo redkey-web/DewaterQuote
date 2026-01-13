@@ -1007,7 +1007,7 @@ export default function RequestQuotePage() {
                       <div className="flex items-start gap-2">
                         <FileCheck className="w-4 h-4 shrink-0 mt-0.5" />
                         <div>
-                          <span className="font-medium text-foreground">Warranty:</span> Up to 5 years on Orbit/Straub pipe couplings* | 12 months on all other products (including repair clamps)
+                          <span className="font-medium text-foreground">Warranty:</span> Up to 5 years on Stainless Steel Orbit/Straub pipe couplings* | 12 months on all other products (including repair clamps)
                         </div>
                       </div>
                       <div className="border-t border-border pt-2 mt-2 space-y-1">
