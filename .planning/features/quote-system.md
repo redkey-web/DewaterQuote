@@ -227,4 +227,79 @@ All 22 terms provided by client on 2026-01-13. Key sections:
 
 ---
 
-Last Updated: 2026-01-13 (Phase 7 complete: T&C verification - all terms verified correct)
+## Phase 8: Quote Display Bug Fixes (2026-01-13)
+
+Client reported issues with quote display during the customer journey. These bugs affect customer visibility of key information.
+
+### 8.1 Stock/Lead Time Visibility for Customers
+
+**Problem**: Customers don't see lead time information until AFTER submitting a quote. If a product is not in stock (3+ week lead time), they should know BEFORE submitting.
+
+**Root Cause Analysis**:
+- Lead time IS stored in `products.leadTime` column
+- Lead time IS displayed in Quote Cart (line 148-152) and Request Quote page (line 418-422)
+- **Issue**: Some products have EMPTY `leadTime` values in the database
+- **Issue**: Need more prominent display at all customer touchpoints
+
+**Tasks**:
+- [x] Audit products with missing `leadTime` values in database (73/113 active products missing)
+- [x] Add default lead time for products with no value (76 products updated to "2-3 weeks")
+- [ ] Add prominent lead time badge to QuoteCart items (orange warning if >2 weeks)
+- [ ] Add stock-based messaging: if qty=0 in product_stock table, show lead time prominently
+- [ ] Consider "In Stock" vs "Made to Order" visual distinction
+
+### 8.2 Bulk Pricing Ticker Missing/Invisible
+
+**Problem**: The scrolling bulk pricing ticker may not be visible - text might be hard to read.
+
+**Root Cause Analysis**:
+- `BulkPricingTicker.tsx` exists with correct content
+- Uses `ticker-flash-text` CSS class which animates between grey (#678a94) and white
+- Without a dark background, white text on light background is invisible
+
+**Tasks**:
+- [x] Check ticker background color in production (MISSING - no background, text invisible on light bg)
+- [x] Ensure ticker text has sufficient contrast in both light/dark modes (FIXED - added bg-zinc-900/95)
+- [x] Verify `ticker-flash-text` animation is working (alternating grey/white) - animation code correct
+- [ ] Test ticker visibility on mobile and desktop (deploy to verify)
+
+### 8.3 Size Not Showing Consistently on Quotes
+
+**Problem**: Some products show size correctly on quotes (e.g., DN50(2")), others only show size as suffix on SKU (e.g., SKU-DN65 instead of "DN65" in size column).
+
+**Root Cause Analysis** (from code review):
+- `getQuoteItemSizeLabel()` in lib/quote.ts only returns a value if `item.variation` exists
+- `productToQuoteItem()` creates a `variation` object when:
+  1. `priceVaries=true` AND size selected → ✅ variation created with sizeLabel
+  2. `priceVaries=false` AND single size → ✅ variation created (line 80-87)
+  3. `priceVaries=false` AND multiple sizes AND selectedSize provided → ✅ variation created (line 88-98)
+  4. `priceVaries=false` AND multiple sizes AND NO selectedSize → ❌ NO variation, size lost
+
+**Actual Issue**: 497/1271 product variations have EMPTY `label` fields in database. When sizeLabel is empty string, it doesn't display.
+
+**Root Cause Analysis Update**:
+- The `priceVaries=false` hypothesis was wrong (0 products match)
+- Real issue: variation `label` column is empty for many products
+- Products like Flex Grip 2S have 58 variations, ALL with empty labels
+
+**Tasks**:
+- [x] Identify products with `priceVaries=false` but multiple size options (Found: 0 - not the issue)
+- [x] Audit variation labels (Found: 497/1271 empty labels - 39%)
+- [x] Fix `getQuoteItemSizeLabel()` to fall back to size value when label empty
+- [ ] Test: Add Flex-Grip 2S to cart, verify size shows correctly
+- [ ] Test: Add DN65 product, verify size shows correctly
+- [x] Ensure SKU and size are BOTH visible (fallback now shows size value)
+
+### 8.4 Debug Specific Product: Flex-Grip 2S
+
+**Problem**: User reported this specific product has missing lead time.
+
+**Tasks**:
+- [x] Query database for flex-grip-2s product, check leadTime value (MISSING - slug: flex-grip-2-s)
+- [x] If empty, populate with appropriate lead time (done - set to "2-3 weeks")
+- [x] Verify variations have correct labels (62 variations, labels mostly empty or "Pipe Outside Diameter sizing")
+- [ ] Test full quote flow with this product
+
+---
+
+Last Updated: 2026-01-13 (Phase 8: Fixed lead times 76 products, ticker background, size label fallback)

@@ -139,10 +139,18 @@ export function getQuoteItemSKU(item: QuoteItem): string {
 
 /**
  * Gets the display size label for a quote item
+ * Falls back to size value if sizeLabel is empty
  */
 export function getQuoteItemSizeLabel(item: QuoteItem): string | undefined {
   if (item.variation) {
-    return item.variation.sizeLabel
+    // Return sizeLabel if it has content, otherwise fall back to size value
+    if (item.variation.sizeLabel && item.variation.sizeLabel.trim() !== '') {
+      return item.variation.sizeLabel
+    }
+    // Fall back to size value (e.g., "48.3mm")
+    if (item.variation.size) {
+      return item.variation.size
+    }
   }
   return undefined
 }

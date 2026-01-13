@@ -9,7 +9,7 @@ interface BulkPricingTickerProps {
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
 
   return (
-    <div className="sticky top-[88px] z-40 py-2 overflow-hidden">
+    <div className="sticky top-[88px] z-40 py-2 overflow-hidden bg-zinc-900/95 backdrop-blur-sm border-y border-zinc-800">
       <div className="ticker-wrapper">
         <div className="ticker-content">
           <div className="flex items-center gap-8 px-8 text-sm ticker-flash-text">
