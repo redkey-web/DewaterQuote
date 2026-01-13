@@ -121,7 +121,7 @@ export function AdminSidebar({ user }: AdminSidebarProps = { user: undefined }) 
                     alt="DeWater Products"
                     width={400}
                     height={100}
-                    className="h-25 w-auto"
+                    className="w-full h-auto max-h-14"
                     priority
                   />
                   <span className="text-xs text-gray-500 font-medium">Admin Panel</span>

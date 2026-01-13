@@ -71,11 +71,11 @@ const navigation = [
 **Test**: `mobile-nav-complete`
 
 **Tasks**:
-- [ ] Import missing icons (FileText, PackageSearch, Truck) in AdminHeader.tsx
-- [ ] Add Quotes, Inventory, Logistics to navigation array
-- [ ] Rename "Products" to "Product Pages" for consistency
-- [ ] Reorder to match AdminSidebar.tsx order
-- [ ] Test mobile menu at various breakpoints
+- [x] Import missing icons (FileText, PackageSearch, Truck) in AdminHeader.tsx
+- [x] Add Quotes, Inventory, Logistics to navigation array
+- [x] Rename "Products" to "Product Pages" for consistency
+- [x] Reorder to match AdminSidebar.tsx order
+- [x] Test mobile menu at various breakpoints
 
 **Resolution**: {filled after}
 
@@ -116,9 +116,9 @@ const navigation = [
 **Test**: `tables-horizontal-scroll`
 
 **Tasks**:
-- [ ] ProductsTable: Add `overflow-x-auto` to table container
-- [ ] InventoryManagementTable: Add `max-w-full overflow-hidden` to parent or adjust container
-- [ ] Check admin layout wrapper for proper width constraints
+- [x] ProductsTable: Add `overflow-x-auto` to table container
+- [x] InventoryManagementTable: Add `max-w-full overflow-hidden` to parent or adjust container
+- [x] Check admin layout wrapper for proper width constraints
 - [ ] Test both tables with narrow viewport to verify scroll works
 - [ ] Verify neither table overflows page bounds
 
@@ -150,9 +150,9 @@ const navigation = [
 **Test**: `inventory-sticky-header`
 
 **Tasks**:
-- [ ] Add max-height container around table for vertical scroll
-- [ ] Change `sticky top-[116px]` to `sticky top-0` for all TableHead cells
-- [ ] Keep `overflow-x-auto` for horizontal scrolling
+- [x] Add max-height container around table for vertical scroll
+- [x] Change `sticky top-[116px]` to `sticky top-0` for all TableHead cells
+- [x] Keep `overflow-x-auto` for horizontal scrolling
 - [ ] Verify header stays visible when scrolling within table
 - [ ] Test that page-level scroll still works correctly
 
@@ -203,8 +203,8 @@ const navigation = [
 **Test**: `sidebar-logo-full-width`
 
 **Tasks**:
-- [ ] Increase Image width prop to 200+
-- [ ] Change className to `w-full h-auto max-h-14`
+- [x] Increase Image width prop to 200+
+- [x] Change className to `w-full h-auto max-h-14`
 - [ ] Verify logo looks good at sidebar width
 - [ ] Check collapsed state still works (uses "D" icon)
 

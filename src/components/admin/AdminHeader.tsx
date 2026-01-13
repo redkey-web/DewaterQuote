@@ -19,9 +19,12 @@ import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
   Package,
+  PackageSearch,
+  Truck,
   Tags,
   Building2,
   FileImage,
+  FileText,
   Settings,
   HelpCircle as HelpIcon,
 } from 'lucide-react';
@@ -35,7 +38,10 @@ interface AdminHeaderProps {
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-  { name: 'Products', href: '/admin/products', icon: Package },
+  { name: 'Quotes', href: '/admin/quotes', icon: FileText },
+  { name: 'Inventory', href: '/admin/inventory', icon: PackageSearch },
+  { name: 'Product Pages', href: '/admin/products', icon: Package },
+  { name: 'Logistics', href: '/admin/logistics', icon: Truck },
   { name: 'Categories', href: '/admin/categories', icon: Tags },
   { name: 'Brands', href: '/admin/brands', icon: Building2 },
   { name: 'Files', href: '/admin/files', icon: FileImage },

@@ -261,7 +261,7 @@ Client reported issues with quote display during the customer journey. These bug
 - [x] Check ticker background color in production (MISSING - no background, text invisible on light bg)
 - [x] Ensure ticker text has sufficient contrast in both light/dark modes (FIXED - added bg-zinc-900/95)
 - [x] Verify `ticker-flash-text` animation is working (alternating grey/white) - animation code correct
-- [ ] Test ticker visibility on mobile and desktop (deploy to verify)
+- [ ] Test ticker visibility on mobile and desktop (deployed dd1a768)
 
 ### 8.3 Size Not Showing Consistently on Quotes
 

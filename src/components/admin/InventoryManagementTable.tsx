@@ -840,7 +840,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
 
   return (
     <TooltipProvider>
-    <div className="space-y-4">
+    <div className="space-y-4 max-w-full">
       {/* Sticky Header with Filters and Actions */}
       <div className="sticky top-0 z-30 bg-white -mx-6 px-6 py-3 border-b border-gray-200 shadow-sm">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
@@ -1011,11 +1011,11 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
       )}
 
       {/* Table */}
-      <div className="border rounded-lg bg-white overflow-x-auto">
+      <div className="border rounded-lg bg-white overflow-x-auto max-h-[calc(100vh-200px)] overflow-y-auto">
         <Table containerClassName="min-w-[1200px]">
           <TableHeader>
             <TableRow className="border-b-2 border-gray-300 bg-gray-100">
-              <TableHead className="w-[40px] sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="w-[40px] sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <Checkbox
                   checked={
                     filteredProducts.length > 0 &&
@@ -1024,35 +1024,35 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                   onCheckedChange={toggleSelectAll}
                 />
               </TableHead>
-              <TableHead className="w-[40px] sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm"></TableHead>
-              <TableHead className="sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="w-[40px] sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm"></TableHead>
+              <TableHead className="sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="sku">SKU</SortableHeader>
               </TableHead>
-              <TableHead className="sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="name">Name</SortableHeader>
               </TableHead>
-              <TableHead className="sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="brand">Brand</SortableHeader>
               </TableHead>
-              <TableHead className="text-center sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="text-center sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="status" className="justify-center">Status</SortableHeader>
               </TableHead>
-              <TableHead className="text-center w-[80px] sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="text-center w-[80px] sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="stock" className="justify-center">Stock</SortableHeader>
               </TableHead>
-              <TableHead className="text-center w-[80px] sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="text-center w-[80px] sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="incoming" className="justify-center">Incoming</SortableHeader>
               </TableHead>
-              <TableHead className="w-[120px] sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="w-[120px] sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="leadTime">Lead Time</SortableHeader>
               </TableHead>
-              <TableHead className="text-right w-[100px] sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="text-right w-[100px] sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="price" className="justify-end">Price</SortableHeader>
               </TableHead>
-              <TableHead className="text-center sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="text-center sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <SortableHeader sortKey="sizes" className="justify-center">Sizes</SortableHeader>
               </TableHead>
-              <TableHead className="text-center w-[60px] sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
+              <TableHead className="text-center w-[60px] sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <span className="flex items-center justify-center">
@@ -1064,7 +1064,7 @@ export function InventoryManagementTable({ products }: InventoryManagementTableP
                   </TooltipContent>
                 </Tooltip>
               </TableHead>
-              <TableHead className="text-right sticky top-[56px] bg-gray-100 z-20 border-b border-gray-300 shadow-sm">Actions</TableHead>
+              <TableHead className="text-right sticky top-0 bg-gray-100 z-20 border-b border-gray-300 shadow-sm">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

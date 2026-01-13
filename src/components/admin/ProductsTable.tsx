@@ -308,7 +308,7 @@ export function ProductsTable({ products }: ProductsTableProps) {
       </div>
 
       {/* Table */}
-      <div className="border rounded-lg bg-white">
+      <div className="border rounded-lg bg-white overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
