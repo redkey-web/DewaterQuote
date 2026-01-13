@@ -53,7 +53,7 @@ export default async function IndustrialValvesPage() {
   return (
     <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       {/* Dark grey strip behind header */}
-      <div className="h-[44px] bg-zinc-500 -mt-[44px]" />
+      <div className="fixed top-0 left-0 right-0 h-[44px] bg-zinc-500 z-30" />
       <BulkPricingTicker variant="teal" />
       <BreadcrumbJsonLd items={breadcrumbs} />
 

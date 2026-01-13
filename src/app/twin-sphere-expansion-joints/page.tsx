@@ -35,7 +35,7 @@ export default async function TwinSphereExpansionJointsPage() {
     <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
       {/* Dark grey strip behind header */}
-      <div className="h-[44px] bg-zinc-500 -mt-[44px]" />
+      <div className="fixed top-0 left-0 right-0 h-[44px] bg-zinc-500 z-30" />
       <BulkPricingTicker variant="teal" />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">

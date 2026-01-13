@@ -582,7 +582,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     </Badge>
                     {product.leadTime && (
                       <Badge className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold px-3 py-1 text-xs">
-                        {product.leadTime}
+                        Lead time: {product.leadTime}
                       </Badge>
                     )}
                   </div>
@@ -709,7 +709,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     </Badge>
                     {product.leadTime && (
                       <Badge className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold px-3 py-1 text-xs">
-                        {product.leadTime}
+                        Lead time: {product.leadTime}
                       </Badge>
                     )}
                   </div>
@@ -880,7 +880,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     </Badge>
                     {product.leadTime && (
                       <Badge className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold px-3 py-1 text-xs">
-                        {product.leadTime}
+                        Lead time: {product.leadTime}
                       </Badge>
                     )}
                   </div>
