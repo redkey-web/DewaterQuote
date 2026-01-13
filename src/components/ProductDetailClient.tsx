@@ -1027,15 +1027,15 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
         <Card className="mb-12 glass shadow-lg">
           <CardContent className="p-8">
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className={`grid w-full mb-6 ${(product.video || (product.videos && product.videos.length > 0) || installationVideo) ? 'grid-cols-3' : 'grid-cols-2'}`} data-testid="tabs-product-info">
-                <TabsTrigger value="description" data-testid="tab-description">
+              <TabsList className={`grid w-full mb-6 ${(product.video || (product.videos && product.videos.length > 0) || installationVideo) ? 'grid-cols-3' : 'grid-cols-2'} ${product.brand === 'Bore-Flex Rubber' ? 'bg-black' : ''}`} data-testid="tabs-product-info">
+                <TabsTrigger value="description" className={`${product.brand === 'Bore-Flex Rubber' ? 'text-[#FEA4A1] data-[state=active]:text-[#FEA4A1]' : ''} ${product.brand === 'Defender Strainers' ? 'text-[15px]' : ''}`} data-testid="tab-description">
                   Description
                 </TabsTrigger>
-                <TabsTrigger value="specifications" data-testid="tab-specifications">
+                <TabsTrigger value="specifications" className={`${product.brand === 'Bore-Flex Rubber' ? 'text-[#FEA4A1] data-[state=active]:text-[#FEA4A1]' : ''} ${product.brand === 'Defender Strainers' ? 'text-[15px]' : ''}`} data-testid="tab-specifications">
                   Specifications
                 </TabsTrigger>
                 {(product.video || (product.videos && product.videos.length > 0) || installationVideo) && (
-                  <TabsTrigger value="video" data-testid="tab-video">
+                  <TabsTrigger value="video" className={`${product.brand === 'Bore-Flex Rubber' ? 'text-[#FEA4A1] data-[state=active]:text-[#FEA4A1]' : ''} ${product.brand === 'Defender Strainers' ? 'text-[15px]' : ''}`} data-testid="tab-video">
                     Video{product.videos && product.videos.length > 1 ? 's' : ''}
                     {product.videos && product.videos.length > 1 && (
                       <Badge variant="secondary" className="ml-1 text-xs">

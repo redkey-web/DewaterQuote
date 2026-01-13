@@ -129,8 +129,8 @@ export default async function OrbitCouplingsPage() {
     <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden border-b bg-white">
+      {/* Hero Section - extends behind header */}
+      <div className="relative overflow-hidden border-b bg-white -mt-[44px] pt-[44px]">
         <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">

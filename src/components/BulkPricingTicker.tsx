@@ -34,7 +34,7 @@ function TickerContent() {
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
 
   return (
-    <div className="sticky top-[88px] z-40 py-2 overflow-hidden bg-zinc-900/20 backdrop-blur-sm border-y border-zinc-800/50">
+    <div className="sticky top-[88px] z-40 py-2 overflow-hidden bg-zinc-900/40 backdrop-blur-sm border-y border-zinc-800/50">
       <div className="ticker-wrapper-seamless">
         {/* 4 copies for truly seamless infinite scroll */}
         <div className="ticker-content">

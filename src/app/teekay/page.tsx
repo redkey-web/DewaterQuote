@@ -116,8 +116,8 @@ export default async function TeekayPage() {
     <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
+      {/* Hero Section - extends behind header */}
+      <div className="relative overflow-hidden border-b -mt-[44px] pt-[44px]">
         {/* Animated blob background - Purple/Indigo theme */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-indigo-900 via-purple-800 to-violet-600" />

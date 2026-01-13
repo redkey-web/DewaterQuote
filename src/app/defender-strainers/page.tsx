@@ -82,8 +82,8 @@ export default async function DefenderStrainersPage() {
     <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
+      {/* Hero Section - extends behind header */}
+      <div className="relative overflow-hidden border-b -mt-[44px] pt-[44px]">
         {/* Animated blob background - Teal/Cyan theme */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-teal-900 via-teal-800 to-cyan-600" />

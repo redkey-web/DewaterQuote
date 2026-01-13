@@ -75,11 +75,11 @@ export default async function BoreFlexPage() {
     <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
+      {/* Hero Section - extends behind header */}
+      <div className="relative overflow-hidden border-b -mt-[44px] pt-[44px]">
         {/* Animated blob background - Red theme, confined to hero */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-700" />
+          <div className="absolute inset-0 bg-[#000000]" />
           {/* Blob 1 - Deep red (large, top-left) */}
           <div
             className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-35 blur-3xl animate-blob"
