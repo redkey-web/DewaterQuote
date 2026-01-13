@@ -1390,3 +1390,46 @@
     font-size: 0.7rem;
   }
 }
+
+/* ========================================
+   ROTATING GRADIENT BORDER EFFECT
+   ======================================== */
+
+@keyframes rotate-gradient {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+.rotating-border-wrapper {
+  position: relative;
+  border-radius: 1rem;
+  background: transparent;
+}
+
+.rotating-border-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 1rem;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #39c5da,
+    #0ea5e9,
+    #06b6d4,
+    #14b8a6,
+    #06b6d4,
+    #0ea5e9,
+    #39c5da
+  );
+  animation: rotate-gradient 3s linear infinite;
+  z-index: 0;
+}
+
+.rotating-border-wrapper > div {
+  position: relative;
+  z-index: 1;
+}
