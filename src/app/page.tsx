@@ -224,7 +224,7 @@ export default function HomePage() {
                 <input
                   ref={heroInputRef}
                   type="text"
-                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-bold rounded-2xl bg-black/30 backdrop-blur-sm border-2 border-primary shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_12px_rgba(57,197,218,0.15)] focus:outline-none focus:bg-white focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
+                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-bold rounded-2xl bg-black/30 backdrop-blur-sm border-2 border-primary shadow-[inset_0_0_20px_rgba(255,255,255,0.3),inset_0_2px_6px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.3),0_4px_12px_rgba(57,197,218,0.25)] focus:outline-none focus:bg-white focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
