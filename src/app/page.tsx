@@ -224,7 +224,7 @@ export default function HomePage() {
                 <input
                   ref={heroInputRef}
                   type="text"
-                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-normal text-gray-700 rounded-2xl bg-gray-200/80 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_12px_rgba(0,0,0,0.5),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
+                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_12px_rgba(0,0,0,0.5),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
