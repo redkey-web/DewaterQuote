@@ -8,10 +8,32 @@ interface BulkPricingTickerProps {
 }
 
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
-  const bgClass = "bg-gray-100/50"
+  const [isBelowHero, setIsBelowHero] = useState(false)
+
+  useEffect(() => {
+    let ticking = false
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Hero section is approximately 600-700px tall
+          // Trigger when scrolled past about 500px
+          setIsBelowHero(window.scrollY > 500)
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Check initial state
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const bgClass = isBelowHero ? "bg-gray-500/60" : "bg-gray-100/50"
 
   return (
-    <div className={'sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden'}>
+    <div className={'sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden transition-colors duration-300'}>
       <div className="ticker-wrapper">
         <div className="ticker-content">
           <div className="flex items-center gap-8 px-8 text-sm text-white">
