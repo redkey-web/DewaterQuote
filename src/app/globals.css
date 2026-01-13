@@ -254,13 +254,13 @@
   }
 }
 
-/* Seamless ticker animation - scrolls 25% (1 of 4 copies) */
+/* Seamless ticker animation - scrolls 16.67% (1 of 6 copies) */
 @keyframes ticker-seamless {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-25%);
+    transform: translateX(-16.6667%);
   }
 }
 
@@ -1175,18 +1175,9 @@
   animation: ticker-flash 2s steps(1) infinite;
 }
 
-@keyframes neon-flash-burst {
-  0%, 92% {
-    color: #27272a; /* dark - most of the time */
-  }
-  /* Flash burst - 2 quick flashes */
-  93% { color: #00d4ff; } /* neon sky blue */
-  94% { color: #27272a; }
-  95% { color: #00d4ff; }
-  96%, 100% { color: #27272a; }
-}
-
+/* Ticker text - dimmed blue with sharp drop shadow */
 .ticker-chrome-blink {
-  animation: neon-flash-burst 7s ease-in-out infinite;
+  color: #5bb8d4; /* muted sky blue */
+  text-shadow: 1px 1px 0 #374151;
 }
 

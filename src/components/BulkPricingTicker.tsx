@@ -12,19 +12,19 @@ function TickerContent() {
     <div className="flex items-center gap-8 px-8 text-sm font-medium ticker-chrome-blink">
       <div className="flex items-center gap-2">
         <TrendingDown className="w-4 h-4" />
-        <span className="font-semibold">Bulk Pricing:</span>
+        <span className="font-semibold">BULK PRICING:</span>
         <span>Buy 2-4</span>
-        <span className="font-bold text-[#ccff00]" style={{ textShadow: '0 0 2px rgba(0,0,0,0.3)' }}>5% OFF</span>
+        <span className="font-bold text-[#ccff00]" style={{ textShadow: 'none' }}>5% OFF</span>
       </div>
       <span>•</span>
       <div className="flex items-center gap-2">
         <span>Buy 5-9</span>
-        <span className="font-bold text-[#ff6600]">10% OFF</span>
+        <span className="font-bold text-[#ff6600]" style={{ textShadow: 'none' }}>10% OFF</span>
       </div>
       <span>•</span>
       <div className="flex items-center gap-2">
         <span>Buy 10+</span>
-        <span className="font-bold text-[#dc2626]">15% OFF</span>
+        <span className="font-bold text-[#dc2626]" style={{ textShadow: 'none' }}>15% OFF</span>
       </div>
       <span>•</span>
     </div>
@@ -36,8 +36,14 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
   return (
     <div className="sticky top-[88px] z-40 py-2 overflow-hidden bg-[#678a94]/40">
       <div className="ticker-wrapper-seamless">
-        {/* 4 copies for truly seamless infinite scroll */}
+        {/* 6 copies for truly seamless infinite scroll - no gaps */}
         <div className="ticker-content">
+          <TickerContent />
+        </div>
+        <div className="ticker-content" aria-hidden="true">
+          <TickerContent />
+        </div>
+        <div className="ticker-content" aria-hidden="true">
           <TickerContent />
         </div>
         <div className="ticker-content" aria-hidden="true">
