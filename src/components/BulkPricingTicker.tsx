@@ -30,7 +30,7 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const bgClass = isBelowHero ? "bg-gray-500/60" : "bg-gray-100/50"
+  const bgClass = isBelowHero ? "bg-gray-500/40" : "bg-gray-100/30"
 
   return (
     <div className={'sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden transition-colors duration-300'}>
