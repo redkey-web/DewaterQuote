@@ -217,9 +217,9 @@ export default function HomePage() {
               {/* Search Bar */}
               <div className="relative">
                 {isSearching ? (
-                  <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-primary animate-spin z-10" />
+                  <Loader2 className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-primary animate-spin z-10 drop-shadow-[0_2px_3px_rgba(0,0,0,0.6)]" />
                 ) : (
-                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-primary z-10" />
+                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 text-primary z-10 drop-shadow-[0_2px_3px_rgba(0,0,0,0.6)]" />
                 )}
                 <input
                   ref={heroInputRef}
