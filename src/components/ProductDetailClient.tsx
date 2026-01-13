@@ -325,7 +325,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const breadcrumbs = breadcrumbItems.map(item => ({ name: item.name, url: item.url }))
 
   return (
-    <div className="min-h-screen bg-slate-200 dark:bg-slate-900">
+    <div className="min-h-screen bg-white dark:bg-slate-900">
       {/* Dark grey strip behind header */}
       <div className="h-[44px] bg-zinc-500 -mt-[44px]" />
       <BulkPricingTicker variant="teal" />

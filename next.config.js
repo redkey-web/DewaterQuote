@@ -81,8 +81,8 @@ const nextConfig = {
   images: {
     // Disable optimization on Replit (no native sharp)
     unoptimized: !!process.env.REPLIT,
-    // Cache optimized images for 1 week (reduces re-optimization frequency)
-    minimumCacheTTL: 604800,
+    // Cache optimized images for 31 days (reduces PSI score variance)
+    minimumCacheTTL: 2678400,
     // Allow images from common sources
     remotePatterns: [
       {

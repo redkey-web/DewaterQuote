@@ -6,22 +6,50 @@ const GA_MEASUREMENT_ID = 'G-6KZKZBD747';
 
 export function GoogleAnalytics() {
   return (
-    <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}', {
-            page_path: window.location.pathname,
-          });
-        `}
-      </Script>
-    </>
+    <Script id="ga-lcp-deferred" strategy="afterInteractive">
+      {`
+        (function(){
+          var loaded = false;
+          function loadGA() {
+            if (loaded) return;
+            loaded = true;
+
+            // Load gtag.js
+            var script = document.createElement('script');
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}';
+            script.async = true;
+            document.head.appendChild(script);
+
+            // Initialize gtag
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}', {
+              page_path: window.location.pathname,
+            });
+          }
+
+          // Load GA after LCP using PerformanceObserver
+          if ('PerformanceObserver' in window) {
+            try {
+              var po = new PerformanceObserver(function(list) {
+                loadGA();
+                po.disconnect();
+              });
+              po.observe({type: 'largest-contentful-paint'}); // NO buffered:true!
+            } catch(e) {
+              setTimeout(loadGA, 6000);
+            }
+          } else {
+            setTimeout(loadGA, 6000);
+          }
+
+          // Ultimate fallback - 6 seconds
+          setTimeout(loadGA, 6000);
+        })();
+      `}
+    </Script>
   );
 }
 
