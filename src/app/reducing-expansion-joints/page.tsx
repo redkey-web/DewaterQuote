@@ -34,6 +34,8 @@ export default async function ReducingExpansionJointsPage() {
   return (
     <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
+      {/* Dark grey strip behind header */}
+      <div className="h-[44px] bg-zinc-500 -mt-[44px]" />
       <BulkPricingTicker variant="teal" />
       <div className="max-w-7xl mx-auto px-6 py-12">
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">

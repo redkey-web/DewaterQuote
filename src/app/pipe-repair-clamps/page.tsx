@@ -87,6 +87,8 @@ export default async function PipeRepairClampsPage() {
         </div>
       </div>
 
+      {/* Dark grey strip behind header */}
+      <div className="h-[44px] bg-zinc-500 -mt-[44px]" />
       <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">

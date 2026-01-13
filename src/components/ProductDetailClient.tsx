@@ -325,7 +325,9 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const breadcrumbs = breadcrumbItems.map(item => ({ name: item.name, url: item.url }))
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-slate-200 dark:bg-slate-900">
+      {/* Dark grey strip behind header */}
+      <div className="h-[44px] bg-zinc-500 -mt-[44px]" />
       <BulkPricingTicker variant="teal" />
       <ProductJsonLd product={product} url={productUrl} />
       <BreadcrumbJsonLd items={breadcrumbs} />
@@ -579,7 +581,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                       POA
                     </Badge>
                     {product.leadTime && (
-                      <Badge className="bg-orange-500 hover:bg-orange-500 text-white font-semibold px-3 py-1 text-xs">
+                      <Badge className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold px-3 py-1 text-xs">
                         {product.leadTime}
                       </Badge>
                     )}
@@ -706,7 +708,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                       Ex GST
                     </Badge>
                     {product.leadTime && (
-                      <Badge className="bg-orange-500 hover:bg-orange-500 text-white font-semibold px-3 py-1 text-xs">
+                      <Badge className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold px-3 py-1 text-xs">
                         {product.leadTime}
                       </Badge>
                     )}
@@ -877,7 +879,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                       POA
                     </Badge>
                     {product.leadTime && (
-                      <Badge className="bg-orange-500 hover:bg-orange-500 text-white font-semibold px-3 py-1 text-xs">
+                      <Badge className="bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold px-3 py-1 text-xs">
                         {product.leadTime}
                       </Badge>
                     )}
