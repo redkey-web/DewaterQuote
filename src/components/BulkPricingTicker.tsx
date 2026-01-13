@@ -9,7 +9,7 @@ interface BulkPricingTickerProps {
 // Ticker content component to avoid repetition
 function TickerContent() {
   return (
-    <div className="flex items-center gap-8 px-8 text-sm ticker-flash-text">
+    <div className="flex items-center gap-8 px-8 text-sm ticker-flash-text mix-blend-difference">
       <div className="flex items-center gap-2">
         <TrendingDown className="w-4 h-4" />
         <span className="font-semibold">Bulk Pricing:</span>
@@ -34,7 +34,7 @@ function TickerContent() {
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
 
   return (
-    <div className="sticky top-[88px] z-40 py-2 overflow-hidden bg-zinc-900/40 backdrop-blur-sm border-y border-zinc-800/50">
+    <div className="sticky top-[88px] z-40 py-2 overflow-hidden">
       <div className="ticker-wrapper-seamless">
         {/* 4 copies for truly seamless infinite scroll */}
         <div className="ticker-content">

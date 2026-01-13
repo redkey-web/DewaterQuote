@@ -293,7 +293,7 @@ export default function Header() {
             >
               <button
                 className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-2 px-2 rounded ${
-                  activeMenu === "products" ? "text-primary shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]"
+                  activeMenu === "products" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
                 data-testid="button-products-menu"
               >
@@ -375,7 +375,7 @@ export default function Header() {
             >
               <button
                 className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-2 px-2 rounded ${
-                  activeMenu === "industries" ? "text-primary shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]"
+                  activeMenu === "industries" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
               >
                 Industry
@@ -440,7 +440,7 @@ export default function Header() {
             >
               <button
                 className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-2 px-2 rounded ${
-                  activeMenu === "brands" ? "text-primary shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]"
+                  activeMenu === "brands" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
               >
                 Brands
@@ -505,7 +505,7 @@ export default function Header() {
             >
               <button
                 className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-2 px-2 rounded ${
-                  activeMenu === "resources" ? "text-primary shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]"
+                  activeMenu === "resources" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
               >
                 Resources
