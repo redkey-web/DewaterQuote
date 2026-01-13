@@ -292,8 +292,8 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors py-2 ${
-                  activeMenu === "products" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-2 px-2 rounded ${
+                  activeMenu === "products" ? "text-primary shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]"
                 }`}
                 data-testid="button-products-menu"
               >
@@ -374,8 +374,8 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors py-2 ${
-                  activeMenu === "industries" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-2 px-2 rounded ${
+                  activeMenu === "industries" ? "text-primary shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]"
                 }`}
               >
                 Industry
@@ -439,8 +439,8 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors py-2 ${
-                  activeMenu === "brands" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-2 px-2 rounded ${
+                  activeMenu === "brands" ? "text-primary shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]"
                 }`}
               >
                 Brands
@@ -504,8 +504,8 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors py-2 ${
-                  activeMenu === "resources" ? "text-primary" : "text-gray-700 dark:text-gray-200 hover:text-primary"
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-2 px-2 rounded ${
+                  activeMenu === "resources" ? "text-primary shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:shadow-[inset_0_3px_6px_-2px_rgba(0,0,0,0.25)]"
                 }`}
               >
                 Resources
