@@ -8,7 +8,7 @@ interface BulkPricingTickerProps {
 }
 
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
-  const bgClass = variant === "teal" ? "bg-gray-500/50" : "bg-gray-100/50"
+  const bgClass = "bg-gray-100/50"
 
   return (
     <div className={'sticky top-[88px] z-40 ${bgClass} py-2 overflow-hidden'}>
