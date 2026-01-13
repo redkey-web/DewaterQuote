@@ -383,130 +383,75 @@ export default function HomePage() {
         </div>
       </FluidHero>
 
-      {/* Brand Logos - Infinite Scroll Carousel */}
+      {/* Brand Logos - Infinite Scroll Carousel (4 copies for seamless loop) */}
       <section className="pb-0 pt-2 overflow-hidden relative -mt-[60px] z-10 brand-carousel-gradient-blur brand-scroll-3d">
         <div className="brand-carousel-wrapper">
-          <div className="brand-carousel-track">
-            {/* First set of logos */}
-            <div className="brand-carousel-content">
-              <Link href="/straub-couplings" className="flex-shrink-0 px-8 brand-logo-link">
-                <Image
-                  src="/images/brands/straub-logo.png"
-                  alt="Straub"
-                  width={120}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                  priority
-                />
-              </Link>
-              <Link href="/orbit-couplings" className="flex-shrink-0 px-8 brand-logo-link">
-                <Image
-                  src="/images/brands/orbit-couplings.png"
-                  alt="Orbit Couplings"
-                  width={270}
-                  height={90}
-                  className="h-16 w-auto object-contain"
-                  priority
-                />
-              </Link>
-              <Link href="/teekay" className="flex-shrink-0 px-8 brand-logo-link">
-                <Image
-                  src="/images/brands/teekay-logo.png"
-                  alt="Teekay"
-                  width={120}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                  loading="lazy"
-                />
-              </Link>
-              <Link href="/defender-valves" className="flex-shrink-0 px-8 brand-logo-link">
-                <Image
-                  src="/images/brands/defender-valves-logo.png"
-                  alt="Defender Valves"
-                  width={200}
-                  height={60}
-                  className="h-10 w-auto object-contain"
-                  loading="lazy"
-                />
-              </Link>
-              <Link href="/bore-flex" className="flex-shrink-0 px-8 brand-logo-link">
-                <Image
-                  src="/images/brands/bore-flex-rubber-logo.png"
-                  alt="Bore-Flex Rubber"
-                  width={1080}
-                  height={360}
-                  className="h-[110px] w-auto object-contain"
-                  loading="lazy"
-                />
-              </Link>
-              <Link href="/defender-strainers" className="flex-shrink-0 px-8 brand-logo-link">
-                <Image
-                  src="/images/brands/defender-strainers-logo.png"
-                  alt="Defender Strainers"
-                  width={414}
-                  height={142}
-                  className="h-[58px] w-auto object-contain"
-                  loading="lazy"
-                />
-              </Link>
-            </div>
-            {/* Duplicate set for seamless loop */}
-            <div className="brand-carousel-content" aria-hidden="true">
-              <Link href="/straub-couplings" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
-                <Image
-                  src="/images/brands/straub-logo.png"
-                  alt="Straub"
-                  width={120}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                />
-              </Link>
-              <Link href="/orbit-couplings" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
-                <Image
-                  src="/images/brands/orbit-couplings.png"
-                  alt="Orbit Couplings"
-                  width={270}
-                  height={90}
-                  className="h-16 w-auto object-contain"
-                />
-              </Link>
-              <Link href="/teekay" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
-                <Image
-                  src="/images/brands/teekay-logo.png"
-                  alt="Teekay"
-                  width={120}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                />
-              </Link>
-              <Link href="/defender-valves" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
-                <Image
-                  src="/images/brands/defender-valves-logo.png"
-                  alt="Defender Valves"
-                  width={200}
-                  height={60}
-                  className="h-10 w-auto object-contain"
-                />
-              </Link>
-              <Link href="/bore-flex" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
-                <Image
-                  src="/images/brands/bore-flex-rubber-logo.png"
-                  alt="Bore-Flex Rubber"
-                  width={1080}
-                  height={360}
-                  className="h-[110px] w-auto object-contain"
-                />
-              </Link>
-              <Link href="/defender-strainers" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={-1}>
-                <Image
-                  src="/images/brands/defender-strainers-logo.png"
-                  alt="Defender Strainers"
-                  width={414}
-                  height={142}
-                  className="h-[58px] w-auto object-contain"
-                />
-              </Link>
-            </div>
+          <div className="brand-carousel-track-seamless">
+            {/* 4 copies for truly seamless infinite scroll */}
+            {[0, 1, 2, 3].map((copyIndex) => (
+              <div
+                key={copyIndex}
+                className="brand-carousel-content"
+                aria-hidden={copyIndex > 0}
+              >
+                <Link href="/straub-couplings" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
+                  <Image
+                    src="/images/brands/straub-logo.png"
+                    alt="Straub"
+                    width={120}
+                    height={40}
+                    className="h-10 w-auto object-contain"
+                    priority={copyIndex === 0}
+                  />
+                </Link>
+                <Link href="/orbit-couplings" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
+                  <Image
+                    src="/images/brands/orbit-couplings.png"
+                    alt="Orbit Couplings"
+                    width={270}
+                    height={90}
+                    className="h-16 w-auto object-contain"
+                    priority={copyIndex === 0}
+                  />
+                </Link>
+                <Link href="/teekay" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
+                  <Image
+                    src="/images/brands/teekay-logo.png"
+                    alt="Teekay"
+                    width={120}
+                    height={40}
+                    className="h-10 w-auto object-contain"
+                  />
+                </Link>
+                <Link href="/defender-valves" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
+                  <Image
+                    src="/images/brands/defender-valves-logo.png"
+                    alt="Defender Valves"
+                    width={200}
+                    height={60}
+                    className="h-10 w-auto object-contain"
+                  />
+                </Link>
+                <Link href="/bore-flex" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
+                  <Image
+                    src="/images/brands/bore-flex-rubber-logo.png"
+                    alt="Bore-Flex Rubber"
+                    width={1080}
+                    height={360}
+                    className="h-[110px] w-auto object-contain"
+                  />
+                </Link>
+                <Link href="/defender-strainers" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
+                  <Image
+                    src="/images/brands/defender-strainers-logo.png"
+                    alt="Defender Strainers"
+                    width={414}
+                    height={142}
+                    className="h-[58px] w-auto object-contain"
+                  />
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>

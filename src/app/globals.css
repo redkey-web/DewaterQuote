@@ -388,6 +388,16 @@
   }
 }
 
+/* Seamless ticker animation - scrolls 25% (1 of 4 copies) */
+@keyframes ticker-seamless {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
 .ticker-wrapper {
   display: flex;
   width: max-content;
@@ -395,7 +405,16 @@
   will-change: transform;
 }
 
-.ticker-wrapper:hover {
+/* Seamless version with 4 copies - no gaps */
+.ticker-wrapper-seamless {
+  display: flex;
+  width: max-content;
+  animation: ticker-seamless 30s linear infinite;
+  will-change: transform;
+}
+
+.ticker-wrapper:hover,
+.ticker-wrapper-seamless:hover {
   animation-play-state: running;
 }
 
@@ -415,6 +434,16 @@
   }
 }
 
+/* Seamless brand scroll - scrolls 25% (1 of 4 copies) */
+@keyframes brand-scroll-seamless {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
 .brand-carousel-wrapper {
   overflow: hidden;
   width: 100%;
@@ -427,7 +456,16 @@
   will-change: transform;
 }
 
-.brand-carousel-track:hover {
+/* Seamless version with 4 copies - no gaps */
+.brand-carousel-track-seamless {
+  display: flex;
+  width: max-content;
+  animation: brand-scroll-seamless 40s linear infinite;
+  will-change: transform;
+}
+
+.brand-carousel-track:hover,
+.brand-carousel-track-seamless:hover {
   animation-play-state: paused;
 }
 
