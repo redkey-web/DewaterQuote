@@ -12,7 +12,7 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
     <div className="sticky top-[88px] z-40 py-2 overflow-hidden">
       <div className="ticker-wrapper">
         <div className="ticker-content">
-          <div className="flex items-center gap-8 px-8 text-sm text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)' }}>
+          <div className="flex items-center gap-8 px-8 text-sm text-[#678a94]" style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(255, 255, 255, 0.2)' }}>
             <div className="flex items-center gap-2">
               <TrendingDown className="w-4 h-4" />
               <span className="font-semibold">Bulk Pricing:</span>
@@ -33,7 +33,7 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
           </div>
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <div className="flex items-center gap-8 px-8 text-sm text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)' }}>
+          <div className="flex items-center gap-8 px-8 text-sm text-[#678a94]" style={{ textShadow: '0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(255, 255, 255, 0.2)' }}>
             <div className="flex items-center gap-2">
               <TrendingDown className="w-4 h-4" />
               <span className="font-semibold">Bulk Pricing:</span>
