@@ -236,7 +236,7 @@ export default function HomePage() {
                 />
                 {/* Typewriter placeholder - shows when empty and not focused */}
                 {!searchQuery && !isSearchFocused && (
-                  <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-bold text-zinc-400 pointer-events-none">
+                  <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-bold text-white pointer-events-none">
                     <TypewriterPlaceholder
                       phrases={searchPhrases}
                       typingSpeed={60}
