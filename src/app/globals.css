@@ -1407,17 +1407,17 @@
 .miami-gradient-text {
   background: linear-gradient(
     90deg,
-    #ddd6fe 0%, #ddd6fe 5%,
-    #e9d5ff 10%, #e9d5ff 15%,
-    #c7d2fe 20%, #c7d2fe 25%,
-    #bfdbfe 30%, #bfdbfe 35%,
-    #bae6fd 40%, #bae6fd 45%,
-    #a5f3fc 50%, #a5f3fc 55%,
-    #99f6e4 60%, #99f6e4 65%,
-    #ddd6fe 70%, #ddd6fe 75%,
-    #e9d5ff 80%, #e9d5ff 85%,
-    #c7d2fe 90%, #c7d2fe 95%,
-    #bfdbfe 100%
+    #c4b5fd 0%, #c4b5fd 5%,
+    #d8b4fe 10%, #d8b4fe 15%,
+    #a5b4fc 20%, #a5b4fc 25%,
+    #93c5fd 30%, #93c5fd 35%,
+    #7dd3fc 40%, #7dd3fc 45%,
+    #67e8f9 50%, #67e8f9 55%,
+    #5eead4 60%, #5eead4 65%,
+    #c4b5fd 70%, #c4b5fd 75%,
+    #d8b4fe 80%, #d8b4fe 85%,
+    #a5b4fc 90%, #a5b4fc 95%,
+    #93c5fd 100%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
