@@ -497,23 +497,23 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
             {/* Bulk Pricing Info - AU only */}
             {isAustralia && (
-              <div className="py-2 px-3 border border-border rounded-md mb-6">
+              <div className="py-2 px-3 rounded-lg mb-6 carbon-fiber">
                 <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm">
-                  <span className="font-semibold text-foreground whitespace-nowrap">
-                    <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-primary inline mr-1" />
+                  <span className="font-semibold text-white whitespace-nowrap">
+                    <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-gray-300 inline mr-1" />
                     Bulk Pricing:
                   </span>
                   <span className="whitespace-nowrap">
-                    <span className="text-muted-foreground">2-4 qty</span>
-                    <span className="font-bold text-yellow-600 dark:text-yellow-500 ml-1">5% off</span>
+                    <span className="text-gray-300">2-4 qty</span>
+                    <span className="font-bold ml-1" style={{ color: '#ccff00', textShadow: '0 0 1px rgba(0,0,0,0.5)' }}>5% off</span>
                   </span>
                   <span className="whitespace-nowrap">
-                    <span className="text-muted-foreground">5-9 qty</span>
-                    <span className="font-bold text-orange-600 dark:text-orange-500 ml-1">10% off</span>
+                    <span className="text-gray-300">5-9 qty</span>
+                    <span className="font-bold ml-1" style={{ color: '#ff6600' }}>10% off</span>
                   </span>
                   <span className="whitespace-nowrap">
-                    <span className="text-muted-foreground">10+ qty</span>
-                    <span className="font-bold text-rose-600 dark:text-rose-500 ml-1">15% off</span>
+                    <span className="text-gray-300">10+ qty</span>
+                    <span className="font-bold ml-1" style={{ color: '#dc2626' }}>15% off</span>
                   </span>
                 </div>
               </div>

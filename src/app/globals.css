@@ -1175,9 +1175,99 @@
   animation: ticker-flash 2s steps(1) infinite;
 }
 
-/* Ticker text - teal blue with sharp drop shadow */
+/* Ticker text - moving camo effect (higher contrast, no blur) */
 .ticker-chrome-blink {
-  color: #4DB7C1;
-  text-shadow: 1px 1px 0 #374151;
+  background: linear-gradient(
+    90deg,
+    #d0d4d8 0%,
+    #7DD8E3 5%,
+    #9ED8E0 20%,
+    #7DD8E3 35%,
+    #9ED8E0 50%,
+    #d0d4d8 52%,
+    #9ED8E0 55%,
+    #7DD8E3 70%,
+    #9ED8E0 85%,
+    #7DD8E3 95%,
+    #d0d4d8 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: camo-flow 14s linear infinite;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes camo-flow {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 300% center;
+  }
+}
+
+/* Ticker bulge effect - center appears larger/brighter */
+.ticker-bulge-filter {
+  mask-image: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.7) 20%,
+    rgba(0,0,0,1) 40%,
+    rgba(0,0,0,1) 60%,
+    rgba(0,0,0,0.7) 80%,
+    rgba(0,0,0,0.5) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.5) 0%,
+    rgba(0,0,0,0.7) 20%,
+    rgba(0,0,0,1) 40%,
+    rgba(0,0,0,1) 60%,
+    rgba(0,0,0,0.7) 80%,
+    rgba(0,0,0,0.5) 100%
+  );
+}
+
+/* Ticker text prominent - smooth rounded look with subtle shadow */
+.ticker-text-prominent {
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.35);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Carbon fiber look */
+.carbon-fiber {
+  background:
+    linear-gradient(135deg, rgba(50,50,50,0.9) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(50,50,50,0.9) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(50,50,50,0.9) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(50,50,50,0.9) 25%, transparent 25%),
+    linear-gradient(to bottom, rgba(30,30,30,1), rgba(45,45,45,1));
+  background-size: 4px 4px, 4px 4px, 4px 4px, 4px 4px, 100% 100%;
+  background-color: #2a2a2a;
+}
+
+/* Desktop dropdown gradient - greyish overlay from top */
+.dropdown-silver-gradient {
+  background: linear-gradient(
+    180deg,
+    rgb(200,205,210) 0%,
+    rgb(220,225,230) 20%,
+    rgb(245,247,250) 50%,
+    rgb(255,255,255) 100%
+  );
+}
+
+.dark .dropdown-silver-gradient {
+  background: linear-gradient(
+    180deg,
+    rgb(55,60,70) 0%,
+    rgb(40,45,55) 20%,
+    rgb(20,25,35) 50%,
+    rgb(17,24,39) 100%
+  );
 }
 

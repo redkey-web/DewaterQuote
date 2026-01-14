@@ -310,7 +310,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("products")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -391,7 +391,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("industries")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("industries")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
@@ -456,7 +456,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("brands")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-[86px] left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("brands")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >

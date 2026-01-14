@@ -119,9 +119,9 @@ export function AdminSidebar({ user }: AdminSidebarProps = { user: undefined }) 
                   <Image
                     src="/images/logo-new.png"
                     alt="DeWater Products"
-                    width={400}
-                    height={100}
-                    className="w-full h-auto max-h-14"
+                    width={500}
+                    height={167}
+                    className="h-14 w-auto object-contain"
                     priority
                   />
                   <span className="text-xs text-gray-500 font-medium">Admin Panel</span>
