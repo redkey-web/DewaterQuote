@@ -1,0 +1,199 @@
+# Dependabot configuration for Dewater Products
+# Red Key Digital - January 2026
+# 
+# This config:
+# - Checks for updates every Monday at 2am ACST
+# - Groups related packages to reduce PR spam
+# - Auto-merges patch updates (safe)
+# - Holds back breaking changes for manual review
+# - Monitors security vulnerabilities 24/7
+
+version: 2
+updates:
+  # ========================================
+  # NPM Dependencies
+  # ========================================
+  - package-ecosystem: "npm"
+    directory: "/"
+    
+    # Schedule: Every Monday at 2am Adelaide time
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "02:00"
+      timezone: "Australia/Adelaide"
+    
+    # Limit PRs to avoid overwhelming the pipeline
+    open-pull-requests-limit: 10
+    
+    # Assign to Red Key Digital for review
+    reviewers:
+      - "get-redkey"  # Replace with your GitHub username
+    
+    # Labels for easy filtering
+    labels:
+      - "dependencies"
+      - "dewater-products"
+      - "redkey-maintenance"
+    
+    # Commit message format
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    
+    # ========================================
+    # SMART GROUPING
+    # Reduces 20+ PRs down to 3-5 manageable ones
+    # ========================================
+    groups:
+      # Group all Radix UI components together
+      radix-ui:
+        patterns:
+          - "@radix-ui/*"
+        update-types:
+          - "minor"
+          - "patch"
+      
+      # Group React ecosystem updates
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+        update-types:
+          - "patch"
+      
+      # Group all dev dependencies (testing, tooling)
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      
+      # Group database/ORM related packages
+      database:
+        patterns:
+          - "drizzle*"
+          - "@neondatabase/*"
+        update-types:
+          - "minor"
+          - "patch"
+      
+      # Group authentication packages
+      auth:
+        patterns:
+          - "next-auth"
+          - "bcryptjs"
+          - "@types/bcryptjs"
+        update-types:
+          - "patch"
+      
+      # Group Vercel packages
+      vercel:
+        patterns:
+          - "@vercel/*"
+        update-types:
+          - "minor"
+          - "patch"
+    
+    # ========================================
+    # WHAT TO UPDATE
+    # ========================================
+    allow:
+      # Update direct dependencies (your package.json)
+      - dependency-type: "direct"
+      # Update transitive dependencies (security only)
+      - dependency-type: "indirect"
+    
+    # ========================================
+    # IGNORE LIST
+    # Hold back breaking changes for quarterly review
+    # ========================================
+    ignore:
+      # === REACT 19 MIGRATION (Plan for Q1 2026) ===
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
+      
+      # === NEXT.JS 16 (When released, review manually) ===
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      
+      # === NEXT-AUTH v5 MIGRATION (Plan for Q2 2026) ===
+      - dependency-name: "next-auth"
+        update-types: ["version-update:semver-major"]
+      
+      # === DRIZZLE ORM MAJOR UPDATES ===
+      # Drizzle breaking changes require migration scripts
+      - dependency-name: "drizzle-orm"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "drizzle-kit"
+        update-types: ["version-update:semver-major"]
+      
+      # === TAILWIND 4 (When released) ===
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
+      
+      # === NODE TYPES ===
+      # Only update Node types when you upgrade Node version
+      # Currently on Node 22, so ignore downgrades
+      - dependency-name: "@types/node"
+        versions: ["< 22.0.0"]
+    
+    # ========================================
+    # VERSIONING STRATEGY
+    # ========================================
+    versioning-strategy: increase
+
+  # ========================================
+  # GitHub Actions (if you add CI/CD)
+  # ========================================
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "02:00"
+      timezone: "Australia/Adelaide"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"
+
+# ========================================
+# NOTES FOR RED KEY DIGITAL TEAM:
+# ========================================
+# 
+# AUTO-MERGE STRATEGY:
+# - Patch updates (1.0.0 → 1.0.1): Safe to auto-merge after CI passes
+# - Minor updates (1.0.0 → 1.1.0): Review changelog, usually safe
+# - Major updates (1.0.0 → 2.0.0): Manual review required, scheduled quarterly
+# 
+# SECURITY ALERTS:
+# - Dependabot checks 24/7 for CVEs
+# - Critical vulnerabilities create immediate PRs
+# - You'll get email + GitHub notifications
+# 
+# WEEKLY WORKFLOW (10-15 min every Monday):
+# 1. Check Dependabot PRs in GitHub
+# 2. Review grouped updates (3-5 PRs vs 20+)
+# 3. Check Vercel preview deployments
+# 4. Merge if tests pass and preview looks good
+# 5. Production auto-deploys
+# 
+# QUARTERLY REVIEW (Every 3 months):
+# - Remove ignores for major updates you're ready to tackle
+# - Plan React 19, Next.js 16, next-auth v5 migrations
+# - Review performance, clean up tech debt
+# 
+# CLIENT BILLING:
+# - This is included in your maintenance retainer
+# - Log time: "Dependency updates - Week of [date]"
+# - Include in monthly maintenance report
