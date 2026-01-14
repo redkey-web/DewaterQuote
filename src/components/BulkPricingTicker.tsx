@@ -35,16 +35,7 @@ export default function BulkPricingTicker({ variant = "default" }: BulkPricingTi
 
   return (
     <div className="sticky top-[88px] z-40 py-2 overflow-hidden">
-      {/* SVG filter for bulge effect */}
-      <svg className="absolute w-0 h-0">
-        <defs>
-          <filter id="bulge">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="0" result="blur" />
-            <feDisplacementMap in="blur" in2="blur" scale="8" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </defs>
-      </svg>
-      <div className="ticker-wrapper-seamless ticker-bulge-filter">
+      <div className="ticker-wrapper-seamless">
         {/* 6 copies for truly seamless infinite scroll - no gaps */}
         <div className="ticker-content">
           <TickerContent />

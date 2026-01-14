@@ -108,8 +108,8 @@ export function AdminSidebar({ user }: AdminSidebarProps = { user: undefined }) 
           )}
         >
           {/* Logo */}
-          <div className="flex flex-col h-32 shrink-0 justify-center">
-            <Link href="/admin" className={cn('flex flex-col gap-1', isCollapsed ? 'items-center' : 'items-start')}>
+          <div className="flex flex-col h-48 shrink-0 justify-center">
+            <Link href="/admin" className={cn('flex flex-col gap-2', isCollapsed ? 'items-center' : 'items-start')}>
               {isCollapsed ? (
                 <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
                   <span className="text-white font-bold text-lg">D</span>
@@ -121,10 +121,10 @@ export function AdminSidebar({ user }: AdminSidebarProps = { user: undefined }) 
                     alt="DeWater Products"
                     width={500}
                     height={167}
-                    className="h-14 w-auto object-contain"
+                    className="h-28 md:h-36 lg:h-44 w-auto object-contain -m-4"
                     priority
                   />
-                  <span className="text-xs text-gray-500 font-medium">Admin Panel</span>
+                  <span className="text-sm text-gray-500 font-medium">Admin Panel</span>
                 </>
               )}
             </Link>
