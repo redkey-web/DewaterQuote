@@ -28,7 +28,7 @@ updates:
     
     # Assign to Red Key Digital for review
     reviewers:
-      - "get-redkey"  # Replace with your GitHub username
+      - "redkey-web"  # Replace with your GitHub username
     
     # Labels for easy filtering
     labels:
