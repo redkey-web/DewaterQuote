@@ -25,6 +25,7 @@ async function getProduct(id: string) {
         features: { orderBy: (f, { asc }) => [asc(f.displayOrder)] },
         specifications: { orderBy: (s, { asc }) => [asc(s.displayOrder)] },
         applications: { orderBy: (a, { asc }) => [asc(a.displayOrder)] },
+        stock: true, // Include stock data for variation-level stock
       },
     });
   } catch (error) {

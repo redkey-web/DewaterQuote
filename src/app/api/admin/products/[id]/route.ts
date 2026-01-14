@@ -11,8 +11,9 @@ import {
   productImages,
   productDownloads,
   productCategories,
+  productStock,
 } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, and, isNotNull } from 'drizzle-orm';
 
 export async function PATCH(
   request: NextRequest,
@@ -135,22 +136,56 @@ export async function PATCH(
       }
     }
 
-    // Update variations
+    // Update variations - use displayOrder from form, not array index
     await db.delete(productVariations).where(eq(productVariations.productId, productId));
     if (variations && variations.length > 0) {
       const variationInserts = variations
         .filter((v: { size: string; label: string }) => v.size.trim() && v.label.trim())
-        .map((v: { size: string; label: string; price: string; sku: string; source?: string }, i: number) => ({
+        .map((v: { size: string; label: string; price: string; sku: string; source?: string; displayOrder?: number }, i: number) => ({
           productId,
           size: v.size.trim(),
           label: v.label.trim(),
           price: v.price || null,
           sku: v.sku || null,
           source: v.source || 'manual',
-          displayOrder: i,
+          displayOrder: v.displayOrder ?? i * 100, // Use provided displayOrder or fallback to i*100 for gap numbering
         }));
       if (variationInserts.length > 0) {
         await db.insert(productVariations).values(variationInserts);
+
+        // Handle stock for each variation
+        // First, fetch the newly inserted variations to get their IDs
+        const newVariations = await db.query.productVariations.findMany({
+          where: eq(productVariations.productId, productId),
+        });
+
+        // Delete old variation-level stock (we'll recreate based on form data)
+        await db.delete(productStock).where(
+          and(
+            eq(productStock.productId, productId),
+            isNotNull(productStock.variationId)
+          )
+        );
+
+        // Create stock records for variations that have stock values
+        const stockInserts = [];
+        for (const formVar of variations) {
+          if (formVar.stock !== undefined && formVar.stock !== null) {
+            // Find the matching new variation by size
+            const matchingVar = newVariations.find((nv) => nv.size === formVar.size.trim());
+            if (matchingVar) {
+              stockInserts.push({
+                productId,
+                variationId: matchingVar.id,
+                qtyInStock: parseInt(String(formVar.stock), 10) || 0,
+                lastUpdatedAt: new Date(),
+              });
+            }
+          }
+        }
+        if (stockInserts.length > 0) {
+          await db.insert(productStock).values(stockInserts);
+        }
       }
     }
 

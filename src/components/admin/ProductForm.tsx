@@ -64,6 +64,7 @@ interface ProductWithRelations {
   features: Array<{ id: number; feature: string; displayOrder: number | null }>;
   specifications: Array<{ id: number; label: string; value: string; displayOrder: number | null }>;
   applications: Array<{ id: number; application: string; displayOrder: number | null }>;
+  stock?: Array<{ id: number; variationId: number | null; qtyInStock: number | null }>;
 }
 
 interface ProductFormProps {
@@ -109,9 +110,27 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
     product.specifications.map(s => ({ label: s.label, value: s.value }))
   );
   const [applications, setApplications] = useState(product.applications.map(a => a.application));
-  // Variations - track source (neto vs manual)
+  // Variations - track source (neto vs manual), displayOrder (rank), and stock
+  // Build a map of variationId -> qtyInStock for efficient lookup
+  const stockByVariationId = new Map(
+    (product.stock || [])
+      .filter(s => s.variationId !== null)
+      .map(s => [s.variationId!, s.qtyInStock ?? 0])
+  );
+
   const [variations, setVariations] = useState(
-    product.variations.map(v => ({ size: v.size, label: v.label, price: v.price || '', sku: v.sku || '', source: v.source || 'neto' }))
+    product.variations
+      .map(v => ({
+        id: v.id, // Keep track of variation ID for stock matching
+        size: v.size,
+        label: v.label,
+        price: v.price || '',
+        sku: v.sku || '',
+        source: v.source || 'neto',
+        displayOrder: v.displayOrder ?? 0,
+        stock: stockByVariationId.get(v.id) ?? 0, // Get stock from stock data
+      }))
+      .sort((a, b) => a.displayOrder - b.displayOrder)
   );
   const [images, setImages] = useState(
     product.images.map(i => ({ url: i.url, alt: i.alt, isPrimary: i.isPrimary ?? false }))
@@ -955,35 +974,76 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => setVariations([...variations, { size: '', label: '', price: '', sku: '', source: 'manual' }])}
+                    onClick={() => {
+                      // Calculate next rank: max existing rank + 100, or 100 if no variations
+                      const maxRank = variations.length > 0
+                        ? Math.max(...variations.map(v => v.displayOrder))
+                        : 0;
+                      const nextRank = maxRank + 100;
+                      setVariations([...variations, { id: 0, size: '', label: '', price: '', sku: '', source: 'manual', displayOrder: nextRank, stock: 0 }]);
+                    }}
                   >
                     <Plus className="h-4 w-4 mr-1" />
                     Add Size
                   </Button>
                 </div>
-                <p className="text-xs text-gray-500">
-                  Sizes imported from Neto are marked with a blue badge. You can add custom sizes which will be marked as "manual".
-                </p>
+                <div className="text-xs text-gray-500 space-y-1 mb-3">
+                  <p>Sizes imported from Neto are marked with a blue badge. You can add custom sizes which will be marked as "manual".</p>
+                  <p><strong>Rank</strong>: Sort order (1-5000). Use gaps like 100, 200, 300 to allow insertions. Lower numbers appear first.</p>
+                </div>
+                {/* Column headers */}
+                {variations.length > 0 && (
+                  <div className="flex gap-2 items-center text-xs font-medium text-gray-500 mb-2 px-1">
+                    <span className="w-4"></span>
+                    <span className="w-16">Rank</span>
+                    <span className="w-28">Size</span>
+                    <span className="flex-1">Label</span>
+                    <span className="w-24">Price</span>
+                    <span className="w-16">Stock</span>
+                    <span className="w-28">SKU</span>
+                    <span className="w-14">Source</span>
+                    <span className="w-8"></span>
+                  </div>
+                )}
                 <div className="space-y-2">
-                  {variations.map((v, i) => (
-                    <div key={i} className="flex gap-2 items-center">
+                  {variations
+                    .slice()
+                    .sort((a, b) => a.displayOrder - b.displayOrder)
+                    .map((v, i) => {
+                      const originalIndex = variations.indexOf(v);
+                      return (
+                    <div key={originalIndex} className="flex gap-2 items-center">
                       <GripVertical className="h-4 w-4 text-gray-400" />
                       <Input
-                        placeholder="Size (e.g., 50mm)"
+                        placeholder="Rank"
+                        type="number"
+                        min="1"
+                        max="5000"
+                        value={v.displayOrder}
+                        onChange={(e) => {
+                          const newVars = [...variations];
+                          newVars[originalIndex].displayOrder = parseInt(e.target.value, 10) || 0;
+                          setVariations(newVars);
+                        }}
+                        className="w-16"
+                        title="Sort order (1-5000). Lower numbers appear first."
+                      />
+                      <Input
+                        placeholder="Size"
                         value={v.size}
                         onChange={(e) => {
                           const newVars = [...variations];
-                          newVars[i].size = e.target.value;
+                          newVars[originalIndex].size = e.target.value;
                           setVariations(newVars);
                         }}
                         className="w-28"
                       />
                       <Input
-                        placeholder="Label (e.g., 50mm Pipe OD)"
+                        placeholder="Label"
                         value={v.label}
                         onChange={(e) => {
                           const newVars = [...variations];
-                          newVars[i].label = e.target.value;
+                          newVars[originalIndex].label = e.target.value;
                           setVariations(newVars);
                         }}
                         className="flex-1"
@@ -995,20 +1055,37 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                         value={v.price}
                         onChange={(e) => {
                           const newVars = [...variations];
-                          newVars[i].price = e.target.value;
+                          newVars[originalIndex].price = e.target.value;
                           setVariations(newVars);
                         }}
                         className="w-24"
+                      />
+                      <Input
+                        placeholder="Qty"
+                        type="number"
+                        min="0"
+                        value={v.stock}
+                        onChange={(e) => {
+                          const newVars = [...variations];
+                          newVars[originalIndex].stock = parseInt(e.target.value, 10) || 0;
+                          setVariations(newVars);
+                        }}
+                        className={`w-16 ${
+                          v.stock === 0 ? 'border-red-300 bg-red-50' :
+                          v.stock <= 5 ? 'border-yellow-300 bg-yellow-50' :
+                          'border-green-300 bg-green-50'
+                        }`}
+                        title="Stock quantity"
                       />
                       <Input
                         placeholder="SKU"
                         value={v.sku}
                         onChange={(e) => {
                           const newVars = [...variations];
-                          newVars[i].sku = e.target.value;
+                          newVars[originalIndex].sku = e.target.value;
                           setVariations(newVars);
                         }}
-                        className="w-32"
+                        className="w-28"
                       />
                       <span className={`text-xs px-2 py-1 rounded whitespace-nowrap ${
                         v.source === 'neto' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
@@ -1019,12 +1096,13 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                         type="button"
                         variant="ghost"
                         size="sm"
-                        onClick={() => setVariations(variations.filter((_, idx) => idx !== i))}
+                        onClick={() => setVariations(variations.filter((_, idx) => idx !== originalIndex))}
                       >
                         <Trash2 className="h-4 w-4 text-red-500" />
                       </Button>
                     </div>
-                  ))}
+                      );
+                    })}
                   {variations.length === 0 && (
                     <p className="text-sm text-gray-500">No size variations. Click "Add Size" to add.</p>
                   )}
