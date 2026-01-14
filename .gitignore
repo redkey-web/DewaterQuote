@@ -18,8 +18,11 @@ dist
 
 # Deprecated code (old Vite/Express)
 _deprecated
+_replit_backup
+attached_assets
 
 # Archives
+scripts/_archive/
 *.tar.gz
 .env*.local
 *.tsbuildinfo

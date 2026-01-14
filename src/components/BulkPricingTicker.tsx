@@ -24,7 +24,11 @@ function TickerContent() {
       <span className="ticker-text-prominent">•</span>
       <div className="flex items-center gap-2">
         <span className="ticker-text-prominent">Buy 10+</span>
-        <span className="font-bold text-[#dc2626]" style={{ textShadow: 'none' }}>15% OFF</span>
+        <span className="font-bold text-[#ff3333]" style={{ textShadow: 'none' }}>15% OFF</span>
+      </div>
+      <span className="ticker-text-prominent">•</span>
+      <div className="flex items-center gap-2">
+        <span className="ticker-text-prominent text-[14px]">MIX ANY PRODUCTS - DISCOUNTS APPLY TO <span className="italic">TOTAL QUANTITY!</span></span>
       </div>
       <span className="ticker-text-prominent">•</span>
     </div>
@@ -34,8 +38,19 @@ function TickerContent() {
 export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
 
   return (
-    <div className="sticky top-[88px] z-40 py-2 overflow-hidden">
-      <div className="ticker-wrapper-seamless">
+    <div className="sticky top-[88px] z-40 py-2 overflow-hidden relative">
+      {/* Gradient blur background - more blur at bottom */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.35) 100%)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 40%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 40%, black 100%)',
+        }}
+      />
+      <div className="ticker-wrapper-seamless relative">
         {/* 6 copies for truly seamless infinite scroll - no gaps */}
         <div className="ticker-content">
           <TickerContent />

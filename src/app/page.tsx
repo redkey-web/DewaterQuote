@@ -632,6 +632,16 @@ export default function HomePage() {
             mixBlendMode: 'screen'
           }}
         />
+        {/* Floating blob group 1 - cyan/teal */}
+        <div className="absolute -left-32 top-1/4 w-96 h-96 pointer-events-none animate-blob-float-1">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/30 via-teal-400/20 to-transparent blur-3xl" />
+          <div className="absolute inset-8 rounded-full bg-gradient-to-tr from-cyan-400/25 to-transparent blur-2xl" />
+        </div>
+        {/* Floating blob group 2 - blue/purple */}
+        <div className="absolute -right-32 bottom-1/4 w-80 h-80 pointer-events-none animate-blob-float-2">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-bl from-blue-500/25 via-indigo-400/20 to-transparent blur-3xl" />
+          <div className="absolute inset-6 rounded-full bg-gradient-to-tl from-blue-400/20 to-transparent blur-2xl" />
+        </div>
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">INDUSTRY SOLUTIONS</h2>
