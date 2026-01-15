@@ -37,6 +37,7 @@ import BulkPricingTicker from "@/components/BulkPricingTicker"
 import FluidHero from "@/components/FluidHero"
 import TypewriterPlaceholder from "@/components/TypewriterPlaceholder"
 import FakeTerminal from "@/components/FakeTerminal"
+import CurvedText from "@/components/CurvedText"
 
 interface SearchResult {
   id: number
@@ -457,29 +458,38 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Vertical text - hard right against wall, rotated 180° */}
-        <div className={`absolute right-[-380px] top-[55%] -translate-y-1/2 z-20 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}>
-          <div className="relative">
-            {/* White text floating behind */}
-            <span
-              className="absolute inset-0 text-[13px] font-medium tracking-[0.3em] text-white/20 uppercase whitespace-nowrap"
-              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)', textShadow: '0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3)' }}
-              aria-hidden="true"
-            >
-              {isStormyDay ? 'Промышленные поставки' : 'Heavy Industry Supplies'}
-            </span>
-            {/* Coordinate-style main text - subtle flicker */}
-            <span
-              className="relative font-mono text-[13px] font-bold tracking-[0.3em] text-cyan-300/70 uppercase whitespace-nowrap animate-subtle-flicker"
-              style={{
-                writingMode: 'vertical-rl',
-                textOrientation: 'mixed',
-                transform: 'rotate(180deg)',
-                textShadow: '0 0 20px rgba(103, 232, 249, 0.5)',
-              }}
-            >
-              {isStormyDay ? 'Промышленные поставки' : 'Heavy Industry Supplies'}
-            </span>
+        {/* Curved text - arcing around expansion joint flange */}
+        <div
+          className={`absolute right-[2%] top-[35%] z-20 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}
+          style={{ perspective: '600px' }}
+        >
+          <div className="animate-orbit-3d" style={{ transformOrigin: 'center center' }}>
+            {/* Shadow/glow layer behind */}
+            <div className="absolute inset-0" style={{ filter: 'blur(6px)' }}>
+              <CurvedText
+                text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'}
+                width={320}
+                height={320}
+                radius={140}
+                arcAngle={120}
+                startAngle={210}
+                startOffset="50%"
+                className="opacity-40 overflow-visible"
+                textClassName="fill-white text-[9px] font-medium tracking-[0.25em] font-mono"
+              />
+            </div>
+            {/* Main curved text */}
+            <CurvedText
+              text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'}
+              width={320}
+              height={320}
+              radius={140}
+              arcAngle={120}
+              startAngle={210}
+              startOffset="50%"
+              className="overflow-visible"
+              textClassName="fill-cyan-300 text-[9px] font-bold tracking-[0.25em] font-mono"
+            />
           </div>
         </div>
 

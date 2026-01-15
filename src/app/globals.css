@@ -1852,3 +1852,24 @@
   animation: size-pulse 3s ease-in-out infinite;
 }
 
+/* 3D orbit loop animation for curved text - spins on X axis */
+@keyframes orbit-3d {
+  0% {
+    transform: rotateX(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateZ(5deg);
+  }
+}
+
+.animate-orbit-3d {
+  animation: orbit-3d 10s linear infinite;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+}
+
+.animate-orbit-3d text,
+.animate-orbit-3d textPath {
+  backface-visibility: visible;
+}
+
