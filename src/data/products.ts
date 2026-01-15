@@ -194,7 +194,7 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
       specifications: { orderBy: (s, { asc }) => [asc(s.displayOrder)] },
       images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
       downloads: true,
-      variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
+      variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
       applications: { orderBy: (a, { asc }) => [asc(a.displayOrder)] },
       videos: { orderBy: (v, { desc, asc }) => [desc(v.isPrimary), asc(v.displayOrder)] },
     },
@@ -226,7 +226,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
       brand: true,
       category: true,
       images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
-      variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
+      variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
     },
     orderBy: (products, { asc }) => [asc(products.name)],
   });
@@ -272,7 +272,7 @@ export async function getProductsBySubcategory(
       brand: true,
       category: true,
       images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
-      variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
+      variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
     },
     orderBy: (products, { asc }) => [asc(products.name)],
   });
@@ -301,7 +301,7 @@ export async function getProductsByBrand(brandSlug: string): Promise<Product[]> 
       brand: true,
       category: true,
       images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
-      variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
+      variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
     },
     orderBy: (products, { asc }) => [asc(products.name)],
   });
@@ -319,7 +319,7 @@ export async function getAllProducts(): Promise<Product[]> {
       brand: true,
       category: true,
       images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
-      variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
+      variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
     },
     orderBy: (products, { asc }) => [asc(products.name)],
   });
@@ -458,7 +458,7 @@ export async function getProductsBySkus(skus: string[]): Promise<Product[]> {
       brand: true,
       category: true,
       images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
-      variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
+      variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
     },
   });
 

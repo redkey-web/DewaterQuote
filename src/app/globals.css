@@ -1309,3 +1309,546 @@
   animation: blob-float-2 15s ease-in-out infinite;
 }
 
+/* Ticker gradient twirl animation */
+@keyframes ticker-gradient-float {
+  0% {
+    transform: translateY(8px) rotate(-2deg) skewX(-1deg);
+  }
+  25% {
+    transform: translateY(-6px) rotate(2deg) skewX(1deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-1deg) skewX(-0.5deg) scale(1.02);
+  }
+  75% {
+    transform: translateY(-4px) rotate(1.5deg) skewX(0.5deg);
+  }
+  100% {
+    transform: translateY(8px) rotate(-2deg) skewX(-1deg);
+  }
+}
+
+.animate-ticker-gradient-float {
+  animation: ticker-gradient-float 5s ease-in-out infinite;
+}
+
+/* Lightning storm effects for hero */
+@keyframes lightning-flash-1 {
+  0%, 100% { opacity: 0; }
+  2% { opacity: 0; }
+  3% { opacity: 1; }
+  4% { opacity: 0.3; }
+  5% { opacity: 0.9; }
+  6% { opacity: 0; }
+  45% { opacity: 0; }
+  46% { opacity: 0.7; }
+  47% { opacity: 0; }
+}
+
+@keyframes lightning-flash-2 {
+  0%, 100% { opacity: 0; }
+  20% { opacity: 0; }
+  21% { opacity: 0.8; }
+  22% { opacity: 0.2; }
+  23% { opacity: 0.6; }
+  24% { opacity: 0; }
+  70% { opacity: 0; }
+  71% { opacity: 0.5; }
+  72% { opacity: 0; }
+}
+
+@keyframes lightning-flash-3 {
+  0%, 100% { opacity: 0; }
+  35% { opacity: 0; }
+  36% { opacity: 0.4; }
+  37% { opacity: 0.1; }
+  38% { opacity: 0.3; }
+  39% { opacity: 0; }
+  85% { opacity: 0; }
+  86% { opacity: 0.6; }
+  87% { opacity: 0.2; }
+  88% { opacity: 0; }
+}
+
+.animate-lightning-flash-1 {
+  animation: lightning-flash-1 8s ease-in-out infinite;
+}
+
+.animate-lightning-flash-2 {
+  animation: lightning-flash-2 8s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-lightning-flash-3 {
+  animation: lightning-flash-3 8s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* Rising bubble styles */
+.bubble {
+  position: absolute;
+  bottom: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(180, 220, 255, 0.4), rgba(100, 160, 220, 0.15) 50%, rgba(60, 120, 180, 0.05) 100%);
+  box-shadow:
+    inset -2px -2px 4px rgba(255, 255, 255, 0.2),
+    inset 2px 2px 4px rgba(0, 50, 100, 0.1),
+    0 0 8px rgba(100, 180, 255, 0.15);
+  opacity: 0;
+}
+
+.bubble-xs {
+  width: 6px;
+  height: 6px;
+}
+
+.bubble-sm {
+  width: 12px;
+  height: 12px;
+}
+
+.bubble-md {
+  width: 20px;
+  height: 20px;
+}
+
+.bubble-lg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Bubble rise animations - varying speeds */
+@keyframes bubble-rise-slow {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(15px) scale(1.1);
+    opacity: 0.5;
+  }
+  95% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(-10px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-medium {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-30vh) translateX(-12px) scale(1.05);
+  }
+  70% {
+    transform: translateY(-70vh) translateX(8px) scale(0.95);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(-5px) scale(0.85);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-fast {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  3% {
+    opacity: 0.45;
+  }
+  25% {
+    transform: translateY(-25vh) translateX(8px) scale(1.02);
+  }
+  75% {
+    transform: translateY(-85vh) translateX(-6px) scale(0.9);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(3px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-fastest {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  2% {
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-60vh) translateX(5px) scale(0.95);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-120vh) translateX(-3px) scale(0.7);
+    opacity: 0;
+  }
+}
+
+.animate-bubble-rise-slow {
+  animation: bubble-rise-slow 18s ease-in-out infinite;
+}
+
+.animate-bubble-rise-medium {
+  animation: bubble-rise-medium 12s ease-in-out infinite;
+}
+
+.animate-bubble-rise-fast {
+  animation: bubble-rise-fast 8s ease-in-out infinite;
+}
+
+.animate-bubble-rise-fastest {
+  animation: bubble-rise-fastest 5s ease-in-out infinite;
+}
+
+/* Fade-in animation for stormy day effect */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+/* Slow fade-in for staggered stormy day elements (coordinates, bubbles) */
+@keyframes slow-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slow-fade-in {
+  animation: slow-fade-in 3s ease-out forwards;
+  animation-delay: 1.5s;
+  opacity: 0;
+}
+
+/* Delayed bubble container fade in - very slow */
+.animate-bubbles-fade-in {
+  animation: slow-fade-in 25s ease-out forwards;
+  animation-delay: 15s;
+  opacity: 0;
+}
+
+/* Terminal gradual fade in */
+@keyframes terminal-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+    filter: blur(4px);
+  }
+  30% {
+    opacity: 0.3;
+    filter: blur(2px);
+  }
+  60% {
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Gradual gradient fade for stormy effects */
+@keyframes stormy-gradient-fade-in {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  85% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-stormy-gradient-in {
+  animation: stormy-gradient-fade-in 25s ease-in forwards;
+}
+
+/* Coordinates fade in - slower, more gradual */
+@keyframes coords-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+    filter: blur(3px);
+  }
+  40% {
+    opacity: 0.4;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.animate-coords-fade-in {
+  animation: coords-fade-in 15s ease-out forwards;
+  animation-delay: 10s;
+  opacity: 0;
+}
+
+/* Text scramble effect for subtitle */
+@keyframes subtitle-scramble-in {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.5em;
+    filter: blur(8px);
+  }
+  30% {
+    opacity: 0.5;
+    letter-spacing: 0.2em;
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 0.8;
+    letter-spacing: 0.05em;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: normal;
+    filter: blur(0);
+  }
+}
+
+.animate-subtitle-scramble {
+  animation: subtitle-scramble-in 3s ease-out forwards;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+/* Scramble text effect */
+@keyframes scramble-flicker {
+  0%, 100% { opacity: 1; }
+  10% { opacity: 0.8; transform: translateX(1px); }
+  20% { opacity: 1; transform: translateX(-1px); }
+  30% { opacity: 0.9; }
+  40% { opacity: 1; transform: translateX(0.5px); }
+  50% { opacity: 0.85; }
+  60% { opacity: 1; transform: translateX(-0.5px); }
+  70% { opacity: 0.95; }
+  80% { opacity: 1; }
+  90% { opacity: 0.9; transform: translateX(1px); }
+}
+
+.animate-scramble {
+  animation: scramble-flicker 0.3s ease-in-out infinite;
+}
+
+/* Long scramble effect for headline - 10 seconds with intense glitching then settles */
+@keyframes scramble-headline {
+  0% { opacity: 0; transform: translateX(-5px) skewX(-3deg); filter: blur(4px); }
+  2% { opacity: 1; transform: translateX(3px) skewX(2deg); filter: blur(0); }
+  4% { opacity: 0.7; transform: translateX(-2px) skewX(-1deg); filter: blur(2px); }
+  6% { opacity: 1; transform: translateX(4px) skewX(3deg); filter: blur(0); }
+  8% { opacity: 0.8; transform: translateX(-3px) skewX(-2deg); filter: blur(1px); }
+  10% { opacity: 1; transform: translateX(2px) skewX(1deg); filter: blur(0); }
+  12% { opacity: 0.6; transform: translateX(-4px) skewX(-3deg); filter: blur(3px); }
+  14% { opacity: 1; transform: translateX(1px) skewX(0deg); filter: blur(0); }
+  16% { opacity: 0.9; transform: translateX(-1px) skewX(-1deg); filter: blur(1px); }
+  18% { opacity: 1; transform: translateX(3px) skewX(2deg); filter: blur(0); }
+  20% { opacity: 0.75; transform: translateX(-2px) skewX(-1deg); filter: blur(2px); }
+  22% { opacity: 1; transform: translateX(0px) skewX(1deg); filter: blur(0); }
+  25% { opacity: 0.85; transform: translateX(2px) skewX(0deg); filter: blur(1px); }
+  28% { opacity: 1; transform: translateX(-1px) skewX(0deg); filter: blur(0); }
+  32% { opacity: 0.9; transform: translateX(1px) skewX(-0.5deg); filter: blur(0.5px); }
+  36% { opacity: 1; transform: translateX(0px) skewX(0.5deg); filter: blur(0); }
+  40% { opacity: 0.95; transform: translateX(-0.5px) skewX(0deg); filter: blur(0.3px); }
+  45% { opacity: 1; transform: translateX(0.5px) skewX(0deg); filter: blur(0); }
+  50% { opacity: 0.98; transform: translateX(0px) skewX(0deg); filter: blur(0.2px); }
+  60% { opacity: 1; transform: translateX(0px) skewX(0deg); filter: blur(0); }
+  70% { opacity: 1; transform: translateX(0px) skewX(0deg); filter: blur(0); }
+  80% { opacity: 1; transform: translateX(0px) skewX(0deg); filter: blur(0); }
+  100% { opacity: 1; transform: translateX(0px) skewX(0deg); filter: blur(0); }
+}
+
+.animate-scramble-headline {
+  animation: scramble-headline 10s ease-out forwards;
+}
+
+/* Stormy day fade out */
+@keyframes stormy-fade-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-stormy-fade-out {
+  animation: stormy-fade-out 2s ease-out forwards;
+}
+
+/* Typewriter effect for vertical text */
+@keyframes typewriter-blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: currentColor; }
+}
+
+@keyframes typewriter-reveal {
+  from { max-height: 0; }
+  to { max-height: 200px; }
+}
+
+.animate-typewriter-vertical {
+  overflow: hidden;
+  animation: typewriter-reveal 3s steps(7, end) forwards;
+  border-right: 2px solid;
+  animation: typewriter-reveal 3s steps(7, end) forwards, typewriter-blink 0.7s step-end infinite;
+}
+
+/* Terminal glitch effect - fast screen distortion */
+@keyframes terminal-glitch {
+  0% {
+    transform: translate(0);
+    filter: none;
+    opacity: 0;
+  }
+  5% {
+    transform: translate(-3px, 2px) skewX(-2deg);
+    filter: hue-rotate(90deg) saturate(2);
+    opacity: 1;
+  }
+  10% {
+    transform: translate(3px, -2px) skewX(2deg);
+    filter: hue-rotate(-90deg) saturate(1.5);
+    clip-path: inset(20% 0 30% 0);
+  }
+  15% {
+    transform: translate(-2px, 0) skewX(-1deg);
+    filter: none;
+    clip-path: inset(0 0 50% 0);
+  }
+  20% {
+    transform: translate(4px, 1px) skewX(3deg);
+    filter: hue-rotate(180deg);
+    clip-path: inset(40% 0 10% 0);
+  }
+  25% {
+    transform: translate(0, -3px);
+    filter: saturate(3) brightness(1.2);
+    clip-path: none;
+  }
+  30% {
+    transform: translate(-1px, 2px) skewX(-1deg);
+    filter: invert(1);
+  }
+  35% {
+    transform: translate(2px, -1px);
+    filter: none;
+  }
+  40% {
+    transform: translate(0);
+    clip-path: inset(60% 0 0 0);
+  }
+  50% {
+    transform: translate(-2px, 1px) skewX(1deg);
+    filter: hue-rotate(45deg);
+    clip-path: none;
+  }
+  60% {
+    transform: translate(1px, -2px);
+    filter: saturate(0.5);
+  }
+  70% {
+    transform: translate(0, 1px);
+    filter: none;
+  }
+  80% {
+    transform: translate(-1px, 0);
+    opacity: 1;
+  }
+  90% {
+    transform: translate(0);
+    filter: none;
+  }
+  100% {
+    transform: translate(0);
+    filter: none;
+    opacity: 1;
+  }
+}
+
+.animate-terminal-glitch {
+  animation: terminal-glitch 0.3s ease-out forwards;
+}
+
+/* Anemic flicker effect for ghost text */
+@keyframes anemic-flicker {
+  0%, 100% { opacity: 0.35; }
+  10% { opacity: 0.3; }
+  20% { opacity: 0.38; }
+  30% { opacity: 0.25; }
+  40% { opacity: 0.4; }
+  50% { opacity: 0.32; }
+  60% { opacity: 0.28; }
+  70% { opacity: 0.42; }
+  80% { opacity: 0.3; }
+  90% { opacity: 0.36; }
+}
+
+.animate-anemic-flicker {
+  animation: anemic-flicker 3s ease-in-out infinite;
+}
+
+/* Subtle flicker - less intense */
+@keyframes subtle-flicker {
+  0%, 100% { opacity: 0.55; }
+  25% { opacity: 0.5; }
+  50% { opacity: 0.58; }
+  75% { opacity: 0.52; }
+}
+
+.animate-subtle-flicker {
+  animation: subtle-flicker 4s ease-in-out infinite;
+}
+
+/* Size pulse - fluctuates between current and slightly smaller */
+@keyframes size-pulse {
+  0%, 100% { transform: translate(2px, 2px) scale(1); }
+  50% { transform: translate(2px, 2px) scale(0.95); }
+}
+
+.animate-size-pulse {
+  animation: size-pulse 3s ease-in-out infinite;
+}
+

@@ -66,7 +66,7 @@ async function getInventoryData(): Promise<InventoryProduct[]> {
             sku: true,
             isSuspended: true,
           },
-          orderBy: (variations, { asc }) => [asc(variations.displayOrder)],
+          orderBy: (variations, { asc }) => [asc(variations.sizeRank), asc(variations.displayOrder)],
         },
       },
       orderBy: [desc(products.updatedAt)],

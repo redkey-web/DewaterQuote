@@ -29,6 +29,10 @@ interface FluidHeroProps {
   children?: React.ReactNode
   // Easter egg: click hotspot to enable/disable effect
   enableHotspot?: Hotspot // If provided, effect starts disabled until hotspot clicked
+  onEffectChange?: (enabled: boolean) => void // Callback when reveal effect toggles
+  // Easter egg: Stormy Day effect - controlled externally
+  stormyDayEnabled?: boolean
+  stormyDayFading?: boolean // When true, fade out the stormy day effects
 }
 
 export default function FluidHero({
@@ -40,6 +44,9 @@ export default function FluidHero({
   className = "",
   children,
   enableHotspot,
+  onEffectChange,
+  stormyDayEnabled = false,
+  stormyDayFading = false,
 }: FluidHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 })
@@ -109,9 +116,13 @@ export default function FluidHero({
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (isClickInHotspot(e)) {
-      setEffectEnabled(prev => !prev)
+      setEffectEnabled(prev => {
+        const newValue = !prev
+        onEffectChange?.(newValue)
+        return newValue
+      })
     }
-  }, [isClickInHotspot])
+  }, [isClickInHotspot, onEffectChange])
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (isMobile) return
@@ -244,15 +255,110 @@ export default function FluidHero({
 
       {/* Base layer: Photo */}
       <div
-        className="absolute inset-0 bg-cover"
+        className="absolute inset-0 bg-cover transition-all duration-[8000ms] ease-in"
         style={{
           backgroundImage: `url(${photoSrc})`,
           backgroundPosition: 'center 45%',
+          filter: stormyDayEnabled ? 'brightness(0.35) contrast(1.3) saturate(0.7)' : undefined,
         }}
       />
 
-      {/* Gradient overlay on photo */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/30" />
+      {/* Gradient overlay on photo (normal mode) */}
+      <div
+        className="absolute inset-0 transition-opacity duration-1000"
+        style={{
+          background: 'linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.3))',
+          opacity: stormyDayEnabled ? 0 : 1,
+        }}
+      />
+
+      {/* === STORMY DAY EFFECT === */}
+      {stormyDayEnabled && (
+        <div className={`transition-opacity duration-[2000ms] ${stormyDayFading ? 'opacity-0' : 'opacity-100'}`}>
+          {/* Dark midnight overlay - gradual fade in */}
+          <div
+            className="absolute inset-0 animate-stormy-gradient-in"
+            style={{
+              background: 'linear-gradient(180deg, rgba(5,10,25,0.85) 0%, rgba(10,15,35,0.75) 40%, rgba(15,20,45,0.8) 100%)',
+            }}
+          />
+
+          {/* Lightning flash overlay 1 - main strike */}
+          <div
+            className="absolute inset-0 pointer-events-none animate-lightning-flash-1"
+            style={{
+              background: 'radial-gradient(ellipse 80% 60% at 70% 20%, rgba(180,200,255,0.4) 0%, rgba(100,140,255,0.15) 30%, transparent 70%)',
+              mixBlendMode: 'screen',
+            }}
+          />
+
+          {/* Lightning flash overlay 2 - secondary strike */}
+          <div
+            className="absolute inset-0 pointer-events-none animate-lightning-flash-2"
+            style={{
+              background: 'radial-gradient(ellipse 60% 80% at 25% 30%, rgba(200,220,255,0.35) 0%, rgba(120,160,255,0.1) 40%, transparent 65%)',
+              mixBlendMode: 'screen',
+            }}
+          />
+
+          {/* Lightning flash overlay 3 - distant flicker */}
+          <div
+            className="absolute inset-0 pointer-events-none animate-lightning-flash-3"
+            style={{
+              background: 'linear-gradient(135deg, rgba(150,180,255,0.2) 0%, transparent 40%, transparent 60%, rgba(140,170,255,0.15) 100%)',
+              mixBlendMode: 'screen',
+            }}
+          />
+
+          {/* Atmospheric haze/fog layer */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'linear-gradient(0deg, rgba(20,30,60,0.6) 0%, transparent 30%, transparent 70%, rgba(10,20,50,0.4) 100%)',
+            }}
+          />
+
+          {/* Vignette for dramatic edges */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse 70% 60% at 50% 50%, transparent 20%, rgba(0,0,10,0.7) 100%)',
+            }}
+          />
+
+          {/* Rising bubbles container - fades in slowly */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden animate-bubbles-fade-in">
+            {/* Large slow bubbles */}
+            <div className="bubble bubble-lg animate-bubble-rise-slow" style={{ left: '8%', animationDelay: '0s' }} />
+            <div className="bubble bubble-lg animate-bubble-rise-slow" style={{ left: '85%', animationDelay: '4s' }} />
+            <div className="bubble bubble-lg animate-bubble-rise-slow" style={{ left: '45%', animationDelay: '8s' }} />
+
+            {/* Medium bubbles */}
+            <div className="bubble bubble-md animate-bubble-rise-medium" style={{ left: '15%', animationDelay: '1s' }} />
+            <div className="bubble bubble-md animate-bubble-rise-medium" style={{ left: '32%', animationDelay: '3s' }} />
+            <div className="bubble bubble-md animate-bubble-rise-medium" style={{ left: '68%', animationDelay: '5s' }} />
+            <div className="bubble bubble-md animate-bubble-rise-medium" style={{ left: '78%', animationDelay: '7s' }} />
+            <div className="bubble bubble-md animate-bubble-rise-medium" style={{ left: '52%', animationDelay: '9s' }} />
+
+            {/* Small fast bubbles */}
+            <div className="bubble bubble-sm animate-bubble-rise-fast" style={{ left: '5%', animationDelay: '0.5s' }} />
+            <div className="bubble bubble-sm animate-bubble-rise-fast" style={{ left: '22%', animationDelay: '2s' }} />
+            <div className="bubble bubble-sm animate-bubble-rise-fast" style={{ left: '38%', animationDelay: '3.5s' }} />
+            <div className="bubble bubble-sm animate-bubble-rise-fast" style={{ left: '55%', animationDelay: '1.5s' }} />
+            <div className="bubble bubble-sm animate-bubble-rise-fast" style={{ left: '72%', animationDelay: '4.5s' }} />
+            <div className="bubble bubble-sm animate-bubble-rise-fast" style={{ left: '88%', animationDelay: '2.5s' }} />
+            <div className="bubble bubble-sm animate-bubble-rise-fast" style={{ left: '95%', animationDelay: '6s' }} />
+
+            {/* Tiny bubbles - fastest */}
+            <div className="bubble bubble-xs animate-bubble-rise-fastest" style={{ left: '12%', animationDelay: '0.3s' }} />
+            <div className="bubble bubble-xs animate-bubble-rise-fastest" style={{ left: '28%', animationDelay: '1.8s' }} />
+            <div className="bubble bubble-xs animate-bubble-rise-fastest" style={{ left: '42%', animationDelay: '3.2s' }} />
+            <div className="bubble bubble-xs animate-bubble-rise-fastest" style={{ left: '58%', animationDelay: '0.8s' }} />
+            <div className="bubble bubble-xs animate-bubble-rise-fastest" style={{ left: '75%', animationDelay: '2.3s' }} />
+            <div className="bubble bubble-xs animate-bubble-rise-fastest" style={{ left: '92%', animationDelay: '4.2s' }} />
+          </div>
+        </div>
+      )}
 
       {/* Reveal layer: Industrial illustration with effect */}
       <div

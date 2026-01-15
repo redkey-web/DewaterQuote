@@ -4,9 +4,10 @@ import { TrendingDown } from "lucide-react"
 
 interface BulkPricingTickerProps {
   variant?: "default" | "teal"
+  isStormyDay?: boolean
 }
 
-// Ticker content component to avoid repetition
+// Normal ticker content
 function TickerContent() {
   return (
     <div className="flex items-center gap-8 px-8 text-base font-medium ticker-chrome-blink">
@@ -35,40 +36,66 @@ function TickerContent() {
   )
 }
 
-export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
+// Stormy day ticker - numbers only
+function StormyTickerContent() {
+  return (
+    <div className="flex items-center gap-12 px-8 text-base font-medium ticker-chrome-blink">
+      <span className="font-bold text-[#ccff00]" style={{ textShadow: 'none' }}>5%</span>
+      <span className="ticker-text-prominent">•</span>
+      <span className="font-bold text-[#ff6600]" style={{ textShadow: 'none' }}>10%</span>
+      <span className="ticker-text-prominent">•</span>
+      <span className="font-bold text-[#ff3333]" style={{ textShadow: 'none' }}>15%</span>
+      <span className="ticker-text-prominent">•</span>
+    </div>
+  )
+}
+
+export default function BulkPricingTicker({ variant = "default", isStormyDay = false }: BulkPricingTickerProps) {
+  const Content = isStormyDay ? StormyTickerContent : TickerContent
 
   return (
     <div className="sticky top-[88px] z-40 py-2 overflow-hidden relative">
-      {/* Gradient blur background - more blur at bottom */}
+      {/* Gradient blur background - bottom heavy */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none animate-ticker-gradient-float"
         style={{
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.35) 100%)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          maskImage: 'linear-gradient(to bottom, transparent 0%, black 40%, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 40%, black 100%)',
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.15) 100%)',
+          backdropFilter: 'blur(6px)',
+          WebkitBackdropFilter: 'blur(6px)',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 30%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 30%, black 100%)',
+        }}
+      />
+      {/* Opposite gradient - top heavy, animated, aqua tint */}
+      <div
+        className="absolute inset-0 pointer-events-none animate-ticker-gradient-float"
+        style={{
+          background: 'linear-gradient(to top, rgba(0,200,200,0.02) 0%, rgba(0,220,220,0.06) 50%, rgba(0,240,240,0.12) 100%)',
+          backdropFilter: 'blur(6px)',
+          WebkitBackdropFilter: 'blur(6px)',
+          maskImage: 'linear-gradient(to top, transparent 0%, black 30%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 30%, black 100%)',
         }}
       />
       <div className="ticker-wrapper-seamless relative">
         {/* 6 copies for truly seamless infinite scroll - no gaps */}
         <div className="ticker-content">
-          <TickerContent />
+          <Content />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <TickerContent />
+          <Content />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <TickerContent />
+          <Content />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <TickerContent />
+          <Content />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <TickerContent />
+          <Content />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <TickerContent />
+          <Content />
         </div>
       </div>
     </div>

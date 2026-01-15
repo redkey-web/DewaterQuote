@@ -25,7 +25,7 @@ export async function GET() {
             sku: true,
             price: true,
           },
-          orderBy: (variations, { asc }) => [asc(variations.displayOrder)],
+          orderBy: (variations, { asc }) => [asc(variations.sizeRank), asc(variations.displayOrder)],
         },
       },
       orderBy: [desc(products.updatedAt)],

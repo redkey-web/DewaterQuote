@@ -19,6 +19,7 @@ import {
   TrendingDown,
   Loader2,
   ChevronDown,
+  Star,
 } from "lucide-react"
 import {
   DropdownMenu,
@@ -35,6 +36,7 @@ import {
 import BulkPricingTicker from "@/components/BulkPricingTicker"
 import FluidHero from "@/components/FluidHero"
 import TypewriterPlaceholder from "@/components/TypewriterPlaceholder"
+import FakeTerminal from "@/components/FakeTerminal"
 
 interface SearchResult {
   id: number
@@ -54,8 +56,66 @@ export default function HomePage() {
   const [isSearching, setIsSearching] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [isSearchFocused, setIsSearchFocused] = useState(false)
+  const [isStormyDay, setIsStormyDay] = useState(false)
+  const [isStormyFading, setIsStormyFading] = useState(false)
+  const [isRevealActive, setIsRevealActive] = useState(false)
+  const [isDraggingStraub, setIsDraggingStraub] = useState(false)
+  const [showTerminal1, setShowTerminal1] = useState(false)
+  const [showTerminal2, setShowTerminal2] = useState(false)
+  const [terminal1Position, setTerminal1Position] = useState<'top' | 'bottom'>('top')
   const heroSearchRef = useRef<HTMLDivElement>(null)
   const heroInputRef = useRef<HTMLInputElement>(null)
+  const carouselRef = useRef<HTMLElement>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  // Play low hum sound
+  const playLowHum = () => {
+    try {
+      const audioCtx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
+
+      // Very low frequency hum
+      const osc = audioCtx.createOscillator()
+      const gain = audioCtx.createGain()
+
+      osc.type = "sine"
+      osc.frequency.value = 55 // Very low A1 note
+
+      // Fade in and out smoothly
+      gain.gain.setValueAtTime(0, audioCtx.currentTime)
+      gain.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.5)
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime + 1.5)
+      gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2.5)
+
+      osc.connect(gain)
+      gain.connect(audioCtx.destination)
+
+      osc.start()
+      osc.stop(audioCtx.currentTime + 2.5)
+    } catch (e) {
+      console.log("Audio not supported")
+    }
+  }
+
+  // Start Sigur Rós music
+  const startMusic = () => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/audio/sigur-ros.mp3")
+      audioRef.current.volume = 0.3
+      audioRef.current.loop = true
+    }
+    audioRef.current.currentTime = 0
+    audioRef.current.play().catch(() => {
+      console.log("Audio autoplay blocked")
+    })
+  }
+
+  // Stop music
+  const stopMusic = () => {
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+    }
+  }
 
   // Search placeholder phrases for typewriter effect
   const searchPhrases = [
@@ -84,6 +144,71 @@ export default function HomePage() {
     document.addEventListener("mousedown", handleClickOutside)
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
+
+  // Auto-disable stormy day after 1 minute
+  useEffect(() => {
+    if (isStormyDay && !isStormyFading) {
+      // Start music immediately
+      startMusic()
+
+      // Play low hum every 7 seconds
+      playLowHum()
+      const humInterval = setInterval(() => {
+        playLowHum()
+      }, 7000)
+
+      const timers: NodeJS.Timeout[] = []
+
+      // Terminal 1 cycle (opens/closes 4 times)
+      // Cycle 1: 8s-16s (top)
+      timers.push(setTimeout(() => { setShowTerminal1(true); setTerminal1Position('top') }, 8000))
+      timers.push(setTimeout(() => { setShowTerminal1(false) }, 16000))
+      // Cycle 2: 22s-30s (bottom)
+      timers.push(setTimeout(() => { setShowTerminal1(true); setTerminal1Position('bottom') }, 22000))
+      timers.push(setTimeout(() => { setShowTerminal1(false) }, 30000))
+      // Cycle 3: 38s-45s (top)
+      timers.push(setTimeout(() => { setShowTerminal1(true); setTerminal1Position('top') }, 38000))
+      timers.push(setTimeout(() => { setShowTerminal1(false) }, 45000))
+      // Cycle 4: 50s-58s (bottom)
+      timers.push(setTimeout(() => { setShowTerminal1(true); setTerminal1Position('bottom') }, 50000))
+      timers.push(setTimeout(() => { setShowTerminal1(false) }, 58000))
+
+      // Terminal 2 cycle (opens/closes 4 times, offset from terminal 1)
+      // Cycle 1: 12s-20s
+      timers.push(setTimeout(() => { setShowTerminal2(true) }, 12000))
+      timers.push(setTimeout(() => { setShowTerminal2(false) }, 20000))
+      // Cycle 2: 26s-34s
+      timers.push(setTimeout(() => { setShowTerminal2(true) }, 26000))
+      timers.push(setTimeout(() => { setShowTerminal2(false) }, 34000))
+      // Cycle 3: 42s-48s
+      timers.push(setTimeout(() => { setShowTerminal2(true) }, 42000))
+      timers.push(setTimeout(() => { setShowTerminal2(false) }, 48000))
+      // Cycle 4: 52s-58s
+      timers.push(setTimeout(() => { setShowTerminal2(true) }, 52000))
+      timers.push(setTimeout(() => { setShowTerminal2(false) }, 58000))
+
+      // Reset everything at 1 minute
+      const disableTimer = setTimeout(() => {
+        setIsStormyDay(false)
+        setIsStormyFading(false)
+        setIsRevealActive(false)
+        setShowTerminal1(false)
+        setShowTerminal2(false)
+        stopMusic()
+      }, 60000)
+
+      return () => {
+        clearInterval(humInterval)
+        timers.forEach(t => clearTimeout(t))
+        clearTimeout(disableTimer)
+        stopMusic()
+      }
+    } else if (!isStormyDay) {
+      setShowTerminal1(false)
+      setShowTerminal2(false)
+      stopMusic()
+    }
+  }, [isStormyDay, isStormyFading])
 
   // Debounced search
   useEffect(() => {
@@ -194,11 +319,45 @@ export default function HomePage() {
     },
   ]
 
+  // Straub logo drag handlers for stormy day easter egg
+  const handleStraubDragStart = (e: React.DragEvent) => {
+    if (!isRevealActive) {
+      e.preventDefault()
+      return
+    }
+    setIsDraggingStraub(true)
+    e.dataTransfer.setData('text/plain', 'straub-logo')
+    e.dataTransfer.effectAllowed = 'move'
+  }
+
+  const handleStraubDragEnd = (e: React.DragEvent) => {
+    if (!isDraggingStraub) return
+    setIsDraggingStraub(false)
+
+    // Check if dropped outside carousel
+    const carousel = carouselRef.current
+    if (carousel) {
+      const rect = carousel.getBoundingClientRect()
+      const dropX = e.clientX
+      const dropY = e.clientY
+
+      const isOutsideCarousel =
+        dropX < rect.left ||
+        dropX > rect.right ||
+        dropY < rect.top ||
+        dropY > rect.bottom
+
+      if (isOutsideCarousel) {
+        setIsStormyDay(prev => !prev)
+      }
+    }
+  }
+
   return (
     <div>
-      <BulkPricingTicker variant="teal" />
+      <BulkPricingTicker variant="teal" isStormyDay={isStormyDay} />
 
-      {/* Hero Section - Fluid Cursor Reveal Effect (Easter egg: click red butterfly valve to toggle) */}
+      {/* Hero Section - Fluid Cursor Reveal Effect (Easter eggs: click red butterfly valve for reveal, drag Straub logo off carousel for stormy day) */}
       <FluidHero
         photoSrc="/images/hero-pipeline.webp"
         illustrationSrc="/images/hero-illustration-industrial.webp"
@@ -207,17 +366,151 @@ export default function HomePage() {
         underlayBrightness={0.6}
         className="-mt-[90px] pb-16 min-h-[calc(60vh+90px+110px)] md:min-h-[calc(65vh+90px+110px)] lg:min-h-[calc(70vh+90px+130px)] flex items-center justify-center"
         enableHotspot={{ x: 62, y: 35, width: 15, height: 20 }} // Red butterfly valve position
+        onEffectChange={setIsRevealActive}
+        stormyDayEnabled={isStormyDay}
+        stormyDayFading={isStormyFading}
       >
-        <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[106px] md:pt-[110px]">
-          <p className="text-xl md:text-2xl text-white/90 font-medium mb-4 tracking-wide drop-shadow-md">
-            Australia's Industrial Pipe Fittings Specialists
+        {/* Typewriter text ABOVE Pipeline Repairs */}
+        <div className="absolute left-[-344px] bottom-[-171px] z-20 pointer-events-none hidden md:block">
+          <div className="relative">
+            <span
+              className="absolute inset-0 text-[12px] font-semibold tracking-[0.25em] text-white/15 uppercase whitespace-nowrap"
+              style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.4)', transform: 'translate(1px, 1px)' }}
+              aria-hidden="true"
+            >
+              <TypewriterPlaceholder
+                phrases={['Engineering Supply', 'All components inspected before dispatch']}
+                typingSpeed={60}
+                deletingSpeed={30}
+                pauseDuration={2500}
+              />
+            </span>
+            <span
+              className="relative font-mono text-[11px] font-bold tracking-[0.25em] text-cyan-300/70 uppercase whitespace-nowrap"
+              style={{ textShadow: '0 0 15px rgba(103, 232, 249, 0.5)' }}
+            >
+              <TypewriterPlaceholder
+                phrases={['Engineering Supply', 'All components inspected before dispatch']}
+                typingSpeed={60}
+                deletingSpeed={30}
+                pauseDuration={2500}
+              />
+            </span>
+          </div>
+        </div>
+
+        {/* Pipeline Repairs & Maintenance - with one bright letter */}
+        <div className="absolute left-[-344px] bottom-[-191px] z-20 pointer-events-none hidden md:block">
+          <div className="relative">
+            <span
+              className="absolute inset-0 text-[14px] font-medium tracking-[0.3em] text-white/40 uppercase whitespace-nowrap animate-anemic-flicker"
+              style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3)', transform: 'translate(1px, 1px)' }}
+              aria-hidden="true"
+            >
+              {isStormyDay ? 'Ремонт и обслуживание трубопроводов' : 'Pipeline Repairs & Maintenance'}
+            </span>
+            <span
+              className="relative font-mono text-[13px] font-bold tracking-[0.3em] uppercase whitespace-nowrap"
+              style={{ textShadow: '0 0 20px rgba(103, 232, 249, 0.5)' }}
+            >
+              {isStormyDay ? 'Ремонт и обслуживание трубопроводов' : (
+                <>
+                  <span className="text-cyan-300/70">Pi</span>
+                  <span className="text-cyan-300/20">p</span>
+                  <span className="text-cyan-300/70">eline Re</span>
+                  <span className="text-cyan-400">p</span>
+                  <span className="text-cyan-300/70">airs & M</span>
+                  <span className="text-cyan-300/10">a</span>
+                  <span className="text-cyan-300/70">intenance</span>
+                </>
+              )}
+            </span>
+          </div>
+        </div>
+
+        {/* Typewriter text BELOW Pipeline Repairs */}
+        <div className="absolute left-[-344px] bottom-[-211px] z-20 pointer-events-none hidden md:block">
+          <div className="relative">
+            <span
+              className="absolute inset-0 text-[12px] font-semibold tracking-[0.25em] text-white/15 uppercase whitespace-nowrap"
+              style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.4)', transform: 'translate(1px, 1px)' }}
+              aria-hidden="true"
+            >
+              <TypewriterPlaceholder
+                phrases={['Range of materials including SS316', 'Materials certificates available']}
+                typingSpeed={60}
+                deletingSpeed={30}
+                pauseDuration={2500}
+              />
+            </span>
+            <span
+              className="relative font-mono text-[11px] font-bold tracking-[0.25em] text-cyan-300/70 uppercase whitespace-nowrap"
+              style={{ textShadow: '0 0 15px rgba(103, 232, 249, 0.5)' }}
+            >
+              <TypewriterPlaceholder
+                phrases={['Range of materials including SS316', 'Materials certificates available']}
+                typingSpeed={60}
+                deletingSpeed={30}
+                pauseDuration={2500}
+              />
+            </span>
+          </div>
+        </div>
+
+        {/* Vertical text - hard right against wall, rotated 180° */}
+        <div className={`absolute right-[-380px] top-[55%] -translate-y-1/2 z-20 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}>
+          <div className="relative">
+            {/* White text floating behind */}
+            <span
+              className="absolute inset-0 text-[13px] font-medium tracking-[0.3em] text-white/20 uppercase whitespace-nowrap"
+              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)', textShadow: '0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3)' }}
+              aria-hidden="true"
+            >
+              {isStormyDay ? 'Промышленные поставки' : 'Heavy Industry Supplies'}
+            </span>
+            {/* Coordinate-style main text - subtle flicker */}
+            <span
+              className="relative font-mono text-[13px] font-bold tracking-[0.3em] text-cyan-300/70 uppercase whitespace-nowrap animate-subtle-flicker"
+              style={{
+                writingMode: 'vertical-rl',
+                textOrientation: 'mixed',
+                transform: 'rotate(180deg)',
+                textShadow: '0 0 20px rgba(103, 232, 249, 0.5)',
+              }}
+            >
+              {isStormyDay ? 'Промышленные поставки' : 'Heavy Industry Supplies'}
+            </span>
+          </div>
+        </div>
+
+        <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[106px] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-[2000ms]" : "opacity-100") : "opacity-100")}>
+          {/* Terminal 1 - Windows CMD style, positioned as overlay */}
+          {showTerminal1 && (
+            <div className={"absolute left-1/2 -translate-x-1/2 z-30 pointer-events-none " + (terminal1Position === 'top' ? 'top-4' : 'bottom-4')}>
+              <FakeTerminal isActive={showTerminal1} isFading={false} variant="cmd" />
+            </div>
+          )}
+
+          {/* Terminal 2 - Green hacker style, positioned as overlay - top right */}
+          {showTerminal2 && (
+            <div className="absolute right-4 top-20 z-30 pointer-events-none">
+              <FakeTerminal isActive={showTerminal2} isFading={false} variant="green" />
+            </div>
+          )}
+
+          {/* Headline */}
+          <p className={"font-unbounded text-xl md:text-2xl font-medium mb-4 tracking-wide drop-shadow-md transition-all duration-500 " + (isStormyDay ? "text-cyan-200/90 animate-stormy-gradient-fade-in" : "text-white/90")} style={isStormyDay ? { animationDuration: "3s" } : undefined}>
+            {isStormyDay ? "Компоненты гражданских и промышленных" : "Australia's Industrial Pipe Fittings Specialists"}
           </p>
+
           <div className="relative w-full max-w-2xl mx-auto" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
               {/* Search Bar */}
               <div className="relative">
                 {isSearching ? (
                   <Loader2 className={`absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 animate-spin z-10 transition-colors ${isSearchFocused ? "text-gray-700" : "text-white"}`} />
+                ) : isStormyDay ? (
+                  <Star className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 z-10 text-red-500 fill-red-500" />
                 ) : (
                   <Search className={`absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 z-10 transition-colors ${isSearchFocused ? "text-gray-700" : "text-white"}`} />
                 )}
@@ -237,12 +530,16 @@ export default function HomePage() {
                 {/* Typewriter placeholder - shows when empty and not focused */}
                 {!searchQuery && !isSearchFocused && (
                   <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-normal text-gray-700 pointer-events-none">
-                    <TypewriterPlaceholder
-                      phrases={searchPhrases}
-                      typingSpeed={60}
-                      deletingSpeed={30}
-                      pauseDuration={2500}
-                    />
+                    {isStormyDay ? (
+                      <span className="text-cyan-700">Введите координаты...</span>
+                    ) : (
+                      <TypewriterPlaceholder
+                        phrases={searchPhrases}
+                        typingSpeed={60}
+                        deletingSpeed={30}
+                        pauseDuration={2500}
+                      />
+                    )}
                   </div>
                 )}
               </div>
@@ -281,7 +578,7 @@ export default function HomePage() {
             {/* Couplings */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-                Couplings <ChevronDown className="w-3 h-3" />
+                {isStormyDay ? 'Муфты' : 'Couplings'} <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
@@ -302,7 +599,7 @@ export default function HomePage() {
             {/* Valves */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-                Valves <ChevronDown className="w-3 h-3" />
+                {isStormyDay ? 'Клапаны' : 'Valves'} <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
@@ -335,7 +632,7 @@ export default function HomePage() {
             {/* Expansion Joints */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-                Expansion Joints <ChevronDown className="w-3 h-3" />
+                {isStormyDay ? 'Компенсаторы' : 'Expansion Joints'} <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
@@ -362,7 +659,7 @@ export default function HomePage() {
             {/* Strainers */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-                Strainers <ChevronDown className="w-3 h-3" />
+                {isStormyDay ? 'Фильтры' : 'Strainers'} <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
@@ -381,10 +678,30 @@ export default function HomePage() {
             </DropdownMenu>
           </div>
         </div>
+
+        {/* Stormy day coordinates - positioned at 75% down hero, centered */}
+        {isStormyDay && (
+          <div className={"absolute left-0 right-0 z-30 pointer-events-none flex flex-col items-center transition-opacity duration-[2000ms] " + (isStormyFading ? "opacity-0" : "opacity-100")} style={{ top: "75%" }}>
+            {/* Coordinates with gradual fade in */}
+            <div className="flex items-center justify-center gap-4 font-mono text-sm text-cyan-300/80 animate-coords-fade-in">
+              <span>-36.616619</span>
+              <span className="text-cyan-500">•</span>
+              <span>143.260361</span>
+              <span className="text-cyan-500">•</span>
+              <span>N0W AK</span>
+              <span className="text-cyan-500">•</span>
+              <span>6148 77600 74</span>
+            </div>
+            {/* Vertical red text - R083R7 */}
+            <div className="absolute -right-4 md:right-8 top-0 font-mono text-red-500 text-xs" style={{ writingMode: "vertical-rl" }}>
+              R083R7
+            </div>
+          </div>
+        )}
       </FluidHero>
 
       {/* Brand Logos - Infinite Scroll Carousel (4 copies for seamless loop) */}
-      <section className="pb-0 pt-2 overflow-hidden relative -mt-[60px] z-10 brand-carousel-gradient-blur brand-scroll-3d">
+      <section ref={carouselRef} className="pb-0 pt-2 overflow-hidden relative -mt-[60px] z-10 brand-carousel-gradient-blur brand-scroll-3d">
         <div className="brand-carousel-wrapper">
           <div className="brand-carousel-track-seamless">
             {/* 4 copies for truly seamless infinite scroll */}
@@ -394,16 +711,30 @@ export default function HomePage() {
                 className="brand-carousel-content"
                 aria-hidden={copyIndex > 0}
               >
-                <Link href="/straub-couplings" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
+                {/* Straub logo - draggable when reveal is active */}
+                <div
+                  draggable={isRevealActive}
+                  onDragStart={handleStraubDragStart}
+                  onDragEnd={handleStraubDragEnd}
+                  className={`flex-shrink-0 px-8 brand-logo-link ${isRevealActive ? 'cursor-grab active:cursor-grabbing' : ''} ${isDraggingStraub ? 'opacity-50' : ''}`}
+                  onClick={(e) => {
+                    if (isRevealActive) {
+                      e.preventDefault()
+                    } else {
+                      router.push('/straub-couplings')
+                    }
+                  }}
+                  tabIndex={copyIndex > 0 ? -1 : undefined}
+                >
                   <Image
                     src="/images/brands/straub-logo.png"
                     alt="Straub"
                     width={120}
                     height={40}
-                    className="h-10 w-auto object-contain"
+                    className="h-10 w-auto object-contain pointer-events-none"
                     priority={copyIndex === 0}
                   />
-                </Link>
+                </div>
                 <Link href="/orbit-couplings" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
                   <Image
                     src="/images/brands/orbit-couplings.png"

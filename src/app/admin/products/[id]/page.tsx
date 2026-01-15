@@ -19,7 +19,7 @@ async function getProduct(id: string) {
           with: { category: true },
           orderBy: (pc, { asc }) => [asc(pc.displayOrder)],
         },
-        variations: { orderBy: (v, { asc }) => [asc(v.displayOrder)] },
+        variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
         images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
         downloads: true,
         features: { orderBy: (f, { asc }) => [asc(f.displayOrder)] },

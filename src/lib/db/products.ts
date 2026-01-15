@@ -34,7 +34,7 @@ export async function getProductBySlug(slug: string) {
       subcategory: true,
       variations: {
         where: eq(productVariations.isSuspended, false),
-        orderBy: (variations, { asc }) => [asc(variations.displayOrder)],
+        orderBy: (variations, { asc }) => [asc(variations.sizeRank), asc(variations.displayOrder)],
       },
       images: {
         orderBy: (images, { asc }) => [asc(images.displayOrder)],

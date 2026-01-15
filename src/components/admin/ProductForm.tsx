@@ -58,7 +58,7 @@ interface ProductWithRelations {
   basePrice: string | null;
   isActive: boolean | null;
   productCategories?: Array<{ id: number; categoryId: number; category: Category }>;
-  variations: Array<{ id: number; size: string; label: string; price: string | null; sku: string | null; source?: string | null; displayOrder: number | null }>;
+  variations: Array<{ id: number; size: string; label: string; price: string | null; sku: string | null; source?: string | null; sizeRank?: string | null; displayOrder: number | null }>;
   images: Array<{ id: number; url: string; alt: string; isPrimary: boolean | null; displayOrder: number | null }>;
   downloads: Array<{ id: number; url: string; label: string; fileType: string | null; fileSize: number | null }>;
   features: Array<{ id: number; feature: string; displayOrder: number | null }>;
@@ -127,10 +127,10 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
         price: v.price || '',
         sku: v.sku || '',
         source: v.source || 'neto',
-        displayOrder: v.displayOrder ?? 0,
+        sizeRank: v.sizeRank || String(v.displayOrder ?? 0), // Use sizeRank, fall back to displayOrder
         stock: stockByVariationId.get(v.id) ?? 0, // Get stock from stock data
       }))
-      .sort((a, b) => a.displayOrder - b.displayOrder)
+      .sort((a, b) => parseFloat(a.sizeRank) - parseFloat(b.sizeRank))
   );
   const [images, setImages] = useState(
     product.images.map(i => ({ url: i.url, alt: i.alt, isPrimary: i.isPrimary ?? false }))
@@ -975,12 +975,8 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      // Calculate next rank: max existing rank + 100, or 100 if no variations
-                      const maxRank = variations.length > 0
-                        ? Math.max(...variations.map(v => v.displayOrder))
-                        : 0;
-                      const nextRank = maxRank + 100;
-                      setVariations([...variations, { id: 0, size: '', label: '', price: '', sku: '', source: 'manual', displayOrder: nextRank, stock: 0 }]);
+                      // New variation with empty sizeRank - user will enter the mm value
+                      setVariations([...variations, { id: 0, size: '', label: '', price: '', sku: '', source: 'manual', sizeRank: '', stock: 0 }]);
                     }}
                   >
                     <Plus className="h-4 w-4 mr-1" />
@@ -989,14 +985,14 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                 </div>
                 <div className="text-xs text-gray-500 space-y-1 mb-3">
                   <p>Sizes imported from Neto are marked with a blue badge. You can add custom sizes which will be marked as "manual".</p>
-                  <p><strong>Rank</strong>: Sort order (1-5000). Use gaps like 100, 200, 300 to allow insertions. Lower numbers appear first.</p>
+                  <p><strong>Size (mm)</strong>: Enter the numeric mm value for sorting (e.g., 114.3, 168.3, 177.0). This ensures sizes sort correctly.</p>
                 </div>
                 {/* Column headers */}
                 {variations.length > 0 && (
                   <div className="flex gap-2 items-center text-xs font-medium text-gray-500 mb-2 px-1">
                     <span className="w-4"></span>
-                    <span className="w-16">Rank</span>
-                    <span className="w-28">Size</span>
+                    <span className="w-20">Size (mm)</span>
+                    <span className="w-28">Display</span>
                     <span className="flex-1">Label</span>
                     <span className="w-24">Price</span>
                     <span className="w-16">Stock</span>
@@ -1008,28 +1004,29 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                 <div className="space-y-2">
                   {variations
                     .slice()
-                    .sort((a, b) => a.displayOrder - b.displayOrder)
+                    .sort((a, b) => (parseFloat(a.sizeRank) || 0) - (parseFloat(b.sizeRank) || 0))
                     .map((v, i) => {
                       const originalIndex = variations.indexOf(v);
                       return (
                     <div key={originalIndex} className="flex gap-2 items-center">
                       <GripVertical className="h-4 w-4 text-gray-400" />
                       <Input
-                        placeholder="Rank"
+                        placeholder="mm"
                         type="number"
-                        min="1"
+                        step="0.1"
+                        min="0"
                         max="5000"
-                        value={v.displayOrder}
+                        value={v.sizeRank}
                         onChange={(e) => {
                           const newVars = [...variations];
-                          newVars[originalIndex].displayOrder = parseInt(e.target.value, 10) || 0;
+                          newVars[originalIndex].sizeRank = e.target.value;
                           setVariations(newVars);
                         }}
-                        className="w-16"
-                        title="Sort order (1-5000). Lower numbers appear first."
+                        className="w-20"
+                        title="Numeric mm value for sorting (e.g., 114.3, 168.3)"
                       />
                       <Input
-                        placeholder="Size"
+                        placeholder="Display"
                         value={v.size}
                         onChange={(e) => {
                           const newVars = [...variations];

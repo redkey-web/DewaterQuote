@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Unbounded } from "next/font/google"
 import "./globals.css"
 import AppProviders from "@/components/AppProviders"
 import { OrganizationJsonLd } from "@/components/JsonLd"
 import { GoogleAnalytics } from "@/components/GoogleAnalytics"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
+const unbounded = Unbounded({ subsets: ["latin", "cyrillic"], variable: "--font-unbounded" })
 
 export const metadata: Metadata = {
   title: {
@@ -63,7 +64,7 @@ export default function RootLayout({
       <head>
         <OrganizationJsonLd />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${unbounded.variable} font-sans antialiased`}>
         <GoogleAnalytics />
         <AppProviders>{children}</AppProviders>
       </body>

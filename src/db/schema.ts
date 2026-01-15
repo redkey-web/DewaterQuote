@@ -194,7 +194,8 @@ export const productVariations = pgTable('product_variations', {
   price: decimal('price', { precision: 10, scale: 2 }),
   sku: text('sku'),
   source: text('source').default('neto'), // 'neto' | 'manual' - where this size came from
-  displayOrder: integer('display_order').default(0),
+  sizeRank: decimal('size_rank', { precision: 10, scale: 2 }), // Numeric mm value for sorting (e.g., 114.3, 168.3, 177.0)
+  displayOrder: integer('display_order').default(0), // Legacy fallback - use sizeRank for sorting
   isSuspended: boolean('is_suspended').default(false), // Temporarily hide this size option
 });
 

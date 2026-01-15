@@ -136,19 +136,20 @@ export async function PATCH(
       }
     }
 
-    // Update variations - use displayOrder from form, not array index
+    // Update variations - use sizeRank (mm value) for sorting
     await db.delete(productVariations).where(eq(productVariations.productId, productId));
     if (variations && variations.length > 0) {
       const variationInserts = variations
         .filter((v: { size: string; label: string }) => v.size.trim() && v.label.trim())
-        .map((v: { size: string; label: string; price: string; sku: string; source?: string; displayOrder?: number }, i: number) => ({
+        .map((v: { size: string; label: string; price: string; sku: string; source?: string; sizeRank?: string; displayOrder?: number }, i: number) => ({
           productId,
           size: v.size.trim(),
           label: v.label.trim(),
           price: v.price || null,
           sku: v.sku || null,
           source: v.source || 'manual',
-          displayOrder: v.displayOrder ?? i * 100, // Use provided displayOrder or fallback to i*100 for gap numbering
+          sizeRank: v.sizeRank || null, // Numeric mm value for sorting
+          displayOrder: v.sizeRank ? Math.round(parseFloat(v.sizeRank)) : (v.displayOrder ?? i * 100), // Legacy fallback
         }));
       if (variationInserts.length > 0) {
         await db.insert(productVariations).values(variationInserts);
