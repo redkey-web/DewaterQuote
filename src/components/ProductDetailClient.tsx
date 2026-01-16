@@ -196,6 +196,15 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
     return urls[slug] || slug
   }
 
+  // Helper to get actual page URL for category (when DB slug differs from route)
+  const getCategoryUrl = (slug: string): string => {
+    const urls: Record<string, string> = {
+      'valves': 'industrial-valves',
+      'repair-clamps': 'pipe-repair-clamps',
+    }
+    return urls[slug] || slug
+  }
+
   // SEO-optimized alt text for main image
   const mainImageAlt = `${product.name} - ${getCategoryDisplayName(product.category)} | Australia-wide delivery`
 
@@ -372,9 +381,10 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const productUrl = `${baseUrl}/${product.slug}`
 
   // Build breadcrumb trail: Home > Category > Subcategory (if exists) > Product
+  const categoryUrl = getCategoryUrl(product.category)
   const breadcrumbItems = [
     { name: "Home", url: baseUrl, slug: "" },
-    { name: getCategoryDisplayName(product.category), url: `${baseUrl}/${product.category}`, slug: product.category },
+    { name: getCategoryDisplayName(product.category), url: `${baseUrl}/${categoryUrl}`, slug: categoryUrl },
   ]
   if (product.subcategory) {
     breadcrumbItems.push({
@@ -399,23 +409,27 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
         {/* Breadcrumb Navigation - Middle items hidden on mobile */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
-            {breadcrumbItems.map((item, index) => {
+            {breadcrumbItems.flatMap((item, index) => {
               // Hide middle items (category/subcategory) on mobile, show only Home > Product
               const isMiddle = index > 0 && index < breadcrumbItems.length - 1
-              return (
+              const isLast = index === breadcrumbItems.length - 1
+              const elements = [
                 <BreadcrumbItem key={item.slug || 'home'} className={isMiddle ? 'hidden md:inline-flex' : ''}>
-                  {index < breadcrumbItems.length - 1 ? (
-                    <>
-                      <BreadcrumbLink asChild>
-                        <Link href={item.url.replace(baseUrl, '') || '/'}>{item.name}</Link>
-                      </BreadcrumbLink>
-                      <BreadcrumbSeparator className={isMiddle ? 'hidden md:block' : ''} />
-                    </>
-                  ) : (
+                  {isLast ? (
                     <BreadcrumbPage>{item.name}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink asChild>
+                      <Link href={item.url.replace(baseUrl, '') || '/'}>{item.name}</Link>
+                    </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-              )
+              ]
+              if (!isLast) {
+                elements.push(
+                  <BreadcrumbSeparator key={`sep-${item.slug || 'home'}`} className={isMiddle ? 'hidden md:block' : ''} />
+                )
+              }
+              return elements
             })}
           </BreadcrumbList>
         </Breadcrumb>
@@ -559,54 +573,6 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               <Truck className="w-5 h-5" />
             </div>
 
-            {/* Bulk Pricing Info - AU only */}
-            {isAustralia && (
-              <div className="py-2 px-3 rounded-lg mb-6 carbon-fiber">
-                <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm">
-                  <span className="font-semibold text-white whitespace-nowrap">
-                    <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-gray-300 inline mr-1" />
-                    Bulk Pricing:
-                  </span>
-                  <span className={`whitespace-nowrap ${discountPercentage === 5 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
-                    <span className="text-gray-300">2-4 qty</span>
-                    <span className="font-bold ml-1" style={{ color: '#ccff00', textShadow: '0 0 1px rgba(0,0,0,0.5)' }}>5% off</span>
-                  </span>
-                  <span className={`whitespace-nowrap ${discountPercentage === 10 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
-                    <span className="text-gray-300">5-9 qty</span>
-                    <span className="font-bold ml-1" style={{ color: '#ff6600' }}>10% off</span>
-                  </span>
-                  <span className={`whitespace-nowrap ${discountPercentage === 15 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
-                    <span className="text-gray-300">10+ qty</span>
-                    <span className="font-bold ml-1" style={{ color: '#dc2626' }}>15% off</span>
-                  </span>
-                </div>
-                {/* Cart-aware discount info */}
-                <div className="text-center text-xs mt-1.5 space-y-0.5">
-                  <p className="text-gray-400">
-                    Discounts apply to your total order quantity across all products
-                  </p>
-                  {cartTotalQuantity > 0 && (
-                    <p className="text-cyan-300">
-                      Your quote: {cartTotalQuantity} item{cartTotalQuantity !== 1 ? 's' : ''}
-                      {currentCartTier && (
-                        <span className="font-semibold"> ({currentCartTier.percentage}% discount)</span>
-                      )}
-                      {projectedTotal > cartTotalQuantity && projectedTier && projectedTier.percentage > (currentCartTier?.percentage || 0) && (
-                        <span className="text-green-400 ml-1">
-                          → Adding {quantity} = {projectedTier.percentage}% off!
-                        </span>
-                      )}
-                    </p>
-                  )}
-                  {nextTierInfo && (
-                    <p className="text-amber-300/80">
-                      Add {nextTierInfo.itemsNeeded} more for {nextTierInfo.tierPercentage}% off
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
-
             <Separator className="my-6" />
 
             {/* Short Description - first 1-2 sentences only */}
@@ -658,6 +624,36 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 </div>
               )}
             </div>
+
+            {/* Bulk Pricing Info - AU only */}
+            {isAustralia && (
+              <div className="py-2 px-3 rounded-lg mb-4 carbon-fiber">
+                <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm">
+                  <span className="font-semibold text-white whitespace-nowrap">
+                    <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-gray-300 inline mr-1" />
+                    Bulk Pricing:
+                  </span>
+                  <span className={`whitespace-nowrap ${discountPercentage === 5 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
+                    <span className="text-gray-300">2-4 qty</span>
+                    <span className="font-bold ml-1" style={{ color: '#ccff00', textShadow: '0 0 1px rgba(0,0,0,0.5)' }}>5% off</span>
+                  </span>
+                  <span className={`whitespace-nowrap ${discountPercentage === 10 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
+                    <span className="text-gray-300">5-9 qty</span>
+                    <span className="font-bold ml-1" style={{ color: '#ff6600' }}>10% off</span>
+                  </span>
+                  <span className={`whitespace-nowrap ${discountPercentage === 15 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
+                    <span className="text-gray-300">10+ qty</span>
+                    <span className="font-bold ml-1" style={{ color: '#E91E63' }}>15% off</span>
+                  </span>
+                </div>
+              </div>
+            )}
+            {/* Discount note - below carbon container */}
+            {isAustralia && (
+              <p className="text-center text-xs text-muted-foreground mb-6">
+                Discounts apply to your total order quantity across all products
+              </p>
+            )}
 
             {/* Custom Specs Form for Straub/Teekay OR Size & Quantity Selector */}
             {isCustomSpecsProduct ? (
@@ -940,6 +936,12 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                             {discountPercentage}% OFF
                           </Badge>
                         )}
+                        {/* Next tier hint */}
+                        {isAustralia && nextTierInfo && (
+                          <span className="text-xs text-amber-600">
+                            Add {nextTierInfo.itemsNeeded} more for {nextTierInfo.tierPercentage}% off
+                          </span>
+                        )}
                       </div>
                       {/* Show total when qty > 1 or discount applies - AU only */}
                       {isAustralia && selectedSizeOption.price && (quantity > 1 || hasDiscount) && (
@@ -1012,6 +1014,12 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                       <Plus className="w-4 h-4" />
                     </Button>
                   </div>
+                  {/* Next tier hint for POA products */}
+                  {isAustralia && nextTierInfo && (
+                    <span className="text-xs text-amber-600">
+                      Add {nextTierInfo.itemsNeeded} more for {nextTierInfo.tierPercentage}% off
+                    </span>
+                  )}
                 </div>
               </div>
             )}

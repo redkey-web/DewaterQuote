@@ -1367,7 +1367,7 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                         </span>
                         <span><span className="text-muted-foreground">2-4 qty</span> <span className="font-bold text-yellow-600">5% off</span></span>
                         <span><span className="text-muted-foreground">5-9 qty</span> <span className="font-bold text-orange-600">10% off</span></span>
-                        <span><span className="text-muted-foreground">10+ qty</span> <span className="font-bold text-rose-600">15% off</span></span>
+                        <span><span className="text-muted-foreground">10+ qty</span> <span className="font-bold text-[#E91E63]">15% off</span></span>
                       </div>
                     </div>
 

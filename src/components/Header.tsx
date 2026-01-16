@@ -28,6 +28,7 @@ export default function Header() {
   const [mobileMenuClosing, setMobileMenuClosing] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [closingMenu, setClosingMenu] = useState<string | null>(null)
+  const [closingContent, setClosingContent] = useState<string | null>(null)
   const [flashingLink, setFlashingLink] = useState<string | null>(null)
   const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
@@ -279,24 +280,39 @@ export default function Header() {
   }
 
   // Close desktop dropdown with flash then slide-up animation
+  // After flash, both text and background slide up together
   const closeMenuWithAnimation = (menuName: string, linkUrl?: string) => {
     if (linkUrl) {
       // Flash the link first
       setFlashingLink(linkUrl)
       setTimeout(() => {
         setFlashingLink(null)
-        setClosingMenu(menuName)
+        // Start content sliding up
+        setClosingContent(menuName)
+        // Delay background by 200ms
+        setTimeout(() => {
+          setClosingMenu(menuName)
+        }, 200)
+        // Clean up after both animations complete
         setTimeout(() => {
           setActiveMenu(null)
           setClosingMenu(null)
-        }, 500) // Match slower slide-up animation
-      }, 800) // Flash duration
+          setClosingContent(null)
+        }, 700) // 200ms delay + 500ms animation
+      }, 500) // Flash duration
     } else {
-      setClosingMenu(menuName)
+      // Start content sliding up
+      setClosingContent(menuName)
+      // Delay background by 200ms
+      setTimeout(() => {
+        setClosingMenu(menuName)
+      }, 200)
+      // Clean up after both animations complete
       setTimeout(() => {
         setActiveMenu(null)
         setClosingMenu(null)
-      }, 500)
+        setClosingContent(null)
+      }, 700)
     }
   }
 
@@ -313,7 +329,7 @@ export default function Header() {
           setMobileMenuClosing(false)
           setExpandedMobileCategory(null)
         }, 500) // Match slower slide-up animation
-      }, 800) // Flash duration
+      }, 500) // Flash duration
     } else {
       setMobileMenuClosing(true)
       setTimeout(() => {
@@ -327,14 +343,14 @@ export default function Header() {
   return (
     <>
       {/* Portal dropdown backgrounds outside header stacking context */}
-      {isMounted && (activeMenu || closingMenu) && ['products', 'industries', 'brands'].includes(activeMenu || closingMenu || '') && createPortal(
+      {isMounted && (activeMenu || closingMenu || closingContent) && ['products', 'industries', 'brands'].includes(activeMenu || closingMenu || closingContent || '') && createPortal(
         <div
           className={`fixed top-0 left-0 right-0 dropdown-silver-gradient z-[50] rounded-b-2xl ${
             closingMenu ? 'animate-dropdown-slide-up' : 'animate-dropdown-slide'
           }`}
-          style={{ height: getDropdownHeight(activeMenu || closingMenu || 'products') }}
-          onMouseEnter={() => !closingMenu && setActiveMenu(activeMenu)}
-          onMouseLeave={() => !closingMenu && setActiveMenu(null)}
+          style={{ height: getDropdownHeight(activeMenu || closingMenu || closingContent || 'products') }}
+          onMouseEnter={() => !closingMenu && !closingContent && setActiveMenu(activeMenu)}
+          onMouseLeave={() => !closingMenu && !closingContent && setActiveMenu(null)}
         />,
         document.body
       )}
@@ -448,18 +464,18 @@ export default function Header() {
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "products" ? "rotate-180" : ""}`} />
               </button>
 
-              {activeMenu === "products" && (
+              {(activeMenu === "products" || closingContent === "products") && (
                 <>
                   {/* Invisible bridge from button to dropdown */}
                   <div
                     className="fixed left-0 right-0 h-[30px] z-[99]"
                     style={{ top: '60px' }}
-                    onMouseEnter={() => setActiveMenu("products")}
+                    onMouseEnter={() => !closingContent && setActiveMenu("products")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 z-[70]"
-                    onMouseEnter={() => setActiveMenu("products")}
-                    onMouseLeave={() => setActiveMenu(null)}
+                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "products" ? "animate-dropdown-content-slide-up" : ""}`}
+                    onMouseEnter={() => !closingContent && setActiveMenu("products")}
+                    onMouseLeave={() => !closingContent && setActiveMenu(null)}
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">
@@ -532,18 +548,18 @@ export default function Header() {
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "industries" ? "rotate-180" : ""}`} />
               </button>
 
-              {activeMenu === "industries" && (
+              {(activeMenu === "industries" || closingContent === "industries") && (
                 <>
                   {/* Invisible bridge from button to dropdown */}
                   <div
                     className="fixed left-0 right-0 h-[30px] z-[99]"
                     style={{ top: '60px' }}
-                    onMouseEnter={() => setActiveMenu("industries")}
+                    onMouseEnter={() => !closingContent && setActiveMenu("industries")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 z-[70]"
-                    onMouseEnter={() => setActiveMenu("industries")}
-                    onMouseLeave={() => setActiveMenu(null)}
+                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "industries" ? "animate-dropdown-content-slide-up" : ""}`}
+                    onMouseEnter={() => !closingContent && setActiveMenu("industries")}
+                    onMouseLeave={() => !closingContent && setActiveMenu(null)}
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">
@@ -599,18 +615,18 @@ export default function Header() {
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "brands" ? "rotate-180" : ""}`} />
               </button>
 
-              {activeMenu === "brands" && (
+              {(activeMenu === "brands" || closingContent === "brands") && (
                 <>
                   {/* Invisible bridge from button to dropdown */}
                   <div
                     className="fixed left-0 right-0 h-[30px] z-[99]"
                     style={{ top: '60px' }}
-                    onMouseEnter={() => setActiveMenu("brands")}
+                    onMouseEnter={() => !closingContent && setActiveMenu("brands")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 z-[70]"
-                    onMouseEnter={() => setActiveMenu("brands")}
-                    onMouseLeave={() => setActiveMenu(null)}
+                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "brands" ? "animate-dropdown-content-slide-up" : ""}`}
+                    onMouseEnter={() => !closingContent && setActiveMenu("brands")}
+                    onMouseLeave={() => !closingContent && setActiveMenu(null)}
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">

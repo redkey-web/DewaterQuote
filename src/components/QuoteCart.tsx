@@ -31,11 +31,9 @@ export default function QuoteCart() {
   useEffect(() => {
     if (isCartOpen) {
       setIsVisible(true)
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setIsAnimating(true)
-        })
-      })
+      // Small delay ensures DOM paint before animation - replaces double rAF
+      const timer = setTimeout(() => setIsAnimating(true), 10)
+      return () => clearTimeout(timer)
     } else {
       setIsAnimating(false)
       const timer = setTimeout(() => setIsVisible(false), 200)

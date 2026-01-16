@@ -100,12 +100,12 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Pump Connections",
         description: "Isolate vibration and allow for thermal movement with rubber expansion joints.",
-        products: ["rubber-expansion-joints"],
+        products: ["expansion-joints"],
       },
       {
         category: "Backflow Prevention",
         description: "Check valves prevent reverse flow in pump stations and rising mains.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Pipe Repair",
@@ -222,12 +222,12 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Pump Suction",
         description: "Foot valves maintain prime and prevent backflow in suction lines.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Flow Control",
         description: "Butterfly and gate valves control water distribution across zones.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Filtration",
@@ -317,17 +317,17 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Flow Control",
         description: "Butterfly valves for isolation and flow control in sprinkler mains.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Check Valves",
         description: "Prevent backflow in fire pump discharge and sprinkler feed mains.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Pump Connections",
         description: "Flexible connections for fire pumps with vibration isolation.",
-        products: ["rubber-expansion-joints"],
+        products: ["expansion-joints"],
       },
       {
         category: "Pipe Joining",
@@ -439,17 +439,17 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Dewatering",
         description: "Check valves and foot valves for mine dewatering pump systems.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Slurry Isolation",
         description: "Knife gate valves for positive shut-off of slurry and tailings lines.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Vibration Control",
         description: "Expansion joints absorb pump vibration and pipe movement.",
-        products: ["rubber-expansion-joints"],
+        products: ["expansion-joints"],
       },
       {
         category: "Emergency Repair",
@@ -561,12 +561,12 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Building Services",
         description: "Valves and fittings for mechanical plant rooms and riser connections.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Vibration Isolation",
         description: "Expansion joints isolate pump and equipment vibration from building structure.",
-        products: ["rubber-expansion-joints"],
+        products: ["expansion-joints"],
       },
       {
         category: "Quick Connections",
@@ -683,17 +683,17 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Seawater Systems",
         description: "316SS valves and strainers for cooling water and ballast systems.",
-        products: ["valves", "strainers"],
+        products: ["industrial-valves", "strainers"],
       },
       {
         category: "Bilge Systems",
         description: "Check valves prevent flooding and duckbills for overboard discharge.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Engine Room",
         description: "Expansion joints for engine cooling connections with vibration isolation.",
-        products: ["rubber-expansion-joints"],
+        products: ["expansion-joints"],
       },
       {
         category: "Deck Equipment",
@@ -779,12 +779,12 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Pump Isolation",
         description: "Rubber expansion joints absorb vibration at pump connections.",
-        products: ["rubber-expansion-joints"],
+        products: ["expansion-joints"],
       },
       {
         category: "Flow Control",
         description: "Butterfly valves for isolation at plant connections.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Equipment Protection",
@@ -875,7 +875,7 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Process Control",
         description: "PTFE-seated butterfly valves for clean, leak-free operation.",
-        products: ["valves"],
+        products: ["industrial-valves"],
       },
       {
         category: "Filtration",
@@ -885,7 +885,7 @@ const industryData: Record<string, IndustryData> = {
       {
         category: "Pump Connections",
         description: "Food-grade expansion joints for pump vibration isolation.",
-        products: ["rubber-expansion-joints"],
+        products: ["expansion-joints"],
       },
       {
         category: "Utility Connections",
@@ -982,7 +982,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
   const IconComponent = industry.icon
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={`min-h-screen bg-gradient-to-br ${industry.heroColor}`}>
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}

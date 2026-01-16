@@ -343,3 +343,13 @@ Unique constraint violation. Check existing products and use different value.
 1. Verify DATABASE_URL in `.env.local`
 2. Check Neon dashboard for connection limits
 3. Ensure IP not blocked (Neon allows all by default)
+
+---
+
+## Image Selection Rules
+
+**For hero sections and category pages:**
+- **Always use the transparent background PNG** (the primary/first image shown on product pages)
+- Never use JPG alt images for hero sections - they have backgrounds
+- The transparent PNG is typically stored at paths like `/products/{brand}/{product-slug}-{hash}.png`
+- Check the actual product page to find the correct transparent image URL

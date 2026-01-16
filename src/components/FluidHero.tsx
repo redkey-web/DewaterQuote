@@ -50,12 +50,9 @@ export default function FluidHero({
 }: FluidHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 })
-  const [smoothPos, setSmoothPos] = useState({ x: -1000, y: -1000 })
   const [isHovering, setIsHovering] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [opacity, setOpacity] = useState(0) // For smooth fade in/out
   const [effectEnabled, setEffectEnabled] = useState(!enableHotspot) // Disabled by default if hotspot provided
-  const animationRef = useRef<number>(0)
 
   // Check for mobile/touch device
   useEffect(() => {
@@ -66,37 +63,6 @@ export default function FluidHero({
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
-
-  // Smooth animation loop for position AND opacity (throttled to ~30fps)
-  useEffect(() => {
-    if (isMobile) return
-
-    let lastFrame = 0
-    const animate = (timestamp: number) => {
-      // Throttle to ~30fps (33ms between frames)
-      if (timestamp - lastFrame < 33) {
-        animationRef.current = requestAnimationFrame(animate)
-        return
-      }
-      lastFrame = timestamp
-
-      setSmoothPos(prev => ({
-        x: prev.x + (mousePos.x - prev.x) * 0.12,
-        y: prev.y + (mousePos.y - prev.y) * 0.12,
-      }))
-
-      // Smooth opacity transition - only if effect is enabled
-      setOpacity(prev => {
-        const target = (isHovering && effectEnabled) ? 1 : 0
-        return prev + (target - prev) * 0.08 // Slower fade for smoothness
-      })
-
-      animationRef.current = requestAnimationFrame(animate)
-    }
-
-    animationRef.current = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(animationRef.current)
-  }, [mousePos, isHovering, isMobile, effectEnabled])
 
   // Check if click is within hotspot bounds
   const isClickInHotspot = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -142,21 +108,20 @@ export default function FluidHero({
 
   const handleMouseLeave = useCallback(() => {
     setIsHovering(false)
-    // Don't reset position immediately - let it fade out smoothly
   }, [])
+
+  // Calculate opacity based on hover state (CSS handles the transition)
+  const isVisible = isHovering && effectEnabled
 
   // Generate mask/effect style based on effect type (memoized for performance)
   const effectStyle = useMemo(() => {
-    if (opacity < 0.01) return { opacity: 0 }
-
-    const x = smoothPos.x
-    const y = smoothPos.y
+    const x = mousePos.x
+    const y = mousePos.y
 
     switch (effect) {
       case "radial":
         // Circular spotlight/torch effect
         return {
-          opacity,
           maskImage: `radial-gradient(circle ${radius}px at ${x}px ${y}px, black 0%, black 30%, transparent 100%)`,
           WebkitMaskImage: `radial-gradient(circle ${radius}px at ${x}px ${y}px, black 0%, black 30%, transparent 100%)`,
         }
@@ -167,7 +132,6 @@ export default function FluidHero({
           ? Math.max(0, Math.min(100, (x / containerRef.current.offsetWidth) * 100))
           : 0
         return {
-          opacity,
           maskImage: `linear-gradient(to right, black 0%, black ${hPercent - 10}%, transparent ${hPercent + 10}%, transparent 100%)`,
           WebkitMaskImage: `linear-gradient(to right, black 0%, black ${hPercent - 10}%, transparent ${hPercent + 10}%, transparent 100%)`,
         }
@@ -178,7 +142,6 @@ export default function FluidHero({
           ? Math.max(0, Math.min(100, (y / containerRef.current.offsetHeight) * 100))
           : 0
         return {
-          opacity,
           maskImage: `linear-gradient(to bottom, black 0%, black ${vPercent - 10}%, transparent ${vPercent + 10}%, transparent 100%)`,
           WebkitMaskImage: `linear-gradient(to bottom, black 0%, black ${vPercent - 10}%, transparent ${vPercent + 10}%, transparent 100%)`,
         }
@@ -187,7 +150,6 @@ export default function FluidHero({
         // Diamond/rhombus shape reveal
         const size = radius * 1.5
         return {
-          opacity,
           maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")`,
           WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0%25' stop-color='black'/%3E%3Cstop offset='50%25' stop-color='black'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect x='15' y='15' width='70' height='70' fill='url(%23g)' transform='rotate(45 50 50)'/%3E%3C/svg%3E")`,
           maskSize: `${size}px ${size}px`,
@@ -201,23 +163,21 @@ export default function FluidHero({
       case "blur":
         // No mask - uses clip-path with blur transition
         return {
-          opacity,
           clipPath: `circle(${radius}px at ${x}px ${y}px)`,
         }
 
       case "smoke":
         // Smoky/cloudy noise-based reveal - uses SVG filter
         return {
-          opacity,
           maskImage: `radial-gradient(ellipse ${radius * 1.2}px ${radius}px at ${x}px ${y}px, black 0%, black 20%, transparent 70%)`,
           WebkitMaskImage: `radial-gradient(ellipse ${radius * 1.2}px ${radius}px at ${x}px ${y}px, black 0%, black 20%, transparent 70%)`,
           filter: `brightness(${underlayBrightness}) url(#smoke-filter)`,
         }
 
       default:
-        return { opacity }
+        return {}
     }
-  }, [opacity, smoothPos.x, smoothPos.y, effect, radius, underlayBrightness])
+  }, [mousePos.x, mousePos.y, effect, radius, underlayBrightness])
 
   // Generate unique filter ID
   const filterId = "smoke-filter"
@@ -360,13 +320,14 @@ export default function FluidHero({
         </div>
       )}
 
-      {/* Reveal layer: Industrial illustration with effect */}
+      {/* Reveal layer: Industrial illustration with effect - CSS transitions handle smoothing */}
       <div
-        className="absolute inset-0 bg-cover"
+        className="absolute inset-0 bg-cover transition-opacity duration-300 ease-out"
         style={{
           backgroundImage: `url(${illustrationSrc})`,
           backgroundPosition: 'center 45%',
           filter: `brightness(${underlayBrightness})`,
+          opacity: isVisible ? 1 : 0,
           ...effectStyle,
         }}
       />
