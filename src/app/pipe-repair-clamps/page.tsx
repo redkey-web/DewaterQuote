@@ -60,6 +60,7 @@ export default async function PipeRepairClampsPage() {
   return (
     <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
+      <BulkPricingTicker variant="teal" />
 
       {/* Hero Section - extends under header */}
       <div className="relative overflow-hidden border-b -mt-[88px] pt-[88px]">
@@ -122,8 +123,6 @@ export default async function PipeRepairClampsPage() {
           </div>
         </div>
       </div>
-
-      <BulkPricingTicker variant="teal" />
 
       {/* Benefits Section */}
       <div className="bg-stone-300 dark:bg-stone-800 py-8">

@@ -49,7 +49,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         >
           {/* Discount badge */}
           {hasPrice && (
-            <div className="absolute top-3 right-3 z-10 bg-primary/90 text-white text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
+            <div className="absolute top-[42px] right-3 z-10 bg-primary/90 text-white text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
               <TrendingDown className="w-3 h-3" />
               Discounts
             </div>

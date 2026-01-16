@@ -251,6 +251,7 @@ export default async function PipeCouplingsPage() {
   return (
     <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
+      <BulkPricingTicker variant="teal" />
 
       {/* Hero Section - extends under header */}
       <div className="relative overflow-hidden border-b -mt-[88px] pt-[88px]">
@@ -308,8 +309,6 @@ export default async function PipeCouplingsPage() {
           </div>
         </div>
       </div>
-
-      <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Shop by Brand */}

@@ -428,7 +428,7 @@ export default function HomePage() {
                   interval={10000}
                   isShadowLayer={false}
                   brokenLetters={[
-                    { word: 'MAINTENANCE', letterIndex: 0 },
+                    { word: 'MAINTENANCE', letterIndex: 2 },
                     { word: 'FITTINGS', letterIndex: -1 },
                     { word: 'SPECIALISTS', letterIndex: -1 }
                   ]}
