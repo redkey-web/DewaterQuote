@@ -966,6 +966,18 @@ export default function Header() {
           </div>
         </div>
       )}
+
+      {/* Floating "Switch to Mobile" button - only visible when forceDesktop is active */}
+      {forceDesktop && isMounted && (
+        <button
+          onClick={toggleDesktopMode}
+          className="fixed bottom-4 left-4 z-50 flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90 transition-all"
+          aria-label="Switch to mobile site"
+        >
+          <Smartphone className="w-4 h-4" />
+          <span className="text-sm font-medium">Mobile View</span>
+        </button>
+      )}
     </header>
     </>
   )

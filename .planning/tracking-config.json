@@ -3,7 +3,7 @@
   "project": "dewater-products",
   "project_type": "webdev",
   "level": "project",
-  "active_plan": ".planning/features/homepage-polish.md",
+  "active_plan": ".planning/features/launch-checklist.md",
   "tracking_files": [
     ".planning/current/migration-plan.md",
     ".planning/features/homepage-polish.md",
