@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* iOS Safe Area - extend background to screen edges in landscape */
+html {
+  background: #EDEDED; /* Match most common page bg for landscape safe areas */
+}
+
+body {
+  background: hsl(var(--background));
+  min-height: 100dvh;
+  min-height: 100svh; /* Small viewport for mobile */
+}
+
+/* Landscape mobile - ensure full bleed */
+@media (orientation: landscape) and (max-height: 500px) {
+  html {
+    background: #1e293b; /* Dark slate to match hero sections */
+  }
+}
+
 /* LIGHT MODE */
 :root {
   --button-outline: rgba(0,0,0, .10);
