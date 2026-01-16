@@ -25,7 +25,9 @@ export default function Header() {
   const pathname = usePathname()
   const { itemCount: cartItemCount, openCart } = useQuote()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuClosing, setMobileMenuClosing] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
+  const [closingMenu, setClosingMenu] = useState<string | null>(null)
   const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
@@ -275,15 +277,36 @@ export default function Header() {
     }
   }
 
+  // Close desktop dropdown with slide-up animation
+  const closeMenuWithAnimation = (menuName: string) => {
+    setClosingMenu(menuName)
+    setTimeout(() => {
+      setActiveMenu(null)
+      setClosingMenu(null)
+    }, 200) // Match animation duration
+  }
+
+  // Close mobile menu with slide-up animation
+  const closeMobileMenuWithAnimation = () => {
+    setMobileMenuClosing(true)
+    setTimeout(() => {
+      setMobileMenuOpen(false)
+      setMobileMenuClosing(false)
+      setExpandedMobileCategory(null)
+    }, 250) // Match animation duration
+  }
+
   return (
     <>
       {/* Portal dropdown backgrounds outside header stacking context */}
-      {isMounted && activeMenu && ['products', 'industries', 'brands'].includes(activeMenu) && createPortal(
+      {isMounted && (activeMenu || closingMenu) && ['products', 'industries', 'brands'].includes(activeMenu || closingMenu || '') && createPortal(
         <div
-          className="fixed top-0 left-0 right-0 dropdown-silver-gradient z-[50] animate-dropdown-slide rounded-b-2xl"
-          style={{ height: getDropdownHeight(activeMenu) }}
-          onMouseEnter={() => setActiveMenu(activeMenu)}
-          onMouseLeave={() => setActiveMenu(null)}
+          className={`fixed top-0 left-0 right-0 dropdown-silver-gradient z-[50] rounded-b-2xl ${
+            closingMenu ? 'animate-dropdown-slide-up' : 'animate-dropdown-slide'
+          }`}
+          style={{ height: getDropdownHeight(activeMenu || closingMenu || 'products') }}
+          onMouseEnter={() => !closingMenu && setActiveMenu(activeMenu)}
+          onMouseLeave={() => !closingMenu && setActiveMenu(null)}
         />,
         document.body
       )}
@@ -330,6 +353,11 @@ export default function Header() {
                   onFocus={() => searchResults.length > 0 && setShowResults(true)}
                 />
               </form>
+
+              {/* ABN - tiny text below search */}
+              <span className="absolute top-full left-1/2 -translate-x-1/2 text-[10px] text-gray-500 whitespace-nowrap pointer-events-none mt-0.5">
+                ABN: 98 622 681 663
+              </span>
 
               {showResults && searchResults.length > 0 && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
@@ -418,7 +446,7 @@ export default function Header() {
                           <Link
                             href="/products"
                             className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
-                            onClick={() => setActiveMenu(null)}
+                            onClick={() => closeMenuWithAnimation("products")}
                           >
                             View all products
                             <ChevronRight className="w-4 h-4" />
@@ -433,7 +461,7 @@ export default function Header() {
                                 <Link
                                   href={category.url}
                                   className="text-gray-900 dark:text-white font-semibold hover:text-primary hover-underline-scale inline-block transition-all"
-                                  onClick={() => setActiveMenu(null)}
+                                  onClick={() => closeMenuWithAnimation("products")}
                                 >
                                   {category.title}
                                 </Link>
@@ -443,7 +471,7 @@ export default function Header() {
                                       <Link
                                         href={item.url}
                                         className="text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale inline-block transition-all"
-                                        onClick={() => setActiveMenu(null)}
+                                        onClick={() => closeMenuWithAnimation("products")}
                                       >
                                         {item.name}
                                       </Link>
@@ -501,7 +529,7 @@ export default function Header() {
                           <Link
                             href="/industries"
                             className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
-                            onClick={() => setActiveMenu(null)}
+                            onClick={() => closeMenuWithAnimation("industries")}
                           >
                             View all industries
                             <ChevronRight className="w-4 h-4" />
@@ -514,7 +542,7 @@ export default function Header() {
                                 key={industry.name}
                                 href={industry.url}
                                 className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-all py-1"
-                                onClick={() => setActiveMenu(null)}
+                                onClick={() => closeMenuWithAnimation("industries")}
                               >
                                 {industry.name}
                               </Link>
@@ -568,7 +596,7 @@ export default function Header() {
                           <Link
                             href="/brands"
                             className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
-                            onClick={() => setActiveMenu(null)}
+                            onClick={() => closeMenuWithAnimation("brands")}
                           >
                             View all brands
                             <ChevronRight className="w-4 h-4" />
@@ -581,7 +609,7 @@ export default function Header() {
                                 key={brand.name}
                                 href={brand.url}
                                 className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-all py-1"
-                                onClick={() => setActiveMenu(null)}
+                                onClick={() => closeMenuWithAnimation("brands")}
                               >
                                 {brand.name}
                               </Link>
@@ -628,7 +656,7 @@ export default function Header() {
                           key={item.name}
                           href={item.url}
                           className="block px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-colors"
-                          onClick={() => setActiveMenu(null)}
+                          onClick={() => closeMenuWithAnimation("resources")}
                         >
                           {item.name}
                         </Link>
@@ -690,8 +718,8 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu - Full Screen Overlay */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed left-0 right-0 top-16 h-[calc(100vh-64px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto border-t border-gray-100 dark:border-gray-800">
+      {(mobileMenuOpen || mobileMenuClosing) && (
+        <div className={`lg:hidden fixed left-0 right-0 top-16 h-[calc(100vh-64px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto border-t border-gray-100 dark:border-gray-800 ${mobileMenuClosing ? 'animate-mobile-menu-slide-up' : ''}`}>
             <div className="px-6 py-4">
               <div className="mb-4" ref={mobileSearchRef}>
                 <form onSubmit={handleSearchSubmit} className="relative">
@@ -718,7 +746,7 @@ export default function Header() {
                         key={result.id}
                         onClick={() => {
                           handleResultClick(result.slug)
-                          setMobileMenuOpen(false)
+                          closeMobileMenuWithAnimation()
                         }}
                         className="w-full text-left px-3 py-2 hover:bg-primary hover:text-white border-b border-border last:border-b-0 transition-colors"
                       >
@@ -732,7 +760,7 @@ export default function Header() {
               <nav className="space-y-1">
               {/* Products */}
               <div className="py-2">
-                <Link href="/products" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/products" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => closeMobileMenuWithAnimation()}>
                   Products
                 </Link>
                 <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
@@ -756,7 +784,7 @@ export default function Header() {
                           <Link
                             href={category.url}
                             className="block text-xs text-primary hover:text-primary/80 px-3 py-1.5 rounded-md"
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => closeMobileMenuWithAnimation()}
                           >
                             View All {category.title}
                           </Link>
@@ -765,7 +793,7 @@ export default function Header() {
                               key={item.name}
                               href={item.url}
                               className="block text-xs text-muted-foreground hover:bg-primary hover:text-white px-3 py-1.5 rounded-md transition-colors"
-                              onClick={() => setMobileMenuOpen(false)}
+                              onClick={() => closeMobileMenuWithAnimation()}
                             >
                               {item.name}
                             </Link>
@@ -779,7 +807,7 @@ export default function Header() {
 
               {/* Brands */}
               <div className="py-2 border-t border-border">
-                <Link href="/brands" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/brands" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => closeMobileMenuWithAnimation()}>
                   Brands
                 </Link>
                 <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
@@ -788,7 +816,7 @@ export default function Header() {
                       key={brand.name}
                       href={brand.url}
                       className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => closeMobileMenuWithAnimation()}
                     >
                       {brand.name}
                     </Link>
@@ -798,12 +826,12 @@ export default function Header() {
 
               {/* Industries */}
               <div className="py-2 border-t border-border">
-                <Link href="/industries" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/industries" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => closeMobileMenuWithAnimation()}>
                   Industries
                 </Link>
                 <div className="pl-3 space-y-1 border-l-2 border-primary/30 ml-3">
                   {industriesMenu.map((industry) => (
-                    <Link key={industry.name} href={industry.url} className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                    <Link key={industry.name} href={industry.url} className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors" onClick={() => closeMobileMenuWithAnimation()}>
                       {industry.name}
                     </Link>
                   ))}
@@ -812,7 +840,7 @@ export default function Header() {
 
               {/* Contact */}
               <div className="py-2 border-t border-border">
-                <Link href="/contact" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/contact" className="block text-foreground px-3 py-2 rounded-md font-semibold" onClick={() => closeMobileMenuWithAnimation()}>
                   Contact
                 </Link>
               </div>
@@ -826,7 +854,7 @@ export default function Header() {
                       key={item.name}
                       href={item.url}
                       className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => closeMobileMenuWithAnimation()}
                     >
                       {item.name}
                     </Link>
@@ -843,7 +871,7 @@ export default function Header() {
                       key={item.name}
                       href={item.url}
                       className="block text-muted-foreground hover:bg-primary hover:text-white px-3 py-2 rounded-md text-sm transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={() => closeMobileMenuWithAnimation()}
                     >
                       {item.name}
                     </Link>

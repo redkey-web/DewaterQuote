@@ -80,7 +80,7 @@ export default async function DewaterProductsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
         {/* Products Section */}
         <div id="products" className="mb-16">
           <div className="flex items-center justify-between mb-6">

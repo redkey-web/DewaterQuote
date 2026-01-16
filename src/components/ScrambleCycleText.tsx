@@ -142,7 +142,7 @@ export default function ScrambleCycleText({
     return displayText.split('').map((char, idx) => {
       if (brokenIndices.has(idx)) {
         return (
-          <span key={idx} className="opacity-0" aria-hidden="true">
+          <span key={idx} className="opacity-45" aria-hidden="true">
             {char}
           </span>
         )

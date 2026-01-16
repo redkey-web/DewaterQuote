@@ -476,6 +476,15 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Orbiting curved text - zoomed out duplicate */}
+        <div className={`absolute bottom-[calc(5%-30px)] right-[calc(5%-227px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}>
+          <div style={{ perspective: '800px', transform: 'scale(0.9)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={67} arcAngle={200} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-pink-300/40 text-[8px] font-bold tracking-[0.08em] font-mono" />
+            </div>
+          </div>
+        </div>
+
         <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[106px] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-[2000ms]" : "opacity-100") : "opacity-100")}>
           {/* Terminal 1 - Windows CMD style, positioned as overlay */}
           {showTerminal1 && (

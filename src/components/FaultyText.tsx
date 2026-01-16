@@ -63,9 +63,9 @@ export default function FaultyText({
       const isBroken = brokenIndices.has(idx)
 
       if (isBroken && !isShadow) {
-        // In the colored layer, render broken letters as invisible
+        // In the colored layer, render broken letters as dimmed (not invisible)
         return (
-          <span key={idx} className="opacity-0" aria-hidden="true">
+          <span key={idx} className="opacity-45" aria-hidden="true">
             {char}
           </span>
         )

@@ -310,7 +310,7 @@ export default async function PipeCouplingsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
         {/* Shop by Brand */}
         <div className="mb-10">
           <h2 className="text-xl font-semibold mb-4">Shop by Brand</h2>

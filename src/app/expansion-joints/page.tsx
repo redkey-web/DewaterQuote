@@ -129,7 +129,7 @@ export default async function ExpansionJointsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
         {/* Joint Types - Compact Chips */}
         <div className="mb-10">
           <h2 className="text-2xl font-bold mb-4">Expansion Joint Types</h2>

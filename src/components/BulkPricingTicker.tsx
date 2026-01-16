@@ -54,27 +54,50 @@ export default function BulkPricingTicker({ variant = "default", isStormyDay = f
   const Content = isStormyDay ? StormyTickerContent : TickerContent
 
   return (
-    <div className="sticky top-[88px] z-40 py-2 overflow-hidden relative">
-      {/* Gradient blur background - bottom heavy */}
+    <div className="ticker-fixed py-2 overflow-hidden">
+      {/* Wave Layer 1: Large slow undulating wave - base layer */}
       <div
-        className="absolute inset-0 pointer-events-none animate-ticker-gradient-float"
+        className="absolute inset-0 pointer-events-none animate-ticker-wave-1"
         style={{
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.15) 100%)',
-          backdropFilter: 'blur(6px)',
-          WebkitBackdropFilter: 'blur(6px)',
-          maskImage: 'linear-gradient(to bottom, transparent 0%, black 30%, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 30%, black 100%)',
+          background: 'radial-gradient(ellipse 120% 200% at 30% 150%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 40%, transparent 70%)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
         }}
       />
-      {/* Opposite gradient - top heavy, animated, aqua tint */}
+
+      {/* Wave Layer 2: Medium ripples - mid layer with curves */}
       <div
-        className="absolute inset-0 pointer-events-none animate-ticker-gradient-float"
+        className="absolute inset-0 pointer-events-none animate-ticker-wave-2"
         style={{
-          background: 'linear-gradient(to top, rgba(0,200,200,0.02) 0%, rgba(0,220,220,0.06) 50%, rgba(0,240,240,0.12) 100%)',
-          backdropFilter: 'blur(6px)',
-          WebkitBackdropFilter: 'blur(6px)',
-          maskImage: 'linear-gradient(to top, transparent 0%, black 30%, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 30%, black 100%)',
+          background: 'radial-gradient(ellipse 80% 150% at 70% -50%, rgba(0,200,200,0.08) 0%, transparent 50%), radial-gradient(ellipse 60% 120% at 20% 130%, rgba(0,220,220,0.06) 0%, transparent 45%)',
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)',
+        }}
+      />
+
+      {/* Wave Layer 3: Fast shimmer - surface sparkle with horizontal curves */}
+      <div
+        className="absolute inset-0 pointer-events-none animate-ticker-wave-3"
+        style={{
+          background: 'radial-gradient(ellipse 40% 100% at 10% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(ellipse 35% 80% at 50% 50%, rgba(0,240,240,0.06) 0%, transparent 45%), radial-gradient(ellipse 45% 90% at 90% 50%, rgba(255,255,255,0.07) 0%, transparent 50%)',
+        }}
+      />
+
+      {/* Wave Layer 4: Horizontal drift - slow current */}
+      <div
+        className="absolute inset-0 pointer-events-none animate-ticker-wave-4"
+        style={{
+          background: 'linear-gradient(90deg, transparent 0%, rgba(0,200,200,0.04) 25%, rgba(255,255,255,0.06) 50%, rgba(0,220,220,0.04) 75%, transparent 100%)',
+        }}
+      />
+
+      {/* Wave Layer 5: Vertical breathing pulse */}
+      <div
+        className="absolute inset-0 pointer-events-none animate-ticker-wave-5"
+        style={{
+          background: 'radial-gradient(ellipse 200% 100% at 50% 100%, rgba(255,255,255,0.1) 0%, rgba(0,200,200,0.05) 30%, transparent 60%)',
+          backdropFilter: 'blur(3px)',
+          WebkitBackdropFilter: 'blur(3px)',
         }}
       />
       <div className="ticker-wrapper-seamless relative">

@@ -112,7 +112,7 @@ export default async function IndustrialValvesPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
         {/* Valve Types - Critical Info */}
         <div className="mb-10">
           <h2 className="text-2xl font-bold mb-6">Valve Types</h2>
