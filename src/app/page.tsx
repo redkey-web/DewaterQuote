@@ -38,6 +38,7 @@ import FluidHero from "@/components/FluidHero"
 import TypewriterPlaceholder from "@/components/TypewriterPlaceholder"
 import FakeTerminal from "@/components/FakeTerminal"
 import CurvedText from "@/components/CurvedText"
+import ScrambleCycleText from "@/components/ScrambleCycleText"
 
 interface SearchResult {
   id: number
@@ -400,7 +401,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Pipeline Repairs & Maintenance - with one bright letter */}
+        {/* Pipeline Repairs & Maintenance - scramble cycle effect */}
         <div className="absolute left-[-344px] bottom-[-191px] z-20 pointer-events-none hidden md:block">
           <div className="relative">
             <span
@@ -408,21 +409,22 @@ export default function HomePage() {
               style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3)', transform: 'translate(1px, 1px)' }}
               aria-hidden="true"
             >
-              {isStormyDay ? 'Ремонт и обслуживание трубопроводов' : 'Pipeline Repairs & Maintenance'}
+              {isStormyDay ? 'Ремонт и обслуживание трубопроводов' : (
+                <ScrambleCycleText
+                  phrases={['PIPELINE REPAIRS & MAINTENANCE', 'INDUSTRIAL PIPE FITTINGS SPECIALISTS']}
+                  interval={10000}
+                />
+              )}
             </span>
             <span
-              className="relative font-mono text-[13px] font-bold tracking-[0.3em] uppercase whitespace-nowrap"
+              className="relative font-mono text-[13px] font-bold tracking-[0.3em] uppercase whitespace-nowrap text-cyan-300/70"
               style={{ textShadow: '0 0 20px rgba(103, 232, 249, 0.5)' }}
             >
               {isStormyDay ? 'Ремонт и обслуживание трубопроводов' : (
-                <>
-                  <span className="text-cyan-300/70">Pip</span>
-                  <span className="text-cyan-300/70">eline Re</span>
-                  <span className="text-cyan-400">p</span>
-                  <span className="text-cyan-300/70">airs & M</span>
-                  <span className="text-cyan-300/10">a</span>
-                  <span className="text-cyan-300/70">intenance</span>
-                </>
+                <ScrambleCycleText
+                  phrases={['PIPELINE REPAIRS & MAINTENANCE', 'INDUSTRIAL PIPE FITTINGS SPECIALISTS']}
+                  interval={10000}
+                />
               )}
             </span>
           </div>
@@ -568,7 +570,7 @@ export default function HomePage() {
                   <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/pipe-repair" className="w-full cursor-pointer">Pipe Repair Clamps</Link>
+                  <Link href="/pipe-repair-clamps" className="w-full cursor-pointer">Pipe Repair Clamps</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>

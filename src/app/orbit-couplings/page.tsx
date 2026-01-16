@@ -297,7 +297,7 @@ export default async function OrbitCouplingsPage() {
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
-            <Link href="/pipe-repair">
+            <Link href="/pipe-repair-clamps">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
                 <span className="font-medium">Pipe Repair Solutions</span>
                 <ArrowRight className="w-4 h-4" />

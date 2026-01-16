@@ -245,31 +245,32 @@ export function getQuoteItemSavings(
 }
 
 /**
- * Material Test Certificate fee (applies once per unique SKU)
+ * Material Test Certificate fee (applies once per unique product)
  */
 export const MATERIAL_CERT_FEE = 350
 
 /**
  * Calculates the total material test certificate fee for quote items.
- * Fee applies once per unique SKU that has materialTestCert = true.
+ * Fee applies once per unique PRODUCT (not per size/SKU) that has materialTestCert = true.
+ * This means all size variations of the same product share one certificate.
  */
 export function calculateMaterialCertFee(items: QuoteItem[]): number {
-  const skusWithCert = new Set(
+  const productsWithCert = new Set(
     items
       .filter((item) => item.materialTestCert)
-      .map((item) => getQuoteItemSKU(item))
+      .map((item) => item.productId)
   )
-  return skusWithCert.size * MATERIAL_CERT_FEE
+  return productsWithCert.size * MATERIAL_CERT_FEE
 }
 
 /**
- * Gets the count of unique SKUs with material test certificates
+ * Gets the count of unique products with material test certificates
  */
 export function getMaterialCertCount(items: QuoteItem[]): number {
-  const skusWithCert = new Set(
+  const productsWithCert = new Set(
     items
       .filter((item) => item.materialTestCert)
-      .map((item) => getQuoteItemSKU(item))
+      .map((item) => item.productId)
   )
-  return skusWithCert.size
+  return productsWithCert.size
 }

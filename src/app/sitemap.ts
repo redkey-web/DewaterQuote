@@ -66,7 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/industrial-valves`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE_URL}/expansion-joints`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE_URL}/strainers`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-    { url: `${BASE_URL}/pipe-repair`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/pipe-repair-clamps`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/bore-flex`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/duckbill-check-valves`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
     { url: `${BASE_URL}/muff-couplings`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },

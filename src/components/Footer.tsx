@@ -50,7 +50,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Products</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/pipe-couplings" className="text-white font-medium hover:text-white/80" data-testid="link-footer-couplings">Pipe Couplings</Link></li>
-              <li><Link href="/pipe-repair" className="text-white font-medium hover:text-white/80" data-testid="link-footer-repair">Pipe Repair Clamps</Link></li>
+              <li><Link href="/pipe-repair-clamps" className="text-white font-medium hover:text-white/80" data-testid="link-footer-repair">Pipe Repair Clamps</Link></li>
               <li><Link href="/flange-adaptors" className="text-white font-medium hover:text-white/80" data-testid="link-footer-flanges">Flange Adaptors</Link></li>
               <li><Link href="/industrial-valves" className="text-white font-medium hover:text-white/80" data-testid="link-footer-valves">Valves</Link></li>
               <li><Link href="/expansion-joints" className="text-white font-medium hover:text-white/80" data-testid="link-footer-expansion">Expansion Joints</Link></li>

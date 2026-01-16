@@ -117,7 +117,7 @@ export default async function StraubCouplingsRepairClampsPage() {
       <OrganizationJsonLd />
 
       {/* Hero Section - extends behind header */}
-      <div className="relative overflow-hidden border-b bg-gradient-to-b from-stone-100 via-stone-50 to-stone-100 dark:from-stone-800 dark:via-stone-700 dark:to-stone-800 -mt-[44px] pt-[44px]">
+      <div className="relative overflow-hidden border-b bg-white dark:bg-stone-800 -mt-[44px] pt-[44px]">
         <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
@@ -260,7 +260,7 @@ export default async function StraubCouplingsRepairClampsPage() {
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
-            <Link href="/pipe-repair">
+            <Link href="/pipe-repair-clamps">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
                 <span className="font-medium">Pipe Repair Solutions</span>
                 <ArrowRight className="w-4 h-4" />
