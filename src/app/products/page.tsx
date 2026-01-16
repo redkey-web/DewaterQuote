@@ -12,6 +12,8 @@ import {
   Hammer,
   Filter,
   Repeat,
+  Search,
+  X,
 } from "lucide-react"
 import type { Metadata } from "next"
 import type { Product } from "@/types"
@@ -65,11 +67,141 @@ function formatPriceRange(product: Product) {
   return "Price on Application"
 }
 
-export default async function ProductRangePage() {
-  const products = await getAllProducts()
+// Product card component to avoid duplication
+function ProductCard({ product }: { product: Product }) {
+  return (
+    <Card className="hover-elevate" data-testid={`card-product-${product.id}`}>
+      <CardHeader className="p-0">
+        <Link href={`/${product.slug}`} data-testid={`link-product-image-${product.id}`}>
+          <div className="aspect-square bg-muted rounded-t-md overflow-hidden flex items-center justify-center cursor-pointer">
+            {product.images && product.images[0]?.url ? (
+              <Image
+                src={product.images[0].url}
+                alt={product.name}
+                width={400}
+                height={400}
+                className="w-full h-full object-contain p-4"
+              />
+            ) : (
+              <Package className="w-24 h-24 text-muted-foreground" />
+            )}
+          </div>
+        </Link>
+      </CardHeader>
+      <CardContent className="p-4">
+        <Badge variant="secondary" className="mb-2 text-xs">
+          {product.brand}
+        </Badge>
+        <Link href={`/${product.slug}`} data-testid={`link-product-title-${product.id}`}>
+          <h3 className="font-semibold text-lg mb-2 hover:text-primary transition-colors cursor-pointer line-clamp-2">
+            {product.name}
+          </h3>
+        </Link>
+        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{product.description}</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs text-muted-foreground">From</p>
+            <p className="font-semibold text-lg text-primary">{formatPriceRange(product)}</p>
+            <p className="text-xs text-muted-foreground">excl. GST</p>
+          </div>
+          {product.sizeFrom && (
+            <div className="text-right">
+              <p className="text-xs text-muted-foreground">Size from</p>
+              <p className="font-medium text-sm">{product.sizeFrom}</p>
+            </div>
+          )}
+        </div>
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
+        <Link href={`/${product.slug}`} className="w-full" data-testid={`link-product-details-${product.id}`}>
+          <Button variant="default" className="w-full" data-testid={`button-view-${product.id}`}>
+            View Details <ArrowRight className="ml-2 w-4 h-4" />
+          </Button>
+        </Link>
+      </CardFooter>
+    </Card>
+  )
+}
 
-  // Group products by category
-  const productsByCategory = products.reduce(
+export default async function ProductRangePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string }>
+}) {
+  const { search } = await searchParams
+  const allProducts = await getAllProducts()
+
+  // Filter products if search query present
+  const searchQuery = search?.trim().toLowerCase()
+  const filteredProducts = searchQuery
+    ? allProducts.filter(
+        (p) =>
+          p.name.toLowerCase().includes(searchQuery) ||
+          p.shortName?.toLowerCase().includes(searchQuery) ||
+          p.description?.toLowerCase().includes(searchQuery) ||
+          p.sku?.toLowerCase().includes(searchQuery) ||
+          p.brand?.toLowerCase().includes(searchQuery)
+      )
+    : allProducts
+
+  // If searching, show search results view
+  if (searchQuery) {
+    return (
+      <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
+        {/* Search Results Header */}
+        <section className="bg-gradient-to-b from-muted/50 to-background py-12 border-b">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex items-center gap-3 mb-4">
+              <Search className="w-8 h-8 text-primary" />
+              <h1 className="text-4xl md:text-5xl font-bold" data-testid="heading-search-results">
+                Search Results
+              </h1>
+            </div>
+            <p className="text-xl text-muted-foreground mb-4">
+              {filteredProducts.length} {filteredProducts.length === 1 ? "product" : "products"} found
+              for &ldquo;<span className="text-foreground font-medium">{search}</span>&rdquo;
+            </p>
+            <Link href="/products">
+              <Button variant="outline" size="sm">
+                <X className="w-4 h-4 mr-2" />
+                Clear Search
+              </Button>
+            </Link>
+          </div>
+        </section>
+
+        {/* Search Results Grid */}
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          {filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+              <h2 className="text-2xl font-semibold mb-2">No Products Found</h2>
+              <p className="text-muted-foreground mb-6">
+                We couldn&apos;t find any products matching &ldquo;{search}&rdquo;.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <Link href="/products">
+                  <Button>View All Products</Button>
+                </Link>
+                <Link href="/contact">
+                  <Button variant="outline">Contact Us</Button>
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  // Default view: Group products by category
+  const productsByCategory = allProducts.reduce(
     (acc, product) => {
       const category = product.category
       if (!acc[category]) {
@@ -139,78 +271,7 @@ export default async function ProductRangePage() {
               {/* Product Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {categoryProducts.map((product) => (
-                  <Card
-                    key={product.id}
-                    className="hover-elevate"
-                    data-testid={`card-product-${product.id}`}
-                  >
-                    <CardHeader className="p-0">
-                      <Link
-                        href={`/${product.slug}`}
-                        data-testid={`link-product-image-${product.id}`}
-                      >
-                        <div className="aspect-square bg-muted rounded-t-md overflow-hidden flex items-center justify-center cursor-pointer">
-                          {product.images && product.images[0]?.url ? (
-                            <Image
-                              src={product.images[0].url}
-                              alt={product.name}
-                              width={400}
-                              height={400}
-                              className="w-full h-full object-contain p-4"
-                            />
-                          ) : (
-                            <Package className="w-24 h-24 text-muted-foreground" />
-                          )}
-                        </div>
-                      </Link>
-                    </CardHeader>
-                    <CardContent className="p-4">
-                      <Badge variant="secondary" className="mb-2 text-xs">
-                        {product.brand}
-                      </Badge>
-                      <Link
-                        href={`/${product.slug}`}
-                        data-testid={`link-product-title-${product.id}`}
-                      >
-                        <h3 className="font-semibold text-lg mb-2 hover:text-primary transition-colors cursor-pointer line-clamp-2">
-                          {product.name}
-                        </h3>
-                      </Link>
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                        {product.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-xs text-muted-foreground">From</p>
-                          <p className="font-semibold text-lg text-primary">
-                            {formatPriceRange(product)}
-                          </p>
-                          <p className="text-xs text-muted-foreground">excl. GST</p>
-                        </div>
-                        {product.sizeFrom && (
-                          <div className="text-right">
-                            <p className="text-xs text-muted-foreground">Size from</p>
-                            <p className="font-medium text-sm">{product.sizeFrom}</p>
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                    <CardFooter className="p-4 pt-0">
-                      <Link
-                        href={`/${product.slug}`}
-                        className="w-full"
-                        data-testid={`link-product-details-${product.id}`}
-                      >
-                        <Button
-                          variant="default"
-                          className="w-full"
-                          data-testid={`button-view-${product.id}`}
-                        >
-                          View Details <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                      </Link>
-                    </CardFooter>
-                  </Card>
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             </section>

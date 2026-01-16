@@ -15,7 +15,7 @@ function TickerContent() {
         <TrendingDown className="w-4 h-4 ticker-text-prominent" />
         <span className="font-semibold ticker-text-prominent">BULK PRICING:</span>
         <span className="ticker-text-prominent">Buy 2-4</span>
-        <span className="font-bold text-[#ccff00]" style={{ textShadow: 'none' }}>5% OFF</span>
+        <span className="font-bold text-[#ccff00]" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>5% OFF</span>
       </div>
       <span className="ticker-text-prominent">•</span>
       <div className="flex items-center gap-2">
@@ -40,7 +40,7 @@ function TickerContent() {
 function StormyTickerContent() {
   return (
     <div className="flex items-center gap-12 px-8 text-base font-medium ticker-chrome-blink">
-      <span className="font-bold text-[#ccff00]" style={{ textShadow: 'none' }}>5%</span>
+      <span className="font-bold text-[#ccff00]" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>5%</span>
       <span className="ticker-text-prominent">•</span>
       <span className="font-bold text-[#ff6600]" style={{ textShadow: 'none' }}>10%</span>
       <span className="ticker-text-prominent">•</span>
@@ -55,13 +55,11 @@ export default function BulkPricingTicker({ variant = "default", isStormyDay = f
 
   return (
     <div className="ticker-fixed py-2 overflow-hidden">
-      {/* Wave Layer 1: Large slow undulating wave - base layer */}
+      {/* Wave Layer 1: Foam bubbles - beach wash effect */}
       <div
         className="absolute inset-0 pointer-events-none animate-ticker-wave-1"
         style={{
-          background: 'radial-gradient(ellipse 120% 200% at 30% 150%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 40%, transparent 70%)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
+          background: 'radial-gradient(circle at 8% 40%, rgba(255,255,255,0.18) 1px, transparent 3px), radial-gradient(circle at 22% 70%, rgba(0,200,200,0.12) 2px, transparent 4px), radial-gradient(circle at 38% 30%, rgba(255,255,255,0.15) 1px, transparent 3px), radial-gradient(circle at 52% 60%, rgba(0,220,220,0.1) 2px, transparent 4px), radial-gradient(circle at 68% 45%, rgba(255,255,255,0.16) 1px, transparent 3px), radial-gradient(circle at 82% 75%, rgba(0,200,200,0.11) 2px, transparent 4px), radial-gradient(circle at 95% 35%, rgba(255,255,255,0.14) 1px, transparent 3px), radial-gradient(ellipse 120% 200% at 30% 150%, rgba(0,180,180,0.06) 0%, transparent 70%)',
         }}
       />
 
@@ -91,13 +89,11 @@ export default function BulkPricingTicker({ variant = "default", isStormyDay = f
         }}
       />
 
-      {/* Wave Layer 5: Vertical breathing pulse */}
+      {/* Wave Layer 5: Beach wave wash - gentle wash-out effect */}
       <div
         className="absolute inset-0 pointer-events-none animate-ticker-wave-5"
         style={{
-          background: 'radial-gradient(ellipse 200% 100% at 50% 100%, rgba(255,255,255,0.1) 0%, rgba(0,200,200,0.05) 30%, transparent 60%)',
-          backdropFilter: 'blur(3px)',
-          WebkitBackdropFilter: 'blur(3px)',
+          background: 'linear-gradient(110deg, transparent 20%, rgba(0,200,200,0.08) 35%, rgba(255,255,255,0.12) 50%, rgba(0,180,180,0.06) 65%, transparent 80%), linear-gradient(70deg, transparent 30%, rgba(0,210,210,0.05) 45%, rgba(255,255,255,0.08) 55%, transparent 70%)',
         }}
       />
       <div className="ticker-wrapper-seamless relative">
