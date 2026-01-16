@@ -61,8 +61,8 @@ export default async function PipeRepairClampsPage() {
     <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
+      {/* Hero Section - extends under header */}
+      <div className="relative overflow-hidden border-b -mt-[88px] pt-[88px]">
         {/* Animated blob background */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Dark base for white text, lighter at bottom */}
@@ -123,8 +123,6 @@ export default async function PipeRepairClampsPage() {
         </div>
       </div>
 
-      {/* Dark grey strip behind header */}
-      <div className="fixed top-0 left-0 right-0 h-[44px] bg-zinc-500 z-30" />
       <BulkPricingTicker variant="teal" />
 
       {/* Benefits Section */}

@@ -229,16 +229,14 @@
     transform: translateY(-2px);
   }
 
-  /* Primary button hover effect - no glow */
+  /* Primary button hover effect - only for interactive elements */
   button.bg-primary,
-  a.bg-primary,
-  [class*="bg-primary"] {
+  a.bg-primary {
     transition: all 0.2s ease;
   }
 
   button.bg-primary:hover,
-  a.bg-primary:hover,
-  [class*="bg-primary"]:hover {
+  a.bg-primary:hover {
     background-color: hsl(var(--primary-glow)) !important;
     transform: translateY(-1px);
   }

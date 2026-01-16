@@ -54,9 +54,9 @@ export default async function FlangeAdaptorsPage() {
     <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-purple-50 to-transparent dark:from-purple-950/30 dark:via-purple-900/10 dark:to-transparent" />
+      {/* Hero Section - extends under header */}
+      <div className="relative overflow-hidden border-b bg-white dark:bg-stone-800 -mt-[88px] pt-[88px]">
+        <div className="absolute inset-0" />
         <div className="max-w-7xl mx-auto px-6 py-16 relative">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
@@ -87,8 +87,6 @@ export default async function FlangeAdaptorsPage() {
         </div>
       </div>
 
-      {/* Dark grey strip behind header */}
-      <div className="fixed top-0 left-0 right-0 h-[44px] bg-zinc-500 z-30" />
       <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">

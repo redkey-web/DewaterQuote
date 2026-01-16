@@ -100,8 +100,6 @@ export default async function MuffCouplingsPage() {
   return (
     <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
-      {/* Dark grey strip behind header */}
-      <div className="fixed top-0 left-0 right-0 h-[44px] bg-zinc-500 z-30" />
       <BulkPricingTicker variant="teal" />
 
       <div className="max-w-7xl mx-auto px-6 py-12">

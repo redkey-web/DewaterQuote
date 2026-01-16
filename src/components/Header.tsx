@@ -416,6 +416,7 @@ export default function Header() {
                           <Link
                             href="/products"
                             className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
+                            onClick={() => setActiveMenu(null)}
                           >
                             View all products
                             <ChevronRight className="w-4 h-4" />
@@ -430,6 +431,7 @@ export default function Header() {
                                 <Link
                                   href={category.url}
                                   className="text-gray-900 dark:text-white font-semibold hover:text-primary hover-underline-scale inline-block transition-all hover:shadow-[inset_0_-3px_6px_-2px_rgba(0,0,0,0.15)]"
+                                  onClick={() => setActiveMenu(null)}
                                 >
                                   {category.title}
                                 </Link>
@@ -439,6 +441,7 @@ export default function Header() {
                                       <Link
                                         href={item.url}
                                         className="text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale inline-block transition-all hover:shadow-[inset_0_-3px_6px_-2px_rgba(0,0,0,0.15)]"
+                                        onClick={() => setActiveMenu(null)}
                                       >
                                         {item.name}
                                       </Link>
@@ -496,6 +499,7 @@ export default function Header() {
                           <Link
                             href="/industries"
                             className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
+                            onClick={() => setActiveMenu(null)}
                           >
                             View all industries
                             <ChevronRight className="w-4 h-4" />
@@ -508,6 +512,7 @@ export default function Header() {
                                 key={industry.name}
                                 href={industry.url}
                                 className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-all py-1 hover:shadow-[inset_0_-3px_6px_-2px_rgba(0,0,0,0.15)]"
+                                onClick={() => setActiveMenu(null)}
                               >
                                 {industry.name}
                               </Link>
@@ -561,6 +566,7 @@ export default function Header() {
                           <Link
                             href="/brands"
                             className="inline-flex items-center gap-2 mt-6 text-primary font-medium hover:underline"
+                            onClick={() => setActiveMenu(null)}
                           >
                             View all brands
                             <ChevronRight className="w-4 h-4" />
@@ -573,6 +579,7 @@ export default function Header() {
                                 key={brand.name}
                                 href={brand.url}
                                 className="block text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-all py-1 hover:shadow-[inset_0_-3px_6px_-2px_rgba(0,0,0,0.15)]"
+                                onClick={() => setActiveMenu(null)}
                               >
                                 {brand.name}
                               </Link>
@@ -619,6 +626,7 @@ export default function Header() {
                           key={item.name}
                           href={item.url}
                           className="block px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover-underline-scale transition-colors"
+                          onClick={() => setActiveMenu(null)}
                         >
                           {item.name}
                         </Link>
