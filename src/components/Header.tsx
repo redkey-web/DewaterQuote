@@ -244,8 +244,8 @@ export default function Header() {
 
   // Dropdown background heights
   const dropdownHeights: Record<string, string> = {
-    products: 'h-[320px]',
-    industries: 'h-[280px]',
+    products: 'h-[540px]',
+    industries: 'h-[340px]',
     brands: 'h-[280px]',
   }
 

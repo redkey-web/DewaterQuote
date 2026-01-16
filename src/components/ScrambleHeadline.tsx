@@ -12,6 +12,13 @@ interface ScrambleHeadlineProps {
 // Characters to use for scramble effect
 const scrambleChars = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789!@#$%^&*'
 
+// Remove one random letter from a word (but keep at least 2 chars)
+function removeRandomLetter(word: string): string {
+  if (word.length <= 2) return word
+  const indexToRemove = Math.floor(Math.random() * word.length)
+  return word.slice(0, indexToRemove) + word.slice(indexToRemove + 1)
+}
+
 export default function ScrambleHeadline({
   englishText,
   russianText,
@@ -21,9 +28,17 @@ export default function ScrambleHeadline({
   const [displayWords, setDisplayWords] = useState<string[]>([])
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [isScrambling, setIsScrambling] = useState(false)
+  const [missingLetterWords, setMissingLetterWords] = useState<string[]>([])
 
   const englishWords = englishText.split(' ')
   const russianWords = russianText.split(' ')
+
+  // Compute words with one missing letter when active changes
+  useEffect(() => {
+    if (isActive) {
+      setMissingLetterWords(russianWords.map(word => removeRandomLetter(word)))
+    }
+  }, [isActive, russianText])
 
   // Initialize with English words
   useEffect(() => {
@@ -53,14 +68,15 @@ export default function ScrambleHeadline({
   useEffect(() => {
     if (!isScrambling || !isActive) return
     if (currentWordIndex >= englishWords.length) {
-      // All words scrambled, show Russian text
-      setDisplayWords(russianWords)
+      // All words scrambled, show Russian text with missing letters
+      setDisplayWords(missingLetterWords)
       setIsScrambling(false)
       return
     }
 
     const word = englishWords[currentWordIndex]
     const russianWord = russianWords[Math.min(currentWordIndex, russianWords.length - 1)] || ''
+    const finalWord = missingLetterWords[Math.min(currentWordIndex, missingLetterWords.length - 1)] || russianWord
     let iterations = 0
     const maxIterations = 15 + word.length * 2
 
@@ -86,10 +102,10 @@ export default function ScrambleHeadline({
 
       if (iterations >= maxIterations) {
         clearInterval(scrambleInterval)
-        // Set final Russian word for this position
+        // Set final word with missing letter for this position
         setDisplayWords(prev => {
           const newWords = [...prev]
-          newWords[currentWordIndex] = russianWord
+          newWords[currentWordIndex] = finalWord
           return newWords
         })
         // Move to next word after a delay
@@ -100,7 +116,7 @@ export default function ScrambleHeadline({
     }, 50)
 
     return () => clearInterval(scrambleInterval)
-  }, [isScrambling, currentWordIndex, isActive])
+  }, [isScrambling, currentWordIndex, isActive, missingLetterWords])
 
   // If not active, show English text
   if (!isActive) {
