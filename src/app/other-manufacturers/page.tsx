@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, CheckCircle, Droplets } from "lucide-react"
+import { ArrowRight, Package } from "lucide-react"
 import { getProductsByBrand } from "@/data/products"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
@@ -8,27 +8,27 @@ import BulkPricingTicker from "@/components/BulkPricingTicker"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Dewater Products | Own Brand Industrial Pipe Fittings | Dewater Products Australia",
+  title: "Other Manufacturers | Industrial Pipe Fittings | Dewater Products Australia",
   description:
-    "Dewater Products own-brand industrial pipe fittings, valves, and accessories. Quality products at competitive prices. Australia-wide delivery.",
+    "Quality industrial pipe fittings from various manufacturers. Australia-wide delivery from Dewater Products.",
   openGraph: {
-    title: "Dewater Products - Own Brand Industrial Pipe Fittings",
-    description: "Quality own-brand industrial pipe fittings and accessories.",
+    title: "Other Manufacturers - Industrial Pipe Fittings",
+    description: "Quality industrial pipe fittings from various manufacturers.",
     type: "website",
   },
   alternates: {
-    canonical: "https://dewaterproducts.com.au/dewater-products",
+    canonical: "https://dewaterproducts.com.au/other-manufacturers",
   },
 }
 
 export const revalidate = 60
 
-export default async function DewaterProductsPage() {
-  const products = await getProductsByBrand("dewater-products")
+export default async function OtherManufacturersPage() {
+  const products = await getProductsByBrand("other")
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
-    { name: "Dewater Products", url: "https://dewaterproducts.com.au/dewater-products" },
+    { name: "Other Manufacturers", url: "https://dewaterproducts.com.au/other-manufacturers" },
   ]
 
   return (
@@ -39,7 +39,7 @@ export default async function DewaterProductsPage() {
       {/* Hero Section */}
       <div className="relative overflow-hidden border-b -mt-[88px] pt-[88px]">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#39C5DA] via-[#2BB5C9] to-slate-400" />
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-500 via-zinc-400 to-slate-400" />
           <div
             className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-30 blur-3xl animate-blob"
             style={{ backgroundColor: '#ffffff' }}
@@ -53,27 +53,20 @@ export default async function DewaterProductsPage() {
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-sm font-medium mb-4">
-                <Droplets className="w-4 h-4" />
-                Own Brand Products
+                <Package className="w-4 h-4" />
+                Partner Products
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
-                Dewater Products
+                Other Manufacturers
               </h1>
               <p className="text-xl text-white/90 max-w-2xl">
-                Quality industrial pipe fittings and accessories under our own brand.
-                Competitive prices without compromising on quality.
+                Quality industrial pipe fittings from trusted manufacturers.
+                Sourced and supplied by Dewater Products Australia.
               </p>
             </div>
             <div className="flex-shrink-0 relative">
               <div className="relative w-64 h-64 lg:w-80 lg:h-80 flex items-center justify-center">
-                <Image
-                  src="/images/dewater-logo.png"
-                  alt="Dewater Products"
-                  width={200}
-                  height={200}
-                  className="object-contain"
-                  priority
-                />
+                <Package className="w-32 h-32 text-white/60" />
               </div>
             </div>
           </div>
@@ -84,7 +77,7 @@ export default async function DewaterProductsPage() {
         {/* Products Section */}
         <div id="products" className="mb-16">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Dewater Products Range</h2>
+            <h2 className="text-2xl font-bold">Products from Other Manufacturers</h2>
             <span className="text-muted-foreground">{products.length} products</span>
           </div>
 

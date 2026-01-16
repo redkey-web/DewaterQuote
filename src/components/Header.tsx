@@ -222,12 +222,14 @@ export default function Header() {
   ]
 
   const brandsMenu = [
+    { name: "Dewater Products", url: "/dewater-products" },
     { name: "Straub", url: "/straub-couplings" },
     { name: "Orbit", url: "/orbit-couplings" },
     { name: "Teekay", url: "/teekay" },
     { name: "Bore-Flex", url: "/bore-flex" },
     { name: "Defender Valves", url: "/defender-valves" },
     { name: "Defender Strainers", url: "/defender-strainers" },
+    { name: "Other Manufacturers", url: "/other-manufacturers" },
   ]
 
   const companyMenu = [

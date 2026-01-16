@@ -465,6 +465,7 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                       </option>
                     ))}
                   </select>
+                  <p className="text-xs text-gray-500">Manufacturer (Orbit, Straub, etc.)</p>
                 </div>
                 <div className="space-y-2">
                   <Label>Subcategory</Label>
@@ -480,6 +481,7 @@ export function ProductForm({ product, brands, categories, subcategories }: Prod
                       </option>
                     ))}
                   </select>
+                  <p className="text-xs text-gray-500">Groups product on page like /pipe-couplings/orbit-couplings</p>
                 </div>
               </div>
 

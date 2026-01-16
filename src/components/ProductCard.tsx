@@ -12,13 +12,14 @@ interface ProductCardProps {
 }
 
 // Brand color configurations
-const brandColors: Record<string, { bg: string; text: string; border: string }> = {
+const brandColors: Record<string, { bg: string; text: string; border: string; label?: string }> = {
   Straub: { bg: "bg-red-600", text: "text-black", border: "border-red-600" },
   Teekay: { bg: "bg-red-600", text: "text-white", border: "border-red-600" },
   Orbit: { bg: "bg-orange-500", text: "text-black", border: "border-orange-500" },
   "Defender Strainers": { bg: "bg-[#E18D30]", text: "text-black", border: "border-[#E18D30]" },
   "Defender Valves": { bg: "bg-[#5E7794]", text: "text-white", border: "border-[#5E7794]" },
   "Dewater Products": { bg: "bg-[#39C5DA]", text: "text-white", border: "border-[#39C5DA]" },
+  "Other Manufacturers": { bg: "bg-zinc-400", text: "text-zinc-700", border: "border-zinc-400", label: "Other" },
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -36,6 +37,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   }, [mainImage])
 
   const colors = brandColors[product.brand] || { bg: "bg-gray-600", text: "text-white", border: "border-gray-600" }
+  const brandLabel = colors.label || product.brand
 
   return (
     <Link href={`/${product.slug}`} className="block group" data-testid={`card-product-${product.id}`}>
@@ -86,9 +88,9 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Brand tab - in folder tab area (top left) */}
           <div className="absolute -top-[20px] left-[calc(4%-41px)]">
             <div
-              className={`${colors.bg} ${colors.text} px-8 py-3 rounded-b-xl font-semibold ${product.brand.startsWith('Defender') ? 'text-xs' : 'text-sm'} whitespace-nowrap flex items-center justify-center`}
+              className={`${colors.bg} ${colors.text} px-8 py-3 rounded-b-xl font-semibold ${brandLabel.length > 10 ? 'text-xs' : 'text-sm'} whitespace-nowrap flex items-center justify-center`}
             >
-              <span className="translate-x-[6px] translate-y-[10px]">{product.brand}</span>
+              <span className="translate-x-[6px] translate-y-[10px]">{brandLabel}</span>
             </div>
           </div>
 

@@ -1755,7 +1755,7 @@ export const products: Product[] = [
     shortName: "STRAUB Elbow 90°",
     brand: "Straub",
     category: "pipe-couplings",
-    subcategory: "straub-shaped-parts",
+    subcategory: "straub-couplings",
     description: "90-degree pipe elbow with extended ends. Manufactured from 1.4571 stainless steel (V4A). Premium Swiss engineering.",
     features: [
       "90-degree angle",
@@ -1786,7 +1786,7 @@ export const products: Product[] = [
     shortName: "STRAUB Elbow 45°",
     brand: "Straub",
     category: "pipe-couplings",
-    subcategory: "straub-shaped-parts",
+    subcategory: "straub-couplings",
     description: "45-degree pipe elbow with extended ends. Manufactured from 1.4571 stainless steel.",
     features: [
       "45-degree angle",
@@ -1817,7 +1817,7 @@ export const products: Product[] = [
     shortName: "STRAUB Equal Tee",
     brand: "Straub",
     category: "pipe-couplings",
-    subcategory: "straub-shaped-parts",
+    subcategory: "straub-couplings",
     description: "Equal tee fitting for pipeline branching. All three connections are the same diameter.",
     features: [
       "Equal diameter branches",
@@ -1847,7 +1847,7 @@ export const products: Product[] = [
     shortName: "STRAUB Reducing Tee",
     brand: "Straub",
     category: "pipe-couplings",
-    subcategory: "straub-shaped-parts",
+    subcategory: "straub-couplings",
     description: "Reducing tee for branching to a smaller diameter pipe. Main run maintains diameter, branch is reduced.",
     features: [
       "Reducing branch connection",
@@ -1877,7 +1877,7 @@ export const products: Product[] = [
     shortName: "STRAUB Reducer",
     brand: "Straub",
     category: "pipe-couplings",
-    subcategory: "straub-shaped-parts",
+    subcategory: "straub-couplings",
     description: "Concentric reducer for transitioning between different pipe diameters. Maintains centre line alignment.",
     features: [
       "Concentric design",
@@ -1908,7 +1908,7 @@ export const products: Product[] = [
     shortName: "STRAUB Flange Adapter",
     brand: "Straub",
     category: "pipe-couplings",
-    subcategory: "straub-shaped-parts",
+    subcategory: "straub-couplings",
     description: "Flange adapter for connecting plain-ended pipes to flanged equipment or valves.",
     features: [
       "Plain end to flange connection",
@@ -1939,7 +1939,7 @@ export const products: Product[] = [
     shortName: "STRAUB End Cap",
     brand: "Straub",
     category: "pipe-couplings",
-    subcategory: "straub-shaped-parts",
+    subcategory: "straub-couplings",
     description: "End cap for sealing off pipe ends. Pressure-tight closure for pipeline terminations.",
     features: [
       "Pressure-tight seal",
@@ -1969,7 +1969,7 @@ export const products: Product[] = [
     shortName: "STRAUB Threaded",
     brand: "Straub",
     category: "pipe-couplings",
-    subcategory: "straub-shaped-parts",
+    subcategory: "straub-couplings",
     description: "Threaded connection fitting for integrating threaded components into plain-end piping systems.",
     features: [
       "Plain end to threaded connection",
@@ -2130,13 +2130,6 @@ export const subcategories: Subcategory[] = [
     slug: "straub-couplings",
     name: "Straub Couplings",
     description: "Swiss-engineered GRIP and FLEX pipe couplings for axial restraint and flexible connections.",
-    category: "pipe-couplings"
-  },
-  {
-    id: "straub-shaped-parts",
-    slug: "straub-shaped-parts",
-    name: "Straub Shaped Parts",
-    description: "Swiss-engineered elbows, tees, reducers, and end caps for pipe systems.",
     category: "pipe-couplings"
   },
 
