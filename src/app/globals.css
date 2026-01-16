@@ -1975,3 +1975,38 @@
   transform-style: preserve-3d;
 }
 
+/* ========================================
+   EXPONENTIAL DARK GRADIENT FROM TOP
+   Darker at top, fades exponentially down
+   ======================================== */
+
+.gradient-top-dark {
+  position: relative;
+}
+
+.gradient-top-dark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.28) 5%,
+    rgba(0, 0, 0, 0.20) 10%,
+    rgba(0, 0, 0, 0.12) 20%,
+    rgba(0, 0, 0, 0.06) 35%,
+    rgba(0, 0, 0, 0.02) 50%,
+    rgba(0, 0, 0, 0) 70%
+  );
+}
+
+.gradient-top-dark > * {
+  position: relative;
+  z-index: 1;
+}
+

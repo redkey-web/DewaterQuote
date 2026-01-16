@@ -144,14 +144,61 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
       'plast-grip': 'Plast Grip Couplings',
       'y-strainer': 'Y Strainers',
       'basket-strainer': 'Basket Strainers',
+      'simplex-basket-strainer': 'Basket Strainers',
+      'duplex-basket-strainer': 'Duplex Basket Strainers',
+      'flanged-suction-strainer': 'Flanged Suction Strainers',
       'butterfly-valve': 'Butterfly Valves',
       'check-valve': 'Check Valves',
+      'check-valves': 'Check Valves',
       'foot-valve': 'Foot Valves',
       'float-valve': 'Float Valves',
+      'ball-valve': 'Ball Valves',
+      'gate-valve': 'Gate Valves',
       'rubber-expansion-joint': 'Rubber Expansion Joints',
       'duckbill-check-valve': 'Duckbill Check Valves',
+      'single-sphere': 'Single Sphere Expansion Joints',
+      'twin-sphere': 'Twin Sphere Expansion Joints',
+      'single-arch': 'Single Arch Expansion Joints',
+      'double-arch': 'Double Arch Expansion Joints',
+      'triple-arch': 'Triple Arch Expansion Joints',
+      'quadruple-arch': 'Quadruple Arch Expansion Joints',
+      'reducing': 'Reducing Expansion Joints',
+      'ptfe-lined': 'PTFE Lined Expansion Joints',
     }
     return names[slug] || slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  }
+
+  // Helper to get actual page URL for subcategory
+  const getSubcategoryUrl = (slug: string): string => {
+    const urls: Record<string, string> = {
+      // Expansion joints - subcategory slug to page URL
+      'single-sphere': 'single-sphere-expansion-joints',
+      'twin-sphere': 'twin-sphere-expansion-joints',
+      'single-arch': 'single-arch-expansion-joints',
+      'double-arch': 'double-arch-expansion-joints',
+      'triple-arch': 'triple-arch-expansion-joints',
+      'quadruple-arch': 'quadruple-arch-expansion-joints',
+      'reducing': 'reducing-expansion-joints',
+      'ptfe-lined': 'ptfe-lined-expansion-joints',
+      // Valves
+      'butterfly-valve': 'butterfly-valves',
+      'check-valve': 'check-valves',
+      'check-valves': 'check-valves',
+      'foot-valve': 'foot-valves',
+      'float-valve': 'float-valves',
+      'ball-valve': 'ball-valves',
+      'gate-valve': 'gate-valves',
+      'duckbill-check-valve': 'duckbill-check-valves',
+      // Strainers
+      'y-strainer': 'y-strainers',
+      'basket-strainer': 'basket-strainers',
+      'simplex-basket-strainer': 'basket-strainers',
+      'duplex-basket-strainer': 'duplex-basket-strainers',
+      'flanged-suction-strainer': 'flanged-suction-strainers',
+      // Couplings
+      'muff-coupling': 'muff-couplings',
+    }
+    return urls[slug] || slug
   }
 
   // SEO-optimized alt text for main image
@@ -315,8 +362,8 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   if (product.subcategory) {
     breadcrumbItems.push({
       name: getSubcategoryDisplayName(product.subcategory),
-      url: `${baseUrl}/${product.subcategory}`,
-      slug: product.subcategory,
+      url: `${baseUrl}/${getSubcategoryUrl(product.subcategory)}`,
+      slug: getSubcategoryUrl(product.subcategory),
     })
   }
   breadcrumbItems.push({ name: product.name, url: productUrl, slug: product.slug })

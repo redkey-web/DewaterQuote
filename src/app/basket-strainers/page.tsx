@@ -41,7 +41,7 @@ export default async function BasketStrainersPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
+    <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900 gradient-top-dark">
       <BreadcrumbJsonLd items={breadcrumbs} />
       <BulkPricingTicker variant="teal" />
       <div className="max-w-7xl mx-auto px-6 py-12">
