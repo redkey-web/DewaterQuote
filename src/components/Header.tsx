@@ -198,8 +198,19 @@ export default function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 header-gradient-blur shadow-sm">
-      <div className="max-w-7xl mx-auto px-6">
+    <header className="sticky top-0 z-[60] shadow-sm">
+      {/* Dropdown panels - rendered first so they're behind header content */}
+      {activeMenu === "products" && (
+        <div className="fixed top-0 left-0 right-0 h-[280px] dropdown-silver-gradient z-[45]" />
+      )}
+      {activeMenu === "industries" && (
+        <div className="fixed top-0 left-0 right-0 h-[240px] dropdown-silver-gradient z-[45]" />
+      )}
+      {activeMenu === "brands" && (
+        <div className="fixed top-0 left-0 right-0 h-[240px] dropdown-silver-gradient z-[45]" />
+      )}
+      <div className="absolute inset-0 header-gradient-blur z-[55]" />
+      <div className="relative z-[65] max-w-7xl mx-auto px-6">
         {/* Three-column, two-row grid */}
         <div className="hidden lg:grid lg:grid-cols-[auto_1fr_auto] lg:grid-rows-[auto_auto] items-center gap-x-6">
           {/* Logo - spans both rows */}
@@ -310,11 +321,11 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("products")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-0 left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-40 animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
-                    <div className="max-w-7xl mx-auto px-6 py-8">
+                    <div className="max-w-7xl mx-auto px-6 py-8 pt-[94px]">
                       <div className="grid grid-cols-12 gap-12">
                         {/* Left: Title & Description */}
                         <div className="col-span-4">
@@ -391,11 +402,11 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("industries")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-0 left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-40 animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("industries")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
-                    <div className="max-w-7xl mx-auto px-6 py-8">
+                    <div className="max-w-7xl mx-auto px-6 py-8 pt-[94px]">
                       <div className="grid grid-cols-12 gap-12">
                         <div className="col-span-4">
                           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
@@ -456,11 +467,11 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("brands")}
                   />
                   <div
-                    className="fixed top-[86px] left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-[100] animate-dropdown-slide rounded-b-2xl overflow-hidden"
+                    className="fixed top-0 left-0 right-0 dropdown-silver-gradient border-b border-gray-200 dark:border-gray-700 shadow-xl z-40 animate-dropdown-slide rounded-b-2xl overflow-hidden"
                     onMouseEnter={() => setActiveMenu("brands")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
-                    <div className="max-w-7xl mx-auto px-6 py-8">
+                    <div className="max-w-7xl mx-auto px-6 py-8 pt-[94px]">
                       <div className="grid grid-cols-12 gap-12">
                         <div className="col-span-4">
                           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">

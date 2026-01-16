@@ -416,8 +416,7 @@ export default function HomePage() {
             >
               {isStormyDay ? 'Ремонт и обслуживание трубопроводов' : (
                 <>
-                  <span className="text-cyan-300/70">Pi</span>
-                  <span className="text-cyan-300/20">p</span>
+                  <span className="text-cyan-300/70">Pip</span>
                   <span className="text-cyan-300/70">eline Re</span>
                   <span className="text-cyan-400">p</span>
                   <span className="text-cyan-300/70">airs & M</span>
@@ -458,38 +457,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Curved text - arcing around expansion joint flange */}
-        <div
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}
-          style={{ perspective: '600px' }}
-        >
-          <div className="animate-orbit-3d" style={{ transformOrigin: 'center center' }}>
-            {/* Shadow/glow layer behind */}
-            <div className="absolute inset-0" style={{ filter: 'blur(6px)' }}>
-              <CurvedText
-                text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'}
-                width={320}
-                height={320}
-                radius={140}
-                arcAngle={120}
-                startAngle={210}
-                startOffset="50%"
-                className="opacity-40 overflow-visible"
-                textClassName="fill-white text-[9px] font-medium tracking-[0.25em] font-mono"
-              />
+        {/* Orbiting curved text */}
+        <div className={`absolute bottom-[calc(5%-30px)] right-[calc(5%-230px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}>
+          <div style={{ perspective: '800px' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={67} arcAngle={200} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-pink-300/55 text-[8px] font-bold tracking-[0.08em] font-mono" />
             </div>
-            {/* Main curved text */}
-            <CurvedText
-              text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'}
-              width={320}
-              height={320}
-              radius={140}
-              arcAngle={120}
-              startAngle={210}
-              startOffset="50%"
-              className="overflow-visible"
-              textClassName="fill-cyan-300 text-[9px] font-bold tracking-[0.25em] font-mono"
-            />
           </div>
         </div>
 
@@ -513,7 +486,7 @@ export default function HomePage() {
             {isStormyDay ? "Компоненты гражданских и промышленных" : "Australia's Industrial Pipe Fittings Specialists"}
           </p>
 
-          <div className="relative w-full max-w-2xl mx-auto" ref={heroSearchRef}>
+          <div className="relative w-full max-w-[538px] mx-auto" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
               {/* Search Bar */}
               <div className="relative">
@@ -1084,6 +1057,7 @@ export default function HomePage() {
           </Accordion>
         </div>
       </section>
+
     </div>
   )
 }

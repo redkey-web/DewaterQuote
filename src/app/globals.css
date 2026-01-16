@@ -1852,32 +1852,128 @@
   animation: size-pulse 3s ease-in-out infinite;
 }
 
-/* 3D orbit loop animation for curved text - spins like a bike tire with depth */
-@keyframes orbit-3d {
-  0% {
-    transform: rotateZ(0deg) translateZ(0px);
-    z-index: 5;
-  }
-  25% {
-    transform: rotateZ(90deg) translateZ(100px);
-    z-index: 50;
-  }
-  50% {
-    transform: rotateZ(180deg) translateZ(0px);
-    z-index: 5;
-  }
-  75% {
-    transform: rotateZ(270deg) translateZ(-100px);
-    z-index: -1;
-  }
-  100% {
-    transform: rotateZ(360deg) translateZ(0px);
-    z-index: 5;
-  }
+/* 3D orbit loop animation 1 - tilted 45deg X */
+@keyframes orbit-3d-1 {
+  from { transform: rotateX(45deg) rotateZ(0deg); }
+  to { transform: rotateX(45deg) rotateZ(360deg); }
+}
+
+/* 3D orbit loop animation 2 - tilted 75deg Y */
+@keyframes orbit-3d-2 {
+  from { transform: rotateY(75deg) rotateZ(0deg); }
+  to { transform: rotateY(75deg) rotateZ(360deg); }
+}
+
+/* 3D orbit loop animation 3 - tilted 30deg X + 45deg Y */
+@keyframes orbit-3d-3 {
+  from { transform: rotateX(30deg) rotateY(45deg) rotateZ(0deg); }
+  to { transform: rotateX(30deg) rotateY(45deg) rotateZ(360deg); }
 }
 
 .animate-orbit-3d {
-  animation: orbit-3d 30s linear infinite;
+  animation: orbit-3d-1 6s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-2 {
+  animation: orbit-3d-2 5s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-3 {
+  animation: orbit-3d-3 7s linear infinite;
+  transform-style: preserve-3d;
+}
+
+/* Second set - different angles */
+@keyframes orbit-3d-4 {
+  from { transform: rotateX(-45deg) rotateZ(0deg); }
+  to { transform: rotateX(-45deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-3d-5 {
+  from { transform: rotateY(-60deg) rotateZ(0deg); }
+  to { transform: rotateY(-60deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-3d-6 {
+  from { transform: rotateX(60deg) rotateY(-30deg) rotateZ(0deg); }
+  to { transform: rotateX(60deg) rotateY(-30deg) rotateZ(360deg); }
+}
+
+.animate-orbit-3d-4 {
+  animation: orbit-3d-4 8s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-5 {
+  animation: orbit-3d-5 6s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-6 {
+  animation: orbit-3d-6 9s linear infinite;
+  transform-style: preserve-3d;
+}
+
+/* Third set - different angles for second row */
+@keyframes orbit-3d-7 {
+  from { transform: rotateX(20deg) rotateZ(0deg); }
+  to { transform: rotateX(20deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-3d-8 {
+  from { transform: rotateY(-45deg) rotateZ(0deg); }
+  to { transform: rotateY(-45deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-3d-9 {
+  from { transform: rotateX(-60deg) rotateY(20deg) rotateZ(0deg); }
+  to { transform: rotateX(-60deg) rotateY(20deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-3d-10 {
+  from { transform: rotateX(70deg) rotateZ(0deg); }
+  to { transform: rotateX(70deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-3d-11 {
+  from { transform: rotateY(50deg) rotateZ(0deg); }
+  to { transform: rotateY(50deg) rotateZ(360deg); }
+}
+
+@keyframes orbit-3d-12 {
+  from { transform: rotateX(-30deg) rotateY(-50deg) rotateZ(0deg); }
+  to { transform: rotateX(-30deg) rotateY(-50deg) rotateZ(360deg); }
+}
+
+.animate-orbit-3d-7 {
+  animation: orbit-3d-7 7s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-8 {
+  animation: orbit-3d-8 5.5s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-9 {
+  animation: orbit-3d-9 8s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-10 {
+  animation: orbit-3d-10 6s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-11 {
+  animation: orbit-3d-11 9s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-orbit-3d-12 {
+  animation: orbit-3d-12 7.5s linear infinite;
   transform-style: preserve-3d;
 }
 
