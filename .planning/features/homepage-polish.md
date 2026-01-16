@@ -54,10 +54,10 @@ Consolidated UI/UX improvements for the homepage and site-wide polish. Includes 
 - [ ] Test responsive behavior on mobile
 
 ### 2.3 Cleanup
-- [ ] Remove unused .chrome-text styles from globals.css
-- [ ] Remove unused .laser-scan-border styles from globals.css
-- [ ] Remove unused @keyframes chrome-shine animation
-- [ ] Remove unused @keyframes laser-scan animation
+- [x] Remove unused .chrome-text styles from globals.css (N/A - in use on email in Header)
+- [x] Remove unused .laser-scan-border styles from globals.css (N/A - doesn't exist)
+- [x] Remove unused @keyframes chrome-shine animation (N/A - in use by .chrome-text)
+- [x] Remove unused @keyframes laser-scan animation (N/A - doesn't exist)
 
 ---
 
@@ -92,9 +92,9 @@ Consolidated UI/UX improvements for the homepage and site-wide polish. Includes 
 ## Phase 6: Link Validation
 
 ### 6.1 Breadcrumb URL Audit
-- [ ] Check all BreadcrumbJsonLd URLs are correct
-- [ ] Fix teekay page (uses dewater-products.vercel.app)
-- [ ] Fix pipe-couplings page (uses dewater-products.vercel.app)
+- [x] Check all BreadcrumbJsonLd URLs are correct
+- [x] Fix teekay page (uses dewater-products.vercel.app) - Already fixed, uses dewaterproducts.com.au
+- [x] Fix pipe-couplings page (uses dewater-products.vercel.app) - Already fixed, uses dewaterproducts.com.au
 
 ### 6.2 Site-Wide Broken Link Check
 - [ ] Run Playwright or crawler to check all internal links

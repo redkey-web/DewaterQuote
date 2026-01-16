@@ -477,10 +477,10 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - zoomed out duplicate */}
-        <div className={`absolute bottom-[calc(5%-30px)] right-[calc(5%-227px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}>
+        <div className={`absolute bottom-[calc(5%-20px)] right-[calc(5%-184px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}>
           <div style={{ perspective: '800px', transform: 'scale(0.9)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
-              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={67} arcAngle={200} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-pink-300/40 text-[8px] font-bold tracking-[0.08em] font-mono" />
+              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={67} arcAngle={200} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[8px] font-bold tracking-[0.08em] font-mono" />
             </div>
           </div>
         </div>

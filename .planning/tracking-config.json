@@ -3,7 +3,7 @@
   "project": "dewater-products",
   "project_type": "webdev",
   "level": "project",
-  "active_plan": null,
+  "active_plan": ".planning/features/homepage-polish.md",
   "tracking_files": [
     ".planning/current/migration-plan.md",
     ".planning/features/homepage-polish.md",
@@ -16,6 +16,7 @@
     ".planning/features/variation-stock-ranking.md",
     ".planning/features/project-cleanup.md",
     ".planning/features/admin-subcategory-pages.md",
+    ".planning/features/volume-discount-ux.md",
     ".planning/post-launch-redirects.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"

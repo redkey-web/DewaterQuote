@@ -23,6 +23,7 @@ interface CelebrationState {
 interface QuoteContextValue {
   items: QuoteItem[]
   itemCount: number
+  totalQuantity: number
   isCartOpen: boolean
   openCart: () => void
   closeCart: () => void
@@ -39,6 +40,7 @@ const QuoteContext = createContext<QuoteContextValue | null>(null)
 const defaultContextValue: QuoteContextValue = {
   items: [],
   itemCount: 0,
+  totalQuantity: 0,
   isCartOpen: false,
   openCart: () => {},
   closeCart: () => {},
@@ -226,9 +228,13 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
     setCelebration({ discount: 0, position: null })
   }, [])
 
+  // Calculate total quantity across all items for discount tier calculations
+  const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0)
+
   const value: QuoteContextValue = {
     items,
     itemCount: items.length,
+    totalQuantity,
     isCartOpen,
     openCart,
     closeCart,

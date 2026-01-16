@@ -2141,7 +2141,7 @@
 }
 
 .animate-dropdown-slide-up {
-  animation: dropdown-slide-up 0.2s ease-in forwards;
+  animation: dropdown-slide-up 0.5s ease-in forwards;
 }
 
 /* Mobile menu slide-up animation */
@@ -2157,6 +2157,22 @@
 }
 
 .animate-mobile-menu-slide-up {
-  animation: mobile-menu-slide-up 0.25s ease-in forwards;
+  animation: mobile-menu-slide-up 0.5s ease-in forwards;
+}
+
+/* Menu item flash animation - 4 flashes before menu closes */
+@keyframes menu-item-flash {
+  0%, 100% { opacity: 1; }
+  12.5% { opacity: 0.3; }
+  25% { opacity: 1; }
+  37.5% { opacity: 0.3; }
+  50% { opacity: 1; }
+  62.5% { opacity: 0.3; }
+  75% { opacity: 1; }
+  87.5% { opacity: 0.3; }
+}
+
+.animate-menu-flash {
+  animation: menu-item-flash 0.8s ease-in-out forwards;
 }
 

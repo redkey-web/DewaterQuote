@@ -56,8 +56,10 @@ import { useGeo } from "@/hooks/useGeo"
 import {
   productToQuoteItem,
   getDiscountPercentage,
+  getDiscountTier,
   calculateDiscountedPrice,
   isCustomSpecsBrand,
+  DISCOUNT_TIERS,
 } from "@/lib/quote"
 import type { CustomSpecs } from "@/types"
 import { useQuote } from "@/context/QuoteContext"
@@ -73,7 +75,7 @@ interface ProductDetailClientProps {
 
 export function ProductDetailClient({ product, relatedProducts }: ProductDetailClientProps) {
   const { toast } = useToast()
-  const { addItem } = useQuote()
+  const { addItem, totalQuantity: cartTotalQuantity } = useQuote()
   const { isAustralia } = useGeo()
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [quantity, setQuantity] = useState<number>(1)
@@ -265,8 +267,30 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
 
   // Get the selected size option details
   const selectedSizeOption = product.sizeOptions?.find((s) => s.value === selectedSize)
-  const discountPercentage = getDiscountPercentage(quantity)
+
+  // Calculate cart-aware discount tiers
+  const currentCartTier = getDiscountTier(cartTotalQuantity)
+  const projectedTotal = cartTotalQuantity + quantity
+  const projectedTier = getDiscountTier(projectedTotal)
+  const discountPercentage = projectedTier?.percentage || 0
   const hasDiscount = isAustralia && discountPercentage > 0 && selectedSizeOption?.price
+
+  // Calculate items needed for next tier
+  const getItemsToNextTier = () => {
+    if (discountPercentage >= 15) return null // Already at max tier
+    // Find the next tier above current projected percentage
+    const sortedTiers = [...DISCOUNT_TIERS].sort((a, b) => a.minQuantity - b.minQuantity)
+    for (const tier of sortedTiers) {
+      if (tier.percentage > discountPercentage) {
+        const itemsNeeded = tier.minQuantity - projectedTotal
+        if (itemsNeeded > 0) {
+          return { itemsNeeded, tierPercentage: tier.percentage }
+        }
+      }
+    }
+    return null
+  }
+  const nextTierInfo = getItemsToNextTier()
 
   // Check if product has size options (more than one = needs selector)
   const hasSizeOptions = product.sizeOptions && product.sizeOptions.length > 0
@@ -550,18 +574,42 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-gray-300 inline mr-1" />
                     Bulk Pricing:
                   </span>
-                  <span className="whitespace-nowrap">
+                  <span className={`whitespace-nowrap ${discountPercentage === 5 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
                     <span className="text-gray-300">2-4 qty</span>
                     <span className="font-bold ml-1" style={{ color: '#ccff00', textShadow: '0 0 1px rgba(0,0,0,0.5)' }}>5% off</span>
                   </span>
-                  <span className="whitespace-nowrap">
+                  <span className={`whitespace-nowrap ${discountPercentage === 10 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
                     <span className="text-gray-300">5-9 qty</span>
                     <span className="font-bold ml-1" style={{ color: '#ff6600' }}>10% off</span>
                   </span>
-                  <span className="whitespace-nowrap">
+                  <span className={`whitespace-nowrap ${discountPercentage === 15 ? 'ring-1 ring-white/50 rounded px-1 bg-white/10' : ''}`}>
                     <span className="text-gray-300">10+ qty</span>
                     <span className="font-bold ml-1" style={{ color: '#dc2626' }}>15% off</span>
                   </span>
+                </div>
+                {/* Cart-aware discount info */}
+                <div className="text-center text-xs mt-1.5 space-y-0.5">
+                  <p className="text-gray-400">
+                    Discounts apply to your total order quantity across all products
+                  </p>
+                  {cartTotalQuantity > 0 && (
+                    <p className="text-cyan-300">
+                      Your quote: {cartTotalQuantity} item{cartTotalQuantity !== 1 ? 's' : ''}
+                      {currentCartTier && (
+                        <span className="font-semibold"> ({currentCartTier.percentage}% discount)</span>
+                      )}
+                      {projectedTotal > cartTotalQuantity && projectedTier && projectedTier.percentage > (currentCartTier?.percentage || 0) && (
+                        <span className="text-green-400 ml-1">
+                          → Adding {quantity} = {projectedTier.percentage}% off!
+                        </span>
+                      )}
+                    </p>
+                  )}
+                  {nextTierInfo && (
+                    <p className="text-amber-300/80">
+                      Add {nextTierInfo.itemsNeeded} more for {nextTierInfo.tierPercentage}% off
+                    </p>
+                  )}
                 </div>
               </div>
             )}
@@ -903,12 +951,22 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                       {/* Show total when qty > 1 or discount applies - AU only */}
                       {isAustralia && selectedSizeOption.price && (quantity > 1 || hasDiscount) && (
                         <div className="text-right">
+                          {hasDiscount && (
+                            <span className="text-sm text-muted-foreground line-through mr-2">
+                              ${(selectedSizeOption.price * quantity).toFixed(2)}
+                            </span>
+                          )}
                           <span className="text-lg font-bold text-primary">
                             ${(hasDiscount
-                              ? calculateDiscountedPrice(selectedSizeOption.price, quantity) * quantity
+                              ? calculateDiscountedPrice(selectedSizeOption.price, projectedTotal) * quantity
                               : selectedSizeOption.price * quantity
                             ).toFixed(2)}
                           </span>
+                          {hasDiscount && (
+                            <p className="text-xs text-green-600 mt-0.5">
+                              You save ${((selectedSizeOption.price * quantity) - (calculateDiscountedPrice(selectedSizeOption.price, projectedTotal) * quantity)).toFixed(2)}
+                            </p>
+                          )}
                         </div>
                       )}
                     </div>
