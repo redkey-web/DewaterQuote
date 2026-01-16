@@ -92,6 +92,10 @@ export default {
         comfortaa: ["var(--font-comfortaa)"],
         dot: ["var(--font-dot)"],
       },
+      transitionDuration: {
+        "2000": "2000ms",
+        "8000": "8000ms",
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },

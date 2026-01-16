@@ -148,6 +148,7 @@ FROM_EMAIL=noreply@dewaterproducts.com.au
 - [ ] Domain pointing to Vercel
 - [ ] SSL certificate active (auto via Vercel)
 - [ ] www redirect configured
+- [ ] Add `metadataBase: 'https://dewaterproducts.com.au'` to `src/app/layout.tsx` metadata export
 
 ---
 

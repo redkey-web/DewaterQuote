@@ -505,7 +505,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-[2000ms]" : "opacity-100") : "opacity-100")}>
+        <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-2000" : "opacity-100") : "opacity-100")}>
           {/* Terminal 1 - Windows CMD style, positioned as overlay */}
           {showTerminal1 && (
             <div className={"absolute left-1/2 -translate-x-1/2 z-30 pointer-events-none " + (terminal1Position === 'top' ? 'top-4' : 'bottom-4')}>
@@ -703,7 +703,7 @@ export default function HomePage() {
 
         {/* Stormy day coordinates - positioned at 75% down hero, centered */}
         {isStormyDay && (
-          <div className={"absolute left-0 right-0 z-30 pointer-events-none flex flex-col items-center transition-opacity duration-[2000ms] " + (isStormyFading ? "opacity-0" : "opacity-100")} style={{ top: "75%" }}>
+          <div className={"absolute left-0 right-0 z-30 pointer-events-none flex flex-col items-center transition-opacity duration-2000 " + (isStormyFading ? "opacity-0" : "opacity-100")} style={{ top: "75%" }}>
             {/* Coordinates with gradual fade in */}
             <div className="flex items-center justify-center gap-4 font-mono text-sm text-cyan-300/80 animate-coords-fade-in">
               <span>-36.616619</span>

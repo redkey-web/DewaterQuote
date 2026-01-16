@@ -215,7 +215,7 @@ export default function FluidHero({
 
       {/* Base layer: Photo */}
       <div
-        className="absolute inset-0 bg-cover transition-all duration-[8000ms] ease-in"
+        className="absolute inset-0 bg-cover transition-all duration-8000 ease-in"
         style={{
           backgroundImage: `url(${photoSrc})`,
           backgroundPosition: 'center 45%',
@@ -234,7 +234,7 @@ export default function FluidHero({
 
       {/* === STORMY DAY EFFECT === */}
       {stormyDayEnabled && (
-        <div className={`transition-opacity duration-[2000ms] ${stormyDayFading ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`transition-opacity duration-2000 ${stormyDayFading ? 'opacity-0' : 'opacity-100'}`}>
           {/* Dark midnight overlay - gradual fade in */}
           <div
             className="absolute inset-0 animate-stormy-gradient-in"
