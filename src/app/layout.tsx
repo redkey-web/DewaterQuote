@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter, Comfortaa } from "next/font/google"
+import { Inter, Comfortaa, DotGothic16 } from "next/font/google"
 import "./globals.css"
 import AppProviders from "@/components/AppProviders"
 import { OrganizationJsonLd } from "@/components/JsonLd"
@@ -7,6 +7,7 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const comfortaa = Comfortaa({ subsets: ["latin"], variable: "--font-comfortaa" })
+const dotGothic = DotGothic16({ weight: "400", subsets: ["latin"], variable: "--font-dot" })
 
 export const metadata: Metadata = {
   title: {
@@ -64,7 +65,7 @@ export default function RootLayout({
       <head>
         <OrganizationJsonLd />
       </head>
-      <body className={`${inter.variable} ${comfortaa.variable} font-sans antialiased`}>
+      <body className={[inter.variable, comfortaa.variable, dotGothic.variable, "font-sans antialiased"].join(" ")}>
         <GoogleAnalytics />
         <AppProviders>{children}</AppProviders>
       </body>

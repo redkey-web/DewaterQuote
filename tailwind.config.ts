@@ -90,6 +90,7 @@ export default {
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
         comfortaa: ["var(--font-comfortaa)"],
+        dot: ["var(--font-dot)"],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

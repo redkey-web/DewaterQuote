@@ -26,11 +26,11 @@ Consolidated UI/UX improvements for the homepage and site-wide polish. Includes 
 - [ ] Lighten hero image overlay from `bg-gradient-to-r from-black/60` to lighter value
 - [ ] Test image visibility with different overlay values
 
-### 1.2 Search Bar Enhancements
-- [ ] Increase border brightness from `border-primary/30` to `border-primary`
-- [ ] Add depth shadow: `shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]`
-- [ ] Update focus states for better visibility
-- [ ] File: `src/app/page.tsx:214`
+### 1.2 Search Bar Enhancements (Complete) ✅
+- [x] Increase border brightness from `border-primary/30` to `border-primary`
+- [x] Add depth shadow (enhanced with multiple inset layers)
+- [x] Update focus states for better visibility
+- [x] File: `src/app/page.tsx:533`
 
 ### 1.3 Category Pills - Teal Hover
 - [ ] Add solid teal background on hover
@@ -47,11 +47,11 @@ Consolidated UI/UX improvements for the homepage and site-wide polish. Includes 
 - [x] Remove laser scanning border wrapper div
 - [x] Remove chrome-text class from input
 
-### 2.2 Apply Font & Styling
-- [ ] Add dot font class to hero search input
-- [ ] Add dot font class to header search input
-- [ ] Update header search border to match hero brightness
-- [ ] Test responsive behavior on mobile
+### 2.2 Apply Font & Styling ✅
+- [x] Add dot font class to hero search input
+- [x] Add dot font class to header search input
+- [x] Update header search border to match hero brightness
+- [x] Test responsive behavior on mobile
 
 ### 2.3 Cleanup
 - [x] Remove unused .chrome-text styles from globals.css (N/A - in use on email in Header)

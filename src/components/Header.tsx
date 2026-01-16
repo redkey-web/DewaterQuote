@@ -390,7 +390,7 @@ export default function Header() {
                   ref={headerSearchInputRef}
                   type="search"
                   placeholder="Search products..."
-                  className="w-full pl-10 pr-3 py-2 text-sm border-2 border-primary rounded-xl bg-gray-100 dark:bg-gray-800 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_3px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all search-shimmer"
+                  className="w-full pl-10 pr-3 py-2 text-sm font-dot border-2 border-primary rounded-xl bg-gray-100 dark:bg-gray-800 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_3px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all search-shimmer"
                   data-testid="input-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -775,7 +775,7 @@ export default function Header() {
                   <input
                     type="search"
                     placeholder="Search products..."
-                    className="pl-9 w-full h-11 text-sm rounded-xl bg-zinc-100 border border-zinc-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08)] focus:outline-none focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary/50 transition-all placeholder:text-zinc-400 text-zinc-800"
+                    className="pl-9 w-full h-11 text-sm font-dot rounded-xl bg-zinc-100 border-2 border-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08)] focus:outline-none focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary transition-all placeholder:text-zinc-400 text-zinc-800"
                     data-testid="input-search-mobile"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}

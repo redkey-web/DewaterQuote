@@ -65,6 +65,7 @@ export default function HomePage() {
   const [showTerminal1, setShowTerminal1] = useState(false)
   const [showTerminal2, setShowTerminal2] = useState(false)
   const [terminal1Position, setTerminal1Position] = useState<'top' | 'bottom'>('top')
+  const [isMobile, setIsMobile] = useState(false)
   const heroSearchRef = useRef<HTMLDivElement>(null)
   const heroInputRef = useRef<HTMLInputElement>(null)
   const carouselRef = useRef<HTMLElement>(null)
@@ -120,13 +121,32 @@ export default function HomePage() {
   }
 
   // Search placeholder phrases for typewriter effect
-  const searchPhrases = [
-    "Search pipe fittings, valves, couplings",
+  const searchPhrasesDesktop = [
+    "Search pipe fittings, valves",
     "Butterfly valves, check valves",
-    "Straub couplings, Orbit flex-grip",
+    "Straub, Orbit flex-grip",
     "Y strainers, basket strainers",
     "Expansion joints, pipe repair",
   ]
+
+  // Shorter phrases for mobile to prevent line wrap
+  const searchPhrasesMobile = [
+    "Search fittings, valves",
+    "Butterfly valves",
+    "Straub, Orbit",
+    "Y strainers",
+    "Expansion joints",
+  ]
+
+  const searchPhrases = isMobile ? searchPhrasesMobile : searchPhrasesDesktop
+
+  // Detect mobile viewport for shorter typewriter phrases
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Auto-focus hero search on mount (after a small delay to show typewriter)
   useEffect(() => {
@@ -468,15 +488,24 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - teal duplicate */}
-        <div className={`absolute bottom-[calc(5%-31px)] right-[calc(5%-334px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? "animate-stormy-fade-out" : ""}`}>
+        {/* Desktop version */}
+        <div className={`absolute bottom-[calc(5%-31px)] right-[calc(5%-364px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? "animate-stormy-fade-out" : ""}`}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11-delayed" style={{ transformOrigin: 'center center' }}>
-              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={67} arcAngle={200} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[13px] font-bold tracking-[0.08em] font-mono" />
+              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={59} arcAngle={240} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[13px] font-bold tracking-[0.08em] font-mono" />
+            </div>
+          </div>
+        </div>
+        {/* Mobile version - smaller, bottom left, under search/pills */}
+        <div className={`absolute bottom-[15%] left-[5%] z-0 pointer-events-none block md:hidden transition-opacity duration-500 ${isStormyFading ? "animate-stormy-fade-out" : ""}`}>
+          <div style={{ perspective: '800px', transform: 'scale(0.67)' }}>
+            <div className="animate-orbit-3d-11-delayed" style={{ transformOrigin: 'center center' }}>
+              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={59} arcAngle={240} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[13px] font-bold tracking-[0.08em] font-mono" />
             </div>
           </div>
         </div>
 
-        <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[25vh] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-[2000ms]" : "opacity-100") : "opacity-100")}>
+        <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-[2000ms]" : "opacity-100") : "opacity-100")}>
           {/* Terminal 1 - Windows CMD style, positioned as overlay */}
           {showTerminal1 && (
             <div className={"absolute left-1/2 -translate-x-1/2 z-30 pointer-events-none " + (terminal1Position === 'top' ? 'top-4' : 'bottom-4')}>
@@ -496,7 +525,7 @@ export default function HomePage() {
             {isStormyDay ? "Компоненты гражданских и промышленных" : "Industrial Pipe Fitting Supply"}
           </p>
 
-          <div className="relative w-full max-w-[538px] mx-auto" ref={heroSearchRef}>
+          <div className="relative w-full max-w-[538px] md:max-w-[646px] mx-auto" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
               {/* Search Bar */}
               <div className="relative">
@@ -510,7 +539,7 @@ export default function HomePage() {
                 <input
                   ref={heroInputRef}
                   type="text"
-                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
+                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-dot font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -522,7 +551,7 @@ export default function HomePage() {
                 />
                 {/* Typewriter placeholder - shows when empty and not focused */}
                 {!searchQuery && !isSearchFocused && (
-                  <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-normal text-gray-700 pointer-events-none">
+                  <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-dot font-normal text-gray-700 pointer-events-none">
                     {isStormyDay ? (
                       <span className="text-cyan-700">Введите координаты...</span>
                     ) : (
@@ -567,10 +596,10 @@ export default function HomePage() {
             )}
           </div>
           {/* Category Dropdowns */}
-          <div className="flex flex-wrap items-center justify-center gap-1.5 mt-4">
+          <div className="flex flex-nowrap md:flex-wrap items-center justify-center gap-1 md:gap-1.5 mt-4">
             {/* Couplings */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
                 {isStormyDay ? 'Муфты' : 'Couplings'} <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
@@ -591,7 +620,7 @@ export default function HomePage() {
 
             {/* Valves */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
                 {isStormyDay ? 'Клапаны' : 'Valves'} <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
@@ -622,10 +651,10 @@ export default function HomePage() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Expansion Joints */}
+            {/* Joints */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-                {isStormyDay ? 'Компенсаторы' : 'Expansion Joints'} <ChevronDown className="w-3 h-3" />
+              <DropdownMenuTrigger className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
+                {isStormyDay ? 'Компенсаторы' : 'Joints'} <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
                 <DropdownMenuItem asChild>
@@ -651,7 +680,7 @@ export default function HomePage() {
 
             {/* Strainers */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1.5 text-white text-xs font-normal bg-white/5 rounded-full border border-white/10 hover:bg-primary hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
                 {isStormyDay ? 'Фильтры' : 'Strainers'} <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/80 backdrop-blur-sm">
