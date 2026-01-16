@@ -827,12 +827,12 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                       ) : (
                         <div className={`rounded-lg border bg-card overflow-hidden ${!selectedSize ? "ring-2 ring-primary border-primary" : ""}`}>
                           {/* Picker container */}
-                          <div className="relative" style={{ height: 180 }}>
+                          <div className="relative" style={{ height: 252 }}>
                             <Picker
                               value={{ size: selectedSize || product.sizeOptions?.[0]?.value || "" }}
                               onChange={(newValue) => setSelectedSize(newValue.size)}
                               wheelMode="natural"
-                              height={180}
+                              height={252}
                             >
                               <Picker.Column name="size">
                                 {product.sizeOptions?.map((size) => (
@@ -1052,7 +1052,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                 </p>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <Button
                   ref={addToQuoteButtonRef}
                   size="lg"
@@ -1077,7 +1077,7 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                     size="lg"
                     variant="outline"
                     data-testid="button-download"
-                    className="glass-button"
+                    className="glass-button w-full sm:w-auto"
                     onClick={() =>
                       product.downloads && window.open(product.downloads[0].url, "_blank")
                     }
