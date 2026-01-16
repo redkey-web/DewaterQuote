@@ -92,16 +92,9 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [certOpen, setCertOpen] = useState(false)
 
-  // Deduplicate images by URL and filter out duplicate images
+  // Deduplicate images by URL only (don't filter by alt text - "duplicate" marking was overly aggressive)
   const uniqueImages = product.images
     .filter((img, idx, arr) => arr.findIndex((i) => i.url === img.url) === idx)
-    .filter((img) => {
-      const urlLower = img.url.toLowerCase()
-      const altLower = img.alt.toLowerCase()
-      // Filter out duplicate images (alt_1 is usually same as main product image)
-      const isDuplicate = urlLower.includes('/alt_1/') || altLower.includes('duplicate')
-      return !isDuplicate
-    })
 
   // Navigation functions for image gallery
   const goToPrevious = useCallback(() => {

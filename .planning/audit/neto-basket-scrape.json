@@ -1,0 +1,174 @@
+{
+  "scrapedAt": "2026-01-16T13:01:10.885Z",
+  "totalProducts": 10,
+  "summary": {
+    "withMainImage": 10,
+    "withAltImages": 10,
+    "totalAltImages": 27,
+    "withVideoTab": 7,
+    "withVideos": 7
+  },
+  "products": [
+    {
+      "sku": "DBS3W316",
+      "netoUrl": "https://www.dewaterproducts.com.au/duplex-basket-strainer-316ss-fitted-with-3-way-fla~940",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/DBS3W316.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/DBS3W316.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_2/DBS3W316.jpg"
+        ]
+      },
+      "videos": [],
+      "hasVideoTab": false,
+      "scrapedAt": "2026-01-16T13:00:59.579Z"
+    },
+    {
+      "sku": "DBSTPB316",
+      "netoUrl": "https://www.dewaterproducts.com.au/duplex-basket-strainer-316ss-fitted-with-ss-butter~945",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/DBSTPB316.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_2/DBSTPB316.jpg"
+        ]
+      },
+      "videos": [
+        "https://www.youtube.com/watch?v=dJ5IdyXBAe4"
+      ],
+      "hasVideoTab": true,
+      "scrapedAt": "2026-01-16T13:01:02.192Z"
+    },
+    {
+      "sku": "DBSTPBCS",
+      "netoUrl": "https://www.dewaterproducts.com.au/duplex-basket-strainer-carbon-steel-fitted-with-di",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/DBSTPBCS.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/DBSTPBCS.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_2/DBSTPBCS.jpg"
+        ]
+      },
+      "videos": [],
+      "hasVideoTab": false,
+      "scrapedAt": "2026-01-16T13:01:02.748Z"
+    },
+    {
+      "sku": "FCBSCS",
+      "netoUrl": "https://www.dewaterproducts.com.au/fabricated-simplex-basket-strainer-flanged-ansi-15",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/FCBSCS.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/FCBSCS.jpg"
+        ]
+      },
+      "videos": [],
+      "hasVideoTab": false,
+      "scrapedAt": "2026-01-16T13:01:03.300Z"
+    },
+    {
+      "sku": "OSSBS",
+      "netoUrl": "https://www.dewaterproducts.com.au/oversized-simplex-basket-strainer",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/OSSBS.png",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/OSSBS.png",
+          "https://www.dewaterproducts.com.au/assets/alt_2/OSSBS.png",
+          "https://www.dewaterproducts.com.au/assets/alt_3/OSSBS.png"
+        ]
+      },
+      "videos": [
+        "https://www.youtube.com/watch?v=VGW2e69GGPw"
+      ],
+      "hasVideoTab": true,
+      "scrapedAt": "2026-01-16T13:01:05.605Z"
+    },
+    {
+      "sku": "SBS316-ANSI150",
+      "netoUrl": "https://www.dewaterproducts.com.au/simplex-basket-strainer-316-ss-flanged-ansi-150lb",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/SBS316-ANSI150.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/SBS316-ANSI150.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_2/SBS316-ANSI150.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_3/SBS316-ANSI150.jpg"
+        ]
+      },
+      "videos": [
+        "https://www.youtube.com/watch?v=SFkOtQawRKU"
+      ],
+      "hasVideoTab": true,
+      "scrapedAt": "2026-01-16T13:01:06.163Z"
+    },
+    {
+      "sku": "SBS316-ASPN16",
+      "netoUrl": "https://www.dewaterproducts.com.au/simplex-basket-strainer-316-ss-flanged-as4087-pn16",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/SBS316-ASPN16.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/SBS316-ASPN16.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_2/SBS316-ASPN16.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_3/SBS316-ASPN16.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_4/SBS316-ASPN16.jpg"
+        ]
+      },
+      "videos": [
+        "https://www.youtube.com/watch?v=Igcbqe6twDs"
+      ],
+      "hasVideoTab": true,
+      "scrapedAt": "2026-01-16T13:01:08.709Z"
+    },
+    {
+      "sku": "SBS316-TD_",
+      "netoUrl": "https://www.dewaterproducts.com.au/simplex-basket-strainer-316-ss-flanged-table-d",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/SBS316-TD_.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/SBS316-TD_.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_2/SBS316-TD_.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_3/SBS316-TD_.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_4/SBS316-TD_.jpg"
+        ]
+      },
+      "videos": [
+        "https://www.youtube.com/watch?v=onmL2dINLhk"
+      ],
+      "hasVideoTab": true,
+      "scrapedAt": "2026-01-16T13:01:09.272Z"
+    },
+    {
+      "sku": "SBS316-TE",
+      "netoUrl": "https://www.dewaterproducts.com.au/simplex-basket-strainer-316-ss-flanged-table-e",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/SBS316-TE.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/SBS316-TE.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_2/SBS316-TE.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_3/SBS316-TE.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_4/SBS316-TE.jpg"
+        ]
+      },
+      "videos": [
+        "https://www.youtube.com/watch?v=SFkOtQawRKU"
+      ],
+      "hasVideoTab": true,
+      "scrapedAt": "2026-01-16T13:01:09.830Z"
+    },
+    {
+      "sku": "SBSCS",
+      "netoUrl": "https://www.dewaterproducts.com.au/simplex-basket-strainer-cast-steel-flanged-ansi-15",
+      "images": {
+        "main": "https://www.dewaterproducts.com.au/assets/full/SBSCS.jpg",
+        "alt": [
+          "https://www.dewaterproducts.com.au/assets/alt_1/SBSCS.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_2/SBSCS.jpg",
+          "https://www.dewaterproducts.com.au/assets/alt_3/SBSCS.jpg"
+        ]
+      },
+      "videos": [
+        "https://www.youtube.com/watch?v=CI_o7_P0Ee0"
+      ],
+      "hasVideoTab": true,
+      "scrapedAt": "2026-01-16T13:01:10.385Z"
+    }
+  ]
+}
