@@ -496,14 +496,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        {/* Mobile version - smaller, bottom left, under search/pills */}
-        <div className={`absolute bottom-[15%] left-[5%] z-0 pointer-events-none block md:hidden transition-opacity duration-500 ${isStormyFading ? "animate-stormy-fade-out" : ""}`}>
-          <div style={{ perspective: '800px', transform: 'scale(0.67)' }}>
-            <div className="animate-orbit-3d-11-delayed" style={{ transformOrigin: 'center center' }}>
-              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={59} arcAngle={240} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[13px] font-bold tracking-[0.08em] font-mono" />
-            </div>
-          </div>
-        </div>
+        {/* Mobile version removed - 3D text only shows on desktop */}
 
         <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-2000" : "opacity-100") : "opacity-100")}>
           {/* Terminal 1 - Windows CMD style, positioned as overlay */}
@@ -534,7 +527,13 @@ export default function HomePage() {
                 ) : isStormyDay ? (
                   <Star className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 z-10 text-red-500 fill-red-500" />
                 ) : (
-                  <Search className={`absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 z-10 transition-colors ${isSearchFocused ? "text-gray-700" : "text-white"}`} />
+                  <Image
+                    src="/images/dewater-icon.png"
+                    alt=""
+                    width={32}
+                    height={32}
+                    className={`absolute left-5 top-1/2 -translate-y-1/2 z-10 transition-opacity ${isSearchFocused ? "opacity-70" : "opacity-100"}`}
+                  />
                 )}
                 <input
                   ref={heroInputRef}

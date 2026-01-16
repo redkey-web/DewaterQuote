@@ -91,7 +91,7 @@ export interface QuoteItemVariation {
 // Custom specs for Straub/Teekay products
 export interface CustomSpecs {
   pipeOd: string
-  rubberMaterial: 'EPDM' | 'NBR' | 'Viton'
+  rubberMaterial: 'EPDM' | 'NBR' | 'Viton' | 'GORE-TEX'
   pressure: string
   notes?: string
 }

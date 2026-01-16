@@ -10,6 +10,10 @@ const comfortaa = Comfortaa({ subsets: ["latin"], variable: "--font-comfortaa" }
 const dotGothic = DotGothic16({ weight: "400", subsets: ["latin"], variable: "--font-dot" })
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/images/dewater-icon.png",
+    apple: "/images/dewater-icon.png",
+  },
   title: {
     default: "Dewater Products - Industrial Pipe Fittings & Valves",
     template: "%s | Dewater Products",

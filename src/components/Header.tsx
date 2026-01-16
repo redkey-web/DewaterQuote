@@ -384,7 +384,13 @@ export default function Header() {
                 {isSearching ? (
                   <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 animate-spin z-10" />
                 ) : (
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 z-10" />
+                  <Image
+                    src="/images/dewater-icon.png"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-10 opacity-60"
+                  />
                 )}
                 <input
                   ref={headerSearchInputRef}
@@ -770,7 +776,13 @@ export default function Header() {
                   {isSearching ? (
                     <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
                   ) : (
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Image
+                      src="/images/dewater-icon.png"
+                      alt=""
+                      width={16}
+                      height={16}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 opacity-60"
+                    />
                   )}
                   <input
                     type="search"

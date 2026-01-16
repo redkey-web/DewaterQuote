@@ -720,6 +720,12 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                             <span className="text-xs text-muted-foreground">High temp, chemical resistant (-20°C to +200°C)</span>
                           </div>
                         </SelectItem>
+                        <SelectItem value="GORE-TEX">
+                          <div className="flex flex-col items-start">
+                            <span className="font-medium">GORE-TEX</span>
+                            <span className="text-xs text-muted-foreground">Universal chemical resistance, food-grade (-40°C to +230°C)</span>
+                          </div>
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
