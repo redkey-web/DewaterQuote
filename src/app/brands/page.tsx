@@ -62,7 +62,7 @@ const brands = [
 
 export default function BrandsPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Our Brands</h1>

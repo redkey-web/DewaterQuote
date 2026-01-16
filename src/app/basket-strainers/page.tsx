@@ -41,7 +41,7 @@ export default async function BasketStrainersPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
+    <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
       {/* Dark grey strip behind header */}
       <div className="fixed top-0 left-0 right-0 h-[44px] bg-zinc-500 z-30" />

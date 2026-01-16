@@ -51,7 +51,7 @@ export default async function FlangeAdaptorsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
+    <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}
@@ -75,8 +75,8 @@ export default async function FlangeAdaptorsPage() {
             <div className="flex-shrink-0 relative">
               <div className="relative w-80 h-80 lg:w-96 lg:h-96">
                 <Image
-                  src="/images/products/flange-adaptors/ss-flange-adapter-316.png"
-                  alt="316 Stainless Steel Flange Adaptor"
+                  src="/images/products/teekay/flange-adapter.jpg"
+                  alt="Teekay 316 Stainless Steel Flange Adaptor"
                   fill
                   className="object-contain"
                   priority

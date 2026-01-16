@@ -92,7 +92,7 @@ export default async function ProductRangePage() {
   const sortedCategories = categoryOrder.filter((cat) => productsByCategory[cat])
 
   return (
-    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
+    <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-muted/50 to-background py-12 border-b">
         <div className="max-w-7xl mx-auto px-6">

@@ -58,7 +58,7 @@ export default async function PipeRepairClampsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-stone-200 dark:bg-stone-900">
+    <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       <BreadcrumbJsonLd items={breadcrumbs} />
 
       {/* Hero Section */}

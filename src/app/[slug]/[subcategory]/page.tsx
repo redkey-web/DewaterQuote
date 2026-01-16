@@ -339,7 +339,7 @@ export default async function SubcategoryPage({ params }: SubcategoryPageProps) 
   ]
 
   return (
-    <div className="min-h-screen bg-stone-100 dark:bg-stone-900">
+    <div className="min-h-screen bg-[#EDEDED] dark:bg-stone-900">
       {/* JSON-LD Schema */}
       <BreadcrumbJsonLd items={breadcrumbs} />
       {products.length > 0 && (

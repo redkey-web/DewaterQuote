@@ -245,7 +245,7 @@ export default function Header() {
   // Dynamic dropdown height calculation based on content (returns pixels)
   const getDropdownHeight = (menu: string): number => {
     const headerHeight = 86; // Header area
-    const paddingHeight = 80; // py-8 top + bottom + title area buffer
+    const paddingHeight = 144; // pt-8 (32px) + pb-24 (96px) + title area buffer
     const itemHeight = 28; // Approximate height per menu item
     const titleAreaHeight = 140; // Left side title + description + link
 
@@ -403,7 +403,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("products")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
-                    <div className="max-w-7xl mx-auto px-6 py-8">
+                    <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">
                         {/* Left: Title & Description */}
                         <div className="col-span-4">
@@ -484,7 +484,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("industries")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
-                    <div className="max-w-7xl mx-auto px-6 py-8">
+                    <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">
                         <div className="col-span-4">
                           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
@@ -549,7 +549,7 @@ export default function Header() {
                     onMouseEnter={() => setActiveMenu("brands")}
                     onMouseLeave={() => setActiveMenu(null)}
                   >
-                    <div className="max-w-7xl mx-auto px-6 py-8">
+                    <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">
                         <div className="col-span-4">
                           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
