@@ -1,6 +1,11 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
+
+interface BrokenLetter {
+  word: string
+  letterIndex: number  // 0-based, or -1 for last letter
+}
 
 interface ScrambleCycleTextProps {
   phrases: string[]
@@ -8,6 +13,8 @@ interface ScrambleCycleTextProps {
   className?: string
   scrambleChars?: string
   removeLetter?: boolean
+  brokenLetters?: BrokenLetter[]  // Which letters should be "broken"
+  isShadowLayer?: boolean  // true = shadow layer (show all), false = color layer (hide broken)
 }
 
 const DEFAULT_SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*'
@@ -20,12 +27,41 @@ function removeOneLetter(str: string): string {
   return str.slice(0, indexToRemove) + str.slice(indexToRemove + 1)
 }
 
+// Find broken letter indices in text
+function findBrokenIndices(text: string, brokenLetters: BrokenLetter[]): Set<number> {
+  const indices = new Set<number>()
+  if (!brokenLetters.length) return indices
+
+  const words = text.split(/(\s+)/)
+  let charIndex = 0
+
+  words.forEach(segment => {
+    const wordLower = segment.toLowerCase()
+    brokenLetters.forEach(config => {
+      if (wordLower === config.word.toLowerCase()) {
+        let letterIdx = config.letterIndex
+        if (letterIdx < 0) {
+          letterIdx = segment.length + letterIdx
+        }
+        if (letterIdx >= 0 && letterIdx < segment.length) {
+          indices.add(charIndex + letterIdx)
+        }
+      }
+    })
+    charIndex += segment.length
+  })
+
+  return indices
+}
+
 export default function ScrambleCycleText({
   phrases,
   interval = 10000,
   className = '',
   scrambleChars = DEFAULT_SCRAMBLE_CHARS,
-  removeLetter = false
+  removeLetter = false,
+  brokenLetters = [],
+  isShadowLayer = true
 }: ScrambleCycleTextProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [displayText, setDisplayText] = useState(removeLetter ? removeOneLetter(phrases[0] || '') : (phrases[0] || ''))
@@ -89,9 +125,35 @@ export default function ScrambleCycleText({
 
   const combinedClassName = className + (isScrambling ? ' animate-pulse' : '')
 
+  // Calculate broken indices for current display text
+  const brokenIndices = useMemo(
+    () => findBrokenIndices(displayText, brokenLetters),
+    [displayText, brokenLetters]
+  )
+
+  // Render text with broken letter effect
+  const renderText = () => {
+    if (!brokenLetters.length || isShadowLayer) {
+      // Shadow layer or no broken letters - render normally
+      return displayText
+    }
+
+    // Color layer with broken letters - render char by char
+    return displayText.split('').map((char, idx) => {
+      if (brokenIndices.has(idx)) {
+        return (
+          <span key={idx} className="opacity-0" aria-hidden="true">
+            {char}
+          </span>
+        )
+      }
+      return <span key={idx}>{char}</span>
+    })
+  }
+
   return (
     <span className={combinedClassName}>
-      {displayText}
+      {renderText()}
     </span>
   )
 }

@@ -396,6 +396,8 @@ export default function HomePage() {
                 typingSpeed={60}
                 deletingSpeed={30}
                 pauseDuration={2500}
+                isShadowLayer={false}
+                brokenLetters={[{ word: 'dispatch', letterIndex: 4 }]}
               />
             </span>
           </div>
@@ -424,6 +426,12 @@ export default function HomePage() {
                 <ScrambleCycleText
                   phrases={['FOR PIPELINE REPAIRS & MAINTENANCE', 'INDUSTRIAL PIPE FITTINGS SPECIALISTS']}
                   interval={10000}
+                  isShadowLayer={false}
+                  brokenLetters={[
+                    { word: 'MAINTENANCE', letterIndex: 0 },
+                    { word: 'FITTINGS', letterIndex: -1 },
+                    { word: 'SPECIALISTS', letterIndex: -1 }
+                  ]}
                 />
               )}
             </span>
