@@ -2,21 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* iOS Safe Area - extend background to screen edges in landscape */
+/* iOS Safe Area - industry standard approach using env() */
 html {
-  background: #EDEDED; /* Match most common page bg for landscape safe areas */
+  background: hsl(var(--background));
 }
 
 body {
   background: hsl(var(--background));
   min-height: 100dvh;
-  min-height: 100svh; /* Small viewport for mobile */
+  min-height: 100svh;
+  /* Safe area padding for notched devices */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Landscape mobile - ensure full bleed */
-@media (orientation: landscape) and (max-height: 500px) {
-  html {
-    background: #1e293b; /* Dark slate to match hero sections */
+/* Ensure content containers respect safe areas */
+@supports (padding: env(safe-area-inset-left)) {
+  .safe-padding {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .safe-padding-x {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
   }
 }
 
