@@ -242,11 +242,35 @@ export default function Header() {
     { name: "Privacy Policy", url: "/privacy" },
   ]
 
-  // Dropdown background heights
-  const dropdownHeights: Record<string, string> = {
-    products: 'h-[540px]',
-    industries: 'h-[340px]',
-    brands: 'h-[280px]',
+  // Dynamic dropdown height calculation based on content (returns pixels)
+  const getDropdownHeight = (menu: string): number => {
+    const headerHeight = 86; // Header area
+    const paddingHeight = 80; // py-8 top + bottom + title area buffer
+    const itemHeight = 28; // Approximate height per menu item
+    const titleAreaHeight = 140; // Left side title + description + link
+
+    switch (menu) {
+      case 'products': {
+        // Products has multiple categories in 2 columns
+        const categoryHeights = productsMenu.map(cat => (cat.items.length + 1) * itemHeight);
+        const col1Height = categoryHeights.slice(0, 2).reduce((a, b) => a + b, 0);
+        const col2Height = categoryHeights.slice(2, 4).reduce((a, b) => a + b, 0);
+        const maxColHeight = Math.max(col1Height, col2Height, titleAreaHeight);
+        return headerHeight + paddingHeight + maxColHeight;
+      }
+      case 'industries': {
+        const rows = Math.ceil(industriesMenu.length / 2);
+        const contentHeight = Math.max(rows * itemHeight, titleAreaHeight);
+        return headerHeight + paddingHeight + contentHeight;
+      }
+      case 'brands': {
+        const rows = Math.ceil(brandsMenu.length / 2);
+        const contentHeight = Math.max(rows * itemHeight, titleAreaHeight);
+        return headerHeight + paddingHeight + contentHeight;
+      }
+      default:
+        return 320;
+    }
   }
 
   return (
@@ -254,14 +278,15 @@ export default function Header() {
       {/* Portal dropdown backgrounds outside header stacking context */}
       {isMounted && activeMenu && ['products', 'industries', 'brands'].includes(activeMenu) && createPortal(
         <div
-          className={`fixed top-0 left-0 right-0 ${dropdownHeights[activeMenu] || 'h-[280px]'} dropdown-silver-gradient z-[50] animate-dropdown-slide rounded-b-2xl`}
+          className="fixed top-0 left-0 right-0 dropdown-silver-gradient z-[50] animate-dropdown-slide rounded-b-2xl"
+          style={{ height: getDropdownHeight(activeMenu) }}
           onMouseEnter={() => setActiveMenu(activeMenu)}
           onMouseLeave={() => setActiveMenu(null)}
         />,
         document.body
       )}
 
-      <header className="sticky top-0 z-[60] shadow-sm">
+      <header className="sticky top-0 z-[60]">
         <div className="absolute inset-0 header-gradient-blur" />
         <div className="relative max-w-7xl mx-auto px-6">
         {/* Three-column, two-row grid */}
@@ -336,7 +361,7 @@ export default function Header() {
           </div>
 
           {/* Top Row Right - Contact Info */}
-          <div className="flex items-center justify-end gap-6 py-1.5 text-sm text-gray-600 dark:text-gray-400 border-b border-primary/10">
+          <div className="flex items-center justify-end gap-6 py-1.5 text-sm text-gray-600 dark:text-gray-400">
             <a href="mailto:sales@dewaterproducts.com.au" className="hover:text-primary transition-colors flex items-center gap-1.5">
               <Mail className="w-4 h-4 text-primary" />
               <span className="chrome-text">sales@dewaterproducts.com.au</span>

@@ -42,6 +42,14 @@ export const subcategories = pgTable('subcategories', {
   image: text('image'),
   categoryId: integer('category_id').references(() => categories.id, { onDelete: 'cascade' }).notNull(),
   displayOrder: integer('display_order').default(0),
+  // Page content fields (for admin-editable subcategory pages)
+  heroImage: text('hero_image'), // Vercel Blob URL for hero background
+  metaDescription: text('meta_description'), // SEO meta description
+  heroDescription: text('hero_description'), // Short description shown in hero section
+  longDescription: text('long_description'), // Detailed "About" section content
+  features: jsonb('features').$type<string[]>(), // Array of feature bullet points
+  applications: jsonb('applications').$type<string[]>(), // Array of application areas
+  isActive: boolean('is_active').default(true), // Toggle visibility
 });
 
 // ============================================

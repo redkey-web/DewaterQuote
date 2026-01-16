@@ -7,18 +7,28 @@ interface ScrambleCycleTextProps {
   interval?: number // ms between phrase changes
   className?: string
   scrambleChars?: string
+  removeLetter?: boolean
 }
 
 const DEFAULT_SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*'
+
+// Remove one letter from a string at a consistent position based on string content
+function removeOneLetter(str: string): string {
+  if (str.length <= 2) return str
+  // Use string length as seed for consistent position
+  const indexToRemove = str.length % (str.length - 1)
+  return str.slice(0, indexToRemove) + str.slice(indexToRemove + 1)
+}
 
 export default function ScrambleCycleText({
   phrases,
   interval = 10000,
   className = '',
-  scrambleChars = DEFAULT_SCRAMBLE_CHARS
+  scrambleChars = DEFAULT_SCRAMBLE_CHARS,
+  removeLetter = false
 }: ScrambleCycleTextProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [displayText, setDisplayText] = useState(phrases[0] || '')
+  const [displayText, setDisplayText] = useState(removeLetter ? removeOneLetter(phrases[0] || '') : (phrases[0] || ''))
   const [isScrambling, setIsScrambling] = useState(false)
 
   const scrambleToText = useCallback((targetText: string) => {

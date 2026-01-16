@@ -82,6 +82,13 @@ export async function PATCH(
             slug: subcat.slug,
             description: subcat.description || null,
             displayOrder: subcat.displayOrder ?? 0,
+            heroImage: subcat.heroImage || null,
+            metaDescription: subcat.metaDescription || null,
+            heroDescription: subcat.heroDescription || null,
+            longDescription: subcat.longDescription || null,
+            features: subcat.features || null,
+            applications: subcat.applications || null,
+            isActive: subcat.isActive ?? true,
           })
           .where(eq(subcategories.id, subcat.id));
       }
@@ -94,6 +101,13 @@ export async function PATCH(
           slug: subcat.slug,
           description: subcat.description || null,
           displayOrder: subcat.displayOrder ?? 0,
+          heroImage: subcat.heroImage || null,
+          metaDescription: subcat.metaDescription || null,
+          heroDescription: subcat.heroDescription || null,
+          longDescription: subcat.longDescription || null,
+          features: subcat.features || null,
+          applications: subcat.applications || null,
+          isActive: subcat.isActive ?? true,
         });
       }
     }

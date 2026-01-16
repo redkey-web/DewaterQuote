@@ -8,6 +8,15 @@ interface TypewriterPlaceholderProps {
   deletingSpeed?: number
   pauseDuration?: number
   className?: string
+  removeLetter?: boolean
+}
+
+// Remove one letter from a string at a consistent position based on string content
+function removeOneLetter(str: string): string {
+  if (str.length <= 2) return str
+  // Use string length as seed for consistent position
+  const indexToRemove = str.length % (str.length - 1)
+  return str.slice(0, indexToRemove) + str.slice(indexToRemove + 1)
 }
 
 export default function TypewriterPlaceholder({
@@ -16,13 +25,16 @@ export default function TypewriterPlaceholder({
   deletingSpeed = 40,
   pauseDuration = 2000,
   className = "",
+  removeLetter = false,
 }: TypewriterPlaceholderProps) {
   const [displayText, setDisplayText] = useState("")
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
 
-  const currentPhrase = phrases[phraseIndex]
+  // Apply letter removal if enabled
+  const rawPhrase = phrases[phraseIndex]
+  const currentPhrase = removeLetter ? removeOneLetter(rawPhrase) : rawPhrase
 
   const tick = useCallback(() => {
     if (isPaused) return
