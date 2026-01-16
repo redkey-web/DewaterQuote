@@ -1852,13 +1852,27 @@
   animation: size-pulse 3s ease-in-out infinite;
 }
 
-/* 3D orbit loop animation for curved text - spins like a bike tire */
+/* 3D orbit loop animation for curved text - spins like a bike tire with depth */
 @keyframes orbit-3d {
   0% {
-    transform: rotateZ(0deg);
+    transform: rotateZ(0deg) translateZ(0px);
+    z-index: 5;
+  }
+  25% {
+    transform: rotateZ(90deg) translateZ(100px);
+    z-index: 50;
+  }
+  50% {
+    transform: rotateZ(180deg) translateZ(0px);
+    z-index: 5;
+  }
+  75% {
+    transform: rotateZ(270deg) translateZ(-100px);
+    z-index: -1;
   }
   100% {
-    transform: rotateZ(360deg);
+    transform: rotateZ(360deg) translateZ(0px);
+    z-index: 5;
   }
 }
 

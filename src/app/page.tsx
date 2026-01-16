@@ -460,7 +460,7 @@ export default function HomePage() {
 
         {/* Curved text - arcing around expansion joint flange */}
         <div
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}
+          className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}
           style={{ perspective: '600px' }}
         >
           <div className="animate-orbit-3d" style={{ transformOrigin: 'center center' }}>
