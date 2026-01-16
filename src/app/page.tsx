@@ -467,25 +467,16 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Orbiting curved text */}
-        <div className={`absolute bottom-[calc(5%-30px)] right-[calc(5%-332px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? 'animate-stormy-fade-out' : ''}`}>
+        {/* Orbiting curved text - teal duplicate */}
+        <div className={`absolute bottom-[calc(5%-31px)] right-[calc(5%-334px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? "animate-stormy-fade-out" : ""}`}>
           <div style={{ perspective: '800px' }}>
-            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
-              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={67} arcAngle={200} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-pink-300/55 text-[13px] font-bold tracking-[0.08em] font-mono" />
-            </div>
-          </div>
-        </div>
-
-        {/* Orbiting curved text - zoomed out duplicate */}
-        <div className={`absolute bottom-[calc(5%-22px)] right-[calc(5%-292px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? "animate-stormy-fade-out" : ""}`}>
-          <div style={{ perspective: '800px', transform: 'scale(0.9)' }}>
             <div className="animate-orbit-3d-11-delayed" style={{ transformOrigin: 'center center' }}>
-              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={74} arcAngle={200} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[13px] font-bold tracking-[0.08em] font-mono" />
+              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={67} arcAngle={200} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[13px] font-bold tracking-[0.08em] font-mono" />
             </div>
           </div>
         </div>
 
-        <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[106px] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-[2000ms]" : "opacity-100") : "opacity-100")}>
+        <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[25vh] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-[2000ms]" : "opacity-100") : "opacity-100")}>
           {/* Terminal 1 - Windows CMD style, positioned as overlay */}
           {showTerminal1 && (
             <div className={"absolute left-1/2 -translate-x-1/2 z-30 pointer-events-none " + (terminal1Position === 'top' ? 'top-4' : 'bottom-4')}>
@@ -502,7 +493,7 @@ export default function HomePage() {
 
           {/* Headline */}
           <p className={"font-comfortaa text-xl md:text-2xl font-bold mb-4 tracking-wide drop-shadow-md transition-all duration-500 " + (isStormyDay ? "text-cyan-200/90 animate-stormy-gradient-fade-in" : "text-white/90")} style={isStormyDay ? { animationDuration: "3s" } : undefined}>
-            {isStormyDay ? "Компоненты гражданских и промышленных" : "Industrial Pipe Fittings Specialists"}
+            {isStormyDay ? "Компоненты гражданских и промышленных" : "Industrial Pipe Fitting Supply"}
           </p>
 
           <div className="relative w-full max-w-[538px] mx-auto" ref={heroSearchRef}>

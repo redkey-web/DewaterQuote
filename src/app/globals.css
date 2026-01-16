@@ -2074,7 +2074,7 @@
 
 .animate-orbit-3d-11-delayed {
   animation: orbit-3d-11 9s linear infinite;
-  animation-delay: -7.2s; /* Start 80% through = 20% behind the other */
+  animation-delay: -0.09s; /* Start 1% through = 1% ahead of the other */
   transform-style: preserve-3d;
 }
 
@@ -2126,6 +2126,13 @@
   left: 0;
   right: 0;
   z-index: 40;
+}
+
+/* Mobile: ticker under smaller header */
+@media (max-width: 1023px) {
+  .ticker-fixed {
+    top: 64px;
+  }
 }
 
 /* ========================================

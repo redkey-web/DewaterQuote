@@ -735,7 +735,7 @@ export default function Header() {
               alt="Dewater Products"
               width={200}
               height={67}
-              className="h-12 w-auto object-contain"
+              className="h-24 w-auto object-contain"
               priority
             />
           </Link>
