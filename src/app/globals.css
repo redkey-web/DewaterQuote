@@ -2,29 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* iOS Safe Area - industry standard approach using env() */
-html {
-  background: hsl(var(--background));
-}
-
-body {
+/* iOS Safe Area - backgrounds extend to edges, padding only where needed */
+html, body {
   background: hsl(var(--background));
   min-height: 100dvh;
-  min-height: 100svh;
-  /* Safe area padding for notched devices */
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
+  /* NO body padding - backgrounds should extend to screen edges */
 }
 
-/* Ensure content containers respect safe areas */
+/* Safe area utilities - apply to specific elements that need it */
 @supports (padding: env(safe-area-inset-left)) {
-  .safe-padding {
+  /* For elements that need safe area padding (e.g., fixed headers, footers) */
+  .pl-safe { padding-left: env(safe-area-inset-left); }
+  .pr-safe { padding-right: env(safe-area-inset-right); }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+  .px-safe {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
 
-  .safe-padding-x {
+  /* Combined with existing padding - use max() */
+  .px-safe-or-6 {
     padding-left: max(1.5rem, env(safe-area-inset-left));
     padding-right: max(1.5rem, env(safe-area-inset-right));
   }
