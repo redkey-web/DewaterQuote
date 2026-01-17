@@ -487,12 +487,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Orbiting curved text - teal duplicate */}
-        {/* Desktop version */}
-        <div className={`absolute bottom-[calc(5%-31px)] right-[calc(5%-364px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 ${isStormyFading ? "animate-stormy-fade-out" : ""}`}>
+        {/* Orbiting curved text */}
+        <div className={"absolute bottom-[calc(8%-231px)] right-[calc(0%+66px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
-            <div className="animate-orbit-3d-11-delayed" style={{ transformOrigin: 'center center' }}>
-              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={187} height={187} radius={59} arcAngle={240} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[13px] font-bold tracking-[0.08em] font-mono" />
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={561} height={561} radius={182} arcAngle={300} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[20px] font-bold tracking-[0.08em] font-mono" />
             </div>
           </div>
         </div>
@@ -515,10 +514,10 @@ export default function HomePage() {
 
           {/* Headline */}
           <p className={"font-comfortaa text-xl md:text-2xl font-bold mb-4 tracking-wide drop-shadow-md transition-all duration-500 " + (isStormyDay ? "text-cyan-200/90 animate-stormy-gradient-fade-in" : "text-white/90")} style={isStormyDay ? { animationDuration: "3s" } : undefined}>
-            {isStormyDay ? "Компоненты гражданских и промышленных" : "Industrial Pipe Fitting Supply"}
+            {isStormyDay ? "Компоненты гражданских и промышленных" : "Industrial Pipe Fittings Supply"}
           </p>
 
-          <div className="relative w-full max-w-[538px] md:max-w-[646px] mx-auto" ref={heroSearchRef}>
+          <div className="relative w-full max-w-[807px] md:max-w-[969px] mx-auto" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
               {/* Search Bar */}
               <div className="relative">
@@ -538,7 +537,7 @@ export default function HomePage() {
                 <input
                   ref={heroInputRef}
                   type="text"
-                  className="relative w-full h-14 md:h-16 pl-14 pr-6 text-lg font-dot font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
+                  className="relative w-full h-14 md:h-16 pl-[72px] pr-6 text-lg font-dot font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -550,7 +549,7 @@ export default function HomePage() {
                 />
                 {/* Typewriter placeholder - shows when empty and not focused */}
                 {!searchQuery && !isSearchFocused && (
-                  <div className="absolute left-14 top-1/2 -translate-y-1/2 text-lg font-dot font-normal text-gray-700 pointer-events-none">
+                  <div className="absolute left-[72px] top-1/2 -translate-y-1/2 text-lg font-dot font-normal text-gray-700 pointer-events-none">
                     {isStormyDay ? (
                       <span className="text-cyan-700">Введите координаты...</span>
                     ) : (

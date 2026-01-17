@@ -2064,8 +2064,8 @@ html, body {
 }
 
 @keyframes orbit-3d-11 {
-  from { transform: rotateY(38deg) rotateZ(0deg); }
-  to { transform: rotateY(38deg) rotateZ(360deg); }
+  from { transform: rotateX(-9deg) rotateY(303deg) rotateZ(0deg); }
+  to { transform: rotateX(-9deg) rotateY(303deg) rotateZ(360deg); }
 }
 
 @keyframes orbit-3d-12 {
