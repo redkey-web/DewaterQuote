@@ -389,14 +389,14 @@ export default function Header() {
                     alt=""
                     width={20}
                     height={20}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 z-10 opacity-60"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-10 opacity-60 -scale-y-100"
                   />
                 )}
                 <input
                   ref={headerSearchInputRef}
                   type="search"
                   placeholder="Search products..."
-                  className="w-full pl-10 pr-3 py-2 text-sm font-dot border-2 border-primary rounded-xl bg-gray-100 dark:bg-gray-800 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_3px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all search-shimmer"
+                  className="w-full pl-10 pr-3 py-2 text-sm font-mono border-2 border-primary rounded-xl bg-gray-100 dark:bg-gray-800 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15),inset_0_1px_3px_rgba(0,0,0,0.1)] focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all search-shimmer"
                   data-testid="input-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -746,20 +746,18 @@ export default function Header() {
             />
           </Link>
           <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="icon"
+            <button
               onClick={openCart}
-              className="relative"
+              className="relative w-10 h-10 flex items-center justify-center rounded-xl border border-cyan-700 text-cyan-700 bg-transparent shadow-[inset_0_0_2px_rgba(0,0,0,0.1)] hover:bg-[radial-gradient(ellipse_at_center,_rgba(103,232,249,0.15)_0%,_rgba(34,211,238,0.1)_50%,_transparent_100%)] hover:border-cyan-500 hover:text-cyan-600 transition-all duration-150"
               data-testid="button-quote-mobile"
             >
               <ClipboardList className="w-5 h-5" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
                 </span>
               )}
-            </Button>
+            </button>
             <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
@@ -781,13 +779,13 @@ export default function Header() {
                       alt=""
                       width={16}
                       height={16}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 opacity-60"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 opacity-60 -scale-y-100"
                     />
                   )}
                   <input
                     type="search"
                     placeholder="Search products..."
-                    className="pl-9 w-full h-11 text-sm font-dot rounded-xl bg-zinc-100 border-2 border-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08)] focus:outline-none focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary transition-all placeholder:text-zinc-400 text-zinc-800"
+                    className="pl-9 w-full h-11 text-sm font-mono rounded-xl bg-zinc-100 border-2 border-primary shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08)] focus:outline-none focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.12),inset_0_1px_2px_rgba(0,0,0,0.08),0_0_0_3px_rgba(59,156,165,0.3)] focus:border-primary transition-all placeholder:text-zinc-400 text-zinc-800"
                     data-testid="input-search-mobile"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}

@@ -299,7 +299,7 @@ html, body {
 .ticker-wrapper-seamless {
   display: flex;
   width: max-content;
-  animation: ticker-seamless 30s linear infinite;
+  animation: ticker-seamless 39s linear infinite;
   will-change: transform;
 }
 
@@ -2094,12 +2094,12 @@ html, body {
 }
 
 .animate-orbit-3d-11 {
-  animation: orbit-3d-11 9s linear infinite;
+  animation: orbit-3d-11 13.5s linear infinite;
   transform-style: preserve-3d;
 }
 
 .animate-orbit-3d-11-delayed {
-  animation: orbit-3d-11 9s linear infinite;
+  animation: orbit-3d-11 13.5s linear infinite;
   animation-delay: -0.09s; /* Start 1% through = 1% ahead of the other */
   transform-style: preserve-3d;
 }
@@ -2173,7 +2173,7 @@ html, body {
     clip-path: inset(0 0 0 0);
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(-12px);
     clip-path: inset(0 0 100% 0);
   }
@@ -2191,7 +2191,7 @@ html, body {
     clip-path: inset(0 0 0 0);
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(-12px);
     clip-path: inset(0 0 100% 0);
   }

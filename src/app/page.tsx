@@ -491,13 +491,13 @@ export default function HomePage() {
         <div className={"absolute bottom-[calc(8%-231px)] right-[calc(0%+66px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
-              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'HEAVY INDUSTRY SUPPLIES'} width={561} height={561} radius={182} arcAngle={300} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[20px] font-bold tracking-[0.08em] font-mono" />
+              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'} width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[14px] font-bold tracking-[0.08em] font-mono" />
             </div>
           </div>
         </div>
         {/* Mobile version removed - 3D text only shows on desktop */}
 
-        <div className={"max-w-6xl mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-2000" : "opacity-100") : "opacity-100")}>
+        <div className={"max-w-[1400px] mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-2000" : "opacity-100") : "opacity-100")}>
           {/* Terminal 1 - Windows CMD style, positioned as overlay */}
           {showTerminal1 && (
             <div className={"absolute left-1/2 -translate-x-1/2 z-30 pointer-events-none " + (terminal1Position === 'top' ? 'top-4' : 'bottom-4')}>
@@ -517,7 +517,7 @@ export default function HomePage() {
             {isStormyDay ? "Компоненты гражданских и промышленных" : "Industrial Pipe Fittings Supply"}
           </p>
 
-          <div className="relative w-full max-w-[807px] md:max-w-[969px] mx-auto" ref={heroSearchRef}>
+          <div className="relative left-1/2 -translate-x-1/2 w-[calc(100%+80px)] md:w-[calc(100%+160px)] max-w-[1260px] md:max-w-[1500px]" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
               {/* Search Bar */}
               <div className="relative">
@@ -531,13 +531,13 @@ export default function HomePage() {
                     alt=""
                     width={32}
                     height={32}
-                    className={`absolute left-5 top-1/2 -translate-y-1/2 z-10 transition-opacity ${isSearchFocused ? "opacity-70" : "opacity-100"}`}
+                    className={`absolute left-5 top-1/2 -translate-y-1/2 z-10 transition-opacity -scale-y-100 ${isSearchFocused ? "opacity-70" : "opacity-100"}`}
                   />
                 )}
                 <input
                   ref={heroInputRef}
                   type="text"
-                  className="relative w-full h-14 md:h-16 pl-[72px] pr-6 text-lg font-dot font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
+                  className="relative w-full h-14 md:h-16 pl-[72px] pr-6 text-lg font-mono font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -549,7 +549,7 @@ export default function HomePage() {
                 />
                 {/* Typewriter placeholder - shows when empty and not focused */}
                 {!searchQuery && !isSearchFocused && (
-                  <div className="absolute left-[72px] top-1/2 -translate-y-1/2 text-lg font-dot font-normal text-gray-700 pointer-events-none">
+                  <div className="absolute left-[72px] top-1/2 -translate-y-1/2 text-lg font-mono font-normal text-gray-700 pointer-events-none">
                     {isStormyDay ? (
                       <span className="text-cyan-700">Введите координаты...</span>
                     ) : (
@@ -751,7 +751,7 @@ export default function HomePage() {
                     alt="Straub"
                     width={120}
                     height={40}
-                    className="h-10 w-auto object-contain pointer-events-none"
+                    className="h-8 w-auto object-contain pointer-events-none"
                     priority={copyIndex === 0}
                   />
                 </div>
@@ -761,7 +761,7 @@ export default function HomePage() {
                     alt="Orbit Couplings"
                     width={270}
                     height={90}
-                    className="h-16 w-auto object-contain"
+                    className="h-[51px] w-auto object-contain"
                     priority={copyIndex === 0}
                   />
                 </Link>
@@ -771,7 +771,7 @@ export default function HomePage() {
                     alt="Teekay"
                     width={120}
                     height={40}
-                    className="h-10 w-auto object-contain"
+                    className="h-8 w-auto object-contain"
                   />
                 </Link>
                 <Link href="/defender-valves" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
@@ -780,7 +780,7 @@ export default function HomePage() {
                     alt="Defender Valves"
                     width={200}
                     height={60}
-                    className="h-10 w-auto object-contain"
+                    className="h-8 w-auto object-contain"
                   />
                 </Link>
                 <Link href="/bore-flex" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
@@ -789,7 +789,7 @@ export default function HomePage() {
                     alt="Bore-Flex Rubber"
                     width={1080}
                     height={360}
-                    className="h-[110px] w-auto object-contain"
+                    className="h-[88px] w-auto object-contain"
                   />
                 </Link>
                 <Link href="/defender-strainers" className="flex-shrink-0 px-8 brand-logo-link" tabIndex={copyIndex > 0 ? -1 : undefined}>
@@ -798,7 +798,7 @@ export default function HomePage() {
                     alt="Defender Strainers"
                     width={414}
                     height={142}
-                    className="h-[58px] w-auto object-contain"
+                    className="h-[46px] w-auto object-contain"
                   />
                 </Link>
               </div>

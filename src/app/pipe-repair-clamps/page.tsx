@@ -125,8 +125,12 @@ export default async function PipeRepairClampsPage() {
       </div>
 
       {/* Benefits Section */}
-      <div className="bg-stone-300 dark:bg-stone-800 py-8">
-        <div className="max-w-7xl mx-auto px-6">
+      <div className="bg-stone-300 dark:bg-stone-800 py-8 relative">
+        {/* Top exponential dark gradient */}
+        <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.02) 75%, transparent 100%)' }} />
+        {/* Bottom exponential dark gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.02) 75%, transparent 100%)' }} />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {repairBenefits.map((benefit) => (
               <div
