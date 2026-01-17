@@ -146,12 +146,45 @@ export default async function PipeRepairClampsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
+      {/* Main Content Section with animated blob background */}
+      <div className="relative overflow-hidden">
+        {/* Animated blob background */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Dark base gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-700" />
+          {/* Blob 1 - Cyan brand color (large, top-left) */}
+          <div
+            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob"
+            style={{ backgroundColor: '#39C5DA' }}
+          />
+          {/* Blob 2 - Teal accent (right side) */}
+          <div
+            className="absolute top-40 -right-32 w-[450px] h-[450px] rounded-full opacity-40 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#2DD4BF' }}
+          />
+          {/* Blob 3 - Dark navy (bottom, adds depth) */}
+          <div
+            className="absolute -bottom-20 left-1/4 w-[600px] h-[400px] rounded-full opacity-60 blur-3xl animate-blob animation-delay-4000"
+            style={{ backgroundColor: '#0f172a' }}
+          />
+          {/* Blob 4 - Dark slate (center-right) */}
+          <div
+            className="absolute top-1/2 right-0 w-[700px] h-[500px] rounded-full opacity-50 blur-3xl animate-blob animation-delay-2000"
+            style={{ backgroundColor: '#1e293b' }}
+          />
+          {/* Blob 5 - Additional cyan glow (bottom-left) */}
+          <div
+            className="absolute bottom-20 -left-20 w-[400px] h-[400px] rounded-full opacity-30 blur-3xl animate-blob animation-delay-4000"
+            style={{ backgroundColor: '#39C5DA' }}
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 pt-16 pb-12 relative z-10">
 
         {/* Subcategory Links */}
         {repairSubcategories.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4">Browse by Brand</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">Browse by Brand</h2>
             <div className="flex flex-wrap gap-3">
               {repairSubcategories.map((subcat, index) => (
                 <Link key={subcat.slug} href={`/pipe-repair-clamps/${subcat.slug}`}>
@@ -170,7 +203,7 @@ export default async function PipeRepairClampsPage() {
 
         {/* Related Categories */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Related Products</h2>
+          <h2 className="text-xl font-semibold mb-4 text-white">Related Products</h2>
           <div className="flex flex-wrap gap-3">
             <Link href="/pipe-couplings">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
@@ -183,7 +216,7 @@ export default async function PipeRepairClampsPage() {
 
         {/* All Products */}
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4">All Pipe Repair Clamps</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-white">All Pipe Repair Clamps</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {repairProducts.map((product) => (
@@ -192,9 +225,9 @@ export default async function PipeRepairClampsPage() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-semibold mb-3">Emergency Repair Required?</h2>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+        <div className="mt-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-8 text-center">
+          <h2 className="text-2xl font-semibold mb-3 text-white">Emergency Repair Required?</h2>
+          <p className="text-white/70 mb-6 max-w-2xl mx-auto">
             Our pipe repair clamps provide fast, reliable repairs without pipe removal.
             Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> for urgent assistance or request a quote.
           </p>
@@ -207,12 +240,13 @@ export default async function PipeRepairClampsPage() {
             </Link>
             <Link
               href="/request-quote"
-              className="inline-flex items-center px-6 py-3 bg-card border border-border rounded-md font-medium"
+              className="inline-flex items-center px-6 py-3 bg-white/10 border border-white/30 text-white rounded-md font-medium hover:bg-white/20 transition-colors"
             >
               Request a Quote
             </Link>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )
