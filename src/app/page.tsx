@@ -487,26 +487,35 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Orbiting curved text - original */}
+        {/* Orbiting curved text - teal layer with subtle brightness variation */}
         <div className={"absolute bottom-[calc(8%-231px)] right-[calc(0%+66px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
-              <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'} width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[14px] font-bold tracking-[0.08em] font-mono" />
+              <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
+                <CurvedText
+                  text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                  width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                  className="overflow-visible"
+                  textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
+                  letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Orbiting curved text - duplicate with typewriter/faulty text styling */}
+        {/* Orbiting curved text - white neon layer (dim, broken) ~1 degree ahead */}
         <div className={"absolute bottom-[calc(8%-231px)] right-[calc(0%+66px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
-            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '-205.98s' }}>
-              {/* Shadow layer */}
-              <div className="absolute inset-0" style={{ transform: 'translate(1px, 1px)', filter: 'drop-shadow(0 0 8px rgba(0, 0, 0, 0.4))' }}>
-                <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'} width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-white/15 text-[14px] font-bold tracking-[0.25em] font-mono" />
-              </div>
-              {/* Color layer with cyan glow */}
-              <div style={{ filter: 'drop-shadow(0 0 15px rgba(103, 232, 249, 0.5))' }}>
-                <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'} width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/70 text-[14px] font-bold tracking-[0.25em] font-mono" />
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '-0.1125s' }}>
+              <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
+                <CurvedText
+                  text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                  width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                  className="overflow-visible"
+                  textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
+                  letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                />
               </div>
             </div>
           </div>

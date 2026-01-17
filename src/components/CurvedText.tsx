@@ -14,6 +14,7 @@ interface CurvedTextProps {
   startOffset?: string
   letterRotateY?: number  // Rotate each letter on Y-axis (edge-on effect)
   faceCenter?: boolean    // Gravitron mode: letters face center instead of following curve
+  letterOpacities?: number[]  // Per-letter opacity multipliers (0-1), cycles if shorter than text
 }
 
 export default function CurvedText({
@@ -28,6 +29,7 @@ export default function CurvedText({
   startOffset = '50%',
   letterRotateY = 0,
   faceCenter = false,
+  letterOpacities,
 }: CurvedTextProps) {
   const id = useId()
   const pathId = `curved-path-${id}`
@@ -48,8 +50,8 @@ export default function CurvedText({
 
   const pathD = `M ${startX} ${startY} A ${radius} ${radius} 0 ${largeArc} ${sweep} ${endX} ${endY}`
 
-  // If letterRotateY or faceCenter is set, render individual letters with transforms
-  if (letterRotateY !== 0 || faceCenter) {
+  // If letterRotateY, faceCenter, or letterOpacities is set, render individual letters with transforms
+  if (letterRotateY !== 0 || faceCenter || letterOpacities) {
     const letters = text.split('')
     const totalLetters = letters.length
     // Calculate offset based on startOffset percentage
@@ -78,6 +80,9 @@ export default function CurvedText({
           const baseAngle = angle * 180 / Math.PI
           const letterAngle = faceCenter ? baseAngle + 180 : baseAngle + 90
 
+          // Get opacity for this letter (cycles through array if shorter than text)
+          const opacity = letterOpacities ? letterOpacities[i % letterOpacities.length] : 1
+
           return (
             <g
               key={`${id}-${i}`}
@@ -85,6 +90,7 @@ export default function CurvedText({
                 transform: `translate(${x}px, ${y}px) rotateZ(${letterAngle}deg) rotateY(${letterRotateY}deg)`,
                 transformOrigin: 'center',
                 transformBox: 'fill-box',
+                opacity,
               }}
             >
               <text
