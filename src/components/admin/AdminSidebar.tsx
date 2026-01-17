@@ -37,6 +37,7 @@ import {
   PanelLeft,
   User,
   LogOut,
+  ArrowRightLeft,
 } from 'lucide-react';
 
 const navigation = [
@@ -47,6 +48,7 @@ const navigation = [
   { name: 'Logistics', href: '/admin/logistics', icon: Truck },
   { name: 'Categories', href: '/admin/categories', icon: Tags },
   { name: 'Brands', href: '/admin/brands', icon: Building2 },
+  { name: 'Redirects', href: '/admin/redirects', icon: ArrowRightLeft },
   { name: 'Files', href: '/admin/files', icon: FileImage },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
   { name: 'Help', href: '/admin/help', icon: HelpCircle },

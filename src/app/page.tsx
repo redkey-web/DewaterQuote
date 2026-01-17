@@ -487,11 +487,27 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Orbiting curved text */}
+        {/* Orbiting curved text - original */}
         <div className={"absolute bottom-[calc(8%-231px)] right-[calc(0%+66px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'} width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/40 text-[14px] font-bold tracking-[0.08em] font-mono" />
+            </div>
+          </div>
+        </div>
+
+        {/* Orbiting curved text - duplicate with typewriter/faulty text styling */}
+        <div className={"absolute bottom-[calc(8%-231px)] right-[calc(0%+66px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
+          <div style={{ perspective: '800px' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '-205.98s' }}>
+              {/* Shadow layer */}
+              <div className="absolute inset-0" style={{ transform: 'translate(1px, 1px)', filter: 'drop-shadow(0 0 8px rgba(0, 0, 0, 0.4))' }}>
+                <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'} width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-white/15 text-[14px] font-bold tracking-[0.25em] font-mono" />
+              </div>
+              {/* Color layer with cyan glow */}
+              <div style={{ filter: 'drop-shadow(0 0 15px rgba(103, 232, 249, 0.5))' }}>
+                <CurvedText text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'} width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%" className="overflow-visible" textClassName="fill-cyan-300/70 text-[14px] font-bold tracking-[0.25em] font-mono" />
+              </div>
             </div>
           </div>
         </div>

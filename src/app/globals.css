@@ -2094,12 +2094,12 @@ html, body {
 }
 
 .animate-orbit-3d-11 {
-  animation: orbit-3d-11 13.5s linear infinite;
+  animation: orbit-3d-11 40.5s linear infinite;
   transform-style: preserve-3d;
 }
 
 .animate-orbit-3d-11-delayed {
-  animation: orbit-3d-11 13.5s linear infinite;
+  animation: orbit-3d-11 40.5s linear infinite;
   animation-delay: -0.09s; /* Start 1% through = 1% ahead of the other */
   transform-style: preserve-3d;
 }

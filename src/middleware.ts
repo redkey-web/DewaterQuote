@@ -1,6 +1,7 @@
 import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getRedirect } from '@/lib/redirects';
 
 // No redirects - site uses flat URL architecture with direct links only
 // All subcategory pages are at root level (e.g., /butterfly-valves, /y-strainers)
@@ -48,13 +49,30 @@ const authMiddleware = withAuth({
   },
 });
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Check static redirects first (fastest, no DB)
   const redirectTo = STATIC_REDIRECTS[pathname];
   if (redirectTo) {
     return NextResponse.redirect(new URL(redirectTo, request.url), 301);
+  }
+
+  // Check database redirects (cached with 60s TTL)
+  // Skip for admin routes, API routes, and static files
+  if (!pathname.startsWith('/admin') && !pathname.startsWith('/api') && !pathname.startsWith('/_next')) {
+    try {
+      const dbRedirect = await getRedirect(pathname);
+      if (dbRedirect) {
+        const redirectUrl = dbRedirect.toPath.startsWith('http')
+          ? dbRedirect.toPath
+          : new URL(dbRedirect.toPath, request.url).toString();
+        return NextResponse.redirect(redirectUrl, dbRedirect.statusCode);
+      }
+    } catch (error) {
+      // Log error but don't block the request
+      console.error('Redirect lookup failed:', error);
+    }
   }
 
   // Apply auth middleware only to admin routes (except login)
