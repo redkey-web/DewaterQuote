@@ -140,16 +140,38 @@ export function getQuoteItemSKU(item: QuoteItem): string {
 /**
  * Gets the display size label for a quote item
  * Falls back to size value if sizeLabel is empty
+ * Filters out labels that are just the product name (not actual size info)
  */
 export function getQuoteItemSizeLabel(item: QuoteItem): string | undefined {
   if (item.variation) {
-    // Return sizeLabel if it has content, otherwise fall back to size value
-    if (item.variation.sizeLabel && item.variation.sizeLabel.trim() !== '') {
-      return item.variation.sizeLabel
-    }
-    // Fall back to size value (e.g., "48.3mm")
-    if (item.variation.size) {
-      return item.variation.size
+    const label = item.variation.sizeLabel?.trim() || item.variation.size?.trim()
+
+    if (label) {
+      // Don't show if it's just the product name or short name (redundant)
+      const productName = item.name.toLowerCase()
+      const labelLower = label.toLowerCase()
+
+      // Skip if label equals or is contained in product name
+      if (productName.includes(labelLower) || labelLower.includes(productName)) {
+        return undefined
+      }
+
+      // Skip if it's a generic product description (not a size)
+      // Real sizes contain: mm, DN, ", inch, numbers with units
+      const looksLikeSize = /\d/.test(label) && (
+        /mm/i.test(label) ||
+        /dn/i.test(label) ||
+        /"/.test(label) ||
+        /inch/i.test(label) ||
+        /pipe\s*(od|outside)/i.test(label) ||
+        /^\d+(\.\d+)?\s*mm/i.test(label)
+      )
+
+      if (!looksLikeSize) {
+        return undefined
+      }
+
+      return label
     }
   }
   return undefined
