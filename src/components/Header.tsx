@@ -316,6 +316,33 @@ export default function Header() {
     }
   }
 
+  // Toggle menu on click (for desktop nav)
+  const toggleMenu = (menuName: string) => {
+    if (activeMenu === menuName) {
+      closeMenuWithAnimation(menuName)
+    } else {
+      setActiveMenu(menuName)
+    }
+  }
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (target.closest('[data-menu-trigger]') || target.closest('[data-menu-dropdown]')) {
+        return
+      }
+      if (activeMenu && !closingContent) {
+        closeMenuWithAnimation(activeMenu)
+      }
+    }
+
+    if (activeMenu) {
+      document.addEventListener('click', handleClickOutside)
+    }
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [activeMenu, closingContent])
+
   // Close mobile menu with flash then slide-up animation
   const closeMobileMenuWithAnimation = (linkUrl?: string) => {
     if (linkUrl) {
@@ -455,16 +482,14 @@ export default function Header() {
           {/* Bottom Row Right - Nav Items */}
           <nav className="flex items-center justify-end gap-5 py-2">
             {/* Products Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMenu("products")}
-              onMouseLeave={() => setActiveMenu(null)}
-            >
+            <div className="relative">
               <button
                 className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
                   activeMenu === "products" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
                 data-testid="button-products-menu"
+                data-menu-trigger
+                onClick={() => toggleMenu("products")}
               >
                 Products
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "products" ? "rotate-180" : ""}`} />
@@ -472,16 +497,9 @@ export default function Header() {
 
               {(activeMenu === "products" || closingContent === "products") && (
                 <>
-                  {/* Invisible bridge from button to dropdown */}
-                  <div
-                    className="fixed left-0 right-0 h-[30px] z-[99]"
-                    style={{ top: '60px' }}
-                    onMouseEnter={() => !closingContent && setActiveMenu("products")}
-                  />
                   <div
                     className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "products" ? "animate-dropdown-content-slide-up" : ""}`}
-                    onMouseEnter={() => !closingContent && setActiveMenu("products")}
-                    onMouseLeave={() => !closingContent && setActiveMenu(null)}
+                    data-menu-dropdown
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">
@@ -540,15 +558,13 @@ export default function Header() {
             </div>
 
             {/* Industries Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMenu("industries")}
-              onMouseLeave={() => setActiveMenu(null)}
-            >
+            <div className="relative">
               <button
                 className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
                   activeMenu === "industries" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
+                data-menu-trigger
+                onClick={() => toggleMenu("industries")}
               >
                 Industry
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "industries" ? "rotate-180" : ""}`} />
@@ -556,16 +572,9 @@ export default function Header() {
 
               {(activeMenu === "industries" || closingContent === "industries") && (
                 <>
-                  {/* Invisible bridge from button to dropdown */}
-                  <div
-                    className="fixed left-0 right-0 h-[30px] z-[99]"
-                    style={{ top: '60px' }}
-                    onMouseEnter={() => !closingContent && setActiveMenu("industries")}
-                  />
                   <div
                     className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "industries" ? "animate-dropdown-content-slide-up" : ""}`}
-                    onMouseEnter={() => !closingContent && setActiveMenu("industries")}
-                    onMouseLeave={() => !closingContent && setActiveMenu(null)}
+                    data-menu-dropdown
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">
@@ -607,15 +616,13 @@ export default function Header() {
             </div>
 
             {/* Brands Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMenu("brands")}
-              onMouseLeave={() => setActiveMenu(null)}
-            >
+            <div className="relative">
               <button
                 className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
                   activeMenu === "brands" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
+                data-menu-trigger
+                onClick={() => toggleMenu("brands")}
               >
                 Brands
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "brands" ? "rotate-180" : ""}`} />
@@ -623,16 +630,9 @@ export default function Header() {
 
               {(activeMenu === "brands" || closingContent === "brands") && (
                 <>
-                  {/* Invisible bridge from button to dropdown */}
-                  <div
-                    className="fixed left-0 right-0 h-[30px] z-[99]"
-                    style={{ top: '60px' }}
-                    onMouseEnter={() => !closingContent && setActiveMenu("brands")}
-                  />
                   <div
                     className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "brands" ? "animate-dropdown-content-slide-up" : ""}`}
-                    onMouseEnter={() => !closingContent && setActiveMenu("brands")}
-                    onMouseLeave={() => !closingContent && setActiveMenu(null)}
+                    data-menu-dropdown
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
                       <div className="grid grid-cols-12 gap-12">
@@ -674,15 +674,13 @@ export default function Header() {
             </div>
 
             {/* Resources Menu */}
-            <div
-              className="relative"
-              onMouseEnter={() => setActiveMenu("resources")}
-              onMouseLeave={() => setActiveMenu(null)}
-            >
+            <div className="relative">
               <button
                 className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
                   activeMenu === "resources" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
+                data-menu-trigger
+                onClick={() => toggleMenu("resources")}
               >
                 Resources
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "resources" ? "rotate-180" : ""}`} />
@@ -690,15 +688,9 @@ export default function Header() {
 
               {activeMenu === "resources" && (
                 <>
-                  {/* Invisible bridge from button to dropdown */}
-                  <div
-                    className="absolute top-full left-0 w-full h-6 z-[99]"
-                    onMouseEnter={() => setActiveMenu("resources")}
-                  />
                   <div
                     className="absolute top-[calc(100%+8px)] right-0 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl z-[100] w-56 animate-dropdown-slide overflow-hidden"
-                    onMouseEnter={() => setActiveMenu("resources")}
-                    onMouseLeave={() => setActiveMenu(null)}
+                    data-menu-dropdown
                   >
                     <div className="p-4 space-y-1">
                       {[...companyMenu, ...policiesMenu].map((item) => (
