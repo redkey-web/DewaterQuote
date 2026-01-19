@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { X, Trash2, Send, TrendingDown, Plus, Minus, Truck, FileCheck, Square, CheckSquare } from "lucide-react"
+import { X, Trash2, Send, TrendingDown, Plus, Minus, Truck, FileCheck, Square, CheckSquare, HelpCircle } from "lucide-react"
 import {
   getQuoteItemPrice,
   getQuoteItemSKU,
@@ -70,7 +70,7 @@ export default function QuoteCart() {
         data-testid="overlay-quote-cart"
       />
       <div
-        className="fixed right-0 top-0 h-full w-full md:w-[480px] glass border-l border-border shadow-xl z-[80] flex flex-col transition-transform duration-200 ease-out"
+        className="fixed right-0 top-0 h-full w-full md:w-[480px] lg:w-[680px] glass border-l border-border shadow-xl z-[80] flex flex-col transition-transform duration-200 ease-out"
         style={{ transform: isAnimating ? "translateX(0)" : "translateX(100%)" }}
         data-testid="panel-quote-cart"
       >
@@ -97,7 +97,7 @@ export default function QuoteCart() {
               {pricedItems.length > 0 && (
                 <div>
                   <h3 className="font-semibold mb-4">Items with Pricing</h3>
-                  <div className="space-y-3">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {pricedItems.map((item) => {
                       const price = getQuoteItemPrice(item)
                       const sku = getQuoteItemSKU(item)
@@ -142,7 +142,7 @@ export default function QuoteCart() {
                             <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
                               <span>{item.brand}</span>
                               {sizeLabel && (
-                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-primary/15 text-primary font-semibold border border-primary/25">
+                                <span className="inline-flex items-center px-2 py-1 rounded bg-amber-400/30 text-amber-800 dark:text-amber-200 font-bold border-2 border-amber-500/50 text-sm shadow-sm">
                                   {sizeLabel}
                                 </span>
                               )}
@@ -356,7 +356,7 @@ export default function QuoteCart() {
                       Upon Enquiry
                     </Badge>
                   </div>
-                  <div className="space-y-3">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {unpricedItems.map((item) => {
                       const sku = getQuoteItemSKU(item)
                       const sizeLabel = getQuoteItemSizeLabel(item)
@@ -379,7 +379,7 @@ export default function QuoteCart() {
                             <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
                               <span>{item.brand}</span>
                               {sizeLabel && (
-                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-primary/15 text-primary font-semibold border border-primary/25">
+                                <span className="inline-flex items-center px-2 py-1 rounded bg-amber-400/30 text-amber-800 dark:text-amber-200 font-bold border-2 border-amber-500/50 text-sm shadow-sm">
                                   {sizeLabel}
                                 </span>
                               )}
@@ -493,6 +493,14 @@ export default function QuoteCart() {
               >
                 Continue Browsing
               </Button>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event("openOrderingGuide"))}
+                className="w-full text-xs text-muted-foreground hover:text-primary flex items-center justify-center gap-1.5 py-2 transition-colors"
+              >
+                <HelpCircle className="w-3.5 h-3.5" />
+                How does ordering work?
+              </button>
             </div>
           </div>
         )}

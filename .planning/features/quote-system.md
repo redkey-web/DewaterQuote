@@ -302,4 +302,93 @@ Client reported issues with quote display during the customer journey. These bug
 
 ---
 
-Last Updated: 2026-01-13 (Phase 8: Fixed lead times 76 products, ticker background, size label fallback)
+## Phase 9: Size Display Prominence Enhancement (2026-01-20)
+
+Client request: Make product sizes (Display/label field) more visually prominent on all quote forms, cart, and PDF invoices - bold and highlighted.
+
+### 9.1 Current State Analysis
+
+**Database Audit (2026-01-20)**:
+- **497/1271** variations (39%) have **EMPTY** `label` fields
+- **18 products** affected with missing display labels
+
+**Products with Missing Labels**:
+| Product | Slug | Total Variations | Empty Labels |
+|---------|------|-----------------|--------------|
+| Butterfly Valve - CF8M Full 316 SS - PTFE | butterfly-valve-316-stainless-steel-cf8m-body-ptfe | 9 | 6 |
+| CF8M Wafer Butterfly Valve - EPDM | cf8m-wafer-butterfly-valve-epdm-lever-operated | 9 | 6 |
+| DB-1 Slip On Duckbill Check Valve - Neoprene | db-1-slip-on-duckbill-check-valve-neoprene | 36 | 31 |
+| FSF Single Sphere Rubber Expansion Joint | fsf-single-sphere-rubber-expansion-joint-zinc-flanges | 16 | 6 |
+| Flex Grip 2 L | flex-grip-2-l | 62 | 58 |
+| Flex Grip 2 S | flex-grip-2-s | 62 | 58 |
+| Flex Grip Open L | flex-grip-open-l | 73 | 65 |
+| Flex Grip Open S | flex-grip-open-s | 83 | 71 |
+| Flex Grip S - Short Model | flex-grip-s-pipe-coupling | 47 | 39 |
+| Lugged Butterfly Valve - CF8M 316 SS | lugged-butterfly-valve-cf8m-316-stainless-steel | 9 | 6 |
+| Metal Lock L | metal-lock-l-pipe-coupling | 42 | 37 |
+| Metal Lock S | metal-lock-s-pipe-coupling | 49 | 42 |
+| Orbit Pipe Repair Clamp 200mm | orbit-pipe-repair-clamp-200mm-wide | 49 | 43 |
+| Orbit Pipe Repair Clamp Series 1 | orbit-pipe-repair-clamp-series-1-and-55mm-long | 5 | 4 |
+| Orbit Pipe Repair Clamp Series 2 | orbit-pipe-repair-clamp-series-2-and-300mm-long | 6 | 6 |
+| PTFE Lined Butterfly Valve | ptfe-lined-butterfly-valve-universal-wafer | 5 | 5 |
+| Plast Coupling | plast-coupling | 9 | 7 |
+| SS Y Strainer CF8M Flanged ANSI 150LB | stainless-steel-y-strainer-cf8m-flanged-ansi-150lb | 14 | 7 |
+
+**Current Styling** (from code review):
+- QuoteCart.tsx:144-148 → `bg-primary/15 text-primary font-semibold border border-primary/25`
+- request-quote/page.tsx:414-418 → Same styling as QuoteCart
+- quote-pdf.tsx:402-404 → Plain text in `productMeta` style (not bold, not highlighted)
+
+### 9.2 Tasks: Enhance Size Display Prominence ✅
+
+#### Frontend Components ✅
+- [x] QuoteCart.tsx: Increase size badge prominence (larger text, brighter highlight)
+- [x] request-quote/page.tsx: Match enhanced styling from QuoteCart
+- [x] Update styling to use **amber highlight** with **bold text**
+
+#### PDF Invoice ✅
+- [x] quote-pdf.tsx: Make sizeLabel bold and visually distinct
+- [x] Add background highlight to size in PDF table rows (amber-100 bg, amber-800 text)
+- [x] Build verified - no errors
+
+#### Data Standardization ✅
+- [x] Created standardization script with format rules:
+  - DN sizes (valves): `125mm / 5" - DN125`
+  - Pipe OD sizes (couplings): `101.6mm Pipe OD`
+- [x] Applied 497 label updates to database
+- [x] Verified 0 empty labels remaining
+
+### 9.3 Implemented Styling ✅
+
+**Frontend (Tailwind)**:
+```tsx
+// Enhanced size badge - bold amber highlight
+<span className="inline-flex items-center px-2 py-1 rounded bg-amber-400/30 text-amber-800 dark:text-amber-200 font-bold border-2 border-amber-500/50 text-sm shadow-sm">
+  {sizeLabel}
+</span>
+```
+
+**PDF (@react-pdf/renderer)**:
+```typescript
+sizeHighlight: {
+  backgroundColor: '#fef3c7', // amber-100
+  color: '#92400e', // amber-800
+  fontWeight: 'bold',
+  fontSize: 9,
+  padding: '2 6',
+  borderRadius: 2,
+  marginTop: 2,
+}
+```
+
+### 9.4 Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/components/QuoteCart.tsx` | Lines 144-148: Enhance size badge styling |
+| `src/app/request-quote/page.tsx` | Lines 414-418: Match enhanced styling |
+| `src/lib/pdf/quote-pdf.tsx` | Lines 402-404: Add bold/highlight to sizeLabel |
+
+---
+
+Last Updated: 2026-01-20 (Phase 9: Size display prominence - 497 labels standardized, UI/PDF styling updated)

@@ -28,6 +28,16 @@ export default function OrderingGuide() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Listen for open event from other components
+  useEffect(() => {
+    const handleOpenGuide = () => {
+      setIsOpen(true)
+      localStorage.removeItem("orderingGuideClosed")
+    }
+    window.addEventListener("openOrderingGuide", handleOpenGuide)
+    return () => window.removeEventListener("openOrderingGuide", handleOpenGuide)
+  }, [])
+
   const handleClose = () => {
     setIsOpen(false)
     setHasBeenClosed(true)
@@ -42,41 +52,41 @@ export default function OrderingGuide() {
   if (!isVisible) return null
 
   const panelClasses = [
-    "fixed left-0 top-1/2 -translate-y-1/2 z-50",
+    "fixed right-0 top-[100px] z-50",
     "transition-all duration-500 ease-out",
-    isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"
+    isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
   ].join(" ")
 
   return (
     <>
-      {/* Collapsed tab */}
+      {/* Collapsed tab - positioned under header on right */}
       {!isOpen && (
         <button
           onClick={handleOpen}
-          className="fixed left-0 top-1/2 -translate-y-1/2 z-50 bg-cyan-900/40 backdrop-blur-md border border-cyan-500/30 rounded-r-lg px-2 py-4 hover:bg-cyan-800/50 hover:border-cyan-400/50 transition-all duration-300 group shadow-[0_0_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]"
+          className="fixed right-0 top-[100px] z-50 bg-cyan-900/40 backdrop-blur-md border border-cyan-500/30 rounded-l-lg px-2 py-4 hover:bg-cyan-800/50 hover:border-cyan-400/50 transition-all duration-300 group shadow-[0_0_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]"
           aria-label="Open ordering guide"
         >
-          <ChevronRight className="w-5 h-5 text-cyan-300 group-hover:text-cyan-200 transition-colors" />
+          <ChevronRight className="w-5 h-5 text-cyan-300 group-hover:text-cyan-200 transition-colors rotate-180" />
         </button>
       )}
 
       {/* Main panel */}
       <div className={panelClasses}>
-        <div className="relative bg-gradient-to-br from-cyan-950/60 via-slate-900/70 to-cyan-950/60 backdrop-blur-xl border border-cyan-500/20 rounded-r-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)] overflow-hidden">
+        <div className="relative bg-gradient-to-br from-cyan-950/60 via-slate-900/70 to-cyan-950/60 backdrop-blur-xl border border-cyan-500/20 rounded-l-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.05)] overflow-hidden">
           {/* Frosted glass overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none" />
 
           {/* Close button */}
           <button
             onClick={handleClose}
-            className="absolute top-2 right-2 p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-cyan-300/60 hover:text-cyan-200 transition-all duration-200 z-10"
+            className="absolute top-2 left-2 p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-cyan-300/60 hover:text-cyan-200 transition-all duration-200 z-10"
             aria-label="Close ordering guide"
           >
             <X className="w-4 h-4" />
           </button>
 
           {/* Content */}
-          <div className="px-5 py-4 pr-10 max-w-sm">
+          <div className="px-5 py-4 pl-10 max-w-sm">
             {/* Title */}
             <div className="mb-3 pb-2 border-b border-cyan-500/20">
               <h3

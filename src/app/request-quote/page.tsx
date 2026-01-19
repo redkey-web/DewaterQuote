@@ -412,7 +412,7 @@ export default function RequestQuotePage() {
                               <div className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
                                 <span>{item.brand}</span>
                                 {sizeLabel && (
-                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-primary/15 text-primary font-semibold border border-primary/25">
+                                  <span className="inline-flex items-center px-2 py-1 rounded bg-amber-400/30 text-amber-800 dark:text-amber-200 font-bold border-2 border-amber-500/50 text-sm shadow-sm">
                                     {sizeLabel}
                                   </span>
                                 )}

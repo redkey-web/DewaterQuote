@@ -127,6 +127,15 @@ const styles = StyleSheet.create({
     fontSize: 8,
     color: "#666666",
   },
+  sizeHighlight: {
+    backgroundColor: "#fef3c7", // amber-100
+    color: "#92400e", // amber-800
+    fontWeight: "bold",
+    fontSize: 9,
+    padding: "2 6",
+    borderRadius: 2,
+    marginTop: 2,
+  },
   certBadge: {
     backgroundColor: "#e0f2fe",
     color: "#0369a1",
@@ -400,7 +409,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
                     <Text style={styles.productName}>{item.name}</Text>
                     <Text style={styles.productMeta}>{item.brand}</Text>
                     {item.sizeLabel && (
-                      <Text style={styles.productMeta}>{item.sizeLabel}</Text>
+                      <Text style={styles.sizeHighlight}>{item.sizeLabel}</Text>
                     )}
                     {item.quotedNotes && (
                       <Text style={[styles.productMeta, { fontStyle: "italic" }]}>
