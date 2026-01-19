@@ -128,11 +128,10 @@ const styles = StyleSheet.create({
     color: "#666666",
   },
   sizeHighlight: {
-    backgroundColor: "#fef3c7", // amber-100
-    color: "#92400e", // amber-800
-    fontWeight: "bold",
-    fontSize: 9,
-    padding: "2 6",
+    backgroundColor: "#fef9c3", // amber-50/100
+    color: "#b45309", // amber-700
+    fontSize: 8,
+    padding: "1 4",
     borderRadius: 2,
     marginTop: 2,
   },

@@ -142,7 +142,7 @@ export default function QuoteCart() {
                             <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
                               <span>{item.brand}</span>
                               {sizeLabel && (
-                                <span className="inline-flex items-center px-2 py-1 rounded bg-amber-400/30 text-amber-800 dark:text-amber-200 font-bold border-2 border-amber-500/50 text-sm shadow-sm">
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
                                   {sizeLabel}
                                 </span>
                               )}
@@ -379,7 +379,7 @@ export default function QuoteCart() {
                             <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
                               <span>{item.brand}</span>
                               {sizeLabel && (
-                                <span className="inline-flex items-center px-2 py-1 rounded bg-amber-400/30 text-amber-800 dark:text-amber-200 font-bold border-2 border-amber-500/50 text-sm shadow-sm">
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
                                   {sizeLabel}
                                 </span>
                               )}
