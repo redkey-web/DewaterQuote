@@ -1186,7 +1186,18 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
               </TabsContent>
 
               <TabsContent value="specifications" className="mt-0">
-                <h2 className="text-2xl font-bold mb-6">Technical Specifications</h2>
+                <h2 className="text-2xl font-bold mb-4">Technical Specifications</h2>
+                {product.downloads && product.downloads.length > 0 && (
+                  <a
+                    href={product.downloads[0].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mb-6 px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 bg-primary/5 hover:bg-primary/10 border border-primary/20 rounded-lg transition-colors"
+                  >
+                    <Download className="w-4 h-4" />
+                    {product.downloads[0].label || "Product Datasheet"}
+                  </a>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {product.specifications.map((spec, idx) => (
                     <div key={idx} className="border-b border-border pb-3">

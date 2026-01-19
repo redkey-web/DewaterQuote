@@ -39,6 +39,7 @@ import TypewriterPlaceholder from "@/components/TypewriterPlaceholder"
 import FakeTerminal from "@/components/FakeTerminal"
 import CurvedText from "@/components/CurvedText"
 import ScrambleCycleText from "@/components/ScrambleCycleText"
+import OrderingGuide from "@/components/OrderingGuide"
 
 interface SearchResult {
   id: number
@@ -148,13 +149,7 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Auto-focus hero search on mount (after a small delay to show typewriter)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      heroInputRef.current?.focus()
-    }, 100)
-    return () => clearTimeout(timer)
-  }, [])
+  // Auto-focus removed - cursor should not be in search bar on page load
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -379,6 +374,9 @@ export default function HomePage() {
     <div>
       <BulkPricingTicker variant="teal" isStormyDay={isStormyDay} />
 
+      {/* Ordering Guide - sticky frosted glass popup */}
+      <OrderingGuide />
+
       {/* Hero Section - Fluid Cursor Reveal Effect (Easter eggs: click red butterfly valve for reveal, drag Straub logo off carousel for stormy day) */}
       <FluidHero
         photoSrc="/images/hero-pipeline.webp"
@@ -488,39 +486,65 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - teal layer with subtle brightness variation */}
-        <div className={"absolute bottom-[calc(8%-231px)] right-[calc(0%+66px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
+        {/* Mobile: centered at bottom, smaller size | Desktop: right side positioning */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 bottom-[calc(8%-180px)] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto md:bottom-[calc(8%-231px)] md:right-[calc(0%+66px)] " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
-                <CurvedText
-                  text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
-                  width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
-                  className="overflow-visible"
-                  textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
-                  letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
-                />
+                {/* Mobile version - smaller */}
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+                {/* Desktop version - full size */}
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Orbiting curved text - white neon layer (dim, broken) ~1 degree ahead */}
-        <div className={"absolute bottom-[calc(8%-231px)] right-[calc(0%+66px)] z-0 pointer-events-none hidden md:block transition-opacity duration-500 " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 bottom-[calc(8%-180px)] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto md:bottom-[calc(8%-231px)] md:right-[calc(0%+66px)] " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '-0.1125s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
-                <CurvedText
-                  text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
-                  width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
-                  className="overflow-visible"
-                  textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
-                  letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
-                />
+                {/* Mobile version - smaller */}
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+                {/* Desktop version - full size */}
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        {/* Mobile version removed - 3D text only shows on desktop */}
 
         <div className={"max-w-[1400px] mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-2000" : "opacity-100") : "opacity-100")}>
           {/* Terminal 1 - Windows CMD style, positioned as overlay */}
@@ -572,18 +596,13 @@ export default function HomePage() {
                   }}
                   onBlur={() => setIsSearchFocused(false)}
                 />
-                {/* Typewriter placeholder - shows when empty and not focused */}
+                {/* Static placeholder - shows when empty and not focused */}
                 {!searchQuery && !isSearchFocused && (
                   <div className="absolute left-[72px] top-1/2 -translate-y-1/2 text-lg font-mono font-normal text-gray-700 pointer-events-none">
                     {isStormyDay ? (
                       <span className="text-cyan-700">Введите координаты...</span>
                     ) : (
-                      <TypewriterPlaceholder
-                        phrases={searchPhrases}
-                        typingSpeed={60}
-                        deletingSpeed={30}
-                        pauseDuration={2500}
-                      />
+                      <span>Search products...</span>
                     )}
                   </div>
                 )}

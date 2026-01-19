@@ -409,8 +409,13 @@ export default function RequestQuotePage() {
                               <div className="font-medium" data-testid={`text-product-name-${item.id}`}>
                                 {item.name}
                               </div>
-                              <div className="text-xs text-muted-foreground">
-                                {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
+                              <div className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
+                                <span>{item.brand}</span>
+                                {sizeLabel && (
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-primary/15 text-primary font-semibold border border-primary/25">
+                                    {sizeLabel}
+                                  </span>
+                                )}
                               </div>
                               <div className="text-xs text-muted-foreground sm:hidden">
                                 {sku}

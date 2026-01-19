@@ -139,8 +139,13 @@ export default function QuoteCart() {
                                 </Badge>
                               )}
                             </div>
-                            <p className="text-xs text-muted-foreground">
-                              {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
+                            <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
+                              <span>{item.brand}</span>
+                              {sizeLabel && (
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-primary/15 text-primary font-semibold border border-primary/25">
+                                  {sizeLabel}
+                                </span>
+                              )}
                             </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
                             {item.leadTime && (
@@ -371,8 +376,13 @@ export default function QuoteCart() {
                           />
                           <div className="flex-1 min-w-0">
                             <h4 className="font-medium text-sm truncate">{item.name}</h4>
-                            <p className="text-xs text-muted-foreground">
-                              {item.brand}{sizeLabel ? ` • ${sizeLabel}` : ""}
+                            <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
+                              <span>{item.brand}</span>
+                              {sizeLabel && (
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-primary/15 text-primary font-semibold border border-primary/25">
+                                  {sizeLabel}
+                                </span>
+                              )}
                             </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
                             {/* Custom Specs Display (Straub/Teekay products) */}
