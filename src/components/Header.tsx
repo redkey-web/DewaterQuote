@@ -446,8 +446,8 @@ export default function Header() {
               <Mail className="w-4 h-4 text-primary" />
               <span className="chrome-text">sales@dewaterproducts.com.au</span>
             </a>
-            <a href="tel:1300271290" className="hover:text-primary transition-colors flex items-center gap-1.5">
-              <Phone className="w-4 h-4 text-primary" />
+            <a href="tel:1300271290" className="flex items-center gap-1.5 text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)] hover:brightness-110 transition-all">
+              <Phone className="w-4 h-4" />
               1300 271 290
             </a>
           </div>
@@ -461,9 +461,7 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
-                  activeMenu === "products" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
-                }`}
+                className="flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)] hover:brightness-110"
                 data-testid="button-products-menu"
               >
                 Products
@@ -546,9 +544,7 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
-                  activeMenu === "industries" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
-                }`}
+                className="flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)] hover:brightness-110"
               >
                 Industry
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "industries" ? "rotate-180" : ""}`} />
@@ -613,9 +609,7 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
-                  activeMenu === "brands" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
-                }`}
+                className="flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)] hover:brightness-110"
               >
                 Brands
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "brands" ? "rotate-180" : ""}`} />
@@ -680,9 +674,7 @@ export default function Header() {
               onMouseLeave={() => setActiveMenu(null)}
             >
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
-                  activeMenu === "resources" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
-                }`}
+                className="flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)] hover:brightness-110"
               >
                 Resources
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeMenu === "resources" ? "rotate-180" : ""}`} />
