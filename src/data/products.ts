@@ -118,7 +118,7 @@ function transformProduct(dbProduct: DBProductWithRelations): Product {
             }));
         })()
       : undefined,
-    leadTime: dbProduct.leadTime || undefined,
+    leadTime: dbProduct.leadTimeText || dbProduct.leadTime || undefined,
     materials: (dbProduct.materials || { body: '' }) as Product['materials'],
     pressureRange: dbProduct.pressureRange || '',
     temperature: dbProduct.temperature || undefined,
