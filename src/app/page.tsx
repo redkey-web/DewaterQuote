@@ -516,8 +516,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Orbiting curved text - white neon layer (dim, broken) ~5 degrees behind (counterclockwise), 1% west */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 bottom-[calc(8%-180px)] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto md:bottom-[calc(8%-231px)] md:right-[calc(-3%+66px)] " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
+        {/* Orbiting curved text - white neon layer (dim, broken) ~5 degrees behind, offset slightly from teal */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 bottom-[calc(8%-180px)] left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto md:bottom-[calc(8%-233px)] md:right-[calc(-3.5%+66px)] " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
