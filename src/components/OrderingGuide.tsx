@@ -4,13 +4,14 @@ import { useState, useEffect } from "react"
 import { X, ChevronRight } from "lucide-react"
 
 const guideLines = [
-  "CONVENIENT NEW ORDERING PROCESS: TRY IT NOW!",
-  "SIMPLY: SEARCH PRODUCT/S > ADD SIZE > QUANTITY...",
-  "> CHOOSE MATERIAL > MATERIAL CERTIFICATE & ADD-TO-QUOTE-FORM...",
-  "THEN JUST REPEAT UNTIL YOU HAVE EVERYTHING",
-  "(DISCOUNTS WILL BE AUTOMATICALLY APPLIED)...",
-  "THEN FILL IN ADDRESS, NOTES AND SUBMIT.",
-  "WE WILL CONTACT YOU IF DETAILS NEEDED, OR CONFIRM AND AWAIT YOUR P/O"
+  { step: "1", text: "Search or browse for your product" },
+  { step: "2", text: "Select size and quantity" },
+  { step: "3", text: "Add Material Test Certificate if required (+$350)" },
+  { step: "4", text: "Click 'Add to Quote'" },
+  { step: "5", text: "Repeat for all items you need" },
+  { step: "6", text: "Fill in your details and submit" },
+  { step: "✓", text: "Bulk discounts applied automatically!" },
+  { step: "→", text: "We'll confirm your quote or call if needed" },
 ]
 
 export default function OrderingGuide() {
@@ -97,16 +98,23 @@ export default function OrderingGuide() {
               </h3>
             </div>
 
-            {/* Guide lines - simple styled text */}
-            <div className="space-y-1.5">
-              {guideLines.map((line, index) => (
-                <p
-                  key={index}
-                  className="text-[10px] font-semibold tracking-[0.12em] uppercase text-cyan-300/90 leading-relaxed"
-                  style={{ textShadow: "0 0 12px rgba(103, 232, 249, 0.5), 0 1px 2px rgba(0,0,0,0.3)" }}
-                >
-                  {line}
-                </p>
+            {/* Guide lines - numbered steps */}
+            <div className="space-y-2">
+              {guideLines.map((item, index) => (
+                <div key={index} className="flex items-start gap-2">
+                  <span
+                    className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-cyan-500/20 text-[9px] font-bold text-cyan-300"
+                    style={{ textShadow: "0 0 8px rgba(103, 232, 249, 0.6)" }}
+                  >
+                    {item.step}
+                  </span>
+                  <p
+                    className="text-[10px] font-medium tracking-wide text-cyan-100/90 leading-relaxed pt-0.5"
+                    style={{ textShadow: "0 1px 2px rgba(0,0,0,0.4)" }}
+                  >
+                    {item.text}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
