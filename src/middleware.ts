@@ -3,10 +3,67 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getRedirect } from '@/lib/redirects';
 
-// No redirects - site uses flat URL architecture with direct links only
-// All subcategory pages are at root level (e.g., /butterfly-valves, /y-strainers)
-// All brands have dedicated pages: /straub-couplings, /orbit-couplings, /teekay, /bore-flex, /defender-valves, /defender-strainers
-const STATIC_REDIRECTS: Record<string, string> = {};
+// SEO redirects from old Neto site URLs to new Next.js URLs
+// All redirects are 301 (permanent) for SEO value transfer
+const STATIC_REDIRECTS: Record<string, string> = {
+  // === E-commerce pages (Neto had cart/checkout) ===
+  '/cart': '/request-quote',
+  '/checkout': '/request-quote',
+  '/basket': '/request-quote',
+  '/_mycart': '/request-quote',
+  '/quote': '/request-quote',
+  '/shop': '/',
+  '/catalogue': '/products',
+  '/catalog': '/products',
+
+  // === Account pages (no longer applicable) ===
+  '/account': '/',
+  '/my-account': '/',
+  '/login': '/',
+  '/register': '/',
+  '/_myacct': '/',
+
+  // === Info pages ===
+  '/about-us': '/about',
+  '/contact-us': '/contact',
+  '/form/contact-us': '/contact',
+  '/shipping': '/delivery',
+  '/shipping-policy': '/delivery',
+  '/delivery-policy': '/delivery',
+  '/return-policy': '/returns',
+  '/returns-policy': '/returns',
+  '/privacy-policy': '/privacy',
+  '/terms-and-conditions': '/terms',
+  '/faq': '/',
+  '/index.html': '/',
+  '/home': '/',
+
+  // === Category variations ===
+  '/pipe-fittings': '/pipe-couplings',
+  '/couplings': '/pipe-couplings',
+  '/repair-clamps': '/pipe-repair-clamps',
+  '/clamps': '/pipe-repair-clamps',
+  '/pipe-repair': '/pipe-repair-clamps',
+  '/rubber-expansion-joints': '/expansion-joints',
+  '/flexible-joints': '/expansion-joints',
+  '/flanges': '/flange-adaptors',
+  '/flange-adapters': '/flange-adaptors',
+  '/valves': '/industrial-valves',
+
+  // === Brand variations ===
+  '/straub': '/straub-couplings',
+  '/orbit': '/orbit-couplings',
+  '/brands/straub': '/straub-couplings',
+  '/brands/orbit': '/orbit-couplings',
+  '/brands/teekay': '/teekay',
+  '/teekay-couplings': '/teekay',
+  '/defender': '/defender-valves',
+  '/boreflex': '/bore-flex',
+  '/bore-flex-rubber': '/bore-flex',
+
+  // === Search ===
+  '/search': '/products',
+};
 
 // Geo middleware to set country/region cookies for pricing visibility
 function geoMiddleware(request: NextRequest) {
@@ -52,10 +109,24 @@ const authMiddleware = withAuth({
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Remove trailing slash (except for root) - SEO best practice
+  if (pathname !== '/' && pathname.endsWith('/')) {
+    const newPath = pathname.slice(0, -1);
+    return NextResponse.redirect(new URL(newPath, request.url), 301);
+  }
+
   // Check static redirects first (fastest, no DB)
   const redirectTo = STATIC_REDIRECTS[pathname];
   if (redirectTo) {
     return NextResponse.redirect(new URL(redirectTo, request.url), 301);
+  }
+
+  // Wildcard redirects for old Neto patterns
+  if (pathname.startsWith('/_myacct')) {
+    return NextResponse.redirect(new URL('/', request.url), 301);
+  }
+  if (pathname.startsWith('/buying')) {
+    return NextResponse.redirect(new URL('/products', request.url), 301);
   }
 
   // Check database redirects (cached with 60s TTL)
