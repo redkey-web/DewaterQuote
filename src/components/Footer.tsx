@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, Linkedin, Youtube, Facebook } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -42,6 +42,36 @@ export default function Footer() {
               </div>
               <div className="text-sm text-white/90 mt-3">
                 ABN: 98 622 681 663
+              </div>
+              {/* Social Links */}
+              <div className="flex items-center gap-4 mt-4">
+                <a
+                  href="https://www.linkedin.com/in/dewater-products-a01145111/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white/70 transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UC5hI8VDzHPf01ppI6TQRVrQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white/70 transition-colors"
+                  aria-label="YouTube"
+                >
+                  <Youtube className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.facebook.com/dewaterproducts/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white/70 transition-colors"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
               </div>
             </div>
           </div>
