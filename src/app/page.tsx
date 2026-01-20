@@ -486,8 +486,8 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - teal layer with subtle brightness variation */}
-        {/* Positioned relative to hero center, scales with viewport */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 bottom-[8%] left-1/2 -translate-x-1/2 md:bottom-[12%] md:left-auto md:right-[8%] md:translate-x-0 scale-[0.85] md:scale-100 lg:scale-110 xl:scale-125 origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
+        {/* Centered on hero product, scales with viewport */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.7] md:scale-[0.85] lg:scale-100 xl:scale-110 origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -517,7 +517,7 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - white neon layer (dim, broken) ~5 degrees behind, offset slightly from teal */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 bottom-[8%] left-1/2 -translate-x-1/2 md:bottom-[12%] md:left-auto md:right-[7.5%] md:translate-x-0 scale-[0.85] md:scale-100 lg:scale-110 xl:scale-125 origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.7] md:scale-[0.85] lg:scale-100 xl:scale-110 origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '800px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
