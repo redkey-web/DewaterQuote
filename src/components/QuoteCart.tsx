@@ -42,7 +42,7 @@ export default function QuoteCart() {
     } else {
       setIsAnimating(false)
       document.body.style.overflow = ''
-      const timer = setTimeout(() => setIsVisible(false), 200)
+      const timer = setTimeout(() => setIsVisible(false), 500)
       return () => clearTimeout(timer)
     }
   }, [isCartOpen])
@@ -70,13 +70,13 @@ export default function QuoteCart() {
   return (
     <>
       <div
-        className="fixed inset-0 bg-black/50 z-[70] transition-opacity duration-200"
+        className="fixed inset-0 bg-black/50 z-[70] transition-opacity duration-500"
         style={{ opacity: isAnimating ? 1 : 0 }}
         onClick={closeCart}
         data-testid="overlay-quote-cart"
       />
       <div
-        className="fixed right-0 top-0 h-full w-full md:w-[480px] lg:w-[680px] glass border-l border-border shadow-xl z-[80] flex flex-col transition-transform duration-200 ease-out"
+        className="fixed right-0 top-0 h-full w-full md:w-[480px] lg:w-[680px] dropdown-silver-gradient border-l border-border shadow-xl z-[80] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
         style={{ transform: isAnimating ? "translateX(0)" : "translateX(100%)" }}
         data-testid="panel-quote-cart"
       >

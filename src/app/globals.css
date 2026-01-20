@@ -995,7 +995,7 @@ html, body {
 }
 
 .animate-dropdown-slide {
-  animation: dropdown-slide 0.25s ease-out forwards;
+  animation: dropdown-slide 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Animation delay utilities for blob animations */
@@ -2180,7 +2180,7 @@ html, body {
 }
 
 .animate-dropdown-slide-up {
-  animation: dropdown-slide-up 0.5s ease-in forwards;
+  animation: dropdown-slide-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Dropdown content slide-up - matches background animation exactly */
