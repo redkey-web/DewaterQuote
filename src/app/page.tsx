@@ -547,7 +547,7 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 2 (enlarged 2x) - teal layer */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[59%] left-[52%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[69%] left-[32%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -574,7 +574,7 @@ export default function HomePage() {
           </div>
         </div>
         {/* Set 2 - white layer */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[59%] left-[52%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[69%] left-[32%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
