@@ -17,15 +17,15 @@ function TickerContent() {
       </div>
       <div className="flex items-center gap-2">
         <span className="ticker-text-prominent">2+ items</span>
-        <span className="text-[#ccff00]">5%</span>
+        <span className="text-[#ccff00]">5% off</span>
       </div>
       <div className="flex items-center gap-2">
         <span className="ticker-text-prominent">5+ items</span>
-        <span className="text-[#ff6600]">10%</span>
+        <span className="text-[#ff6600]">10% off</span>
       </div>
       <div className="flex items-center gap-2">
         <span className="ticker-text-prominent">10+ items</span>
-        <span className="text-[#E91E63]">15%</span>
+        <span className="text-[#E91E63]">15% off</span>
       </div>
       <span className="ticker-text-prominent">•</span>
     </div>
