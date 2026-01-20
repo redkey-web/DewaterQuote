@@ -742,6 +742,7 @@ export default function Header() {
               onClick={openCart}
               className="relative w-10 h-10 flex items-center justify-center rounded-xl border border-cyan-700 text-cyan-700 bg-transparent shadow-[inset_0_0_2px_rgba(0,0,0,0.1)] hover:bg-[radial-gradient(ellipse_at_center,_rgba(103,232,249,0.15)_0%,_rgba(34,211,238,0.1)_50%,_transparent_100%)] hover:border-cyan-500 hover:text-cyan-600 transition-all duration-150"
               data-testid="button-quote-mobile"
+              aria-label="Open quote cart"
             >
               <ClipboardList className="w-5 h-5" />
               {cartItemCount > 0 && (
@@ -750,7 +751,7 @@ export default function Header() {
                 </span>
               )}
             </button>
-            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
+            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu" aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}>
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
