@@ -425,16 +425,20 @@ export default function RequestQuotePage() {
                                   Lead time: {item.leadTime}
                                 </div>
                               )}
-                              {/* Custom Specs Display (Straub/Teekay products) */}
+                              {/* Custom Specs Display (Straub/Teekay products) - Amber badges */}
                               {item.customSpecs && (
-                                <div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">
-                                  <p className="text-foreground">
-                                    <span className="text-muted-foreground">Pipe OD:</span> {item.customSpecs.pipeOd} |
-                                    <span className="text-muted-foreground"> Material:</span> {item.customSpecs.rubberMaterial} |
-                                    <span className="text-muted-foreground"> Pressure:</span> {item.customSpecs.pressure}
-                                  </p>
+                                <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                    Pipe OD: {item.customSpecs.pipeOd}
+                                  </span>
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                    {item.customSpecs.rubberMaterial}
+                                  </span>
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                    {item.customSpecs.pressure}
+                                  </span>
                                   {item.customSpecs.notes && (
-                                    <p className="text-muted-foreground italic">{item.customSpecs.notes}</p>
+                                    <p className="w-full text-xs text-muted-foreground italic mt-1">{item.customSpecs.notes}</p>
                                   )}
                                 </div>
                               )}

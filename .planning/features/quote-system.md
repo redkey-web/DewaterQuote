@@ -391,4 +391,144 @@ sizeHighlight: {
 
 ---
 
-Last Updated: 2026-01-20 (Phase 9: Size display prominence - 497 labels standardized, UI/PDF styling updated)
+## Phase 10: Smart Size Label Selection & Custom Specs Styling (2026-01-20)
+
+Client reported issues with size display in cart:
+1. **Custom specs (Straub/Teekay)** shown as plain text, should have amber badge styling
+2. **Repair Clamps** all show "400mm wide" instead of the differentiating diameter (88.9mm, 406.4mm)
+3. **DB-3 Inline Valve** shows "ID of pipe" for ALL variations instead of actual sizes (80mm, 100mm)
+
+### 10.1 Problem Analysis
+
+**Database findings from investigation:**
+
+| Product | Label Pattern | Size Field | Issue |
+|---------|---------------|------------|-------|
+| Repair Clamp 400mm | "Repair Clamp 400mm wide" (same for all) | 88.9mm, 273.0mm, 406.4mm, etc. | Label is same, size differs |
+| DB-3 Inline Valve | "ID of pipe" (identical for all) | 80mm, 100mm, 125mm, etc. | Generic label, size has real data |
+| Defender Valve (Swing Check) | Label = product name for most sizes | 50mm, 65mm, 200mm, etc. | Label filtered out but no fallback to size |
+| Teekay Axilock | Custom specs product | N/A | Needs badge styling for customSpecs |
+
+**Defender Valve specific issue:**
+- Some variations have good labels: "DN50 (2") Nominal Bore sizing"
+- Most have label = product name: "Resilient Seated Swing Check Valve - Flanged Table E"
+- Current code filters out product-name labels but **doesn't fall back to `size` field**
+- Result: No size shown at all in cart for 200mm, 125mm, 150mm, etc.
+
+**Current behavior** (in `getQuoteItemSizeLabel()`):
+- Returns `sizeLabel` if it exists, else falls back to `size`
+- Doesn't detect when ALL variations share the same label (meaning the label isn't differentiating)
+
+### 10.2 Smart Label Selection Logic
+
+When selecting what to display as the "size badge", use this priority:
+
+1. **Check if label is unique among product's variations**
+   - If ALL variations have the same label → use `size` field instead
+   - If labels vary → use `label` field (current behavior)
+
+2. **Check for generic/unhelpful labels**
+   - Labels like "ID of pipe", "Pipe Outside Diameter sizing" → use `size` instead
+   - Labels that just repeat the product name → use `size` instead
+
+3. **Algorithm** (to replace current `getQuoteItemSizeLabel`):
+   ```typescript
+   function getQuoteItemSizeLabel(item: QuoteItem): string | undefined {
+     if (!item.variation) return undefined
+
+     const sizeLabel = item.variation.sizeLabel?.trim()
+     const size = item.variation.size?.trim()
+
+     // Helper: check if a label is usable
+     function isUsableLabel(label: string | undefined): boolean {
+       if (!label) return false
+
+       const labelLower = label.toLowerCase()
+       const productName = item.name.toLowerCase()
+
+       // Reject: generic unhelpful labels
+       const genericPatterns = ['id of pipe', 'pipe outside diameter sizing', 'nominal bore sizing']
+       if (genericPatterns.some(g => labelLower.includes(g))) return false
+
+       // Reject: label is just the product name (redundant)
+       if (productName.includes(labelLower) || labelLower.includes(productName)) return false
+
+       // Reject: very short non-numeric labels
+       if (label.length < 4 && !/\d/.test(label)) return false
+
+       return true
+     }
+
+     // Priority: usable sizeLabel > size > nothing
+     if (isUsableLabel(sizeLabel)) return sizeLabel
+     if (size) return size  // Always fall back to size if label is unusable
+     return undefined
+   }
+   ```
+
+   **Key fix**: When label is filtered out (product name, generic), ALWAYS fall back to `size` field.
+
+**Implementation note**: This logic can be added to `getQuoteItemSizeLabel()` in `src/lib/quote.ts`. Need to also handle the case where we need to look up whether all sibling variations share the same label - this may require passing additional context or doing the check at add-to-cart time.
+
+### 10.3 Custom Specs Badge Styling
+
+**Problem**: Straub/Teekay products with `customSpecs` display specs as plain text in muted background.
+
+**Current styling** (QuoteCart.tsx lines 192-203):
+```tsx
+<div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">
+  <p className="text-foreground">
+    <span className="text-muted-foreground">Pipe OD:</span> {item.customSpecs.pipeOd} |
+    ...
+  </p>
+</div>
+```
+
+**Target styling**: Use amber badge styling consistent with size badges:
+```tsx
+<div className="mt-1 inline-flex flex-wrap items-center gap-1.5">
+  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+    Pipe OD: {item.customSpecs.pipeOd}
+  </span>
+  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+    {item.customSpecs.rubberMaterial}
+  </span>
+  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+    {item.customSpecs.pressure}
+  </span>
+</div>
+```
+
+### 10.4 Implementation Tasks
+
+#### Smart Label Logic ✅
+- [x] Update `getQuoteItemSizeLabel()` in `src/lib/quote.ts` to detect generic/unhelpful labels
+- [x] Add fallback to `size` field when label is generic
+- [ ] Test with Repair Clamp 400mm - should show "406.4mm" not "Repair Clamp 400mm wide"
+- [ ] Test with DB-3 Inline Valve - should show "80mm" not "ID of pipe"
+
+#### Custom Specs Styling ✅
+- [x] Update QuoteCart.tsx (lines 192-203) - style customSpecs with amber badges
+- [x] Update QuoteCart.tsx (lines 424-435) - same for unpricedItems section
+- [x] Update request-quote/page.tsx - match customSpecs styling if present
+- [ ] Update quote-pdf.tsx - ensure customSpecs appear highlighted in PDF
+
+#### Testing
+- [ ] Add Repair Clamp 400mm to cart - verify diameter shows instead of "400mm wide"
+- [ ] Add DB-3 Inline Valve to cart - verify actual size shows instead of "ID of pipe"
+- [ ] Add Defender Valve (200mm) to cart - verify "200mm" shows (not blank, not product name)
+- [ ] Add Teekay Axilock with custom specs - verify amber badges for Pipe OD/Material/Pressure
+- [ ] Verify PDF output includes customSpecs in highlighted format
+
+### 10.5 Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/lib/quote.ts` | Update `getQuoteItemSizeLabel()` with smart fallback logic |
+| `src/components/QuoteCart.tsx` | Restyle customSpecs from muted box to amber badges |
+| `src/app/request-quote/page.tsx` | Match customSpecs styling updates |
+| `src/lib/pdf/quote-pdf.tsx` | Add customSpecs to PDF with highlight styling |
+
+---
+
+Last Updated: 2026-01-20 (Phase 10: Smart label logic + custom specs amber badges implemented)

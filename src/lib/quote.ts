@@ -139,41 +139,37 @@ export function getQuoteItemSKU(item: QuoteItem): string {
 
 /**
  * Gets the display size label for a quote item
- * Falls back to size value if sizeLabel is empty
- * Filters out labels that are just the product name (not actual size info)
+ * Uses smart fallback: if sizeLabel is unusable (generic, product name), fall back to size field
  */
 export function getQuoteItemSizeLabel(item: QuoteItem): string | undefined {
-  if (item.variation) {
-    const label = item.variation.sizeLabel?.trim() || item.variation.size?.trim()
+  if (!item.variation) return undefined
 
-    if (label) {
-      // Don't show if it's just the product name or short name (redundant)
-      const productName = item.name.toLowerCase()
-      const labelLower = label.toLowerCase()
+  const sizeLabel = item.variation.sizeLabel?.trim()
+  const size = item.variation.size?.trim()
 
-      // Skip if label equals or is contained in product name
-      if (productName.includes(labelLower) || labelLower.includes(productName)) {
-        return undefined
-      }
+  // Helper: check if a label is usable for display
+  function isUsableLabel(label: string | undefined): boolean {
+    if (!label) return false
 
-      // Skip if it's a generic product description (not a size)
-      // Real sizes contain: mm, DN, ", inch, numbers with units
-      const looksLikeSize = /\d/.test(label) && (
-        /mm/i.test(label) ||
-        /dn/i.test(label) ||
-        /"/.test(label) ||
-        /inch/i.test(label) ||
-        /pipe\s*(od|outside)/i.test(label) ||
-        /^\d+(\.\d+)?\s*mm/i.test(label)
-      )
+    const labelLower = label.toLowerCase()
+    const productName = item.name.toLowerCase()
 
-      if (!looksLikeSize) {
-        return undefined
-      }
+    // Reject: generic unhelpful labels
+    const genericPatterns = ['id of pipe', 'pipe outside diameter sizing', 'nominal bore sizing']
+    if (genericPatterns.some(g => labelLower.includes(g))) return false
 
-      return label
-    }
+    // Reject: label is just the product name (redundant)
+    if (productName.includes(labelLower) || labelLower.includes(productName)) return false
+
+    // Reject: very short non-numeric labels (likely abbreviations)
+    if (label.length < 4 && !/\d/.test(label)) return false
+
+    return true
   }
+
+  // Priority: usable sizeLabel > size > nothing
+  if (isUsableLabel(sizeLabel)) return sizeLabel
+  if (size) return size  // Always fall back to size if label is unusable
   return undefined
 }
 

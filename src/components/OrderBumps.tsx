@@ -1,9 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Sparkles } from "lucide-react"
+import { ExternalLink, Sparkles, X, ChevronDown } from "lucide-react"
 import { products } from "@/data/catalog"
 import type { QuoteItem } from "@/types"
 
@@ -22,6 +23,8 @@ const complementaryCategories: Record<string, string[]> = {
 }
 
 export default function OrderBumps({ cartItems, onAddToQuote }: OrderBumpsProps) {
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
   if (cartItems.length === 0) return null
 
   const cartProductIds = new Set(cartItems.map((item) => item.productId))
@@ -53,11 +56,34 @@ export default function OrderBumps({ cartItems, onAddToQuote }: OrderBumpsProps)
 
   if (suggestions.length === 0) return null
 
+  // Collapsed state - show minimal expand button
+  if (isCollapsed) {
+    return (
+      <button
+        onClick={() => setIsCollapsed(false)}
+        className="w-full flex items-center justify-center gap-2 py-2 text-xs text-muted-foreground hover:text-primary transition-colors border-t border-border"
+      >
+        <Sparkles className="w-3 h-3 text-amber-500" />
+        <span>Show suggestions</span>
+        <ChevronDown className="w-3 h-3" />
+      </button>
+    )
+  }
+
   return (
     <div className="border-t border-border pt-4">
-      <div className="flex items-center gap-2 mb-3">
-        <Sparkles className="w-4 h-4 text-amber-500" />
-        <h4 className="text-sm font-semibold">You May Also Need</h4>
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-amber-500" />
+          <h4 className="text-sm font-semibold">You May Also Need</h4>
+        </div>
+        <button
+          onClick={() => setIsCollapsed(true)}
+          className="p-1 rounded hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+          aria-label="Hide suggestions"
+        >
+          <X className="w-4 h-4" />
+        </button>
       </div>
       <p className="text-xs text-muted-foreground mb-3">
         Complementary products often used together:

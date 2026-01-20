@@ -484,7 +484,7 @@ export default function Header() {
             {/* Products Menu */}
             <div className="relative">
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors duration-150 cursor-pointer py-4 px-3 -my-2 rounded ${
                   activeMenu === "products" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
                 data-testid="button-products-menu"
@@ -560,7 +560,7 @@ export default function Header() {
             {/* Industries Menu */}
             <div className="relative">
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors duration-150 cursor-pointer py-4 px-3 -my-2 rounded ${
                   activeMenu === "industries" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
                 data-menu-trigger
@@ -618,7 +618,7 @@ export default function Header() {
             {/* Brands Menu */}
             <div className="relative">
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors duration-150 cursor-pointer py-4 px-3 -my-2 rounded ${
                   activeMenu === "brands" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
                 data-menu-trigger
@@ -676,7 +676,7 @@ export default function Header() {
             {/* Resources Menu */}
             <div className="relative">
               <button
-                className={`flex items-center gap-1.5 text-[13px] font-medium transition-all py-4 px-3 -my-2 rounded ${
+                className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors duration-150 cursor-pointer py-4 px-3 -my-2 rounded ${
                   activeMenu === "resources" ? "text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]" : "text-gray-700 dark:text-gray-200 hover:text-primary hover:[text-shadow:0_-1px_0_rgba(0,0,0,0.3),0_1px_0_rgba(255,255,255,0.2)]"
                 }`}
                 data-menu-trigger

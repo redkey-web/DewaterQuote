@@ -33,9 +33,15 @@ export default function QuoteCart() {
       setIsVisible(true)
       // Small delay ensures DOM paint before animation - replaces double rAF
       const timer = setTimeout(() => setIsAnimating(true), 10)
-      return () => clearTimeout(timer)
+      // Prevent body scroll when cart is open
+      document.body.style.overflow = 'hidden'
+      return () => {
+        clearTimeout(timer)
+        document.body.style.overflow = ''
+      }
     } else {
       setIsAnimating(false)
+      document.body.style.overflow = ''
       const timer = setTimeout(() => setIsVisible(false), 200)
       return () => clearTimeout(timer)
     }
@@ -86,7 +92,7 @@ export default function QuoteCart() {
           </Button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto overscroll-contain p-6 space-y-6">
           {items.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Your quote is empty</p>
@@ -112,15 +118,44 @@ export default function QuoteCart() {
                         <div
                           key={item.id}
                           className="flex gap-4 p-4 bg-card border border-card-border rounded-md"
-                          data-testid={`quote-item-${item.id}`}
+                          data-testid={'quote-item-${item.id}'}
                         >
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            width={64}
-                            height={64}
-                            className="w-16 h-16 object-cover rounded-md"
-                          />
+                          <div className="flex flex-col items-center gap-2">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              width={64}
+                              height={64}
+                              className="w-16 h-16 object-cover rounded-md"
+                            />
+                            {/* Quantity Controls - Under image */}
+                            <div className="flex items-center border border-border rounded-md">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-6 w-6"
+                                onClick={() =>
+                                  updateItemQuantity(item.id, Math.max(1, item.quantity - 1))
+                                }
+                                disabled={item.quantity <= 1}
+                                data-testid={'button-decrease-${item.id}'}
+                              >
+                                <Minus className="w-3 h-3" />
+                              </Button>
+                              <span className="px-2 text-xs font-medium min-w-[1.5rem] text-center">
+                                {item.quantity}
+                              </span>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-6 w-6"
+                                onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+                                data-testid={'button-increase-${item.id}'}
+                              >
+                                <Plus className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between gap-2">
                               <h4 className="font-medium text-sm truncate">{item.name}</h4>
@@ -153,16 +188,20 @@ export default function QuoteCart() {
                                 Lead time: {item.leadTime}
                               </p>
                             )}
-                            {/* Custom Specs Display (Straub/Teekay products) */}
+                            {/* Custom Specs Display (Straub/Teekay products) - Amber badges */}
                             {item.customSpecs && (
-                              <div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">
-                                <p className="text-foreground">
-                                  <span className="text-muted-foreground">Pipe OD:</span> {item.customSpecs.pipeOd} |
-                                  <span className="text-muted-foreground"> Material:</span> {item.customSpecs.rubberMaterial} |
-                                  <span className="text-muted-foreground"> Pressure:</span> {item.customSpecs.pressure}
-                                </p>
+                              <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                  Pipe OD: {item.customSpecs.pipeOd}
+                                </span>
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                  {item.customSpecs.rubberMaterial}
+                                </span>
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                  {item.customSpecs.pressure}
+                                </span>
                                 {item.customSpecs.notes && (
-                                  <p className="text-muted-foreground italic">{item.customSpecs.notes}</p>
+                                  <p className="w-full text-xs text-muted-foreground italic mt-1">{item.customSpecs.notes}</p>
                                 )}
                               </div>
                             )}
@@ -182,7 +221,7 @@ export default function QuoteCart() {
                                 <Square className="w-4 h-4 flex-shrink-0" />
                               )}
                               <FileCheck className="w-4 h-4 flex-shrink-0" />
-                              <span className="font-medium">{item.materialTestCert ? "Material Cert Added" : "Add Material Cert (+$350)"}</span>
+                              <span className="text-[10px]">{item.materialTestCert ? "Material Cert Added" : "Add Material Cert (+$350)"}</span>
                             </button>
                             {isAustralia && (
                               <div className="flex items-center gap-2 mt-1 flex-wrap">
@@ -190,13 +229,13 @@ export default function QuoteCart() {
                                   <>
                                     <p
                                       className="text-sm line-through text-destructive"
-                                      data-testid={`text-original-price-${item.id}`}
+                                      data-testid={'text-original-price-${item.id}'}
                                     >
                                       ${price?.toFixed(2)}
                                     </p>
                                     <p
                                       className="text-sm font-bold text-primary"
-                                      data-testid={`text-discounted-price-${item.id}`}
+                                      data-testid={'text-discounted-price-${item.id}'}
                                     >
                                       ${(price! * (1 - discountPercentage / 100)).toFixed(2)}
                                     </p>
@@ -204,49 +243,20 @@ export default function QuoteCart() {
                                 ) : (
                                   <p className="text-sm font-bold text-primary">${price?.toFixed(2)}</p>
                                 )}
+                                {item.quantity > 1 && (
+                                  <span className="text-xs text-muted-foreground">
+                                    ={" "}
+                                    {hasDiscount ? (
+                                      <span className="font-semibold text-primary">
+                                        ${itemDiscountedSubtotal?.toFixed(2)}
+                                      </span>
+                                    ) : (
+                                      <span className="font-semibold">${itemSubtotal?.toFixed(2)}</span>
+                                    )}
+                                  </span>
+                                )}
                               </div>
                             )}
-                            {/* Quantity Controls */}
-                            <div className="flex items-center gap-2 mt-2">
-                              <div className="flex items-center border border-border rounded-md">
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-7 w-7"
-                                  onClick={() =>
-                                    updateItemQuantity(item.id, Math.max(1, item.quantity - 1))
-                                  }
-                                  disabled={item.quantity <= 1}
-                                  data-testid={`button-decrease-${item.id}`}
-                                >
-                                  <Minus className="w-3 h-3" />
-                                </Button>
-                                <span className="px-3 text-sm font-medium min-w-[2rem] text-center">
-                                  {item.quantity}
-                                </span>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-7 w-7"
-                                  onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
-                                  data-testid={`button-increase-${item.id}`}
-                                >
-                                  <Plus className="w-3 h-3" />
-                                </Button>
-                              </div>
-                              {isAustralia && item.quantity > 1 && (
-                                <span className="text-sm text-muted-foreground">
-                                  ={" "}
-                                  {hasDiscount ? (
-                                    <span className="font-semibold text-primary">
-                                      ${itemDiscountedSubtotal?.toFixed(2)}
-                                    </span>
-                                  ) : (
-                                    <span className="font-semibold">${itemSubtotal?.toFixed(2)}</span>
-                                  )}
-                                </span>
-                              )}
-                            </div>
                             {hasDiscount && savings > 0 && (
                               <p
                                 className="text-xs text-destructive font-medium mt-1"
@@ -365,15 +375,44 @@ export default function QuoteCart() {
                         <div
                           key={item.id}
                           className="flex gap-4 p-4 bg-card border border-card-border rounded-md"
-                          data-testid={`quote-item-${item.id}`}
+                          data-testid={'quote-item-${item.id}'}
                         >
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            width={64}
-                            height={64}
-                            className="w-16 h-16 object-cover rounded-md"
-                          />
+                          <div className="flex flex-col items-center gap-2">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              width={64}
+                              height={64}
+                              className="w-16 h-16 object-cover rounded-md"
+                            />
+                            {/* Quantity Controls - Under image */}
+                            <div className="flex items-center border border-border rounded-md">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-6 w-6"
+                                onClick={() =>
+                                  updateItemQuantity(item.id, Math.max(1, item.quantity - 1))
+                                }
+                                disabled={item.quantity <= 1}
+                                data-testid={'button-decrease-${item.id}'}
+                              >
+                                <Minus className="w-3 h-3" />
+                              </Button>
+                              <span className="px-2 text-xs font-medium min-w-[1.5rem] text-center">
+                                {item.quantity}
+                              </span>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-6 w-6"
+                                onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
+                                data-testid={'button-increase-${item.id}'}
+                              >
+                                <Plus className="w-3 h-3" />
+                              </Button>
+                            </div>
+                          </div>
                           <div className="flex-1 min-w-0">
                             <h4 className="font-medium text-sm truncate">{item.name}</h4>
                             <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
@@ -385,16 +424,20 @@ export default function QuoteCart() {
                               )}
                             </p>
                             <p className="text-xs text-muted-foreground font-mono">{sku}</p>
-                            {/* Custom Specs Display (Straub/Teekay products) */}
+                            {/* Custom Specs Display (Straub/Teekay products) - Amber badges */}
                             {item.customSpecs && (
-                              <div className="mt-1 p-2 bg-muted/50 rounded text-xs space-y-1">
-                                <p className="text-foreground">
-                                  <span className="text-muted-foreground">Pipe OD:</span> {item.customSpecs.pipeOd} |
-                                  <span className="text-muted-foreground"> Material:</span> {item.customSpecs.rubberMaterial} |
-                                  <span className="text-muted-foreground"> Pressure:</span> {item.customSpecs.pressure}
-                                </p>
+                              <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                  Pipe OD: {item.customSpecs.pipeOd}
+                                </span>
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                  {item.customSpecs.rubberMaterial}
+                                </span>
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-medium text-xs">
+                                  {item.customSpecs.pressure}
+                                </span>
                                 {item.customSpecs.notes && (
-                                  <p className="text-muted-foreground italic">{item.customSpecs.notes}</p>
+                                  <p className="w-full text-xs text-muted-foreground italic mt-1">{item.customSpecs.notes}</p>
                                 )}
                               </div>
                             )}
@@ -414,38 +457,9 @@ export default function QuoteCart() {
                                 <Square className="w-4 h-4 flex-shrink-0" />
                               )}
                               <FileCheck className="w-4 h-4 flex-shrink-0" />
-                              <span className="font-medium">{item.materialTestCert ? "Material Cert Added" : "Add Material Cert (+$350)"}</span>
+                              <span className="text-[10px]">{item.materialTestCert ? "Material Cert Added" : "Add Material Cert (+$350)"}</span>
                             </button>
                             <p className="text-sm text-chart-3 font-medium mt-1">Price on request</p>
-                            {/* Quantity Controls for Unpriced Items */}
-                            <div className="flex items-center gap-2 mt-2">
-                              <div className="flex items-center border border-border rounded-md">
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-7 w-7"
-                                  onClick={() =>
-                                    updateItemQuantity(item.id, Math.max(1, item.quantity - 1))
-                                  }
-                                  disabled={item.quantity <= 1}
-                                  data-testid={`button-decrease-${item.id}`}
-                                >
-                                  <Minus className="w-3 h-3" />
-                                </Button>
-                                <span className="px-3 text-sm font-medium min-w-[2rem] text-center">
-                                  {item.quantity}
-                                </span>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-7 w-7"
-                                  onClick={() => updateItemQuantity(item.id, item.quantity + 1)}
-                                  data-testid={`button-increase-${item.id}`}
-                                >
-                                  <Plus className="w-3 h-3" />
-                                </Button>
-                              </div>
-                            </div>
                           </div>
                           <Button
                             variant="ghost"
