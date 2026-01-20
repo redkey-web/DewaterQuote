@@ -21,7 +21,7 @@ interface Hotspot {
 
 interface FluidHeroProps {
   photoSrc: string
-  illustrationSrc: string
+  illustrationSrc?: string
   radius?: number
   effect?: RevealEffect
   underlayBrightness?: number // 0-1, default 0.7
@@ -321,16 +321,18 @@ export default function FluidHero({
       )}
 
       {/* Reveal layer: Industrial illustration with effect - CSS transitions handle smoothing */}
-      <div
-        className="absolute inset-0 bg-cover transition-opacity duration-300 ease-out"
-        style={{
-          backgroundImage: `url(${illustrationSrc})`,
-          backgroundPosition: 'center 45%',
-          filter: `brightness(${underlayBrightness})`,
-          opacity: isVisible ? 1 : 0,
-          ...effectStyle,
-        }}
-      />
+      {illustrationSrc && (
+        <div
+          className="absolute inset-0 bg-cover transition-opacity duration-300 ease-out"
+          style={{
+            backgroundImage: `url(${illustrationSrc})`,
+            backgroundPosition: 'center 45%',
+            filter: `brightness(${underlayBrightness})`,
+            opacity: isVisible ? 1 : 0,
+            ...effectStyle,
+          }}
+        />
+      )}
 
       {/* Content overlay */}
       <div className="relative z-10">{children}</div>
