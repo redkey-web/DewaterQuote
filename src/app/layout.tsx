@@ -70,6 +70,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        {/* Preload critical hero images for LCP improvement */}
+        <link rel="preload" href="/images/hero-pipeline.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/images/hero-illustration-industrial.webp" as="image" type="image/webp" />
         <OrganizationJsonLd />
       </head>
       <body className={[inter.variable, comfortaa.variable, dotGothic.variable, "font-sans antialiased"].join(" ")}>
