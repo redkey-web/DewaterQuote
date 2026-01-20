@@ -786,7 +786,7 @@ export default function HomePage() {
             {isStormyDay ? "Компоненты гражданских и промышленных" : "Industrial Pipe Fittings Supply"}
           </p>
 
-          <div className="relative left-1/2 -translate-x-1/2 w-[calc(100%+80px)] md:w-[calc(100%+160px)] max-w-[1260px] md:max-w-[1500px]" ref={heroSearchRef}>
+          <div className="relative left-1/2 -translate-x-1/2 w-[calc(100vw-40px)] md:w-[calc(100%+160px)] max-w-[1260px] md:max-w-[1500px]" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
               {/* Search Bar */}
               <div className="relative">
