@@ -8,7 +8,7 @@ export default function Footer() {
       <div
         className="absolute inset-0 pointer-events-none grayscale"
         style={{
-          backgroundImage: 'url(/images/footer-bg.png)',
+          backgroundImage: 'url(/images/footer-bg.webp)',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
           backgroundSize: 'cover',

@@ -412,7 +412,7 @@ export default function Header() {
                   <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 animate-spin z-10" />
                 ) : (
                   <Image
-                    src="/images/dewater-icon.png"
+                    src="/images/dewater-icon.webp"
                     alt=""
                     width={20}
                     height={20}
@@ -767,7 +767,7 @@ export default function Header() {
                     <Loader2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
                   ) : (
                     <Image
-                      src="/images/dewater-icon.png"
+                      src="/images/dewater-icon.webp"
                       alt=""
                       width={16}
                       height={16}

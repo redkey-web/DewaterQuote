@@ -576,7 +576,7 @@ export default function HomePage() {
                   <Star className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 z-10 text-red-500 fill-red-500" />
                 ) : (
                   <Image
-                    src="/images/dewater-icon.png"
+                    src="/images/dewater-icon.webp"
                     alt=""
                     width={32}
                     height={32}
@@ -888,7 +888,7 @@ export default function HomePage() {
         <div
           className="absolute inset-0 pointer-events-none grayscale"
           style={{
-            backgroundImage: 'url(/images/why-choose-bg.png)',
+            backgroundImage: 'url(/images/why-choose-bg.webp)',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             backgroundSize: 'cover',
