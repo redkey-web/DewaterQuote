@@ -487,7 +487,7 @@ export default function HomePage() {
 
         {/* Orbiting curved text - teal layer with subtle brightness variation */}
         {/* Positioned on pipe coupling's circular opening, scales with viewport */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[33%] -translate-x-1/2 -translate-y-1/2 scale-[0.91] md:scale-[1.09] lg:scale-[1.24] xl:scale-[1.37] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[3%] -translate-x-1/2 -translate-y-1/2 scale-[0.91] md:scale-[1.09] lg:scale-[1.24] xl:scale-[1.37] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -517,7 +517,7 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - white neon layer (dim, broken) ~5 degrees behind, offset slightly from teal */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[33%] -translate-x-1/2 -translate-y-1/2 scale-[0.91] md:scale-[1.09] lg:scale-[1.24] xl:scale-[1.37] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[3%] -translate-x-1/2 -translate-y-1/2 scale-[0.91] md:scale-[1.09] lg:scale-[1.24] xl:scale-[1.37] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
@@ -547,7 +547,7 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 2 (moved to 60%, enlarged 40%) - teal layer */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[70%] -translate-x-1/2 -translate-y-1/2 scale-[0.80] md:scale-[0.95] lg:scale-[1.06] xl:scale-[1.18] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[40%] -translate-x-1/2 -translate-y-1/2 scale-[0.80] md:scale-[0.95] lg:scale-[1.06] xl:scale-[1.18] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -574,7 +574,7 @@ export default function HomePage() {
           </div>
         </div>
         {/* Set 2 - white layer */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[70%] -translate-x-1/2 -translate-y-1/2 scale-[0.80] md:scale-[0.95] lg:scale-[1.06] xl:scale-[1.18] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[40%] -translate-x-1/2 -translate-y-1/2 scale-[0.80] md:scale-[0.95] lg:scale-[1.06] xl:scale-[1.18] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
@@ -602,7 +602,7 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 5 (60% smaller, 80% right) - teal layer */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[113%] -translate-x-1/2 -translate-y-1/2 scale-[0.48] md:scale-[0.57] lg:scale-[0.64] xl:scale-[0.71] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[83%] -translate-x-1/2 -translate-y-1/2 scale-[0.48] md:scale-[0.57] lg:scale-[0.64] xl:scale-[0.71] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -629,7 +629,7 @@ export default function HomePage() {
           </div>
         </div>
         {/* Set 5 - white layer */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[113%] -translate-x-1/2 -translate-y-1/2 scale-[0.48] md:scale-[0.57] lg:scale-[0.64] xl:scale-[0.71] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[82%] left-[83%] -translate-x-1/2 -translate-y-1/2 scale-[0.48] md:scale-[0.57] lg:scale-[0.64] xl:scale-[0.71] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
