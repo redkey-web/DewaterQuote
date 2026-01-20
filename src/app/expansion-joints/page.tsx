@@ -18,12 +18,14 @@ const jointTypes = [
 
 const applications = [
   "Pump vibration isolation",
-  "HVAC systems",
+  "Chilled water pipe systems (HVAC)",
+  "Steam pipe expansion control",
+  "Thermal expansion in hot water systems",
   "Marine and shipboard piping",
-  "Chemical processing",
-  "Slurry pipelines",
-  "Mining and dredging",
+  "Chemical processing pipelines",
+  "Slurry and mining pipelines",
   "Water treatment plants",
+  "Grooved pipe connections",
 ]
 
 const selectionFactors = [
@@ -35,16 +37,19 @@ const selectionFactors = [
 ]
 
 export const metadata: Metadata = {
-  title: "Expansion Joints | Rubber Expansion Bellows | Australia | Dewater Products",
+  title: "Pipe Expansion Joints | Rubber Bellows for Pipe | Australia | Dewater Products",
   description:
-    "Rubber expansion joints and expansion bellows for thermal expansion, vibration absorption, and pipe misalignment. Single sphere, twin sphere, arch and reducing rubber bellows. EPDM rubber with zinc or 316SS flanges. PN16 rated. Australia-wide delivery.",
+    "Pipe expansion joints and rubber bellows for thermal expansion, vibration absorption, and pipe movement. Rubber pipe expansion joints for chilled water, steam, HVAC and industrial piping. EPDM bellows with PN16 flanges. Australia-wide delivery.",
   keywords: [
-    "expansion joints",
-    "rubber expansion joints",
+    "pipe expansion joints",
+    "expansion joints for pipe",
+    "rubber expansion joints for pipe",
+    "pipe rubber bellows expansion joint",
+    "rubber pipe expansion joints",
+    "thermal expansion joints pipe",
+    "chilled water pipe expansion joints",
+    "steam pipe expansion joints",
     "expansion bellows",
-    "rubber bellows",
-    "flexible pipe connectors",
-    "vibration isolators",
     "pipe expansion joints australia",
   ],
   openGraph: {
@@ -107,11 +112,11 @@ export default async function ExpansionJointsPage() {
                 Vibration & Movement Control
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
-                Expansion Joints & Rubber Bellows
+                Pipe Expansion Joints & Rubber Bellows
               </h1>
               <p className="text-xl text-white/80 max-w-2xl">
-                Rubber expansion joints and expansion bellows designed to reduce pipeline stress, absorb vibration, and compensate for thermal movement.
-                EPDM rubber bellows with zinc or 316SS flanges, PN16 rated.
+                Rubber pipe expansion joints and bellows designed to reduce pipeline stress, absorb vibration, and compensate for thermal expansion in pipe systems.
+                EPDM pipe rubber bellows with zinc or 316SS flanges, PN16 rated for industrial piping applications.
               </p>
             </div>
             <div className="flex-shrink-0 relative">
@@ -130,15 +135,32 @@ export default async function ExpansionJointsPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
+        {/* What is an Expansion Joint - SEO content section */}
+        <div className="mb-12 bg-white dark:bg-stone-800 rounded-lg p-8 shadow-sm">
+          <h2 className="text-2xl font-bold mb-4">What is an Expansion Joint?</h2>
+          <div className="prose prose-slate dark:prose-invert max-w-none">
+            <p className="text-muted-foreground mb-4">
+              An expansion joint (also called a rubber bellows or flexible connector) is a pipe fitting designed to absorb thermal expansion, vibration, and movement in piping systems. Pipe expansion joints prevent stress on pipes, pumps, and connected equipment by providing flexibility where rigid connections would fail.
+            </p>
+            <p className="text-muted-foreground mb-4">
+              Rubber expansion joints for pipe systems use an EPDM or NBR rubber bellows element between metal flanges. The pipe rubber bellows absorbs axial compression and extension, lateral offset, and angular misalignment. This makes rubber pipe expansion joints essential for pump connections, HVAC systems, and any application where thermal movement or vibration occurs.
+            </p>
+            <p className="text-muted-foreground">
+              We supply pipe expansion joints for a wide range of applications including <strong>chilled water pipe expansion joints</strong> for HVAC cooling systems, <strong>thermal expansion joints</strong> for hot water and heating pipelines, and <strong>steam pipe expansion joints</strong> for high-temperature industrial processes. Our rubber expansion joints for pipe are available in sizes from DN25 to DN600 with PN16 pressure ratings.
+            </p>
+          </div>
+        </div>
+
         {/* Joint Types - Compact Chips */}
         <div className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">Expansion Joint Types</h2>
+          <h2 className="text-2xl font-bold mb-4">Pipe Expansion Joint Types</h2>
           <JointTypeChips jointTypes={jointTypes} />
         </div>
 
         {/* All Products */}
         <div id="products" className="mb-6 scroll-mt-8">
-          <h2 className="text-2xl font-semibold mb-4">All Expansion Joints</h2>
+          <h2 className="text-2xl font-semibold mb-4">All Pipe Expansion Joints</h2>
+          <p className="text-muted-foreground mb-4">Browse our range of rubber pipe expansion joints and bellows from leading manufacturers. All expansion joints for pipe systems are available with zinc-plated or 316 stainless steel flanges.</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
           {expansionProducts.map((product) => (
@@ -174,9 +196,9 @@ export default async function ExpansionJointsPage() {
 
         {/* CTA */}
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Expansion Joint?</h2>
+          <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Pipe Expansion Joint?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Our technical team can help you specify the right expansion joint for your application, including custom flanges and movement requirements.
+            As authorised distributors for leading pipe expansion joints manufacturers, our technical team can help you specify the right rubber bellows for your application-whether it's thermal expansion joints for pipe heating systems, chilled water expansion joints, or steam pipe applications.
             Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
