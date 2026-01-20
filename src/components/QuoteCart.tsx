@@ -158,6 +158,21 @@ export default function QuoteCart() {
                                 <Plus className="w-3 h-3" />
                               </Button>
                             </div>
+                            {/* Discount Badge - Under quantity */}
+                            {hasDiscount && (
+                              <Badge
+                                variant="secondary"
+                                className={`text-[9px] font-bold ${
+                                  discountPercentage >= 15
+                                    ? "bg-rose-400/20 text-rose-500"
+                                    : discountPercentage >= 10
+                                    ? "bg-orange-400/20 text-orange-500"
+                                    : "bg-yellow-400/20 text-yellow-600"
+                                }`}
+                              >
+                                {discountPercentage}% OFF
+                              </Badge>
+                            )}
                             {/* Material Cert Toggle */}
                             <button
                               onClick={() => toggleMaterialCert(item.id)}
@@ -166,30 +181,14 @@ export default function QuoteCart() {
                                   ? "bg-red-100 dark:bg-red-950 border-red-400 text-red-600 dark:text-red-300"
                                   : "border-red-200 dark:border-red-800 text-red-400 dark:text-red-500 hover:border-red-400"
                               }`}
-                              title={item.materialTestCert ? "Remove certificate" : "Add certificate (+$350)"}
+                              title={item.materialTestCert ? "Remove materials certificate" : "Add materials certificate (+$350)"}
                             >
                               {item.materialTestCert ? <CheckSquare className="w-2.5 h-2.5" /> : <Square className="w-2.5 h-2.5" />}
-                              <span>{item.materialTestCert ? "Cert ✓" : "+Cert"}</span>
+                              <span>{item.materialTestCert ? "Mat. Cert ✓" : "+Mat. Cert"}</span>
                             </button>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between gap-2">
-                              <h4 className="font-medium text-sm truncate">{item.name}</h4>
-                              {hasDiscount && (
-                                <Badge
-                                  variant="secondary"
-                                  className={`shrink-0 text-xs font-bold ${
-                                    discountPercentage >= 15
-                                      ? "bg-rose-400/20 text-rose-500"
-                                      : discountPercentage >= 10
-                                      ? "bg-orange-400/20 text-orange-500"
-                                      : "bg-yellow-400/20 text-yellow-600"
-                                  }`}
-                                >
-                                  {discountPercentage}% OFF
-                                </Badge>
-                              )}
-                            </div>
+                            <h4 className="font-medium text-sm truncate">{item.name}</h4>
                             <p className="text-xs text-muted-foreground flex items-center gap-1.5 flex-wrap">
                               <span>{item.brand}</span>
                               {sizeLabel && (
@@ -418,10 +417,10 @@ export default function QuoteCart() {
                                   ? "bg-red-100 dark:bg-red-950 border-red-400 text-red-600 dark:text-red-300"
                                   : "border-red-200 dark:border-red-800 text-red-400 dark:text-red-500 hover:border-red-400"
                               }`}
-                              title={item.materialTestCert ? "Remove certificate" : "Add certificate (+$350)"}
+                              title={item.materialTestCert ? "Remove materials certificate" : "Add materials certificate (+$350)"}
                             >
                               {item.materialTestCert ? <CheckSquare className="w-2.5 h-2.5" /> : <Square className="w-2.5 h-2.5" />}
-                              <span>{item.materialTestCert ? "Cert ✓" : "+Cert"}</span>
+                              <span>{item.materialTestCert ? "Mat. Cert ✓" : "+Mat. Cert"}</span>
                             </button>
                           </div>
                           <div className="flex-1 min-w-0">
