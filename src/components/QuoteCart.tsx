@@ -274,12 +274,12 @@ export default function QuoteCart() {
                               ${subtotal.toFixed(2)}
                             </span>
                           </div>
-                          <div className="flex justify-between items-center text-sm">
-                            <span className="text-destructive font-medium flex items-center gap-1">
+                          <div className="flex justify-between items-center text-sm bg-rose-500/10 -mx-4 px-4 py-2 rounded-md border border-rose-500/20">
+                            <span className="text-rose-500 font-bold flex items-center gap-1">
                               <TrendingDown className="w-4 h-4" />
                               Bulk Discount ({discountPercentage}%):
                             </span>
-                            <span className="text-destructive font-medium" data-testid="text-total-savings">
+                            <span className="text-rose-500 font-bold" data-testid="text-total-savings">
                               -${totalSavings.toFixed(2)}
                             </span>
                           </div>

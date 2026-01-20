@@ -10,26 +10,22 @@ interface BulkPricingTickerProps {
 // Normal ticker content
 function TickerContent() {
   return (
-    <div className="flex items-center gap-8 px-8 text-[14px] font-mono font-normal uppercase opacity-70 ticker-chrome-blink">
+    <div className="flex items-center gap-12 px-8 text-[14px] font-mono font-normal uppercase opacity-70 ticker-chrome-blink">
       <div className="flex items-center gap-2">
         <TrendingDown className="w-4 h-4 ticker-text-prominent" />
         <span className="ticker-text-prominent">BULK PRICING:</span>
-        <span className="ticker-text-prominent">BUY 2-4</span>
-        <span className="text-[#ccff00]">5% OFF</span>
       </div>
-      <span className="ticker-text-prominent">•</span>
       <div className="flex items-center gap-2">
-        <span className="ticker-text-prominent">BUY 5-9</span>
-        <span className="text-[#ff6600]">10% OFF</span>
+        <span className="ticker-text-prominent">2+ items</span>
+        <span className="text-[#ccff00]">5%</span>
       </div>
-      <span className="ticker-text-prominent">•</span>
       <div className="flex items-center gap-2">
-        <span className="ticker-text-prominent">BUY 10+</span>
-        <span className="text-[#E91E63]">15% OFF</span>
+        <span className="ticker-text-prominent">5+ items</span>
+        <span className="text-[#ff6600]">10%</span>
       </div>
-      <span className="ticker-text-prominent">•</span>
       <div className="flex items-center gap-2">
-        <span className="ticker-text-prominent">MIX ANY PRODUCTS - DISCOUNTS APPLY TO TOTAL QUANTITY!</span>
+        <span className="ticker-text-prominent">10+ items</span>
+        <span className="text-[#E91E63]">15%</span>
       </div>
       <span className="ticker-text-prominent">•</span>
     </div>

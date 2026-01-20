@@ -383,6 +383,7 @@ export default function Header() {
       )}
 
       <header className="sticky top-0 z-[60]">
+        <div className="absolute inset-0 bg-gray-500/50" />
         <div className="absolute inset-0 header-gradient-blur" />
         <div className="relative max-w-7xl mx-auto px-6">
         {/* Three-column, two-row grid */}
