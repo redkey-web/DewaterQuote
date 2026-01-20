@@ -76,8 +76,11 @@ export default function QuoteCart() {
         data-testid="overlay-quote-cart"
       />
       <div
-        className="fixed right-0 top-0 h-full w-full md:w-[480px] lg:w-[680px] dropdown-silver-gradient border-l border-border shadow-xl z-[80] flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
-        style={{ transform: isAnimating ? "translateX(0)" : "translateX(100%)" }}
+        className="fixed right-0 top-0 h-full w-full md:w-[480px] lg:w-[680px] dropdown-silver-gradient border-l border-border shadow-xl z-[80] flex flex-col transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        style={{
+          transform: isAnimating ? "translateX(0)" : "translateX(100%)",
+          opacity: isAnimating ? 1 : 0.8
+        }}
         data-testid="panel-quote-cart"
       >
         <div className="p-6 border-b border-border flex items-center justify-between">

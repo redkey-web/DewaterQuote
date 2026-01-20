@@ -486,9 +486,9 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - teal layer with subtle brightness variation */}
-        {/* Centered on hero product, scales with viewport */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.7] md:scale-[0.85] lg:scale-100 xl:scale-110 origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
-          <div style={{ perspective: '800px' }}>
+        {/* Centered on hero product, scales with viewport, clipped to wheel diameter */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.7] md:scale-[0.85] lg:scale-100 xl:scale-110 origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
                 {/* Mobile version - smaller */}
@@ -517,8 +517,8 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - white neon layer (dim, broken) ~5 degrees behind, offset slightly from teal */}
-        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.7] md:scale-[0.85] lg:scale-100 xl:scale-110 origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")}>
-          <div style={{ perspective: '800px' }}>
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.7] md:scale-[0.85] lg:scale-100 xl:scale-110 origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
                 {/* Mobile version - smaller */}
@@ -571,22 +571,22 @@ export default function HomePage() {
               {/* Search Bar */}
               <div className="relative">
                 {isSearching ? (
-                  <Loader2 className={`absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 animate-spin z-10 transition-colors ${isSearchFocused ? "text-gray-700" : "text-white"}`} />
+                  <Loader2 className={`absolute left-3 md:left-5 top-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 animate-spin z-10 transition-colors ${isSearchFocused ? "text-gray-700" : "text-white"}`} />
                 ) : isStormyDay ? (
-                  <Star className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 z-10 text-red-500 fill-red-500" />
+                  <Star className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 z-10 text-red-500 fill-red-500" />
                 ) : (
                   <Image
                     src="/images/dewater-icon.webp"
                     alt=""
                     width={32}
                     height={32}
-                    className={`absolute left-5 top-1/2 -translate-y-1/2 z-10 transition-opacity -scale-y-100 ${isSearchFocused ? "opacity-70" : "opacity-100"}`}
+                    className={`absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-10 transition-opacity -scale-y-100 w-6 h-6 md:w-8 md:h-8 ${isSearchFocused ? "opacity-70" : "opacity-100"}`}
                   />
                 )}
                 <input
                   ref={heroInputRef}
                   type="text"
-                  className="relative w-full h-14 md:h-16 pl-[72px] pr-6 text-lg font-mono font-normal text-gray-700 rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
+                  className="relative w-full h-11 md:h-16 pl-12 md:pl-[72px] pr-4 md:pr-6 text-base md:text-lg font-mono font-normal text-gray-700 rounded-xl md:rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -598,7 +598,7 @@ export default function HomePage() {
                 />
                 {/* Static placeholder - shows when empty and not focused */}
                 {!searchQuery && !isSearchFocused && (
-                  <div className="absolute left-[72px] top-1/2 -translate-y-1/2 text-lg font-mono font-normal text-gray-700 pointer-events-none">
+                  <div className="absolute left-12 md:left-[72px] top-1/2 -translate-y-1/2 text-base md:text-lg font-mono font-normal text-gray-700 pointer-events-none">
                     {isStormyDay ? (
                       <span className="text-cyan-700">Введите координаты...</span>
                     ) : (

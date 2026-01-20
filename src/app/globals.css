@@ -998,6 +998,22 @@ html, body {
   animation: dropdown-slide 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+/* Dropdown content slide-in animation (matches background) */
+@keyframes dropdown-content-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-dropdown-content-slide-in {
+  animation: dropdown-content-slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 /* Animation delay utilities for blob animations */
 .animation-delay-2000 {
   animation-delay: 2s;

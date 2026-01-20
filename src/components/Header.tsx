@@ -498,7 +498,7 @@ export default function Header() {
               {(activeMenu === "products" || closingContent === "products") && (
                 <>
                   <div
-                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "products" ? "animate-dropdown-content-slide-up" : ""}`}
+                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "products" ? "animate-dropdown-content-slide-up" : "animate-dropdown-content-slide-in"}`}
                     data-menu-dropdown
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
@@ -573,7 +573,7 @@ export default function Header() {
               {(activeMenu === "industries" || closingContent === "industries") && (
                 <>
                   <div
-                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "industries" ? "animate-dropdown-content-slide-up" : ""}`}
+                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "industries" ? "animate-dropdown-content-slide-up" : "animate-dropdown-content-slide-in"}`}
                     data-menu-dropdown
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
@@ -631,7 +631,7 @@ export default function Header() {
               {(activeMenu === "brands" || closingContent === "brands") && (
                 <>
                   <div
-                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "brands" ? "animate-dropdown-content-slide-up" : ""}`}
+                    className={`fixed top-[86px] left-0 right-0 z-[70] ${closingContent === "brands" ? "animate-dropdown-content-slide-up" : "animate-dropdown-content-slide-in"}`}
                     data-menu-dropdown
                   >
                     <div className="max-w-7xl mx-auto px-6 pt-8 pb-24">
