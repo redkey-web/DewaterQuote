@@ -50,6 +50,7 @@ export default function QuoteCart() {
   const pricedItems = items.filter((item) => getQuoteItemPrice(item) !== undefined)
   const unpricedItems = items.filter((item) => getQuoteItemPrice(item) === undefined)
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0)
+  const discountPercentage = getDiscountPercentage(totalQuantity)
   const subtotal = pricedItems.reduce((sum, item) => sum + (getQuoteItemSubtotal(item) || 0), 0)
   // Discount applies based on TOTAL cart quantity, not per-item
   const discountedSubtotal = pricedItems.reduce(
@@ -114,7 +115,6 @@ export default function QuoteCart() {
                       const itemSubtotal = getQuoteItemSubtotal(item)
                       const itemDiscountedSubtotal = getQuoteItemDiscountedSubtotal(item, totalQuantity)
                       const savings = getQuoteItemSavings(item, totalQuantity)
-                      const discountPercentage = getDiscountPercentage(totalQuantity)
                       const hasDiscount = isAustralia && discountPercentage > 0
 
                       return (
@@ -158,21 +158,6 @@ export default function QuoteCart() {
                                 <Plus className="w-3 h-3" />
                               </Button>
                             </div>
-                            {/* Discount Badge - Under quantity */}
-                            {hasDiscount && (
-                              <Badge
-                                variant="secondary"
-                                className={`text-[9px] font-bold ${
-                                  discountPercentage >= 15
-                                    ? "bg-rose-400/20 text-rose-500"
-                                    : discountPercentage >= 10
-                                    ? "bg-orange-400/20 text-orange-500"
-                                    : "bg-yellow-400/20 text-yellow-600"
-                                }`}
-                              >
-                                {discountPercentage}% OFF
-                              </Badge>
-                            )}
                             {/* Material Cert Toggle */}
                             <button
                               onClick={() => toggleMaterialCert(item.id)}
@@ -292,7 +277,7 @@ export default function QuoteCart() {
                           <div className="flex justify-between items-center text-sm">
                             <span className="text-destructive font-medium flex items-center gap-1">
                               <TrendingDown className="w-4 h-4" />
-                              Bulk Discount:
+                              Bulk Discount ({discountPercentage}%):
                             </span>
                             <span className="text-destructive font-medium" data-testid="text-total-savings">
                               -${totalSavings.toFixed(2)}
