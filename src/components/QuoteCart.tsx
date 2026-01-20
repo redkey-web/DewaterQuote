@@ -87,7 +87,7 @@ export default function QuoteCart() {
           <div>
             <h2 className="text-2xl font-bold">Your Quote</h2>
             <p className="text-sm text-muted-foreground">
-              {items.length} item{items.length !== 1 ? "s" : ""} added
+              {items.length} product{items.length !== 1 ? "s" : ""}{totalQuantity > items.length && ` (${totalQuantity} units)`}
             </p>
           </div>
           <Button variant="ghost" size="icon" onClick={closeCart} data-testid="button-close-cart">
