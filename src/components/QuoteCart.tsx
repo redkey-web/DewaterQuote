@@ -274,12 +274,30 @@ export default function QuoteCart() {
                               ${subtotal.toFixed(2)}
                             </span>
                           </div>
-                          <div className="flex justify-between items-center text-sm bg-rose-500/10 -mx-4 px-4 py-2 rounded-md border border-rose-500/20">
-                            <span className="text-rose-500 font-bold flex items-center gap-1">
+                          <div className={`flex justify-between items-center text-sm -mx-4 px-4 py-2 rounded-md border ${
+                            discountPercentage === 5
+                              ? "bg-[#ccff00]/10 border-[#ccff00]/20"
+                              : discountPercentage === 10
+                                ? "bg-[#ff6600]/10 border-[#ff6600]/20"
+                                : "bg-[#E91E63]/10 border-[#E91E63]/20"
+                          }`}>
+                            <span className={`font-bold flex items-center gap-1 ${
+                              discountPercentage === 5
+                                ? "text-[#ccff00]"
+                                : discountPercentage === 10
+                                  ? "text-[#ff6600]"
+                                  : "text-[#E91E63]"
+                            }`}>
                               <TrendingDown className="w-4 h-4" />
                               Bulk Discount ({discountPercentage}%):
                             </span>
-                            <span className="text-rose-500 font-bold" data-testid="text-total-savings">
+                            <span className={`font-bold ${
+                              discountPercentage === 5
+                                ? "text-[#ccff00]"
+                                : discountPercentage === 10
+                                  ? "text-[#ff6600]"
+                                  : "text-[#E91E63]"
+                            }`} data-testid="text-total-savings">
                               -${totalSavings.toFixed(2)}
                             </span>
                           </div>
