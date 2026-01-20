@@ -546,6 +546,226 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Orbiting curved text - Set 2 (15% smaller, 20% right) - teal layer */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[80%] left-[43%] -translate-x-1/2 -translate-y-1/2 scale-[0.74] md:scale-[0.88] lg:scale-[1.00] xl:scale-[1.11] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px', transform: 'rotateY(15deg)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+              <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Set 2 - white layer */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[80%] left-[43%] -translate-x-1/2 -translate-y-1/2 scale-[0.74] md:scale-[0.88] lg:scale-[1.00] xl:scale-[1.11] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px', transform: 'rotateY(15deg) translateZ(20px)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
+              <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Orbiting curved text - Set 3 (30% smaller, 40% right) - teal layer */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[80%] left-[63%] -translate-x-1/2 -translate-y-1/2 scale-[0.63] md:scale-[0.75] lg:scale-[0.85] xl:scale-[0.94] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px', transform: 'rotateY(15deg)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+              <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Set 3 - white layer */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[80%] left-[63%] -translate-x-1/2 -translate-y-1/2 scale-[0.63] md:scale-[0.75] lg:scale-[0.85] xl:scale-[0.94] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px', transform: 'rotateY(15deg) translateZ(20px)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
+              <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Orbiting curved text - Set 4 (45% smaller, 60% right) - teal layer */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[80%] left-[83%] -translate-x-1/2 -translate-y-1/2 scale-[0.54] md:scale-[0.64] lg:scale-[0.72] xl:scale-[0.80] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px', transform: 'rotateY(15deg)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+              <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Set 4 - white layer */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[80%] left-[83%] -translate-x-1/2 -translate-y-1/2 scale-[0.54] md:scale-[0.64] lg:scale-[0.72] xl:scale-[0.80] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px', transform: 'rotateY(15deg) translateZ(20px)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
+              <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Orbiting curved text - Set 5 (60% smaller, 80% right) - teal layer */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[80%] left-[103%] -translate-x-1/2 -translate-y-1/2 scale-[0.46] md:scale-[0.54] lg:scale-[0.61] xl:scale-[0.68] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px', transform: 'rotateY(15deg)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+              <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Set 5 - white layer */}
+        <div className={"absolute z-0 pointer-events-none transition-opacity duration-500 top-[80%] left-[103%] -translate-x-1/2 -translate-y-1/2 scale-[0.46] md:scale-[0.54] lg:scale-[0.61] xl:scale-[0.68] origin-center " + (isStormyFading ? "animate-stormy-fade-out" : "")} style={{ clipPath: 'circle(50% at 50% 50%)' }}>
+          <div style={{ perspective: '1200px', transform: 'rotateY(15deg) translateZ(20px)' }}>
+            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
+              <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
+                <div className="block md:hidden">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE'}
+                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <CurvedText
+                    text={isStormyDay ? 'ПРОМЫШЛЕННЫЕ ПОСТАВКИ' : 'WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION'}
+                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    className="overflow-visible"
+                    textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
+                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className={"max-w-[1400px] mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative " + (isStormyDay ? (isStormyFading ? "opacity-0 transition-opacity duration-2000" : "opacity-100") : "opacity-100")}>
           {/* Terminal 1 - Windows CMD style, positioned as overlay */}
           {showTerminal1 && (
