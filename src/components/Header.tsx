@@ -393,7 +393,7 @@ export default function Header() {
             className="row-span-2 flex items-center"
             data-testid="link-home"
           >
-            <span className="chrome-reflection-logo">
+            <span className="luxury-logo">
               <Image
                 src="/images/logo-new.png"
                 alt="Dewater Products - Fluid Piping Components"
@@ -730,7 +730,7 @@ export default function Header() {
         {/* Mobile Header */}
         <div className="flex lg:hidden items-center justify-between h-16">
           <Link href="/" className="flex items-center" data-testid="link-home-mobile">
-            <span className="chrome-reflection-logo">
+            <span className="luxury-logo">
               <Image
                 src="/images/logo-new.png"
                 alt="Dewater Products"
