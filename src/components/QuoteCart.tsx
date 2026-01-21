@@ -120,7 +120,7 @@ export default function QuoteCart() {
                       return (
                         <div
                           key={item.id}
-                          className="flex gap-4 p-4 bg-card border border-card-border rounded-md"
+                          className="relative flex gap-4 p-4 pr-10 bg-card border border-card-border rounded-md"
                           data-testid={'quote-item-${item.id}'}
                         >
                           <div className="flex flex-col items-center gap-2">
@@ -252,7 +252,7 @@ export default function QuoteCart() {
                             variant="ghost"
                             size="icon"
                             onClick={() => removeItem(item.id)}
-                            className="shrink-0"
+                            className="absolute top-2 right-2"
                             data-testid={`button-remove-${item.id}`}
                           >
                             <Trash2 className="w-4 h-4" />
@@ -276,7 +276,7 @@ export default function QuoteCart() {
                           </div>
                           <div className={`flex justify-between items-center text-sm -mx-4 px-4 py-2 rounded-md border ${
                             discountPercentage === 5
-                              ? "bg-[#4a5a00] border-[#6b8200]"
+                              ? "bg-gray-700 border-gray-600"
                               : discountPercentage === 10
                                 ? "bg-[#ff6600]/10 border-[#ff6600]/20"
                                 : "bg-[#E91E63]/10 border-[#E91E63]/20"
@@ -374,7 +374,7 @@ export default function QuoteCart() {
                       return (
                         <div
                           key={item.id}
-                          className="flex gap-4 p-4 bg-card border border-card-border rounded-md"
+                          className="relative flex gap-4 p-4 pr-10 bg-card border border-card-border rounded-md"
                           data-testid={'quote-item-${item.id}'}
                         >
                           <div className="flex flex-col items-center gap-2">
@@ -460,7 +460,7 @@ export default function QuoteCart() {
                             variant="ghost"
                             size="icon"
                             onClick={() => removeItem(item.id)}
-                            className="shrink-0"
+                            className="absolute top-2 right-2"
                             data-testid={`button-remove-${item.id}`}
                           >
                             <Trash2 className="w-4 h-4" />
