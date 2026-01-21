@@ -2217,7 +2217,18 @@ html, body {
   animation: dropdown-content-slide-up 0.5s ease-in forwards;
 }
 
-/* Mobile menu slide-up animation */
+/* Mobile menu slide animations */
+@keyframes mobile-menu-slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes mobile-menu-slide-up {
   0% {
     opacity: 1;
@@ -2229,8 +2240,12 @@ html, body {
   }
 }
 
+.animate-mobile-menu-slide-down {
+  animation: mobile-menu-slide-down 0.3s ease-out forwards;
+}
+
 .animate-mobile-menu-slide-up {
-  animation: mobile-menu-slide-up 0.5s ease-in forwards;
+  animation: mobile-menu-slide-up 0.3s ease-in forwards;
 }
 
 /* Menu item flash animation - 2 flashes before menu closes */

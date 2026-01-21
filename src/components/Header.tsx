@@ -761,7 +761,7 @@ export default function Header() {
 
       {/* Mobile Menu - Full Screen Overlay */}
       {(mobileMenuOpen || mobileMenuClosing) && (
-        <div className={`lg:hidden fixed left-0 right-0 top-16 h-[calc(100vh-64px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto border-t border-gray-100 dark:border-gray-800 ${mobileMenuClosing ? 'animate-mobile-menu-slide-up' : ''}`}>
+        <div className={`lg:hidden fixed left-0 right-0 top-16 h-[calc(100vh-64px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto border-t border-gray-100 dark:border-gray-800 ${mobileMenuClosing ? 'animate-mobile-menu-slide-up' : 'animate-mobile-menu-slide-down'}`}>
             <div className="px-6 py-4">
               <div className="mb-4" ref={mobileSearchRef}>
                 <form onSubmit={handleSearchSubmit} className="relative">
