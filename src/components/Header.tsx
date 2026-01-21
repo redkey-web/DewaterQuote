@@ -393,7 +393,7 @@ export default function Header() {
             className="row-span-2 flex items-center"
             data-testid="link-home"
           >
-            <span className="liquid-metal-logo desktop">
+            <span className="chrome-reflection-logo">
               <Image
                 src="/images/logo-new.png"
                 alt="Dewater Products - Fluid Piping Components"
@@ -401,14 +401,6 @@ export default function Header() {
                 height={167}
                 className="h-[145px] w-auto object-contain -mt-10 -mb-12"
                 priority
-              />
-              <Image
-                src="/images/logo-new.png"
-                alt=""
-                width={500}
-                height={167}
-                className="logo-reflection desktop"
-                aria-hidden="true"
               />
             </span>
           </Link>
@@ -738,7 +730,7 @@ export default function Header() {
         {/* Mobile Header */}
         <div className="flex lg:hidden items-center justify-between h-16">
           <Link href="/" className="flex items-center" data-testid="link-home-mobile">
-            <span className="liquid-metal-logo mobile">
+            <span className="chrome-reflection-logo">
               <Image
                 src="/images/logo-new.png"
                 alt="Dewater Products"
@@ -746,14 +738,6 @@ export default function Header() {
                 height={67}
                 className="h-24 w-auto object-contain"
                 priority
-              />
-              <Image
-                src="/images/logo-new.png"
-                alt=""
-                width={200}
-                height={67}
-                className="logo-reflection mobile"
-                aria-hidden="true"
               />
             </span>
           </Link>
