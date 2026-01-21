@@ -226,6 +226,11 @@ export default function HomePage() {
         underlayBrightness={0.6}
         className="-mt-[90px] pb-16 min-h-[calc(60vh+90px+110px)] md:min-h-[calc(65vh+90px+110px)] lg:min-h-[calc(70vh+90px+130px)] flex items-center justify-center"
       >
+        {/* Metallic shine on pipe coupling */}
+        <div className="hidden md:block absolute z-[1] pointer-events-none top-[75%] left-[20%] -translate-x-1/2 -translate-y-1/2">
+          <div className="pipe-shine w-[200px] h-[200px] lg:w-[280px] lg:h-[280px]" />
+        </div>
+
         {/* Typewriter text ABOVE Pipeline Repairs */}
         <div className="absolute left-[-344px] bottom-[-171px] z-20 pointer-events-none hidden md:block">
           <div className="relative">

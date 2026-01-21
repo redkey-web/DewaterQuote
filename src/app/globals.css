@@ -875,6 +875,31 @@ html, body {
   animation: none;
 }
 
+/* Backlit translucent effect for hero pipe coupling */
+.pipe-shine {
+  position: relative;
+  border-radius: 50%;
+  /* Backlit effect - bright center fading to edges, contained */
+  background: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    rgba(57, 197, 218, 0.25) 0%,
+    rgba(57, 197, 218, 0.15) 40%,
+    rgba(57, 197, 218, 0.05) 70%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  animation: backlit-pulse 6s ease-in-out infinite;
+}
+
+@keyframes backlit-pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 /* Search bar shimmer effect */
 @keyframes search-shimmer {
   0% {
