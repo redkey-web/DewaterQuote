@@ -515,24 +515,25 @@ export default function HomePage() {
 
       {/* Brand Logos - Infinite Scroll Carousel (4 copies for seamless loop) */}
       <section className="pb-0 pt-2 overflow-hidden relative -mt-[60px] z-10 brand-carousel-gradient-blur brand-scroll-3d">
-        {/* Category Tabs - Centered above carousel */}
-        <div className="flex flex-wrap items-center justify-center gap-1 md:gap-1.5 px-4 pb-3 pt-1">
+        {/* Category Switches - Cockpit style on left */}
+        <div className="absolute left-0 top-0 bottom-0 z-20 flex flex-col justify-center gap-0 pl-1 md:pl-2">
           {/* Couplings */}
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1.5 text-foreground/80 text-xs font-normal bg-muted/50 rounded-full border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-              Couplings <ChevronDown className="w-3 h-3" />
+            <DropdownMenuTrigger className="group flex items-center gap-1.5 pl-2 pr-3 py-1.5 text-[10px] md:text-xs font-mono uppercase tracking-wider text-gray-500 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 border-y border-r border-gray-300 dark:border-gray-700 rounded-r-md shadow-[inset_-2px_0_4px_rgba(0,0,0,0.1)] hover:from-primary hover:to-primary/80 hover:text-white hover:border-primary transition-all duration-300 focus:outline-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.6)] group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)]"></span>
+              CPL
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48 bg-white/95 backdrop-blur-sm">
-              <DropdownMenuItem asChild>
+            <DropdownMenuContent className="w-48 bg-gray-900/95 backdrop-blur-sm border-gray-700 text-gray-100" side="right">
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/pipe-couplings" className="w-full cursor-pointer">Pipe Couplings</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/pipe-repair-clamps" className="w-full cursor-pointer">Pipe Repair Clamps</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/flange-adaptors" className="w-full cursor-pointer">Flange Adaptors</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/muff-couplings" className="w-full cursor-pointer">Muff Couplings</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -540,32 +541,33 @@ export default function HomePage() {
 
           {/* Valves */}
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1.5 text-foreground/80 text-xs font-normal bg-muted/50 rounded-full border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-              Valves <ChevronDown className="w-3 h-3" />
+            <DropdownMenuTrigger className="group flex items-center gap-1.5 pl-2 pr-3 py-1.5 text-[10px] md:text-xs font-mono uppercase tracking-wider text-gray-500 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 border-y border-r border-gray-300 dark:border-gray-700 rounded-r-md shadow-[inset_-2px_0_4px_rgba(0,0,0,0.1)] hover:from-primary hover:to-primary/80 hover:text-white hover:border-primary transition-all duration-300 focus:outline-none -mt-px">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.6)] group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)]"></span>
+              VLV
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48 bg-white/95 backdrop-blur-sm">
-              <DropdownMenuItem asChild>
+            <DropdownMenuContent className="w-48 bg-gray-900/95 backdrop-blur-sm border-gray-700 text-gray-100" side="right">
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/industrial-valves" className="w-full cursor-pointer">All Valves</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/butterfly-valves" className="w-full cursor-pointer">Butterfly Valves</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/check-valves" className="w-full cursor-pointer">Check Valves</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/duckbill-check-valves" className="w-full cursor-pointer">Duckbill Valves</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/gate-valves" className="w-full cursor-pointer">Gate Valves</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/ball-valves" className="w-full cursor-pointer">Ball Valves</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/float-valves" className="w-full cursor-pointer">Float Valves</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/foot-valves" className="w-full cursor-pointer">Foot Valves</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -573,26 +575,27 @@ export default function HomePage() {
 
           {/* Joints */}
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1.5 text-foreground/80 text-xs font-normal bg-muted/50 rounded-full border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-              Joints <ChevronDown className="w-3 h-3" />
+            <DropdownMenuTrigger className="group flex items-center gap-1.5 pl-2 pr-3 py-1.5 text-[10px] md:text-xs font-mono uppercase tracking-wider text-gray-500 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 border-y border-r border-gray-300 dark:border-gray-700 rounded-r-md shadow-[inset_-2px_0_4px_rgba(0,0,0,0.1)] hover:from-primary hover:to-primary/80 hover:text-white hover:border-primary transition-all duration-300 focus:outline-none -mt-px">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_6px_rgba(6,182,212,0.6)] group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)]"></span>
+              JNT
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48 bg-white/95 backdrop-blur-sm">
-              <DropdownMenuItem asChild>
+            <DropdownMenuContent className="w-48 bg-gray-900/95 backdrop-blur-sm border-gray-700 text-gray-100" side="right">
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/expansion-joints" className="w-full cursor-pointer">All Expansion Joints</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/single-sphere-expansion-joints" className="w-full cursor-pointer">Single Sphere</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/twin-sphere-expansion-joints" className="w-full cursor-pointer">Twin Sphere</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/single-arch-expansion-joints" className="w-full cursor-pointer">Single Arch</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/double-arch-expansion-joints" className="w-full cursor-pointer">Double Arch</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/reducing-expansion-joints" className="w-full cursor-pointer">Reducing</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -600,20 +603,21 @@ export default function HomePage() {
 
           {/* Strainers */}
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1.5 text-foreground/80 text-xs font-normal bg-muted/50 rounded-full border border-border hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105 transition-all duration-200 focus:outline-none">
-              Strainers <ChevronDown className="w-3 h-3" />
+            <DropdownMenuTrigger className="group flex items-center gap-1.5 pl-2 pr-3 py-1.5 text-[10px] md:text-xs font-mono uppercase tracking-wider text-gray-500 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 border-y border-r border-gray-300 dark:border-gray-700 rounded-r-md shadow-[inset_-2px_0_4px_rgba(0,0,0,0.1)] hover:from-primary hover:to-primary/80 hover:text-white hover:border-primary transition-all duration-300 focus:outline-none -mt-px">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_6px_rgba(244,63,94,0.6)] group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)]"></span>
+              STR
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-48 bg-white/95 backdrop-blur-sm">
-              <DropdownMenuItem asChild>
+            <DropdownMenuContent className="w-48 bg-gray-900/95 backdrop-blur-sm border-gray-700 text-gray-100" side="right">
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/strainers" className="w-full cursor-pointer">All Strainers</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/y-strainers" className="w-full cursor-pointer">Y Strainers</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/basket-strainers" className="w-full cursor-pointer">Basket Strainers</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="hover:bg-primary focus:bg-primary">
                 <Link href="/duplex-basket-strainers" className="w-full cursor-pointer">Duplex Strainers</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

@@ -383,7 +383,6 @@ export default function Header() {
       )}
 
       <header className="sticky top-0 z-[60]">
-        <div className="absolute inset-0 bg-gray-500/50" />
         <div className="absolute inset-0 header-gradient-blur" />
         <div className="relative max-w-7xl mx-auto px-6">
         {/* Three-column, two-row grid */}
@@ -761,7 +760,7 @@ export default function Header() {
 
       {/* Mobile Menu - Full Screen Overlay */}
       {(mobileMenuOpen || mobileMenuClosing) && (
-        <div className={`lg:hidden fixed left-0 right-0 top-16 h-[calc(100vh-64px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto border-t border-gray-100 dark:border-gray-800 ${mobileMenuClosing ? 'animate-mobile-menu-slide-up' : 'animate-mobile-menu-slide-down'}`}>
+        <div className={`lg:hidden fixed right-0 top-16 w-full max-w-sm h-[calc(100vh-64px)] z-50 bg-white dark:bg-gray-950 overflow-y-auto border-l border-gray-200 dark:border-gray-800 shadow-2xl ${mobileMenuClosing ? 'animate-mobile-menu-slide-out' : 'animate-mobile-menu-slide-in'}`}>
             <div className="px-6 py-4">
               <div className="mb-4" ref={mobileSearchRef}>
                 <form onSubmit={handleSearchSubmit} className="relative">
