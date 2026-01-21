@@ -393,14 +393,16 @@ export default function Header() {
             className="row-span-2 flex items-center"
             data-testid="link-home"
           >
-            <Image
-              src="/images/logo-new.png"
-              alt="Dewater Products - Fluid Piping Components"
-              width={500}
-              height={167}
-              className="h-[145px] w-auto object-contain -mt-10 -mb-12"
-              priority
-            />
+            <span className="liquid-metal-logo">
+              <Image
+                src="/images/logo-new.png"
+                alt="Dewater Products - Fluid Piping Components"
+                width={500}
+                height={167}
+                className="h-[145px] w-auto object-contain -mt-10 -mb-12"
+                priority
+              />
+            </span>
           </Link>
 
           {/* Search - spans both rows, centered */}
@@ -728,14 +730,16 @@ export default function Header() {
         {/* Mobile Header */}
         <div className="flex lg:hidden items-center justify-between h-16">
           <Link href="/" className="flex items-center" data-testid="link-home-mobile">
-            <Image
-              src="/images/logo-new.png"
-              alt="Dewater Products"
-              width={200}
-              height={67}
-              className="h-24 w-auto object-contain"
-              priority
-            />
+            <span className="liquid-metal-logo">
+              <Image
+                src="/images/logo-new.png"
+                alt="Dewater Products"
+                width={200}
+                height={67}
+                className="h-24 w-auto object-contain"
+                priority
+              />
+            </span>
           </Link>
           <div className="flex items-center gap-2">
             <button
