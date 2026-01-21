@@ -818,7 +818,7 @@ html, body {
   }
 }
 
-/* Luxury Logo Effect */
+/* Luxury Logo Effect - Inner Glow */
 .luxury-logo {
   position: relative;
   display: inline-block;
@@ -827,69 +827,52 @@ html, body {
 .luxury-logo img {
   position: relative;
   z-index: 1;
-  /* Depth shadow - close shadow + ambient glow */
+  /* Inner glow effect - multiple layered glows from the logo itself */
   filter:
-    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
-    drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2))
-    drop-shadow(0 0 30px rgba(57, 197, 218, 0.15))
+    drop-shadow(0 0 2px rgba(57, 197, 218, 0.8))
+    drop-shadow(0 0 6px rgba(57, 197, 218, 0.5))
+    drop-shadow(0 0 15px rgba(57, 197, 218, 0.3))
+    drop-shadow(0 0 30px rgba(57, 197, 218, 0.2))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
     contrast(1.05)
     saturate(1.1);
+  animation: inner-glow-pulse 4s ease-in-out infinite;
 }
 
-/* Specular highlight sweep */
-.luxury-logo::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(
-    110deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(255, 255, 255, 0.08) 45%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.08) 55%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: luxury-shine 6s ease-in-out infinite;
-  pointer-events: none;
-  border-radius: 4px;
-}
-
-/* Soft ambient glow behind */
-.luxury-logo::after {
-  content: '';
-  position: absolute;
-  inset: 10%;
-  z-index: 0;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(57, 197, 218, 0.1) 0%,
-    transparent 70%
-  );
-  filter: blur(20px);
-  pointer-events: none;
-}
-
-@keyframes luxury-shine {
+@keyframes inner-glow-pulse {
   0%, 100% {
-    background-position: 200% center;
+    filter:
+      drop-shadow(0 0 2px rgba(57, 197, 218, 0.8))
+      drop-shadow(0 0 6px rgba(57, 197, 218, 0.5))
+      drop-shadow(0 0 15px rgba(57, 197, 218, 0.3))
+      drop-shadow(0 0 30px rgba(57, 197, 218, 0.2))
+      drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+      contrast(1.05)
+      saturate(1.1);
   }
   50% {
-    background-position: -200% center;
+    filter:
+      drop-shadow(0 0 3px rgba(57, 197, 218, 1))
+      drop-shadow(0 0 10px rgba(57, 197, 218, 0.7))
+      drop-shadow(0 0 25px rgba(57, 197, 218, 0.4))
+      drop-shadow(0 0 45px rgba(57, 197, 218, 0.25))
+      drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+      contrast(1.08)
+      saturate(1.15);
   }
 }
 
-/* Hover - slightly brighter */
+/* Hover - brighter glow */
 .luxury-logo:hover img {
   filter:
-    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
-    drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2))
-    drop-shadow(0 0 40px rgba(57, 197, 218, 0.25))
-    contrast(1.08)
-    saturate(1.15);
+    drop-shadow(0 0 4px rgba(57, 197, 218, 1))
+    drop-shadow(0 0 12px rgba(57, 197, 218, 0.8))
+    drop-shadow(0 0 30px rgba(57, 197, 218, 0.5))
+    drop-shadow(0 0 50px rgba(57, 197, 218, 0.3))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))
+    contrast(1.1)
+    saturate(1.2);
+  animation: none;
 }
 
 /* Search bar shimmer effect */
