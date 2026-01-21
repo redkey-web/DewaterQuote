@@ -4,10 +4,9 @@ import { TrendingDown } from "lucide-react"
 
 interface BulkPricingTickerProps {
   variant?: "default" | "teal"
-  isStormyDay?: boolean
 }
 
-// Normal ticker content
+// Ticker content
 function TickerContent({ isShadow = false }: { isShadow?: boolean }) {
   const textSize = isShadow ? "text-[18px]" : "text-[14px]"
   const opacity = isShadow ? "opacity-50" : "opacity-70"
@@ -35,47 +34,28 @@ function TickerContent({ isShadow = false }: { isShadow?: boolean }) {
   )
 }
 
-// Stormy day ticker - numbers only
-function StormyTickerContent({ isShadow = false }: { isShadow?: boolean }) {
-  const textSize = isShadow ? "text-[18px]" : "text-[14px]"
-  const opacity = isShadow ? "opacity-50" : "opacity-70"
-
-  return (
-    <div className={`flex items-center gap-12 px-8 ${textSize} font-mono font-normal uppercase ${opacity} ticker-chrome-blink`}>
-      <span className="text-[#ccff00]">5%</span>
-      <span className="ticker-text-prominent">•</span>
-      <span className="text-[#ff6600]">10%</span>
-      <span className="ticker-text-prominent">•</span>
-      <span className="text-[#E91E63]">15%</span>
-      <span className="ticker-text-prominent">•</span>
-    </div>
-  )
-}
-
-export default function BulkPricingTicker({ variant = "default", isStormyDay = false }: BulkPricingTickerProps) {
-  const Content = isStormyDay ? StormyTickerContent : TickerContent
-
+export default function BulkPricingTicker({ variant = "default" }: BulkPricingTickerProps) {
   return (
     <div className="ticker-fixed py-2 overflow-hidden relative">
       {/* Shadow layer - larger text, 50% transparent, behind main content */}
       <div className="ticker-wrapper-seamless absolute inset-0 flex items-center" aria-hidden="true">
         <div className="ticker-content">
-          <Content isShadow />
+          <TickerContent isShadow />
         </div>
         <div className="ticker-content">
-          <Content isShadow />
+          <TickerContent isShadow />
         </div>
         <div className="ticker-content">
-          <Content isShadow />
+          <TickerContent isShadow />
         </div>
         <div className="ticker-content">
-          <Content isShadow />
+          <TickerContent isShadow />
         </div>
         <div className="ticker-content">
-          <Content isShadow />
+          <TickerContent isShadow />
         </div>
         <div className="ticker-content">
-          <Content isShadow />
+          <TickerContent isShadow />
         </div>
       </div>
 
@@ -83,22 +63,22 @@ export default function BulkPricingTicker({ variant = "default", isStormyDay = f
       <div className="ticker-wrapper-seamless relative">
         {/* 6 copies for truly seamless infinite scroll - no gaps */}
         <div className="ticker-content">
-          <Content />
+          <TickerContent />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <Content />
+          <TickerContent />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <Content />
+          <TickerContent />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <Content />
+          <TickerContent />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <Content />
+          <TickerContent />
         </div>
         <div className="ticker-content" aria-hidden="true">
-          <Content />
+          <TickerContent />
         </div>
       </div>
     </div>
