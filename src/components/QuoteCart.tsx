@@ -276,7 +276,7 @@ export default function QuoteCart() {
                           </div>
                           <div className={`flex justify-between items-center text-sm -mx-4 px-4 py-2 rounded-md border ${
                             discountPercentage === 5
-                              ? "bg-[#ccff00]/25 border-[#ccff00]/30"
+                              ? "bg-[#4a5a00] border-[#6b8200]"
                               : discountPercentage === 10
                                 ? "bg-[#ff6600]/10 border-[#ff6600]/20"
                                 : "bg-[#E91E63]/10 border-[#E91E63]/20"

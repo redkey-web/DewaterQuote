@@ -433,63 +433,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Orbiting curved text - Set 3 - teal layer */}
-        <div className="absolute z-0 pointer-events-none top-[79%] left-[100%] -translate-x-1/2 -translate-y-1/2 scale-[0.41] md:scale-[0.48] lg:scale-[0.54] xl:scale-[0.60] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
-            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
-              <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
-                <div className="block md:hidden">
-                  <CurvedText
-                    text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
-                    className="overflow-visible"
-                    textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
-                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
-                  />
-                </div>
-                <div className="hidden md:block">
-                  <CurvedText
-                    text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
-                    className="overflow-visible"
-                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
-                    letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Set 3 - white layer */}
-        <div className="absolute z-0 pointer-events-none top-[79%] left-[100%] -translate-x-1/2 -translate-y-1/2 scale-[0.41] md:scale-[0.48] lg:scale-[0.54] xl:scale-[0.60] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
-            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
-              <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
-                <div className="block md:hidden">
-                  <CurvedText
-                    text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
-                    className="overflow-visible"
-                    textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
-                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
-                  />
-                </div>
-                <div className="hidden md:block">
-                  <CurvedText
-                    text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
-                    className="overflow-visible"
-                    textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
-                    letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Vertical red text - R083R7 - always visible */}
-        <div className="absolute right-4 md:right-8 top-[75%] font-mono text-red-500 text-xs z-20" style={{ writingMode: "vertical-rl" }}>
+        <div className="absolute right-4 md:right-8 top-[105%] font-mono text-red-500 text-xs z-20" style={{ writingMode: "vertical-rl" }}>
           R083R7
         </div>
 
