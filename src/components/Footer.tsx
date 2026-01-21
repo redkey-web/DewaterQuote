@@ -121,6 +121,16 @@ export default function Footer() {
       <div className="bg-[#E8E4DC] border-t border-[#D5D0C6]">
         <div className="max-w-7xl mx-auto px-6 py-6 text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} DEWATER PRODUCTS Pty Ltd. All rights reserved.</p>
+          <p className="mt-2">
+            <a
+              href="https://redkey.digital"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              SEO + Website by RedKey
+            </a>
+          </p>
         </div>
       </div>
     </footer>
