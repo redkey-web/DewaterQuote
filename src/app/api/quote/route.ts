@@ -170,26 +170,24 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify Turnstile token (if configured)
-    // TEMPORARILY DISABLED FOR TESTING - RE-ENABLE AFTER TEST
-    // if (process.env.TURNSTILE_SECRET_KEY && !IS_DEV) {
-    //   if (!data.turnstileToken) {
-    //     return NextResponse.json(
-    //       { error: "Please complete the verification challenge" },
-    //       { status: 400 }
-    //     )
-    //   }
-    //
-    //   const verification = await verifyTurnstileToken(data.turnstileToken, ip)
-    //   if (!verification.success) {
-    //     return NextResponse.json(
-    //       { error: verification.error || "Verification failed" },
-    //       { status: 400 }
-    //     )
-    //   }
-    // } else if (IS_DEV) {
-    //   console.log("⚠️ DEV MODE: Skipping Turnstile verification")
-    // }
-    console.log("⚠️ TURNSTILE DISABLED FOR TESTING")
+    if (process.env.TURNSTILE_SECRET_KEY && !IS_DEV) {
+      if (!data.turnstileToken) {
+        return NextResponse.json(
+          { error: "Please complete the verification challenge" },
+          { status: 400 }
+        )
+      }
+
+      const verification = await verifyTurnstileToken(data.turnstileToken, ip)
+      if (!verification.success) {
+        return NextResponse.json(
+          { error: verification.error || "Verification failed" },
+          { status: 400 }
+        )
+      }
+    } else if (IS_DEV) {
+      console.log("⚠️ DEV MODE: Skipping Turnstile verification")
+    }
 
     // Check for SendGrid API key
     // DEV BYPASS: Allow quote submission without email in development
