@@ -97,8 +97,8 @@ async function processEvent(event: SendGridEvent) {
   switch (eventType) {
     case "delivered":
       await sendBusinessNotification({
-        subject: 'Quote ${quote.quoteNumber} - Email Delivered',
-        message: 'The quote email was successfully delivered to ${quote.contactName} (${email}) at ${eventTime}.',
+        subject: "Quote " + quote.quoteNumber + " - Email Delivered",
+        message: "The quote email was successfully delivered to " + quote.contactName + " (" + email + ") at " + eventTime + ".",
         quote,
         eventType: "delivered",
       })
@@ -106,18 +106,27 @@ async function processEvent(event: SendGridEvent) {
 
     case "open":
       await sendBusinessNotification({
-        subject: 'Quote ${quote.quoteNumber} - Customer Opened Email',
-        message: '${quote.contactName} from ${quote.companyName} opened the quote email at ${eventTime}. This is a good time to follow up!',
+        subject: "Quote " + quote.quoteNumber + " - Customer Opened Email",
+        message: quote.contactName + " from " + quote.companyName + " opened the quote email at " + eventTime + ". This is a good time to follow up!",
         quote,
         eventType: "opened",
+      })
+      break
+
+    case "click":
+      await sendBusinessNotification({
+        subject: "Quote " + quote.quoteNumber + " - Customer Clicked Link",
+        message: quote.contactName + " from " + quote.companyName + " clicked a link in the quote email at " + eventTime + ". They are actively reviewing the quote!",
+        quote,
+        eventType: "clicked",
       })
       break
 
     case "bounce":
     case "dropped":
       await sendBusinessNotification({
-        subject: 'Quote ${quote.quoteNumber} - Email FAILED to Deliver',
-        message: 'The quote email to ${quote.contactName} (${email}) failed to deliver.\n\nReason: ${reason || "Unknown"}\n\nPlease contact the customer by phone: Check quote for phone number.',
+        subject: "Quote " + quote.quoteNumber + " - Email FAILED to Deliver",
+        message: "The quote email to " + quote.contactName + " (" + email + ") failed to deliver.\n\nReason: " + (reason || "Unknown") + "\n\nPlease contact the customer by phone: Check quote for phone number.",
         quote,
         eventType: "failed",
         isUrgent: true,
@@ -154,11 +163,12 @@ async function sendBusinessNotification({
   }
 
   const iconMap: Record<string, string> = {
-    delivered: "",
-    opened: "",
-    failed: "",
+    delivered: "&#x2705;",
+    opened: "&#x1F440;",
+    clicked: "&#x1F517;",
+    failed: "&#x274C;",
   }
-  const icon = iconMap[eventType] || ""
+  const icon = iconMap[eventType] || "&#x1F4E7;"
 
   const htmlContent = buildNotificationEmail({
     icon,
