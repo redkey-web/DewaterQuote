@@ -75,9 +75,9 @@ The quote form submit button is disabled because Turnstile (spam protection) is 
 - [ ] Verify form submission works with valid token
 
 #### Option B: Disable Turnstile Temporarily
-- [ ] Remove `NEXT_PUBLIC_TURNSTILE_SITE_KEY` from Vercel env vars
-- [ ] Keep `turnstileRequired = false` in code
-- [ ] Add to post-launch TODO: Configure Turnstile properly
+- [x] ~~Remove `NEXT_PUBLIC_TURNSTILE_SITE_KEY` from Vercel env vars~~ (N/A - used Option A)
+- [x] ~~Keep `turnstileRequired = false` in code~~ (N/A - used Option A)
+- [x] ~~Add to post-launch TODO: Configure Turnstile properly~~ (N/A - used Option A)
 
 ### 1.3 Environment Variables in Vercel
 ```
@@ -175,7 +175,7 @@ FROM_EMAIL=noreply@dewaterproducts.com.au
 ## Phase 6: Post-Launch
 
 - [ ] Monitor quote submissions in `/admin/quotes`
-- [ ] Check email delivery in SendGrid dashboard
+- [x] Check email delivery in SendGrid dashboard (automated via webhook)
 - [ ] Review Google Search Console for indexing
 - [ ] Test mobile responsiveness
 - [ ] Monitor Vercel Analytics
