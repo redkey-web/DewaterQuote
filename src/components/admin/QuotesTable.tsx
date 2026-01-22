@@ -554,8 +554,8 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
       )}
 
       {/* Table */}
-      <div className="rounded-lg border bg-white overflow-hidden">
-        <Table>
+      <div className="rounded-lg border bg-white overflow-x-auto">
+        <Table className="min-w-[900px]">
           <TableHeader>
             <TableRow className="bg-gray-50">
               {!showDeleted && (
