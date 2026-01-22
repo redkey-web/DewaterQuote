@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   logo: {
-    width: 180,
-    height: 50,
+    width: 200,
+    height: 67,
   },
   headerRight: {
     textAlign: "right",
@@ -329,13 +329,10 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
         {/* Header */}
         <View style={styles.header}>
           <View>
-            {/* Logo placeholder - using text for now */}
-            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#0ea5e9" }}>
-              DEWATER
-            </Text>
-            <Text style={{ fontSize: 10, color: "#666666" }}>
-              PRODUCTS AUSTRALIA
-            </Text>
+            <Image
+              src="https://dewaterproducts.com.au/images/logo-new.png"
+              style={styles.logo}
+            />
           </View>
           <View style={styles.headerRight}>
             <Text style={styles.quoteTitle}>QUOTATION</Text>
