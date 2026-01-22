@@ -314,7 +314,7 @@ function safeString(value: unknown): string {
 }
 
 function formatAddress(addr: Address): string {
-  return '${safeString(addr.street)}\n${safeString(addr.suburb)} ${safeString(addr.state)} ${safeString(addr.postcode)}'
+  return `${safeString(addr.street)}\n${safeString(addr.suburb)} ${safeString(addr.state)} ${safeString(addr.postcode)}`
 }
 
 export function QuotePDF({ data }: { data: QuotePDFData }) {
