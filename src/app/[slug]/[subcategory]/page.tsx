@@ -13,6 +13,9 @@ import {
   getCategoryBySlug,
   getProductsBySubcategory,
 } from "@/data/products"
+
+// Force dynamic rendering - these pages need DB access at runtime
+export const dynamic = "force-dynamic"
 import ProductCard from "@/components/ProductCard"
 import { BreadcrumbJsonLd } from "@/components/JsonLd"
 import BulkPricingTicker from "@/components/BulkPricingTicker"
