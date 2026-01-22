@@ -62,6 +62,7 @@ import { useToast } from "@/hooks/use-toast"
 import { useGeo } from "@/hooks/useGeo"
 import { Turnstile } from "@/components/Turnstile"
 import { trackQuoteSubmission } from "@/components/GoogleAnalytics"
+import { getShippingMessage } from "@/lib/shipping/metro-postcodes"
 
 const addressSchema = z.object({
   street: z.string().min(5, "Please enter a valid street address"),
@@ -167,6 +168,8 @@ export default function RequestQuotePage() {
   })
 
   const billingSameAsDelivery = form.watch("billingSameAsDelivery")
+  const deliveryPostcode = form.watch("deliveryAddress.postcode")
+  const shippingInfo = deliveryPostcode?.length === 4 ? getShippingMessage(deliveryPostcode) : null
 
   const handleTurnstileVerify = useCallback((token: string) => {
     setTurnstileToken(token)
@@ -609,9 +612,17 @@ export default function RequestQuotePage() {
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Truck className="w-4 h-4" />
-                          Delivery (Metro)
+                          Delivery
                         </span>
-                        <span className="text-green-600 font-medium">FREE</span>
+                        {shippingInfo ? (
+                          shippingInfo.isFreeShipping ? (
+                            <span className="text-green-600 font-medium">FREE (Metro)</span>
+                          ) : (
+                            <span className="text-amber-600 font-medium">Quoted separately</span>
+                          )
+                        ) : (
+                          <span className="text-muted-foreground">Enter postcode</span>
+                        )}
                       </div>
 
                       <Separator />
@@ -848,6 +859,11 @@ export default function RequestQuotePage() {
                                     data-testid="input-delivery-postcode"
                                   />
                                 </FormControl>
+                                {shippingInfo && (
+                                  <p className={"text-xs mt-1 " + (shippingInfo.isFreeShipping ? "text-green-600" : "text-amber-600")}>
+                                    {shippingInfo.shortMessage}
+                                  </p>
+                                )}
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -1016,7 +1032,15 @@ export default function RequestQuotePage() {
                     <div className="rounded-md bg-muted/50 p-4 text-sm text-muted-foreground space-y-3">
                       <div className="flex items-start gap-2">
                         <Truck className="w-4 h-4 shrink-0 mt-0.5" />
-                        <span>Free delivery for metro areas. If there are any shipping costs for regional locations, we will confirm on final quote.</span>
+                        <span>
+                          {shippingInfo ? (
+                            shippingInfo.isFreeShipping
+                              ? shippingInfo.message
+                              : "Regional delivery - shipping costs will be quoted separately"
+                          ) : (
+                            "Free delivery to metro areas. Regional shipping quoted separately."
+                          )}
+                        </span>
                       </div>
                       <div className="flex items-start gap-2">
                         <FileCheck className="w-4 h-4 shrink-0 mt-0.5" />
