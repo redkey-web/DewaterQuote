@@ -141,6 +141,8 @@ export default function RequestQuotePage() {
     0
   )
   const totalSavings = pricedItems.reduce((sum, item) => sum + getQuoteItemSavings(item, totalQuantity), 0)
+  // Original subtotal BEFORE discount (for PDF/database - discount shown separately)
+  const originalSubtotal = discountedTotal + totalSavings
   const certFeeTotal = calculateMaterialCertFee(quoteItems)
   const certCount = getMaterialCertCount(quoteItems)
 
@@ -223,7 +225,7 @@ export default function RequestQuotePage() {
           })),
           totals: {
             itemCount: quoteItems.length,
-            pricedTotal: discountedTotal,
+            pricedTotal: originalSubtotal, // Original subtotal BEFORE discount
             savings: totalSavings,
             hasUnpricedItems,
             certFee: certFeeTotal,
