@@ -184,25 +184,30 @@ function transformProductListItem(dbProduct: {
  * Get a single product by slug
  */
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
-  const dbProduct = await db.query.products.findFirst({
-    where: eq(products.slug, slug),
-    with: {
-      brand: true,
-      category: true,
-      subcategory: true,
-      features: { orderBy: (f, { asc }) => [asc(f.displayOrder)] },
-      specifications: { orderBy: (s, { asc }) => [asc(s.displayOrder)] },
-      images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
-      downloads: true,
-      variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
-      applications: { orderBy: (a, { asc }) => [asc(a.displayOrder)] },
-      videos: { orderBy: (v, { desc, asc }) => [desc(v.isPrimary), asc(v.displayOrder)] },
-    },
-  });
+  try {
+    const dbProduct = await db.query.products.findFirst({
+      where: eq(products.slug, slug),
+      with: {
+        brand: true,
+        category: true,
+        subcategory: true,
+        features: { orderBy: (f, { asc }) => [asc(f.displayOrder)] },
+        specifications: { orderBy: (s, { asc }) => [asc(s.displayOrder)] },
+        images: { orderBy: (i, { asc }) => [asc(i.displayOrder)] },
+        downloads: true,
+        variations: { orderBy: (v, { asc }) => [asc(v.sizeRank), asc(v.displayOrder)] },
+        applications: { orderBy: (a, { asc }) => [asc(a.displayOrder)] },
+        videos: { orderBy: (v, { desc, asc }) => [desc(v.isPrimary), asc(v.displayOrder)] },
+      },
+    });
 
-  if (!dbProduct) return undefined;
+    if (!dbProduct) return undefined;
 
-  return transformProduct(dbProduct);
+    return transformProduct(dbProduct);
+  } catch (error) {
+    console.error("Failed to get product by slug:", error);
+    return undefined;
+  }
 }
 
 /**
@@ -241,13 +246,14 @@ export async function getProductsBySubcategory(
   categorySlug: string,
   subcategorySlug: string
 ): Promise<Product[]> {
-  const subcategory = await db.query.subcategories.findFirst({
-    where: eq(subcategories.slug, subcategorySlug),
-  });
+  try {
+    const subcategory = await db.query.subcategories.findFirst({
+      where: eq(subcategories.slug, subcategorySlug),
+    });
 
-  if (!subcategory) {
-    return [];
-  }
+    if (!subcategory) {
+      return [];
+    }
 
   // Special handling for ball-valve to also include ball check valves
   let whereClause;
@@ -277,13 +283,18 @@ export async function getProductsBySubcategory(
     orderBy: (products, { asc }) => [asc(products.name)],
   });
 
-  return dbProducts.map(transformProductListItem);
+    return dbProducts.map(transformProductListItem);
+  } catch (error) {
+    console.error("Failed to get products by subcategory:", error);
+    return [];
+  }
 }
 
 /**
  * Get products by brand slug
  */
 export async function getProductsByBrand(brandSlug: string): Promise<Product[]> {
+  try {
   const brand = await db.query.brands.findFirst({
     where: eq(brands.slug, brandSlug),
   });
@@ -306,14 +317,19 @@ export async function getProductsByBrand(brandSlug: string): Promise<Product[]> 
     orderBy: (products, { asc }) => [asc(products.name)],
   });
 
-  return dbProducts.map(transformProductListItem);
+    return dbProducts.map(transformProductListItem);
+  } catch (error) {
+    console.error("Failed to get products by brand:", error);
+    return [];
+  }
 }
 
 /**
  * Get all active products (for sitemap, etc.)
  */
 export async function getAllProducts(): Promise<Product[]> {
-  const dbProducts = await db.query.products.findMany({
+  try {
+    const dbProducts = await db.query.products.findMany({
     where: eq(products.isActive, true),
     with: {
       brand: true,
@@ -324,37 +340,51 @@ export async function getAllProducts(): Promise<Product[]> {
     orderBy: (products, { asc }) => [asc(products.name)],
   });
 
-  return dbProducts.map(transformProductListItem);
+    return dbProducts.map(transformProductListItem);
+  } catch (error) {
+    console.error("Failed to get all products:", error);
+    return [];
+  }
 }
 
 /**
  * Get all product slugs (for static generation)
  */
 export async function getAllProductSlugs(): Promise<string[]> {
-  const result = await db
-    .select({ slug: products.slug })
-    .from(products)
-    .where(eq(products.isActive, true));
+  try {
+    const result = await db
+      .select({ slug: products.slug })
+      .from(products)
+      .where(eq(products.isActive, true));
 
-  return result.map(r => r.slug);
+    return result.map(r => r.slug);
+  } catch (error) {
+    console.error("Failed to get product slugs:", error);
+    return [];
+  }
 }
 
 /**
  * Get all categories
  */
 export async function getAllCategories(): Promise<Category[]> {
-  const dbCategories = await db.query.categories.findMany({
-    orderBy: (c, { asc }) => [asc(c.displayOrder)],
-  });
+  try {
+    const dbCategories = await db.query.categories.findMany({
+      orderBy: (c, { asc }) => [asc(c.displayOrder)],
+    });
 
-  return dbCategories.map(c => ({
-    id: c.slug,
-    slug: c.slug,
-    name: c.name,
-    description: c.description || '',
-    longDescription: c.longDescription || undefined,
-    image: c.image || undefined,
-  }));
+    return dbCategories.map(c => ({
+      id: c.slug,
+      slug: c.slug,
+      name: c.name,
+      description: c.description || '',
+      longDescription: c.longDescription || undefined,
+      image: c.image || undefined,
+    }));
+  } catch (error) {
+    console.error("Failed to get categories:", error);
+    return [];
+  }
 }
 
 /**
