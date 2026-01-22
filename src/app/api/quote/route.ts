@@ -807,14 +807,25 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     // DEV BYPASS: Skip email sending if no SendGrid key in development
     if (skipEmail) {
       console.log("⚠️ DEV MODE: Emails NOT sent. Quote saved to database.")
-      console.log(`   Quote Number: ${quoteNumber}`)
-      console.log(`   Quote ID: ${savedQuoteId}`)
-      console.log(`   View at: /admin/quotes/${savedQuoteId}`)
+      console.log('   Quote Number: ${quoteNumber}')
+      console.log('   Quote ID: ${savedQuoteId}')
+      console.log('   View at: /admin/quotes/${savedQuoteId}')
     } else {
-      await Promise.all([
-        sgMail.send(businessEmail),
-        sgMail.send(customerEmail),
-      ])
+      try {
+        await Promise.all([
+          sgMail.send(businessEmail),
+          sgMail.send(customerEmail),
+        ])
+      } catch (emailError) {
+        console.error('[Quote ${quoteNumber}] SendGrid email error:', emailError)
+        // Quote is saved to DB, but email failed - still return success with warning
+        return NextResponse.json({
+          success: true,
+          quoteNumber,
+          quoteId: savedQuoteId,
+          warning: "Quote saved but email delivery may be delayed",
+        })
+      }
     }
 
     return NextResponse.json({
@@ -826,6 +837,9 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     })
   } catch (error) {
     console.error("Quote form error:", error)
+    // Return more specific error message if available
+    const errorMessage = error instanceof Error ? error.message : "Unknown error"
+    console.error("Quote form error details:", errorMessage)
     return NextResponse.json(
       { error: "Failed to submit quote request. Please try again." },
       { status: 500 }
