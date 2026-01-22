@@ -670,7 +670,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
             <div style="margin-top: 20px; padding: 15px; background: #fef3c7; border-radius: 5px; border-left: 4px solid #f59e0b;">
               <strong style="color: #92400e;">Estimated Lead Time: ${overallLeadTime}</strong>
               <p style="margin: 8px 0 0; font-size: 13px; color: #78350f;">
-                Lead times are estimates and may vary based on stock availability.${data.totals.certCount && data.totals.certCount > 0 ? " Material test certificates may add 2-3 business days." : ""}
+                Lead times are estimates and may vary based on stock availability.${data.totals.certCount && data.totals.certCount > 0 ? " Material test certificates will extend lead times." : ""}
               </p>
             </div>`
               }

@@ -321,7 +321,7 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
                   <li>All prices in AUD, GST included where shown</li>
                   <li>Payment: 30 days from invoice for approved accounts</li>
                   <li>Free metro delivery for orders over $500 (ex GST)</li>
-                  <li>Material certificates may extend lead time by 2-3 days</li>
+                  <li>Material certificates will extend lead times</li>
                 </ul>
               </div>
             </td>
@@ -419,7 +419,7 @@ TERMS & CONDITIONS
 - All prices in AUD, GST included where shown
 - Payment: 30 days from invoice for approved accounts
 - Free metro delivery for orders over $500 (ex GST)
-- Material certificates may extend lead time by 2-3 days
+- Material certificates will extend lead times
 
 ---
 
