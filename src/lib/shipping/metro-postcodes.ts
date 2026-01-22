@@ -193,7 +193,7 @@ export function getShippingMessage(postcode: string | number): {
   if (result.isMetro) {
     return {
       isFreeShipping: true,
-      message: 'Free delivery to ${result.region} metro area',
+      message: `Free delivery to ${result.region} metro area`,
       shortMessage: "Free metro delivery",
     }
   }

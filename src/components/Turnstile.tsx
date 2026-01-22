@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, useCallback } from "react"
+import { useEffect, useRef, useState, useCallback, useImperativeHandle, forwardRef } from "react"
 
 declare global {
   interface Window {
@@ -22,6 +22,10 @@ declare global {
   }
 }
 
+export interface TurnstileRef {
+  reset: () => void
+}
+
 interface TurnstileProps {
   onVerify: (token: string) => void
   onError?: (error: unknown) => void
@@ -31,19 +35,28 @@ interface TurnstileProps {
   className?: string
 }
 
-export function Turnstile({
+export const Turnstile = forwardRef<TurnstileRef, TurnstileProps>(function Turnstile({
   onVerify,
   onError,
   onExpire,
   theme = "auto",
   size = "normal",
   className,
-}: TurnstileProps) {
+}, ref) {
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+
+  // Expose reset method to parent via ref
+  useImperativeHandle(ref, () => ({
+    reset: () => {
+      if (widgetIdRef.current && window.turnstile) {
+        window.turnstile.reset(widgetIdRef.current)
+      }
+    }
+  }), [])
 
   const renderWidget = useCallback(() => {
     if (!containerRef.current || !window.turnstile || !siteKey) return
@@ -131,4 +144,4 @@ export function Turnstile({
       )}
     </div>
   )
-}
+})

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -60,7 +60,7 @@ import {
 import { useQuote } from "@/context/QuoteContext"
 import { useToast } from "@/hooks/use-toast"
 import { useGeo } from "@/hooks/useGeo"
-import { Turnstile } from "@/components/Turnstile"
+import { Turnstile, type TurnstileRef } from "@/components/Turnstile"
 import { trackQuoteSubmission } from "@/components/GoogleAnalytics"
 import { getShippingMessage } from "@/lib/shipping/metro-postcodes"
 
@@ -127,6 +127,7 @@ export default function RequestQuotePage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileRef>(null)
 
   // Calculate pricing totals
   const pricedItems = quoteItems.filter((item) => getQuoteItemPrice(item) !== undefined)
@@ -257,6 +258,9 @@ export default function RequestQuotePage() {
       })
     } finally {
       setIsSubmitting(false)
+      // Reset Turnstile for next attempt - tokens are single-use
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     }
   }
 
@@ -1027,6 +1031,7 @@ export default function RequestQuotePage() {
 
                     {/* Turnstile Widget */}
                     <Turnstile
+                      ref={turnstileRef}
                       onVerify={handleTurnstileVerify}
                       onExpire={handleTurnstileExpire}
                       className="flex justify-center"
