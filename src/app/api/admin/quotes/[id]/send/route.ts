@@ -60,18 +60,18 @@ export async function POST(
       return NextResponse.json({ error: "Quote not found" }, { status: 404 })
     }
 
-    // Build address objects from separate columns
+    // Build address objects from separate columns - ensure all values are primitives
     const deliveryAddress = {
-      street: quote.deliveryStreet || "",
-      suburb: quote.deliverySuburb || "",
-      state: quote.deliveryState || "",
-      postcode: quote.deliveryPostcode || "",
+      street: String(quote.deliveryStreet || ""),
+      suburb: String(quote.deliverySuburb || ""),
+      state: String(quote.deliveryState || ""),
+      postcode: String(quote.deliveryPostcode || ""),
     }
     const billingAddress = {
-      street: quote.billingStreet || quote.deliveryStreet || "",
-      suburb: quote.billingSuburb || quote.deliverySuburb || "",
-      state: quote.billingState || quote.deliveryState || "",
-      postcode: quote.billingPostcode || quote.deliveryPostcode || "",
+      street: String(quote.billingStreet || quote.deliveryStreet || ""),
+      suburb: String(quote.billingSuburb || quote.deliverySuburb || ""),
+      state: String(quote.billingState || quote.deliveryState || ""),
+      postcode: String(quote.billingPostcode || quote.deliveryPostcode || ""),
     }
 
     const items = await db

@@ -314,7 +314,7 @@ function safeString(value: unknown): string {
 }
 
 function formatAddress(addr: Address): string {
-  return `${addr.street}\n${addr.suburb} ${addr.state} ${addr.postcode}`
+  return '${safeString(addr.street)}\n${safeString(addr.suburb)} ${safeString(addr.state)} ${safeString(addr.postcode)}'
 }
 
 export function QuotePDF({ data }: { data: QuotePDFData }) {
@@ -338,9 +338,9 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
           </View>
           <View style={styles.headerRight}>
             <Text style={styles.quoteTitle}>QUOTATION</Text>
-            <Text style={styles.quoteNumber}>{data.quoteNumber}</Text>
-            <Text style={styles.quoteDate}>Date: {data.quoteDate}</Text>
-            <Text style={styles.quoteDate}>Valid Until: {data.validUntil}</Text>
+            <Text style={styles.quoteNumber}>{safeString(data.quoteNumber)}</Text>
+            <Text style={styles.quoteDate}>Date: {safeString(data.quoteDate)}</Text>
+            <Text style={styles.quoteDate}>Valid Until: {safeString(data.validUntil)}</Text>
           </View>
         </View>
 
@@ -351,14 +351,14 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
             <View style={[styles.column, styles.addressBox]}>
               <Text style={styles.label}>Company</Text>
               <Text style={[styles.value, { fontWeight: "bold" }]}>
-                {data.companyName}
+                {safeString(data.companyName)}
               </Text>
               <Text style={styles.label}>Contact</Text>
-              <Text style={styles.value}>{data.contactName}</Text>
+              <Text style={styles.value}>{safeString(data.contactName)}</Text>
               <Text style={styles.label}>Email</Text>
-              <Text style={styles.value}>{data.email}</Text>
+              <Text style={styles.value}>{safeString(data.email)}</Text>
               <Text style={styles.label}>Phone</Text>
-              <Text style={styles.value}>{data.phone}</Text>
+              <Text style={styles.value}>{safeString(data.phone)}</Text>
             </View>
             <View style={[styles.column, styles.addressBox]}>
               <Text style={styles.label}>Delivery Address</Text>
@@ -454,7 +454,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
           {data.shippingCost != null && data.shippingCost > 0 && (
             <View style={styles.totalRow}>
               <Text style={styles.totalLabel}>
-                Shipping{data.shippingNotes ? ` (${data.shippingNotes})` : ""}
+                Shipping{data.shippingNotes ? ' (${safeString(data.shippingNotes)})' : ""}
               </Text>
               <Text style={styles.totalValue}>
                 {formatCurrency(data.shippingCost)}
@@ -503,7 +503,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
             borderLeft: "4 solid #f59e0b",
           }}>
             <Text style={{ fontSize: 10, fontWeight: "bold", color: "#92400e" }}>
-              Estimated Lead Time: {data.overallLeadTime}
+              Estimated Lead Time: {safeString(data.overallLeadTime)}
             </Text>
             <Text style={{ fontSize: 8, color: "#78350f", marginTop: 4 }}>
               Lead times are estimates and may vary based on stock availability.
@@ -676,7 +676,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
               fontStyle: "italic",
             }}
           >
-            This quote is valid until {data.validUntil}. To accept this quote, reply
+            This quote is valid until {safeString(data.validUntil)}. To accept this quote, reply
             to this email or call 1300 271 290.
           </Text>
         </View>
@@ -696,7 +696,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
           {data.preparedBy && (
             <View style={{ textAlign: "right" }}>
               <Text style={styles.footerText}>Prepared by:</Text>
-              <Text style={styles.footerText}>{data.preparedBy}</Text>
+              <Text style={styles.footerText}>{safeString(data.preparedBy)}</Text>
             </View>
           )}
         </View>
