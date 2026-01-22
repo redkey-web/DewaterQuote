@@ -106,8 +106,9 @@ export async function POST(
       unitPrice: item.unitPrice ? parseFloat(String(item.unitPrice)) : null,
       lineTotal: item.lineTotal ? parseFloat(String(item.lineTotal)) : null,
       quotedPrice: item.quotedPrice ? parseFloat(String(item.quotedPrice)) : null,
-      quotedNotes: item.quotedNotes ? String(item.quotedNotes) : undefined,
+      quotedNotes: item.quotedNotes ? String(item.quotedNotes) : null,
       materialTestCert: Boolean(item.materialTestCert),
+      leadTime: null, // Lead time not stored per quote item, only per product
     }))
 
     const emailItems: QuoteItemEmail[] = pdfItems
@@ -143,13 +144,20 @@ export async function POST(
     }
 
     // Generate PDF
-    console.log("[Quote " + quote.quoteNumber + "] PDF data:", JSON.stringify(pdfData, null, 2).slice(0, 1000))
+    console.log("[Quote " + quote.quoteNumber + "] PDF data:", JSON.stringify(pdfData, null, 2).slice(0, 2000))
     let pdfBuffer: Uint8Array
     try {
       pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
     } catch (pdfError) {
-      console.error("[Quote " + quote.quoteNumber + "] PDF generation failed:", pdfError)
-      console.error("[Quote " + quote.quoteNumber + "] PDF data items:", JSON.stringify(pdfItems, null, 2))
+      const errorMsg = pdfError instanceof Error ? pdfError.message : String(pdfError)
+      const errorStack = pdfError instanceof Error ? pdfError.stack : undefined
+      console.error("[Quote " + quote.quoteNumber + "] PDF generation failed:", errorMsg)
+      if (errorStack) {
+        console.error("[Quote " + quote.quoteNumber + "] Error stack:", errorStack)
+      }
+      console.error("[Quote " + quote.quoteNumber + "] Full PDF data:", JSON.stringify(pdfData, null, 2))
+      console.error("[Quote " + quote.quoteNumber + "] Delivery address:", JSON.stringify(deliveryAddress, null, 2))
+      console.error("[Quote " + quote.quoteNumber + "] Billing address:", JSON.stringify(billingAddress, null, 2))
       throw pdfError
     }
 
@@ -230,11 +238,22 @@ export async function POST(
     }
 
     console.log("[Quote " + quote.quoteNumber + "] Sending email to: " + quote.email)
+    console.log("[Quote " + quote.quoteNumber + "] From: " + fromEmail)
     console.log("[Quote " + quote.quoteNumber + "] Attachment size: " + pdfBase64.length + " chars")
     console.log("[Quote " + quote.quoteNumber + "] SendGrid API key configured: " + !!process.env.SENDGRID_API_KEY)
 
-    await sgMail.send(emailPayload)
-    console.log("[Quote " + quote.quoteNumber + "] Email sent successfully")
+    try {
+      await sgMail.send(emailPayload)
+      console.log("[Quote " + quote.quoteNumber + "] Email sent successfully")
+    } catch (emailError: unknown) {
+      const err = emailError as { response?: { body?: unknown }, message?: string, code?: number }
+      console.error("[Quote " + quote.quoteNumber + "] SendGrid email error:", err.message || emailError)
+      console.error("[Quote " + quote.quoteNumber + "] SendGrid error code:", err.code)
+      if (err.response?.body) {
+        console.error("[Quote " + quote.quoteNumber + "] SendGrid response body:", JSON.stringify(err.response.body, null, 2))
+      }
+      throw emailError
+    }
 
     // Update quote status and PDF info
     await db
@@ -257,9 +276,14 @@ export async function POST(
       quoteNumber: quote.quoteNumber,
     })
   } catch (error) {
-    console.error("Send quote error:", error)
+    const errorMsg = error instanceof Error ? error.message : String(error)
+    const errorStack = error instanceof Error ? error.stack : undefined
+    console.error("Send quote error:", errorMsg)
+    if (errorStack) {
+      console.error("Send quote error stack:", errorStack)
+    }
     return NextResponse.json(
-      { error: "Failed to send quote. Please try again." },
+      { error: "Failed to send quote: " + errorMsg },
       { status: 500 }
     )
   }

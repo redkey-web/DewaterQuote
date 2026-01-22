@@ -807,17 +807,21 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     // DEV BYPASS: Skip email sending if no SendGrid key in development
     if (skipEmail) {
       console.log("⚠️ DEV MODE: Emails NOT sent. Quote saved to database.")
-      console.log('   Quote Number: ${quoteNumber}')
-      console.log('   Quote ID: ${savedQuoteId}')
-      console.log('   View at: /admin/quotes/${savedQuoteId}')
+      console.log("   Quote Number: " + quoteNumber)
+      console.log("   Quote ID: " + savedQuoteId)
+      console.log("   View at: /admin/quotes/" + savedQuoteId)
     } else {
       try {
         await Promise.all([
           sgMail.send(businessEmail),
           sgMail.send(customerEmail),
         ])
-      } catch (emailError) {
-        console.error('[Quote ${quoteNumber}] SendGrid email error:', emailError)
+      } catch (emailError: unknown) {
+        const err = emailError as { response?: { body?: unknown }, message?: string }
+        console.error("[Quote " + quoteNumber + "] SendGrid email error:", err.message || emailError)
+        if (err.response?.body) {
+          console.error("[Quote " + quoteNumber + "] SendGrid response body:", JSON.stringify(err.response.body, null, 2))
+        }
         // Quote is saved to DB, but email failed - still return success with warning
         return NextResponse.json({
           success: true,
