@@ -105,7 +105,7 @@ export function AdminSidebar({ user }: AdminSidebarProps = { user: undefined }) 
       >
         <div
           className={cn(
-            'flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white pb-4 transition-all duration-300',
+            'flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-300/50 pb-4 transition-all duration-300 admin-sidebar-gradient',
             isCollapsed ? 'px-2' : 'px-6'
           )}
         >

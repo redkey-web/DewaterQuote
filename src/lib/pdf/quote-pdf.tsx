@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 180,
-    height: 60,
+    height: 121, // Maintains 610:409 aspect ratio of logo-new.png
   },
   headerRight: {
     textAlign: "right",
