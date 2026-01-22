@@ -448,14 +448,6 @@ export default function RequestQuotePage() {
                                   )}
                                 </div>
                               )}
-                              {isAustralia && hasDiscount && (
-                                <Badge
-                                  variant="secondary"
-                                  className="bg-destructive/10 text-destructive text-xs mt-1"
-                                >
-                                  {discountPercent}% OFF
-                                </Badge>
-                              )}
                               {/* Material Certificate Toggle - Prominent red box */}
                               <button
                                 type="button"
@@ -529,7 +521,17 @@ export default function RequestQuotePage() {
                             <td className="py-3 px-2 text-right hidden md:table-cell">
                               {isAustralia ? (
                                 price !== undefined ? (
-                                  <span>${price.toFixed(2)}</span>
+                                  <div>
+                                    <span>${price.toFixed(2)}</span>
+                                    {hasDiscount && (
+                                      <Badge
+                                        variant="secondary"
+                                        className="bg-destructive/10 text-destructive text-xs ml-1"
+                                      >
+                                        {discountPercent}% OFF
+                                      </Badge>
+                                    )}
+                                  </div>
                                 ) : (
                                   <span className="text-amber-600">POA</span>
                                 )
