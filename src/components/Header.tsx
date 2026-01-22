@@ -751,7 +751,19 @@ export default function Header() {
                 </span>
               )}
             </button>
-            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu" aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                if (mobileMenuOpen) {
+                  closeMobileMenuWithAnimation()
+                } else {
+                  setMobileMenuOpen(true)
+                }
+              }}
+              data-testid="button-mobile-menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>

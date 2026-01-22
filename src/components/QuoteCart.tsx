@@ -96,7 +96,7 @@ export default function QuoteCart() {
           </Button>
         </div>
 
-        <div className="flex-1 overflow-y-auto overscroll-contain p-6 space-y-6">
+        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-6 space-y-6 touch-pan-y [-webkit-overflow-scrolling:touch]">
           {items.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Your quote is empty</p>
