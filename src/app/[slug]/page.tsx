@@ -1,16 +1,18 @@
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
-import { getProductBySlug, getProductsBySubcategory, getAllProductSlugs } from "@/data/products"
+import { getProductBySlug, getProductsBySubcategory } from "@/data/products"
 import { ProductDetailClient } from "@/components/ProductDetailClient"
+// Static catalog for build-time generateStaticParams (avoids DB dependency during build)
+import { products as catalogProducts } from "@/data/catalog"
 
 interface ProductDetailPageProps {
   params: Promise<{ slug: string }>
 }
 
 // Generate static params for all products
+// Uses static catalog for build-time stability (no DB required)
 export async function generateStaticParams() {
-  const slugs = await getAllProductSlugs()
-  return slugs.map((slug) => ({ slug }))
+  return catalogProducts.map((product) => ({ slug: product.slug }))
 }
 
 // ISR: Revalidate every 60 seconds

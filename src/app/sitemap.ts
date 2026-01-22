@@ -1,7 +1,10 @@
 import { MetadataRoute } from "next"
-import { getAllProducts, getAllCategories, getAllSubcategories } from "@/data/products"
-import { db } from "@/db"
-import { brands } from "@/db/schema"
+// Use static catalog for build-time sitemap generation (avoids DB dependency)
+import {
+  products as catalogProducts,
+  categories as catalogCategories,
+  subcategories as catalogSubcategories,
+} from "@/data/catalog"
 
 const BASE_URL = "https://dewaterproducts.com.au"
 
@@ -46,13 +49,19 @@ const brandToUrl: Record<string, string> = {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
 
-  // Fetch data from database
-  const [products, categories, subcategories, allBrands] = await Promise.all([
-    getAllProducts(),
-    getAllCategories(),
-    getAllSubcategories(),
-    db.query.brands.findMany(),
-  ])
+  // Use static catalog data for build-time sitemap (no DB required)
+  const products = catalogProducts
+  const categories = catalogCategories
+  const subcategories = catalogSubcategories
+  // Static brand list (matches brandToUrl keys)
+  const allBrands = [
+    { slug: 'straub' },
+    { slug: 'orbit' },
+    { slug: 'teekay' },
+    { slug: 'bore-flex-rubber' },
+    { slug: 'defender-valves' },
+    { slug: 'defender-strainers' },
+  ]
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
