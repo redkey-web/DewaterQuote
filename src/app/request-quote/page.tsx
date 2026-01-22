@@ -177,11 +177,15 @@ export default function RequestQuotePage() {
 
   const handleTurnstileExpire = useCallback(() => {
     setTurnstileToken(null)
-  }, [])
+    toast({
+      title: "Verification expired",
+      description: "Please complete the verification again before submitting.",
+      variant: "destructive",
+    })
+  }, [toast])
 
   // Check if Turnstile is required (env var set)
-  // TEMPORARILY DISABLED for testing - set to false to allow submissions
-  const turnstileRequired = false // !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  const turnstileRequired = !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   const canSubmit = !turnstileRequired || turnstileToken
 
   const onSubmit = async (data: QuoteFormValues) => {
