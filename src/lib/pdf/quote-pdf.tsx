@@ -308,7 +308,17 @@ export interface QuotePDFData {
 
 function formatCurrency(amount: number | null | undefined): string {
   if (amount === null || amount === undefined) return "POA"
-  return `$${amount.toFixed(2)}`
+  return '$${amount.toFixed(2)}'
+}
+
+// Safely convert any value to a string (prevents React elements from breaking PDF)
+function safeString(value: unknown): string {
+  if (value === null || value === undefined) return ""
+  if (typeof value === "string") return value
+  if (typeof value === "number") return String(value)
+  if (typeof value === "boolean") return value ? "Yes" : "No"
+  // If it's an object (including React elements), return empty string
+  return ""
 }
 
 function formatAddress(addr: Address): string {
@@ -401,21 +411,21 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
                   key={index}
                   style={index % 2 === 0 ? styles.tableRow : styles.tableRowAlt}
                 >
-                  <Text style={styles.colSku}>{item.sku}</Text>
+                  <Text style={styles.colSku}>{safeString(item.sku)}</Text>
                   <View style={styles.colProduct}>
-                    <Text style={styles.productName}>{item.name}</Text>
-                    <Text style={styles.productMeta}>{item.brand}</Text>
+                    <Text style={styles.productName}>{safeString(item.name)}</Text>
+                    <Text style={styles.productMeta}>{safeString(item.brand)}</Text>
                     {item.sizeLabel && (
-                      <Text style={styles.sizeHighlight}>{item.sizeLabel}</Text>
+                      <Text style={styles.sizeHighlight}>{safeString(item.sizeLabel)}</Text>
                     )}
                     {item.quotedNotes && (
                       <Text style={[styles.productMeta, { fontStyle: "italic" }]}>
-                        Note: {item.quotedNotes}
+                        Note: {safeString(item.quotedNotes)}
                       </Text>
                     )}
                   </View>
-                  <Text style={styles.colQty}>{item.quantity}</Text>
-                  <Text style={styles.colLeadTime}>{item.leadTime || "-"}</Text>
+                  <Text style={styles.colQty}>{safeString(item.quantity)}</Text>
+                  <Text style={styles.colLeadTime}>{safeString(item.leadTime) || "-"}</Text>
                   <Text style={styles.colCert}>
                     {item.materialTestCert ? "Yes" : "-"}
                   </Text>
@@ -487,7 +497,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
         {data.notes && (
           <View style={styles.adminNotes}>
             <Text style={styles.adminNotesTitle}>Customer Notes</Text>
-            <Text style={styles.adminNotesText}>{data.notes}</Text>
+            <Text style={styles.adminNotesText}>{safeString(data.notes)}</Text>
           </View>
         )}
 

@@ -95,32 +95,32 @@ export async function POST(
     const quoteDate = format(quote.createdAt, "d MMMM yyyy")
     const validUntil = format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy")
 
-    // Prepare items for PDF/email
+    // Prepare items for PDF/email - ensure all values are primitives (not objects)
     const pdfItems: QuoteItemPDF[] = items.map((item) => ({
-      sku: item.variationSku || item.sku,
-      name: item.name,
-      brand: item.brand,
-      size: item.size || undefined,
-      sizeLabel: item.sizeLabel || undefined,
-      quantity: item.quantity,
-      unitPrice: item.unitPrice ? parseFloat(item.unitPrice) : null,
-      lineTotal: item.lineTotal ? parseFloat(item.lineTotal) : null,
-      quotedPrice: item.quotedPrice ? parseFloat(item.quotedPrice) : null,
-      quotedNotes: item.quotedNotes || undefined,
-      materialTestCert: item.materialTestCert || false,
+      sku: String(item.variationSku || item.sku || ""),
+      name: String(item.name || ""),
+      brand: String(item.brand || ""),
+      size: item.size ? String(item.size) : undefined,
+      sizeLabel: item.sizeLabel ? String(item.sizeLabel) : undefined,
+      quantity: Number(item.quantity) || 1,
+      unitPrice: item.unitPrice ? parseFloat(String(item.unitPrice)) : null,
+      lineTotal: item.lineTotal ? parseFloat(String(item.lineTotal)) : null,
+      quotedPrice: item.quotedPrice ? parseFloat(String(item.quotedPrice)) : null,
+      quotedNotes: item.quotedNotes ? String(item.quotedNotes) : undefined,
+      materialTestCert: Boolean(item.materialTestCert),
     }))
 
     const emailItems: QuoteItemEmail[] = pdfItems
 
-    // Build data objects
+    // Build data objects - ensure all string values are primitives (not objects)
     const pdfData: QuotePDFData = {
-      quoteNumber: quote.quoteNumber,
+      quoteNumber: String(quote.quoteNumber || ""),
       quoteDate,
       validUntil,
-      companyName: quote.companyName,
-      contactName: quote.contactName,
-      email: quote.email,
-      phone: quote.phone,
+      companyName: String(quote.companyName || ""),
+      contactName: String(quote.contactName || ""),
+      email: String(quote.email || ""),
+      phone: String(quote.phone || ""),
       deliveryAddress,
       billingAddress,
       items: pdfItems,
@@ -129,12 +129,12 @@ export async function POST(
       certFee,
       certCount,
       shippingCost,
-      shippingNotes: body.shippingNotes,
+      shippingNotes: body.shippingNotes ? String(body.shippingNotes) : undefined,
       gst,
       total,
-      hasUnpricedItems: quote.hasUnpricedItems || false,
-      notes: quote.notes || undefined,
-      preparedBy: body.preparedBy,
+      hasUnpricedItems: Boolean(quote.hasUnpricedItems),
+      notes: quote.notes ? String(quote.notes) : undefined,
+      preparedBy: body.preparedBy ? String(body.preparedBy) : undefined,
     }
 
     const emailData: ApprovedQuoteEmailData = {
@@ -143,7 +143,15 @@ export async function POST(
     }
 
     // Generate PDF
-    const pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
+    console.log("[Quote " + quote.quoteNumber + "] PDF data:", JSON.stringify(pdfData, null, 2).slice(0, 1000))
+    let pdfBuffer: Uint8Array
+    try {
+      pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
+    } catch (pdfError) {
+      console.error("[Quote " + quote.quoteNumber + "] PDF generation failed:", pdfError)
+      console.error("[Quote " + quote.quoteNumber + "] PDF data items:", JSON.stringify(pdfItems, null, 2))
+      throw pdfError
+    }
 
     // Convert to base64 - handle both Buffer and Uint8Array
     const pdfBase64 = Buffer.isBuffer(pdfBuffer)
