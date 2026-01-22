@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 }
 
 export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 const features = [
   "Zero maintenance - no moving parts",

@@ -46,6 +46,7 @@ export const metadata: Metadata = {
 }
 
 export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 const orbitFeatures = [
   {

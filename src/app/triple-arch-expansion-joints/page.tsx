@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 }
 
 export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 export default async function TripleArchExpansionJointsPage() {
   const products = await getProductsBySubcategory("rubber-expansion-joints", "triple-arch")

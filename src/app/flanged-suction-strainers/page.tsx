@@ -30,6 +30,7 @@ export const metadata: Metadata = {
 }
 
 export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 export default async function FlangedSuctionStrainersPage() {
   const products = await getProductsBySubcategory("strainers", "flanged-suction-strainer")

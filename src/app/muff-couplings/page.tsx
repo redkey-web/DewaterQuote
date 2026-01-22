@@ -86,6 +86,7 @@ const faqs = [
 ]
 
 export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 export default async function MuffCouplingsPage() {
   // Fetch the muff coupling product

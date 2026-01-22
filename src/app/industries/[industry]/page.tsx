@@ -930,6 +930,7 @@ const industryData: Record<string, IndustryData> = {
 }
 
 export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 export function generateStaticParams() {
   return Object.keys(industryData).map((industry) => ({
