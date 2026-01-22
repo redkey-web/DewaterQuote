@@ -267,12 +267,9 @@ export async function POST(request: NextRequest) {
       // Continue with email even if DB save fails
     }
 
-    // Support multiple recipients (comma-separated)
-    // TESTING: Both copies to both addresses - REVERT AFTER TESTING
-    const toEmails = ["sales@dewaterproducts.com.au", "ga.gmb.gsc@gmail.com"]
+    // Business receives quote notifications
+    const toEmails = ["sales@dewaterproducts.com.au"]
     const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
-    // Customer copy also to both addresses for testing
-    const testCustomerEmails = ["sales@dewaterproducts.com.au", "ga.gmb.gsc@gmail.com"]
 
     // Sanitize user inputs for HTML context
     const safeCompanyName = escapeHtml(data.companyName)
@@ -581,7 +578,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
 
     // Confirmation email to customer - FULL DETAILED VERSION
     const customerEmail = {
-      to: testCustomerEmails, // TESTING: Both addresses - REVERT to data.email after testing
+      to: data.email,
       from: fromEmail,
       subject: `Your Quote ${quoteNumber} - Dewater Products`,
       html: `

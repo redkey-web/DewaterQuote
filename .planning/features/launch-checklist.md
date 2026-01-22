@@ -164,8 +164,8 @@ FROM_EMAIL=noreply@dewaterproducts.com.au
 ## Phase 5: Final Testing
 
 - [ ] Quote form submits successfully
-- [ ] Email received at sales inbox
-- [ ] Customer receives confirmation email
+- [x] Email received at sales inbox (dev email removed, goes to sales@dewaterproducts.com.au only)
+- [x] Customer receives confirmation email (now goes to actual customer email, not test addresses)
 - [ ] Admin panel accessible at `/admin`
 - [ ] Products load from database
 - [ ] Images load correctly
