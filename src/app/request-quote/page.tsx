@@ -423,11 +423,6 @@ export default function RequestQuotePage() {
                               <div className="text-xs text-muted-foreground sm:hidden">
                                 {sku}
                               </div>
-                              {item.leadTime && (
-                                <div className="text-xs text-muted-foreground">
-                                  Lead time: {item.leadTime}
-                                </div>
-                              )}
                               {/* Custom Specs Display (Straub/Teekay products) - Amber badges */}
                               {item.customSpecs && (
                                 <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
@@ -472,6 +467,11 @@ export default function RequestQuotePage() {
                                 <FileCheck className="w-4 h-4 flex-shrink-0" />
                                 <span className="font-medium">{item.materialTestCert ? "Material Cert Added" : "Add Material Cert (+$350)"}</span>
                               </button>
+                              {item.leadTime && (
+                                <div className="text-xs text-muted-foreground mt-2">
+                                  Lead time: {item.leadTime}
+                                </div>
+                              )}
                             </td>
 
                             {/* SKU */}
