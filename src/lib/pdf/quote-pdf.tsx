@@ -6,17 +6,9 @@ import {
   View,
   StyleSheet,
   Image,
-  Font,
 } from "@react-pdf/renderer"
 
-// Register fonts for better typography
-Font.register({
-  family: "Helvetica",
-  fonts: [
-    { src: "Helvetica" },
-    { src: "Helvetica-Bold", fontWeight: "bold" },
-  ],
-})
+// Note: Font registration removed - Helvetica is a built-in font in react-pdf
 
 const styles = StyleSheet.create({
   page: {
@@ -36,7 +28,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 180,
     height: 60,
-    objectFit: "contain" as const,
   },
   headerRight: {
     textAlign: "right",
