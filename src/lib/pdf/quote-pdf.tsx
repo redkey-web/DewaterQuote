@@ -34,8 +34,9 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   logo: {
-    width: 200,
-    height: 67,
+    width: 180,
+    height: 60,
+    objectFit: "contain" as const,
   },
   headerRight: {
     textAlign: "right",
@@ -308,7 +309,7 @@ export interface QuotePDFData {
 
 function formatCurrency(amount: number | null | undefined): string {
   if (amount === null || amount === undefined) return "POA"
-  return '$${amount.toFixed(2)}'
+  return `$${amount.toFixed(2)}`
 }
 
 // Safely convert any value to a string (prevents React elements from breaking PDF)
