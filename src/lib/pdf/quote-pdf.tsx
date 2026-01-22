@@ -298,9 +298,15 @@ export interface QuotePDFData {
   overallLeadTime?: string // Longest lead time across all items
 }
 
-function formatCurrency(amount: number | null | undefined): string {
+function formatCurrency(amount: unknown): string {
   if (amount === null || amount === undefined) return "POA"
-  return `$${amount.toFixed(2)}`
+  if (typeof amount !== "number") {
+    // Try to parse if it's a string, otherwise return POA
+    const parsed = typeof amount === "string" ? parseFloat(amount) : NaN
+    if (isNaN(parsed)) return "POA"
+    return "$" + parsed.toFixed(2)
+  }
+  return "$" + amount.toFixed(2)
 }
 
 // Safely convert any value to a string (prevents React elements from breaking PDF)
@@ -450,7 +456,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
           {data.certFee > 0 && (
             <View style={styles.totalRow}>
               <Text style={styles.totalLabel}>
-                Material Certs ({data.certCount})
+                Material Certs ({safeString(data.certCount)})
               </Text>
               <Text style={styles.totalValue}>{formatCurrency(data.certFee)}</Text>
             </View>

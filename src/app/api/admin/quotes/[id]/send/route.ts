@@ -80,16 +80,16 @@ export async function POST(
       .where(eq(quoteItems.quoteId, quoteId))
       .orderBy(quoteItems.displayOrder)
 
-    // Calculate totals
-    const subtotal = parseFloat(quote.pricedTotal || "0")
-    const savings = parseFloat(quote.savings || "0")
-    const certFee = parseFloat(quote.certFee || "0")
-    const certCount = quote.certCount || 0
-    const shippingCost = body.shippingCost ?? 0
+    // Calculate totals - ensure all values are primitive numbers
+    const subtotal = parseFloat(String(quote.pricedTotal || "0")) || 0
+    const savings = parseFloat(String(quote.savings || "0")) || 0
+    const certFee = parseFloat(String(quote.certFee || "0")) || 0
+    const certCount = Number(quote.certCount) || 0
+    const shippingCost = Number(body.shippingCost) || 0
 
-    const subtotalAfterDiscount = subtotal - savings + certFee + shippingCost
-    const gst = subtotalAfterDiscount * 0.1
-    const total = subtotalAfterDiscount + gst
+    const subtotalAfterDiscount = Number(subtotal - savings + certFee + shippingCost) || 0
+    const gst = Number(subtotalAfterDiscount * 0.1) || 0
+    const total = Number(subtotalAfterDiscount + gst) || 0
 
     // Format dates
     const quoteDate = format(quote.createdAt, "d MMMM yyyy")
