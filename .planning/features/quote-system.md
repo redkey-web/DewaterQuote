@@ -531,4 +531,20 @@ When selecting what to display as the "size badge", use this priority:
 
 ---
 
-Last Updated: 2026-01-20 (Phase 10: Smart label logic + custom specs amber badges implemented)
+Last Updated: 2026-01-23 (Phase 10: Smart label logic + custom specs amber badges implemented)
+
+---
+
+## Backlog: Calculated Prices Import
+
+**Added**: 2026-01-23
+**Status**: Pending
+**Priority**: Low
+
+Review and implement `calculated-prices.csv` import:
+- [ ] Analyze the exported price data structure
+- [ ] Compare against current database prices
+- [ ] Identify discrepancies or updates needed
+- [ ] Update product pricing in database if required
+
+**File**: `calculated-prices.csv` (project root)

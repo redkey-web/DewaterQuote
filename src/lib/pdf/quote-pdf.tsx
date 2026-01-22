@@ -105,13 +105,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9fafb",
     minHeight: 36,
   },
-  colSku: { width: "10%", fontSize: 9 },
-  colProduct: { width: "30%", fontSize: 9 },
-  colQty: { width: "8%", textAlign: "center", fontSize: 9 },
+  colSku: { width: "14%", fontSize: 8, paddingRight: 4 },
+  colProduct: { width: "28%", fontSize: 9, paddingRight: 4 },
+  colQty: { width: "6%", textAlign: "center", fontSize: 9 },
   colLeadTime: { width: "12%", textAlign: "center", fontSize: 8 },
-  colUnit: { width: "15%", textAlign: "right", fontSize: 9 },
-  colTotal: { width: "15%", textAlign: "right", fontSize: 9 },
-  colCert: { width: "10%", textAlign: "center", fontSize: 8 },
+  colUnit: { width: "14%", textAlign: "right", fontSize: 9 },
+  colTotal: { width: "14%", textAlign: "right", fontSize: 9 },
+  colCert: { width: "12%", textAlign: "center", fontSize: 8 },
   productName: {
     fontWeight: "bold",
     marginBottom: 2,
@@ -314,7 +314,11 @@ function safeString(value: unknown): string {
 }
 
 function formatAddress(addr: Address): string {
-  return `${safeString(addr.street)}\n${safeString(addr.suburb)} ${safeString(addr.state)} ${safeString(addr.postcode)}`
+  const street = safeString(addr.street)
+  const suburb = safeString(addr.suburb)
+  const state = safeString(addr.state)
+  const postcode = safeString(addr.postcode)
+  return street + "\n" + suburb + " " + state + " " + postcode
 }
 
 export function QuotePDF({ data }: { data: QuotePDFData }) {
@@ -454,7 +458,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
           {data.shippingCost != null && data.shippingCost > 0 && (
             <View style={styles.totalRow}>
               <Text style={styles.totalLabel}>
-                Shipping{data.shippingNotes ? ' (${safeString(data.shippingNotes)})' : ""}
+                Shipping{data.shippingNotes ? " (" + safeString(data.shippingNotes) + ")" : ""}
               </Text>
               <Text style={styles.totalValue}>
                 {formatCurrency(data.shippingCost)}
