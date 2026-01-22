@@ -69,6 +69,13 @@ const STATIC_REDIRECTS: Record<string, string> = {
 function geoMiddleware(request: NextRequest) {
   const response = NextResponse.next();
 
+  // Block search engine indexing on non-production domains (vercel.app previews)
+  const host = request.headers.get('host') || '';
+  const isProduction = host === 'dewaterproducts.com.au' || host === 'www.dewaterproducts.com.au';
+  if (!isProduction) {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  }
+
   // Get Vercel geo headers (available on Vercel deployment)
   const country = request.headers.get('x-vercel-ip-country') || '';
   const region = request.headers.get('x-vercel-ip-region') || '';
