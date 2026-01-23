@@ -126,8 +126,6 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
   const { toast } = useToast();
   const router = useRouter();
   const [status, setStatus] = useState(quote.status || 'pending');
-  const [shippingCost, setShippingCost] = useState(quote.shippingCost || '');
-  const [shippingNotes, setShippingNotes] = useState(quote.shippingNotes || '');
   const [internalNotes, setInternalNotes] = useState(quote.internalNotes || '');
   const [isSaving, setIsSaving] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
@@ -162,8 +160,7 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
   const subtotal = parseFloat(quote.pricedTotal || '0');
   const savings = parseFloat(quote.savings || '0');
   const certFee = parseFloat(quote.certFee || '0');
-  const shipping = parseFloat(shippingCost || '0');
-  const subtotalAfterDiscount = subtotal - savings + certFee + shipping;
+  const subtotalAfterDiscount = subtotal - savings + certFee;
   const gst = subtotalAfterDiscount * 0.1;
   const total = subtotalAfterDiscount + gst;
 
@@ -175,8 +172,6 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           status,
-          shippingCost: shippingCost || null,
-          shippingNotes: shippingNotes || null,
           internalNotes: internalNotes || null,
         }),
       });
@@ -197,11 +192,7 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
   };
 
   const handleDownloadPdf = () => {
-    const params = new URLSearchParams();
-    if (shippingCost) params.set('shipping', shippingCost);
-    if (shippingNotes) params.set('shippingNotes', shippingNotes);
-    const url = `/api/admin/quotes/${quote.id}/pdf${params.toString() ? `?${params.toString()}` : ''}`;
-    window.open(url, '_blank');
+    window.open('/api/admin/quotes/${quote.id}/pdf', '_blank');
   };
 
   const handlePrintView = () => {
@@ -488,41 +479,6 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
             </div>
           )}
 
-          {/* Shipping */}
-          <div className="bg-white rounded-lg border p-6 space-y-4">
-            <h2 className="font-semibold">Shipping</h2>
-            <div>
-              <label className="text-sm text-gray-500 block mb-1">
-                Shipping Cost (ex GST)
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                  $
-                </span>
-                <Input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  placeholder="0.00"
-                  value={shippingCost}
-                  onChange={(e) => setShippingCost(e.target.value)}
-                  className="pl-7"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="text-sm text-gray-500 block mb-1">
-                Shipping Notes
-              </label>
-              <Textarea
-                placeholder="e.g., Road freight to Perth metro"
-                value={shippingNotes}
-                onChange={(e) => setShippingNotes(e.target.value)}
-                rows={2}
-              />
-            </div>
-          </div>
-
           {/* Summary */}
           <div className="bg-white rounded-lg border p-6 space-y-3">
             <h2 className="font-semibold">Summary</h2>
@@ -545,12 +501,6 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
                         Material Certs ({quote.certCount}):
                       </span>
                       <span>${certFee.toFixed(2)}</span>
-                    </div>
-                  )}
-                  {shipping > 0 && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Shipping:</span>
-                      <span>${shipping.toFixed(2)}</span>
                     </div>
                   )}
                   <div className="border-t pt-2 flex justify-between">
