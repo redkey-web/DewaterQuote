@@ -163,6 +163,7 @@ const STATIC_REDIRECTS: Record<string, string> = {
   '/ptfe-lined-butterfly-valve-universal-wafer': '/industrial-valves/butterfly-valves',
   '/swing-check-valve-wcb-flanged-ansi-150lb': '/industrial-valves/check-valves',
   '/foot-valve-galvanised-flanged-table-d': '/industrial-valves/foot-valves',
+  '/foot-valve-hdpe-flanged-table-e': '/industrial-valves/foot-valves',
   '/eccentric-reducing-rubber-expansion-joint-with-tab': '/expansion-joints/reducing',
   '/concentric-reducing-rubber-expansion-joint-with-ta': '/expansion-joints/reducing',
   '/butterfly-valve-316-stainless-steel-cf8m-body-ptfe': '/industrial-valves/butterfly-valves',
