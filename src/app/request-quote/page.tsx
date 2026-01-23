@@ -173,7 +173,8 @@ export default function RequestQuotePage() {
   const billingSameAsDelivery = form.watch("billingSameAsDelivery")
   const deliveryPostcode = form.watch("deliveryAddress.postcode")
   const shippingInfo = deliveryPostcode?.length === 4 ? getShippingMessage(deliveryPostcode) : null
-  const isMetroAddress = shippingInfo?.isFreeShipping ?? false
+  // Allow metro (free) and major_regional ($100), block remote (quote required)
+  const isServiceableAddress = shippingInfo?.zone !== "remote"
 
   const handleTurnstileVerify = useCallback((token: string) => {
     setTurnstileToken(token)
@@ -190,9 +191,9 @@ export default function RequestQuotePage() {
 
   // Check if Turnstile is required (env var set)
   const turnstileRequired = !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
-  // Require metro address for delivery
+  // Require serviceable address (metro or major regional) for delivery
   const hasValidPostcode = deliveryPostcode?.length === 4
-  const canSubmit = (!turnstileRequired || turnstileToken) && (!hasValidPostcode || isMetroAddress)
+  const canSubmit = (!turnstileRequired || turnstileToken) && (!hasValidPostcode || isServiceableAddress)
 
   const onSubmit = async (data: QuoteFormValues) => {
     setIsSubmitting(true)
@@ -630,10 +631,12 @@ export default function RequestQuotePage() {
                           Delivery
                         </span>
                         {shippingInfo ? (
-                          shippingInfo.isFreeShipping ? (
+                          shippingInfo.zone === "metro" ? (
                             <span className="text-green-600 font-medium">FREE (Metro)</span>
+                          ) : shippingInfo.zone === "major_regional" ? (
+                            <span className="text-amber-600 font-medium">$100 (Regional)</span>
                           ) : (
-                            <span className="text-red-600 font-medium">Metro only</span>
+                            <span className="text-red-600 font-medium">Call for quote</span>
                           )
                         ) : (
                           <span className="text-muted-foreground">Enter postcode</span>
@@ -875,13 +878,17 @@ export default function RequestQuotePage() {
                                   />
                                 </FormControl>
                                 {shippingInfo && (
-                                  shippingInfo.isFreeShipping ? (
+                                  shippingInfo.zone === "metro" ? (
                                     <p className="text-xs mt-1 text-green-600">
                                       {shippingInfo.shortMessage}
                                     </p>
+                                  ) : shippingInfo.zone === "major_regional" ? (
+                                    <p className="text-xs mt-1 text-amber-600">
+                                      $100 regional delivery fee applies
+                                    </p>
                                   ) : (
                                     <p className="text-xs mt-1 text-red-600 font-medium">
-                                      Please enter a metro delivery address. Regional delivery is not available for online quotes.
+                                      Remote area - please call 1300 271 290 for a delivery quote.
                                     </p>
                                   )
                                 )}
@@ -1056,11 +1063,13 @@ export default function RequestQuotePage() {
                         <Truck className="w-4 h-4 shrink-0 mt-0.5" />
                         <span>
                           {shippingInfo ? (
-                            shippingInfo.isFreeShipping
+                            shippingInfo.zone === "metro"
                               ? shippingInfo.message
-                              : <span className="text-red-600 font-medium">Online quotes are only available for metro delivery addresses. For regional delivery, please call 1300 271 290.</span>
+                              : shippingInfo.zone === "major_regional"
+                              ? <span className="text-amber-600">{shippingInfo.message}</span>
+                              : <span className="text-red-600 font-medium">Remote area - please call 1300 271 290 for a delivery quote.</span>
                           ) : (
-                            "Free delivery to metro areas. Online quotes for metro addresses only."
+                            "Free delivery to metro areas. $100 to major regional areas."
                           )}
                         </span>
                       </div>
@@ -1076,16 +1085,16 @@ export default function RequestQuotePage() {
                       </div>
                     </div>
 
-                    {/* Non-metro warning */}
-                    {hasValidPostcode && !isMetroAddress && (
+                    {/* Remote area warning */}
+                    {hasValidPostcode && !isServiceableAddress && (
                       <div className="flex items-start gap-2 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-md">
                         <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
                         <div>
                           <p className="text-sm font-medium text-red-800 dark:text-red-200">
-                            Metro delivery address required
+                            Remote area - not available for online quotes
                           </p>
                           <p className="text-xs text-red-700 dark:text-red-300 mt-1">
-                            Online quotes are only available for metro areas. For regional delivery, please call 1300 271 290.
+                            Please enter a metro or major regional postcode, or call 1300 271 290 for remote delivery quotes.
                           </p>
                         </div>
                       </div>
@@ -1103,8 +1112,8 @@ export default function RequestQuotePage() {
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                           Submitting...
                         </>
-                      ) : hasValidPostcode && !isMetroAddress ? (
-                        "Metro Address Required"
+                      ) : hasValidPostcode && !isServiceableAddress ? (
+                        "Serviceable Address Required"
                       ) : (
                         "Get Quote"
                       )}
