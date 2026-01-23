@@ -264,6 +264,14 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
                 `
                     : ""
                 }
+                <tr style="border-top: 2px solid #e5e7eb;">
+                  <td style="padding: 12px 15px; border-bottom: 1px solid #e5e7eb;">
+                    <strong style="color: #333;">Subtotal (ex GST)</strong>
+                  </td>
+                  <td style="padding: 12px 15px; border-bottom: 1px solid #e5e7eb; text-align: right;">
+                    <strong>${formatCurrency(data.total - data.gst)}</strong>
+                  </td>
+                </tr>
                 <tr>
                   <td style="padding: 12px 15px; border-bottom: 1px solid #e5e7eb;">
                     <span style="color: #666;">GST (10%)</span>
@@ -414,7 +422,9 @@ ${itemsList}
 TOTALS
 ------
 Subtotal:           ${formatCurrency(data.subtotal)}
-${data.savings > 0 ? `Bulk Discount:      -${formatCurrency(data.savings)}\n` : ""}${data.certFee > 0 ? `Material Certs (${data.certCount}): ${formatCurrency(data.certFee)}\n` : ""}${data.shippingCost != null && data.shippingCost > 0 ? `Shipping:           ${formatCurrency(data.shippingCost)}${data.shippingNotes ? ` (${data.shippingNotes})` : ""}\n` : ""}GST (10%):          ${formatCurrency(data.gst)}
+${data.savings > 0 ? 'Bulk Discount:      -${formatCurrency(data.savings)}\n' : ""}${data.certFee > 0 ? 'Material Certs (${data.certCount}): ${formatCurrency(data.certFee)}\n' : ""}${data.shippingCost != null && data.shippingCost > 0 ? 'Shipping:           ${formatCurrency(data.shippingCost)}${data.shippingNotes ? ' (${data.shippingNotes})' : ""}\n' : ""}--------------------------
+Subtotal (ex GST):  ${formatCurrency(data.total - data.gst)}
+GST (10%):          ${formatCurrency(data.gst)}
 --------------------------
 TOTAL (inc GST):    ${formatCurrency(data.total)}
 

@@ -519,6 +519,10 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
               </Text>
             </View>
           )}
+          <View style={[styles.totalRow, { borderTopWidth: 1, borderTopColor: "#e5e7eb", paddingTop: 8 }]}>
+            <Text style={[styles.totalLabel, { fontWeight: "bold", color: "#1a1a1a" }]}>Subtotal (ex GST)</Text>
+            <Text style={[styles.totalValue, { fontWeight: "bold" }]}>{formatCurrency(data.total - data.gst)}</Text>
+          </View>
           <View style={styles.totalRow}>
             <Text style={styles.totalLabel}>GST (10%)</Text>
             <Text style={styles.totalValue}>{formatCurrency(data.gst)}</Text>
