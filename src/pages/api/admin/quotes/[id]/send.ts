@@ -230,7 +230,7 @@ export default async function handler(
         email: fromEmail,
         name: fromName,
       },
-      replyTo: process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au",
+      replyTo: (process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au").split(",")[0].trim(),
       subject: "Your Quote " + quote.quoteNumber + " from Dewater Products",
       html: htmlContent,
       text: textContent,
