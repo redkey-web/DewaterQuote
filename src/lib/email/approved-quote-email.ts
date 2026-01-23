@@ -308,6 +308,7 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
                 <p style="margin: 0; color: #047857; font-size: 13px; line-height: 1.6;">
                   Just email your purchase order to
                   <a href="mailto:sales@dewaterproducts.com.au" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">sales@dewaterproducts.com.au</a>
+                  along with a copy of this email or attached PDF.
                 </p>
                 <p style="margin: 12px 0 0 0; font-size: 12px; color: #6b7280;">
                   Questions? Call us on <a href="tel:1300271290" style="color: #0ea5e9; text-decoration: none;">1300 271 290</a>
@@ -429,7 +430,7 @@ TERMS & CONDITIONS
 
 ---
 
-Ready to order? Just email your purchase order to sales@dewaterproducts.com.au
+Ready to order? Just email your purchase order to sales@dewaterproducts.com.au along with a copy of this email or attached PDF.
 
 ---
 

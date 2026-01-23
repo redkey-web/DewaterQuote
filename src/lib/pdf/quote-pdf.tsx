@@ -739,7 +739,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
               Ready to order?
             </Text>
             <Text style={{ fontSize: 8, color: "#047857", lineHeight: 1.4 }}>
-              Just email your purchase order to sales@dewaterproducts.com.au
+              Just email your purchase order to sales@dewaterproducts.com.au along with a copy of this quote.
             </Text>
             <Text style={{ fontSize: 8, color: "#6b7280", marginTop: 4 }}>
               Quote valid until {safeString(data.validUntil)}. Questions? Call 1300 271 290.

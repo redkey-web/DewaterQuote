@@ -102,7 +102,7 @@ export function SendQuoteDialog({
 
     setIsSending(true);
     try {
-      const response = await fetch('/api/admin/quotes/${quoteId}/send', {
+      const response = await fetch("/api/admin/quotes/" + quoteId + "/send", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
