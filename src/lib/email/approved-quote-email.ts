@@ -422,7 +422,7 @@ ${itemsList}
 TOTALS
 ------
 Subtotal:           ${formatCurrency(data.subtotal)}
-${data.savings > 0 ? 'Bulk Discount:      -${formatCurrency(data.savings)}\n' : ""}${data.certFee > 0 ? 'Material Certs (${data.certCount}): ${formatCurrency(data.certFee)}\n' : ""}${data.shippingCost != null && data.shippingCost > 0 ? 'Shipping:           ${formatCurrency(data.shippingCost)}${data.shippingNotes ? ' (${data.shippingNotes})' : ""}\n' : ""}--------------------------
+${data.savings > 0 ? "Bulk Discount:      -" + formatCurrency(data.savings) + "\n" : ""}${data.certFee > 0 ? "Material Certs (" + data.certCount + "): " + formatCurrency(data.certFee) + "\n" : ""}${data.shippingCost != null && data.shippingCost > 0 ? "Shipping:           " + formatCurrency(data.shippingCost) + (data.shippingNotes ? " (" + data.shippingNotes + ")" : "") + "\n" : ""}--------------------------
 Subtotal (ex GST):  ${formatCurrency(data.total - data.gst)}
 GST (10%):          ${formatCurrency(data.gst)}
 --------------------------
