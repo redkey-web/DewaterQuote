@@ -16,6 +16,43 @@ import {
 import { format } from "date-fns"
 import { getQuoteExpiry } from "@/lib/quote"
 
+// Helper to find any objects in data structure that would cause React Error #31
+function findObjectsInData(obj: unknown, path = ""): string[] {
+  const problems: string[] = []
+
+  if (obj === null || obj === undefined) return problems
+
+  if (typeof obj === "object") {
+    // Arrays are OK if their elements are primitives
+    if (Array.isArray(obj)) {
+      obj.forEach((item, index) => {
+        problems.push(...findObjectsInData(item, '${path}[${index}]'))
+      })
+    } else {
+      // Check if it's a plain object with expected keys vs unexpected object
+      const keys = Object.keys(obj)
+      for (const key of keys) {
+        const value = (obj as Record<string, unknown>)[key]
+        const valuePath = path ? '${path}.${key}' : key
+
+        // These types are problematic if rendered directly in JSX
+        if (value !== null && value !== undefined && typeof value === "object") {
+          // Check if it's a nested object (allowed) or something else (problematic)
+          if (!Array.isArray(value) && value.constructor !== Object) {
+            // This is a class instance (Date, Decimal, etc.) - problematic!
+            problems.push('${valuePath} is ${value.constructor?.name || "unknown object"}: ${JSON.stringify(value)}')
+          } else {
+            // Recurse into arrays and plain objects
+            problems.push(...findObjectsInData(value, valuePath))
+          }
+        }
+      }
+    }
+  }
+
+  return problems
+}
+
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
@@ -80,6 +117,20 @@ export async function POST(
       .where(eq(quoteItems.quoteId, quoteId))
       .orderBy(quoteItems.displayOrder)
 
+    // Debug: Log types of first item's fields to catch any unexpected object types
+    if (items.length > 0) {
+      const firstItem = items[0]
+      console.log("[Quote " + quote.quoteNumber + "] First item field types:", {
+        sku: typeof firstItem.sku,
+        name: typeof firstItem.name,
+        brand: typeof firstItem.brand,
+        unitPrice: typeof firstItem.unitPrice,
+        unitPriceValue: firstItem.unitPrice,
+        lineTotal: typeof firstItem.lineTotal,
+        quotedPrice: typeof firstItem.quotedPrice,
+      })
+    }
+
     // Calculate totals - ensure all values are primitive numbers
     const subtotal = parseFloat(String(quote.pricedTotal || "0")) || 0
     const savings = parseFloat(String(quote.savings || "0")) || 0
@@ -91,9 +142,9 @@ export async function POST(
     const gst = Number(subtotalAfterDiscount * 0.1) || 0
     const total = Number(subtotalAfterDiscount + gst) || 0
 
-    // Format dates
-    const quoteDate = format(quote.createdAt, "d MMMM yyyy")
-    const validUntil = format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy")
+    // Format dates - ensure they're strings
+    const quoteDate = String(format(quote.createdAt, "d MMMM yyyy"))
+    const validUntil = String(format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy"))
 
     // Prepare items for PDF/email - ensure all values are primitives (not objects)
     const pdfItems: QuoteItemPDF[] = items.map((item) => ({
@@ -143,8 +194,17 @@ export async function POST(
       websiteUrl: process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au",
     }
 
+    // Validate data structure before PDF generation - catch any objects that would cause React Error #31
+    const objectProblems = findObjectsInData(pdfData)
+    if (objectProblems.length > 0) {
+      console.error("[Quote " + quote.quoteNumber + "] Found non-primitive values in PDF data:")
+      objectProblems.forEach((p) => console.error("  - " + p))
+      console.error("[Quote " + quote.quoteNumber + "] Full PDF data:", JSON.stringify(pdfData, null, 2))
+      throw new Error("PDF data contains objects that cannot be rendered: " + objectProblems.join(", "))
+    }
+
     // Generate PDF
-    console.log("[Quote " + quote.quoteNumber + "] PDF data:", JSON.stringify(pdfData, null, 2).slice(0, 2000))
+    console.log("[Quote " + quote.quoteNumber + "] PDF data validated, generating PDF...")
     let pdfBuffer: Uint8Array
     try {
       pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))

@@ -54,59 +54,60 @@ export default async function handler(
       .where(eq(quoteItems.quoteId, quoteId))
       .orderBy(quoteItems.displayOrder)
 
-    // Calculate totals
-    const subtotal = parseFloat(quote.pricedTotal || "0")
-    const savings = parseFloat(quote.savings || "0")
-    const certFee = parseFloat(quote.certFee || "0")
-    const certCount = quote.certCount || 0
+    // Calculate totals - ensure all values are primitive numbers
+    const subtotal = parseFloat(String(quote.pricedTotal || "0")) || 0
+    const savings = parseFloat(String(quote.savings || "0")) || 0
+    const certFee = parseFloat(String(quote.certFee || "0")) || 0
+    const certCount = Number(quote.certCount) || 0
 
-    const subtotalAfterDiscount = subtotal - savings + certFee + shippingCost
-    const gst = subtotalAfterDiscount * 0.1
-    const total = subtotalAfterDiscount + gst
+    const subtotalAfterDiscount = Number(subtotal - savings + certFee + shippingCost) || 0
+    const gst = Number(subtotalAfterDiscount * 0.1) || 0
+    const total = Number(subtotalAfterDiscount + gst) || 0
 
-    // Format dates
-    const quoteDate = format(quote.createdAt, "d MMMM yyyy")
-    const validUntil = format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy")
+    // Format dates - ensure they're strings
+    const quoteDate = String(format(quote.createdAt, "d MMMM yyyy"))
+    const validUntil = String(format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy"))
 
-    // Prepare items for PDF
+    // Prepare items for PDF - ensure all values are primitives (not objects)
     const pdfItems: QuoteItemPDF[] = items.map((item) => ({
-      sku: item.variationSku || item.sku,
-      name: item.name,
-      brand: item.brand,
-      size: item.size || undefined,
-      sizeLabel: item.sizeLabel || undefined,
-      quantity: item.quantity,
-      unitPrice: item.unitPrice ? parseFloat(item.unitPrice) : null,
-      lineTotal: item.lineTotal ? parseFloat(item.lineTotal) : null,
-      quotedPrice: item.quotedPrice ? parseFloat(item.quotedPrice) : null,
-      quotedNotes: item.quotedNotes || undefined,
-      materialTestCert: item.materialTestCert || false,
+      sku: String(item.variationSku || item.sku || ""),
+      name: String(item.name || ""),
+      brand: String(item.brand || ""),
+      size: item.size ? String(item.size) : undefined,
+      sizeLabel: item.sizeLabel ? String(item.sizeLabel) : undefined,
+      quantity: Number(item.quantity) || 1,
+      unitPrice: item.unitPrice ? parseFloat(String(item.unitPrice)) : null,
+      lineTotal: item.lineTotal ? parseFloat(String(item.lineTotal)) : null,
+      quotedPrice: item.quotedPrice ? parseFloat(String(item.quotedPrice)) : null,
+      quotedNotes: item.quotedNotes ? String(item.quotedNotes) : null,
+      materialTestCert: Boolean(item.materialTestCert),
+      leadTime: null,
     }))
 
-    // Build address objects from separate columns
+    // Build address objects from separate columns - ensure all values are primitives
     const deliveryAddress = {
-      street: quote.deliveryStreet || "",
-      suburb: quote.deliverySuburb || "",
-      state: quote.deliveryState || "",
-      postcode: quote.deliveryPostcode || "",
+      street: String(quote.deliveryStreet || ""),
+      suburb: String(quote.deliverySuburb || ""),
+      state: String(quote.deliveryState || ""),
+      postcode: String(quote.deliveryPostcode || ""),
     }
 
     const billingAddress = {
-      street: quote.billingStreet || quote.deliveryStreet || "",
-      suburb: quote.billingSuburb || quote.deliverySuburb || "",
-      state: quote.billingState || quote.deliveryState || "",
-      postcode: quote.billingPostcode || quote.deliveryPostcode || "",
+      street: String(quote.billingStreet || quote.deliveryStreet || ""),
+      suburb: String(quote.billingSuburb || quote.deliverySuburb || ""),
+      state: String(quote.billingState || quote.deliveryState || ""),
+      postcode: String(quote.billingPostcode || quote.deliveryPostcode || ""),
     }
 
-    // Build PDF data
+    // Build PDF data - ensure all string values are primitives (not objects)
     const pdfData: QuotePDFData = {
-      quoteNumber: quote.quoteNumber,
+      quoteNumber: String(quote.quoteNumber || ""),
       quoteDate,
       validUntil,
-      companyName: quote.companyName,
-      contactName: quote.contactName,
-      email: quote.email,
-      phone: quote.phone,
+      companyName: String(quote.companyName || ""),
+      contactName: String(quote.contactName || ""),
+      email: String(quote.email || ""),
+      phone: String(quote.phone || ""),
       deliveryAddress,
       billingAddress,
       items: pdfItems,
@@ -115,13 +116,13 @@ export default async function handler(
       certFee,
       certCount,
       shippingCost,
-      shippingNotes,
+      shippingNotes: shippingNotes ? String(shippingNotes) : undefined,
       gst,
       total,
-      hasUnpricedItems: quote.hasUnpricedItems || false,
-      notes: quote.notes || undefined,
-      preparedBy,
-      isDraft,
+      hasUnpricedItems: Boolean(quote.hasUnpricedItems),
+      notes: quote.notes ? String(quote.notes) : undefined,
+      preparedBy: preparedBy ? String(preparedBy) : undefined,
+      isDraft: Boolean(isDraft),
     }
 
     // Generate PDF using Pages Router (compatible with react-pdf)
