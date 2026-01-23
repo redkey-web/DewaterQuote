@@ -50,6 +50,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { SendQuoteDialog } from '@/components/admin/SendQuoteDialog';
+import { checkShippingZone } from '@/lib/shipping/metro-postcodes';
 
 type Address = {
   street: string;
@@ -156,11 +157,13 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
   const billingIsDifferent =
     formatAddress(deliveryAddress) !== formatAddress(billingAddress);
 
-  // Calculate totals
+  // Calculate totals including auto-calculated shipping
   const subtotal = parseFloat(quote.pricedTotal || '0');
   const savings = parseFloat(quote.savings || '0');
   const certFee = parseFloat(quote.certFee || '0');
-  const subtotalAfterDiscount = subtotal - savings + certFee;
+  const shippingZone = checkShippingZone(deliveryAddress.postcode);
+  const shipping = shippingZone.shippingCost || 0;
+  const subtotalAfterDiscount = subtotal - savings + certFee + shipping;
   const gst = subtotalAfterDiscount * 0.1;
   const total = subtotalAfterDiscount + gst;
 
@@ -192,7 +195,7 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
   };
 
   const handleDownloadPdf = () => {
-    window.open('/api/admin/quotes/${quote.id}/pdf', '_blank');
+    window.open("/api/admin/quotes/" + quote.id + "/pdf", "_blank");
   };
 
   const handlePrintView = () => {
@@ -501,6 +504,20 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
                         Material Certs ({quote.certCount}):
                       </span>
                       <span>${certFee.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {shipping > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-500">
+                        Shipping ({shippingZone.region}):
+                      </span>
+                      <span>${shipping.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {shipping === 0 && shippingZone.zone === "metro" && (
+                    <div className="flex justify-between text-green-600">
+                      <span>Shipping (Metro):</span>
+                      <span>FREE</span>
                     </div>
                   )}
                   <div className="border-t pt-2 flex justify-between">

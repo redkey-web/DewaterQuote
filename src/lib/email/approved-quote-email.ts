@@ -87,10 +87,10 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
           <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">
             <strong style="color: #1a1a1a;">${safeName}</strong><br />
             <span style="font-size: 12px; color: #666;">${safeBrand}</span>
-            ${safeSize ? '<br /><span style="font-size: 12px; color: #666;">${safeSize}</span>' : ""}
+            ${safeSize ? "<br /><span style=\"font-size: 12px; color: #666;\">" + safeSize + "</span>" : ""}
             ${item.materialTestCert ? '<br /><span style="display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-top: 4px;">+ Material Cert</span>' : ""}
-            ${safeLeadTime ? '<br /><span style="font-size: 11px; color: #666;">Lead time: ${safeLeadTime}</span>' : ""}
-            ${safeNotes ? '<br /><span style="font-size: 11px; color: #92400e; font-style: italic;">Note: ${safeNotes}</span>' : ""}
+            ${safeLeadTime ? "<br /><span style=\"font-size: 11px; color: #666;\">Lead time: " + safeLeadTime + "</span>" : ""}
+            ${safeNotes ? "<br /><span style=\"font-size: 11px; color: #92400e; font-style: italic;\">Note: " + safeNotes + "</span>" : ""}
           </td>
           <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: center;">
             ${item.quantity}
