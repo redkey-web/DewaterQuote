@@ -299,23 +299,60 @@ export interface QuotePDFData {
 }
 
 function formatCurrency(amount: unknown): string {
+  // Handle null/undefined
   if (amount === null || amount === undefined) return "POA"
-  if (typeof amount !== "number") {
-    // Try to parse if it's a string, otherwise return POA
-    const parsed = typeof amount === "string" ? parseFloat(amount) : NaN
+
+  // Handle objects (including Decimal objects from Drizzle) - MUST check before typeof number
+  if (typeof amount === "object") {
+    // Try to convert object to string first (handles Decimal.toString())
+    try {
+      const str = String(amount)
+      const parsed = parseFloat(str)
+      if (!isNaN(parsed)) return "$" + parsed.toFixed(2)
+    } catch {
+      // Ignore conversion errors
+    }
+    return "POA"
+  }
+
+  // Handle strings
+  if (typeof amount === "string") {
+    const parsed = parseFloat(amount)
     if (isNaN(parsed)) return "POA"
     return "$" + parsed.toFixed(2)
   }
-  return "$" + amount.toFixed(2)
+
+  // Handle numbers (including NaN)
+  if (typeof amount === "number") {
+    if (isNaN(amount)) return "POA"
+    return "$" + amount.toFixed(2)
+  }
+
+  // Anything else
+  return "POA"
 }
 
 // Safely convert any value to a string (prevents React elements from breaking PDF)
 function safeString(value: unknown): string {
   if (value === null || value === undefined) return ""
   if (typeof value === "string") return value
-  if (typeof value === "number") return String(value)
+  if (typeof value === "number") {
+    if (isNaN(value)) return ""
+    return String(value)
+  }
   if (typeof value === "boolean") return value ? "Yes" : "No"
-  // If it's an object (including React elements), return empty string
+  // If it's an object (including Decimal, Date, React elements), try to convert safely
+  if (typeof value === "object") {
+    try {
+      // Try to convert to primitive string
+      const str = String(value)
+      // Check if it's a useless "[object Object]" conversion
+      if (str === "[object Object]") return ""
+      return str
+    } catch {
+      return ""
+    }
+  }
   return ""
 }
 
@@ -404,9 +441,12 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
 
             {/* Table Rows */}
             {data.items.map((item, index) => {
-              const unitPrice = item.quotedPrice ?? item.unitPrice
-              const lineTotal =
-                unitPrice != null ? unitPrice * item.quantity : item.lineTotal
+              // Ensure all values are primitives - defensive against any objects
+              const rawUnitPrice = item.quotedPrice ?? item.unitPrice
+              const unitPrice = typeof rawUnitPrice === "number" ? rawUnitPrice : null
+              const qty = typeof item.quantity === "number" ? item.quantity : 1
+              const rawLineTotal = unitPrice != null ? unitPrice * qty : item.lineTotal
+              const lineTotal = typeof rawLineTotal === "number" ? rawLineTotal : null
 
               return (
                 <View
