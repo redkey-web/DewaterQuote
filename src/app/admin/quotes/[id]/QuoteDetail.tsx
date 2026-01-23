@@ -596,8 +596,6 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
         quoteNumber={quote.quoteNumber}
         customerEmail={quote.email}
         customerName={quote.contactName}
-        shippingCost={shippingCost}
-        shippingNotes={shippingNotes}
         onSuccess={handleSendSuccess}
       />
 

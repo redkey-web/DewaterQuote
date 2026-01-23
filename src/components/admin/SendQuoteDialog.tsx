@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -22,7 +21,6 @@ import {
   Loader2,
   ExternalLink,
   CheckCircle2,
-  AlertCircle,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -33,8 +31,6 @@ interface SendQuoteDialogProps {
   quoteNumber: string;
   customerEmail: string;
   customerName: string;
-  shippingCost: string;
-  shippingNotes: string;
   onSuccess: () => void;
 }
 
@@ -45,24 +41,18 @@ export function SendQuoteDialog({
   quoteNumber,
   customerEmail,
   customerName,
-  shippingCost: initialShippingCost,
-  shippingNotes: initialShippingNotes,
   onSuccess,
 }: SendQuoteDialogProps) {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<'preview' | 'settings'>('preview');
   const [isSending, setIsSending] = useState(false);
   const [preparedBy, setPreparedBy] = useState('');
-  const [shippingCost, setShippingCost] = useState(initialShippingCost);
-  const [shippingNotes, setShippingNotes] = useState(initialShippingNotes);
   const [emailPreviewLoading, setEmailPreviewLoading] = useState(false);
   const [emailPreviewHtml, setEmailPreviewHtml] = useState<string | null>(null);
 
   // Build preview URLs with current settings
   const buildPreviewParams = () => {
     const params = new URLSearchParams();
-    if (shippingCost) params.set('shipping', shippingCost);
-    if (shippingNotes) params.set('shippingNotes', shippingNotes);
     if (preparedBy) params.set('preparedBy', preparedBy);
     return params.toString();
   };
@@ -112,12 +102,10 @@ export function SendQuoteDialog({
 
     setIsSending(true);
     try {
-      const response = await fetch(`/api/admin/quotes/${quoteId}/send`, {
+      const response = await fetch('/api/admin/quotes/${quoteId}/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          shippingCost: shippingCost ? parseFloat(shippingCost) : undefined,
-          shippingNotes: shippingNotes || undefined,
           preparedBy: preparedBy || undefined,
         }),
       });
@@ -287,47 +275,16 @@ export function SendQuoteDialog({
                 </div>
               </div>
 
-              {/* Shipping */}
+              {/* Quote Options */}
               <div className="space-y-4">
-                <h3 className="font-medium">Shipping Details</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="shipping-cost">Shipping Cost (ex GST)</Label>
-                    <div className="relative mt-1">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                        $
-                      </span>
-                      <Input
-                        id="shipping-cost"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        placeholder="0.00"
-                        value={shippingCost}
-                        onChange={(e) => setShippingCost(e.target.value)}
-                        className="pl-7"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="prepared-by">Prepared By</Label>
-                    <Input
-                      id="prepared-by"
-                      placeholder="e.g., John from Sales"
-                      value={preparedBy}
-                      onChange={(e) => setPreparedBy(e.target.value)}
-                      className="mt-1"
-                    />
-                  </div>
-                </div>
+                <h3 className="font-medium">Quote Options</h3>
                 <div>
-                  <Label htmlFor="shipping-notes">Shipping Notes</Label>
-                  <Textarea
-                    id="shipping-notes"
-                    placeholder="e.g., Road freight to Perth metro, express delivery available"
-                    value={shippingNotes}
-                    onChange={(e) => setShippingNotes(e.target.value)}
-                    rows={2}
+                  <Label htmlFor="prepared-by">Prepared By</Label>
+                  <Input
+                    id="prepared-by"
+                    placeholder="e.g., John from Sales"
+                    value={preparedBy}
+                    onChange={(e) => setPreparedBy(e.target.value)}
                     className="mt-1"
                   />
                 </div>
@@ -347,7 +304,7 @@ export function SendQuoteDialog({
                   </li>
                   <li className="flex items-center gap-2 text-green-700">
                     <CheckCircle2 className="h-4 w-4" />
-                    &quot;Accept Quote&quot; call-to-action button
+                    Instructions to email purchase order
                   </li>
                   <li className="flex items-center gap-2 text-green-700">
                     <CheckCircle2 className="h-4 w-4" />
@@ -355,19 +312,6 @@ export function SendQuoteDialog({
                   </li>
                 </ul>
               </div>
-
-              {/* Warning */}
-              {!shippingCost && (
-                <div className="bg-amber-50 rounded-lg p-4 border border-amber-200 flex items-start gap-3">
-                  <AlertCircle className="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-amber-800">No shipping cost set</p>
-                    <p className="text-sm text-amber-700">
-                      The quote will be sent without shipping. Add a shipping cost above if required.
-                    </p>
-                  </div>
-                </div>
-              )}
             </div>
           </TabsContent>
         </Tabs>
