@@ -3,6 +3,7 @@ import { quotes } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
+import { checkShippingZone } from '@/lib/shipping/metro-postcodes';
 
 type Address = {
   street: string;
@@ -64,11 +65,12 @@ export default async function QuotePrintPage({
     postcode: quote.billingPostcode || quote.deliveryPostcode || '',
   };
 
-  // Calculate totals
+  // Calculate totals including auto-calculated shipping
   const subtotal = parseFloat(quote.pricedTotal || '0');
   const savings = parseFloat(quote.savings || '0');
   const certFee = parseFloat(quote.certFee || '0');
-  const shipping = parseFloat(quote.shippingCost || '0');
+  const shippingZone = checkShippingZone(deliveryAddress.postcode);
+  const shipping = shippingZone.shippingCost || 0;
   const subtotalAfterDiscount = subtotal - savings + certFee + shipping;
   const gst = subtotalAfterDiscount * 0.1;
   const total = subtotalAfterDiscount + gst;
@@ -404,10 +406,15 @@ export default async function QuotePrintPage({
                   {shipping > 0 && (
                     <tr>
                       <td>
-                        Shipping
-                        {quote.shippingNotes && ` (${quote.shippingNotes})`}:
+                        Shipping ({shippingZone.region}):
                       </td>
                       <td className="right">${shipping.toFixed(2)}</td>
+                    </tr>
+                  )}
+                  {shipping === 0 && shippingZone.zone === "metro" && (
+                    <tr className="discount">
+                      <td>Shipping (Metro):</td>
+                      <td className="right">FREE</td>
                     </tr>
                   )}
                   <tr className="subtotal">

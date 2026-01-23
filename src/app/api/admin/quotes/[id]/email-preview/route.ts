@@ -10,6 +10,7 @@ import {
 } from "@/lib/email/approved-quote-email"
 import { format } from "date-fns"
 import { getQuoteExpiry } from "@/lib/quote"
+import { checkShippingZone } from "@/lib/shipping/metro-postcodes"
 
 export async function GET(
   request: NextRequest,
@@ -31,8 +32,6 @@ export async function GET(
 
     // Get query params for optional overrides
     const url = new URL(request.url)
-    const shippingCost = parseFloat(url.searchParams.get("shipping") || "0")
-    const shippingNotes = url.searchParams.get("shippingNotes") || undefined
     const preparedBy = url.searchParams.get("preparedBy") || undefined
 
     // Fetch quote with items
@@ -66,11 +65,20 @@ export async function GET(
       .where(eq(quoteItems.quoteId, quoteId))
       .orderBy(quoteItems.displayOrder)
 
-    // Calculate totals
+    // Calculate totals including auto-calculated shipping
     const subtotal = parseFloat(quote.pricedTotal || "0")
     const savings = parseFloat(quote.savings || "0")
     const certFee = parseFloat(quote.certFee || "0")
     const certCount = quote.certCount || 0
+
+    // Auto-calculate shipping based on delivery postcode
+    const shippingZone = checkShippingZone(deliveryAddress.postcode)
+    const shippingCost = shippingZone.shippingCost || 0
+    const shippingNotes = shippingZone.zone === "major_regional"
+      ? "Regional delivery to " + shippingZone.region
+      : shippingZone.zone === "metro"
+        ? "Free metro delivery"
+        : undefined
 
     const subtotalAfterDiscount = subtotal - savings + certFee + shippingCost
     const gst = subtotalAfterDiscount * 0.1
