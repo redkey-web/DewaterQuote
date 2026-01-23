@@ -15,6 +15,7 @@ import {
 } from "@/lib/email/approved-quote-email"
 import { format } from "date-fns"
 import { getQuoteExpiry } from "@/lib/quote"
+import { checkShippingZone } from "@/lib/shipping/metro-postcodes"
 
 // Helper to find any objects in data structure that would cause React Error #31
 function findObjectsInData(obj: unknown, path = ""): string[] {
@@ -136,7 +137,15 @@ export async function POST(
     const savings = parseFloat(String(quote.savings || "0")) || 0
     const certFee = parseFloat(String(quote.certFee || "0")) || 0
     const certCount = Number(quote.certCount) || 0
-    const shippingCost = Number(body.shippingCost) || 0
+
+    // Calculate shipping based on delivery postcode zone
+    const shippingZone = checkShippingZone(deliveryAddress.postcode)
+    const shippingCost = shippingZone.shippingCost || 0
+    const shippingNotes = shippingZone.zone === "major_regional"
+      ? "Regional delivery to " + shippingZone.region
+      : shippingZone.zone === "metro"
+        ? "Free metro delivery"
+        : undefined
 
     const subtotalAfterDiscount = Number(subtotal - savings + certFee + shippingCost) || 0
     const gst = Number(subtotalAfterDiscount * 0.1) || 0
@@ -181,7 +190,7 @@ export async function POST(
       certFee,
       certCount,
       shippingCost,
-      shippingNotes: body.shippingNotes ? String(body.shippingNotes) : undefined,
+      shippingNotes: shippingNotes,
       gst,
       total,
       hasUnpricedItems: Boolean(quote.hasUnpricedItems),
