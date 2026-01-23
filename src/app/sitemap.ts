@@ -54,36 +54,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = catalogProducts
   const categories = catalogCategories
   const subcategories = catalogSubcategories
-  // Static brand list (matches brandToUrl keys)
-  const allBrands = [
-    { slug: 'straub' },
-    { slug: 'orbit' },
-    { slug: 'teekay' },
-    { slug: 'bore-flex-rubber' },
-    { slug: 'defender-valves' },
-    { slug: 'defender-strainers' },
-  ]
 
   // Static pages - hub pages and standalone pages
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: now, changeFrequency: "weekly", priority: 1 },
-    { url: '${BASE_URL}/products', lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: '${BASE_URL}/contact', lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: '${BASE_URL}/request-quote', lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: '${BASE_URL}/about', lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: '${BASE_URL}/brands', lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: '${BASE_URL}/industries', lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/products`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/request-quote`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/brands`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/industries`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     // Hub pages
-    { url: '${BASE_URL}/industrial-valves', lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-    { url: '${BASE_URL}/expansion-joints', lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-    { url: '${BASE_URL}/strainers', lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-    { url: '${BASE_URL}/pipe-couplings', lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE_URL}/industrial-valves`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE_URL}/expansion-joints`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE_URL}/strainers`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE_URL}/pipe-couplings`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     // Standalone pages
-    { url: '${BASE_URL}/pipe-repair-clamps', lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: '${BASE_URL}/flange-adaptors', lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: '${BASE_URL}/bore-flex', lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: '${BASE_URL}/defender-valves', lastModified: now, changeFrequency: "weekly", priority: 0.75 },
-    { url: '${BASE_URL}/defender-strainers', lastModified: now, changeFrequency: "weekly", priority: 0.75 },
+    { url: `${BASE_URL}/pipe-repair-clamps`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/flange-adaptors`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/bore-flex`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/defender-valves`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
+    { url: `${BASE_URL}/defender-strainers`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
+    // Nested brand pages under pipe-couplings
+    { url: `${BASE_URL}/pipe-couplings/straub`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE_URL}/pipe-couplings/orbit`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: `${BASE_URL}/pipe-couplings/teekay`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/pipe-couplings/muff-couplings`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ]
 
   // Category pages (from database) - excluding 'valves' which is now 'industrial-valves'
@@ -106,7 +102,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   })
 
   const subcategoryPages: MetadataRoute.Sitemap = Array.from(nestedSubcategoryUrls).map((url) => ({
-    url: '${BASE_URL}${url}',
+    url: `${BASE_URL}${url}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.75,
@@ -119,18 +115,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }))
-
-  // Brand pages (from database, using URL mapping)
-  const brandPages: MetadataRoute.Sitemap = allBrands.map((brand) => {
-    const url = brandToUrl[brand.slug] || `/brands/${brand.slug}`
-    const isTopBrand = ['straub', 'orbit'].includes(brand.slug)
-    return {
-      url: `${BASE_URL}${url}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: isTopBrand ? 0.9 : 0.75,
-    }
-  })
 
   // Industry pages
   const industryPages: MetadataRoute.Sitemap = [
@@ -153,7 +137,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...categoryPages,
     ...subcategoryPages,
     ...productPages,
-    ...brandPages,
     ...industryPages,
   ]
 }
