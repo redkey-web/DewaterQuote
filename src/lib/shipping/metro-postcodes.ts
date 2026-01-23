@@ -1,11 +1,11 @@
 /**
- * Australian Metropolitan Postcode Detection
+ * Australian Free Shipping Postcode Detection
  *
- * Based on Australia Post and common freight carrier definitions.
- * Metro areas typically receive free or standard-rate shipping.
+ * Includes metro areas AND regional centers with freight depots.
+ * Areas with StarTrack, Toll, FedEx, TNT depots qualify for free shipping.
  *
  * Last updated: January 2025
- * Source: Australia Post delivery zones + major freight carriers
+ * Source: Australia Post delivery zones + major freight carrier depot locations
  */
 
 // Postcode ranges for Australian metropolitan areas
@@ -146,6 +146,270 @@ const METRO_REGIONS: MetroRegion[] = [
       [3211, 3227], // Geelong area
     ],
   },
+
+  // ============================================
+  // REGIONAL CENTERS WITH FREIGHT DEPOTS
+  // (StarTrack, Toll, FedEx, TNT distribution)
+  // ============================================
+
+  // Western Australia - Regional with Depots
+  {
+    name: "Geraldton",
+    state: "WA",
+    ranges: [
+      [6530, 6532], // Geraldton
+    ],
+  },
+  {
+    name: "Kalgoorlie",
+    state: "WA",
+    ranges: [
+      [6430, 6433], // Kalgoorlie-Boulder
+    ],
+  },
+  {
+    name: "Albany",
+    state: "WA",
+    ranges: [
+      [6330, 6333], // Albany
+    ],
+  },
+  {
+    name: "Karratha",
+    state: "WA",
+    ranges: [
+      [6714, 6714], // Karratha
+    ],
+  },
+  {
+    name: "Port Hedland",
+    state: "WA",
+    ranges: [
+      [6721, 6722], // Port Hedland / South Hedland
+    ],
+  },
+
+  // New South Wales - Regional with Depots
+  {
+    name: "Dubbo",
+    state: "NSW",
+    ranges: [
+      [2830, 2832], // Dubbo
+    ],
+  },
+  {
+    name: "Wagga Wagga",
+    state: "NSW",
+    ranges: [
+      [2650, 2652], // Wagga Wagga
+    ],
+  },
+  {
+    name: "Albury",
+    state: "NSW",
+    ranges: [
+      [2640, 2641], // Albury
+    ],
+  },
+  {
+    name: "Tamworth",
+    state: "NSW",
+    ranges: [
+      [2340, 2341], // Tamworth
+    ],
+  },
+  {
+    name: "Orange",
+    state: "NSW",
+    ranges: [
+      [2800, 2800], // Orange
+    ],
+  },
+  {
+    name: "Bathurst",
+    state: "NSW",
+    ranges: [
+      [2795, 2795], // Bathurst
+    ],
+  },
+  {
+    name: "Coffs Harbour",
+    state: "NSW",
+    ranges: [
+      [2450, 2452], // Coffs Harbour
+    ],
+  },
+  {
+    name: "Lismore",
+    state: "NSW",
+    ranges: [
+      [2480, 2480], // Lismore
+    ],
+  },
+  {
+    name: "Port Macquarie",
+    state: "NSW",
+    ranges: [
+      [2444, 2446], // Port Macquarie
+    ],
+  },
+
+  // Victoria - Regional with Depots
+  {
+    name: "Ballarat",
+    state: "VIC",
+    ranges: [
+      [3350, 3356], // Ballarat
+    ],
+  },
+  {
+    name: "Bendigo",
+    state: "VIC",
+    ranges: [
+      [3550, 3556], // Bendigo
+    ],
+  },
+  {
+    name: "Shepparton",
+    state: "VIC",
+    ranges: [
+      [3630, 3632], // Shepparton
+    ],
+  },
+  {
+    name: "Wodonga",
+    state: "VIC",
+    ranges: [
+      [3690, 3691], // Wodonga
+    ],
+  },
+  {
+    name: "Warrnambool",
+    state: "VIC",
+    ranges: [
+      [3280, 3282], // Warrnambool
+    ],
+  },
+  {
+    name: "Traralgon",
+    state: "VIC",
+    ranges: [
+      [3840, 3844], // Traralgon / Latrobe Valley
+    ],
+  },
+
+  // Queensland - Regional with Depots
+  {
+    name: "Townsville",
+    state: "QLD",
+    ranges: [
+      [4810, 4818], // Townsville
+    ],
+  },
+  {
+    name: "Cairns",
+    state: "QLD",
+    ranges: [
+      [4868, 4881], // Cairns
+    ],
+  },
+  {
+    name: "Rockhampton",
+    state: "QLD",
+    ranges: [
+      [4700, 4703], // Rockhampton
+    ],
+  },
+  {
+    name: "Mackay",
+    state: "QLD",
+    ranges: [
+      [4740, 4741], // Mackay
+    ],
+  },
+  {
+    name: "Toowoomba",
+    state: "QLD",
+    ranges: [
+      [4350, 4352], // Toowoomba
+    ],
+  },
+  {
+    name: "Bundaberg",
+    state: "QLD",
+    ranges: [
+      [4670, 4671], // Bundaberg
+    ],
+  },
+  {
+    name: "Gladstone",
+    state: "QLD",
+    ranges: [
+      [4680, 4680], // Gladstone
+    ],
+  },
+  {
+    name: "Sunshine Coast",
+    state: "QLD",
+    ranges: [
+      [4550, 4575], // Sunshine Coast
+    ],
+  },
+
+  // South Australia - Regional with Depots
+  {
+    name: "Mount Gambier",
+    state: "SA",
+    ranges: [
+      [5290, 5291], // Mount Gambier
+    ],
+  },
+  {
+    name: "Port Augusta",
+    state: "SA",
+    ranges: [
+      [5700, 5701], // Port Augusta
+    ],
+  },
+  {
+    name: "Whyalla",
+    state: "SA",
+    ranges: [
+      [5600, 5601], // Whyalla
+    ],
+  },
+
+  // Tasmania - Regional with Depots
+  {
+    name: "Launceston",
+    state: "TAS",
+    ranges: [
+      [7248, 7258], // Launceston
+    ],
+  },
+  {
+    name: "Devonport",
+    state: "TAS",
+    ranges: [
+      [7310, 7310], // Devonport
+    ],
+  },
+  {
+    name: "Burnie",
+    state: "TAS",
+    ranges: [
+      [7320, 7321], // Burnie
+    ],
+  },
+
+  // Northern Territory - Regional with Depots
+  {
+    name: "Alice Springs",
+    state: "NT",
+    ranges: [
+      [870, 872], // Alice Springs (note: 3-digit postcodes)
+    ],
+  },
 ]
 
 /**
@@ -202,8 +466,8 @@ export function getShippingMessage(postcode: string | number): {
   if (result.isMetro) {
     return {
       isFreeShipping: true,
-      message: `Free delivery to ${result.region} metro area`,
-      shortMessage: "Free metro delivery",
+      message: 'Free delivery to ${result.region}',
+      shortMessage: "Free delivery",
     }
   }
 
