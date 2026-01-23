@@ -558,7 +558,8 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
             padding: 12,
             backgroundColor: "#fef3c7",
             borderRadius: 4,
-            borderLeft: "4 solid #f59e0b",
+            borderLeftWidth: 4,
+            borderLeftColor: "#f59e0b",
           }}>
             <Text style={{ fontSize: 10, fontWeight: "bold", color: "#92400e" }}>
               Estimated Lead Time: {safeString(data.overallLeadTime)}
@@ -732,7 +733,8 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
               padding: 10,
               backgroundColor: "#ecfdf5",
               borderRadius: 4,
-              borderLeft: "3 solid #10b981",
+              borderLeftWidth: 3,
+              borderLeftColor: "#10b981",
             }}
           >
             <Text style={{ fontSize: 9, fontWeight: "bold", color: "#065f46", marginBottom: 4 }}>
