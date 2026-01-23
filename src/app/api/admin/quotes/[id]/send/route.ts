@@ -26,21 +26,21 @@ function findObjectsInData(obj: unknown, path = ""): string[] {
     // Arrays are OK if their elements are primitives
     if (Array.isArray(obj)) {
       obj.forEach((item, index) => {
-        problems.push(...findObjectsInData(item, '${path}[${index}]'))
+        problems.push(...findObjectsInData(item, `${path}[${index}]`))
       })
     } else {
       // Check if it's a plain object with expected keys vs unexpected object
       const keys = Object.keys(obj)
       for (const key of keys) {
         const value = (obj as Record<string, unknown>)[key]
-        const valuePath = path ? '${path}.${key}' : key
+        const valuePath = path ? `${path}.${key}` : key
 
         // These types are problematic if rendered directly in JSX
         if (value !== null && value !== undefined && typeof value === "object") {
           // Check if it's a nested object (allowed) or something else (problematic)
           if (!Array.isArray(value) && value.constructor !== Object) {
             // This is a class instance (Date, Decimal, etc.) - problematic!
-            problems.push('${valuePath} is ${value.constructor?.name || "unknown object"}: ${JSON.stringify(value)}')
+            problems.push(`${valuePath} is ${value.constructor?.name || "unknown object"}: ${JSON.stringify(value)}`)
           } else {
             // Recurse into arrays and plain objects
             problems.push(...findObjectsInData(value, valuePath))

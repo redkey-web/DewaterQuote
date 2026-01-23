@@ -29,6 +29,15 @@ const METRO_REGIONS: MetroRegion[] = [
     ],
   },
 
+  // Western Australia - Bunbury
+  {
+    name: "Bunbury",
+    state: "WA",
+    ranges: [
+      [6230, 6239], // Bunbury and surrounds
+    ],
+  },
+
   // New South Wales - Sydney Metro
   {
     name: "Sydney",
