@@ -1,53 +1,56 @@
-import { NextRequest, NextResponse } from "next/server"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { getServerSession } from "next-auth"
-import { renderToBuffer } from "@react-pdf/renderer"
+import { authOptions } from "@/lib/auth/config"
 import { db } from "@/db"
-import { quotes, quoteItems } from "@/db/schema"
+import { quotes } from "@/db/schema"
 import { eq } from "drizzle-orm"
+import { put, del } from "@vercel/blob"
+import { renderToBuffer } from "@react-pdf/renderer"
 import { QuotePDF, type QuotePDFData, type QuoteItemPDF } from "@/lib/pdf/quote-pdf"
 import { format } from "date-fns"
 import { getQuoteExpiry } from "@/lib/quote"
 import { checkShippingZone } from "@/lib/shipping/metro-postcodes"
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+/**
+ * POST /api/admin/quotes/[id]/store-pdf
+ *
+ * Generates or regenerates the quote PDF and stores it in Vercel Blob.
+ * Updates the quote record with the new PDF URL and metadata.
+ */
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
-  // Check authentication
-  const session = await getServerSession()
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" })
+  }
+
+  const session = await getServerSession(req, res, authOptions)
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    return res.status(401).json({ error: "Unauthorized" })
+  }
+
+  const { id } = req.query
+  const quoteId = parseInt(id as string, 10)
+
+  if (isNaN(quoteId)) {
+    return res.status(400).json({ error: "Invalid quote ID" })
   }
 
   try {
-    const { id } = await params
-    const quoteId = parseInt(id, 10)
-
-    if (isNaN(quoteId)) {
-      return NextResponse.json({ error: "Invalid quote ID" }, { status: 400 })
-    }
-
-    // Get query params for optional overrides
-    const url = new URL(request.url)
-    const isDraft = url.searchParams.get("draft") === "true"
-    const preparedBy = url.searchParams.get("preparedBy") || undefined
-
     // Fetch quote with items
-    const [quote] = await db
-      .select()
-      .from(quotes)
-      .where(eq(quotes.id, quoteId))
-      .limit(1)
+    const quote = await db.query.quotes.findFirst({
+      where: eq(quotes.id, quoteId),
+      with: {
+        items: {
+          orderBy: (items, { asc }) => [asc(items.displayOrder)],
+        },
+      },
+    })
 
     if (!quote) {
-      return NextResponse.json({ error: "Quote not found" }, { status: 404 })
+      return res.status(404).json({ error: "Quote not found" })
     }
-
-    const items = await db
-      .select()
-      .from(quoteItems)
-      .where(eq(quoteItems.quoteId, quoteId))
-      .orderBy(quoteItems.displayOrder)
 
     // Build address objects from separate columns
     const deliveryAddress = {
@@ -56,7 +59,6 @@ export async function GET(
       state: String(quote.deliveryState || ""),
       postcode: String(quote.deliveryPostcode || ""),
     }
-
     const billingAddress = {
       street: String(quote.billingStreet || quote.deliveryStreet || ""),
       suburb: String(quote.billingSuburb || quote.deliverySuburb || ""),
@@ -64,7 +66,7 @@ export async function GET(
       postcode: String(quote.billingPostcode || quote.deliveryPostcode || ""),
     }
 
-    // Calculate totals including auto-calculated shipping
+    // Calculate totals
     const subtotal = parseFloat(String(quote.pricedTotal || "0")) || 0
     const savings = parseFloat(String(quote.savings || "0")) || 0
     const certFee = parseFloat(String(quote.certFee || "0")) || 0
@@ -88,7 +90,7 @@ export async function GET(
     const validUntil = String(format(getQuoteExpiry(quote.createdAt), "d MMMM yyyy"))
 
     // Prepare items for PDF - ensure all values are primitives
-    const pdfItems: QuoteItemPDF[] = items.map((item) => ({
+    const pdfItems: QuoteItemPDF[] = quote.items.map((item) => ({
       sku: String(item.variationSku || item.sku || ""),
       name: String(item.name || ""),
       brand: String(item.brand || ""),
@@ -103,7 +105,7 @@ export async function GET(
       leadTime: null,
     }))
 
-    // Build PDF data
+    // Build PDF data - ensure all values are primitives to prevent React Error #31
     const pdfData: QuotePDFData = {
       quoteNumber: String(quote.quoteNumber || ""),
       quoteDate,
@@ -125,25 +127,58 @@ export async function GET(
       total,
       hasUnpricedItems: Boolean(quote.hasUnpricedItems),
       notes: quote.notes ? String(quote.notes) : undefined,
-      preparedBy,
-      isDraft,
     }
 
-    // Generate PDF
-    const pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
+    // Generate PDF buffer
+    console.log("[Quote " + quote.quoteNumber + "] Generating PDF...")
+    const pdfArrayBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
+    const pdfBuffer = Buffer.from(pdfArrayBuffer)
+    console.log("[Quote " + quote.quoteNumber + "] PDF buffer: " + pdfBuffer.length + " bytes")
 
-    // Return PDF
-    return new NextResponse(pdfBuffer, {
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": "inline; filename=\"" + quote.quoteNumber + ".pdf\"",
-      },
+    // Delete old PDF if exists
+    if (quote.pdfUrl) {
+      try {
+        await del(quote.pdfUrl)
+        console.log("[Quote " + quote.quoteNumber + "] Deleted old PDF from blob")
+      } catch (deleteError) {
+        console.error("[Quote " + quote.quoteNumber + "] Failed to delete old PDF:", deleteError)
+        // Continue anyway - old blob will be orphaned but we can still upload new one
+      }
+    }
+
+    // Calculate new version number
+    const newVersion = (quote.pdfVersion || 0) + 1
+
+    // Upload to Vercel Blob
+    const blobPath = "quotes/" + quote.quoteNumber + "/quote-v" + newVersion + ".pdf"
+    const blob = await put(blobPath, pdfBuffer, {
+      contentType: "application/pdf",
+      access: "public",
+      cacheControlMaxAge: 31536000, // 1 year cache
+    })
+
+    console.log("[Quote " + quote.quoteNumber + "] PDF uploaded to: " + blob.url)
+
+    // Update quote record with PDF info
+    const now = new Date()
+    await db
+      .update(quotes)
+      .set({
+        pdfUrl: blob.url,
+        pdfGeneratedAt: now,
+        pdfVersion: newVersion,
+      })
+      .where(eq(quotes.id, quoteId))
+
+    return res.status(200).json({
+      success: true,
+      pdfUrl: blob.url,
+      pdfGeneratedAt: now.toISOString(),
+      pdfVersion: newVersion,
+      size: pdfBuffer.length,
     })
   } catch (error) {
-    console.error("PDF generation error:", error)
-    return NextResponse.json(
-      { error: "Failed to generate PDF" },
-      { status: 500 }
-    )
+    console.error("Failed to store PDF:", error)
+    return res.status(500).json({ error: "Failed to generate and store PDF" })
   }
 }

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { getServerSession } from "next-auth"
 import sgMail from "@sendgrid/mail"
 import { renderToBuffer } from "@react-pdf/renderer"
@@ -14,45 +14,9 @@ import {
   type QuoteItemEmail,
 } from "@/lib/email/approved-quote-email"
 import { format } from "date-fns"
+import { authOptions } from "@/lib/auth/config"
 import { getQuoteExpiry } from "@/lib/quote"
 import { checkShippingZone } from "@/lib/shipping/metro-postcodes"
-
-// Helper to find any objects in data structure that would cause React Error #31
-function findObjectsInData(obj: unknown, path = ""): string[] {
-  const problems: string[] = []
-
-  if (obj === null || obj === undefined) return problems
-
-  if (typeof obj === "object") {
-    // Arrays are OK if their elements are primitives
-    if (Array.isArray(obj)) {
-      obj.forEach((item, index) => {
-        problems.push(...findObjectsInData(item, `${path}[${index}]`))
-      })
-    } else {
-      // Check if it's a plain object with expected keys vs unexpected object
-      const keys = Object.keys(obj)
-      for (const key of keys) {
-        const value = (obj as Record<string, unknown>)[key]
-        const valuePath = path ? `${path}.${key}` : key
-
-        // These types are problematic if rendered directly in JSX
-        if (value !== null && value !== undefined && typeof value === "object") {
-          // Check if it's a nested object (allowed) or something else (problematic)
-          if (!Array.isArray(value) && value.constructor !== Object) {
-            // This is a class instance (Date, Decimal, etc.) - problematic!
-            problems.push(`${valuePath} is ${value.constructor?.name || "unknown object"}: ${JSON.stringify(value)}`)
-          } else {
-            // Recurse into arrays and plain objects
-            problems.push(...findObjectsInData(value, valuePath))
-          }
-        }
-      }
-    }
-  }
-
-  return problems
-}
 
 // Initialize SendGrid
 if (process.env.SENDGRID_API_KEY) {
@@ -67,25 +31,29 @@ interface SendQuoteBody {
   customMessage?: string
 }
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" })
+  }
+
   // Check authentication
-  const session = await getServerSession()
+  const session = await getServerSession(req, res, authOptions)
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    return res.status(401).json({ error: "Unauthorized" })
   }
 
   try {
-    const { id } = await params
-    const quoteId = parseInt(id, 10)
+    const { id } = req.query
+    const quoteId = parseInt(id as string, 10)
 
     if (isNaN(quoteId)) {
-      return NextResponse.json({ error: "Invalid quote ID" }, { status: 400 })
+      return res.status(400).json({ error: "Invalid quote ID" })
     }
 
-    const body: SendQuoteBody = await request.json()
+    const body: SendQuoteBody = req.body
 
     // Fetch quote with items
     const [quote] = await db
@@ -95,7 +63,7 @@ export async function POST(
       .limit(1)
 
     if (!quote) {
-      return NextResponse.json({ error: "Quote not found" }, { status: 404 })
+      return res.status(404).json({ error: "Quote not found" })
     }
 
     // Build address objects from separate columns - ensure all values are primitives
@@ -117,20 +85,6 @@ export async function POST(
       .from(quoteItems)
       .where(eq(quoteItems.quoteId, quoteId))
       .orderBy(quoteItems.displayOrder)
-
-    // Debug: Log types of first item's fields to catch any unexpected object types
-    if (items.length > 0) {
-      const firstItem = items[0]
-      console.log("[Quote " + quote.quoteNumber + "] First item field types:", {
-        sku: typeof firstItem.sku,
-        name: typeof firstItem.name,
-        brand: typeof firstItem.brand,
-        unitPrice: typeof firstItem.unitPrice,
-        unitPriceValue: firstItem.unitPrice,
-        lineTotal: typeof firstItem.lineTotal,
-        quotedPrice: typeof firstItem.quotedPrice,
-      })
-    }
 
     // Calculate totals - ensure all values are primitive numbers
     const subtotal = parseFloat(String(quote.pricedTotal || "0")) || 0
@@ -168,7 +122,7 @@ export async function POST(
       quotedPrice: item.quotedPrice ? parseFloat(String(item.quotedPrice)) : null,
       quotedNotes: item.quotedNotes ? String(item.quotedNotes) : null,
       materialTestCert: Boolean(item.materialTestCert),
-      leadTime: null, // Lead time not stored per quote item, only per product
+      leadTime: null,
     }))
 
     const emailItems: QuoteItemEmail[] = pdfItems
@@ -203,34 +157,18 @@ export async function POST(
       websiteUrl: process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au",
     }
 
-    // Validate data structure before PDF generation - catch any objects that would cause React Error #31
-    const objectProblems = findObjectsInData(pdfData)
-    if (objectProblems.length > 0) {
-      console.error("[Quote " + quote.quoteNumber + "] Found non-primitive values in PDF data:")
-      objectProblems.forEach((p) => console.error("  - " + p))
-      console.error("[Quote " + quote.quoteNumber + "] Full PDF data:", JSON.stringify(pdfData, null, 2))
-      throw new Error("PDF data contains objects that cannot be rendered: " + objectProblems.join(", "))
-    }
-
     // Generate PDF
-    console.log("[Quote " + quote.quoteNumber + "] PDF data validated, generating PDF...")
+    console.log("[Quote " + quote.quoteNumber + "] Generating PDF...")
     let pdfBuffer: Uint8Array
     try {
       pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
     } catch (pdfError) {
       const errorMsg = pdfError instanceof Error ? pdfError.message : String(pdfError)
-      const errorStack = pdfError instanceof Error ? pdfError.stack : undefined
       console.error("[Quote " + quote.quoteNumber + "] PDF generation failed:", errorMsg)
-      if (errorStack) {
-        console.error("[Quote " + quote.quoteNumber + "] Error stack:", errorStack)
-      }
-      console.error("[Quote " + quote.quoteNumber + "] Full PDF data:", JSON.stringify(pdfData, null, 2))
-      console.error("[Quote " + quote.quoteNumber + "] Delivery address:", JSON.stringify(deliveryAddress, null, 2))
-      console.error("[Quote " + quote.quoteNumber + "] Billing address:", JSON.stringify(billingAddress, null, 2))
       throw pdfError
     }
 
-    // Convert to base64 - handle both Buffer and Uint8Array
+    // Convert to base64
     const pdfBase64 = Buffer.isBuffer(pdfBuffer)
       ? pdfBuffer.toString("base64")
       : Buffer.from(pdfBuffer).toString("base64")
@@ -248,7 +186,6 @@ export async function POST(
           console.log("[Quote " + quote.quoteNumber + "] Deleted old PDF from blob")
         } catch (deleteError) {
           console.error("[Quote " + quote.quoteNumber + "] Failed to delete old PDF:", deleteError)
-          // Continue anyway - old blob will be orphaned
         }
       }
 
@@ -264,22 +201,18 @@ export async function POST(
       const blob = await put(blobPath, pdfBufferForBlob, {
         contentType: "application/pdf",
         access: "public",
-        cacheControlMaxAge: 31536000, // 1 year cache
+        cacheControlMaxAge: 31536000,
       })
 
       newPdfUrl = blob.url
       console.log("[Quote " + quote.quoteNumber + "] PDF stored in blob: " + blob.url)
     } catch (blobError) {
       console.error("[Quote " + quote.quoteNumber + "] Failed to store PDF in blob:", blobError)
-      // Continue with email sending - blob storage is non-critical
     }
 
     // Check SendGrid configuration
     if (!process.env.SENDGRID_API_KEY) {
-      return NextResponse.json(
-        { error: "Email service not configured" },
-        { status: 500 }
-      )
+      return res.status(500).json({ error: "Email service not configured" })
     }
 
     // Generate email content
@@ -301,15 +234,12 @@ export async function POST(
           content: pdfBase64,
           filename: quote.quoteNumber + ".pdf",
           type: "application/pdf",
-          disposition: "attachment",
+          disposition: "attachment" as const,
         },
       ],
     }
 
     console.log("[Quote " + quote.quoteNumber + "] Sending email to: " + quote.email)
-    console.log("[Quote " + quote.quoteNumber + "] From: " + fromEmail)
-    console.log("[Quote " + quote.quoteNumber + "] Attachment size: " + pdfBase64.length + " chars")
-    console.log("[Quote " + quote.quoteNumber + "] SendGrid API key configured: " + !!process.env.SENDGRID_API_KEY)
 
     try {
       await sgMail.send(emailPayload)
@@ -317,7 +247,6 @@ export async function POST(
     } catch (emailError: unknown) {
       const err = emailError as { response?: { body?: unknown }, message?: string, code?: number }
       console.error("[Quote " + quote.quoteNumber + "] SendGrid email error:", err.message || emailError)
-      console.error("[Quote " + quote.quoteNumber + "] SendGrid error code:", err.code)
       if (err.response?.body) {
         console.error("[Quote " + quote.quoteNumber + "] SendGrid response body:", JSON.stringify(err.response.body, null, 2))
       }
@@ -339,21 +268,14 @@ export async function POST(
       })
       .where(eq(quotes.id, quoteId))
 
-    return NextResponse.json({
+    return res.status(200).json({
       success: true,
       message: "Quote sent to " + quote.email,
       quoteNumber: quote.quoteNumber,
     })
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error)
-    const errorStack = error instanceof Error ? error.stack : undefined
     console.error("Send quote error:", errorMsg)
-    if (errorStack) {
-      console.error("Send quote error stack:", errorStack)
-    }
-    return NextResponse.json(
-      { error: "Failed to send quote: " + errorMsg },
-      { status: 500 }
-    )
+    return res.status(500).json({ error: "Failed to send quote: " + errorMsg })
   }
 }

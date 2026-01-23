@@ -13,7 +13,16 @@ const nextConfig = {
 
   // Externalize react-pdf for server-side rendering compatibility
   // Fixes: "Minified React error #31" when using renderToBuffer
-  serverExternalPackages: ['@react-pdf/renderer'],
+  serverExternalPackages: [
+    '@react-pdf/renderer',
+    '@react-pdf/layout',
+    '@react-pdf/pdfkit',
+    '@react-pdf/primitives',
+    '@react-pdf/stylesheet',
+    '@react-pdf/textkit',
+    '@react-pdf/types',
+    'react-reconciler',
+  ],
 
   // Security headers
   async headers() {
