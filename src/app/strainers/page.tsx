@@ -9,10 +9,10 @@ import SubcategoryTiles from "@/components/SubcategoryTiles"
 import type { Metadata } from "next"
 
 const strainerTypes = [
-  { name: "Y Strainer", url: "/y-strainers", description: "Compact design suitable for horizontal or vertical installation with moderate pressure loss and manual maintenance access." },
-  { name: "Simplex Basket Strainer", url: "/basket-strainers", description: "Horizontal unit featuring top-opening basket access, medium-to-high debris capacity, and low pressure loss for general inline filtration." },
-  { name: "Duplex Basket Strainer", url: "/basket-strainers", description: "Dual-basket system allowing continuous flow during maintenance without downtime, ideal for systems requiring uninterrupted operation." },
-  { name: "Flanged Suction Strainer", url: "/basket-strainers", description: "Installed at pump suction end to prevent large debris entering the system. 316SS construction with large size range up to DN900." },
+  { name: "Y Strainer", url: "/strainers/y-strainers", description: "Compact design suitable for horizontal or vertical installation with moderate pressure loss and manual maintenance access." },
+  { name: "Simplex Basket Strainer", url: "/strainers/basket-strainers", description: "Horizontal unit featuring top-opening basket access, medium-to-high debris capacity, and low pressure loss for general inline filtration." },
+  { name: "Duplex Basket Strainer", url: "/strainers/duplex-strainers", description: "Dual-basket system allowing continuous flow during maintenance without downtime, ideal for systems requiring uninterrupted operation." },
+  { name: "Flanged Suction Strainer", url: "/strainers/suction-strainers", description: "Installed at pump suction end to prevent large debris entering the system. 316SS construction with large size range up to DN900." },
 ]
 
 const applications = [
@@ -149,10 +149,10 @@ export default async function StrainersPage() {
           title="Search by Type"
           hideEmpty={true}
           urlMap={{
-            'y-strainer': '/y-strainers',
-            'simplex-basket-strainer': '/basket-strainers',
-            'duplex-basket-strainer': '/basket-strainers',
-            'flanged-suction-strainer': '/basket-strainers',
+            'y-strainer': '/strainers/y-strainers',
+            'simplex-basket-strainer': '/strainers/basket-strainers',
+            'duplex-basket-strainer': '/strainers/duplex-strainers',
+            'flanged-suction-strainer': '/strainers/suction-strainers',
           }}
         />
 

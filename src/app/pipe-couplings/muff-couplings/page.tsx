@@ -29,9 +29,10 @@ export const metadata: Metadata = {
     title: "Muff Couplings - Sleeve Pipe Couplings | Dewater Products",
     description: "Full-bore muff couplings for joining plain-ended pipes. Contact us for pricing and availability.",
     type: "website",
+    url: "https://dewaterproducts.com.au/pipe-couplings/muff-couplings",
   },
   alternates: {
-    canonical: "https://dewaterproducts.com.au/muff-couplings",
+    canonical: "https://dewaterproducts.com.au/pipe-couplings/muff-couplings",
   },
 }
 
@@ -95,7 +96,7 @@ export default async function MuffCouplingsPage() {
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
     { name: "Pipe Couplings", url: "https://dewaterproducts.com.au/pipe-couplings" },
-    { name: "Muff Couplings", url: "https://dewaterproducts.com.au/muff-couplings" },
+    { name: "Muff Couplings", url: "https://dewaterproducts.com.au/pipe-couplings/muff-couplings" },
   ]
 
   return (
@@ -281,7 +282,7 @@ export default async function MuffCouplingsPage() {
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={faq.question}
-                value={`item-${index}`}
+                value={'item-${index}'}
                 className="bg-card border border-border rounded-lg px-4"
               >
                 <AccordionTrigger className="text-left font-semibold hover:no-underline">
@@ -312,13 +313,13 @@ export default async function MuffCouplingsPage() {
               Flange Adaptors
             </Link>
             <Link
-              href="/orbit-couplings"
+              href="/pipe-couplings/orbit"
               className="px-4 py-2 bg-card border rounded-md hover:bg-accent transition-colors"
             >
               Orbit Couplings
             </Link>
             <Link
-              href="/straub-couplings"
+              href="/pipe-couplings/straub"
               className="px-4 py-2 bg-card border rounded-md hover:bg-accent transition-colors"
             >
               Straub Couplings

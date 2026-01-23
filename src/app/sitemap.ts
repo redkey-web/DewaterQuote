@@ -8,39 +8,40 @@ import {
 
 const BASE_URL = "https://dewaterproducts.com.au"
 
-// Map subcategory slugs to flat page URLs
-const subcategoryToFlatUrl: Record<string, string> = {
+// Map subcategory slugs to nested page URLs
+const subcategoryToNestedUrl: Record<string, string> = {
   // Valves
-  'butterfly-valve': '/butterfly-valves',
-  'check-valve': '/check-valves',
-  'swing-check-valve': '/check-valves',
-  'duckbill-check-valve': '/duckbill-check-valves',
-  'ball-check-valve': '/ball-valves',
-  'gate-valve': '/gate-valves',
-  'ball-valve': '/ball-valves',
-  'float-valve': '/float-valves',
-  'foot-valve': '/foot-valves',
+  'butterfly-valve': '/industrial-valves/butterfly-valves',
+  'check-valve': '/industrial-valves/check-valves',
+  'check-valves': '/industrial-valves/check-valves',
+  'swing-check-valve': '/industrial-valves/check-valves',
+  'duckbill-check-valve': '/industrial-valves/duckbill-valves',
+  'ball-check-valve': '/industrial-valves/ball-valves',
+  'gate-valve': '/industrial-valves/gate-valves',
+  'ball-valve': '/industrial-valves/ball-valves',
+  'float-valve': '/industrial-valves/float-valves',
+  'foot-valve': '/industrial-valves/foot-valves',
   // Expansion joints
-  'single-sphere': '/single-sphere-expansion-joints',
-  'twin-sphere': '/twin-sphere-expansion-joints',
-  'single-arch': '/single-arch-expansion-joints',
-  'double-arch': '/double-arch-expansion-joints',
-  'reducing': '/reducing-expansion-joints',
-  'triple-arch': '/triple-arch-expansion-joints',
-  'quadruple-arch': '/quadruple-arch-expansion-joints',
-  'ptfe-lined': '/ptfe-lined-expansion-joints',
+  'single-sphere': '/expansion-joints/single-sphere',
+  'twin-sphere': '/expansion-joints/twin-sphere',
+  'single-arch': '/expansion-joints/single-arch',
+  'double-arch': '/expansion-joints/double-arch',
+  'reducing': '/expansion-joints/reducing',
+  'triple-arch': '/expansion-joints/triple-arch',
+  'quadruple-arch': '/expansion-joints/quadruple-arch',
+  'ptfe-lined': '/expansion-joints/ptfe-lined',
   // Strainers
-  'y-strainer': '/y-strainers',
-  'simplex-basket-strainer': '/basket-strainers',
-  'duplex-basket-strainer': '/duplex-basket-strainers',
-  'flanged-suction-strainer': '/flanged-suction-strainers',
+  'y-strainer': '/strainers/y-strainers',
+  'simplex-basket-strainer': '/strainers/basket-strainers',
+  'duplex-basket-strainer': '/strainers/duplex-strainers',
+  'flanged-suction-strainer': '/strainers/suction-strainers',
 }
 
 // Map brand slugs to their dedicated URLs
 const brandToUrl: Record<string, string> = {
-  'straub': '/straub-couplings',
-  'orbit': '/orbit-couplings',
-  'teekay': '/teekay',
+  'straub': '/pipe-couplings/straub',
+  'orbit': '/pipe-couplings/orbit',
+  'teekay': '/pipe-couplings/teekay',
   'bore-flex-rubber': '/bore-flex',
   'defender-valves': '/defender-valves',
   'defender-strainers': '/defender-strainers',
@@ -63,22 +64,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { slug: 'defender-strainers' },
   ]
 
-  // Static pages
+  // Static pages - hub pages and standalone pages
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: now, changeFrequency: "weekly", priority: 1 },
-    { url: `${BASE_URL}/products`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/request-quote`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE_URL}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/brands`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/industries`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE_URL}/industrial-valves`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-    { url: `${BASE_URL}/expansion-joints`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-    { url: `${BASE_URL}/strainers`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-    { url: `${BASE_URL}/pipe-repair-clamps`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/bore-flex`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/duckbill-check-valves`, lastModified: now, changeFrequency: "weekly", priority: 0.75 },
-    { url: `${BASE_URL}/muff-couplings`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: '${BASE_URL}/products', lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: '${BASE_URL}/contact', lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: '${BASE_URL}/request-quote', lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: '${BASE_URL}/about', lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: '${BASE_URL}/brands', lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: '${BASE_URL}/industries', lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    // Hub pages
+    { url: '${BASE_URL}/industrial-valves', lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: '${BASE_URL}/expansion-joints', lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: '${BASE_URL}/strainers', lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    { url: '${BASE_URL}/pipe-couplings', lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    // Standalone pages
+    { url: '${BASE_URL}/pipe-repair-clamps', lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: '${BASE_URL}/flange-adaptors', lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: '${BASE_URL}/bore-flex', lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: '${BASE_URL}/defender-valves', lastModified: now, changeFrequency: "weekly", priority: 0.75 },
+    { url: '${BASE_URL}/defender-strainers', lastModified: now, changeFrequency: "weekly", priority: 0.75 },
   ]
 
   // Category pages (from database) - excluding 'valves' which is now 'industrial-valves'
@@ -91,17 +96,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }))
 
-  // Flat subcategory pages (using the mapping)
-  const flatSubcategoryUrls = new Set<string>()
+  // Nested subcategory pages (using the mapping)
+  const nestedSubcategoryUrls = new Set<string>()
   subcategories.forEach((subcat) => {
-    const flatUrl = subcategoryToFlatUrl[subcat.slug]
-    if (flatUrl) {
-      flatSubcategoryUrls.add(flatUrl)
+    const nestedUrl = subcategoryToNestedUrl[subcat.slug]
+    if (nestedUrl) {
+      nestedSubcategoryUrls.add(nestedUrl)
     }
   })
 
-  const subcategoryPages: MetadataRoute.Sitemap = Array.from(flatSubcategoryUrls).map((url) => ({
-    url: `${BASE_URL}${url}`,
+  const subcategoryPages: MetadataRoute.Sitemap = Array.from(nestedSubcategoryUrls).map((url) => ({
+    url: '${BASE_URL}${url}',
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.75,

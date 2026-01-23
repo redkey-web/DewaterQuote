@@ -18,12 +18,12 @@ const applications = [
 ]
 
 const valveTypes = [
-  { name: "Butterfly Valves", slug: "/butterfly-valves", description: "Compact flow control valves with a rotating disc, ideal for large diameter pipes." },
-  { name: "Check Valves", slug: "/check-valves", description: "Non-return valves that prevent reverse flow. Includes swing, ball, and duckbill types." },
-  { name: "Float Valves", slug: "/float-valves", description: "Level control valves that maintain liquid levels in tanks and reservoirs." },
-  { name: "Foot Valves", slug: "/foot-valves", description: "Non-return valves with strainers designed for the suction side of pumps." },
-  { name: "Gate Valves", slug: "/gate-valves", description: "Full-bore shutoff valves ideal for isolation in water and slurry systems." },
-  { name: "Ball Valves", slug: "/ball-valves", description: "Quarter-turn valves providing tight shutoff for on/off control applications." },
+  { name: "Butterfly Valves", slug: "/industrial-valves/butterfly-valves", description: "Compact flow control valves with a rotating disc, ideal for large diameter pipes." },
+  { name: "Check Valves", slug: "/industrial-valves/check-valves", description: "Non-return valves that prevent reverse flow. Includes swing, ball, and duckbill types." },
+  { name: "Float Valves", slug: "/industrial-valves/float-valves", description: "Level control valves that maintain liquid levels in tanks and reservoirs." },
+  { name: "Foot Valves", slug: "/industrial-valves/foot-valves", description: "Non-return valves with strainers designed for the suction side of pumps." },
+  { name: "Gate Valves", slug: "/industrial-valves/gate-valves", description: "Full-bore shutoff valves ideal for isolation in water and slurry systems." },
+  { name: "Ball Valves", slug: "/industrial-valves/ball-valves", description: "Quarter-turn valves providing tight shutoff for on/off control applications." },
 ]
 
 export const metadata: Metadata = {

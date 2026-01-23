@@ -59,7 +59,7 @@ const brands = [
     name: "Teekay",
     slug: "teekay",
     description: "Axilock, Axiflex and PRIMA range for steel, PE and PVC pipes. No welding required.",
-    logo: "/images/brands/teekay-logo.png",
+    logo: "/images/brands/pipe-couplings/teekay-logo.png",
   },
 ]
 
@@ -108,43 +108,43 @@ const selectionGuide = [
     application: "Joining same-sized pipes",
     orbit: { name: "Flex Grip / Metal Lock", link: "/flex-grip-s-pipe-coupling" },
     straub: { name: "Metal Grip / Grip L", link: "/straub-metal-grip" },
-    teekay: { name: "Axilock / PRIMA-LOCK", link: "/teekay" }
+    teekay: { name: "Axilock / PRIMA-LOCK", link: "/pipe-couplings/teekay" }
   },
   {
     application: "Repair clamp for leaking section",
     orbit: { name: "Open Flex Series", link: "/flex-grip-open-l" },
     straub: { name: "Open Flex / Rep-Flex", link: "/straub-open-flex-1" },
-    teekay: { name: "Axilock", link: "/teekay" }
+    teekay: { name: "Axilock", link: "/pipe-couplings/teekay" }
   },
   {
     application: "Joining different OD pipes",
     orbit: { name: "Stepped Coupling", link: "/orbit-couplings" },
     straub: { name: "Step Flex 2 / 3", link: "/straub-step-flex-2" },
-    teekay: { name: "PRIMA-STEP", link: "/teekay" }
+    teekay: { name: "PRIMA-STEP", link: "/pipe-couplings/teekay" }
   },
   {
     application: "Plastic-to-metal pipe join",
     orbit: { name: "Combo Lock", link: "/combo-lock" },
     straub: { name: "Combi Grip", link: "/straub-combi-grip" },
-    teekay: { name: "Plastlock", link: "/teekay" }
+    teekay: { name: "Plastlock", link: "/pipe-couplings/teekay" }
   },
   {
     application: "Fire systems",
     orbit: { name: "Fire Protection Coupling", link: "/fire-protection-coupling" },
     straub: { name: "Metal Grip Fire Fence", link: "/straub-couplings" },
-    teekay: { name: "Axilock-FP", link: "/teekay" }
+    teekay: { name: "Axilock-FP", link: "/pipe-couplings/teekay" }
   },
   {
     application: "Misalignment or movement",
     orbit: { name: "Flex Grip / Open Flex", link: "/flex-grip-l-pipe-coupling" },
     straub: { name: "Flex / Open Flex", link: "/straub-flex-1" },
-    teekay: { name: "Axiflex / PRIMA-FLEX", link: "/teekay" }
+    teekay: { name: "Axiflex / PRIMA-FLEX", link: "/pipe-couplings/teekay" }
   },
   {
     application: "Plastic pipes (PE/PVC)",
     orbit: { name: "Plast Coupling", link: "/plast-coupling" },
     straub: { name: "Plast Grip / Plast Pro", link: "/straub-plast-grip" },
-    teekay: { name: "Plastlock / PRIMA-PLAST", link: "/teekay" }
+    teekay: { name: "Plastlock / PRIMA-PLAST", link: "/pipe-couplings/teekay" }
   },
 ]
 
@@ -317,7 +317,7 @@ export default async function PipeCouplingsPage() {
           <h2 className="text-xl font-semibold mb-4">Shop by Brand</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {brands.map((brand) => (
-              <Link key={brand.slug} href={brand.slug === 'orbit' ? '/orbit-couplings' : brand.slug === 'straub' ? '/straub-couplings' : '/teekay'}>
+              <Link key={brand.slug} href={'/pipe-couplings/${brand.slug}'}>
                 <div className="p-4 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer h-full flex items-center gap-4">
                   <div className={`relative flex-shrink-0 ${brand.slug === 'orbit' ? 'h-[62px] w-[175px]' : brand.slug === 'teekay' ? 'h-12 w-32' : 'h-10 w-28'}`}>
                     <Image
@@ -497,7 +497,7 @@ export default async function PipeCouplingsPage() {
               </table>
             </div>
             <div className="mt-3 text-sm text-muted-foreground">
-              <Link href="/teekay" className="text-primary hover:underline">
+              <Link href="/pipe-couplings/teekay" className="text-primary hover:underline">
                 View all Teekay products →
               </Link>
             </div>

@@ -32,6 +32,7 @@ export const metadata: Metadata = {
     description:
       "Teekay pipe couplings for joining, repairing and connecting pipes. Authorised Australian distributor.",
     type: "website",
+    url: "https://dewaterproducts.com.au/pipe-couplings/teekay",
     images: [
       {
         url: "/images/brands/teekay-og.jpg",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://dewaterproducts.com.au/teekay",
+    canonical: "https://dewaterproducts.com.au/pipe-couplings/teekay",
   },
 }
 
@@ -110,7 +111,8 @@ export default async function TeekayPage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
-    { name: "Teekay Products", url: "https://dewaterproducts.com.au/teekay" },
+    { name: "Pipe Couplings", url: "https://dewaterproducts.com.au/pipe-couplings" },
+    { name: "Teekay Couplings", url: "https://dewaterproducts.com.au/pipe-couplings/teekay" },
   ]
 
   return (
@@ -291,7 +293,7 @@ export default async function TeekayPage() {
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
-              <AccordionItem key={faq.question} value={`item-${index}`} className="bg-card border border-border rounded-lg px-4">
+              <AccordionItem key={faq.question} value={'item-${index}'} className="bg-card border border-border rounded-lg px-4">
                 <AccordionTrigger className="text-left font-semibold hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>

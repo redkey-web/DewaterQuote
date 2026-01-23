@@ -32,6 +32,7 @@ export const metadata: Metadata = {
     description:
       "Swiss-engineered Straub GRIP and FLEX pipe couplings. Authorised distributor with fast Australia-wide delivery.",
     type: "website",
+    url: "https://dewaterproducts.com.au/pipe-couplings/straub",
     images: [
       {
         url: "/images/brands/straub-og.jpg",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://dewaterproducts.com.au/straub-couplings",
+    canonical: "https://dewaterproducts.com.au/pipe-couplings/straub",
   },
 }
 
@@ -103,13 +104,14 @@ const faqs = [
   },
 ]
 
-export default async function StraubCouplingsRepairClampsPage() {
+export default async function StraubCouplingsPage() {
   // Get products by Straub brand from database
   const straubProducts = await getProductsByBrand("straub")
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
-    { name: "Straub Couplings & Repair Clamps", url: "https://dewaterproducts.com.au/straub-couplings" },
+    { name: "Pipe Couplings", url: "https://dewaterproducts.com.au/pipe-couplings" },
+    { name: "Straub Couplings", url: "https://dewaterproducts.com.au/pipe-couplings/straub" },
   ]
 
   return (
@@ -226,7 +228,7 @@ export default async function StraubCouplingsRepairClampsPage() {
             Many products show their Straub equivalent on the product page.
           </p>
           <Link
-            href="/orbit-couplings"
+            href="/pipe-couplings/orbit"
             className="inline-flex items-center text-orange-700 dark:text-orange-300 font-medium hover:underline"
           >
             View Orbit Couplings
@@ -239,7 +241,7 @@ export default async function StraubCouplingsRepairClampsPage() {
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
-              <AccordionItem key={faq.question} value={`item-${index}`} className="bg-card border border-border rounded-lg px-4">
+              <AccordionItem key={faq.question} value={'item-${index}'} className="bg-card border border-border rounded-lg px-4">
                 <AccordionTrigger className="text-left font-semibold hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
@@ -267,7 +269,7 @@ export default async function StraubCouplingsRepairClampsPage() {
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
-            <Link href="/orbit-couplings">
+            <Link href="/pipe-couplings/orbit">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
                 <span className="font-medium">Orbit Couplings</span>
                 <ArrowRight className="w-4 h-4" />

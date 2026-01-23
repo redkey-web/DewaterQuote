@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     description:
       "Australian industrial pipe couplings and repair clamps. Straub-compatible alternatives at competitive prices.",
     type: "website",
+    url: "https://dewaterproducts.com.au/pipe-couplings/orbit",
     images: [
       {
         url: "/images/brands/orbit-og.jpg",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: "https://dewaterproducts.com.au/orbit-couplings",
+    canonical: "https://dewaterproducts.com.au/pipe-couplings/orbit",
   },
 }
 
@@ -123,7 +124,8 @@ export default async function OrbitCouplingsPage() {
 
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
-    { name: "Orbit Couplings", url: "https://dewaterproducts.com.au/orbit-couplings" },
+    { name: "Pipe Couplings", url: "https://dewaterproducts.com.au/pipe-couplings" },
+    { name: "Orbit Couplings", url: "https://dewaterproducts.com.au/pipe-couplings/orbit" },
   ]
 
   return (
@@ -270,7 +272,7 @@ export default async function OrbitCouplingsPage() {
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
-              <AccordionItem key={faq.question} value={`item-${index}`} className="bg-card border border-border rounded-lg px-4">
+              <AccordionItem key={faq.question} value={'item-${index}'} className="bg-card border border-border rounded-lg px-4">
                 <AccordionTrigger className="text-left font-semibold hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
@@ -286,7 +288,7 @@ export default async function OrbitCouplingsPage() {
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6">Related Products</h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/straub-couplings">
+            <Link href="/pipe-couplings/straub">
               <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all cursor-pointer">
                 <span className="font-medium">Straub Couplings</span>
                 <ArrowRight className="w-4 h-4" />

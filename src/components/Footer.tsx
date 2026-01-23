@@ -91,9 +91,9 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Brands</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/straub-couplings" className="text-white font-medium hover:text-white/80" data-testid="link-footer-straub">Straub</Link></li>
-              <li><Link href="/orbit-couplings" className="text-white font-medium hover:text-white/80" data-testid="link-footer-orbit">Orbit</Link></li>
-              <li><Link href="/teekay" className="text-white font-medium hover:text-white/80" data-testid="link-footer-teekay">Teekay</Link></li>
+              <li><Link href="/pipe-couplings/straub" className="text-white font-medium hover:text-white/80" data-testid="link-footer-straub">Straub</Link></li>
+              <li><Link href="/pipe-couplings/orbit" className="text-white font-medium hover:text-white/80" data-testid="link-footer-orbit">Orbit</Link></li>
+              <li><Link href="/pipe-couplings/teekay" className="text-white font-medium hover:text-white/80" data-testid="link-footer-teekay">Teekay</Link></li>
               <li><Link href="/bore-flex" className="text-white font-medium hover:text-white/80" data-testid="link-footer-bore-flex">Bore-Flex Rubber</Link></li>
               <li><Link href="/defender-valves" className="text-white font-medium hover:text-white/80" data-testid="link-footer-defender">Defender Valves</Link></li>
               <li><Link href="/defender-strainers" className="text-white font-medium hover:text-white/80" data-testid="link-footer-defender-strainers">Defender Strainers</Link></li>
