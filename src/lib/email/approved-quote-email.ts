@@ -304,11 +304,10 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
           <tr>
             <td style="padding: 0 30px 30px 30px;">
               <div style="background-color: #ecfdf5; padding: 20px; border-radius: 6px; border-left: 4px solid #10b981;">
-                <h4 style="margin: 0 0 12px 0; color: #065f46; font-size: 14px;">Ready to proceed?</h4>
+                <h4 style="margin: 0 0 12px 0; color: #065f46; font-size: 14px;">Ready to order?</h4>
                 <p style="margin: 0; color: #047857; font-size: 13px; line-height: 1.6;">
-                  If you're happy to move ahead, please email your purchase order to
+                  Just email your purchase order to
                   <a href="mailto:sales@dewaterproducts.com.au" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">sales@dewaterproducts.com.au</a>
-                  with a copy of this email (or PDF) attached.
                 </p>
                 <p style="margin: 12px 0 0 0; font-size: 12px; color: #6b7280;">
                   Questions? Call us on <a href="tel:1300271290" style="color: #0ea5e9; text-decoration: none;">1300 271 290</a>
@@ -430,7 +429,7 @@ TERMS & CONDITIONS
 
 ---
 
-Ready to proceed? Reply to this email or call us on 1300 271 290 to confirm your order.
+Ready to order? Just email your purchase order to sales@dewaterproducts.com.au
 
 ---
 
