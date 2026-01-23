@@ -18,81 +18,87 @@ const subcategoryContent: Record<string, {
   longDescription: string
   features?: string[]
   applications?: string[]
+  keywords?: string[]
 }> = {
   "single-sphere": {
-    title: "Single Sphere Rubber Expansion Joints",
-    metaDescription: "Single sphere rubber expansion joints. EPDM rubber with zinc or 316SS flanges. Absorbs vibration and thermal expansion. PN16 rated. Australia-wide delivery.",
-    heroDescription: "Flexible rubber joints for absorbing thermal expansion, vibration, and pipe misalignment. Single sphere design for standard movement requirements.",
-    longDescription: "Single sphere rubber expansion joints provide flexible connections that absorb thermal expansion, reduce vibration transmission, and accommodate pipe misalignment. EPDM rubber construction with nylon reinforcement. Available with zinc-plated steel or 316 stainless steel flanges.",
+    title: "Single Sphere Rubber Bellows & Expansion Joints",
+    metaDescription: "Single sphere rubber bellows and expansion joints. EPDM rubber bellows with zinc or 316SS flanges. Absorbs vibration and thermal expansion. PN16 rated. Australia-wide delivery.",
+    heroDescription: "Single sphere rubber bellows for absorbing thermal expansion, vibration, and pipe misalignment. Standard movement requirements for pumps and HVAC systems.",
+    longDescription: "Single sphere rubber bellows provide flexible connections that absorb thermal expansion, reduce vibration transmission, and accommodate pipe misalignment. These rubber bellows expansion joints feature EPDM rubber construction with nylon reinforcement. Available with zinc-plated steel or 316 stainless steel flanges for corrosion resistance.",
     features: [
+      "EPDM rubber bellows construction",
       "Absorbs thermal expansion",
       "Reduces vibration transmission",
-      "EPDM rubber construction",
       "Nylon fabric reinforcement",
       "Zinc or 316SS flanges available",
       "PN16 pressure rating"
     ],
     applications: ["Pump connections", "HVAC systems", "Chiller plants", "Water treatment"],
+    keywords: ["single sphere rubber bellows", "rubber bellows expansion joint", "single sphere expansion joint", "EPDM rubber bellows"],
   },
   "twin-sphere": {
-    title: "Twin Sphere Rubber Expansion Joints",
-    metaDescription: "Twin sphere rubber expansion joints for greater movement absorption. EPDM rubber with zinc or 316SS flanges. Ideal for high-vibration applications. PN16 rated.",
-    heroDescription: "Double sphere design for increased axial movement and superior vibration absorption. Ideal for high-vibration pump connections.",
-    longDescription: "Twin sphere expansion joints provide greater flexibility and movement absorption than single sphere designs. The dual arch configuration allows for higher axial compression and extension, making them ideal for pump connections and high-vibration equipment.",
+    title: "Twin Sphere Rubber Bellows & Expansion Joints",
+    metaDescription: "Twin sphere rubber bellows for greater movement absorption. Double sphere EPDM rubber bellows with zinc or 316SS flanges. Ideal for high-vibration applications. PN16 rated.",
+    heroDescription: "Double sphere rubber bellows for increased axial movement and superior vibration absorption. Ideal for high-vibration pump connections.",
+    longDescription: "Twin sphere rubber bellows provide greater flexibility and movement absorption than single sphere designs. The dual arch rubber bellows configuration allows for higher axial compression and extension, making them ideal for pump connections and high-vibration equipment. These flexible rubber bellows absorb movement in all directions.",
     features: [
+      "Double sphere rubber bellows design",
       "Greater axial movement than single sphere",
       "Superior vibration absorption",
       "EPDM rubber construction",
-      "Double arch flexibility",
       "Zinc or 316SS flanges available",
       "PN16 pressure rating"
     ],
     applications: ["High-vibration pumps", "Compressor connections", "Marine applications", "Industrial piping"],
+    keywords: ["twin sphere rubber bellows", "double sphere rubber bellows", "flexible rubber bellows", "vibration absorption bellows"],
   },
   "single-arch": {
-    title: "Single Arch Rubber Expansion Joints",
-    metaDescription: "Single arch rubber expansion joints for controlled lateral movement. Higher pressure ratings. EPDM rubber with reinforced flanges. Industrial piping systems.",
-    heroDescription: "Higher pressure rated expansion joints with controlled lateral and angular movement. Suited for industrial piping systems.",
-    longDescription: "Single arch expansion joints feature a wider arch profile providing higher pressure ratings and controlled movement characteristics. The reinforced construction handles demanding industrial applications while providing vibration isolation and thermal expansion compensation.",
+    title: "Single Arch Rubber Bellows & Expansion Joints",
+    metaDescription: "Single arch rubber bellows for controlled lateral movement. Higher pressure rubber bellows with reinforced flanges. Industrial piping systems. Australia-wide delivery.",
+    heroDescription: "Higher pressure rubber bellows with controlled lateral and angular movement. Single arch design suited for industrial piping systems.",
+    longDescription: "Single arch rubber bellows feature a wider arch profile providing higher pressure ratings and controlled movement characteristics. These industrial rubber bellows handle demanding applications while providing vibration isolation and thermal expansion compensation. The reinforced rubber bellows construction ensures long service life.",
     features: [
-      "Higher pressure ratings",
+      "Higher pressure rubber bellows",
       "Controlled lateral movement",
       "Angular movement capability",
-      "Reinforced construction",
+      "Reinforced bellows construction",
       "Industrial grade EPDM",
       "Multiple flange options"
     ],
     applications: ["Industrial piping", "Power generation", "Chemical plants", "Mining operations"],
+    keywords: ["single arch rubber bellows", "industrial rubber bellows", "high pressure rubber bellows", "arch expansion joint"],
   },
   "double-arch": {
-    title: "Double Arch Rubber Expansion Joints",
-    metaDescription: "Double arch rubber expansion joints for maximum movement capability. Handles significant thermal expansion. EPDM with 316SS flanges for demanding applications.",
-    heroDescription: "Maximum movement capability for applications requiring significant thermal expansion compensation and vibration absorption.",
-    longDescription: "Double arch expansion joints provide the highest movement capability in the range. The dual arch design accommodates significant thermal expansion, angular misalignment, and lateral movement while maintaining pressure integrity. Ideal for long pipeline runs and equipment with high thermal cycling.",
+    title: "Double Arch Rubber Bellows & Expansion Joints",
+    metaDescription: "Double arch rubber bellows for maximum movement capability. Handles significant thermal expansion. EPDM rubber bellows with 316SS flanges for demanding applications.",
+    heroDescription: "Maximum movement rubber bellows for applications requiring significant thermal expansion compensation and vibration absorption.",
+    longDescription: "Double arch rubber bellows provide the highest movement capability in the range. The dual arch rubber bellows design accommodates significant thermal expansion, angular misalignment, and lateral movement while maintaining pressure integrity. These heavy-duty rubber bellows are ideal for long pipeline runs and equipment with high thermal cycling.",
     features: [
       "Maximum axial movement",
+      "Double arch rubber bellows design",
       "High angular capability",
       "Significant lateral movement",
-      "Long pipeline applications",
       "Thermal cycling resistance",
       "Heavy-duty construction"
     ],
     applications: ["Long pipeline runs", "High-temperature systems", "Thermal power plants", "Large pump stations"],
+    keywords: ["double arch rubber bellows", "high movement rubber bellows", "thermal expansion bellows", "heavy duty rubber bellows"],
   },
   "reducing": {
-    title: "Reducing Rubber Expansion Joints",
-    metaDescription: "Reducing rubber expansion joints for connecting different pipe sizes. EPDM rubber construction. Absorbs vibration while reducing pipe diameter. Various size combinations.",
-    heroDescription: "Connects different pipe sizes while absorbing vibration and movement. Available in various size combinations.",
-    longDescription: "Reducing expansion joints combine the benefits of flexible joints with pipe size reduction. They connect pumps, valves, and equipment with different inlet and outlet sizes while providing vibration isolation and thermal expansion compensation. Custom size combinations available.",
+    title: "Reducing Rubber Bellows & Expansion Joints",
+    metaDescription: "Reducing rubber bellows for connecting different pipe sizes. EPDM rubber bellows construction. Absorbs vibration while reducing pipe diameter. Various size combinations available.",
+    heroDescription: "Reducing rubber bellows connecting different pipe sizes while absorbing vibration and movement. Available in various size combinations.",
+    longDescription: "Reducing rubber bellows combine the benefits of flexible bellows with pipe size reduction. These reducer rubber bellows connect pumps, valves, and equipment with different inlet and outlet sizes while providing vibration isolation and thermal expansion compensation. Custom rubber bellows size combinations available on request.",
     features: [
       "Connects different pipe sizes",
+      "Reducing rubber bellows design",
       "Vibration absorption",
       "Thermal expansion compensation",
       "Custom sizes available",
-      "EPDM rubber construction",
       "Multiple flange standards"
     ],
     applications: ["Pump connections", "Reducer transitions", "Equipment connections", "System modifications"],
+    keywords: ["reducing rubber bellows", "reducer expansion joint", "eccentric rubber bellows", "concentric rubber bellows"],
   },
 }
 
@@ -117,19 +123,25 @@ export async function generateMetadata({ params }: SubcategoryPageProps): Promis
     return { title: "Not Found" }
   }
 
-  return {
-    title: `${content.title} | Dewater Products`,
+  const metadata: Metadata = {
+    title: '${content.title} | Dewater Products',
     description: content.metaDescription,
     openGraph: {
-      title: `${content.title} - Dewater Products`,
+      title: '${content.title} - Dewater Products',
       description: content.metaDescription,
       type: "website",
-      url: `https://dewaterproducts.com.au/expansion-joints/${subcategory}`,
+      url: 'https://dewaterproducts.com.au/expansion-joints/${subcategory}',
     },
     alternates: {
-      canonical: `https://dewaterproducts.com.au/expansion-joints/${subcategory}`,
+      canonical: 'https://dewaterproducts.com.au/expansion-joints/${subcategory}',
     },
   }
+
+  if (content.keywords) {
+    metadata.keywords = content.keywords
+  }
+
+  return metadata
 }
 
 export const revalidate = 60
@@ -244,9 +256,9 @@ export default async function ExpansionJointSubcategoryPage({ params }: Subcateg
 
         {/* CTA Section */}
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Expansion Joint?</h2>
+          <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Rubber Bellows?</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Our technical team can help you specify the right expansion joint for your application.
+            Our technical team can help you specify the right rubber bellows or expansion joint for your application.
             Call us on <a href="tel:1300271290" className="text-primary hover:underline">1300 271 290</a> or request a quote.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">

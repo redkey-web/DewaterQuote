@@ -9,11 +9,11 @@ import JointTypeChips from "@/components/JointTypeChips"
 import type { Metadata } from "next"
 
 const jointTypes = [
-  { name: "Single Sphere", url: "/single-sphere-expansion-joints", description: "Standard expansion joint for moderate axial movement and vibration absorption. Ideal for pump connections." },
-  { name: "Twin Sphere", url: "/twin-sphere-expansion-joints", description: "Greater axial movement and flexibility than single sphere. Excellent for high-vibration applications." },
-  { name: "Single Arch", url: "/single-arch-expansion-joints", description: "Higher pressure rating with controlled lateral and angular movement. Suited for industrial piping systems." },
-  { name: "Double Arch", url: "/double-arch-expansion-joints", description: "Maximum movement capability for demanding applications requiring significant thermal expansion compensation." },
-  { name: "Reducing", url: "/reducing-expansion-joints", description: "Connects different pipe sizes while absorbing vibration and movement. Available in various size combinations." },
+  { name: "Single Sphere", url: "/expansion-joints/single-sphere", description: "Standard rubber bellows for moderate axial movement and vibration absorption. Ideal for pump connections." },
+  { name: "Twin Sphere", url: "/expansion-joints/twin-sphere", description: "Double sphere rubber bellows with greater axial movement. Excellent for high-vibration applications." },
+  { name: "Single Arch", url: "/expansion-joints/single-arch", description: "Higher pressure rubber bellows with controlled lateral and angular movement. Suited for industrial piping." },
+  { name: "Double Arch", url: "/expansion-joints/double-arch", description: "Maximum movement rubber bellows for demanding applications requiring significant thermal expansion compensation." },
+  { name: "Reducing", url: "/expansion-joints/reducing", description: "Reducing rubber bellows connecting different pipe sizes while absorbing vibration and movement." },
 ]
 
 const applications = [
@@ -41,15 +41,21 @@ export const metadata: Metadata = {
   description:
     "Pipe expansion joints and rubber bellows for thermal expansion, vibration absorption, and pipe movement. Rubber pipe expansion joints for chilled water, steam, HVAC and industrial piping. EPDM bellows with PN16 flanges. Australia-wide delivery.",
   keywords: [
+    "rubber bellows",
+    "rubber bellows Australia",
+    "pipe rubber bellows",
+    "rubber bellows for pipes",
+    "rubber bellows expansion joint",
     "pipe expansion joints",
     "expansion joints for pipe",
     "rubber expansion joints for pipe",
-    "pipe rubber bellows expansion joint",
     "rubber pipe expansion joints",
     "thermal expansion joints pipe",
     "chilled water pipe expansion joints",
     "steam pipe expansion joints",
     "expansion bellows",
+    "flexible rubber bellows",
+    "EPDM rubber bellows",
     "pipe expansion joints australia",
   ],
   openGraph: {
