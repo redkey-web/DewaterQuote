@@ -214,6 +214,12 @@ const styles = StyleSheet.create({
     fontSize: 8,
     color: "#888888",
   },
+  footerPhone: {
+    fontSize: 11,
+    fontWeight: "bold",
+    color: "#0ea5e9",
+    marginBottom: 2,
+  },
   footerCompany: {
     fontSize: 9,
     fontWeight: "bold",
@@ -382,6 +388,8 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
               src="https://dewaterproducts.com.au/images/logo-new.png"
               style={styles.logo}
             />
+            <Text style={{ fontSize: 8, color: "#666", marginTop: 4 }}>ABN: 98 622 681 663</Text>
+            <Text style={{ fontSize: 8, color: "#0ea5e9", marginTop: 2 }}>1300 271 290</Text>
           </View>
           <View style={styles.headerRight}>
             <Text style={styles.quoteTitle}>QUOTATION</Text>
@@ -717,18 +725,26 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
             Credit Card Payments incur 1.9% Surcharge
           </Text>
 
-          {/* Acceptance */}
-          <Text
+          {/* Next Steps */}
+          <View
             style={{
-              fontSize: 8,
-              color: "#0ea5e9",
-              marginTop: 8,
-              fontStyle: "italic",
+              marginTop: 12,
+              padding: 10,
+              backgroundColor: "#ecfdf5",
+              borderRadius: 4,
+              borderLeft: "3 solid #10b981",
             }}
           >
-            This quote is valid until {safeString(data.validUntil)}. To accept this quote, reply
-            to this email or call 1300 271 290.
-          </Text>
+            <Text style={{ fontSize: 9, fontWeight: "bold", color: "#065f46", marginBottom: 4 }}>
+              Ready to proceed?
+            </Text>
+            <Text style={{ fontSize: 8, color: "#047857", lineHeight: 1.4 }}>
+              If you're happy to move ahead, please email your purchase order to sales@dewaterproducts.com.au with a copy of this quote attached.
+            </Text>
+            <Text style={{ fontSize: 8, color: "#6b7280", marginTop: 4 }}>
+              Quote valid until {safeString(data.validUntil)}. Questions? Call 1300 271 290.
+            </Text>
+          </View>
         </View>
 
         {/* Footer */}
@@ -739,7 +755,7 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
             <Text style={styles.footerText}>Perth, Western Australia</Text>
           </View>
           <View style={{ textAlign: "right" }}>
-            <Text style={styles.footerText}>Phone: 1300 271 290</Text>
+            <Text style={styles.footerPhone}>1300 271 290</Text>
             <Text style={styles.footerText}>sales@dewaterproducts.com.au</Text>
             <Text style={styles.footerText}>www.dewaterproducts.com.au</Text>
           </View>

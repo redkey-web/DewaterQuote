@@ -173,6 +173,7 @@ export default function RequestQuotePage() {
   const billingSameAsDelivery = form.watch("billingSameAsDelivery")
   const deliveryPostcode = form.watch("deliveryAddress.postcode")
   const shippingInfo = deliveryPostcode?.length === 4 ? getShippingMessage(deliveryPostcode) : null
+  const isMetroAddress = shippingInfo?.isFreeShipping ?? false
 
   const handleTurnstileVerify = useCallback((token: string) => {
     setTurnstileToken(token)
@@ -189,7 +190,9 @@ export default function RequestQuotePage() {
 
   // Check if Turnstile is required (env var set)
   const turnstileRequired = !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
-  const canSubmit = !turnstileRequired || turnstileToken
+  // Require metro address for delivery
+  const hasValidPostcode = deliveryPostcode?.length === 4
+  const canSubmit = (!turnstileRequired || turnstileToken) && (!hasValidPostcode || isMetroAddress)
 
   const onSubmit = async (data: QuoteFormValues) => {
     setIsSubmitting(true)
@@ -630,7 +633,7 @@ export default function RequestQuotePage() {
                           shippingInfo.isFreeShipping ? (
                             <span className="text-green-600 font-medium">FREE (Metro)</span>
                           ) : (
-                            <span className="text-amber-600 font-medium">Quoted separately</span>
+                            <span className="text-red-600 font-medium">Metro only</span>
                           )
                         ) : (
                           <span className="text-muted-foreground">Enter postcode</span>
@@ -872,9 +875,15 @@ export default function RequestQuotePage() {
                                   />
                                 </FormControl>
                                 {shippingInfo && (
-                                  <p className={"text-xs mt-1 " + (shippingInfo.isFreeShipping ? "text-green-600" : "text-amber-600")}>
-                                    {shippingInfo.shortMessage}
-                                  </p>
+                                  shippingInfo.isFreeShipping ? (
+                                    <p className="text-xs mt-1 text-green-600">
+                                      {shippingInfo.shortMessage}
+                                    </p>
+                                  ) : (
+                                    <p className="text-xs mt-1 text-red-600 font-medium">
+                                      Please enter a metro delivery address. Regional delivery is not available for online quotes.
+                                    </p>
+                                  )
                                 )}
                                 <FormMessage />
                               </FormItem>
@@ -1049,9 +1058,9 @@ export default function RequestQuotePage() {
                           {shippingInfo ? (
                             shippingInfo.isFreeShipping
                               ? shippingInfo.message
-                              : "Regional delivery - shipping costs will be quoted separately"
+                              : <span className="text-red-600 font-medium">Online quotes are only available for metro delivery addresses. For regional delivery, please call 1300 271 290.</span>
                           ) : (
-                            "Free delivery to metro areas. Regional shipping quoted separately."
+                            "Free delivery to metro areas. Online quotes for metro addresses only."
                           )}
                         </span>
                       </div>
@@ -1067,6 +1076,21 @@ export default function RequestQuotePage() {
                       </div>
                     </div>
 
+                    {/* Non-metro warning */}
+                    {hasValidPostcode && !isMetroAddress && (
+                      <div className="flex items-start gap-2 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-md">
+                        <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
+                        <div>
+                          <p className="text-sm font-medium text-red-800 dark:text-red-200">
+                            Metro delivery address required
+                          </p>
+                          <p className="text-xs text-red-700 dark:text-red-300 mt-1">
+                            Online quotes are only available for metro areas. For regional delivery, please call 1300 271 290.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
                     <Button
                       type="submit"
                       className="w-full"
@@ -1079,6 +1103,8 @@ export default function RequestQuotePage() {
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                           Submitting...
                         </>
+                      ) : hasValidPostcode && !isMetroAddress ? (
+                        "Metro Address Required"
                       ) : (
                         "Get Quote"
                       )}

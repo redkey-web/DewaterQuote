@@ -18,6 +18,7 @@ export interface QuoteItemEmail {
   quotedPrice?: number | null
   quotedNotes?: string | null
   materialTestCert?: boolean
+  leadTime?: string | null
 }
 
 export interface ApprovedQuoteEmailData {
@@ -76,6 +77,7 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
       const safeSku = escapeHtml(item.sku)
       const safeSize = item.sizeLabel ? escapeHtml(item.sizeLabel) : ""
       const safeNotes = item.quotedNotes ? escapeHtml(item.quotedNotes) : ""
+      const safeLeadTime = item.leadTime ? escapeHtml(item.leadTime) : ""
 
       return `
         <tr>
@@ -85,9 +87,10 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
           <td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">
             <strong style="color: #1a1a1a;">${safeName}</strong><br />
             <span style="font-size: 12px; color: #666;">${safeBrand}</span>
-            ${safeSize ? `<br /><span style="font-size: 12px; color: #666;">${safeSize}</span>` : ""}
-            ${item.materialTestCert ? `<br /><span style="display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-top: 4px;">+ Material Cert</span>` : ""}
-            ${safeNotes ? `<br /><span style="font-size: 11px; color: #92400e; font-style: italic;">Note: ${safeNotes}</span>` : ""}
+            ${safeSize ? '<br /><span style="font-size: 12px; color: #666;">${safeSize}</span>' : ""}
+            ${item.materialTestCert ? '<br /><span style="display: inline-block; background: #e0f2fe; color: #0369a1; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-top: 4px;">+ Material Cert</span>' : ""}
+            ${safeLeadTime ? '<br /><span style="font-size: 11px; color: #666;">Lead time: ${safeLeadTime}</span>' : ""}
+            ${safeNotes ? '<br /><span style="font-size: 11px; color: #92400e; font-style: italic;">Note: ${safeNotes}</span>' : ""}
           </td>
           <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: center;">
             ${item.quantity}
@@ -120,8 +123,9 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
           <!-- Header -->
           <tr>
             <td style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); padding: 30px; text-align: center;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">DEWATER</h1>
-              <p style="margin: 5px 0 0 0; color: #bae6fd; font-size: 12px; letter-spacing: 2px;">PRODUCTS AUSTRALIA</p>
+              <h1 style="margin: 0; font-size: 28px; font-weight: 700;"><span style="color: #ffffff;">DEWATER</span> <span style="color: #94a3b8;">PRODUCTS</span></h1>
+              <p style="margin: 5px 0 0 0; color: #bae6fd; font-size: 12px; letter-spacing: 2px;">AUSTRALIA</p>
+              <p style="margin: 8px 0 0 0; color: #bae6fd; font-size: 10px;">ABN: 98 622 681 663</p>
             </td>
           </tr>
 
@@ -296,18 +300,20 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
               : ""
           }
 
-          <!-- Accept CTA -->
+          <!-- Next Steps -->
           <tr>
-            <td style="padding: 0 30px 30px 30px; text-align: center;">
-              <p style="margin: 0 0 20px 0; color: #4b5563;">
-                Ready to proceed? Reply to this email or give us a call to confirm your order.
-              </p>
-              <a href="mailto:sales@dewaterproducts.com.au?subject=Accept%20Quote%20${data.quoteNumber}&body=Hi%2C%0A%0AI%20would%20like%20to%20proceed%20with%20quote%20${data.quoteNumber}.%0A%0ARegards%2C%0A${encodeURIComponent(data.contactName)}" style="display: inline-block; background-color: #0ea5e9; color: #ffffff; padding: 14px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 16px;">
-                Accept This Quote
-              </a>
-              <p style="margin: 15px 0 0 0; font-size: 12px; color: #9ca3af;">
-                Or call us on <a href="tel:1300271290" style="color: #0ea5e9; text-decoration: none;">1300 271 290</a>
-              </p>
+            <td style="padding: 0 30px 30px 30px;">
+              <div style="background-color: #ecfdf5; padding: 20px; border-radius: 6px; border-left: 4px solid #10b981;">
+                <h4 style="margin: 0 0 12px 0; color: #065f46; font-size: 14px;">Ready to proceed?</h4>
+                <p style="margin: 0; color: #047857; font-size: 13px; line-height: 1.6;">
+                  If you're happy to move ahead, please email your purchase order to
+                  <a href="mailto:sales@dewaterproducts.com.au" style="color: #0ea5e9; text-decoration: none; font-weight: 600;">sales@dewaterproducts.com.au</a>
+                  with a copy of this email (or PDF) attached.
+                </p>
+                <p style="margin: 12px 0 0 0; font-size: 12px; color: #6b7280;">
+                  Questions? Call us on <a href="tel:1300271290" style="color: #0ea5e9; text-decoration: none;">1300 271 290</a>
+                </p>
+              </div>
             </td>
           </tr>
 
@@ -330,18 +336,19 @@ export function generateApprovedQuoteEmailHtml(data: ApprovedQuoteEmailData): st
           <!-- Footer -->
           <tr>
             <td style="background-color: #1f2937; padding: 30px; text-align: center;">
-              <p style="margin: 0 0 10px 0; color: #ffffff; font-weight: 600; font-size: 16px;">Dewater Products Pty Ltd</p>
+              <p style="margin: 0 0 10px 0; color: #ffffff; font-weight: 600; font-size: 18px;">Dewater Products Pty Ltd</p>
               <p style="margin: 0 0 5px 0; color: #9ca3af; font-size: 13px;">ABN: 98 622 681 663</p>
-              <p style="margin: 0 0 5px 0; color: #9ca3af; font-size: 13px;">Perth, Western Australia</p>
-              <p style="margin: 15px 0 0 0;">
-                <a href="tel:1300271290" style="color: #0ea5e9; text-decoration: none; font-size: 13px;">1300 271 290</a>
-                <span style="color: #4b5563; margin: 0 10px;">|</span>
-                <a href="mailto:sales@dewaterproducts.com.au" style="color: #0ea5e9; text-decoration: none; font-size: 13px;">sales@dewaterproducts.com.au</a>
+              <p style="margin: 0 0 15px 0; color: #9ca3af; font-size: 13px;">Perth, Western Australia</p>
+              <p style="margin: 0 0 8px 0;">
+                <a href="tel:1300271290" style="color: #60a5fa; text-decoration: none; font-size: 20px; font-weight: 600;">1300 271 290</a>
+              </p>
+              <p style="margin: 0 0 8px 0;">
+                <a href="mailto:sales@dewaterproducts.com.au" style="color: #0ea5e9; text-decoration: none; font-size: 14px;">sales@dewaterproducts.com.au</a>
               </p>
               <p style="margin: 15px 0 0 0;">
                 <a href="${websiteUrl}" style="color: #60a5fa; text-decoration: none; font-size: 13px;">${websiteUrl.replace("https://", "")}</a>
               </p>
-              ${data.preparedBy ? `<p style="margin: 15px 0 0 0; color: #6b7280; font-size: 12px;">Quote prepared by: ${escapeHtml(data.preparedBy)}</p>` : ""}
+              ${data.preparedBy ? '<p style="margin: 15px 0 0 0; color: #6b7280; font-size: 12px;">Quote prepared by: ${escapeHtml(data.preparedBy)}</p>' : ""}
             </td>
           </tr>
 
