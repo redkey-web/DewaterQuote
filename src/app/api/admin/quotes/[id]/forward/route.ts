@@ -190,13 +190,18 @@ export async function POST(
       })
       .join('');
 
+    // SendGrid requires sender identity to match verified sender exactly
     const fromEmail =
-      process.env.FROM_EMAIL || 'noreply@dewaterproducts.com.au';
+      process.env.FROM_EMAIL || 'sales@dewaterproducts.com.au';
+    const fromName = process.env.FROM_NAME || 'Dewater Products';
 
     // Send quote to customer
     const customerEmail = {
       to: quote.email,
-      from: fromEmail,
+      from: {
+        email: fromEmail,
+        name: fromName,
+      },
       subject: `Your Quote from Dewater Products - ${quote.quoteNumber}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto;">

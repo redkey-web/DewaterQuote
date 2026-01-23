@@ -157,11 +157,16 @@ export async function POST(
     const textContent = generateApprovedQuoteEmailText(emailData)
 
     // Send email with PDF attachment
-    const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
+    // SendGrid requires sender identity to match verified sender exactly
+    const fromEmail = process.env.FROM_EMAIL || "sales@dewaterproducts.com.au"
+    const fromName = process.env.FROM_NAME || "Dewater Products"
 
     await sgMail.send({
       to: quote.email,
-      from: fromEmail,
+      from: {
+        email: fromEmail,
+        name: fromName,
+      },
       replyTo: process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au",
       subject: `Your Quote ${quote.quoteNumber} from Dewater Products`,
       html: htmlContent,

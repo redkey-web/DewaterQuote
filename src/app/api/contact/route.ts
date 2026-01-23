@@ -67,7 +67,9 @@ export async function POST(request: NextRequest) {
       .split(",")
       .map((email) => email.trim())
       .filter(Boolean)
-    const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
+    // SendGrid requires sender identity to match verified sender exactly
+    const fromEmail = process.env.FROM_EMAIL || "sales@dewaterproducts.com.au"
+    const fromName = process.env.FROM_NAME || "Dewater Products"
 
     // Sanitize all user inputs for HTML context
     const safeName = escapeHtml(data.name)
@@ -81,7 +83,10 @@ export async function POST(request: NextRequest) {
     // Email to business (supports multiple recipients)
     const businessEmail = {
       to: toEmails,
-      from: fromEmail,
+      from: {
+        email: fromEmail,
+        name: fromName,
+      },
       replyTo: data.email,
       subject: `Contact Form: ${data.name}${data.company ? ` from ${data.company}` : ""}`,
       html: `
@@ -130,7 +135,10 @@ ${data.message}
     // Confirmation email to customer
     const customerEmail = {
       to: data.email,
-      from: fromEmail,
+      from: {
+        email: fromEmail,
+        name: fromName,
+      },
       subject: "Thank you for contacting Dewater Products",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

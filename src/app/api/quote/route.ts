@@ -269,7 +269,9 @@ export async function POST(request: NextRequest) {
 
     // Business receives quote notifications
     const toEmails = ["sales@dewaterproducts.com.au"]
-    const fromEmail = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
+    // SendGrid requires sender identity to match verified sender exactly
+    const fromEmail = process.env.FROM_EMAIL || "sales@dewaterproducts.com.au"
+    const fromName = process.env.FROM_NAME || "Dewater Products"
 
     // Sanitize user inputs for HTML context
     const safeCompanyName = escapeHtml(data.companyName)
@@ -365,7 +367,10 @@ export async function POST(request: NextRequest) {
     // Email to business (supports multiple recipients)
     const businessEmail = {
       to: toEmails,
-      from: fromEmail,
+      from: {
+        email: fromEmail,
+        name: fromName,
+      },
       replyTo: data.email,
       subject: `[${quoteNumber}] Quote Request: ${data.companyName} - ${data.contactName} (${data.items.length} items)`,
       html: `
@@ -579,8 +584,11 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
     // Confirmation email to customer - FULL DETAILED VERSION
     const customerEmail = {
       to: data.email,
-      from: fromEmail,
-      subject: `Your Quote ${quoteNumber} - Dewater Products`,
+      from: {
+        email: fromEmail,
+        name: fromName,
+      },
+      subject: 'Your Quote ${quoteNumber} - Dewater Products',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto;">
           <div style="background: #0ea5e9; color: white; padding: 20px; text-align: center;">
