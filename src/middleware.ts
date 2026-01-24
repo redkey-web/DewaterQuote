@@ -229,6 +229,14 @@ const authMiddleware = withAuth({
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Redirect www to non-www for canonical URLs (SEO)
+  const host = request.headers.get('host') || '';
+  if (host.startsWith('www.')) {
+    const url = new URL(request.url);
+    url.host = host.replace('www.', '');
+    return NextResponse.redirect(url, 301);
+  }
+
   // Remove trailing slash (except for root) - SEO best practice
   if (pathname !== '/' && pathname.endsWith('/')) {
     const newPath = pathname.slice(0, -1);

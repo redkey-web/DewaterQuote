@@ -317,7 +317,7 @@ export default async function PipeCouplingsPage() {
           <h2 className="text-xl font-semibold mb-4">Shop by Brand</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {brands.map((brand) => (
-              <Link key={brand.slug} href={'/pipe-couplings/${brand.slug}'}>
+              <Link key={brand.slug} href={`/pipe-couplings/${brand.slug}`}>
                 <div className="p-4 rounded-lg bg-card border border-border hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer h-full flex items-center gap-4">
                   <div className={`relative flex-shrink-0 ${brand.slug === 'orbit' ? 'h-[62px] w-[175px]' : brand.slug === 'teekay' ? 'h-12 w-32' : 'h-10 w-28'}`}>
                     <Image
