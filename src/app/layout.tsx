@@ -17,19 +17,20 @@ export const metadata: Metadata = {
     apple: "/images/dewater-icon.png",
   },
   title: {
-    default: "Dewater Products - Industrial Pipe Fittings & Valves",
+    default: "Industrial Pipe Fittings & Valves Australia | Dewater Products",
     template: "%s | Dewater Products",
   },
   description:
-    "Premium industrial pipe fittings, valves, couplings, and expansion joints. Trusted supplier for water, wastewater, mining, and irrigation industries across Australia.",
+    "Industrial pipe fittings, couplings, valves & expansion joints. Australian stock, fast delivery & expert support. Perth-based specialists supplying mining, water & irrigation industries.",
   keywords: [
-    "pipe fittings",
+    "industrial pipe fittings",
+    "pipe fittings australia",
     "industrial valves",
     "pipe couplings",
     "expansion joints",
     "strainers",
+    "pipe fittings perth",
     "Dewater Products",
-    "Australia",
   ],
   authors: [{ name: "Dewater Products" }],
   creator: "Dewater Products",
@@ -38,9 +39,9 @@ export const metadata: Metadata = {
     locale: "en_AU",
     url: "https://dewaterproducts.com.au",
     siteName: "Dewater Products",
-    title: "Dewater Products - Industrial Pipe Fittings & Valves",
+    title: "Industrial Pipe Fittings & Valves Australia | Dewater Products",
     description:
-      "Premium industrial pipe fittings, valves, couplings, and expansion joints. Trusted supplier across Australia.",
+      "Industrial pipe fittings, couplings, valves & expansion joints. Australian stock, fast delivery. Perth-based specialists.",
   },
   twitter: {
     card: "summary_large_image",

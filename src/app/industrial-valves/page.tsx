@@ -137,6 +137,20 @@ export default async function IndustrialValvesPage() {
           ))}
         </div>
 
+        {/* About Industrial Valves */}
+        <div className="mb-12 prose prose-neutral dark:prose-invert max-w-none">
+          <h2 className="text-2xl font-bold mb-4">About Industrial Valves</h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Industrial valves are mechanical devices used to control the flow of liquids, gases, and slurries in piping systems. They perform critical functions including flow regulation, isolation, pressure control, and backflow prevention. Selecting the right valve type depends on your application requirements, media characteristics, operating pressure, and temperature range.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Our range includes <Link href="/industrial-valves/butterfly-valves" className="text-primary hover:underline">butterfly valves</Link> for high-flow isolation, <Link href="/industrial-valves/check-valves" className="text-primary hover:underline">check valves</Link> for backflow prevention, <Link href="/industrial-valves/gate-valves" className="text-primary hover:underline">gate valves</Link> for full-bore shutoff, and <Link href="/industrial-valves/foot-valves" className="text-primary hover:underline">foot valves</Link> for pump suction lines. All valves are available in 316 stainless steel (CF8M) or ductile iron with EPDM or NBR seals to suit potable water, wastewater, and chemical applications.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            We supply valves from DN15 to DN600 in Table D, Table E, and ANSI 150lb flange drillings. Pressure ratings from PN10 to PN25 cover most industrial applications. Contact our technical team for valve selection assistance or custom requirements.
+          </p>
+        </div>
+
         {/* Applications */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-6">Common Applications</h2>
@@ -147,6 +161,25 @@ export default async function IndustrialValvesPage() {
                 <span>{app}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Related Products */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Related Products</h2>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/strainers" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Strainers & Filters</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/expansion-joints" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Expansion Joints</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/pipe-couplings" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Pipe Couplings</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
 

@@ -201,6 +201,25 @@ export default async function ExpansionJointsPage() {
           </div>
         </div>
 
+        {/* Related Products */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Related Products</h2>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/pipe-couplings" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Pipe Couplings</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/industrial-valves" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Industrial Valves</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/strainers" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Strainers & Filters</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
         {/* CTA */}
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-semibold mb-3">Need Help Selecting the Right Pipe Expansion Joint?</h2>

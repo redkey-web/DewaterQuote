@@ -166,6 +166,20 @@ export default async function StrainersPage() {
           ))}
         </div>
 
+        {/* About Pipeline Strainers */}
+        <div className="mb-12 prose prose-neutral dark:prose-invert max-w-none">
+          <h2 className="text-2xl font-bold mb-4">About Pipeline Strainers</h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Pipeline strainers are inline filtration devices that remove solid particles and debris from process fluids. They protect downstream equipment including pumps, valves, heat exchangers, and spray nozzles from damage caused by foreign matter. Proper strainer selection prevents costly equipment failures and reduces maintenance downtime.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            <Link href="/strainers/y-strainers" className="text-primary hover:underline">Y strainers</Link> are compact units ideal for steam, gas, and liquid applications where space is limited. <Link href="/strainers/basket-strainers" className="text-primary hover:underline">Basket strainers</Link> offer larger debris capacity and easier cleaning access for high-flow applications. <Link href="/strainers/duplex-strainers" className="text-primary hover:underline">Duplex strainers</Link> allow continuous operation during basket cleaning by switching flow between dual chambers. <Link href="/strainers/suction-strainers" className="text-primary hover:underline">Suction strainers</Link> are specifically designed for pump inlet protection.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            Our strainer range includes 316 stainless steel (CF8M), cast iron, and ductile iron bodies with perforated or mesh screen elements. Standard mesh sizes from 0.5mm to 3mm suit most applications. Custom mesh sizes and materials available on request. All strainers are flanged to AS4087 Table D/E or ANSI 150lb standards.
+          </p>
+        </div>
+
         {/* Applications & Selection */}
         <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
@@ -189,6 +203,25 @@ export default async function StrainersPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Related Products */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Related Products</h2>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/industrial-valves" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Industrial Valves</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/pipe-couplings" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Pipe Couplings</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/expansion-joints" className="flex items-center gap-2 px-4 py-2 rounded-md bg-card border border-border hover:bg-accent hover:border-primary/50 transition-all">
+              <span className="font-medium">Expansion Joints</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
 

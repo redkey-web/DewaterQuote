@@ -439,10 +439,10 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 lg:px-8 text-center py-16 md:py-20 pt-[calc(25vh+50px)] md:pt-[110px] relative">
-          {/* Headline */}
-          <p className="font-comfortaa text-xl md:text-2xl font-bold mb-4 tracking-wide drop-shadow-md text-white/90">
-            Industrial Pipe Fittings Supply
-          </p>
+          {/* Headline - H1 for SEO */}
+          <h1 className="font-comfortaa text-xl md:text-2xl font-bold mb-4 tracking-wide drop-shadow-md text-white/90">
+            Industrial Pipe Fittings & Valves Australia
+          </h1>
 
           <div className="relative left-1/2 -translate-x-1/2 w-[calc(100vw-40px)] md:w-[calc(100%+160px)] max-w-[1260px] md:max-w-[1500px]" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
@@ -588,6 +588,7 @@ export default function HomePage() {
       {/* Product Categories */}
       <section className="py-20 px-6 lg:px-8 bg-background">
         <div className="max-w-7xl mx-auto">
+          <h2 className="sr-only">Browse Pipe Fittings by Category</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {productCategories.map((category) => (
               <Link key={category.name} href={category.url}>
@@ -674,10 +675,10 @@ export default function HomePage() {
                 Trusted brands, technical expertise, and genuine factory support
               </h3>
               <p className="text-base text-foreground/80 mb-6 leading-relaxed">
-                We specialise in pipe couplings, valves, expansion joints, and strainers from world-leading manufacturers including Straub, Orbit, Teekay, Defender Valves, and Bore-Flex. Every product is genuine, backed by full factory support and detailed technical specifications.
+                We specialise in <Link href="/pipe-couplings" className="text-primary hover:underline">pipe couplings</Link>, <Link href="/industrial-valves" className="text-primary hover:underline">industrial valves</Link>, <Link href="/expansion-joints" className="text-primary hover:underline">expansion joints</Link>, and <Link href="/strainers" className="text-primary hover:underline">strainers</Link> from world-leading manufacturers including Straub, Orbit, Teekay, Defender Valves, and Bore-Flex. Every product is genuine, backed by full factory support and detailed technical specifications.
               </p>
               <p className="text-base text-foreground/80 mb-8 leading-relaxed">
-                Since 2015, we've been supplying water treatment, mining, irrigation, and industrial projects across Australia. Our Perth warehouse stocks a comprehensive range with fast delivery to all metro areas and expert technical support for every application.
+                Based in Perth, Western Australia, we've been supplying water treatment, mining, irrigation, and industrial projects across Australia since 2015. Our warehouse stocks a comprehensive range with fast delivery to all metro areas and expert technical support for every application.
               </p>
               <Link href="/about">
                 <Button size="lg" data-testid="button-learn-more">
@@ -873,6 +874,59 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FAQPage Schema for SEO */}
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What brands do you stock?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "We are authorized distributors for Straub, Orbit Couplings, Teekay, and Defender Valves - all industry-leading manufacturers of pipe fittings, couplings, valves, and expansion joints. All products are genuine and come with full factory support."
+                }
+              },
+              {
+                "@type": "Question",
+                name: "How do I request a quote?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Simply browse our product catalog, add items to your quote cart, and submit the request form with your contact details and project requirements. Our team will respond with competitive pricing and lead times within 24 hours."
+                }
+              },
+              {
+                "@type": "Question",
+                name: "Do you offer bulk pricing?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Yes! We offer automatic bulk discounts: 5% off when you buy 2-4, 10% off for 5-9, and 15% off for 10+. Discounts are calculated automatically and shown in your quote."
+                }
+              },
+              {
+                "@type": "Question",
+                name: "Where do you deliver?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "We deliver Australia-wide with FREE delivery to all metro areas. Items are dispatched from our Perth warehouse with fast turnaround times across the country. Express delivery options are available for urgent requirements."
+                }
+              },
+              {
+                "@type": "Question",
+                name: "Are technical specifications available?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Absolutely. Every product page includes detailed technical specifications, pressure ratings, material certifications, and downloadable PDF datasheets. We provide complete transparency to support your approval and engineering processes."
+                }
+              }
+            ]
+          })
+        }}
+      />
     </div>
   )
 }
