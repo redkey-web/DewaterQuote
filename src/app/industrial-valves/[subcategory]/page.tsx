@@ -170,16 +170,16 @@ export async function generateMetadata({ params }: SubcategoryPageProps): Promis
   const metadata: Metadata = {
     title: content.extraContent === "duckbill-valves"
       ? "Duckbill Check Valves Australia | Rubber Non-Return Valves | Dewater Products"
-      : '${content.title} | Dewater Products',
+      : `${content.title} | Dewater Products`,
     description: content.metaDescription,
     openGraph: {
-      title: '${content.title} - Dewater Products',
+      title: `${content.title} - Dewater Products`,
       description: content.metaDescription,
       type: "website",
-      url: 'https://dewaterproducts.com.au/industrial-valves/${subcategory}',
+      url: `https://dewaterproducts.com.au/industrial-valves/${subcategory}`,
     },
     alternates: {
-      canonical: 'https://dewaterproducts.com.au/industrial-valves/${subcategory}',
+      canonical: `https://dewaterproducts.com.au/industrial-valves/${subcategory}`,
     },
   }
 
@@ -207,7 +207,7 @@ export default async function ValveSubcategoryPage({ params }: SubcategoryPagePr
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
     { name: "Industrial Valves", url: "https://dewaterproducts.com.au/industrial-valves" },
-    { name: content.title, url: 'https://dewaterproducts.com.au/industrial-valves/${subcategory}' },
+    { name: content.title, url: `https://dewaterproducts.com.au/industrial-valves/${subcategory}` },
   ]
 
   return (

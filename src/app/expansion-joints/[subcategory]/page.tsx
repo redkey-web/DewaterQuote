@@ -124,16 +124,16 @@ export async function generateMetadata({ params }: SubcategoryPageProps): Promis
   }
 
   const metadata: Metadata = {
-    title: '${content.title} | Dewater Products',
+    title: `${content.title} | Dewater Products`,
     description: content.metaDescription,
     openGraph: {
-      title: '${content.title} - Dewater Products',
+      title: `${content.title} - Dewater Products`,
       description: content.metaDescription,
       type: "website",
-      url: 'https://dewaterproducts.com.au/expansion-joints/${subcategory}',
+      url: `https://dewaterproducts.com.au/expansion-joints/${subcategory}`,
     },
     alternates: {
-      canonical: 'https://dewaterproducts.com.au/expansion-joints/${subcategory}',
+      canonical: `https://dewaterproducts.com.au/expansion-joints/${subcategory}`,
     },
   }
 

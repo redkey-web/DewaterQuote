@@ -110,17 +110,17 @@ export async function generateMetadata({ params }: SubcategoryPageProps): Promis
 
   const metadata: Metadata = {
     title: content.keywords
-      ? '${content.title} | ${content.keywords[0]} | Dewater Products'
-      : '${content.title} | Dewater Products',
+      ? `${content.title} | ${content.keywords[0]} | Dewater Products`
+      : `${content.title} | Dewater Products`,
     description: content.metaDescription,
     openGraph: {
-      title: '${content.title} - Dewater Products',
+      title: `${content.title} - Dewater Products`,
       description: content.metaDescription,
       type: "website",
-      url: 'https://dewaterproducts.com.au/strainers/${subcategory}',
+      url: `https://dewaterproducts.com.au/strainers/${subcategory}`,
     },
     alternates: {
-      canonical: 'https://dewaterproducts.com.au/strainers/${subcategory}',
+      canonical: `https://dewaterproducts.com.au/strainers/${subcategory}`,
     },
   }
 
@@ -148,7 +148,7 @@ export default async function StrainerSubcategoryPage({ params }: SubcategoryPag
   const breadcrumbs = [
     { name: "Home", url: "https://dewaterproducts.com.au" },
     { name: "Strainers", url: "https://dewaterproducts.com.au/strainers" },
-    { name: content.title, url: 'https://dewaterproducts.com.au/strainers/${subcategory}' },
+    { name: content.title, url: `https://dewaterproducts.com.au/strainers/${subcategory}` },
   ]
 
   return (

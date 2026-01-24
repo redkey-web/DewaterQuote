@@ -33,8 +33,8 @@ href={`/pipe-couplings/${brand.slug}`}  // ✅ Interpolates variable
 - `/pipe-couplings/teekay` (Teekay brand)
 
 ### Tasks
-- [ ] Fix template literal on line 320
-- [ ] Verify links work after fix
+- [x] Fix template literal on line 320
+- [x] Verify links work after fix
 
 ---
 
@@ -91,9 +91,9 @@ if (host.startsWith('www.')) {
 Configure domain redirect in Vercel project settings.
 
 ### Tasks
-- [ ] Choose approach (A or B)
-- [ ] Implement www → non-www redirect
-- [ ] Verify with curl -I https://www.dewaterproducts.com.au
+- [x] Choose approach (A or B) → Option A (middleware)
+- [x] Implement www → non-www redirect
+- [ ] Verify with curl -I https://www.dewaterproducts.com.au (after deploy)
 
 ---
 
