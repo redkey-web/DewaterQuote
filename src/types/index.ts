@@ -96,6 +96,13 @@ export interface CustomSpecs {
   notes?: string
 }
 
+// Custom size request for products where customer needs a size not in the selector
+export interface CustomSizeRequest {
+  requestedSize: string      // "150mm OD" or "DN200"
+  additionalSpecs?: string   // Free-form notes
+  isCustomRequest: true      // Flag for identification
+}
+
 export interface QuoteItem {
   id: string
   productId: string
@@ -111,4 +118,5 @@ export interface QuoteItem {
   materialTestCert?: boolean
   leadTime?: string // e.g., "2-3 weeks", "In Stock", "7 weeks FRO"
   customSpecs?: CustomSpecs // For Straub/Teekay products
+  customSizeRequest?: CustomSizeRequest // For custom size requests not in selector
 }

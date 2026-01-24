@@ -205,6 +205,17 @@ export default function QuoteCart() {
                                 )}
                               </div>
                             )}
+                            {/* Custom Size Request Display - Blue badges */}
+                            {item.customSizeRequest && (
+                              <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium text-xs">
+                                  Custom: {item.customSizeRequest.requestedSize}
+                                </span>
+                                {item.customSizeRequest.additionalSpecs && (
+                                  <p className="w-full text-xs text-muted-foreground italic mt-1">{item.customSizeRequest.additionalSpecs}</p>
+                                )}
+                              </div>
+                            )}
                             {isAustralia && (
                               <div className="flex items-center gap-2 mt-1 flex-wrap">
                                 {hasDiscount ? (
@@ -451,6 +462,17 @@ export default function QuoteCart() {
                                 </span>
                                 {item.customSpecs.notes && (
                                   <p className="w-full text-xs text-muted-foreground italic mt-1">{item.customSpecs.notes}</p>
+                                )}
+                              </div>
+                            )}
+                            {/* Custom Size Request Display - Blue badges */}
+                            {item.customSizeRequest && (
+                              <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium text-xs">
+                                  Custom: {item.customSizeRequest.requestedSize}
+                                </span>
+                                {item.customSizeRequest.additionalSpecs && (
+                                  <p className="w-full text-xs text-muted-foreground italic mt-1">{item.customSizeRequest.additionalSpecs}</p>
                                 )}
                               </div>
                             )}

@@ -146,8 +146,17 @@ export function QuoteProvider({ children }: QuoteProviderProps) {
   const addItem = useCallback(
     (item: QuoteItem, triggerElement?: HTMLElement | null) => {
       setItems((prev) => {
+        // Custom size requests should NEVER merge - each is unique
+        if (item.customSizeRequest) {
+          const newItems = [...prev, item]
+          setTimeout(() => checkDiscountTierChange(newItems, triggerElement), 0)
+          return newItems
+        }
+
         const existingIndex = prev.findIndex((existing) => {
           if (existing.productId !== item.productId) return false
+          // Don't merge with existing custom size requests
+          if (existing.customSizeRequest) return false
           if (!item.variation) return !existing.variation
           return existing.variation?.size === item.variation?.size
         })

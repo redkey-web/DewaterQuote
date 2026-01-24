@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid"
 import { endOfMonth, addMonths } from "date-fns"
-import type { Product, QuoteItem, QuoteItemVariation, CustomSpecs } from "@/types"
+import type { Product, QuoteItem, QuoteItemVariation, CustomSpecs, CustomSizeRequest } from "@/types"
 
 /**
  * Gets the quote expiry date - end of the following month
@@ -114,6 +114,39 @@ export function productToQuoteItem(
     materialTestCert,
     leadTime: product.leadTime,
     customSpecs,
+  }
+}
+
+/**
+ * Creates a QuoteItem for a custom size request (size not in standard selector).
+ * These are always POA (Price On Application).
+ */
+export function createCustomSizeQuoteItem(
+  product: Product,
+  customRequest: { requestedSize: string; additionalSpecs?: string },
+  quantity: number = 1,
+  materialTestCert: boolean = false
+): QuoteItem {
+  const customSizeRequest: CustomSizeRequest = {
+    requestedSize: customRequest.requestedSize,
+    additionalSpecs: customRequest.additionalSpecs,
+    isCustomRequest: true,
+  }
+
+  return {
+    id: nanoid(),
+    productId: product.id,
+    name: product.name,
+    brand: product.brand,
+    category: product.category,
+    image: product.images[0]?.url || "/placeholder.jpg",
+    priceVaries: false,
+    basePrice: undefined, // Always POA
+    baseSku: product.sku,
+    quantity,
+    materialTestCert,
+    leadTime: product.leadTime,
+    customSizeRequest,
   }
 }
 

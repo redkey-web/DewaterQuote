@@ -226,6 +226,7 @@ export default function RequestQuotePage() {
               price: item.variation.unitPrice,
             } : undefined,
             customSpecs: item.customSpecs,
+            customSizeRequest: item.customSizeRequest,
           })),
           totals: {
             itemCount: quoteItems.length,
@@ -451,6 +452,17 @@ export default function RequestQuotePage() {
                                   </span>
                                   {item.customSpecs.notes && (
                                     <p className="w-full text-xs text-muted-foreground italic mt-1">{item.customSpecs.notes}</p>
+                                  )}
+                                </div>
+                              )}
+                              {/* Custom Size Request Display - Blue badges */}
+                              {item.customSizeRequest && (
+                                <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 font-medium text-xs">
+                                    Custom Size: {item.customSizeRequest.requestedSize}
+                                  </span>
+                                  {item.customSizeRequest.additionalSpecs && (
+                                    <p className="w-full text-xs text-muted-foreground italic mt-1">{item.customSizeRequest.additionalSpecs}</p>
                                   )}
                                 </div>
                               )}

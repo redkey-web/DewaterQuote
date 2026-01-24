@@ -275,6 +275,10 @@ export interface QuoteItemPDF {
   quotedNotes?: string | null
   materialTestCert?: boolean
   leadTime?: string | null // e.g., "2-3 weeks", "In Stock"
+  customSizeRequest?: {
+    requestedSize: string
+    additionalSpecs?: string
+  } | null
 }
 
 export interface QuotePDFData {
@@ -467,6 +471,18 @@ export function QuotePDF({ data }: { data: QuotePDFData }) {
                     <Text style={styles.productMeta}>{safeString(item.brand)}</Text>
                     {item.sizeLabel && (
                       <Text style={styles.sizeHighlight}>{safeString(item.sizeLabel)}</Text>
+                    )}
+                    {item.customSizeRequest && (
+                      <View style={{ marginTop: 2 }}>
+                        <Text style={{ backgroundColor: "#dbeafe", color: "#1e40af", fontSize: 8, padding: "1 4", borderRadius: 2 }}>
+                          Custom: {safeString(item.customSizeRequest.requestedSize)}
+                        </Text>
+                        {item.customSizeRequest.additionalSpecs && (
+                          <Text style={[styles.productMeta, { fontStyle: "italic", marginTop: 2 }]}>
+                            {safeString(item.customSizeRequest.additionalSpecs)}
+                          </Text>
+                        )}
+                      </View>
                     )}
                     {item.quotedNotes && (
                       <Text style={[styles.productMeta, { fontStyle: "italic" }]}>

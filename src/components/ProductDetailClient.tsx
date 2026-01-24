@@ -61,12 +61,13 @@ import {
   isCustomSpecsBrand,
   DISCOUNT_TIERS,
 } from "@/lib/quote"
-import type { CustomSpecs } from "@/types"
+import type { CustomSpecs, QuoteItem } from "@/types"
 import { useQuote } from "@/context/QuoteContext"
 import { trackProductView, trackAddToQuote } from "@/components/GoogleAnalytics"
 import type { Product } from "@/types"
 import BulkPricingTicker from "@/components/BulkPricingTicker"
 import ApplicationLinks from "@/components/ApplicationLinks"
+import CustomSizeRequest from "@/components/CustomSizeRequest"
 
 interface ProductDetailClientProps {
   product: Product
@@ -1028,6 +1029,16 @@ export function ProductDetailClient({ product, relatedProducts }: ProductDetailC
                   )}
                 </div>
               </div>
+            )}
+
+            {/* Custom Size Request - for products with size options (not Straub/Teekay) */}
+            {hasSizeOptions && !isCustomSpecsProduct && (
+              <CustomSizeRequest
+                product={product}
+                onAddToQuote={(item: QuoteItem) => {
+                  addItem(item, addToQuoteButtonRef.current)
+                }}
+              />
             )}
 
             <div className="mb-6 space-y-4">

@@ -561,6 +561,11 @@ export const quoteItems = pgTable('quote_items', {
   customPressure: text('custom_pressure'),
   customNotes: text('custom_notes'),
 
+  // Custom size request (for sizes not in selector)
+  customSizeRequested: text('custom_size_requested'),
+  customSizeNotes: text('custom_size_notes'),
+  isCustomSizeRequest: boolean('is_custom_size_request').default(false),
+
   displayOrder: integer('display_order').default(0),
 });
 

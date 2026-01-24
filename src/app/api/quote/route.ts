@@ -85,6 +85,12 @@ interface CustomSpecs {
   notes?: string
 }
 
+interface CustomSizeRequest {
+  requestedSize: string
+  additionalSpecs?: string
+  isCustomRequest: true
+}
+
 interface QuoteItem {
   id: string
   name: string
@@ -99,6 +105,7 @@ interface QuoteItem {
     price?: number
   }
   customSpecs?: CustomSpecs
+  customSizeRequest?: CustomSizeRequest
   leadTime?: string // e.g., "2-3 weeks", "In Stock"
 }
 
@@ -259,6 +266,10 @@ export async function POST(request: NextRequest) {
           customRubberMaterial: item.customSpecs?.rubberMaterial,
           customPressure: item.customSpecs?.pressure,
           customNotes: item.customSpecs?.notes,
+          // Custom size request (for sizes not in selector)
+          customSizeRequested: item.customSizeRequest?.requestedSize,
+          customSizeNotes: item.customSizeRequest?.additionalSpecs,
+          isCustomSizeRequest: item.customSizeRequest?.isCustomRequest ?? false,
           displayOrder: index,
         }))
       )
@@ -350,7 +361,10 @@ export async function POST(request: NextRequest) {
       const customSpecsText = item.customSpecs
         ? ` | Specs: OD=${item.customSpecs.pipeOd}, Mat=${item.customSpecs.rubberMaterial}, Press=${item.customSpecs.pressure}`
         : ""
-      return `- ${getItemSKU(item)} | ${item.name} | Qty: ${item.quantity} | ${price ? `$${price.toFixed(2)} ea` : "POA"}${customSpecsText}${certNote}`
+      const customSizeText = item.customSizeRequest
+        ? ` | Custom Size: ${item.customSizeRequest.requestedSize}${item.customSizeRequest.additionalSpecs ? ` (${item.customSizeRequest.additionalSpecs})` : ""}`
+        : ""
+      return `- ${getItemSKU(item)} | ${item.name} | Qty: ${item.quantity} | ${price ? `$${price.toFixed(2)} ea` : "POA"}${customSpecsText}${customSizeText}${certNote}`
     }).join("\n")
 
     // Check if billing address is different from delivery
@@ -729,6 +743,10 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
         lineTotal: item.variation?.price ? item.variation.price * item.quantity : null,
         materialTestCert: item.materialTestCert || false,
         leadTime: item.leadTime || null,
+        customSizeRequest: item.customSizeRequest ? {
+          requestedSize: item.customSizeRequest.requestedSize,
+          additionalSpecs: item.customSizeRequest.additionalSpecs,
+        } : null,
       }))
 
       // Calculate overall lead time (longest lead time across all items)
