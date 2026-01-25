@@ -299,7 +299,7 @@ html, body {
 .ticker-wrapper-seamless {
   display: flex;
   width: max-content;
-  animation: ticker-seamless 39s linear infinite;
+  animation: ticker-seamless 19.5s linear infinite;
   will-change: transform;
 }
 
@@ -1892,6 +1892,7 @@ html, body {
   left: 0;
   right: 0;
   z-index: 40;
+  background-color: rgba(33, 50, 64, 0.4);
 }
 
 /* Mobile: ticker under smaller header */
