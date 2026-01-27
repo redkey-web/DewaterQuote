@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { getServerSession } from "next-auth"
-import sgMail from "@sendgrid/mail"
+import { sendEmail } from "@/lib/email/client"
 import { renderToBuffer } from "@react-pdf/renderer"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
@@ -17,11 +17,6 @@ import { format } from "date-fns"
 import { authOptions } from "@/lib/auth/config"
 import { getQuoteExpiry } from "@/lib/quote"
 import { checkShippingZone } from "@/lib/shipping/metro-postcodes"
-
-// Initialize SendGrid
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-}
 
 interface SendQuoteBody {
   shippingCost?: number
@@ -210,8 +205,8 @@ export default async function handler(
       console.error("[Quote " + quote.quoteNumber + "] Failed to store PDF in blob:", blobError)
     }
 
-    // Check SendGrid configuration
-    if (!process.env.SENDGRID_API_KEY) {
+    // Check SMTP configuration
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
       return res.status(500).json({ error: "Email service not configured" })
     }
 
@@ -220,41 +215,32 @@ export default async function handler(
     const textContent = generateApprovedQuoteEmailText(emailData)
 
     // Send email with PDF attachment
-    // SendGrid requires sender identity to match verified sender exactly
-    const fromEmail = process.env.FROM_EMAIL || "sales@dewaterproducts.com.au"
-    const fromName = process.env.FROM_NAME || "Dewater Products"
-
-    const emailPayload = {
-      to: quote.email,
-      from: {
-        email: fromEmail,
-        name: fromName,
-      },
-      replyTo: (process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au").split(",")[0].trim(),
-      subject: "Your Quote " + quote.quoteNumber + " from Dewater Products",
-      html: htmlContent,
-      text: textContent,
-      attachments: [
-        {
-          content: pdfBase64,
-          filename: quote.quoteNumber + ".pdf",
-          type: "application/pdf",
-          disposition: "attachment" as const,
-        },
-      ],
-    }
+    const replyTo = (process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au").split(",")[0].trim()
 
     console.log("[Quote " + quote.quoteNumber + "] Sending email to: " + quote.email)
 
+    // Convert base64 PDF to Buffer for nodemailer
+    const pdfBufferForEmail = Buffer.from(pdfBase64, "base64")
+
     try {
-      await sgMail.send(emailPayload)
+      await sendEmail({
+        to: quote.email,
+        subject: "Your Quote " + quote.quoteNumber + " from Dewater Products",
+        html: htmlContent,
+        text: textContent,
+        replyTo,
+        attachments: [
+          {
+            filename: quote.quoteNumber + ".pdf",
+            content: pdfBufferForEmail,
+            contentType: "application/pdf",
+          },
+        ],
+      })
       console.log("[Quote " + quote.quoteNumber + "] Email sent successfully")
     } catch (emailError: unknown) {
-      const err = emailError as { response?: { body?: unknown }, message?: string, code?: number }
-      console.error("[Quote " + quote.quoteNumber + "] SendGrid email error:", err.message || emailError)
-      if (err.response?.body) {
-        console.error("[Quote " + quote.quoteNumber + "] SendGrid response body:", JSON.stringify(err.response.body, null, 2))
-      }
+      const err = emailError as { message?: string }
+      console.error("[Quote " + quote.quoteNumber + "] Email error:", err.message || emailError)
       throw emailError
     }
 

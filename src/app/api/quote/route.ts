@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import sgMail from "@sendgrid/mail"
+import { sendEmail } from "@/lib/email/client"
 import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 import { verifyTurnstileToken } from "@/lib/turnstile"
@@ -64,11 +64,6 @@ function calculateOverallLeadTime(items: QuoteItem[]): string | undefined {
 // features (Turnstile, email) are REQUIRED.
 // ============================================
 const IS_DEV = process.env.NODE_ENV === "development"
-
-// Initialize SendGrid
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-}
 
 // Generate quote number: QR-YYYYMMDD-XXX
 function generateQuoteNumber(): string {
@@ -196,17 +191,18 @@ export async function POST(request: NextRequest) {
       console.log("⚠️ DEV MODE: Skipping Turnstile verification")
     }
 
-    // Check for SendGrid API key
+    // Check for SMTP configuration
     // DEV BYPASS: Allow quote submission without email in development
-    const skipEmail = IS_DEV && !process.env.SENDGRID_API_KEY
-    if (!process.env.SENDGRID_API_KEY && !IS_DEV) {
-      console.error("SENDGRID_API_KEY is not configured")
+    const smtpConfigured = process.env.SMTP_USER && process.env.SMTP_PASS
+    const skipEmail = IS_DEV && !smtpConfigured
+    if (!smtpConfigured && !IS_DEV) {
+      console.error("SMTP not configured (SMTP_USER/SMTP_PASS required)")
       return NextResponse.json(
         { error: "Email service not configured" },
         { status: 500 }
       )
     } else if (skipEmail) {
-      console.log("⚠️ DEV MODE: Email sending will be skipped (no SENDGRID_API_KEY)")
+      console.log("⚠️ DEV MODE: Email sending will be skipped (no SMTP config)")
     }
 
     // Save quote to database
@@ -813,24 +809,15 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       // Continue without PDF attachment - email will still go out
     }
 
-    // Add PDF attachment to customer email if generated
+    // Log PDF status
     if (pdfBuffer) {
-      const pdfBase64 = pdfBuffer.toString("base64")
-      console.log(`[Quote ${quoteNumber}] PDF generated: ${pdfBase64.length} chars base64`)
-      ;(customerEmail as Record<string, unknown>).attachments = [
-        {
-          content: pdfBase64,
-          filename: `${quoteNumber}-Quote.pdf`,
-          type: "application/pdf",
-          disposition: "attachment",
-        },
-      ]
+      console.log('[Quote ${quoteNumber}] PDF generated: ${pdfBuffer.length} bytes')
     } else {
-      console.log(`[Quote ${quoteNumber}] WARNING: No PDF generated`)
+      console.log('[Quote ${quoteNumber}] WARNING: No PDF generated')
     }
 
     // Send both emails
-    // DEV BYPASS: Skip email sending if no SendGrid key in development
+    // DEV BYPASS: Skip email sending if no SMTP config in development
     if (skipEmail) {
       console.log("⚠️ DEV MODE: Emails NOT sent. Quote saved to database.")
       console.log("   Quote Number: " + quoteNumber)
@@ -838,16 +825,31 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       console.log("   View at: /admin/quotes/" + savedQuoteId)
     } else {
       try {
+        // Convert PDF to Buffer for nodemailer attachment
+        const pdfAttachment = pdfBuffer ? {
+          filename: '${quoteNumber}-Quote.pdf',
+          content: pdfBuffer,
+          contentType: "application/pdf",
+        } : undefined
+
         await Promise.all([
-          sgMail.send(businessEmail),
-          sgMail.send(customerEmail),
+          sendEmail({
+            to: businessEmail.to,
+            subject: businessEmail.subject,
+            html: businessEmail.html,
+            text: businessEmail.text,
+            replyTo: data.email,
+          }),
+          sendEmail({
+            to: customerEmail.to,
+            subject: customerEmail.subject,
+            html: customerEmail.html,
+            attachments: pdfAttachment ? [pdfAttachment] : undefined,
+          }),
         ])
       } catch (emailError: unknown) {
-        const err = emailError as { response?: { body?: unknown }, message?: string }
-        console.error("[Quote " + quoteNumber + "] SendGrid email error:", err.message || emailError)
-        if (err.response?.body) {
-          console.error("[Quote " + quoteNumber + "] SendGrid response body:", JSON.stringify(err.response.body, null, 2))
-        }
+        const err = emailError as { message?: string }
+        console.error("[Quote " + quoteNumber + "] Email error:", err.message || emailError)
         // Quote is saved to DB, but email failed - still return success with warning
         return NextResponse.json({
           success: true,

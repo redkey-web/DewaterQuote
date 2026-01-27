@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import sgMail from "@sendgrid/mail"
+import { sendEmail } from "@/lib/email/client"
 import { renderToBuffer } from "@react-pdf/renderer"
 import { db } from "@/db"
 import { quotes, quoteItems } from "@/db/schema"
@@ -14,11 +14,6 @@ import {
 import { isTokenExpired } from "@/lib/tokens"
 import { format } from "date-fns"
 import { getQuoteExpiry } from "@/lib/quote"
-
-// Initialize SendGrid
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-}
 
 interface SendQuoteBody {
   shippingCost?: number
@@ -144,8 +139,8 @@ export async function POST(
     // Generate PDF
     const pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
 
-    // Check SendGrid configuration
-    if (!process.env.SENDGRID_API_KEY) {
+    // Check SMTP configuration
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
       return NextResponse.json(
         { error: "Email service not configured" },
         { status: 500 }
@@ -157,26 +152,24 @@ export async function POST(
     const textContent = generateApprovedQuoteEmailText(emailData)
 
     // Send email with PDF attachment
-    // SendGrid requires sender identity to match verified sender exactly
-    const fromEmail = process.env.FROM_EMAIL || "sales@dewaterproducts.com.au"
-    const fromName = process.env.FROM_NAME || "Dewater Products"
+    const replyTo = (process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au").split(",")[0].trim()
 
-    await sgMail.send({
+    // Convert PDF to Buffer for nodemailer
+    const pdfBufferForEmail = Buffer.isBuffer(pdfBuffer)
+      ? pdfBuffer
+      : Buffer.from(pdfBuffer)
+
+    await sendEmail({
       to: quote.email,
-      from: {
-        email: fromEmail,
-        name: fromName,
-      },
-      replyTo: (process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au").split(",")[0].trim(),
-      subject: `Your Quote ${quote.quoteNumber} from Dewater Products`,
+      subject: 'Your Quote ${quote.quoteNumber} from Dewater Products',
       html: htmlContent,
       text: textContent,
+      replyTo,
       attachments: [
         {
-          content: pdfBuffer.toString("base64"),
-          filename: `${quote.quoteNumber}.pdf`,
-          type: "application/pdf",
-          disposition: "attachment",
+          filename: '${quote.quoteNumber}.pdf',
+          content: pdfBufferForEmail,
+          contentType: "application/pdf",
         },
       ],
     })

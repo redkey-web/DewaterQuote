@@ -1,13 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
-import sgMail from "@sendgrid/mail"
+import { sendEmail } from "@/lib/email/client"
 import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 import { verifyTurnstileToken } from "@/lib/turnstile"
-
-// Initialize SendGrid
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-}
 
 interface ContactFormData {
   name: string
@@ -53,9 +48,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Check for SendGrid API key
-    if (!process.env.SENDGRID_API_KEY) {
-      console.error("SENDGRID_API_KEY is not configured")
+    // Check for SMTP configuration
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+      console.error("SMTP not configured (SMTP_USER/SMTP_PASS required)")
       return NextResponse.json(
         { error: "Email service not configured" },
         { status: 500 }
@@ -162,8 +157,18 @@ ${data.message}
 
     // Send both emails
     await Promise.all([
-      sgMail.send(businessEmail),
-      sgMail.send(customerEmail),
+      sendEmail({
+        to: businessEmail.to,
+        subject: businessEmail.subject,
+        html: businessEmail.html,
+        text: businessEmail.text,
+        replyTo: data.email,
+      }),
+      sendEmail({
+        to: customerEmail.to,
+        subject: customerEmail.subject,
+        html: customerEmail.html,
+      }),
     ])
 
     return NextResponse.json({ success: true })

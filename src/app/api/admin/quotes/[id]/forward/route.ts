@@ -4,17 +4,12 @@ import { authOptions } from '@/lib/auth/config';
 import { db } from '@/db';
 import { quotes } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import sgMail from '@sendgrid/mail';
+import { sendEmail } from '@/lib/email/client';
 import { escapeHtml } from '@/lib/sanitize';
 import { renderToBuffer } from '@react-pdf/renderer';
 import { QuotePDF, type QuotePDFData, type QuoteItemPDF } from '@/lib/pdf/quote-pdf';
 import { format } from 'date-fns';
 import { getQuoteExpiry } from '@/lib/quote';
-
-// Initialize SendGrid
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-}
 
 type Address = {
   street: string;
@@ -342,11 +337,24 @@ export async function POST(
       ],
     };
 
-    console.log(`[Quote ${quote.quoteNumber}] Sending email to: ${quote.email}`);
-    console.log(`[Quote ${quote.quoteNumber}] Attachment size: ${pdfBase64.length} chars`);
+    console.log('[Quote ${quote.quoteNumber}] Sending email to: ${quote.email}');
 
-    await sgMail.send(customerEmail);
-    console.log(`[Quote ${quote.quoteNumber}] Email sent successfully`);
+    // Convert base64 PDF to Buffer for nodemailer
+    const pdfBufferForEmail = Buffer.from(pdfBase64, 'base64');
+
+    await sendEmail({
+      to: customerEmail.to,
+      subject: customerEmail.subject,
+      html: customerEmail.html,
+      attachments: [
+        {
+          filename: '${quote.quoteNumber}.pdf',
+          content: pdfBufferForEmail,
+          contentType: 'application/pdf',
+        },
+      ],
+    });
+    console.log('[Quote ${quote.quoteNumber}] Email sent successfully');
 
     return NextResponse.json({ success: true });
   } catch (error) {

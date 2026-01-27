@@ -5,7 +5,7 @@
  */
 
 import React from "react"
-import sgMail from "@sendgrid/mail"
+import { sendEmail } from "../src/lib/email/client"
 import { renderToBuffer } from "@react-pdf/renderer"
 import { db } from "../src/db"
 import { quotes, quoteItems } from "../src/db/schema"
@@ -19,14 +19,12 @@ import {
 import { format } from "date-fns"
 import { getQuoteExpiry } from "../src/lib/quote"
 
-// Initialize SendGrid
-if (!process.env.SENDGRID_API_KEY) {
-  console.error("SENDGRID_API_KEY is required")
+// Check SMTP configuration
+if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  console.error("SMTP_USER and SMTP_PASS are required")
   process.exit(1)
 }
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-const FROM_EMAIL = process.env.FROM_EMAIL || "noreply@dewaterproducts.com.au"
 const REPLY_TO = process.env.CONTACT_EMAIL || "sales@dewaterproducts.com.au"
 
 async function resendQuote(quoteId: number) {
@@ -133,32 +131,29 @@ async function resendQuote(quoteId: number) {
   const htmlContent = generateApprovedQuoteEmailHtml(emailData)
   const textContent = generateApprovedQuoteEmailText(emailData)
 
-  const emailPayload = {
-    to: quote.email,
-    from: FROM_EMAIL,
-    replyTo: REPLY_TO,
-    subject: "Your Quote " + quote.quoteNumber + " from Dewater Products",
-    html: htmlContent,
-    text: textContent,
-    attachments: [
-      {
-        content: pdfBase64,
-        filename: quote.quoteNumber + ".pdf",
-        type: "application/pdf",
-        disposition: "attachment" as const,
-      },
-    ],
-  }
+  // Convert base64 to Buffer for nodemailer
+  const pdfBufferForEmail = Buffer.from(pdfBase64, "base64")
 
   console.log("Sending to: " + quote.email + "...")
   try {
-    await sgMail.send(emailPayload)
+    await sendEmail({
+      to: quote.email,
+      subject: "Your Quote " + quote.quoteNumber + " from Dewater Products",
+      html: htmlContent,
+      text: textContent,
+      replyTo: REPLY_TO,
+      attachments: [
+        {
+          filename: quote.quoteNumber + ".pdf",
+          content: pdfBufferForEmail,
+          contentType: "application/pdf",
+        },
+      ],
+    })
     console.log("✅ Sent successfully to " + quote.email)
   } catch (sendError: unknown) {
-    if (sendError && typeof sendError === "object" && "response" in sendError) {
-      const sgError = sendError as { response: { body: unknown } }
-      console.error("SendGrid error details:", JSON.stringify(sgError.response.body, null, 2))
-    }
+    const err = sendError as { message?: string }
+    console.error("Email error:", err.message || sendError)
     throw sendError
   }
 
