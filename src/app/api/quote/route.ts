@@ -276,7 +276,7 @@ export async function POST(request: NextRequest) {
 
     // Business receives quote notifications
     const toEmails = ["sales@dewaterproducts.com.au"]
-    // SendGrid requires sender identity to match verified sender exactly
+    // Email sender configuration
     const fromEmail = process.env.FROM_EMAIL || "sales@dewaterproducts.com.au"
     const fromName = process.env.FROM_NAME || "Dewater Products"
 
@@ -811,9 +811,9 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
 
     // Log PDF status
     if (pdfBuffer) {
-      console.log('[Quote ${quoteNumber}] PDF generated: ${pdfBuffer.length} bytes')
+      console.log(`[Quote ${quoteNumber}] PDF generated: ${pdfBuffer.length} bytes`)
     } else {
-      console.log('[Quote ${quoteNumber}] WARNING: No PDF generated')
+      console.log(`[Quote ${quoteNumber}] WARNING: No PDF generated`)
     }
 
     // Send both emails
@@ -827,7 +827,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       try {
         // Convert PDF to Buffer for nodemailer attachment
         const pdfAttachment = pdfBuffer ? {
-          filename: '${quoteNumber}-Quote.pdf',
+          filename: `${quoteNumber}-Quote.pdf`,
           content: pdfBuffer,
           contentType: "application/pdf",
         } : undefined

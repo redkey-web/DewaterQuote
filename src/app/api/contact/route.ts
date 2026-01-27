@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       .split(",")
       .map((email) => email.trim())
       .filter(Boolean)
-    // SendGrid requires sender identity to match verified sender exactly
+    // Email sender configuration
     const fromEmail = process.env.FROM_EMAIL || "sales@dewaterproducts.com.au"
     const fromName = process.env.FROM_NAME || "Dewater Products"
 

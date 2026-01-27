@@ -185,7 +185,7 @@ export async function POST(
       })
       .join('');
 
-    // SendGrid requires sender identity to match verified sender exactly
+    // Email sender configuration
     const fromEmail =
       process.env.FROM_EMAIL || 'sales@dewaterproducts.com.au';
     const fromName = process.env.FROM_NAME || 'Dewater Products';
