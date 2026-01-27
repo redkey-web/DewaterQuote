@@ -2,7 +2,7 @@
 
 **Created**: 2026-01-24
 **Type**: refactor
-**Status**: Planning
+**Status**: In Progress (blocked)
 
 ## Summary
 
@@ -42,37 +42,46 @@ Replace SendGrid with Google Workspace SMTP to fix deliverability issues. SendGr
 ## Phases
 
 ### Phase 1: Setup Google Workspace App Password
-- [ ] Log into Google Workspace admin (admin.google.com)
-- [ ] Go to Security → 2-Step Verification (must be enabled)
-- [ ] Create App Password for "Mail" on "Other (Custom name)" → "Dewater Website"
-- [ ] Save the 16-character password securely
+- [x] Log into Google Workspace admin (admin.google.com)
+- [x] Go to Security → 2-Step Verification (must be enabled)
+- [x] Create App Password for "Mail" on "Other (Custom name)" → "Dewater Website"
+- [x] Save the 16-character password securely
 
 ### Phase 2: Environment & Email Client
-- [ ] Add env vars to Vercel (prod + preview):
+- [x] Add env vars to Vercel (prod):
   - `SMTP_HOST=smtp.gmail.com`
   - `SMTP_PORT=587`
   - `SMTP_USER=sales@dewaterproducts.com.au`
   - `SMTP_PASS=<app-password>`
-- [ ] Add `nodemailer` package
-- [ ] Create `src/lib/email/client.ts` - centralized email sender
-- [ ] Update `.env.example`
+- [x] Add `nodemailer` package
+- [x] Create `src/lib/email/client.ts` - centralized email sender
+- [x] Update `.env.example`
 
 ### Phase 3: Migrate API Routes
-- [ ] Update `src/app/api/contact/route.ts`
-- [ ] Update `src/app/api/quote/route.ts`
-- [ ] Update `src/pages/api/admin/quotes/[id]/send.ts`
-- [ ] Update `src/app/api/admin/quotes/[id]/forward/route.ts`
-- [ ] Update `src/app/api/approve-quote/[token]/route.ts`
-- [ ] Update `scripts/resend-quotes.ts`
+- [x] Update `src/app/api/contact/route.ts`
+- [x] Update `src/app/api/quote/route.ts`
+- [x] Update `src/pages/api/admin/quotes/[id]/send.ts`
+- [x] Update `src/app/api/admin/quotes/[id]/forward/route.ts`
+- [x] Update `src/app/api/approve-quote/[token]/route.ts`
+- [x] Update `scripts/resend-quotes.ts`
 
 ### Phase 4: Cleanup
-- [ ] Delete `src/app/api/webhooks/sendgrid/route.ts`
-- [ ] Remove `@sendgrid/mail` from package.json
-- [ ] Run `npm install` to update lockfile
+- [x] Delete `src/app/api/webhooks/sendgrid/route.ts`
+- [x] Remove `@sendgrid/mail` from package.json
+- [x] Run `npm install` to update lockfile
 - [ ] Remove `SENDGRID_API_KEY` from Vercel env vars
 - [ ] Update `.planning/current/services.md`
 
-### Phase 5: Testing
+### Phase 5: Fix App Password (BLOCKED)
+- [ ] **Client must generate a NEW App Password on `sales@dewaterproducts.com.au`**
+  - Current password (`smdhyoubmfogbayo`) rejected by Gmail SMTP with `535-5.7.8 Invalid login`
+  - Tested locally against both `sales@` and `info@` — neither works
+  - Likely cause: password was typed incorrectly, created on wrong account, or 2FA not enabled
+  - **Action**: Client goes to https://myaccount.google.com/apppasswords (signed in as `sales@`), creates new App Password
+- [ ] Update `SMTP_PASS` env var on Vercel with new password
+- [ ] Redeploy to production
+
+### Phase 6: Testing
 - [ ] Test contact form → business + customer emails arrive
 - [ ] Test quote submission → business notification with PDF
 - [ ] Test admin "Send to Customer" → customer receives quote PDF
