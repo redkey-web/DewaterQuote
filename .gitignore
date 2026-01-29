@@ -31,3 +31,6 @@ test-results/
 .env.vercel
 playwright-report/
 output/
+
+# Dev server port (written by webdev:spinup)
+.port

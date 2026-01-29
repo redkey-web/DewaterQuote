@@ -1,4 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
+import { readFileSync } from 'fs';
+
+function getPort(): string {
+  try { return readFileSync('.port', 'utf-8').trim(); }
+  catch { return '3000'; }
+}
+
+const port = process.env.PORT || getPort();
+const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:' + port;
 
 export default defineConfig({
   testDir: './tests',
@@ -8,8 +17,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    // Use your Vercel preview URL or local dev server
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
+    baseURL: baseURL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
@@ -23,11 +31,10 @@ export default defineConfig({
       use: { ...devices['iPhone 13'] },
     },
   ],
-  // Run local dev server if not using external URL
   webServer: process.env.PLAYWRIGHT_BASE_URL ? undefined : {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
+    command: 'npx vercel dev --port ' + port,
+    url: baseURL,
+    reuseExistingServer: true,
     timeout: 120000,
   },
 });
