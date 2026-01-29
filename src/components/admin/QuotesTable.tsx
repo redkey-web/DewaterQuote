@@ -61,6 +61,7 @@ type Quote = {
   isDeleted?: boolean | null;
   deletedAt?: Date | null;
   deletedBy?: string | null;
+  requiresReview?: boolean | null;
 };
 
 type DateRange = 'all' | 'today' | 'week' | 'month' | 'quarter';
@@ -634,12 +635,19 @@ export function QuotesTable({ quotes: initialQuotes, deletedQuotes = [] }: Quote
                       : 'POA'}
                   </TableCell>
                   <TableCell>
-                    <Badge
-                      variant="secondary"
-                      className={statusColors[quote.status || 'pending']}
-                    >
-                      {quote.status || 'pending'}
-                    </Badge>
+                    <div className="flex flex-col gap-1">
+                      {quote.requiresReview && (
+                        <Badge className="bg-red-100 text-red-800 border border-red-300">
+                          REVIEW REQUIRED
+                        </Badge>
+                      )}
+                      <Badge
+                        variant="secondary"
+                        className={statusColors[quote.status || 'pending']}
+                      >
+                        {quote.status || 'pending'}
+                      </Badge>
+                    </div>
                   </TableCell>
                   <TableCell className="text-gray-500 text-sm">
                     <div>

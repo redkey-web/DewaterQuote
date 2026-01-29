@@ -289,6 +289,19 @@ export const adminUsers = pgTable('admin_users', {
 });
 
 // ============================================
+// PASSWORD RESET TOKENS
+// ============================================
+
+export const passwordResetTokens = pgTable('password_reset_tokens', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => adminUsers.id, { onDelete: 'cascade' }).notNull(),
+  tokenHash: text('token_hash').notNull(), // SHA-256 hash of the token (never store raw)
+  expiresAt: timestamp('expires_at').notNull(),
+  usedAt: timestamp('used_at'), // Set when token is used (single-use)
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// ============================================
 // REDIRECTS TABLE (for 301 redirects)
 // ============================================
 
@@ -497,6 +510,10 @@ export const quotes = pgTable('quotes', {
   // Shipping (added when forwarding to client)
   shippingCost: decimal('shipping_cost', { precision: 10, scale: 2 }),
   shippingNotes: text('shipping_notes'),
+
+  // Custom/Non-Standard Request Flag
+  requiresReview: boolean('requires_review').default(false), // Customer flagged as custom/non-standard/unsure
+  customRequestNotes: text('custom_request_notes'), // Customer's explanation of custom requirements
 
   // Status tracking
   status: text('status').default('pending'), // pending, reviewed, quoted, forwarded, accepted, rejected

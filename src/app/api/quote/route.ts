@@ -129,10 +129,35 @@ interface QuoteFormData {
     certCount?: number
   }
   turnstileToken?: string
+  // Custom/Non-Standard Request Flag
+  requiresReview?: boolean
+  customRequestNotes?: string
 }
 
 function getItemSKU(item: QuoteItem): string {
   return item.variation?.sku || item.sku
+}
+
+/**
+ * Generate the review alert HTML for custom/non-standard requests
+ */
+function generateReviewAlertHtml(customNotes?: string): string {
+  const notesHtml = customNotes
+    ? '<div style="margin-top: 12px; padding: 12px; background: #fee2e2; border-radius: 4px;">' +
+      '<strong style="color: #991b1b;">Customer Notes:</strong>' +
+      '<p style="margin: 8px 0 0; color: #7f1d1d; white-space: pre-wrap;">' + escapeHtml(customNotes) + '</p>' +
+      '</div>'
+    : ""
+
+  return '<div style="background: #fef2f2; border: 3px solid #dc2626; border-radius: 8px; padding: 20px; margin-bottom: 24px;">' +
+    '<p style="margin: 0 0 8px 0; font-weight: 700; color: #dc2626; font-size: 18px;">' +
+    'REQUIRES MANUAL REVIEW - CUSTOMER NOT AUTO-EMAILED' +
+    '</p>' +
+    '<p style="margin: 0; color: #991b1b; font-size: 14px;">' +
+    'Customer selected "Custom / Non-Standard / Unsure" - please review and send quote manually.' +
+    '</p>' +
+    notesHtml +
+    '</div>'
 }
 
 function getItemPrice(item: QuoteItem): number | undefined {
@@ -236,6 +261,9 @@ export async function POST(request: NextRequest) {
         clientIp: ip,
         approvalToken,
         approvalTokenExpiresAt,
+        // Custom/Non-Standard Request Flag
+        requiresReview: data.requiresReview || false,
+        customRequestNotes: data.customRequestNotes,
       }).returning({ id: quotes.id })
 
       savedQuoteId = savedQuote.id
@@ -374,6 +402,9 @@ export async function POST(request: NextRequest) {
     const exceptionFlags = detectExceptions(data.items, deliveryClassification)
     const flagsHtml = generateFlagsHtml(exceptionFlags)
 
+    // Generate review alert HTML for custom/non-standard requests
+    const reviewAlertHtml = data.requiresReview ? generateReviewAlertHtml(data.customRequestNotes) : ""
+
     // Email to business (supports multiple recipients)
     const businessEmail = {
       to: toEmails,
@@ -391,6 +422,7 @@ export async function POST(request: NextRequest) {
         </p>
 
         ${flagsHtml}
+        ${reviewAlertHtml}
         <div style="background: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
           <p style="margin: 0 0 12px 0; font-weight: 600; color: #0369a1;">Quick Actions:</p>
           <a href="${process.env.NEXT_PUBLIC_URL || "https://dewaterproducts.com.au"}/approve-quote/${approvalToken}"
@@ -832,7 +864,9 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
           contentType: "application/pdf",
         } : undefined
 
-        await Promise.all([
+        // Build list of emails to send
+        const emailPromises = [
+          // Always send business notification
           sendEmail({
             to: businessEmail.to,
             subject: businessEmail.subject,
@@ -841,13 +875,23 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
             replyTo: data.email,
             attachments: pdfAttachment ? [pdfAttachment] : undefined,
           }),
-          sendEmail({
-            to: customerEmail.to,
-            subject: customerEmail.subject,
-            html: customerEmail.html,
-            attachments: pdfAttachment ? [pdfAttachment] : undefined,
-          }),
-        ])
+        ]
+
+        // Only send customer email if NOT flagged for manual review
+        if (!data.requiresReview) {
+          emailPromises.push(
+            sendEmail({
+              to: customerEmail.to,
+              subject: customerEmail.subject,
+              html: customerEmail.html,
+              attachments: pdfAttachment ? [pdfAttachment] : undefined,
+            })
+          )
+        } else {
+          console.log("[Quote " + quoteNumber + "] Customer email SKIPPED - requires manual review")
+        }
+
+        await Promise.all(emailPromises)
       } catch (emailError: unknown) {
         const err = emailError as { message?: string }
         console.error("[Quote " + quoteNumber + "] Email error:", err.message || emailError)

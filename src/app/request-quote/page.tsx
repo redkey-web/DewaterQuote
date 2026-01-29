@@ -99,6 +99,9 @@ const quoteFormSchema = z.object({
   }).optional(),
   // Notes
   notes: z.string().optional(),
+  // Custom/Non-Standard Request
+  requiresReview: z.boolean().default(false),
+  customRequestNotes: z.string().optional(),
 }).superRefine((data, ctx) => {
   // Only validate billing address if NOT same as delivery
   if (!data.billingSameAsDelivery) {
@@ -167,11 +170,14 @@ export default function RequestQuotePage() {
         postcode: "",
       },
       notes: "",
+      requiresReview: false,
+      customRequestNotes: "",
     },
   })
 
   const billingSameAsDelivery = form.watch("billingSameAsDelivery")
   const deliveryPostcode = form.watch("deliveryAddress.postcode")
+  const requiresReview = form.watch("requiresReview")
   const shippingInfo = deliveryPostcode?.length === 4 ? getShippingMessage(deliveryPostcode) : null
   // Allow metro (free) and major_regional ($100), block remote (quote required)
   const isServiceableAddress = shippingInfo?.zone !== "remote"
@@ -236,6 +242,8 @@ export default function RequestQuotePage() {
             certFee: certFeeTotal,
             certCount: certCount,
           },
+          requiresReview: data.requiresReview,
+          customRequestNotes: data.customRequestNotes,
           turnstileToken,
         }),
       })
@@ -1033,6 +1041,62 @@ export default function RequestQuotePage() {
                             />
                           </div>
                         </div>
+                      )}
+                    </div>
+
+                    <Separator />
+
+                    {/* Custom/Non-Standard Request */}
+                    <div className="space-y-4">
+                      <FormField
+                        control={form.control}
+                        name="requiresReview"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border-2 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 p-4">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                data-testid="checkbox-requires-review"
+                                className="border-amber-500 data-[state=checked]:bg-amber-500 data-[state=checked]:border-amber-500"
+                              />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                              <FormLabel className="text-amber-800 dark:text-amber-200 font-semibold">
+                                Custom / Non-Standard / Unsure
+                              </FormLabel>
+                              <FormDescription className="text-amber-700 dark:text-amber-300">
+                                Tick this if you need a size, material, or specification not listed - or if you are unsure about your selection. We will review before sending your quote.
+                              </FormDescription>
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+
+                      {requiresReview && (
+                        <FormField
+                          control={form.control}
+                          name="customRequestNotes"
+                          render={({ field }) => (
+                            <FormItem className="animate-in fade-in slide-in-from-top-2 duration-200">
+                              <FormLabel className="text-amber-800 dark:text-amber-200">
+                                What do you need? (Optional but helpful)
+                              </FormLabel>
+                              <FormControl>
+                                <Textarea
+                                  placeholder="e.g., Need DN250 to fit 238mm OD pipe, or butterfly valve with NBR seat instead of EPDM..."
+                                  className="min-h-20 border-amber-300 dark:border-amber-700 focus:border-amber-500"
+                                  {...field}
+                                  data-testid="textarea-custom-request-notes"
+                                />
+                              </FormControl>
+                              <FormDescription>
+                                Describe the custom size, material, or specification you need
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
                       )}
                     </div>
 

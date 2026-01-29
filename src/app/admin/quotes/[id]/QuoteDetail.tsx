@@ -112,6 +112,9 @@ type Quote = {
   pdfUrl: string | null;
   pdfGeneratedAt: Date | null;
   pdfVersion: number | null;
+  // Custom/Non-Standard Request Flag
+  requiresReview: boolean | null;
+  customRequestNotes: string | null;
 };
 
 const statusColors: Record<string, string> = {
@@ -272,6 +275,11 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
               {format(new Date(quote.createdAt), 'PPpp')}
             </p>
           </div>
+          {quote.requiresReview && (
+            <Badge className="bg-red-100 text-red-800 border border-red-300">
+              REVIEW REQUIRED
+            </Badge>
+          )}
           <Badge className={statusColors[status]}>{status}</Badge>
         </div>
         <div className="flex gap-2">
@@ -312,6 +320,30 @@ export function QuoteDetail({ quote }: { quote: Quote }) {
           </Button>
         </div>
       </div>
+
+      {/* Custom Request Review Alert */}
+      {quote.requiresReview && (
+        <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+              <span className="text-red-600 text-xl">!</span>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-red-800 text-lg">Manual Review Required</h3>
+              <p className="text-red-700 mt-1">
+                Customer selected &quot;Custom / Non-Standard / Unsure&quot; - they have NOT received an automatic quote email.
+                Please review the request and send the quote manually using the &quot;Send Quote&quot; button above.
+              </p>
+              {quote.customRequestNotes && (
+                <div className="mt-4 bg-red-100 rounded p-4">
+                  <p className="text-sm font-medium text-red-800">Customer Notes:</p>
+                  <p className="mt-1 text-red-700 whitespace-pre-wrap">{quote.customRequestNotes}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left column - Quote details */}
