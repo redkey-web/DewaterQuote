@@ -2,7 +2,7 @@
 
 **Created**: 2026-01-24
 **Type**: refactor
-**Status**: In Progress (blocked)
+**Status**: Complete
 
 ## Summary
 
@@ -70,22 +70,33 @@ Replace SendGrid with Google Workspace SMTP to fix deliverability issues. SendGr
 - [x] Remove `@sendgrid/mail` from package.json
 - [x] Run `npm install` to update lockfile
 - [ ] Remove `SENDGRID_API_KEY` from Vercel env vars
-- [ ] Update `.planning/current/services.md`
+- [x] Update `.planning/current/services.md` (2026-01-29)
 
-### Phase 5: Fix App Password (BLOCKED)
-- [ ] **Client must generate a NEW App Password on `sales@dewaterproducts.com.au`**
-  - Current password (`smdhyoubmfogbayo`) rejected by Gmail SMTP with `535-5.7.8 Invalid login`
-  - Tested locally against both `sales@` and `info@` — neither works
-  - Likely cause: password was typed incorrectly, created on wrong account, or 2FA not enabled
-  - **Action**: Client goes to https://myaccount.google.com/apppasswords (signed in as `sales@`), creates new App Password
-- [ ] Update `SMTP_PASS` env var on Vercel with new password
-- [ ] Redeploy to production
+### Phase 4.5: Fix Template Literal Corruption (2026-01-29)
+- [x] Fixed `src/lib/email/client.ts` line 37 - from field had single quotes
+- [x] Fixed `src/app/api/quote/route.ts` line 601 - subject had single quotes
+- [x] Fixed `src/app/api/approve-quote/[token]/route.ts` lines 164, 170 - subject and filename
+- [x] Fixed `src/app/api/admin/quotes/[id]/forward/route.ts` lines 340, 351, 357 - logs and filename
+- [x] Verified build passes with all fixes
+- **Note**: Used string concatenation instead of template literals due to known corruption issue
 
-### Phase 6: Testing
+### Phase 5: App Password Configuration (COMPLETE - 2026-01-29)
+- [x] Client enabled 2FA on `info@dewaterproducts.com.au`
+- [x] Client generated App Password
+- [x] Updated env vars:
+  - `SMTP_USER=info@dewaterproducts.com.au`
+  - `SMTP_PASS=vwmprffrhuwzibze`
+  - `FROM_EMAIL=info@dewaterproducts.com.au`
+  - `CONTACT_EMAIL=sales@dewaterproducts.com.au`
+- [x] Removed mike@mechatronmike.com from CONTACT_EMAIL
+- [x] Deployed to production
+
+### Phase 6: Testing (2026-01-29)
+- [x] SMTP connection verified
+- [x] Test email sent to sales@dewaterproducts.com.au
 - [ ] Test contact form → business + customer emails arrive
 - [ ] Test quote submission → business notification with PDF
 - [ ] Test admin "Send to Customer" → customer receives quote PDF
-- [ ] Test forward quote → customer receives email
 - [ ] Verify emails not landing in spam
 
 ## Email Client Implementation

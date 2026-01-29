@@ -161,13 +161,13 @@ export async function POST(
 
     await sendEmail({
       to: quote.email,
-      subject: 'Your Quote ${quote.quoteNumber} from Dewater Products',
+      subject: 'Your Quote ' + quote.quoteNumber + ' from Dewater Products',
       html: htmlContent,
       text: textContent,
       replyTo,
       attachments: [
         {
-          filename: '${quote.quoteNumber}.pdf',
+          filename: quote.quoteNumber + '.pdf',
           content: pdfBufferForEmail,
           contentType: "application/pdf",
         },

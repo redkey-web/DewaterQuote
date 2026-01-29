@@ -337,7 +337,7 @@ export async function POST(
       ],
     };
 
-    console.log('[Quote ${quote.quoteNumber}] Sending email to: ${quote.email}');
+    console.log('[Quote ' + quote.quoteNumber + '] Sending email to: ' + quote.email);
 
     // Convert base64 PDF to Buffer for nodemailer
     const pdfBufferForEmail = Buffer.from(pdfBase64, 'base64');
@@ -348,13 +348,13 @@ export async function POST(
       html: customerEmail.html,
       attachments: [
         {
-          filename: '${quote.quoteNumber}.pdf',
+          filename: quote.quoteNumber + '.pdf',
           content: pdfBufferForEmail,
           contentType: 'application/pdf',
         },
       ],
     });
-    console.log('[Quote ${quote.quoteNumber}] Email sent successfully');
+    console.log('[Quote ' + quote.quoteNumber + '] Email sent successfully');
 
     return NextResponse.json({ success: true });
   } catch (error) {

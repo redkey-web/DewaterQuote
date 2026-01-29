@@ -33,13 +33,20 @@
 - **Files**:
   - src/app/api/upload/route.ts ✅
 
-### Email: SendGrid
-- **Status**: 🔄 Configured (fallback to mailto)
-- **Purpose**: Quote/contact form submissions
-- **Env Vars**: SENDGRID_API_KEY
+### Email: Google Workspace SMTP (via Nodemailer)
+- **Status**: 🔄 Configured (awaiting valid App Password)
+- **Purpose**: Quote/contact form submissions, admin notifications
+- **Package**: nodemailer
+- **Env Vars**: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
 - **Files**:
+  - src/lib/email/client.ts ✅ (centralized email client)
   - src/app/api/contact/route.ts ✅
   - src/app/api/quote/route.ts ✅
+  - src/pages/api/admin/quotes/[id]/send.ts ✅
+  - src/app/api/admin/quotes/[id]/forward/route.ts ✅
+  - src/app/api/approve-quote/[token]/route.ts ✅
+  - scripts/resend-quotes.ts ✅
+- **Note**: SendGrid removed. Waiting for client to generate new Google App Password.
 
 ### Spam Protection: Cloudflare Turnstile
 - **Status**: ✅ Active
@@ -112,8 +119,11 @@
 # Database
 DATABASE_URL=
 
-# Email
-SENDGRID_API_KEY=
+# Email (Google Workspace SMTP)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=sales@dewaterproducts.com.au
+SMTP_PASS=
 
 # Spam Protection
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=

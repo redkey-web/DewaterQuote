@@ -34,7 +34,7 @@ export async function sendEmail(options: EmailOptions) {
   }
 
   return transporter.sendMail({
-    from: '"${fromName}" <${fromEmail}>',
+    from: '"' + fromName + '" <' + fromEmail + '>',
     to: Array.isArray(options.to) ? options.to.join(', ') : options.to,
     subject: options.subject,
     html: options.html,

@@ -598,7 +598,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
         email: fromEmail,
         name: fromName,
       },
-      subject: 'Your Quote ${quoteNumber} - Dewater Products',
+      subject: 'Your Quote ' + quoteNumber + ' - Dewater Products',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto;">
           <div style="background: #0ea5e9; color: white; padding: 20px; text-align: center;">
