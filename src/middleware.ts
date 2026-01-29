@@ -148,7 +148,7 @@ const STATIC_REDIRECTS: Record<string, string> = {
   // === Old flat product URLs (Neto) ===
   '/orbit-pipe-repair-clamp-series-1-and-200mm-long': '/pipe-repair-clamps',
   '/orbit-pipe-repair-clamp-series-1-and-100mm-long': '/pipe-repair-clamps',
-  '/elbow-repair-clamp': '/pipe-repair-clamps',
+  // '/elbow-repair-clamp': '/pipe-repair-clamps', // REMOVED: actual product exists at this slug
   '/flex-grip-open-l': '/pipe-couplings',
   '/plast-coupling': '/pipe-couplings',
   '/muff-couplings-aluminium-table-d-e': '/pipe-couplings/muff-couplings',

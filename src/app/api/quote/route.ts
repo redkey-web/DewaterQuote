@@ -839,6 +839,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
             html: businessEmail.html,
             text: businessEmail.text,
             replyTo: data.email,
+            attachments: pdfAttachment ? [pdfAttachment] : undefined,
           }),
           sendEmail({
             to: customerEmail.to,
