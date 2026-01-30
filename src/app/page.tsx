@@ -16,16 +16,8 @@ import {
   Search,
   ClipboardList,
   Mail,
-  TrendingDown,
   Loader2,
-  ChevronDown,
 } from "lucide-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import {
   Accordion,
   AccordionContent,
@@ -57,39 +49,8 @@ export default function HomePage() {
   const [isSearching, setIsSearching] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [isSearchFocused, setIsSearchFocused] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const heroSearchRef = useRef<HTMLDivElement>(null)
   const heroInputRef = useRef<HTMLInputElement>(null)
-
-  // Search placeholder phrases for typewriter effect
-  const searchPhrasesDesktop = [
-    "Search pipe fittings, valves",
-    "Butterfly valves, check valves",
-    "Straub, Orbit flex-grip",
-    "Y strainers, basket strainers",
-    "Expansion joints, pipe repair",
-  ]
-
-  // Shorter phrases for mobile to prevent line wrap
-  const searchPhrasesMobile = [
-    "Search fittings, valves",
-    "Butterfly valves",
-    "Straub, Orbit",
-    "Y strainers",
-    "Expansion joints",
-  ]
-
-  const searchPhrases = isMobile ? searchPhrasesMobile : searchPhrasesDesktop
-
-  // Detect mobile viewport for shorter typewriter phrases
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  // Auto-focus removed - cursor should not be in search bar on page load
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -319,7 +280,7 @@ export default function HomePage() {
 
         {/* Orbiting curved text - Set 1 - teal layer (desktop only) */}
         {/* Positioned on pipe coupling's circular opening, scales with viewport */}
-        <div className="hidden md:block absolute z-0 pointer-events-none top-[79%] left-[23%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        <div className="hidden md:block absolute z-0 pointer-events-none top-[79%] left-[33%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -349,7 +310,7 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 1 - white layer (desktop only) */}
-        <div className="hidden md:block absolute z-0 pointer-events-none top-[79%] left-[23%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        <div className="hidden md:block absolute z-0 pointer-events-none top-[79%] left-[33%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
@@ -462,6 +423,7 @@ export default function HomePage() {
                 <input
                   ref={heroInputRef}
                   type="text"
+                  aria-label="Search products"
                   className="relative w-full h-11 md:h-16 pl-12 md:pl-[72px] pr-4 md:pr-6 text-base md:text-lg font-mono font-normal text-gray-700 rounded-xl md:rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
@@ -688,13 +650,13 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 gap-6">
               <Card className="p-8">
-                <h4 className="font-semibold text-xl mb-3">Trusted Brands</h4>
+                <h3 className="font-semibold text-xl mb-3">Trusted Brands</h3>
                 <p className="text-muted-foreground mb-4">
                   Direct partnerships with manufacturers like Straub, Orbit, and Teekay ensuring genuine products with factory support
                 </p>
               </Card>
               <Card className="p-8">
-                <h4 className="font-semibold text-xl mb-3">Technical Transparency</h4>
+                <h3 className="font-semibold text-xl mb-3">Technical Transparency</h3>
                 <p className="text-muted-foreground mb-4">
                   Detailed specs, drawings, and pressure ratings available for every product to support your approval process
                 </p>
@@ -721,7 +683,7 @@ export default function HomePage() {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
                 <Search className="w-8 h-8 text-primary" />
               </div>
-              <h4 className="font-semibold text-xl mb-3">1. Browse & Select</h4>
+              <h3 className="font-semibold text-xl mb-3">1. Browse & Select</h3>
               <p className="text-muted-foreground">
                 Browse our product range and add items to your quote request form
               </p>
@@ -730,7 +692,7 @@ export default function HomePage() {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
                 <ClipboardList className="w-8 h-8 text-primary" />
               </div>
-              <h4 className="font-semibold text-xl mb-3">2. Submit Request</h4>
+              <h3 className="font-semibold text-xl mb-3">2. Submit Request</h3>
               <p className="text-muted-foreground">
                 Fill out the quote form with your contact details and project requirements
               </p>
@@ -739,7 +701,7 @@ export default function HomePage() {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
                 <Mail className="w-8 h-8 text-primary" />
               </div>
-              <h4 className="font-semibold text-xl mb-3">3. Receive Quote</h4>
+              <h3 className="font-semibold text-xl mb-3">3. Receive Quote</h3>
               <p className="text-muted-foreground">
                 Get your final quote with trade discounts and accurate lead times via email
               </p>
