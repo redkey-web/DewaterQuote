@@ -6,6 +6,7 @@ import { OrganizationJsonLd } from "@/components/JsonLd"
 import { GoogleAnalytics } from "@/components/GoogleAnalytics"
 import SmoothScroll from "@/components/SmoothScroll"
 import MouseFollowGlow from "@/components/MouseFollowGlow"
+import { MouseProvider } from "@/components/MouseParallax"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const comfortaa = Comfortaa({ subsets: ["latin"], variable: "--font-comfortaa" })
@@ -78,10 +79,12 @@ export default function RootLayout({
       </head>
       <body className={[inter.variable, comfortaa.variable, dotGothic.variable, "font-sans antialiased"].join(" ")}>
         <GoogleAnalytics />
-        <SmoothScroll>
-          <MouseFollowGlow color="white" intensity={0.08} size="lg" />
-          <AppProviders>{children}</AppProviders>
-        </SmoothScroll>
+        <MouseProvider>
+          <SmoothScroll>
+            <MouseFollowGlow color="white" intensity={0.08} size="lg" />
+            <AppProviders>{children}</AppProviders>
+          </SmoothScroll>
+        </MouseProvider>
       </body>
     </html>
   )

@@ -31,6 +31,12 @@ import CurvedText from "@/components/CurvedText"
 import ScrambleCycleText from "@/components/ScrambleCycleText"
 import OrderingGuide from "@/components/OrderingGuide"
 import ParallaxSection, { ParallaxItem, ParallaxLayer } from "@/components/ParallaxSection"
+import {
+  DepthLayer,
+  HolographicCard,
+  MagneticElement,
+  ParticleField,
+} from "@/components/MouseParallax"
 
 interface SearchResult {
   id: number
@@ -281,7 +287,7 @@ export default function HomePage() {
 
         {/* Orbiting curved text - Set 1 - teal layer (desktop only) */}
         {/* Positioned on pipe coupling's circular opening, scales with viewport */}
-        <div className="hidden md:block absolute z-0 pointer-events-none top-[81%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        <DepthLayer depth={0.15} className="hidden md:block absolute z-0 pointer-events-none top-[81%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -308,10 +314,10 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </DepthLayer>
 
         {/* Orbiting curved text - Set 1 - white layer (desktop only) */}
-        <div className="hidden md:block absolute z-0 pointer-events-none top-[81%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        <DepthLayer depth={0.12} className="hidden md:block absolute z-0 pointer-events-none top-[81%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
@@ -338,10 +344,10 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </DepthLayer>
 
         {/* Orbiting curved text - Set 2 (enlarged 2x) - teal layer (mobile only) */}
-        <div className="block md:hidden absolute z-0 pointer-events-none top-[68%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+        <DepthLayer depth={0.2} className="block md:hidden absolute z-0 pointer-events-none top-[68%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -366,9 +372,9 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </DepthLayer>
         {/* Set 2 - white layer (mobile only) */}
-        <div className="block md:hidden absolute z-0 pointer-events-none top-[68%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+        <DepthLayer depth={0.18} className="block md:hidden absolute z-0 pointer-events-none top-[68%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
@@ -393,7 +399,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </DepthLayer>
 
         {/* Vertical red text - R083R7 - always visible */}
         <div className="absolute right-4 md:right-8 top-[105%] font-mono text-red-500 text-xs z-20" style={{ writingMode: "vertical-rl" }}>
@@ -555,27 +561,29 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {productCategories.map((category, index) => (
               <ParallaxItem key={category.name} stagger={index} effect="fade-up">
-                <Link href={category.url}>
-                  <Card className="group overflow-hidden h-80 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border">
-                    <Image
-                      src={category.image}
-                      alt={category.alt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
-                      <div
-                        className="flex items-center text-[hsl(189,68%,55%)] dark:text-[hsl(189,68%,60%)] text-sm font-medium transition-all duration-300 group-hover:text-[hsl(189,68%,70%)] dark:group-hover:text-[hsl(189,68%,75%)]"
-                        style={{ textShadow: "0 0 16px hsla(189, 68%, 52%, 0.6)" }}
-                      >
-                        View all <ArrowRight className="ml-2 w-4 h-4" />
+                <HolographicCard maxTilt={10} glare={true}>
+                  <Link href={category.url}>
+                    <Card className="group overflow-hidden h-80 relative transition-all cursor-pointer border-border">
+                      <Image
+                        src={category.image}
+                        alt={category.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
+                        <div
+                          className="flex items-center text-[hsl(189,68%,55%)] dark:text-[hsl(189,68%,60%)] text-sm font-medium transition-all duration-300 group-hover:text-[hsl(189,68%,70%)] dark:group-hover:text-[hsl(189,68%,75%)]"
+                          style={{ textShadow: "0 0 16px hsla(189, 68%, 52%, 0.6)" }}
+                        >
+                          View all <ArrowRight className="ml-2 w-4 h-4" />
+                        </div>
                       </div>
-                    </div>
-                  </Card>
-                </Link>
+                    </Card>
+                  </Link>
+                </HolographicCard>
               </ParallaxItem>
             ))}
           </div>
@@ -654,11 +662,13 @@ export default function HomePage() {
                 <p className="text-base text-foreground/80 mb-8 leading-relaxed">
                   Based in Perth, Western Australia, we've been supplying water treatment, mining, irrigation, and industrial projects across Australia since 2015. Our warehouse stocks a comprehensive range with fast delivery to all metro areas and expert technical support for every application.
                 </p>
-                <Link href="/about">
-                  <Button size="lg" data-testid="button-learn-more">
-                    Learn More About Us <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </Link>
+                <MagneticElement range={120} strength={12}>
+                  <Link href="/about">
+                    <Button size="lg" data-testid="button-learn-more">
+                      Learn More About Us <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </Link>
+                </MagneticElement>
               </div>
             </ParallaxSection>
             <div className="grid grid-cols-1 gap-6">
@@ -761,6 +771,12 @@ export default function HomePage() {
           <div className="absolute inset-0 rounded-full bg-gradient-to-bl from-blue-500/25 via-indigo-400/20 to-transparent blur-3xl" />
           <div className="absolute inset-6 rounded-full bg-gradient-to-tl from-blue-400/20 to-transparent blur-2xl" />
         </ParallaxLayer>
+        {/* Floating particle field - mouse reactive */}
+        <ParticleField
+          count={40}
+          color="rgba(103, 232, 249, 0.5)"
+          intensity={40}
+        />
         <div className="max-w-7xl mx-auto relative z-10">
           <ParallaxSection effect="fade-up" className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">INDUSTRY SOLUTIONS</h2>
@@ -771,23 +787,25 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {industries.map((industry, index) => (
               <ParallaxItem key={industry.name} stagger={index} effect="fade-up">
-                <Link href={industry.url}>
-                  <Card
-                    className="group overflow-hidden h-56 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border"
-                    data-testid={"card-industry-" + industry.name.toLowerCase().replace(/\s+/g, "-")}
-                  >
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
-                      style={{ backgroundImage: "url(" + industry.image + ")" }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/10" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="text-base font-semibold text-white text-center">
-                        {industry.name}
-                      </h3>
-                    </div>
-                  </Card>
-                </Link>
+                <HolographicCard maxTilt={12} glare={true}>
+                  <Link href={industry.url}>
+                    <Card
+                      className="group overflow-hidden h-56 relative transition-all cursor-pointer border-border"
+                      data-testid={"card-industry-" + industry.name.toLowerCase().replace(/\s+/g, "-")}
+                    >
+                      <div
+                        className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                        style={{ backgroundImage: "url(" + industry.image + ")" }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/10" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 className="text-base font-semibold text-white text-center">
+                          {industry.name}
+                        </h3>
+                      </div>
+                    </Card>
+                  </Link>
+                </HolographicCard>
               </ParallaxItem>
             ))}
           </div>
