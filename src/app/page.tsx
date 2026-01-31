@@ -30,6 +30,7 @@ import TypewriterPlaceholder from "@/components/TypewriterPlaceholder"
 import CurvedText from "@/components/CurvedText"
 import ScrambleCycleText from "@/components/ScrambleCycleText"
 import OrderingGuide from "@/components/OrderingGuide"
+import ParallaxSection, { ParallaxItem, ParallaxLayer } from "@/components/ParallaxSection"
 
 interface SearchResult {
   id: number
@@ -552,28 +553,30 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <h2 className="sr-only">Browse Pipe Fittings by Category</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {productCategories.map((category) => (
-              <Link key={category.name} href={category.url}>
-                <Card className="group overflow-hidden h-80 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border">
-                  <Image
-                    src={category.image}
-                    alt={category.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
-                    <div
-                      className="flex items-center text-[hsl(189,68%,55%)] dark:text-[hsl(189,68%,60%)] text-sm font-medium transition-all duration-300 group-hover:text-[hsl(189,68%,70%)] dark:group-hover:text-[hsl(189,68%,75%)]"
-                      style={{ textShadow: "0 0 16px hsla(189, 68%, 52%, 0.6)" }}
-                    >
-                      View all <ArrowRight className="ml-2 w-4 h-4" />
+            {productCategories.map((category, index) => (
+              <ParallaxItem key={category.name} stagger={index} effect="fade-up">
+                <Link href={category.url}>
+                  <Card className="group overflow-hidden h-80 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border">
+                    <Image
+                      src={category.image}
+                      alt={category.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-2xl font-semibold text-white mb-2">{category.name}</h3>
+                      <div
+                        className="flex items-center text-[hsl(189,68%,55%)] dark:text-[hsl(189,68%,60%)] text-sm font-medium transition-all duration-300 group-hover:text-[hsl(189,68%,70%)] dark:group-hover:text-[hsl(189,68%,75%)]"
+                        style={{ textShadow: "0 0 16px hsla(189, 68%, 52%, 0.6)" }}
+                      >
+                        View all <ArrowRight className="ml-2 w-4 h-4" />
+                      </div>
                     </div>
-                  </div>
-                </Card>
-              </Link>
+                  </Card>
+                </Link>
+              </ParallaxItem>
             ))}
           </div>
         </div>
@@ -593,74 +596,92 @@ export default function HomePage() {
             opacity: 0.12
           }}
         />
-        <div className="relative max-w-7xl mx-auto">
+        <ParallaxSection effect="fade-scale" className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            <div className="flex items-center gap-3">
-              <CheckCircle className="w-8 h-8 text-white flex-shrink-0" />
-              <GeoStock />
-            </div>
-            <div className="flex items-center gap-3">
-              <Award className="w-8 h-8 text-white flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-sm">Certified Quality</p>
-                <p className="text-xs text-white/70">AS/NZS, WRAS, ISO</p>
+            <ParallaxItem stagger={0} effect="fade-up">
+              <div className="flex items-center gap-3">
+                <CheckCircle className="w-8 h-8 text-white flex-shrink-0" />
+                <GeoStock />
               </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Clock className="w-8 h-8 text-white flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-sm">Fast Delivery</p>
-                <p className="text-xs text-white/70">Metro Areas Only</p>
+            </ParallaxItem>
+            <ParallaxItem stagger={1} effect="fade-up">
+              <div className="flex items-center gap-3">
+                <Award className="w-8 h-8 text-white flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-sm">Certified Quality</p>
+                  <p className="text-xs text-white/70">AS/NZS, WRAS, ISO</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Users className="w-8 h-8 text-white flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-sm">Expert Support</p>
-                <p className="text-xs text-white/70"><a href="tel:1300271290" className="hover:text-white transition-colors">Free Call</a></p>
+            </ParallaxItem>
+            <ParallaxItem stagger={2} effect="fade-up">
+              <div className="flex items-center gap-3">
+                <Clock className="w-8 h-8 text-white flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-sm">Fast Delivery</p>
+                  <p className="text-xs text-white/70">Metro Areas Only</p>
+                </div>
               </div>
-            </div>
+            </ParallaxItem>
+            <ParallaxItem stagger={3} effect="fade-up">
+              <div className="flex items-center gap-3">
+                <Users className="w-8 h-8 text-white flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-sm">Expert Support</p>
+                  <p className="text-xs text-white/70"><a href="tel:1300271290" className="hover:text-white transition-colors">Free Call</a></p>
+                </div>
+              </div>
+            </ParallaxItem>
           </div>
-        </div>
+        </ParallaxSection>
       </section>
 
       {/* Introduction Section */}
       <section className="py-20 px-6 lg:px-8 bg-background">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
-                Perth-Based Specialists
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">QUALITY PIPE FITTINGS FOR AUSTRALIAN INDUSTRY</h2>
-              <h3 className="text-xl font-semibold text-muted-foreground mb-4">
-                Trusted brands, technical expertise, and genuine factory support
-              </h3>
-              <p className="text-base text-foreground/80 mb-6 leading-relaxed">
-                We specialise in <Link href="/pipe-couplings" className="text-primary hover:underline">pipe couplings</Link>, <Link href="/industrial-valves" className="text-primary hover:underline">industrial valves</Link>, <Link href="/expansion-joints" className="text-primary hover:underline">expansion joints</Link>, and <Link href="/strainers" className="text-primary hover:underline">strainers</Link> from world-leading manufacturers including Straub, Orbit, Teekay, Defender Valves, and Bore-Flex. Every product is genuine, backed by full factory support and detailed technical specifications.
-              </p>
-              <p className="text-base text-foreground/80 mb-8 leading-relaxed">
-                Based in Perth, Western Australia, we've been supplying water treatment, mining, irrigation, and industrial projects across Australia since 2015. Our warehouse stocks a comprehensive range with fast delivery to all metro areas and expert technical support for every application.
-              </p>
-              <Link href="/about">
-                <Button size="lg" data-testid="button-learn-more">
-                  Learn More About Us <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-            </div>
+            <ParallaxSection effect="slide-right" className="contents lg:block">
+              <div>
+                <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
+                  Perth-Based Specialists
+                </p>
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">QUALITY PIPE FITTINGS FOR AUSTRALIAN INDUSTRY</h2>
+                <h3 className="text-xl font-semibold text-muted-foreground mb-4">
+                  Trusted brands, technical expertise, and genuine factory support
+                </h3>
+                <p className="text-base text-foreground/80 mb-6 leading-relaxed">
+                  We specialise in <Link href="/pipe-couplings" className="text-primary hover:underline">pipe couplings</Link>, <Link href="/industrial-valves" className="text-primary hover:underline">industrial valves</Link>, <Link href="/expansion-joints" className="text-primary hover:underline">expansion joints</Link>, and <Link href="/strainers" className="text-primary hover:underline">strainers</Link> from world-leading manufacturers including Straub, Orbit, Teekay, Defender Valves, and Bore-Flex. Every product is genuine, backed by full factory support and detailed technical specifications.
+                </p>
+                <p className="text-base text-foreground/80 mb-8 leading-relaxed">
+                  Based in Perth, Western Australia, we've been supplying water treatment, mining, irrigation, and industrial projects across Australia since 2015. Our warehouse stocks a comprehensive range with fast delivery to all metro areas and expert technical support for every application.
+                </p>
+                <Link href="/about">
+                  <Button size="lg" data-testid="button-learn-more">
+                    Learn More About Us <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
+              </div>
+            </ParallaxSection>
             <div className="grid grid-cols-1 gap-6">
-              <Card className="p-8">
-                <h3 className="font-semibold text-xl mb-3">Trusted Brands</h3>
-                <p className="text-muted-foreground mb-4">
-                  Direct partnerships with manufacturers like Straub, Orbit, and Teekay ensuring genuine products with factory support
-                </p>
-              </Card>
-              <Card className="p-8">
-                <h3 className="font-semibold text-xl mb-3">Technical Transparency</h3>
-                <p className="text-muted-foreground mb-4">
-                  Detailed specs, drawings, and pressure ratings available for every product to support your approval process
-                </p>
-              </Card>
+              <ParallaxLayer speed={-0.3}>
+                <ParallaxItem stagger={0} effect="slide-left">
+                  <Card className="p-8">
+                    <h3 className="font-semibold text-xl mb-3">Trusted Brands</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Direct partnerships with manufacturers like Straub, Orbit, and Teekay ensuring genuine products with factory support
+                    </p>
+                  </Card>
+                </ParallaxItem>
+              </ParallaxLayer>
+              <ParallaxLayer speed={0.2}>
+                <ParallaxItem stagger={1} effect="slide-left">
+                  <Card className="p-8">
+                    <h3 className="font-semibold text-xl mb-3">Technical Transparency</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Detailed specs, drawings, and pressure ratings available for every product to support your approval process
+                    </p>
+                  </Card>
+                </ParallaxItem>
+              </ParallaxLayer>
             </div>
           </div>
         </div>
@@ -669,7 +690,7 @@ export default function HomePage() {
       {/* How It Works */}
       <section className="py-20 px-6 lg:px-8 bg-card">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
+          <ParallaxSection effect="fade-up" className="text-center mb-12">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
               Quick & Easy
             </p>
@@ -677,35 +698,41 @@ export default function HomePage() {
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Request a quote in three easy steps and receive competitive pricing with detailed lead times
             </p>
-          </div>
+          </ParallaxSection>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
-                <Search className="w-8 h-8 text-primary" />
+            <ParallaxItem stagger={0} effect="fade-scale">
+              <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
+                  <Search className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-semibold text-xl mb-3">1. Browse & Select</h3>
+                <p className="text-muted-foreground">
+                  Browse our product range and add items to your quote request form
+                </p>
               </div>
-              <h3 className="font-semibold text-xl mb-3">1. Browse & Select</h3>
-              <p className="text-muted-foreground">
-                Browse our product range and add items to your quote request form
-              </p>
-            </div>
-            <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
-                <ClipboardList className="w-8 h-8 text-primary" />
+            </ParallaxItem>
+            <ParallaxItem stagger={1} effect="fade-scale">
+              <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
+                  <ClipboardList className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-semibold text-xl mb-3">2. Submit Request</h3>
+                <p className="text-muted-foreground">
+                  Fill out the quote form with your contact details and project requirements
+                </p>
               </div>
-              <h3 className="font-semibold text-xl mb-3">2. Submit Request</h3>
-              <p className="text-muted-foreground">
-                Fill out the quote form with your contact details and project requirements
-              </p>
-            </div>
-            <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
-                <Mail className="w-8 h-8 text-primary" />
+            </ParallaxItem>
+            <ParallaxItem stagger={2} effect="fade-scale">
+              <div className="p-8 text-center bg-white/60 backdrop-blur-md rounded-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05)]">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),inset_0_-1px_3px_rgba(255,255,255,0.4)]">
+                  <Mail className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="font-semibold text-xl mb-3">3. Receive Quote</h3>
+                <p className="text-muted-foreground">
+                  Get your final quote with trade discounts and accurate lead times via email
+                </p>
               </div>
-              <h3 className="font-semibold text-xl mb-3">3. Receive Quote</h3>
-              <p className="text-muted-foreground">
-                Get your final quote with trade discounts and accurate lead times via email
-              </p>
-            </div>
+            </ParallaxItem>
           </div>
         </div>
       </section>
@@ -724,42 +751,44 @@ export default function HomePage() {
             mixBlendMode: 'screen'
           }}
         />
-        {/* Floating blob group 1 - cyan/teal */}
-        <div className="absolute -left-32 top-1/4 w-96 h-96 pointer-events-none animate-blob-float-1">
+        {/* Floating blob group 1 - cyan/teal with parallax */}
+        <ParallaxLayer speed={0.4} className="absolute -left-32 top-1/4 w-96 h-96 pointer-events-none animate-blob-float-1">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/30 via-teal-400/20 to-transparent blur-3xl" />
           <div className="absolute inset-8 rounded-full bg-gradient-to-tr from-cyan-400/25 to-transparent blur-2xl" />
-        </div>
-        {/* Floating blob group 2 - blue/purple */}
-        <div className="absolute -right-32 bottom-1/4 w-80 h-80 pointer-events-none animate-blob-float-2">
+        </ParallaxLayer>
+        {/* Floating blob group 2 - blue/purple with parallax */}
+        <ParallaxLayer speed={-0.3} className="absolute -right-32 bottom-1/4 w-80 h-80 pointer-events-none animate-blob-float-2">
           <div className="absolute inset-0 rounded-full bg-gradient-to-bl from-blue-500/25 via-indigo-400/20 to-transparent blur-3xl" />
           <div className="absolute inset-6 rounded-full bg-gradient-to-tl from-blue-400/20 to-transparent blur-2xl" />
-        </div>
+        </ParallaxLayer>
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-12">
+          <ParallaxSection effect="fade-up" className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">INDUSTRY SOLUTIONS</h2>
             <p className="text-lg text-gray-300">
               No matter what field you're in, we have the perfect solution for you.
             </p>
-          </div>
+          </ParallaxSection>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {industries.map((industry) => (
-              <Link key={industry.name} href={industry.url}>
-                <Card
-                  className="group overflow-hidden h-56 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border"
-                  data-testid={`card-industry-${industry.name.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${industry.image})` }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/10" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-base font-semibold text-white text-center">
-                      {industry.name}
-                    </h3>
-                  </div>
-                </Card>
-              </Link>
+            {industries.map((industry, index) => (
+              <ParallaxItem key={industry.name} stagger={index} effect="fade-up">
+                <Link href={industry.url}>
+                  <Card
+                    className="group overflow-hidden h-56 relative hover-elevate active-elevate-2 transition-all cursor-pointer border-border"
+                    data-testid={"card-industry-" + industry.name.toLowerCase().replace(/\s+/g, "-")}
+                  >
+                    <div
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                      style={{ backgroundImage: "url(" + industry.image + ")" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/10" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="text-base font-semibold text-white text-center">
+                        {industry.name}
+                      </h3>
+                    </div>
+                  </Card>
+                </Link>
+              </ParallaxItem>
             ))}
           </div>
         </div>
@@ -768,7 +797,7 @@ export default function HomePage() {
       {/* FAQ Section */}
       <section className="py-20 px-6 lg:px-8 bg-muted/30">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
+          <ParallaxSection effect="fade-up" className="text-center mb-12">
             <p className="text-sm uppercase tracking-wider text-primary font-semibold mb-3">
               got questions?
             </p>
@@ -776,8 +805,9 @@ export default function HomePage() {
             <p className="text-lg text-muted-foreground">
               Everything you need to know about our products and services
             </p>
-          </div>
-          <Accordion type="single" collapsible className="w-full space-y-4">
+          </ParallaxSection>
+          <ParallaxSection effect="fade-up" delay={100}>
+            <Accordion type="single" collapsible className="w-full space-y-4">
             <AccordionItem value="item-1" className="bg-background border rounded-lg px-6">
               <AccordionTrigger className="text-lg font-semibold hover:no-underline">
                 What brands do you stock?
@@ -831,8 +861,8 @@ export default function HomePage() {
                 complete transparency to support your approval and engineering processes.
               </AccordionContent>
             </AccordionItem>
-
-          </Accordion>
+            </Accordion>
+          </ParallaxSection>
         </div>
       </section>
 
