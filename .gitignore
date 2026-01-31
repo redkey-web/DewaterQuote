@@ -34,3 +34,6 @@ output/
 
 # Dev server port (written by webdev:spinup)
 .port
+
+# Lighthouse reports
+lighthouse-report.*
