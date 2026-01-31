@@ -281,7 +281,7 @@ export default function HomePage() {
 
         {/* Orbiting curved text - Set 1 - teal layer (desktop only) */}
         {/* Positioned on pipe coupling's circular opening, scales with viewport */}
-        <div className="hidden md:block absolute z-0 pointer-events-none top-[79%] left-[33%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        <div className="hidden md:block absolute z-0 pointer-events-none top-[79%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -289,7 +289,7 @@ export default function HomePage() {
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={342} height={342} radius={112} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -299,7 +299,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={600} height={600} radius={195} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -311,7 +311,7 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 1 - white layer (desktop only) */}
-        <div className="hidden md:block absolute z-0 pointer-events-none top-[79%] left-[33%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        <div className="hidden md:block absolute z-0 pointer-events-none top-[79%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
@@ -319,7 +319,7 @@ export default function HomePage() {
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={342} height={342} radius={112} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
@@ -329,7 +329,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={600} height={600} radius={195} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
@@ -341,14 +341,14 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 2 (enlarged 2x) - teal layer (mobile only) */}
-        <div className="block md:hidden absolute z-0 pointer-events-none top-[66%] left-[32%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+        <div className="block md:hidden absolute z-0 pointer-events-none top-[66%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={342} height={342} radius={112} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -357,7 +357,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={600} height={600} radius={195} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -368,14 +368,14 @@ export default function HomePage() {
           </div>
         </div>
         {/* Set 2 - white layer (mobile only) */}
-        <div className="block md:hidden absolute z-0 pointer-events-none top-[66%] left-[32%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+        <div className="block md:hidden absolute z-0 pointer-events-none top-[66%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={320} height={320} radius={105} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={342} height={342} radius={112} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
@@ -384,7 +384,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={561} height={561} radius={182} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={600} height={600} radius={195} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
