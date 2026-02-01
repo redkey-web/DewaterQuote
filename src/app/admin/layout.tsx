@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
 import { authOptions } from '@/lib/auth/config';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { AdminLayoutWrapper } from '@/components/admin/AdminLayoutWrapper';
+import { AdminCommandPalette } from '@/components/admin/AdminCommandPalette';
 
 export const metadata = {
   title: 'Admin - Dewater Products',
@@ -27,6 +27,7 @@ export default async function AdminLayout({
       <AdminLayoutWrapper>
         <main className="p-6">{children}</main>
       </AdminLayoutWrapper>
+      <AdminCommandPalette />
     </div>
   );
 }
