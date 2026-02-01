@@ -1234,10 +1234,45 @@ export default function RequestQuotePage() {
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm text-muted-foreground">Certificates</span>
                     <span className="font-medium">
-                      {certCount} (+${certFeeTotal})
+                      {certCount} (+{"$"}{certFeeTotal})
                     </span>
                   </div>
                 )}
+                {isAustralia && pricedItems.length > 0 && (
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-sm text-muted-foreground">Delivery</span>
+                    {shippingInfo ? (
+                      shippingInfo.zone === "metro" ? (
+                        <span className="text-green-600 font-medium text-sm">FREE</span>
+                      ) : shippingInfo.zone === "major_regional" ? (
+                        <span className="text-amber-600 font-medium text-sm">{"$"}100</span>
+                      ) : (
+                        <span className="text-red-600 font-medium text-sm">Call</span>
+                      )
+                    ) : (
+                      <span className="text-muted-foreground text-sm">-</span>
+                    )}
+                  </div>
+                )}
+                {isAustralia && pricedItems.length > 0 && (() => {
+                  const deliveryCost = shippingInfo?.zone === "major_regional" ? 100 : 0
+                  const subtotalExGst = discountedTotal + certFeeTotal + deliveryCost
+                  const gstAmount = subtotalExGst * 0.1
+                  const totalIncGst = subtotalExGst * 1.1
+                  return (
+                    <>
+                      <Separator />
+                      <div className="flex items-baseline justify-between">
+                        <span className="text-sm text-muted-foreground">GST (10%)</span>
+                        <span className="text-sm">{"$"}{gstAmount.toFixed(2)}</span>
+                      </div>
+                      <div className="flex items-baseline justify-between">
+                        <span className="text-sm font-medium">Total (inc GST)</span>
+                        <span className="font-bold text-primary">{"$"}{totalIncGst.toFixed(2)}</span>
+                      </div>
+                    </>
+                  )
+                })()}
                 <Separator />
 
                 <div className="space-y-2">
