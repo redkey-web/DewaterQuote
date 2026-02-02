@@ -33,6 +33,7 @@ import OrderingGuide from "@/components/OrderingGuide"
 import ParallaxSection, { ParallaxItem, ParallaxLayer } from "@/components/ParallaxSection"
 import {
   DepthLayer,
+  OrbitalLayer,
   HolographicCard,
   MagneticElement,
   ParticleField,
@@ -286,8 +287,8 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 1 - teal layer (desktop only) */}
-        {/* Positioned on pipe coupling's circular opening, scales with viewport */}
-        <DepthLayer depth={0.15} className="hidden md:block absolute z-0 pointer-events-none top-[-17%] left-[-21%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        {/* MouseX controls z-separation, MouseY rotates independently */}
+        <OrbitalLayer layer={1} baseDepth={10} depthRange={50} rotationIntensity={20} className="hidden md:block absolute z-0 pointer-events-none top-[-17%] left-[-21%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -314,10 +315,10 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </DepthLayer>
+        </OrbitalLayer>
 
         {/* Orbiting curved text - Set 1 - white layer (desktop only) */}
-        <DepthLayer depth={0.12} className="hidden md:block absolute z-0 pointer-events-none top-[-17%] left-[-21%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        <OrbitalLayer layer={2} baseDepth={-10} depthRange={50} rotationIntensity={20} className="hidden md:block absolute z-0 pointer-events-none top-[-17%] left-[-21%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
             <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
@@ -344,7 +345,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </DepthLayer>
+        </OrbitalLayer>
 
         {/* Orbiting curved text - Set 2 (enlarged 2x) - teal layer (mobile only) */}
         <DepthLayer depth={0.2} className="block md:hidden absolute z-0 pointer-events-none top-[68%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">

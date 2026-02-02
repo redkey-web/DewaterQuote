@@ -119,6 +119,62 @@ export function DepthLayer({
 }
 
 // ============================================================================
+// ORBITAL LAYER - Layer separation & independent rotation based on mouse
+// ============================================================================
+
+interface OrbitalLayerProps {
+  children: ReactNode
+  className?: string
+  /** Which layer (1 = front/teal, 2 = back/white) - controls direction */
+  layer: 1 | 2
+  /** Base z-depth in pixels (layer separation at mouse center) */
+  baseDepth?: number
+  /** Max z-movement range in pixels */
+  depthRange?: number
+  /** Rotation intensity multiplier */
+  rotationIntensity?: number
+  /** Custom styles */
+  style?: CSSProperties
+}
+
+export function OrbitalLayer({
+  children,
+  className = "",
+  layer,
+  baseDepth = 0,
+  depthRange = 40,
+  rotationIntensity = 15,
+  style,
+}: OrbitalLayerProps) {
+  const mouse = useMousePosition()
+
+  // Layer 1 moves forward when mouse goes right, layer 2 moves back (and vice versa)
+  const direction = layer === 1 ? 1 : -1
+
+  // MouseX (0-1) controls z-separation: center = baseDepth, edges = baseDepth ± depthRange
+  const zOffset = (mouse.x - 0.5) * depthRange * 2 * direction + baseDepth
+
+  // MouseY (0-1) controls rotation: each layer rotates differently
+  // Layer 1 rotates more, layer 2 rotates less (creates parallax rotation effect)
+  const rotationMultiplier = layer === 1 ? 1.0 : 0.6
+  const rotation = (mouse.y - 0.5) * rotationIntensity * 2 * rotationMultiplier
+
+  const layerStyle: CSSProperties = {
+    transform: "perspective(1200px) translateZ(" + zOffset + "px) rotateX(" + rotation + "deg)",
+    transition: "transform 0.2s cubic-bezier(0.33, 1, 0.68, 1)",
+    willChange: "transform",
+    transformStyle: "preserve-3d",
+    ...style,
+  }
+
+  return (
+    <div className={className} style={layerStyle}>
+      {children}
+    </div>
+  )
+}
+
+// ============================================================================
 // HOLOGRAPHIC CARD - 3D tilt effect with glare (Concept 2)
 // ============================================================================
 
