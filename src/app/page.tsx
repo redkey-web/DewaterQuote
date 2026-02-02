@@ -413,26 +413,26 @@ export default function HomePage() {
             Industrial Pipe Fittings & Valves Australia
           </h1>
 
-          <div className="relative left-1/2 -translate-x-1/2 w-[calc(100vw-40px)] md:w-[calc(100%+160px)] max-w-[1260px] md:max-w-[1500px]" ref={heroSearchRef}>
+          <div className="relative left-1/2 -translate-x-1/2 w-[calc(100vw-40px)] md:w-[calc(100%+120px)] max-w-[1000px] md:max-w-[1200px]" ref={heroSearchRef}>
             <form onSubmit={handleSearchSubmit}>
               {/* Search Bar */}
               <div className="relative">
                 {isSearching ? (
-                  <Loader2 className={`absolute left-3 md:left-5 top-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 animate-spin z-10 transition-colors ${isSearchFocused ? "text-gray-700" : "text-white"}`} />
+                  <Loader2 className={"absolute left-2.5 md:left-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 animate-spin z-10 transition-colors " + (isSearchFocused ? "text-gray-700" : "text-white")} />
                 ) : (
                   <Image
                     src="/images/dewater-icon.webp"
                     alt=""
-                    width={32}
-                    height={32}
-                    className={`absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-10 transition-opacity -scale-y-100 w-6 h-6 md:w-8 md:h-8 ${isSearchFocused ? "opacity-70" : "opacity-100"}`}
+                    width={26}
+                    height={26}
+                    className={"absolute left-2.5 md:left-4 top-1/2 -translate-y-1/2 z-10 transition-opacity -scale-y-100 w-5 h-5 md:w-6 md:h-6 " + (isSearchFocused ? "opacity-70" : "opacity-100")}
                   />
                 )}
                 <input
                   ref={heroInputRef}
                   type="text"
                   aria-label="Search products"
-                  className="relative w-full h-11 md:h-16 pl-12 md:pl-[72px] pr-4 md:pr-6 text-base md:text-lg font-mono font-normal text-gray-700 rounded-xl md:rounded-2xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
+                  className="relative w-full h-9 md:h-[52px] pl-10 md:pl-[58px] pr-3 md:pr-5 text-sm md:text-base font-mono font-normal text-gray-700 rounded-lg md:rounded-xl bg-gray-100/70 backdrop-blur-[2px] border-2 border-primary shadow-[inset_0_0_6px_rgba(0,77,77,0.75),inset_0_3px_8px_rgba(255,255,255,0.4),inset_0_0_2px_rgba(255,255,255,0.15),0_12px_48px_rgba(0,0,0,0.25),0_2px_2px_rgba(57,197,218,0.12)] focus:outline-none focus:bg-white focus:text-gray-900 focus:border-primary focus:shadow-[inset_0_2px_6px_rgba(0,0,0,0.08),0_4px_20px_rgba(57,197,218,0.25)] transition-all"
                   data-testid="input-hero-search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -444,7 +444,7 @@ export default function HomePage() {
                 />
                 {/* Static placeholder - shows when empty and not focused */}
                 {!searchQuery && !isSearchFocused && (
-                  <div className="absolute left-12 md:left-[72px] top-1/2 -translate-y-1/2 text-base md:text-lg font-mono font-normal text-gray-700 pointer-events-none">
+                  <div className="absolute left-10 md:left-[58px] top-1/2 -translate-y-1/2 text-sm md:text-base font-mono font-normal text-gray-700 pointer-events-none">
                     <span>Search products...</span>
                   </div>
                 )}
