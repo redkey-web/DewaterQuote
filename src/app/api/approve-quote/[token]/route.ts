@@ -139,8 +139,8 @@ export async function POST(
     // Generate PDF
     const pdfBuffer = await renderToBuffer(QuotePDF({ data: pdfData }))
 
-    // Check SMTP configuration
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    // Check email configuration (Resend API)
+    if (!process.env.RESEND_API_KEY) {
       return NextResponse.json(
         { error: "Email service not configured" },
         { status: 500 }

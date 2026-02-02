@@ -48,9 +48,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Check for SMTP configuration
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.error("SMTP not configured (SMTP_USER/SMTP_PASS required)")
+    // Check for email configuration
+    if (!process.env.RESEND_API_KEY) {
+      console.error("Email not configured (RESEND_API_KEY required)")
       return NextResponse.json(
         { error: "Email service not configured" },
         { status: 500 }

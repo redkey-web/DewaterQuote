@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
-import { sendEmail } from "@/lib/email/client"
+import { sendEmailSafe } from "@/lib/email/client"
+import { logEmailResult } from "@/lib/email/logger"
 import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 import { verifyTurnstileToken } from "@/lib/turnstile"
@@ -216,18 +217,18 @@ export async function POST(request: NextRequest) {
       console.log("⚠️ DEV MODE: Skipping Turnstile verification")
     }
 
-    // Check for SMTP configuration
+    // Check for email configuration (Resend API)
     // DEV BYPASS: Allow quote submission without email in development
-    const smtpConfigured = process.env.SMTP_USER && process.env.SMTP_PASS
-    const skipEmail = IS_DEV && !smtpConfigured
-    if (!smtpConfigured && !IS_DEV) {
-      console.error("SMTP not configured (SMTP_USER/SMTP_PASS required)")
+    const emailConfigured = !!process.env.RESEND_API_KEY
+    const skipEmail = IS_DEV && !emailConfigured
+    if (!emailConfigured && !IS_DEV) {
+      console.error("Email not configured (RESEND_API_KEY required)")
       return NextResponse.json(
         { error: "Email service not configured" },
         { status: 500 }
       )
     } else if (skipEmail) {
-      console.log("⚠️ DEV MODE: Email sending will be skipped (no SMTP config)")
+      console.log("⚠️ DEV MODE: Email sending will be skipped (no RESEND_API_KEY)")
     }
 
     // Save quote to database
@@ -848,59 +849,122 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
       console.log(`[Quote ${quoteNumber}] WARNING: No PDF generated`)
     }
 
-    // Send both emails
-    // DEV BYPASS: Skip email sending if no SMTP config in development
+    // Send emails with proper error tracking
+    // DEV BYPASS: Skip email sending if no email config in development
     if (skipEmail) {
       console.log("⚠️ DEV MODE: Emails NOT sent. Quote saved to database.")
       console.log("   Quote Number: " + quoteNumber)
       console.log("   Quote ID: " + savedQuoteId)
       console.log("   View at: /admin/quotes/" + savedQuoteId)
     } else {
-      try {
-        // Convert PDF to Buffer for nodemailer attachment
-        const pdfAttachment = pdfBuffer ? {
-          filename: `${quoteNumber}-Quote.pdf`,
-          content: pdfBuffer,
-          contentType: "application/pdf",
-        } : undefined
+      // Prepare PDF attachment
+      const pdfAttachment = pdfBuffer ? {
+        filename: quoteNumber + "-Quote.pdf",
+        content: pdfBuffer,
+        contentType: "application/pdf",
+      } : undefined
 
-        // Build list of emails to send
-        const emailPromises = [
-          // Always send business notification
-          sendEmail({
-            to: businessEmail.to,
-            subject: businessEmail.subject,
-            html: businessEmail.html,
-            text: businessEmail.text,
-            replyTo: data.email,
-            attachments: pdfAttachment ? [pdfAttachment] : undefined,
-          }),
-        ]
+      // Track email results
+      let businessEmailResult: { success: boolean; error?: string } = { success: false, error: "Not attempted" }
+      let customerEmailResult: { success: boolean; error?: string } | null = null
 
-        // Only send customer email if NOT flagged for manual review
-        if (!data.requiresReview) {
-          emailPromises.push(
-            sendEmail({
-              to: customerEmail.to,
-              subject: customerEmail.subject,
-              html: customerEmail.html,
-              attachments: pdfAttachment ? [pdfAttachment] : undefined,
-            })
-          )
+      // Send business notification (always)
+      businessEmailResult = await sendEmailSafe({
+        to: businessEmail.to,
+        subject: businessEmail.subject,
+        html: businessEmail.html,
+        text: businessEmail.text,
+        replyTo: data.email,
+        attachments: pdfAttachment ? [pdfAttachment] : undefined,
+      })
+
+      // Log business email result
+      await logEmailResult({
+        quoteNumber,
+        recipient: Array.isArray(businessEmail.to) ? businessEmail.to.join(", ") : businessEmail.to,
+        subject: businessEmail.subject,
+        status: businessEmailResult.success ? "sent" : "failed",
+        errorMessage: businessEmailResult.error,
+        route: "/api/quote",
+      })
+
+      // Send customer email only if NOT flagged for manual review
+      if (!data.requiresReview) {
+        customerEmailResult = await sendEmailSafe({
+          to: customerEmail.to,
+          subject: customerEmail.subject,
+          html: customerEmail.html,
+          attachments: pdfAttachment ? [pdfAttachment] : undefined,
+        })
+
+        // Log customer email result
+        await logEmailResult({
+          quoteNumber,
+          recipient: customerEmail.to,
+          subject: customerEmail.subject,
+          status: customerEmailResult.success ? "sent" : "failed",
+          errorMessage: customerEmailResult.error,
+          route: "/api/quote",
+        })
+      } else {
+        console.log("[Quote " + quoteNumber + "] Customer email SKIPPED - requires manual review")
+      }
+
+      // Update quotes table with email delivery timestamps
+      const emailUpdate: Record<string, unknown> = {}
+      const failures: string[] = []
+
+      if (businessEmailResult.success) {
+        emailUpdate.businessEmailSentAt = new Date()
+      } else {
+        failures.push("Business: " + (businessEmailResult.error || "Unknown error"))
+      }
+
+      if (customerEmailResult) {
+        if (customerEmailResult.success) {
+          emailUpdate.customerEmailSentAt = new Date()
         } else {
-          console.log("[Quote " + quoteNumber + "] Customer email SKIPPED - requires manual review")
+          failures.push("Customer: " + (customerEmailResult.error || "Unknown error"))
         }
+      }
 
-        await Promise.all(emailPromises)
-      } catch (emailError: unknown) {
-        const err = emailError as { message?: string }
-        console.error("[Quote " + quoteNumber + "] Email error:", err.message || emailError)
-        // Quote is saved to DB, but email failed - still return success with warning
+      if (failures.length > 0) {
+        emailUpdate.emailFailureReason = failures.join("; ")
+      }
+
+      // Update quote record with email status
+      if (savedQuoteId && Object.keys(emailUpdate).length > 0) {
+        try {
+          await db.update(quotes).set(emailUpdate).where(eq(quotes.id, savedQuoteId))
+        } catch (updateErr) {
+          console.error("[Quote " + quoteNumber + "] Failed to update email status:", updateErr)
+        }
+      }
+
+      // Determine response based on email results
+      const allFailed = !businessEmailResult.success && (!customerEmailResult || !customerEmailResult.success)
+      const anyFailed = !businessEmailResult.success || (customerEmailResult && !customerEmailResult.success)
+
+      if (allFailed) {
+        // All emails failed - return error
+        console.error("[Quote " + quoteNumber + "] All emails failed")
+        return NextResponse.json({
+          success: false,
+          error: "Quote saved but all emails failed to send. Our team has been notified.",
+          quoteNumber,
+          quoteId: savedQuoteId,
+        }, { status: 500 })
+      }
+
+      if (anyFailed) {
+        // Some emails failed - return success with warning
+        const failedEmail = !businessEmailResult.success ? "business notification" : "customer confirmation"
+        console.warn("[Quote " + quoteNumber + "] Partial email failure: " + failedEmail)
         return NextResponse.json({
           success: true,
           quoteNumber,
           quoteId: savedQuoteId,
-          warning: "Quote saved but email delivery may be delayed",
+          emailWarning: "Your quote was received but the " + failedEmail + " email may be delayed.",
         })
       }
     }

@@ -540,6 +540,11 @@ export const quotes = pgTable('quotes', {
   isDeleted: boolean('is_deleted').default(false),
   deletedAt: timestamp('deleted_at'),
   deletedBy: text('deleted_by'), // Admin email who deleted
+
+  // Email Delivery Tracking (Phase: email-resend-migration)
+  customerEmailSentAt: timestamp('customer_email_sent_at'),
+  businessEmailSentAt: timestamp('business_email_sent_at'),
+  emailFailureReason: text('email_failure_reason'),
 });
 
 export const quoteItems = pgTable('quote_items', {
@@ -602,6 +607,21 @@ export const quoteItemsRelations = relations(quoteItems, ({ one }) => ({
 }));
 
 // ============================================
+// EMAIL LOGS TABLE (Phase: email-resend-migration)
+// ============================================
+
+export const emailLogs = pgTable('email_logs', {
+  id: serial('id').primaryKey(),
+  quoteNumber: text('quote_number'), // Optional - not all emails are quotes
+  recipient: text('recipient').notNull(),
+  subject: text('subject').notNull(),
+  status: text('status').notNull(), // 'sent' | 'failed'
+  errorMessage: text('error_message'),
+  route: text('route').notNull(), // Which API route sent it (e.g., '/api/quote', '/api/contact')
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// ============================================
 // TYPE EXPORTS
 // ============================================
 
@@ -648,3 +668,7 @@ export type Quote = typeof quotes.$inferSelect;
 export type NewQuote = typeof quotes.$inferInsert;
 export type QuoteItemDB = typeof quoteItems.$inferSelect;
 export type NewQuoteItemDB = typeof quoteItems.$inferInsert;
+
+// Email log types
+export type EmailLog = typeof emailLogs.$inferSelect;
+export type NewEmailLog = typeof emailLogs.$inferInsert;

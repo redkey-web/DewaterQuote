@@ -40,11 +40,11 @@ Before implementation:
 
 Add email delivery tracking columns to the `quotes` table so failures are persisted and queryable.
 
-- [ ] Add columns to `src/db/schema.ts` quotes table:
+- [x] Add columns to `src/db/schema.ts` quotes table:
   - `customerEmailSentAt` (timestamp, nullable)
   - `businessEmailSentAt` (timestamp, nullable)
   - `emailFailureReason` (text, nullable)
-- [ ] Create `email_logs` table in `src/db/schema.ts`:
+- [x] Create `email_logs` table in `src/db/schema.ts`:
   - `id` (serial PK)
   - `quoteNumber` (text, nullable - not all emails are quotes)
   - `recipient` (text)
@@ -53,7 +53,7 @@ Add email delivery tracking columns to the `quotes` table so failures are persis
   - `errorMessage` (text, nullable)
   - `route` (text - which API route sent it)
   - `createdAt` (timestamp)
-- [ ] Run `npx drizzle-kit push` to apply migration
+- [x] Run `npx drizzle-kit push` to apply migration
 - [ ] **Test:** Verify new columns exist in Neon dashboard
   - *Hint: `SELECT column_name FROM information_schema.columns WHERE table_name = 'quotes' AND column_name LIKE '%email%'`*
 
@@ -61,28 +61,28 @@ Add email delivery tracking columns to the `quotes` table so failures are persis
 
 Replace the email client internals. The `sendEmail()` interface stays identical so no callers need changes.
 
-- [ ] Install Resend: `npm install resend`
-- [ ] Remove nodemailer: `npm uninstall nodemailer @types/nodemailer`
-- [ ] Rewrite `src/lib/email/client.ts`:
+- [x] Install Resend: `npm install resend`
+- [x] Remove nodemailer: `npm uninstall nodemailer @types/nodemailer`
+- [x] Rewrite `src/lib/email/client.ts`:
   - Import `Resend` from 'resend'
   - Map existing `EmailOptions` interface to Resend's `send()` params
   - Attachment format: `{ filename, content: Buffer }` (same as current)
   - Env check: `RESEND_API_KEY` instead of `SMTP_USER`/`SMTP_PASS`
   - Remove `verifyEmailConnection()` (unused, SMTP-specific)
 - [ ] Add `RESEND_API_KEY` to Vercel env vars (Production + Preview)
-- [ ] **Test:** Build passes with no TypeScript errors
+- [x] **Test:** Build passes with no TypeScript errors
   - *Hint: `npm run build` - zero errors expected since interface unchanged*
-- [ ] **Test:** Verify all 6 callers still compile without changes
+- [x] **Test:** Verify all 6 callers still compile without changes
   - *Hint: `npx tsc --noEmit` - no caller should break since EmailOptions interface is preserved*
 
 ### Phase 3: Fix Critical Error Handling in Quote Route
 
 Fix the silent failure bug and add proper delivery tracking.
 
-- [ ] Create `src/lib/email/logger.ts`:
+- [x] Create `src/lib/email/logger.ts`:
   - `logEmailResult(params)` function that writes to `email_logs` table
   - Accepts: quoteNumber, recipient, subject, status, errorMessage, route
-- [ ] Fix `src/app/api/quote/route.ts` lines 867-906:
+- [x] Fix `src/app/api/quote/route.ts` lines 867-906:
   - Replace `Promise.all()` with `Promise.allSettled()`
   - Track business email result independently from customer email result
   - On business email success: update `businessEmailSentAt` in quotes table
@@ -94,7 +94,7 @@ Fix the silent failure bug and add proper delivery tracking.
 - [ ] Fix `src/app/api/quote/route.ts` lines 839-842 (PDF failure):
   - Log PDF generation failure to `email_logs` table
   - Continue sending email but record `pdfAttached: false` context
-- [ ] Update SMTP config check (lines 220-231) to check `RESEND_API_KEY` instead of `SMTP_USER`/`SMTP_PASS`
+- [x] Update SMTP config check (lines 220-231) to check `RESEND_API_KEY` instead of `SMTP_USER`/`SMTP_PASS`
 - [ ] **Test:** Submit quote with valid data - both emails should log as 'sent'
   - *Hint: Check `email_logs` table has 2 rows with status='sent'*
 - [ ] **Test:** Verify quote submission with `requiresReview=true` only sends business email
@@ -130,7 +130,7 @@ Fix the silent failure bug and add proper delivery tracking.
 - [ ] Mark `remove-sendgrid.md` Phase 4 cleanup task as superseded (SENDGRID_API_KEY removed in Phase 4)
 - [ ] Mark `remove-sendgrid.md` Phase 6 testing tasks as superseded (covered by Phase 4 tests above)
 - [ ] Mark `quote-system.md` Phase 6.2 manual testing as superseded
-- [ ] Update `.env.example` to reflect new env vars
+- [x] Update `.env.example` to reflect new env vars
 
 ## Dependencies
 

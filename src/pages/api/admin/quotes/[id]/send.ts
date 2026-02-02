@@ -205,8 +205,8 @@ export default async function handler(
       console.error("[Quote " + quote.quoteNumber + "] Failed to store PDF in blob:", blobError)
     }
 
-    // Check SMTP configuration
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    // Check email configuration (Resend API)
+    if (!process.env.RESEND_API_KEY) {
       return res.status(500).json({ error: "Email service not configured" })
     }
 
