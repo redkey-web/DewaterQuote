@@ -21,6 +21,7 @@
     ".planning/features/ticker-search-polish.md",
     ".planning/features/datasheet-migration.md",
     ".planning/features/seo-content-optimization.md",
+    ".planning/features/email-resend-migration.md",
     ".planning/post-launch-redirects.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PLAN.md",
     "~/Documents/NEXUS/RED-KEY/red-key_pm/projects/dewater-products/dewater-products_PROGRESS.md"
@@ -28,7 +29,7 @@
   "parent_track": "~/Documents/NEXUS/RED-KEY/red-key_pm/.planning",
   "require_marker_file": false,
   "description": "Dewater Products full-scope website migration with CMS",
-  "last_refresh": "2026-01-10",
+  "last_refresh": "2026-02-02",
   "last_align": "2026-01-24",
   "archived_files": [
     ".planning/completed/admin-enhancements.md",
