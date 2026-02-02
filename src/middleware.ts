@@ -146,28 +146,30 @@ const STATIC_REDIRECTS: Record<string, string> = {
   '/industrial-valves-full-range-for-flow-control-back/pinch-valves': '/industrial-valves',
 
   // === Old flat product URLs (Neto) ===
+  // NOTE: Many Neto product URLs are now actual product slugs - don't add redirects for products that exist!
+  // Use 'SELECT slug FROM products WHERE slug = ...' to verify before adding redirects here.
   '/orbit-pipe-repair-clamp-series-1-and-200mm-long': '/pipe-repair-clamps',
   '/orbit-pipe-repair-clamp-series-1-and-100mm-long': '/pipe-repair-clamps',
   // '/elbow-repair-clamp': '/pipe-repair-clamps', // REMOVED: actual product exists at this slug
-  '/flex-grip-open-l': '/pipe-couplings',
+  // '/flex-grip-open-l': '/pipe-couplings', // REMOVED: actual product exists at this slug
   '/plast-coupling': '/pipe-couplings',
   '/muff-couplings-aluminium-table-d-e': '/pipe-couplings/muff-couplings',
   '/straub-grip': '/pipe-couplings/straub',
   '/metal-lock-s': '/pipe-couplings/straub',
   '/resilient-seated-swing-check-valve-flanged-table-e': '/industrial-valves/check-valves',
   '/ball-check-valve-stainless-steel-316-flanged-table': '/industrial-valves/check-valves',
-  '/control-rod-rubber-expansion-joint-accessory': '/expansion-joints',
+  // '/control-rod-rubber-expansion-joint-accessory': '/expansion-joints', // REMOVED: actual product exists at this slug
   '/lever-operated-knife-gate-valve-316ss-metal-seated': '/industrial-valves/gate-valves',
   '/ball-valve-flanged-ansi-150lb': '/industrial-valves/ball-valves',
   '/gate-valve-cf8m-316ss-table-e': '/industrial-valves/gate-valves',
-  '/ptfe-lined-butterfly-valve-universal-wafer': '/industrial-valves/butterfly-valves',
+  // '/ptfe-lined-butterfly-valve-universal-wafer': '/industrial-valves/butterfly-valves', // REMOVED: actual product exists at this slug
   '/swing-check-valve-wcb-flanged-ansi-150lb': '/industrial-valves/check-valves',
   '/foot-valve-galvanised-flanged-table-d': '/industrial-valves/foot-valves',
-  '/foot-valve-hdpe-flanged-table-e': '/industrial-valves/foot-valves',
+  // '/foot-valve-hdpe-flanged-table-e': '/industrial-valves/foot-valves', // REMOVED: actual product exists at this slug
   '/eccentric-reducing-rubber-expansion-joint-with-tab': '/expansion-joints/reducing',
   '/concentric-reducing-rubber-expansion-joint-with-ta': '/expansion-joints/reducing',
-  '/butterfly-valve-316-stainless-steel-cf8m-body-ptfe': '/industrial-valves/butterfly-valves',
-  '/stainless-steel-y-strainer-cf8m-flanged-ansi-150lb': '/strainers/y-strainers',
+  // '/butterfly-valve-316-stainless-steel-cf8m-body-ptfe': '/industrial-valves/butterfly-valves', // REMOVED: actual product exists at this slug
+  // '/stainless-steel-y-strainer-cf8m-flanged-ansi-150lb': '/strainers/y-strainers', // REMOVED: actual product exists at this slug
   '/db-3-inline-duckbill-check-valve-epdm-flanged-tabl': '/industrial-valves/duckbill-valves',
 
   // === Old blog (no longer exists) ===
