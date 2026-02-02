@@ -11,14 +11,14 @@ interface SidebarContextType {
 }
 
 const SidebarContext = createContext<SidebarContextType>({
-  isCollapsed: false,
+  isCollapsed: true, // Default collapsed (rail mode)
   setIsCollapsed: () => {},
 });
 
 export const useSidebar = () => useContext(SidebarContext);
 
 export function AdminLayoutWrapper({ children }: { children: React.ReactNode }) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true); // Default collapsed
   const [isHydrated, setIsHydrated] = useState(false);
 
   // Load preference from localStorage on mount
@@ -55,10 +55,10 @@ export function AdminLayoutWrapper({ children }: { children: React.ReactNode }) 
     <SidebarContext.Provider value={{ isCollapsed, setIsCollapsed }}>
       <div
         className={cn(
-          'transition-all duration-300 ease-in-out',
+          'transition-all duration-200 ease-out',
           isHydrated
-            ? isCollapsed ? 'lg:pl-16' : 'lg:pl-64'
-            : 'lg:pl-64' // Default to expanded during SSR
+            ? isCollapsed ? 'lg:pl-14' : 'lg:pl-64'
+            : 'lg:pl-14' // Default to collapsed during SSR
         )}
       >
         {children}
