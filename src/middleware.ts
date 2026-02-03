@@ -156,21 +156,21 @@ const STATIC_REDIRECTS: Record<string, string> = {
   '/muff-couplings-aluminium-table-d-e': '/pipe-couplings/muff-couplings',
   '/straub-grip': '/pipe-couplings/straub',
   '/metal-lock-s': '/pipe-couplings/straub',
-  '/resilient-seated-swing-check-valve-flanged-table-e': '/industrial-valves/check-valves',
-  '/ball-check-valve-stainless-steel-316-flanged-table': '/industrial-valves/check-valves',
+  // '/resilient-seated-swing-check-valve-flanged-table-e': '/industrial-valves/check-valves', // REMOVED: actual product exists
+  // '/ball-check-valve-stainless-steel-316-flanged-table': '/industrial-valves/check-valves', // REMOVED: actual product exists
   // '/control-rod-rubber-expansion-joint-accessory': '/expansion-joints', // REMOVED: actual product exists at this slug
-  '/lever-operated-knife-gate-valve-316ss-metal-seated': '/industrial-valves/gate-valves',
-  '/ball-valve-flanged-ansi-150lb': '/industrial-valves/ball-valves',
-  '/gate-valve-cf8m-316ss-table-e': '/industrial-valves/gate-valves',
+  // '/lever-operated-knife-gate-valve-316ss-metal-seated': '/industrial-valves/gate-valves', // REMOVED: actual product exists
+  // '/ball-valve-flanged-ansi-150lb': '/industrial-valves/ball-valves', // REMOVED: actual product exists
+  // '/gate-valve-cf8m-316ss-table-e': '/industrial-valves/gate-valves', // REMOVED: actual product exists
   // '/ptfe-lined-butterfly-valve-universal-wafer': '/industrial-valves/butterfly-valves', // REMOVED: actual product exists at this slug
-  '/swing-check-valve-wcb-flanged-ansi-150lb': '/industrial-valves/check-valves',
+  // '/swing-check-valve-wcb-flanged-ansi-150lb': '/industrial-valves/check-valves', // REMOVED: actual product exists
   // '/foot-valve-galvanised-flanged-table-d': '/industrial-valves/foot-valves', // REMOVED: actual product exists at this slug
   // '/foot-valve-hdpe-flanged-table-e': '/industrial-valves/foot-valves', // REMOVED: actual product exists at this slug
-  '/eccentric-reducing-rubber-expansion-joint-with-tab': '/expansion-joints/reducing',
-  '/concentric-reducing-rubber-expansion-joint-with-ta': '/expansion-joints/reducing',
+  // '/eccentric-reducing-rubber-expansion-joint-with-tab': '/expansion-joints/reducing', // REMOVED: actual product exists
+  // '/concentric-reducing-rubber-expansion-joint-with-ta': '/expansion-joints/reducing', // REMOVED: actual product exists
   // '/butterfly-valve-316-stainless-steel-cf8m-body-ptfe': '/industrial-valves/butterfly-valves', // REMOVED: actual product exists at this slug
   // '/stainless-steel-y-strainer-cf8m-flanged-ansi-150lb': '/strainers/y-strainers', // REMOVED: actual product exists at this slug
-  '/db-3-inline-duckbill-check-valve-epdm-flanged-tabl': '/industrial-valves/duckbill-valves',
+  // '/db-3-inline-duckbill-check-valve-epdm-flanged-tabl': '/industrial-valves/duckbill-valves', // REMOVED: actual product exists
 
   // === Old blog (no longer exists) ===
   '/blog/the-applications-of-pipe-couplings-in-the-mining': '/pipe-couplings',
