@@ -59,6 +59,66 @@ export default function HomePage() {
   const heroSearchRef = useRef<HTMLDivElement>(null)
   const heroInputRef = useRef<HTMLInputElement>(null)
 
+  // Drag-to-spin state for 3D text
+  const [spinRotation, setSpinRotation] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStartRef = useRef<{ x: number; rotation: number } | null>(null)
+  const spinVelocityRef = useRef(0)
+  const spinAnimationRef = useRef<number | null>(null)
+
+  // Handle drag-to-spin
+  const handleSpinStart = (e: React.MouseEvent | React.TouchEvent) => {
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+    dragStartRef.current = { x: clientX, rotation: spinRotation }
+    setIsDragging(true)
+    spinVelocityRef.current = 0
+    if (spinAnimationRef.current) {
+      cancelAnimationFrame(spinAnimationRef.current)
+    }
+  }
+
+  const handleSpinMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging || !dragStartRef.current) return
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+    const deltaX = clientX - dragStartRef.current.x
+    let newRotation = dragStartRef.current.rotation + deltaX * 0.5
+
+    // Limit backward rotation to -30deg
+    if (newRotation < -30) {
+      newRotation = -30
+      if (spinRotation > -30) {
+        alert("Lets gooo!")
+      }
+    }
+
+    spinVelocityRef.current = deltaX * 0.5 - (spinRotation - dragStartRef.current.rotation)
+    setSpinRotation(newRotation)
+  }
+
+  const handleSpinEnd = () => {
+    if (!isDragging) return
+    setIsDragging(false)
+    dragStartRef.current = null
+
+    // Apply momentum
+    const decelerate = () => {
+      spinVelocityRef.current *= 0.95
+      if (Math.abs(spinVelocityRef.current) > 0.1) {
+        setSpinRotation(prev => {
+          const next = prev + spinVelocityRef.current
+          // Limit backward rotation to -30deg
+          if (next < -30) {
+            spinVelocityRef.current = 0
+            return -30
+          }
+          return next
+        })
+        spinAnimationRef.current = requestAnimationFrame(decelerate)
+      }
+    }
+    spinAnimationRef.current = requestAnimationFrame(decelerate)
+  }
+
   // Close search dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -285,19 +345,31 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Draggable wrapper for 3D rotating text */}
+        <div
+          className="hidden md:block absolute z-10 top-[-23%] left-[-22%] w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
+          onMouseDown={handleSpinStart}
+          onMouseMove={handleSpinMove}
+          onMouseUp={handleSpinEnd}
+          onMouseLeave={handleSpinEnd}
+          onTouchStart={handleSpinStart}
+          onTouchMove={handleSpinMove}
+          onTouchEnd={handleSpinEnd}
+        />
+
         {/* Orbiting curved text - Set 1 - teal layer (desktop only) */}
         {/* Positioned on pipe coupling's circular opening, scales with viewport */}
-        <DepthLayer depth={0.15} className="hidden md:block absolute z-0 pointer-events-none top-[-20%] left-[-21%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
-            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+        <DepthLayer depth={0.15} className="hidden md:block absolute z-0 pointer-events-none top-[-23%] left-[-22%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg)' }}>
+            <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
                 {/* Mobile version - smaller */}
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={114} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={117} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
-                    textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
+                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
                   />
                 </div>
@@ -305,9 +377,9 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={251} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={259} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
-                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
+                    textClassName="fill-cyan-300 text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
                   />
                 </div>
@@ -317,17 +389,17 @@ export default function HomePage() {
         </DepthLayer>
 
         {/* Orbiting curved text - Set 1 - white layer (desktop only) */}
-        <DepthLayer depth={0.12} className="hidden md:block absolute z-0 pointer-events-none top-[-20%] left-[-21%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
-            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
+        <DepthLayer depth={0.12} className="hidden md:block absolute z-0 pointer-events-none top-[-23%] left-[-22%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg) translateZ(20px)' }}>
+            <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
                 {/* Mobile version - smaller */}
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={114} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={119} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
-                    textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
+                    textClassName="fill-white text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
                   />
                 </div>
@@ -335,9 +407,9 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={229} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={241} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
-                    textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
+                    textClassName="fill-white text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
                   />
                 </div>
@@ -346,26 +418,38 @@ export default function HomePage() {
           </div>
         </DepthLayer>
 
+        {/* Draggable wrapper for 3D rotating text (mobile) */}
+        <div
+          className="block md:hidden absolute z-10 top-[65%] left-[29%] w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
+          onMouseDown={handleSpinStart}
+          onMouseMove={handleSpinMove}
+          onMouseUp={handleSpinEnd}
+          onMouseLeave={handleSpinEnd}
+          onTouchStart={handleSpinStart}
+          onTouchMove={handleSpinMove}
+          onTouchEnd={handleSpinEnd}
+        />
+
         {/* Orbiting curved text - Set 2 (enlarged 2x) - teal layer (mobile only) */}
-        <DepthLayer depth={0.2} className="block md:hidden absolute z-0 pointer-events-none top-[68%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg)' }}>
-            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
+        <DepthLayer depth={0.2} className="block md:hidden absolute z-0 pointer-events-none top-[65%] left-[29%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg)' }}>
+            <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={114} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={117} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
-                    textClassName="fill-cyan-300 text-[10px] font-bold tracking-[0.1em] font-mono"
+                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
                   />
                 </div>
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={199} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={205} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
-                    textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.12em] font-mono"
+                    textClassName="fill-cyan-300 text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
                   />
                 </div>
@@ -374,25 +458,25 @@ export default function HomePage() {
           </div>
         </DepthLayer>
         {/* Set 2 - white layer (mobile only) */}
-        <DepthLayer depth={0.18} className="block md:hidden absolute z-0 pointer-events-none top-[68%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(20deg) translateZ(20px)' }}>
-            <div className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
+        <DepthLayer depth={0.18} className="block md:hidden absolute z-0 pointer-events-none top-[65%] left-[29%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg) translateZ(20px)' }}>
+            <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={114} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={119} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
-                    textClassName="fill-white text-[10px] font-bold tracking-[0.1em] font-mono"
+                    textClassName="fill-white text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
                   />
                 </div>
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={199} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={209} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
-                    textClassName="fill-white text-[14px] font-bold tracking-[0.12em] font-mono"
+                    textClassName="fill-white text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
                   />
                 </div>
