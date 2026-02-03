@@ -80,6 +80,7 @@ export async function PATCH(
         temperature: temperature || null,
         sizeFrom: sizeFrom || null,
         leadTime: leadTime || null,
+        leadTimeText: leadTime || null, // Keep in sync with leadTime
         video: video || null,
         priceVaries,
         priceNote: priceNote || null,

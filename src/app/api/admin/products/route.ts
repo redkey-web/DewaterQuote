@@ -77,6 +77,7 @@ export async function POST(request: NextRequest) {
         temperature: temperature || null,
         sizeFrom: sizeFrom || null,
         leadTime: leadTime || null,
+        leadTimeText: leadTime || null, // Keep in sync with leadTime
         video: video || null,
         priceVaries: priceVaries ?? true,
         priceNote: priceNote || null,
