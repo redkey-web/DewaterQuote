@@ -175,7 +175,8 @@ export function OrbitalLayer({
 }
 
 // ============================================================================
-// WATCH BEZEL LAYER - Mouse X movement rotates element like a watch dial
+// WATCH BEZEL LAYER - Mouse movement rotates element like a watch dial
+// Both X and Y movement contribute to the same rotateZ (same spin axis)
 // ============================================================================
 
 interface WatchBezelLayerProps {
@@ -195,15 +196,22 @@ export function WatchBezelLayer({
 }: WatchBezelLayerProps) {
   const mouse = useMousePosition()
   const prevMouseX = useRef(mouse.clientX)
+  const prevMouseY = useRef(mouse.clientY)
   const accumulatedRotation = useRef(0)
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const deltaX = mouse.clientX - prevMouseX.current
+    const deltaY = mouse.clientY - prevMouseY.current
+
+    // Combine X and Y movement into rotateZ
+    // X movement: right = clockwise, left = counter-clockwise
+    // Y movement: down = clockwise, up = counter-clockwise
+    const totalDelta = deltaX + deltaY
 
     // Only update if there's meaningful movement (reduces jitter)
-    if (Math.abs(deltaX) > 0.5) {
-      accumulatedRotation.current += deltaX * sensitivity
+    if (Math.abs(totalDelta) > 0.5) {
+      accumulatedRotation.current += totalDelta * sensitivity
 
       // Apply transform directly to DOM for smooth updates
       if (wrapperRef.current) {
@@ -213,7 +221,8 @@ export function WatchBezelLayer({
     }
 
     prevMouseX.current = mouse.clientX
-  }, [mouse.clientX, sensitivity])
+    prevMouseY.current = mouse.clientY
+  }, [mouse.clientX, mouse.clientY, sensitivity])
 
   const bezelStyle: CSSProperties = {
     transition: "transform 0.12s cubic-bezier(0.33, 1, 0.68, 1)",
