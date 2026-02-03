@@ -164,7 +164,7 @@ const STATIC_REDIRECTS: Record<string, string> = {
   '/gate-valve-cf8m-316ss-table-e': '/industrial-valves/gate-valves',
   // '/ptfe-lined-butterfly-valve-universal-wafer': '/industrial-valves/butterfly-valves', // REMOVED: actual product exists at this slug
   '/swing-check-valve-wcb-flanged-ansi-150lb': '/industrial-valves/check-valves',
-  '/foot-valve-galvanised-flanged-table-d': '/industrial-valves/foot-valves',
+  // '/foot-valve-galvanised-flanged-table-d': '/industrial-valves/foot-valves', // REMOVED: actual product exists at this slug
   // '/foot-valve-hdpe-flanged-table-e': '/industrial-valves/foot-valves', // REMOVED: actual product exists at this slug
   '/eccentric-reducing-rubber-expansion-joint-with-tab': '/expansion-joints/reducing',
   '/concentric-reducing-rubber-expansion-joint-with-ta': '/expansion-joints/reducing',
