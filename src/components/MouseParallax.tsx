@@ -175,6 +175,61 @@ export function OrbitalLayer({
 }
 
 // ============================================================================
+// WATCH BEZEL LAYER - Mouse X movement rotates element like a watch dial
+// ============================================================================
+
+interface WatchBezelLayerProps {
+  children: ReactNode
+  className?: string
+  /** Degrees of rotation per pixel of mouse movement */
+  sensitivity?: number
+  /** Custom styles */
+  style?: CSSProperties
+}
+
+export function WatchBezelLayer({
+  children,
+  className = "",
+  sensitivity = 0.25,
+  style,
+}: WatchBezelLayerProps) {
+  const mouse = useMousePosition()
+  const prevMouseX = useRef(mouse.clientX)
+  const accumulatedRotation = useRef(0)
+  const wrapperRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const deltaX = mouse.clientX - prevMouseX.current
+
+    // Only update if there's meaningful movement (reduces jitter)
+    if (Math.abs(deltaX) > 0.5) {
+      accumulatedRotation.current += deltaX * sensitivity
+
+      // Apply transform directly to DOM for smooth updates
+      if (wrapperRef.current) {
+        wrapperRef.current.style.transform =
+          "rotateZ(" + accumulatedRotation.current + "deg)"
+      }
+    }
+
+    prevMouseX.current = mouse.clientX
+  }, [mouse.clientX, sensitivity])
+
+  const bezelStyle: CSSProperties = {
+    transition: "transform 0.12s cubic-bezier(0.33, 1, 0.68, 1)",
+    transformStyle: "preserve-3d",
+    willChange: "transform",
+    ...style,
+  }
+
+  return (
+    <div ref={wrapperRef} className={className} style={bezelStyle}>
+      {children}
+    </div>
+  )
+}
+
+// ============================================================================
 // HOLOGRAPHIC CARD - 3D tilt effect with glare (Concept 2)
 // ============================================================================
 
