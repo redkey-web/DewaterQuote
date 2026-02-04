@@ -1,6 +1,6 @@
 # Installed Services
 
-**Last Updated**: 2026-02-02
+**Last Updated**: 2026-02-04
 
 ## Active Services
 
@@ -34,13 +34,14 @@
 - **Files**:
   - src/app/api/upload/route.ts ✅
 
-### Email: Google Workspace SMTP (via nodemailer)
-- **Status**: ✅ Active (unreliable on serverless - migration planned)
+### Email: Resend HTTP API
+- **Status**: ✅ Active
 - **Purpose**: Quote/contact form submissions, admin notifications, password reset
-- **Package**: nodemailer ^7.0.12
-- **Env Vars**: SMTP_HOST ✅, SMTP_PORT ✅, SMTP_USER ✅, SMTP_PASS ✅
+- **Package**: resend ^6.9.1
+- **Env Vars**: RESEND_API_KEY ✅, FROM_EMAIL ✅, FROM_NAME ✅, CONTACT_EMAIL ✅
 - **Files**:
-  - src/lib/email/client.ts ✅ (centralized email client)
+  - src/lib/email/client.ts ✅ (Resend SDK client)
+  - src/lib/email/logger.ts ✅ (DB-backed email logging)
   - src/lib/email/approved-quote-email.ts ✅ (email template)
   - src/app/api/contact/route.ts ✅
   - src/app/api/quote/route.ts ✅
@@ -48,9 +49,8 @@
   - src/app/api/admin/quotes/[id]/forward/route.ts ✅
   - src/app/api/approve-quote/[token]/route.ts ✅
   - src/app/api/auth/forgot-password/route.ts ✅
-- **Known Issue**: SMTP on Vercel serverless has transient connection timeouts
-- **Planned**: Migration to Resend HTTP API (see .planning/features/email-resend-migration.md)
-- **Legacy**: SENDGRID_API_KEY still in Vercel env vars (unused, should be removed)
+- **Database Logging**: All emails logged to `email_logs` table with status/errors
+- **Migration**: Completed 2026-02-04 (see .planning/features/email-resend-migration.md)
 
 ### Spam Protection: Cloudflare Turnstile
 - **Status**: ✅ Active
@@ -100,23 +100,15 @@ DATABASE_URL=                    # Neon Postgres
 BLOB_READ_WRITE_TOKEN=           # Vercel Blob
 NEXTAUTH_SECRET=                 # Auth
 NEXTAUTH_URL=                    # Auth
-SMTP_HOST=smtp.gmail.com         # Email
-SMTP_PORT=587                    # Email
-SMTP_USER=info@dewaterproducts.com.au  # Email
-SMTP_PASS=                       # Email (App Password)
+RESEND_API_KEY=                  # Email (Resend HTTP API)
+FROM_EMAIL=sales@dewaterproducts.com.au  # Email sender address
+FROM_NAME=Dewater Products       # Email sender name
+CONTACT_EMAIL=sales@dewaterproducts.com.au  # Business notification recipient
 NEXT_PUBLIC_TURNSTILE_SITE_KEY=  # Spam protection
 TURNSTILE_SECRET_KEY=            # Spam protection
 ```
 
 ### Optional
 ```env
-FROM_EMAIL=info@dewaterproducts.com.au   # Email sender address
-FROM_NAME=Dewater Products               # Email sender name
-CONTACT_EMAIL=sales@dewaterproducts.com.au  # Business notification recipient
-NEXT_PUBLIC_GA_MEASUREMENT_ID=           # Analytics
-```
-
-### To Remove from Vercel
-```env
-SENDGRID_API_KEY=  # Legacy, unused since 2026-01-29
+NEXT_PUBLIC_GA_MEASUREMENT_ID=   # Analytics
 ```

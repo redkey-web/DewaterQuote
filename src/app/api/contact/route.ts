@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
-import { sendEmail } from "@/lib/email/client"
+import { sendEmailSafe } from "@/lib/email/client"
+import { logEmailResult } from "@/lib/email/logger"
 import { escapeHtml, escapeEmailHref, escapeTelHref } from "@/lib/sanitize"
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit"
 import { verifyTurnstileToken } from "@/lib/turnstile"
@@ -155,21 +156,50 @@ ${data.message}
       `,
     }
 
-    // Send both emails
-    await Promise.all([
-      sendEmail({
-        to: businessEmail.to,
-        subject: businessEmail.subject,
-        html: businessEmail.html,
-        text: businessEmail.text,
-        replyTo: data.email,
-      }),
-      sendEmail({
-        to: customerEmail.to,
-        subject: customerEmail.subject,
-        html: customerEmail.html,
-      }),
-    ])
+    // Send business notification
+    const businessResult = await sendEmailSafe({
+      to: businessEmail.to,
+      subject: businessEmail.subject,
+      html: businessEmail.html,
+      text: businessEmail.text,
+      replyTo: data.email,
+    })
+
+    // Log business email result
+    await logEmailResult({
+      recipient: Array.isArray(businessEmail.to) ? businessEmail.to.join(", ") : businessEmail.to,
+      subject: businessEmail.subject,
+      status: businessResult.success ? "sent" : "failed",
+      errorMessage: businessResult.error,
+      route: "/api/contact",
+    })
+
+    // Send customer confirmation
+    const customerResult = await sendEmailSafe({
+      to: customerEmail.to,
+      subject: customerEmail.subject,
+      html: customerEmail.html,
+    })
+
+    // Log customer email result
+    await logEmailResult({
+      recipient: customerEmail.to,
+      subject: customerEmail.subject,
+      status: customerResult.success ? "sent" : "failed",
+      errorMessage: customerResult.error,
+      route: "/api/contact",
+    })
+
+    // Check results
+    const allFailed = !businessResult.success && !customerResult.success
+
+    if (allFailed) {
+      console.error("[Contact] All emails failed:", businessResult.error, customerResult.error)
+      return NextResponse.json(
+        { error: "Failed to send message. Please try again." },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json({ success: true })
   } catch (error) {

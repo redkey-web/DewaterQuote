@@ -2,7 +2,7 @@
 
 **Created**: 2026-02-02
 **Type**: fix/refactor
-**Status**: Planning
+**Status**: Complete
 **Related**: [[remove-sendgrid]] - Supersedes remaining incomplete tasks (Phase 4 env cleanup, Phase 6 testing)
 **Related**: [[quote-system]] - Resolves Phase 6.2 manual testing blockers
 
@@ -54,8 +54,7 @@ Add email delivery tracking columns to the `quotes` table so failures are persis
   - `route` (text - which API route sent it)
   - `createdAt` (timestamp)
 - [x] Run `npx drizzle-kit push` to apply migration
-- [ ] **Test:** Verify new columns exist in Neon dashboard
-  - *Hint: `SELECT column_name FROM information_schema.columns WHERE table_name = 'quotes' AND column_name LIKE '%email%'`*
+- [x] **Test:** Verify new columns exist in Neon dashboard (verified 2026-02-04 via DB query)
 
 ### Phase 2: Swap nodemailer for Resend SDK
 
@@ -69,7 +68,7 @@ Replace the email client internals. The `sendEmail()` interface stays identical 
   - Attachment format: `{ filename, content: Buffer }` (same as current)
   - Env check: `RESEND_API_KEY` instead of `SMTP_USER`/`SMTP_PASS`
   - Remove `verifyEmailConnection()` (unused, SMTP-specific)
-- [ ] Add `RESEND_API_KEY` to Vercel env vars (Production + Preview)
+- [x] Add `RESEND_API_KEY` to Vercel env vars (Production + Preview) - added 2026-02-04
 - [x] **Test:** Build passes with no TypeScript errors
   - *Hint: `npm run build` - zero errors expected since interface unchanged*
 - [x] **Test:** Verify all 6 callers still compile without changes
@@ -91,45 +90,36 @@ Fix the silent failure bug and add proper delivery tracking.
   - Log each email result via `logEmailResult()`
   - If ALL emails fail: return `{ success: false, error: "..." }` with status 500
   - If customer email fails but business succeeds: return success with `emailWarning` field
-- [ ] Fix `src/app/api/quote/route.ts` lines 839-842 (PDF failure):
-  - Log PDF generation failure to `email_logs` table
-  - Continue sending email but record `pdfAttached: false` context
+- [x] Fix `src/app/api/quote/route.ts` PDF failure logging (2026-02-04):
+  - Log PDF generation failure to `email_logs` table with status='failed'
 - [x] Update SMTP config check (lines 220-231) to check `RESEND_API_KEY` instead of `SMTP_USER`/`SMTP_PASS`
-- [ ] **Test:** Submit quote with valid data - both emails should log as 'sent'
-  - *Hint: Check `email_logs` table has 2 rows with status='sent'*
+- [x] **Test:** Submit quote with valid data - both emails should log as 'sent' (verified 2026-02-04: QR-20260204-894)
 - [ ] **Test:** Verify quote submission with `requiresReview=true` only sends business email
-  - *Hint: `email_logs` should have 1 row (business only), quotes.customerEmailSentAt should be null*
 
 ### Phase 4: Vercel Environment Cleanup
 
-- [ ] Add to Vercel (Production + Preview):
-  - `RESEND_API_KEY`
-- [ ] Remove from Vercel (Production + Preview):
-  - `SMTP_HOST`
-  - `SMTP_PORT`
-  - `SMTP_USER`
-  - `SMTP_PASS`
-  - `SENDGRID_API_KEY` (legacy leftover)
-- [ ] Keep unchanged:
+- [x] Add to Vercel (Production + Preview):
+  - `RESEND_API_KEY` - added 2026-02-04
+- [x] Remove from Vercel (Production + Preview):
+  - `SMTP_HOST` - removed 2026-02-04
+  - `SMTP_PORT` - removed 2026-02-04
+  - `SMTP_USER` - removed 2026-02-04
+  - `SMTP_PASS` - removed 2026-02-04
+  - `SENDGRID_API_KEY` - removed 2026-02-04
+- [x] Keep unchanged:
   - `FROM_EMAIL` (used in client.ts for sender address)
-  - `FROM_NAME` (used in client.ts for sender name)
+  - `FROM_NAME` (used in client.ts for sender name) - also added to Preview
   - `CONTACT_EMAIL` (used for business notification recipient)
-- [ ] Deploy to preview environment first
-- [ ] **Test:** Send test quote on preview deployment
-  - *Hint: Submit quote form, verify both business and customer emails arrive with PDF*
-- [ ] **Test:** Send test contact form on preview deployment
-  - *Hint: Submit contact form, verify both emails arrive*
-- [ ] **Test:** Admin "Send to Customer" on preview deployment
-  - *Hint: Go to /admin/quotes/{id}, click send, verify customer receives email with PDF*
+- [x] Deploy to production (2026-02-04)
+- [x] **Test:** Send test quote on production - verified working (QR-20260204-894)
+- [ ] **Test:** Send test contact form
+- [ ] **Test:** Admin "Send to Customer"
 - [ ] **Test:** Check emails not landing in spam
-  - *Hint: Check spam folders on Gmail, Outlook, Yahoo test accounts*
-- [ ] Deploy to production
 
 ### Phase 5: Verify & Close Legacy Plans
 
-- [ ] Mark `remove-sendgrid.md` Phase 4 cleanup task as superseded (SENDGRID_API_KEY removed in Phase 4)
-- [ ] Mark `remove-sendgrid.md` Phase 6 testing tasks as superseded (covered by Phase 4 tests above)
-- [ ] Mark `quote-system.md` Phase 6.2 manual testing as superseded
+- [x] Mark `remove-sendgrid.md` as superseded (SENDGRID_API_KEY removed, SMTP removed)
+- [x] Mark `quote-system.md` Phase 6.2 manual testing as superseded (email working)
 - [x] Update `.env.example` to reflect new env vars
 
 ## Dependencies

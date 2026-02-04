@@ -838,7 +838,17 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
         }
       }
     } catch (pdfError) {
-      console.error(`[Quote ${quoteNumber}] Failed to generate PDF:`, pdfError)
+      const pdfErrorMsg = pdfError instanceof Error ? pdfError.message : "Unknown PDF error"
+      console.error("[Quote " + quoteNumber + "] Failed to generate PDF:", pdfError)
+      // Log PDF failure to email_logs for visibility
+      await logEmailResult({
+        quoteNumber,
+        recipient: "N/A",
+        subject: "PDF Generation Failed",
+        status: "failed",
+        errorMessage: pdfErrorMsg,
+        route: "/api/quote",
+      })
       // Continue without PDF attachment - email will still go out
     }
 
