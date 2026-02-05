@@ -420,7 +420,7 @@ export default function HomePage() {
 
         {/* Draggable wrapper for 3D rotating text (mobile) */}
         <div
-          className="block md:hidden absolute z-10 top-[65%] left-[29%] w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
+          className="block md:hidden absolute z-10 top-[15%] left-[-11%] w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
           onMouseDown={handleSpinStart}
           onMouseMove={handleSpinMove}
           onMouseUp={handleSpinEnd}
@@ -431,7 +431,7 @@ export default function HomePage() {
         />
 
         {/* Orbiting curved text - Set 2 (enlarged 2x) - teal layer (mobile only) */}
-        <DepthLayer depth={0.2} className="block md:hidden absolute z-0 pointer-events-none top-[65%] left-[29%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+        <DepthLayer depth={0.2} className="block md:hidden absolute z-0 pointer-events-none top-[15%] left-[-11%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg)' }}>
             <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
@@ -458,7 +458,7 @@ export default function HomePage() {
           </div>
         </DepthLayer>
         {/* Set 2 - white layer (mobile only) */}
-        <DepthLayer depth={0.18} className="block md:hidden absolute z-0 pointer-events-none top-[65%] left-[29%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+        <DepthLayer depth={0.18} className="block md:hidden absolute z-0 pointer-events-none top-[15%] left-[-11%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg) translateZ(20px)' }}>
             <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
