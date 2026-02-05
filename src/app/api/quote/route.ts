@@ -737,7 +737,7 @@ ${data.notes ? `Additional Notes:\n${data.notes}` : ""}
               </ul>
             </div>
 
-            <p style="margin-top: 30px;">To proceed with this order or if you have any questions, please reply to this email or contact us directly.</p>
+            <p style="margin-top: 30px;">To proceed with this order or if you have any questions, please email <a href="mailto:sales@dewaterproducts.com.au" style="color: #0ea5e9;">sales@dewaterproducts.com.au</a></p>
 
             <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
 
