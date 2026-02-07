@@ -32,7 +32,6 @@ import ScrambleCycleText from "@/components/ScrambleCycleText"
 import OrderingGuide from "@/components/OrderingGuide"
 import ParallaxSection, { ParallaxItem, ParallaxLayer } from "@/components/ParallaxSection"
 import {
-  DepthLayer,
   HolographicCard,
   MagneticElement,
   ParticleField,
@@ -58,66 +57,13 @@ export default function HomePage() {
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const heroSearchRef = useRef<HTMLDivElement>(null)
   const heroInputRef = useRef<HTMLInputElement>(null)
-
-  // Drag-to-spin state for 3D text
-  const [spinRotation, setSpinRotation] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
-  const dragStartRef = useRef<{ x: number; rotation: number } | null>(null)
-  const spinVelocityRef = useRef(0)
-  const spinAnimationRef = useRef<number | null>(null)
-
-  // Handle drag-to-spin
-  const handleSpinStart = (e: React.MouseEvent | React.TouchEvent) => {
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
-    dragStartRef.current = { x: clientX, rotation: spinRotation }
-    setIsDragging(true)
-    spinVelocityRef.current = 0
-    if (spinAnimationRef.current) {
-      cancelAnimationFrame(spinAnimationRef.current)
-    }
-  }
-
-  const handleSpinMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging || !dragStartRef.current) return
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
-    const deltaX = clientX - dragStartRef.current.x
-    let newRotation = dragStartRef.current.rotation + deltaX * 0.5
-
-    // Limit backward rotation to -30deg
-    if (newRotation < -30) {
-      newRotation = -30
-      if (spinRotation > -30) {
-        alert("Lets gooo!")
-      }
-    }
-
-    spinVelocityRef.current = deltaX * 0.5 - (spinRotation - dragStartRef.current.rotation)
-    setSpinRotation(newRotation)
-  }
-
-  const handleSpinEnd = () => {
-    if (!isDragging) return
-    setIsDragging(false)
-    dragStartRef.current = null
-
-    // Apply momentum
-    const decelerate = () => {
-      spinVelocityRef.current *= 0.95
-      if (Math.abs(spinVelocityRef.current) > 0.1) {
-        setSpinRotation(prev => {
-          const next = prev + spinVelocityRef.current
-          // Limit backward rotation to -30deg
-          if (next < -30) {
-            spinVelocityRef.current = 0
-            return -30
-          }
-          return next
-        })
-        spinAnimationRef.current = requestAnimationFrame(decelerate)
-      }
-    }
-    spinAnimationRef.current = requestAnimationFrame(decelerate)
-  }
+  const orbitZoneRef = useRef<HTMLDivElement>(null)
+  const orbitRef1 = useRef<HTMLDivElement>(null)
+  const orbitRef2 = useRef<HTMLDivElement>(null)
+  const orbitRef3 = useRef<HTMLDivElement>(null)
+  const orbitRef4 = useRef<HTMLDivElement>(null)
+  const windStartRef = useRef<number>(0)
+  const rafRef = useRef<number | null>(null)
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -128,6 +74,81 @@ export default function HomePage() {
     }
     document.addEventListener("mousedown", handleClickOutside)
     return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  // Click-to-spin: hold to wind back (slow to stop), release to fling forward like roulette
+  useEffect(() => {
+    const zone = orbitZoneRef.current
+    if (!zone) return
+
+    const setAllPlaybackRates = (rate: number) => {
+      [orbitRef1, orbitRef2, orbitRef3, orbitRef4].forEach(ref => {
+        const el = ref.current
+        if (!el) return
+        el.getAnimations().forEach(a => { a.playbackRate = rate })
+      })
+    }
+
+    let windInterval: ReturnType<typeof setInterval> | null = null
+    let currentRate = 1
+    let isHolding = false
+
+    const handleMouseDown = () => {
+      if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null }
+      windStartRef.current = Date.now()
+      currentRate = 1
+      isHolding = true
+
+      // Gradually slow to near-stop while held (builds tension)
+      windInterval = setInterval(() => {
+        currentRate = Math.max(0.05, currentRate * 0.85)
+        setAllPlaybackRates(currentRate)
+      }, 50)
+    }
+
+    const handleMouseUp = () => {
+      if (!isHolding) return
+      isHolding = false
+      if (windInterval) { clearInterval(windInterval); windInterval = null }
+
+      // Fling strength scales with hold duration
+      const holdMs = Date.now() - windStartRef.current
+      const holdSec = holdMs / 1000
+      const flingRate = Math.min(80, 5 + holdSec * 30)
+      const decaySpeed = Math.max(0.0008, 0.003 - holdSec * 0.0008)
+      currentRate = flingRate
+      setAllPlaybackRates(currentRate)
+
+      // Slow decay back to normal speed (long roulette spin)
+      const decay = () => {
+        const diff = currentRate - 1
+        if (Math.abs(diff) < 0.03) {
+          currentRate = 1
+          setAllPlaybackRates(1)
+          rafRef.current = null
+          return
+        }
+        currentRate -= diff * decaySpeed
+        setAllPlaybackRates(currentRate)
+        rafRef.current = requestAnimationFrame(decay)
+      }
+      rafRef.current = requestAnimationFrame(decay)
+    }
+
+    const handleMouseLeave = () => {
+      if (isHolding) handleMouseUp()
+    }
+
+    zone.addEventListener('mousedown', handleMouseDown)
+    zone.addEventListener('mouseup', handleMouseUp)
+    zone.addEventListener('mouseleave', handleMouseLeave)
+    return () => {
+      zone.removeEventListener('mousedown', handleMouseDown)
+      zone.removeEventListener('mouseup', handleMouseUp)
+      zone.removeEventListener('mouseleave', handleMouseLeave)
+      if (windInterval) clearInterval(windInterval)
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
   }, [])
 
   // Debounced search
@@ -345,29 +366,20 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Draggable wrapper for 3D rotating text */}
-        <div
-          className="hidden md:block absolute z-10 top-[-23%] left-[-22%] w-[700px] h-[700px] -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
-          onMouseDown={handleSpinStart}
-          onMouseMove={handleSpinMove}
-          onMouseUp={handleSpinEnd}
-          onMouseLeave={handleSpinEnd}
-          onTouchStart={handleSpinStart}
-          onTouchMove={handleSpinMove}
-          onTouchEnd={handleSpinEnd}
-        />
+        {/* Orbit scroll-to-spin zone - invisible overlay for wheel capture */}
+        <div ref={orbitZoneRef} className="hidden md:block absolute z-10 top-[83%] left-[31%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full cursor-pointer" />
 
         {/* Orbiting curved text - Set 1 - teal layer (desktop only) */}
         {/* Positioned on pipe coupling's circular opening, scales with viewport */}
-        <DepthLayer depth={0.15} className="hidden md:block absolute z-0 pointer-events-none top-[-23%] left-[-22%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg)' }}>
-            <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)' }}>
+        <div className="hidden md:block absolute z-0 pointer-events-none top-[83%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(14deg)' }}>
+            <div ref={orbitRef1} className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
                 {/* Mobile version - smaller */}
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={117} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={90} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -377,7 +389,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={259} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={200} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -386,18 +398,18 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </DepthLayer>
+        </div>
 
         {/* Orbiting curved text - Set 1 - white layer (desktop only) */}
-        <DepthLayer depth={0.12} className="hidden md:block absolute z-0 pointer-events-none top-[-23%] left-[-22%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg) translateZ(20px)' }}>
-            <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)', animationDelay: '0.04s' }}>
+        <div className="hidden md:block absolute z-0 pointer-events-none top-[85%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(14deg) translateZ(20px)' }}>
+            <div ref={orbitRef2} className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
                 {/* Mobile version - smaller */}
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={119} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={99} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
@@ -407,7 +419,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={241} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={200} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
@@ -416,29 +428,17 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </DepthLayer>
-
-        {/* Draggable wrapper for 3D rotating text (mobile) */}
-        <div
-          className="block md:hidden absolute z-10 top-[15%] left-[-11%] w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
-          onMouseDown={handleSpinStart}
-          onMouseMove={handleSpinMove}
-          onMouseUp={handleSpinEnd}
-          onMouseLeave={handleSpinEnd}
-          onTouchStart={handleSpinStart}
-          onTouchMove={handleSpinMove}
-          onTouchEnd={handleSpinEnd}
-        />
+        </div>
 
         {/* Orbiting curved text - Set 2 (enlarged 2x) - teal layer (mobile only) */}
-        <DepthLayer depth={0.2} className="block md:hidden absolute z-0 pointer-events-none top-[15%] left-[-11%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg)' }}>
-            <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)' }}>
+        <div className="block md:hidden absolute z-0 pointer-events-none top-[15%] left-[-11%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(14deg)' }}>
+            <div ref={orbitRef3} className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={117} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={90} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -447,7 +447,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={205} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={159} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -456,16 +456,16 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </DepthLayer>
+        </div>
         {/* Set 2 - white layer (mobile only) */}
-        <DepthLayer depth={0.18} className="block md:hidden absolute z-0 pointer-events-none top-[15%] left-[-11%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
-          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(10deg) translateZ(20px)' }}>
-            <div className={isDragging ? '' : 'animate-orbit-3d-11'} style={{ transformOrigin: 'center center', transform: 'rotate(' + spinRotation + 'deg)', animationDelay: '0.04s' }}>
+        <div className="block md:hidden absolute z-0 pointer-events-none top-[17%] left-[-12%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+          <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(14deg) translateZ(20px)' }}>
+            <div ref={orbitRef4} className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={119} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={99} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
@@ -474,7 +474,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={209} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={172} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
@@ -483,7 +483,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </DepthLayer>
+        </div>
 
         {/* Vertical red text - R083R7 - always visible */}
         <div className="absolute right-4 md:right-8 top-[105%] font-mono text-red-500 text-xs z-20" style={{ writingMode: "vertical-rl" }}>

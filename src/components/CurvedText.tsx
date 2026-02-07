@@ -55,8 +55,7 @@ export default function CurvedText({
     const letters = text.split('')
     const totalLetters = letters.length
     // Calculate offset based on startOffset percentage
-    const offsetPercent = parseFloat(startOffset) / 100 || 0.5
-    const offsetAngle = arcAngle * (offsetPercent - 0.5) // Center adjustment
+    const _offsetPercent = parseFloat(startOffset) / 100 || 0.5
 
     return (
       <svg
@@ -73,24 +72,26 @@ export default function CurvedText({
           const centerOffset = ((totalLetters - 1) / 2 - i) * letterSpacing
           const angle = (startAngle + arcAngle / 2) * (Math.PI / 180) - centerOffset
 
-          const x = cx + radius * Math.cos(angle)
-          const y = cy + radius * Math.sin(angle)
+          // Round to 3 decimals to prevent SSR/client hydration mismatch
+          const x = Math.round((cx + radius * Math.cos(angle)) * 1000) / 1000
+          const y = Math.round((cy + radius * Math.sin(angle)) * 1000) / 1000
 
           // Rotation: tangent follows curve, radial faces center (Gravitron mode)
           const baseAngle = angle * 180 / Math.PI
-          const letterAngle = faceCenter ? baseAngle + 180 : baseAngle + 90
+          const letterAngle = Math.round((faceCenter ? baseAngle + 180 : baseAngle + 90) * 1000) / 1000
 
           // Get opacity for this letter (cycles through array if shorter than text)
           const opacity = letterOpacities ? letterOpacities[i % letterOpacities.length] : 1
+          const transformStr = 'translate(' + x + 'px, ' + y + 'px) rotateZ(' + letterAngle + 'deg) rotateY(' + letterRotateY + 'deg)'
 
           return (
             <g
-              key={`${id}-${i}`}
+              key={id + '-' + i}
               style={{
-                transform: `translate(${x}px, ${y}px) rotateZ(${letterAngle}deg) rotateY(${letterRotateY}deg)`,
-                transformOrigin: 'center',
-                transformBox: 'fill-box',
-                opacity,
+                transform: transformStr,
+                transformOrigin: 'center center',
+                transformBox: 'fill-box' as const,
+                opacity: String(opacity),
               }}
             >
               <text
