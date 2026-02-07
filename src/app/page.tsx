@@ -82,7 +82,7 @@ export default function HomePage() {
     if (!zone) return
 
     const setAllPlaybackRates = (rate: number) => {
-      [orbitRef1, orbitRef2, orbitRef3, orbitRef4].forEach(ref => {
+      [orbitRef1, orbitRef3].forEach(ref => {
         const el = ref.current
         if (!el) return
         el.getAnimations().forEach(a => { a.playbackRate = rate })
@@ -389,7 +389,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={200} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={201} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -401,7 +401,7 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 1 - white layer (desktop only) */}
-        <div className="hidden md:block absolute z-0 pointer-events-none top-[85%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
+        <div className="hidden md:block absolute z-0 pointer-events-none top-[85%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[0.77] md:scale-[0.93] lg:scale-[1.05] xl:scale-[1.16] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(14deg) translateZ(20px)' }}>
             <div ref={orbitRef2} className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
@@ -419,7 +419,7 @@ export default function HomePage() {
                 <div className="hidden md:block">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE • FOOD & BEVERAGE • WATER & WASTEWATER • IRRIGATION"
-                    width={612} height={612} radius={200} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={612} height={612} radius={201} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[18px] font-bold tracking-[0.12em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
@@ -431,14 +431,14 @@ export default function HomePage() {
         </div>
 
         {/* Orbiting curved text - Set 2 (enlarged 2x) - teal layer (mobile only) */}
-        <div className="block md:hidden absolute z-0 pointer-events-none top-[15%] left-[-11%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+        <div className="block md:hidden absolute z-0 pointer-events-none top-[68%] left-[31%] -translate-x-1/2 -translate-y-1/2 scale-[1.10] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(14deg)' }}>
             <div ref={orbitRef3} className="animate-orbit-3d-11" style={{ transformOrigin: 'center center' }}>
               <div style={{ filter: 'drop-shadow(0 0 12px rgba(103, 232, 249, 0.4))' }}>
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={90} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={154} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-cyan-300 text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.5, 0.65, 0.45, 0.7, 0.55, 0.4, 0.6, 0.5, 0.75, 0.45, 0.55, 0.65, 0.4, 0.7, 0.5, 0.6, 0.45, 0.55, 0.7, 0.4]}
@@ -458,14 +458,14 @@ export default function HomePage() {
           </div>
         </div>
         {/* Set 2 - white layer (mobile only) */}
-        <div className="block md:hidden absolute z-0 pointer-events-none top-[17%] left-[-12%] -translate-x-1/2 -translate-y-1/2 scale-[1.60] md:scale-[1.90] lg:scale-[2.12] xl:scale-[2.36] origin-center">
+        <div className="block md:hidden absolute z-0 pointer-events-none top-[70%] left-[30%] -translate-x-1/2 -translate-y-1/2 scale-[1.10] origin-center">
           <div style={{ perspective: '1200px', transform: 'rotateX(10deg) rotateY(14deg) translateZ(20px)' }}>
             <div ref={orbitRef4} className="animate-orbit-3d-11" style={{ transformOrigin: 'center center', animationDelay: '0.04s' }}>
               <div style={{ filter: 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}>
                 <div className="block md:hidden">
                   <CurvedText
                     text="WE SUPPLY • MINING • CONSTRUCTION • MARINE"
-                    width={349} height={349} radius={99} arcAngle={340} startAngle={170} startOffset="50%"
+                    width={349} height={349} radius={154} arcAngle={340} startAngle={170} startOffset="50%"
                     className="overflow-visible"
                     textClassName="fill-white text-[14px] font-bold tracking-[0.1em] font-mono"
                     letterOpacities={[0.25, 0.3, 0, 0.2, 0.35, 0.15, 0, 0.25, 0.3, 0.1, 0.2, 0.35, 0.25, 0, 0.3, 0.2, 0.15, 0.35, 0, 0.25, 0.3, 0.1, 0.2, 0, 0.25]}
