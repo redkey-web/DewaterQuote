@@ -1,0 +1,466 @@
+{
+  "source": "pipeline.py --prepare-merger",
+  "input": {
+    "merge_decisions": [],
+    "source_plan_content": {},
+    "uncheck_list": [],
+    "folder_migration": {
+      "folder_format": "legacy",
+      "migration_plan": {
+        "folder_format": "legacy",
+        "actions": [
+          {
+            "action": "absorb",
+            "source": ".planning/current/analysis.md",
+            "target": ".project/summary.md",
+            "reason": "reference doc - content absorbed into .project/summary.md"
+          },
+          {
+            "action": "absorb",
+            "source": ".planning/current/hosting.md",
+            "target": ".project/summary.md",
+            "reason": "reference doc - content absorbed into .project/summary.md"
+          },
+          {
+            "action": "absorb",
+            "source": ".planning/current/pointers.md",
+            "target": ".project/summary.md",
+            "reason": "reference doc - content absorbed into .project/summary.md"
+          },
+          {
+            "action": "absorb",
+            "source": ".planning/current/services.md",
+            "target": ".project/summary.md",
+            "reason": "reference doc - content absorbed into .project/summary.md"
+          },
+          {
+            "action": "move",
+            "source": ".planning/current/SETUP_GUIDE.md",
+            "target": ".project/SETUP_GUIDE.md",
+            "reason": "non-plan file in current/ - moved to .project/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/admin-panel-overhaul.md",
+            "target": ".planning/current/admin-panel-overhaul.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/admin-panel-v2.md",
+            "target": ".planning/current/admin-panel-v2.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/admin-subcategory-pages.md",
+            "target": ".planning/current/admin-subcategory-pages.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/basket-strainer-content-scrape.md",
+            "target": ".planning/current/basket-strainer-content-scrape.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/bug-fixes-jan-2026.md",
+            "target": ".planning/current/bug-fixes-jan-2026.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/custom-size-request.md",
+            "target": ".planning/current/custom-size-request.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/datasheet-migration.md",
+            "target": ".planning/current/datasheet-migration.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/email-resend-migration.md",
+            "target": ".planning/current/email-resend-migration.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/header-cart-size-fixes.md",
+            "target": ".planning/current/header-cart-size-fixes.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/homepage-polish.md",
+            "target": ".planning/current/homepage-polish.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/internal-link-audit.md",
+            "target": ".planning/current/internal-link-audit.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/mobile-polish.md",
+            "target": ".planning/current/mobile-polish.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/playwright-test-findings.md",
+            "target": ".planning/current/playwright-test-findings.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/product-linkage-audit.md",
+            "target": ".planning/current/product-linkage-audit.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/project-cleanup.md",
+            "target": ".planning/current/project-cleanup.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/quote-system.md",
+            "target": ".planning/current/quote-system.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/redirect-management.md",
+            "target": ".planning/current/redirect-management.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/remove-sendgrid.md",
+            "target": ".planning/current/remove-sendgrid.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/seo-content-optimization.md",
+            "target": ".planning/current/seo-content-optimization.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/ticker-search-polish.md",
+            "target": ".planning/current/ticker-search-polish.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/variation-stock-ranking.md",
+            "target": ".planning/current/variation-stock-ranking.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "move",
+            "source": ".planning/features/volume-discount-ux.md",
+            "target": ".planning/current/volume-discount-ux.md",
+            "reason": "feature plan - consolidated into current/"
+          },
+          {
+            "action": "delete_dir",
+            "source": ".planning/features",
+            "reason": "empty after feature consolidation"
+          },
+          {
+            "action": "evaluate",
+            "source": ".planning/archive",
+            "file_count": 2,
+            "reason": "non-empty loose directory - Merger evaluates keep vs archive vs delete"
+          },
+          {
+            "action": "evaluate",
+            "source": ".planning/audit",
+            "file_count": 12,
+            "reason": "non-empty loose directory - Merger evaluates keep vs archive vs delete"
+          },
+          {
+            "action": "evaluate",
+            "source": ".planning/combined-sources",
+            "file_count": 9,
+            "reason": "non-empty loose directory - Merger evaluates keep vs archive vs delete"
+          },
+          {
+            "action": "evaluate",
+            "source": ".planning/ledgers",
+            "file_count": 1,
+            "reason": "non-empty loose directory - Merger evaluates keep vs archive vs delete"
+          },
+          {
+            "action": "move",
+            "source": ".planning/post-launch-redirects.md",
+            "target": ".planning/current/post-launch-redirects.md",
+            "reason": "loose plan file - moved to current/"
+          }
+        ],
+        "reference_docs": [
+          ".planning/current/analysis.md",
+          ".planning/current/hosting.md",
+          ".planning/current/pointers.md",
+          ".planning/current/services.md"
+        ],
+        "features_to_move": [
+          ".planning/features/admin-panel-overhaul.md",
+          ".planning/features/admin-panel-v2.md",
+          ".planning/features/admin-subcategory-pages.md",
+          ".planning/features/basket-strainer-content-scrape.md",
+          ".planning/features/bug-fixes-jan-2026.md",
+          ".planning/features/custom-size-request.md",
+          ".planning/features/datasheet-migration.md",
+          ".planning/features/email-resend-migration.md",
+          ".planning/features/header-cart-size-fixes.md",
+          ".planning/features/homepage-polish.md",
+          ".planning/features/internal-link-audit.md",
+          ".planning/features/mobile-polish.md",
+          ".planning/features/playwright-test-findings.md",
+          ".planning/features/product-linkage-audit.md",
+          ".planning/features/project-cleanup.md",
+          ".planning/features/quote-system.md",
+          ".planning/features/redirect-management.md",
+          ".planning/features/remove-sendgrid.md",
+          ".planning/features/seo-content-optimization.md",
+          ".planning/features/ticker-search-polish.md",
+          ".planning/features/variation-stock-ranking.md",
+          ".planning/features/volume-discount-ux.md"
+        ],
+        "loose_folders": [
+          {
+            "path": ".planning/archive",
+            "file_count": 2,
+            "empty": false
+          },
+          {
+            "path": ".planning/audit",
+            "file_count": 12,
+            "empty": false
+          },
+          {
+            "path": ".planning/combined-sources",
+            "file_count": 9,
+            "empty": false
+          },
+          {
+            "path": ".planning/ledgers",
+            "file_count": 1,
+            "empty": false
+          }
+        ],
+        "loose_files": [
+          ".planning/post-launch-redirects.md"
+        ]
+      }
+    },
+    "archive_list": [
+      {
+        "path": ".planning/current/database-architecture.md",
+        "reason": "All 35 items checked, should archive"
+      }
+    ],
+    "highest_merge_group": 0,
+    "tracking_config_path": "/Users/mechatronmike/Documents/NEXUS/RED-KEY/websites/DewaterQuote/.planning/tracking-config.json",
+    "registry_path": "/Users/mechatronmike/Documents/NEXUS/RED-KEY/websites/DewaterQuote/.planning/plan-registry.json"
+  },
+  "output": {
+    "agent": "merger",
+    "timestamp": "2026-02-08T16:35:00Z",
+    "folder_migration_executed": true,
+    "folder_migration": {
+      "format_before": "legacy",
+      "reference_docs_absorbed": [
+        {
+          "source": ".planning/current/analysis.md",
+          "target": ".project/summary.md"
+        },
+        {
+          "source": ".planning/current/hosting.md",
+          "target": ".project/summary.md"
+        },
+        {
+          "source": ".planning/current/pointers.md",
+          "target": ".project/summary.md"
+        },
+        {
+          "source": ".planning/current/services.md",
+          "target": ".project/summary.md"
+        }
+      ],
+      "files_moved_to_project": [
+        {
+          "source": ".planning/current/SETUP_GUIDE.md",
+          "target": ".project/SETUP_GUIDE.md"
+        }
+      ],
+      "features_moved_to_current": [
+        {
+          "source": ".planning/features/admin-panel-overhaul.md",
+          "target": ".planning/current/admin-panel-overhaul.md"
+        },
+        {
+          "source": ".planning/features/admin-panel-v2.md",
+          "target": ".planning/current/admin-panel-v2.md"
+        },
+        {
+          "source": ".planning/features/admin-subcategory-pages.md",
+          "target": ".planning/current/admin-subcategory-pages.md"
+        },
+        {
+          "source": ".planning/features/basket-strainer-content-scrape.md",
+          "target": ".planning/current/basket-strainer-content-scrape.md"
+        },
+        {
+          "source": ".planning/features/bug-fixes-jan-2026.md",
+          "target": ".planning/current/bug-fixes-jan-2026.md"
+        },
+        {
+          "source": ".planning/features/custom-size-request.md",
+          "target": ".planning/current/custom-size-request.md"
+        },
+        {
+          "source": ".planning/features/datasheet-migration.md",
+          "target": ".planning/current/datasheet-migration.md"
+        },
+        {
+          "source": ".planning/features/email-resend-migration.md",
+          "target": ".planning/current/email-resend-migration.md"
+        },
+        {
+          "source": ".planning/features/header-cart-size-fixes.md",
+          "target": ".planning/current/header-cart-size-fixes.md"
+        },
+        {
+          "source": ".planning/features/homepage-polish.md",
+          "target": ".planning/current/homepage-polish.md"
+        },
+        {
+          "source": ".planning/features/internal-link-audit.md",
+          "target": ".planning/current/internal-link-audit.md"
+        },
+        {
+          "source": ".planning/features/mobile-polish.md",
+          "target": ".planning/current/mobile-polish.md"
+        },
+        {
+          "source": ".planning/features/playwright-test-findings.md",
+          "target": ".planning/current/playwright-test-findings.md"
+        },
+        {
+          "source": ".planning/features/product-linkage-audit.md",
+          "target": ".planning/current/product-linkage-audit.md"
+        },
+        {
+          "source": ".planning/features/project-cleanup.md",
+          "target": ".planning/current/project-cleanup.md"
+        },
+        {
+          "source": ".planning/features/quote-system.md",
+          "target": ".planning/current/quote-system.md"
+        },
+        {
+          "source": ".planning/features/redirect-management.md",
+          "target": ".planning/current/redirect-management.md"
+        },
+        {
+          "source": ".planning/features/remove-sendgrid.md",
+          "target": ".planning/current/remove-sendgrid.md"
+        },
+        {
+          "source": ".planning/features/seo-content-optimization.md",
+          "target": ".planning/current/seo-content-optimization.md"
+        },
+        {
+          "source": ".planning/features/ticker-search-polish.md",
+          "target": ".planning/current/ticker-search-polish.md"
+        },
+        {
+          "source": ".planning/features/variation-stock-ranking.md",
+          "target": ".planning/current/variation-stock-ranking.md"
+        },
+        {
+          "source": ".planning/features/volume-discount-ux.md",
+          "target": ".planning/current/volume-discount-ux.md"
+        },
+        {
+          "source": ".planning/post-launch-redirects.md",
+          "target": ".planning/current/post-launch-redirects.md"
+        }
+      ],
+      "folders_deleted": [
+        ".planning/features"
+      ],
+      "folders_archived_to_project": [
+        {
+          "source": ".planning/archive",
+          "target": ".project/archive/archive",
+          "file_count": 2
+        },
+        {
+          "source": ".planning/audit",
+          "target": ".project/archive/audit",
+          "file_count": 12
+        },
+        {
+          "source": ".planning/combined-sources",
+          "target": ".project/archive/combined-sources",
+          "file_count": 9
+        },
+        {
+          "source": ".planning/ledgers",
+          "target": ".project/archive/ledgers",
+          "file_count": 1
+        }
+      ],
+      "paths_updated": {
+        "tracking_config": [
+          "features/*.md -> current/*.md (17 paths)",
+          ".planning/post-launch-redirects.md -> .planning/current/post-launch-redirects.md",
+          "active_plan: features/email-resend-migration.md -> current/email-resend-migration.md",
+          "combined_sources cleared (moved to .project/archive/)",
+          "reference_files: features/playwright-test-findings.md -> current/playwright-test-findings.md",
+          "archived_files: added database-architecture.md",
+          "last_refresh updated to 2026-02-08"
+        ],
+        "registry": [
+          "plan-registry.json does not exist - skipped"
+        ]
+      }
+    },
+    "merges_executed": [],
+    "unchecks_applied": [],
+    "plans_archived": [
+      {
+        "source": ".planning/current/database-architecture.md",
+        "target": ".planning/completed/database-architecture.md"
+      }
+    ],
+    "summary": {
+      "folder_migration_executed": true,
+      "reference_docs_absorbed": 4,
+      "features_moved": 23,
+      "folders_cleaned": 5,
+      "merges_executed": 0,
+      "merge_group_used": null,
+      "unchecks_applied": 0,
+      "unchecks_skipped": 0,
+      "plans_archived": 1,
+      "paths_updated": 22,
+      "total_files_modified": 1,
+      "total_files_created": 2,
+      "total_files_deleted": 4,
+      "total_files_moved": 28
+    }
+  }
+}

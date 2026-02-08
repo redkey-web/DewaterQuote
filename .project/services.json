@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "services": {
+    "resend": {
+      "name": "Resend",
+      "status": "active",
+      "package": "resend",
+      "env_vars": ["RESEND_API_KEY"],
+      "files": ["scripts/resend-quotes.ts", "src/lib/email/client.ts", "src/lib/email/logger.ts", "src/lib/email/approved-quote-email.ts"],
+      "external_setup": {
+        "required": true,
+        "account_created": "unknown",
+        "keys_generated": "unknown",
+        "env_vars_set": "unknown"
+      }
+    },
+    "turnstile": {
+      "name": "Cloudflare Turnstile",
+      "status": "active",
+      "package": null,
+      "env_vars": ["TURNSTILE_SECRET_KEY", "NEXT_PUBLIC_TURNSTILE_SITE_KEY"],
+      "files": ["src/lib/turnstile.ts", "src/components/Turnstile.tsx"],
+      "external_setup": {
+        "required": true,
+        "account_created": "unknown",
+        "keys_generated": "unknown",
+        "env_vars_set": "unknown"
+      }
+    },
+    "upstash-redis": {
+      "name": "Upstash Redis",
+      "status": "active",
+      "package": "@upstash/redis",
+      "env_vars": ["UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"],
+      "files": ["src/lib/rate-limit.ts"],
+      "external_setup": {
+        "required": true,
+        "account_created": "unknown",
+        "keys_generated": "unknown",
+        "env_vars_set": "unknown"
+      }
+    },
+    "nextauth": {
+      "name": "NextAuth",
+      "status": "active",
+      "package": "next-auth",
+      "env_vars": ["NEXTAUTH_SECRET", "NEXTAUTH_URL"],
+      "files": ["src/app/api/auth/[...nextauth]/route.ts", "src/lib/auth/config.ts"],
+      "external_setup": {
+        "required": false
+      }
+    },
+    "neon-postgres": {
+      "name": "Neon PostgreSQL",
+      "status": "active",
+      "package": "@neondatabase/serverless",
+      "env_vars": ["DATABASE_URL"],
+      "files": ["src/db/index.ts", "src/db/schema.ts", "src/lib/db/products.ts", "src/lib/db/categories.ts", "drizzle.config.ts"],
+      "external_setup": {
+        "required": true,
+        "account_created": "unknown",
+        "keys_generated": "unknown",
+        "env_vars_set": "unknown"
+      }
+    },
+    "drizzle": {
+      "name": "Drizzle ORM",
+      "status": "active",
+      "package": "drizzle-orm",
+      "env_vars": [],
+      "files": ["src/db/index.ts", "src/db/schema.ts", "drizzle.config.ts"],
+      "external_setup": {
+        "required": false
+      }
+    },
+    "vercel-blob": {
+      "name": "Vercel Blob Storage",
+      "status": "active",
+      "package": "@vercel/blob",
+      "env_vars": ["BLOB_READ_WRITE_TOKEN"],
+      "files": ["src/app/api/upload/route.ts"],
+      "external_setup": {
+        "required": true,
+        "account_created": "unknown",
+        "keys_generated": "unknown",
+        "env_vars_set": "unknown"
+      }
+    }
+  },
+  "env_summary": {
+    "required": ["DATABASE_URL", "NEXTAUTH_SECRET", "RESEND_API_KEY", "BLOB_READ_WRITE_TOKEN"],
+    "optional": ["NEXTAUTH_URL", "TURNSTILE_SECRET_KEY", "NEXT_PUBLIC_TURNSTILE_SITE_KEY", "UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN", "NEXT_PUBLIC_GA_MEASUREMENT_ID", "FROM_EMAIL", "FROM_NAME", "CONTACT_EMAIL"]
+  },
+  "last_updated": "2026-02-08"
+}

@@ -1,0 +1,98 @@
+{
+  "enforcement:scout": {
+    "errors": [],
+    "warnings": [],
+    "info": [],
+    "corrections": [],
+    "passed": true,
+    "counts": {
+      "pages": 61,
+      "components": 86,
+      "services": 7
+    }
+  },
+  "enforcement:codeflow": {
+    "errors": [],
+    "warnings": [],
+    "info": [],
+    "corrections": [],
+    "passed": true,
+    "counts": {}
+  },
+  "enforcement:auditor": {
+    "errors": [],
+    "warnings": [
+      {
+        "severity": "WARN",
+        "field": "orphan_classification",
+        "expected": "all 16 orphans classified",
+        "actual": "0 classified, 16 missing",
+        "message": "Unclassified orphans: ['.planning/archive/ADMIN_DATA_SYNC_PLAN.md', '.planning/audit/neto-field-audit.md', '.planning/audit/product-families.md', '.planning/audit/video-audit.md', '.planning/current/SETUP_GUIDE.md', '.planning/current/analysis.md', '.planning/current/database-architecture.md', '.planning/current/hosting.md', '.planning/current/pointers.md', '.planning/current/services.md', '.planning/features/bug-fixes-jan-2026.md', '.planning/features/custom-size-request.md', '.planning/features/header-cart-size-fixes.md', '.planning/features/internal-link-audit.md', '.planning/features/redirect-management.md', '.planning/ledgers/phase1-summary.md']"
+      }
+    ],
+    "info": [
+      {
+        "severity": "INFO",
+        "field": "pre_classification_stats.override_rate",
+        "message": "Override rate 18.3% exceeds 15% threshold. Review pipeline.py pre-classification rules - high override rate may indicate stale logic."
+      }
+    ],
+    "corrections": [],
+    "passed": true,
+    "counts": {
+      "checkbox_queue_total": 2083,
+      "checkbox_queue_checked": 1399,
+      "classifications": 71,
+      "plan_merges": 0
+    }
+  },
+  "enforcement:verifier": {
+    "errors": [],
+    "warnings": [],
+    "info": [],
+    "corrections": [],
+    "passed": true,
+    "counts": {
+      "total_checked_items": 1399,
+      "verification_results_count": 1399,
+      "verified": 764,
+      "partial": 635,
+      "failed": 0,
+      "dead_code": 0,
+      "files_read": 89,
+      "items_unchecked": 0
+    }
+  },
+  "enforcement:merger": {
+    "errors": [],
+    "warnings": [],
+    "info": [],
+    "corrections": [],
+    "passed": true,
+    "counts": {
+      "merges_executed": 0,
+      "unchecks_applied": 0,
+      "plans_archived": 1,
+      "folder_migration_executed": true,
+      "total_files_modified": 1
+    }
+  },
+  "enforcement:syncer": {
+    "errors": [],
+    "warnings": [],
+    "info": [],
+    "corrections": [],
+    "passed": true,
+    "counts": {
+      "files_written": 0
+    }
+  },
+  "final": {
+    "errors": [],
+    "warnings": [],
+    "info": [],
+    "corrections": [],
+    "passed": true,
+    "counts": {}
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "entry_point": "src/app/layout.tsx",
+  "routing": "src/app/",
+  "global_config": "next.config.js",
+  "global_styles": "src/app/globals.css",
+  "high_impact": [
+    { "path": "src/app/layout.tsx", "affects": "All pages - root layout" },
+    { "path": "src/middleware.ts", "affects": "All routes - auth, redirects" },
+    { "path": "src/lib/auth/config.ts", "affects": "28 files - auth config" },
+    { "path": "src/components/ProductCard.tsx", "affects": "20 pages - product display" },
+    { "path": "src/lib/utils.ts", "affects": "13 files - utility functions" },
+    { "path": "src/db/schema.ts", "affects": "All DB operations - schema definition" },
+    { "path": "src/components/Header.tsx", "affects": "All pages - navigation" },
+    { "path": "src/components/Footer.tsx", "affects": "All pages - footer" }
+  ],
+  "by_feature": {
+    "quote_system": [
+      "src/context/QuoteContext.tsx",
+      "src/components/QuoteCart.tsx",
+      "src/components/StickyQuoteButton.tsx",
+      "src/lib/quote.ts",
+      "src/lib/quote-flags.ts",
+      "src/lib/pdf/quote-pdf.tsx",
+      "src/app/api/quote/route.ts",
+      "src/app/request-quote/page.tsx"
+    ],
+    "email": [
+      "src/lib/email/client.ts",
+      "src/lib/email/logger.ts",
+      "src/lib/email/approved-quote-email.ts"
+    ],
+    "admin": [
+      "src/app/admin/page.tsx",
+      "src/components/admin/AdminSidebar.tsx",
+      "src/components/admin/AdminHeader.tsx",
+      "src/components/admin/ProductForm.tsx",
+      "src/components/admin/ProductsTable.tsx"
+    ]
+  },
+  "api_routes": {
+    "public": [
+      "src/app/api/contact/route.ts",
+      "src/app/api/quote/route.ts",
+      "src/app/api/search/route.ts",
+      "src/app/api/approve-quote/[token]/route.ts",
+      "src/app/api/auth/[...nextauth]/route.ts",
+      "src/app/api/auth/forgot-password/route.ts",
+      "src/app/api/auth/reset-password/route.ts"
+    ],
+    "admin": [
+      "src/app/api/admin/products/route.ts",
+      "src/app/api/admin/products/[id]/route.ts",
+      "src/app/api/admin/brands/route.ts",
+      "src/app/api/admin/categories/route.ts",
+      "src/app/api/admin/quotes/[id]/route.ts",
+      "src/app/api/admin/inventory/route.ts",
+      "src/app/api/admin/pricing/route.ts",
+      "src/app/api/admin/redirects/route.ts",
+      "src/app/api/upload/route.ts"
+    ]
+  },
+  "assets": "public/images/",
+  "last_updated": "2026-02-08"
+}

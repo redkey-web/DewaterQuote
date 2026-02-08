@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "platform": "vercel",
+  "github_repo": "https://github.com/redkey-web/DewaterQuote.git",
+  "domains": ["dewaterproducts.com.au"],
+  "deployments": [],
+  "build": {
+    "framework": "Next.js 15",
+    "output_dir": ".next",
+    "node_version": "20"
+  },
+  "dns": { "registrar": null, "records": [] },
+  "last_updated": "2026-02-08"
+}

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "framework": "Next.js 15",
+  "language": "TypeScript",
+  "styling": "Tailwind CSS + shadcn/ui",
+  "routing": "App Router",
+  "state_management": "React Context + localStorage (QuoteContext)",
+  "database": "Neon PostgreSQL + Drizzle ORM",
+  "auth": "NextAuth.js (credentials provider)",
+  "file_counts": {
+    "pages": 61,
+    "components": 86,
+    "api_routes": 33,
+    "lib_modules": 17,
+    "hooks": 2
+  },
+  "dependencies": {
+    "core": ["next", "react", "react-dom", "typescript", "zod"],
+    "ui": ["@radix-ui/*", "tailwindcss", "tailwind-merge", "class-variance-authority", "clsx", "lucide-react", "cmdk", "gsap", "lenis"],
+    "backend": ["drizzle-orm", "@neondatabase/serverless", "next-auth", "resend", "@vercel/blob", "@upstash/redis", "@upstash/ratelimit", "bcryptjs", "@react-pdf/renderer"]
+  },
+  "routes": [],
+  "code_flow": {
+    "api_dependencies": {
+      "src/app/api/contact/route.ts": {
+        "handler": "POST",
+        "calls": ["src/lib/email/client.ts", "src/lib/email/logger.ts", "src/lib/sanitize.ts", "src/lib/rate-limit.ts", "src/lib/turnstile.ts"]
+      },
+      "src/app/api/quote/route.ts": {
+        "handler": "POST",
+        "calls": ["src/lib/email/client.ts", "src/lib/email/logger.ts", "src/lib/sanitize.ts", "src/lib/rate-limit.ts", "src/lib/turnstile.ts", "src/lib/tokens.ts", "src/lib/postcode.ts", "src/lib/quote.ts", "src/lib/quote-flags.ts", "src/lib/pdf/quote-pdf.tsx"]
+      },
+      "src/app/api/approve-quote/[token]/route.ts": {
+        "handler": "POST",
+        "calls": ["src/lib/email/client.ts", "src/lib/email/approved-quote-email.ts", "src/lib/tokens.ts", "src/lib/quote.ts", "src/lib/pdf/quote-pdf.tsx"]
+      }
+    },
+    "component_graph": {
+      "ProductCard": { "defined_in": "src/components/ProductCard.tsx", "used_by_count": 20 },
+      "ProductDetailClient": { "defined_in": "src/components/ProductDetailClient.tsx", "used_by_count": 1 },
+      "FluidHero": { "defined_in": "src/components/FluidHero.tsx", "used_by_count": 1 },
+      "Header": { "defined_in": "src/components/Header.tsx", "used_by_count": 1 },
+      "Footer": { "defined_in": "src/components/Footer.tsx", "used_by_count": 1 },
+      "QuoteCart": { "defined_in": "src/components/QuoteCart.tsx", "used_by_count": 1 }
+    },
+    "high_connectivity": [
+      { "file": "src/lib/auth/config.ts", "references": 28 },
+      { "file": "src/components/ProductCard.tsx", "references": 20 },
+      { "file": "src/lib/utils.ts", "references": 13 },
+      { "file": "src/lib/quote.ts", "references": 6 },
+      { "file": "src/lib/email/client.ts", "references": 5 }
+    ]
+  },
+  "known_issues": [
+    "Email delivery unreliable - SMTP on serverless has transient failures",
+    "Dead code - 15 unused files identified",
+    "Incomplete SMTP testing - Phase 6 of remove-sendgrid plan never completed"
+  ],
+  "last_analysis": "2026-02-08"
+}
